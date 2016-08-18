@@ -1,0 +1,2 @@
+D:\repositorios\Nueva carpeta\COPAT\CooperativaProduccion\CooperativaProduccion\bin\Debug\CooperativaProduccion.exe.config
+D:\repositorios\Nueva carpeta\COPAT\CooperativaProduccion\CooperativaProduccion\obj\Debug\CooperativaProduccion.csprojResolveAssemblyReference.cache

@@ -1,0 +1,10 @@
+D:\repositorios\Nueva carpeta\COPAT\CooperativaProduccion\DesktopEntities\bin\Debug\DesktopEntities.dll.config
+D:\repositorios\Nueva carpeta\COPAT\CooperativaProduccion\DesktopEntities\bin\Debug\DesktopEntities.dll
+D:\repositorios\Nueva carpeta\COPAT\CooperativaProduccion\DesktopEntities\bin\Debug\DesktopEntities.pdb
+D:\repositorios\Nueva carpeta\COPAT\CooperativaProduccion\DesktopEntities\bin\Debug\EntityFramework.dll
+D:\repositorios\Nueva carpeta\COPAT\CooperativaProduccion\DesktopEntities\bin\Debug\EntityFramework.SqlServer.dll
+D:\repositorios\Nueva carpeta\COPAT\CooperativaProduccion\DesktopEntities\bin\Debug\EntityFramework.xml
+D:\repositorios\Nueva carpeta\COPAT\CooperativaProduccion\DesktopEntities\bin\Debug\EntityFramework.SqlServer.xml
+D:\repositorios\Nueva carpeta\COPAT\CooperativaProduccion\DesktopEntities\obj\Debug\DesktopEntities.dll
+D:\repositorios\Nueva carpeta\COPAT\CooperativaProduccion\DesktopEntities\obj\Debug\DesktopEntities.pdb
+D:\repositorios\Nueva carpeta\COPAT\CooperativaProduccion\DesktopEntities\obj\Debug\DesktopEntities.csprojResolveAssemblyReference.cache

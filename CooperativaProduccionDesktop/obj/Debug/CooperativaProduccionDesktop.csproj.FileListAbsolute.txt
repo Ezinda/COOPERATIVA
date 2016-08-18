@@ -1,0 +1,17 @@
+D:\repositorios\Nueva carpeta\COPAT\CooperativaProduccion\CooperativaProduccionDesktop\bin\Debug\CooperativaProduccionDesktop.exe.config
+D:\repositorios\Nueva carpeta\COPAT\CooperativaProduccion\CooperativaProduccionDesktop\bin\Debug\CooperativaProduccionDesktop.exe
+D:\repositorios\Nueva carpeta\COPAT\CooperativaProduccion\CooperativaProduccionDesktop\bin\Debug\CooperativaProduccionDesktop.pdb
+D:\repositorios\Nueva carpeta\COPAT\CooperativaProduccion\CooperativaProduccionDesktop\bin\Debug\DesktopEntities.dll
+D:\repositorios\Nueva carpeta\COPAT\CooperativaProduccion\CooperativaProduccionDesktop\bin\Debug\EntityFramework.dll
+D:\repositorios\Nueva carpeta\COPAT\CooperativaProduccion\CooperativaProduccionDesktop\bin\Debug\EntityFramework.SqlServer.dll
+D:\repositorios\Nueva carpeta\COPAT\CooperativaProduccion\CooperativaProduccionDesktop\bin\Debug\DesktopEntities.pdb
+D:\repositorios\Nueva carpeta\COPAT\CooperativaProduccion\CooperativaProduccionDesktop\bin\Debug\EntityFramework.xml
+D:\repositorios\Nueva carpeta\COPAT\CooperativaProduccion\CooperativaProduccionDesktop\bin\Debug\EntityFramework.SqlServer.xml
+D:\repositorios\Nueva carpeta\COPAT\CooperativaProduccion\CooperativaProduccionDesktop\obj\Debug\CooperativaProduccionDesktop.csprojResolveAssemblyReference.cache
+D:\repositorios\Nueva carpeta\COPAT\CooperativaProduccion\CooperativaProduccionDesktop\obj\Debug\CooperativaProduccion.Form_SysPrincipal.resources
+D:\repositorios\Nueva carpeta\COPAT\CooperativaProduccion\CooperativaProduccionDesktop\obj\Debug\CooperativaProduccionDesktop.Properties.Resources.resources
+D:\repositorios\Nueva carpeta\COPAT\CooperativaProduccion\CooperativaProduccionDesktop\obj\Debug\CooperativaProduccion.SplashScreen1.resources
+D:\repositorios\Nueva carpeta\COPAT\CooperativaProduccion\CooperativaProduccionDesktop\obj\Debug\CooperativaProduccionDesktop.csproj.GenerateResource.Cache
+D:\repositorios\Nueva carpeta\COPAT\CooperativaProduccion\CooperativaProduccionDesktop\obj\Debug\CooperativaProduccionDesktop.exe.licenses
+D:\repositorios\Nueva carpeta\COPAT\CooperativaProduccion\CooperativaProduccionDesktop\obj\Debug\CooperativaProduccionDesktop.exe
+D:\repositorios\Nueva carpeta\COPAT\CooperativaProduccion\CooperativaProduccionDesktop\obj\Debug\CooperativaProduccionDesktop.pdb
