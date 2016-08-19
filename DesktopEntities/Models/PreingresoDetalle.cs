@@ -12,12 +12,14 @@ namespace DesktopEntities.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Productor
+    public partial class PreingresoDetalle
     {
         public System.Guid Id { get; set; }
-        public string Cuit { get; set; }
-        public string Fet { get; set; }
-        public string Nombre { get; set; }
-        public string Provincia { get; set; }
+        public System.Guid PreingresoId { get; set; }
+        public System.DateTime Fecha { get; set; }
+        public System.TimeSpan Hora { get; set; }
+        public System.Guid ProductorId { get; set; }
+    
+        public virtual Preingreso Preingreso { get; set; }
     }
 }

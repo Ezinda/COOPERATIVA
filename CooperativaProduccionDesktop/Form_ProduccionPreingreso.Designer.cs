@@ -58,8 +58,7 @@
             this.label14 = new System.Windows.Forms.Label();
             this.groupControl4 = new DevExpress.XtraEditors.GroupControl();
             this.btnEliminarProductor = new DevExpress.XtraEditors.SimpleButton();
-            this.gridControlProductor = new DevExpress.XtraGrid.GridControl();
-            this.gridViewProductor = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.dgvProductores = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
             this.groupControl2.SuspendLayout();
@@ -70,8 +69,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.mmObservacion.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl4)).BeginInit();
             this.groupControl4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridControlProductor)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridViewProductor)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvProductores)).BeginInit();
             this.SuspendLayout();
             // 
             // ribbon
@@ -89,7 +87,7 @@
             this.ribbon.ShowFullScreenButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Hide;
             this.ribbon.ShowToolbarCustomizeItem = false;
-            this.ribbon.Size = new System.Drawing.Size(716, 27);
+            this.ribbon.Size = new System.Drawing.Size(565, 27);
             this.ribbon.Toolbar.ShowCustomizeItem = false;
             // 
             // groupControl2
@@ -107,7 +105,7 @@
             this.groupControl2.Controls.Add(this.txtBuscador);
             this.groupControl2.Location = new System.Drawing.Point(1, 28);
             this.groupControl2.Name = "groupControl2";
-            this.groupControl2.Size = new System.Drawing.Size(712, 125);
+            this.groupControl2.Size = new System.Drawing.Size(562, 118);
             this.groupControl2.TabIndex = 20;
             this.groupControl2.Text = "Nuevo Preingreso";
             // 
@@ -116,17 +114,18 @@
             this.btnLimpiar.Appearance.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLimpiar.Appearance.Options.UseFont = true;
             this.btnLimpiar.Image = ((System.Drawing.Image)(resources.GetObject("btnLimpiar.Image")));
-            this.btnLimpiar.Location = new System.Drawing.Point(606, 55);
+            this.btnLimpiar.Location = new System.Drawing.Point(421, 87);
             this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(82, 26);
+            this.btnLimpiar.Size = new System.Drawing.Size(135, 26);
             this.btnLimpiar.TabIndex = 61;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
             // txtCuit
             // 
+            this.txtCuit.Enabled = false;
             this.txtCuit.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCuit.Location = new System.Drawing.Point(308, 54);
+            this.txtCuit.Location = new System.Drawing.Point(264, 54);
             this.txtCuit.Name = "txtCuit";
             this.txtCuit.Size = new System.Drawing.Size(151, 26);
             this.txtCuit.TabIndex = 60;
@@ -135,7 +134,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(235, 59);
+            this.label4.Location = new System.Drawing.Point(207, 59);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(55, 20);
             this.label4.TabIndex = 59;
@@ -143,10 +142,11 @@
             // 
             // txtNombre
             // 
+            this.txtNombre.Enabled = false;
             this.txtNombre.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNombre.Location = new System.Drawing.Point(78, 86);
             this.txtNombre.Name = "txtNombre";
-            this.txtNombre.Size = new System.Drawing.Size(610, 26);
+            this.txtNombre.Size = new System.Drawing.Size(337, 26);
             this.txtNombre.TabIndex = 58;
             // 
             // label2
@@ -161,17 +161,18 @@
             // 
             // txtFet
             // 
+            this.txtFet.Enabled = false;
             this.txtFet.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtFet.Location = new System.Drawing.Point(78, 56);
             this.txtFet.Name = "txtFet";
-            this.txtFet.Size = new System.Drawing.Size(151, 26);
+            this.txtFet.Size = new System.Drawing.Size(124, 26);
             this.txtFet.TabIndex = 56;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(5, 61);
+            this.label3.Location = new System.Drawing.Point(6, 57);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(57, 20);
             this.label3.TabIndex = 55;
@@ -181,7 +182,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(5, 27);
+            this.label1.Location = new System.Drawing.Point(6, 27);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(72, 20);
             this.label1.TabIndex = 54;
@@ -192,19 +193,20 @@
             this.btnAgregarProductor.Appearance.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregarProductor.Appearance.Options.UseFont = true;
             this.btnAgregarProductor.Image = ((System.Drawing.Image)(resources.GetObject("btnAgregarProductor.Image")));
-            this.btnAgregarProductor.Location = new System.Drawing.Point(465, 55);
+            this.btnAgregarProductor.Location = new System.Drawing.Point(421, 55);
             this.btnAgregarProductor.Name = "btnAgregarProductor";
             this.btnAgregarProductor.Size = new System.Drawing.Size(135, 26);
             this.btnAgregarProductor.TabIndex = 53;
             this.btnAgregarProductor.Text = "Agregar Productor";
             this.btnAgregarProductor.Click += new System.EventHandler(this.btnAgregarProductor_Click);
+            this.btnAgregarProductor.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.btnAgregarProductor_KeyPress);
             // 
             // btnBuscarProductor
             // 
             this.btnBuscarProductor.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscarProductor.Image")));
-            this.btnBuscarProductor.Location = new System.Drawing.Point(663, 24);
+            this.btnBuscarProductor.Location = new System.Drawing.Point(531, 24);
             this.btnBuscarProductor.Name = "btnBuscarProductor";
-            this.btnBuscarProductor.Size = new System.Drawing.Size(25, 25);
+            this.btnBuscarProductor.Size = new System.Drawing.Size(25, 26);
             this.btnBuscarProductor.TabIndex = 39;
             this.btnBuscarProductor.Click += new System.EventHandler(this.btnBuscarProductor_Click);
             // 
@@ -213,7 +215,7 @@
             this.txtBuscador.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBuscador.Location = new System.Drawing.Point(78, 24);
             this.txtBuscador.Name = "txtBuscador";
-            this.txtBuscador.Size = new System.Drawing.Size(583, 26);
+            this.txtBuscador.Size = new System.Drawing.Size(449, 26);
             this.txtBuscador.TabIndex = 38;
             this.txtBuscador.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBuscador_KeyPress);
             // 
@@ -221,9 +223,9 @@
             // 
             this.groupControl1.Controls.Add(this.btnCancelar);
             this.groupControl1.Controls.Add(this.btnGrabarPreingreso);
-            this.groupControl1.Location = new System.Drawing.Point(1, 621);
+            this.groupControl1.Location = new System.Drawing.Point(1, 612);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(712, 53);
+            this.groupControl1.Size = new System.Drawing.Size(562, 53);
             this.groupControl1.TabIndex = 21;
             this.groupControl1.Text = "Opciones";
             // 
@@ -232,7 +234,7 @@
             this.btnCancelar.Appearance.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelar.Appearance.Options.UseFont = true;
             this.btnCancelar.Image = ((System.Drawing.Image)(resources.GetObject("btnCancelar.Image")));
-            this.btnCancelar.Location = new System.Drawing.Point(588, 24);
+            this.btnCancelar.Location = new System.Drawing.Point(438, 23);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(118, 25);
             this.btnCancelar.TabIndex = 40;
@@ -244,7 +246,7 @@
             this.btnGrabarPreingreso.Appearance.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGrabarPreingreso.Appearance.Options.UseFont = true;
             this.btnGrabarPreingreso.Image = ((System.Drawing.Image)(resources.GetObject("btnGrabarPreingreso.Image")));
-            this.btnGrabarPreingreso.Location = new System.Drawing.Point(456, 23);
+            this.btnGrabarPreingreso.Location = new System.Drawing.Point(306, 22);
             this.btnGrabarPreingreso.Name = "btnGrabarPreingreso";
             this.btnGrabarPreingreso.Size = new System.Drawing.Size(126, 26);
             this.btnGrabarPreingreso.TabIndex = 39;
@@ -263,9 +265,9 @@
             this.groupControl3.Controls.Add(this.label13);
             this.groupControl3.Controls.Add(this.txtTransporte);
             this.groupControl3.Controls.Add(this.label14);
-            this.groupControl3.Location = new System.Drawing.Point(1, 417);
+            this.groupControl3.Location = new System.Drawing.Point(1, 408);
             this.groupControl3.Name = "groupControl3";
-            this.groupControl3.Size = new System.Drawing.Size(712, 201);
+            this.groupControl3.Size = new System.Drawing.Size(562, 201);
             this.groupControl3.TabIndex = 23;
             this.groupControl3.Text = "Datos de Preingreso";
             // 
@@ -276,7 +278,7 @@
             this.mmObservacion.Name = "mmObservacion";
             this.mmObservacion.Properties.Appearance.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.mmObservacion.Properties.Appearance.Options.UseFont = true;
-            this.mmObservacion.Size = new System.Drawing.Size(589, 78);
+            this.mmObservacion.Size = new System.Drawing.Size(439, 78);
             this.mmObservacion.TabIndex = 49;
             this.mmObservacion.UseOptimizedRendering = true;
             this.mmObservacion.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.mmObservacion_KeyPress);
@@ -334,7 +336,7 @@
             this.txtChofer.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtChofer.Location = new System.Drawing.Point(117, 56);
             this.txtChofer.Name = "txtChofer";
-            this.txtChofer.Size = new System.Drawing.Size(589, 26);
+            this.txtChofer.Size = new System.Drawing.Size(439, 26);
             this.txtChofer.TabIndex = 43;
             this.txtChofer.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtChofer_KeyPress);
             // 
@@ -353,7 +355,7 @@
             this.txtTransporte.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTransporte.Location = new System.Drawing.Point(117, 27);
             this.txtTransporte.Name = "txtTransporte";
-            this.txtTransporte.Size = new System.Drawing.Size(589, 26);
+            this.txtTransporte.Size = new System.Drawing.Size(439, 26);
             this.txtTransporte.TabIndex = 41;
             this.txtTransporte.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTransporte_KeyPress);
             // 
@@ -369,11 +371,11 @@
             // 
             // groupControl4
             // 
+            this.groupControl4.Controls.Add(this.dgvProductores);
             this.groupControl4.Controls.Add(this.btnEliminarProductor);
-            this.groupControl4.Controls.Add(this.gridControlProductor);
-            this.groupControl4.Location = new System.Drawing.Point(0, 156);
+            this.groupControl4.Location = new System.Drawing.Point(0, 148);
             this.groupControl4.Name = "groupControl4";
-            this.groupControl4.Size = new System.Drawing.Size(713, 260);
+            this.groupControl4.Size = new System.Drawing.Size(563, 258);
             this.groupControl4.TabIndex = 24;
             this.groupControl4.Text = "Lista de Productores";
             // 
@@ -382,33 +384,29 @@
             this.btnEliminarProductor.Appearance.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEliminarProductor.Appearance.Options.UseFont = true;
             this.btnEliminarProductor.Image = ((System.Drawing.Image)(resources.GetObject("btnEliminarProductor.Image")));
-            this.btnEliminarProductor.Location = new System.Drawing.Point(569, 229);
+            this.btnEliminarProductor.Location = new System.Drawing.Point(422, 229);
             this.btnEliminarProductor.Name = "btnEliminarProductor";
-            this.btnEliminarProductor.Size = new System.Drawing.Size(139, 26);
+            this.btnEliminarProductor.Size = new System.Drawing.Size(135, 26);
             this.btnEliminarProductor.TabIndex = 62;
             this.btnEliminarProductor.Text = "Eliminar Productor";
+            this.btnEliminarProductor.Click += new System.EventHandler(this.btnEliminarProductor_Click);
             // 
-            // gridControlProductor
+            // dgvProductores
             // 
-            this.gridControlProductor.Location = new System.Drawing.Point(5, 24);
-            this.gridControlProductor.MainView = this.gridViewProductor;
-            this.gridControlProductor.MenuManager = this.ribbon;
-            this.gridControlProductor.Name = "gridControlProductor";
-            this.gridControlProductor.Size = new System.Drawing.Size(703, 200);
-            this.gridControlProductor.TabIndex = 54;
-            this.gridControlProductor.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gridViewProductor});
-            // 
-            // gridViewProductor
-            // 
-            this.gridViewProductor.GridControl = this.gridControlProductor;
-            this.gridViewProductor.Name = "gridViewProductor";
+            this.dgvProductores.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvProductores.Location = new System.Drawing.Point(5, 24);
+            this.dgvProductores.MultiSelect = false;
+            this.dgvProductores.Name = "dgvProductores";
+            this.dgvProductores.RowHeadersVisible = false;
+            this.dgvProductores.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvProductores.Size = new System.Drawing.Size(552, 201);
+            this.dgvProductores.TabIndex = 63;
             // 
             // Form_ProduccionPreingreso
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(716, 676);
+            this.ClientSize = new System.Drawing.Size(565, 667);
             this.Controls.Add(this.groupControl4);
             this.Controls.Add(this.groupControl3);
             this.Controls.Add(this.groupControl1);
@@ -431,8 +429,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.mmObservacion.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl4)).EndInit();
             this.groupControl4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.gridControlProductor)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridViewProductor)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvProductores)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -467,8 +464,7 @@
         public System.Windows.Forms.TextBox txtTransporte;
         private System.Windows.Forms.Label label14;
         private DevExpress.XtraEditors.GroupControl groupControl4;
-        private DevExpress.XtraGrid.GridControl gridControlProductor;
-        private DevExpress.XtraGrid.Views.Grid.GridView gridViewProductor;
         private DevExpress.XtraEditors.SimpleButton btnEliminarProductor;
+        private System.Windows.Forms.DataGridView dgvProductores;
     }
 }

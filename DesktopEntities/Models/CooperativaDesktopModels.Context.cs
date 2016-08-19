@@ -25,8 +25,9 @@ namespace DesktopEntities.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Preingreso> Preingreso { get; set; }
         public virtual DbSet<Productor> Productor { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
+        public virtual DbSet<Preingreso> Preingreso { get; set; }
+        public virtual DbSet<PreingresoDetalle> PreingresoDetalle { get; set; }
     }
 }

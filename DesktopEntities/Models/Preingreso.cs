@@ -14,12 +14,19 @@ namespace DesktopEntities.Models
     
     public partial class Preingreso
     {
+        public Preingreso()
+        {
+            this.PreingresoDetalle = new HashSet<PreingresoDetalle>();
+        }
+    
         public System.Guid Id { get; set; }
-        public System.Guid ProductorId { get; set; }
         public string Transporte { get; set; }
         public string Chofer { get; set; }
         public string Patente { get; set; }
         public string NumRemito { get; set; }
         public string Observaciones { get; set; }
+        public Nullable<int> NumeroPreingreso { get; set; }
+    
+        public virtual ICollection<PreingresoDetalle> PreingresoDetalle { get; set; }
     }
 }

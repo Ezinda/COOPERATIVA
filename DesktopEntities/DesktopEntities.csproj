@@ -67,6 +67,9 @@
     <Compile Include="Models\Preingreso.cs">
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PreingresoDetalle.cs">
+      <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Productor.cs">
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>
