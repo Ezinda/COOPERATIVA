@@ -11,13 +11,13 @@ using DesktopEntities.Models;
 
 namespace CooperativaProduccion
 {
-    public partial class Form_ProduccionPreingreso : DevExpress.XtraBars.Ribbon.RibbonForm, IEnlace
+    public partial class Form_RomaneoPreingreso : DevExpress.XtraBars.Ribbon.RibbonForm, IEnlace
     {   
         public CooperativaProduccionEntities Context { get; set; }
         private Form_AdministracionBuscarProductor _formBuscarProductor;
         private Guid ProductorId;
        
-        public Form_ProduccionPreingreso()
+        public Form_RomaneoPreingreso()
         {
             InitializeComponent();
             Context = new CooperativaProduccionEntities();

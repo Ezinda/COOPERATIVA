@@ -152,7 +152,7 @@ namespace CooperativaProduccion
         {
             if (target.Equals(DevConstantes.Preingreso))
             {
-                IEnlace mienlace = this.Owner as Form_ProduccionPreingreso;
+                IEnlace mienlace = this.Owner as Form_RomaneoPreingreso;
                 if (mienlace != null)
                 {
                     mienlace.Enviar(

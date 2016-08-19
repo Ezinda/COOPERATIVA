@@ -65,11 +65,17 @@
     <Compile Include="Form_AdministracionBuscarProductor.Designer.cs">
       <DependentUpon>Form_AdministracionBuscarProductor.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form_ProduccionPreingreso.cs">
+    <Compile Include="Form_RomaneoPreingreso.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_ProduccionPreingreso.Designer.cs">
-      <DependentUpon>Form_ProduccionPreingreso.cs</DependentUpon>
+    <Compile Include="Form_RomaneoPreingreso.Designer.cs">
+      <DependentUpon>Form_RomaneoPreingreso.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_RomaneoPesada.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_RomaneoPesada.Designer.cs">
+      <DependentUpon>Form_RomaneoPesada.cs</DependentUpon>
     </Compile>
     <Compile Include="Form_SeguridadGestionUsuario.cs">
       <SubType>Form</SubType>
@@ -104,8 +110,11 @@
     <EmbeddedResource Include="Form_AdministracionBuscarProductor.resx">
       <DependentUpon>Form_AdministracionBuscarProductor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_ProduccionPreingreso.resx">
-      <DependentUpon>Form_ProduccionPreingreso.cs</DependentUpon>
+    <EmbeddedResource Include="Form_RomaneoPesada.resx">
+      <DependentUpon>Form_RomaneoPesada.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_RomaneoPreingreso.resx">
+      <DependentUpon>Form_RomaneoPreingreso.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_SeguridadGestionUsuario.resx">
       <DependentUpon>Form_SeguridadGestionUsuario.cs</DependentUpon>

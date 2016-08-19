@@ -1,6 +1,6 @@
 ﻿namespace CooperativaProduccion
 {
-    partial class Form_ProduccionPreingreso
+    partial class Form_RomaneoPreingreso
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_ProduccionPreingreso));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_RomaneoPreingreso));
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
             this.btnLimpiar = new DevExpress.XtraEditors.SimpleButton();

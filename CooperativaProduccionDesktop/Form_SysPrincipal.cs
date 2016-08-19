@@ -180,7 +180,7 @@ namespace CooperativaProduccion
 
         private void btnPreingreso_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var preingreso = new Form_ProduccionPreingreso();
+            var preingreso = new Form_RomaneoPreingreso();
             preingreso.Show();
         }
     }
