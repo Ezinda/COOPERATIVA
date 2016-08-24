@@ -12,15 +12,23 @@ namespace DesktopEntities.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class PreingresoDetalle
+    public partial class Vw_Preingreso
     {
-        public System.Guid Id { get; set; }
-        public System.Guid PreingresoId { get; set; }
+        public System.Guid PreIngresoId { get; set; }
+        public string Transporte { get; set; }
+        public string Chofer { get; set; }
+        public string Patente { get; set; }
+        public string NumRemito { get; set; }
+        public string Observaciones { get; set; }
+        public Nullable<int> NumeroPreingreso { get; set; }
+        public System.Guid PreIngresoDetalleId { get; set; }
         public System.DateTime Fecha { get; set; }
         public System.TimeSpan Hora { get; set; }
-        public System.Guid ProductorId { get; set; }
         public Nullable<bool> Estado { get; set; }
-    
-        public virtual Preingreso Preingreso { get; set; }
+        public System.Guid ProductorId { get; set; }
+        public string Fet { get; set; }
+        public string Nombre { get; set; }
+        public string Cuit { get; set; }
+        public string Provincia { get; set; }
     }
 }

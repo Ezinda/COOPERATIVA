@@ -9,6 +9,7 @@ namespace CooperativaProduccion
     public class DevConstantes
     {
         public static string Preingreso = "Preingreso";
+        public static string Pesada = "Pesada";
 
         #region Datos 
         

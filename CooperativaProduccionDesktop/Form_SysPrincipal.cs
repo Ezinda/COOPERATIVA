@@ -183,5 +183,11 @@ namespace CooperativaProduccion
             var preingreso = new Form_RomaneoPreingreso();
             preingreso.Show();
         }
+
+        private void btnPesada_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var pesada = new Form_RomaneoPesada();
+            pesada.Show();
+        }
     }
 }

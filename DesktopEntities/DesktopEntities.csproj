@@ -76,6 +76,9 @@
     <Compile Include="Models\Usuario.cs">
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Vw_Preingreso.cs">
+      <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

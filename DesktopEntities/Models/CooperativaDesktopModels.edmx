@@ -26,6 +26,7 @@
           <Property Name="Fecha" Type="date" Nullable="false" />
           <Property Name="Hora" Type="time" Precision="7" Nullable="false" />
           <Property Name="ProductorId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Estado" Type="bit" />
         </EntityType>
         <EntityType Name="Productor">
           <Key>
@@ -47,6 +48,33 @@
           <Property Name="Nombre" Type="nvarchar" MaxLength="100" />
           <Property Name="Apellido" Type="nvarchar" MaxLength="100" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Preingreso' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Vw_Preingreso">
+          <Key>
+            <PropertyRef Name="PreIngresoId" />
+            <PropertyRef Name="PreIngresoDetalleId" />
+            <PropertyRef Name="Fecha" />
+            <PropertyRef Name="Hora" />
+            <PropertyRef Name="ProductorId" />
+          </Key>
+          <Property Name="PreIngresoId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Transporte" Type="nvarchar" MaxLength="200" />
+          <Property Name="Chofer" Type="nvarchar" MaxLength="200" />
+          <Property Name="Patente" Type="nvarchar" MaxLength="50" />
+          <Property Name="NumRemito" Type="nvarchar" MaxLength="50" />
+          <Property Name="Observaciones" Type="text" />
+          <Property Name="NumeroPreingreso" Type="int" />
+          <Property Name="PreIngresoDetalleId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Fecha" Type="date" Nullable="false" />
+          <Property Name="Hora" Type="time" Precision="7" Nullable="false" />
+          <Property Name="Estado" Type="bit" />
+          <Property Name="ProductorId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Fet" Type="nvarchar" MaxLength="150" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="250" />
+          <Property Name="Cuit" Type="nvarchar" MaxLength="150" />
+          <Property Name="Provincia" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <Association Name="FK_DetallePreingreso_Preingreso">
           <End Role="Preingreso" Type="Self.Preingreso" Multiplicity="1" />
           <End Role="PreingresoDetalle" Type="Self.PreingresoDetalle" Multiplicity="*" />
@@ -64,6 +92,26 @@
           <EntitySet Name="PreingresoDetalle" EntityType="Self.PreingresoDetalle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Productor" EntityType="Self.Productor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vw_Preingreso" EntityType="Self.Vw_Preingreso" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Vw_Preingreso].[PreIngresoId] AS [PreIngresoId], 
+    [Vw_Preingreso].[Transporte] AS [Transporte], 
+    [Vw_Preingreso].[Chofer] AS [Chofer], 
+    [Vw_Preingreso].[Patente] AS [Patente], 
+    [Vw_Preingreso].[NumRemito] AS [NumRemito], 
+    [Vw_Preingreso].[Observaciones] AS [Observaciones], 
+    [Vw_Preingreso].[NumeroPreingreso] AS [NumeroPreingreso], 
+    [Vw_Preingreso].[PreIngresoDetalleId] AS [PreIngresoDetalleId], 
+    [Vw_Preingreso].[Fecha] AS [Fecha], 
+    [Vw_Preingreso].[Hora] AS [Hora], 
+    [Vw_Preingreso].[Estado] AS [Estado], 
+    [Vw_Preingreso].[ProductorId] AS [ProductorId], 
+    [Vw_Preingreso].[Fet] AS [Fet], 
+    [Vw_Preingreso].[Nombre] AS [Nombre], 
+    [Vw_Preingreso].[Cuit] AS [Cuit], 
+    [Vw_Preingreso].[Provincia] AS [Provincia]
+    FROM [dbo].[Vw_Preingreso] AS [Vw_Preingreso]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_DetallePreingreso_Preingreso" Association="Self.FK_DetallePreingreso_Preingreso">
             <End Role="Preingreso" EntitySet="Preingreso" />
             <End Role="PreingresoDetalle" EntitySet="PreingresoDetalle" />
@@ -73,31 +121,12 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CooperativaProduccionModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Productor">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="Cuit" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Fet" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Nombre" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Provincia" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Usuario">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="Usuario1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Apellido" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityContainer Name="CooperativaProduccionEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Productor" EntityType="Self.Productor" />
-          <EntitySet Name="Usuario" EntityType="Self.Usuario" />
           <EntitySet Name="Preingreso" EntityType="CooperativaProduccionModel.Preingreso" />
           <EntitySet Name="PreingresoDetalle" EntityType="CooperativaProduccionModel.PreingresoDetalle" />
+          <EntitySet Name="Productor" EntityType="CooperativaProduccionModel.Productor" />
+          <EntitySet Name="Usuario" EntityType="CooperativaProduccionModel.Usuario" />
+          <EntitySet Name="Vw_Preingreso" EntityType="CooperativaProduccionModel.Vw_Preingreso" />
           <AssociationSet Name="FK_DetallePreingreso_Preingreso" Association="CooperativaProduccionModel.FK_DetallePreingreso_Preingreso">
             <End Role="Preingreso" EntitySet="Preingreso" />
             <End Role="PreingresoDetalle" EntitySet="PreingresoDetalle" />
@@ -125,7 +154,53 @@
           <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Hora" Type="Time" Nullable="false" Precision="7" />
           <Property Name="ProductorId" Type="Guid" Nullable="false" />
+          <Property Name="Estado" Type="Boolean" />
           <NavigationProperty Name="Preingreso" Relationship="CooperativaProduccionModel.FK_DetallePreingreso_Preingreso" FromRole="PreingresoDetalle" ToRole="Preingreso" />
+        </EntityType>
+        <EntityType Name="Productor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Cuit" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Fet" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Nombre" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Provincia" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Usuario1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Apellido" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Vw_Preingreso">
+          <Key>
+            <PropertyRef Name="PreIngresoId" />
+            <PropertyRef Name="PreIngresoDetalleId" />
+            <PropertyRef Name="Fecha" />
+            <PropertyRef Name="Hora" />
+            <PropertyRef Name="ProductorId" />
+          </Key>
+          <Property Name="PreIngresoId" Type="Guid" Nullable="false" />
+          <Property Name="Transporte" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Chofer" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Patente" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NumRemito" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Observaciones" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="NumeroPreingreso" Type="Int32" />
+          <Property Name="PreIngresoDetalleId" Type="Guid" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Hora" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="Estado" Type="Boolean" />
+          <Property Name="ProductorId" Type="Guid" Nullable="false" />
+          <Property Name="Fet" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Nombre" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Cuit" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Provincia" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_DetallePreingreso_Preingreso">
           <End Type="CooperativaProduccionModel.Preingreso" Role="Preingreso" Multiplicity="1" />
@@ -139,34 +214,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="CooperativaProduccionModelStoreContainer" CdmEntityContainer="CooperativaProduccionEntities">
-          <EntitySetMapping Name="Productor">
-            <EntityTypeMapping TypeName="CooperativaProduccionModel.Productor">
-              <MappingFragment StoreEntitySet="Productor">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Cuit" ColumnName="Cuit" />
-                <ScalarProperty Name="Fet" ColumnName="Fet" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="Provincia" ColumnName="Provincia" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Usuario">
-            <EntityTypeMapping TypeName="CooperativaProduccionModel.Usuario">
-              <MappingFragment StoreEntitySet="Usuario">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Usuario1" ColumnName="Usuario" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Preingreso">
             <EntityTypeMapping TypeName="CooperativaProduccionModel.Preingreso">
               <MappingFragment StoreEntitySet="Preingreso">
@@ -183,6 +236,7 @@
           <EntitySetMapping Name="PreingresoDetalle">
             <EntityTypeMapping TypeName="CooperativaProduccionModel.PreingresoDetalle">
               <MappingFragment StoreEntitySet="PreingresoDetalle">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="ProductorId" ColumnName="ProductorId" />
                 <ScalarProperty Name="Hora" ColumnName="Hora" />
                 <ScalarProperty Name="Fecha" ColumnName="Fecha" />
@@ -191,7 +245,51 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          </EntityContainerMapping>
+          <EntitySetMapping Name="Productor">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.Productor">
+              <MappingFragment StoreEntitySet="Productor">
+                <ScalarProperty Name="Provincia" ColumnName="Provincia" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Fet" ColumnName="Fet" />
+                <ScalarProperty Name="Cuit" ColumnName="Cuit" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Usuario1" ColumnName="Usuario" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vw_Preingreso">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.Vw_Preingreso">
+              <MappingFragment StoreEntitySet="Vw_Preingreso">
+                <ScalarProperty Name="Provincia" ColumnName="Provincia" />
+                <ScalarProperty Name="Cuit" ColumnName="Cuit" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Fet" ColumnName="Fet" />
+                <ScalarProperty Name="ProductorId" ColumnName="ProductorId" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Hora" ColumnName="Hora" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="PreIngresoDetalleId" ColumnName="PreIngresoDetalleId" />
+                <ScalarProperty Name="NumeroPreingreso" ColumnName="NumeroPreingreso" />
+                <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+                <ScalarProperty Name="NumRemito" ColumnName="NumRemito" />
+                <ScalarProperty Name="Patente" ColumnName="Patente" />
+                <ScalarProperty Name="Chofer" ColumnName="Chofer" />
+                <ScalarProperty Name="Transporte" ColumnName="Transporte" />
+                <ScalarProperty Name="PreIngresoId" ColumnName="PreIngresoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

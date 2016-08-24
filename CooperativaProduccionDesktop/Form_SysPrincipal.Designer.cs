@@ -99,6 +99,7 @@
             this.btnPesada.Id = 2;
             this.btnPesada.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnPesada.LargeGlyph")));
             this.btnPesada.Name = "btnPesada";
+            this.btnPesada.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnPesada_ItemClick);
             // 
             // btnClasificacion
             // 

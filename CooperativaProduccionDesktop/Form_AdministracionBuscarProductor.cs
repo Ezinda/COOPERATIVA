@@ -147,7 +147,6 @@ namespace CooperativaProduccion
             }
         }
 
-
         private void gridControlProductor_DoubleClick(object sender, EventArgs e)
         {
             if (target.Equals(DevConstantes.Preingreso))
