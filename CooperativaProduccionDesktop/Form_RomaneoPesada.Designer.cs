@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_RomaneoPesada));
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
-            this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
+            this.btnPesadaMostrador = new DevExpress.XtraBars.BarButtonItem();
             this.btnRecuperarPesada = new DevExpress.XtraBars.BarEditItem();
             this.repositoryItemButtonEdit3 = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
@@ -59,9 +59,10 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
+            this.gridControlPesada = new DevExpress.XtraGrid.GridControl();
+            this.gridViewPesada = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.btnReimprimir = new DevExpress.XtraEditors.SimpleButton();
             this.btnEliminar = new DevExpress.XtraEditors.SimpleButton();
-            this.dgvPesada = new System.Windows.Forms.DataGridView();
             this.txtKilos = new System.Windows.Forms.TextBox();
             this.checkBalanzaAutomatica = new System.Windows.Forms.CheckBox();
             this.btnAgregarCaja = new DevExpress.XtraEditors.SimpleButton();
@@ -70,15 +71,15 @@
             this.label6 = new System.Windows.Forms.Label();
             this.groupControl4 = new DevExpress.XtraEditors.GroupControl();
             this.txtPrecioPromedio = new System.Windows.Forms.TextBox();
+            this.btnFinalizar = new DevExpress.XtraEditors.SimpleButton();
             this.label12 = new System.Windows.Forms.Label();
+            this.btnSalir = new DevExpress.XtraEditors.SimpleButton();
             this.txtImporteBruto = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.txtTotalKilo = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.txtTotalFardo = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.btnFinalizar = new DevExpress.XtraEditors.SimpleButton();
-            this.btnSalir = new DevExpress.XtraEditors.SimpleButton();
             this.groupControl5 = new DevExpress.XtraEditors.GroupControl();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
@@ -95,7 +96,8 @@
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).BeginInit();
             this.groupControl3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvPesada)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControlPesada)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewPesada)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl4)).BeginInit();
             this.groupControl4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl5)).BeginInit();
@@ -107,7 +109,7 @@
             this.ribbon.ExpandCollapseItem.Id = 0;
             this.ribbon.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
             this.ribbon.ExpandCollapseItem,
-            this.barButtonItem1,
+            this.btnPesadaMostrador,
             this.btnRecuperarPesada});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
             this.ribbon.MaxItemId = 7;
@@ -130,13 +132,14 @@
             this.ribbon.Size = new System.Drawing.Size(624, 123);
             this.ribbon.Toolbar.ShowCustomizeItem = false;
             // 
-            // barButtonItem1
+            // btnPesadaMostrador
             // 
-            this.barButtonItem1.Caption = "Visualizar Pesadas";
-            this.barButtonItem1.Glyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem1.Glyph")));
-            this.barButtonItem1.Id = 1;
-            this.barButtonItem1.Name = "barButtonItem1";
-            this.barButtonItem1.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.btnPesadaMostrador.Caption = "Visualizar Pesadas";
+            this.btnPesadaMostrador.Glyph = ((System.Drawing.Image)(resources.GetObject("btnPesadaMostrador.Glyph")));
+            this.btnPesadaMostrador.Id = 1;
+            this.btnPesadaMostrador.Name = "btnPesadaMostrador";
+            this.btnPesadaMostrador.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.btnPesadaMostrador.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnPesadaMostrador_ItemClick);
             // 
             // btnRecuperarPesada
             // 
@@ -166,7 +169,7 @@
             // ribbonPageGroup1
             // 
             this.ribbonPageGroup1.AllowTextClipping = false;
-            this.ribbonPageGroup1.ItemLinks.Add(this.barButtonItem1);
+            this.ribbonPageGroup1.ItemLinks.Add(this.btnPesadaMostrador);
             this.ribbonPageGroup1.Name = "ribbonPageGroup1";
             this.ribbonPageGroup1.ShowCaptionButton = false;
             this.ribbonPageGroup1.Text = "Opciones";
@@ -398,9 +401,9 @@
             // 
             // groupControl3
             // 
+            this.groupControl3.Controls.Add(this.gridControlPesada);
             this.groupControl3.Controls.Add(this.btnReimprimir);
             this.groupControl3.Controls.Add(this.btnEliminar);
-            this.groupControl3.Controls.Add(this.dgvPesada);
             this.groupControl3.Controls.Add(this.txtKilos);
             this.groupControl3.Controls.Add(this.checkBalanzaAutomatica);
             this.groupControl3.Controls.Add(this.btnAgregarCaja);
@@ -412,6 +415,24 @@
             this.groupControl3.Size = new System.Drawing.Size(617, 267);
             this.groupControl3.TabIndex = 23;
             this.groupControl3.Text = "Parámetros";
+            // 
+            // gridControlPesada
+            // 
+            this.gridControlPesada.Location = new System.Drawing.Point(5, 52);
+            this.gridControlPesada.MainView = this.gridViewPesada;
+            this.gridControlPesada.MenuManager = this.ribbon;
+            this.gridControlPesada.Name = "gridControlPesada";
+            this.gridControlPesada.Size = new System.Drawing.Size(607, 179);
+            this.gridControlPesada.TabIndex = 67;
+            this.gridControlPesada.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridViewPesada});
+            // 
+            // gridViewPesada
+            // 
+            this.gridViewPesada.GridControl = this.gridControlPesada;
+            this.gridViewPesada.Name = "gridViewPesada";
+            this.gridViewPesada.OptionsBehavior.Editable = false;
+            this.gridViewPesada.OptionsView.ShowGroupPanel = false;
             // 
             // btnReimprimir
             // 
@@ -430,14 +451,7 @@
             this.btnEliminar.Size = new System.Drawing.Size(126, 25);
             this.btnEliminar.TabIndex = 65;
             this.btnEliminar.Text = "Eliminar";
-            // 
-            // dgvPesada
-            // 
-            this.dgvPesada.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvPesada.Location = new System.Drawing.Point(5, 54);
-            this.dgvPesada.Name = "dgvPesada";
-            this.dgvPesada.Size = new System.Drawing.Size(606, 181);
-            this.dgvPesada.TabIndex = 64;
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
             // txtKilos
             // 
@@ -526,6 +540,16 @@
             this.txtPrecioPromedio.Size = new System.Drawing.Size(101, 22);
             this.txtPrecioPromedio.TabIndex = 71;
             // 
+            // btnFinalizar
+            // 
+            this.btnFinalizar.Image = ((System.Drawing.Image)(resources.GetObject("btnFinalizar.Image")));
+            this.btnFinalizar.Location = new System.Drawing.Point(350, 54);
+            this.btnFinalizar.Name = "btnFinalizar";
+            this.btnFinalizar.Size = new System.Drawing.Size(126, 26);
+            this.btnFinalizar.TabIndex = 68;
+            this.btnFinalizar.Text = "Finalizar";
+            this.btnFinalizar.Click += new System.EventHandler(this.btnFinalizar_Click);
+            // 
             // label12
             // 
             this.label12.AutoSize = true;
@@ -535,6 +559,16 @@
             this.label12.Size = new System.Drawing.Size(98, 16);
             this.label12.TabIndex = 70;
             this.label12.Text = "Precio Promedio:";
+            // 
+            // btnSalir
+            // 
+            this.btnSalir.Image = ((System.Drawing.Image)(resources.GetObject("btnSalir.Image")));
+            this.btnSalir.Location = new System.Drawing.Point(484, 54);
+            this.btnSalir.Name = "btnSalir";
+            this.btnSalir.Size = new System.Drawing.Size(126, 26);
+            this.btnSalir.TabIndex = 67;
+            this.btnSalir.Text = "Salir";
+            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
             // txtImporteBruto
             // 
@@ -592,24 +626,6 @@
             this.label9.Size = new System.Drawing.Size(78, 16);
             this.label9.TabIndex = 64;
             this.label9.Text = "Total Fardos:";
-            // 
-            // btnFinalizar
-            // 
-            this.btnFinalizar.Image = ((System.Drawing.Image)(resources.GetObject("btnFinalizar.Image")));
-            this.btnFinalizar.Location = new System.Drawing.Point(350, 54);
-            this.btnFinalizar.Name = "btnFinalizar";
-            this.btnFinalizar.Size = new System.Drawing.Size(126, 26);
-            this.btnFinalizar.TabIndex = 68;
-            this.btnFinalizar.Text = "Finalizar";
-            // 
-            // btnSalir
-            // 
-            this.btnSalir.Image = ((System.Drawing.Image)(resources.GetObject("btnSalir.Image")));
-            this.btnSalir.Location = new System.Drawing.Point(484, 54);
-            this.btnSalir.Name = "btnSalir";
-            this.btnSalir.Size = new System.Drawing.Size(126, 26);
-            this.btnSalir.TabIndex = 67;
-            this.btnSalir.Text = "Salir";
             // 
             // groupControl5
             // 
@@ -680,7 +696,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).EndInit();
             this.groupControl3.ResumeLayout(false);
             this.groupControl3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvPesada)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControlPesada)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewPesada)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl4)).EndInit();
             this.groupControl4.ResumeLayout(false);
             this.groupControl4.PerformLayout();
@@ -696,7 +713,7 @@
         private DevExpress.XtraBars.Ribbon.RibbonControl ribbon;
         private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage1;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup1;
-        private DevExpress.XtraBars.BarButtonItem barButtonItem1;
+        private DevExpress.XtraBars.BarButtonItem btnPesadaMostrador;
         private DevExpress.XtraEditors.GroupControl groupControl2;
         public System.Windows.Forms.TextBox txtProvincia;
         private System.Windows.Forms.Label label1;
@@ -717,7 +734,6 @@
         private DevExpress.XtraEditors.GroupControl groupControl3;
         private DevExpress.XtraEditors.SimpleButton btnReimprimir;
         private DevExpress.XtraEditors.SimpleButton btnEliminar;
-        private System.Windows.Forms.DataGridView dgvPesada;
         public System.Windows.Forms.TextBox txtKilos;
         private System.Windows.Forms.CheckBox checkBalanzaAutomatica;
         private DevExpress.XtraEditors.SimpleButton btnAgregarCaja;
@@ -747,5 +763,7 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit repositoryItemButtonEdit2;
         private DevExpress.XtraBars.BarEditItem btnRecuperarPesada;
         private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit repositoryItemButtonEdit3;
+        private DevExpress.XtraGrid.GridControl gridControlPesada;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridViewPesada;
     }
 }

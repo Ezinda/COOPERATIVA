@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using DevExpress.XtraBars;
 using DesktopEntities.Models;
 using DevExpress.XtraEditors;
+using System.Data.Entity;
 
 namespace CooperativaProduccion
 {
@@ -25,7 +26,6 @@ namespace CooperativaProduccion
             cbOpcionCompra.SelectedIndex = 0;
             cbBoca.SelectedIndex = 0;
             CargarCombo();
-      //      AddNewRow();
             checkBalanzaAutomatica.Checked = true;
         }
 
@@ -88,10 +88,12 @@ namespace CooperativaProduccion
             if (checkBalanzaAutomatica.Checked == false)
             {
                 txtKilos.Enabled = true;
+                txtKilos.Text = "";
             }
             else
             {
                 txtKilos.Enabled = false;
+                txtKilos.Text = "";
             }
         }
 
@@ -103,7 +105,10 @@ namespace CooperativaProduccion
 
         private void btnIniciarPesada_Click(object sender, EventArgs e)
         {
-           txtKilos.Text = GetRandomNumber(1, 100).ToString("n2");
+            txtKilos.Text = GetRandomNumber(1, 100).ToString("n2");
+            txtTotalFardo.Text = CalcularTotalFardo(PesadaId).ToString();
+            txtTotalKilo.Text = CalcularTotalKilos(PesadaId).ToString();
+            txtImporteBruto.Text = CalcularTotalImporteBruto(PesadaId).ToString();
         }
 
         private void btnCancelarPesada_Click(object sender, EventArgs e)
@@ -115,6 +120,53 @@ namespace CooperativaProduccion
         {
             GrabarPesadaDetalle();
             CargarGrilla();
+            txtKilos.Text = GetRandomNumber(1, 100).ToString("n2");
+            txtTotalFardo.Text = CalcularTotalFardo(PesadaId).ToString(); 
+            txtTotalKilo.Text = CalcularTotalKilos(PesadaId).ToString();
+            txtImporteBruto.Text = CalcularTotalImporteBruto(PesadaId).ToString();
+        }
+
+        private float CalcularTotalImporteBruto(Guid PesadaId)
+        {
+            float totalKilos = 0;
+            var pesadas = Context.Vw_Pesada
+                .Where(x => x.PesadaId == PesadaId);
+            foreach (var pesada in pesadas)
+            {
+                totalKilos = totalKilos + Convert.ToSingle(pesada.Subtotal);
+            }
+
+            return totalKilos;
+        }
+
+        private int CalcularTotalFardo(Guid PesadaId)
+        {
+            int totalFardo = 0;
+            var count = Context.PesadaDetalle
+                .Where(x => x.PesadaId == PesadaId)
+                .Count();
+            if (count != 0)
+            {
+                totalFardo = count;
+            }
+            else
+            {
+                totalFardo = 0;
+            }
+            return totalFardo;
+        }
+
+        private float CalcularTotalKilos(Guid PesadaId)
+        {
+            float totalKilos = 0;
+            var pesadas = Context.Vw_Pesada
+                .Where(x => x.PesadaId == PesadaId);
+            foreach (var pesada in pesadas)
+            {
+                totalKilos = totalKilos + Convert.ToSingle(pesada.Kilos.Value);
+            }
+
+            return totalKilos;
         }
 
         private void GrabarPesada()
@@ -128,8 +180,11 @@ namespace CooperativaProduccion
                     return;
                 }
                 GuardarDatosPesada();
+               
             }
         }
+
+
 
         private void GrabarPesadaDetalle()
         {
@@ -186,13 +241,13 @@ namespace CooperativaProduccion
                 pesada.Id = Guid.NewGuid();
                 PesadaId = pesada.Id;
                 pesada.NumPesada = ContadorNumeroPesada();
-                int numPreingreso =  Int32.Parse(txtPreingreso.Text);
+                int numPreingreso = Int32.Parse(txtPreingreso.Text);
                 var preingreso = Context.Preingreso
                     .Where(x => x.NumeroPreingreso == numPreingreso)
                     .FirstOrDefault();
                 pesada.PreingresoId = preingreso.Id;
                 pesada.ProductorId = ProductorId;
-                
+
                 Context.Pesada.Add(pesada);
                 Context.SaveChanges();
             }
@@ -210,10 +265,12 @@ namespace CooperativaProduccion
                 pesadaDetalle = new PesadaDetalle();
                 pesadaDetalle.Id = Guid.NewGuid();
                 pesadaDetalle.PesadaId = PesadaId;
-                pesadaDetalle.NumFardo = CalcularNumeroFardo(PesadaId);
+                pesadaDetalle.ContadorFardo = ContadorNumeroFardo(PesadaId);
+                pesadaDetalle.NumFardo = NumeradorFardo();
                 pesadaDetalle.ClaseId = new Guid(cbClase.SelectedValue.ToString());
-                pesadaDetalle.Kilos = float.Parse(txtKilos.Text);
-              
+                var a = float.Parse(Math.Round(decimal.Parse(txtKilos.Text), 2).ToString());
+                pesadaDetalle.Kilos = (float)Math.Round(a * 100f) / 100f;
+          
                 Context.PesadaDetalle.Add(pesadaDetalle);
                 Context.SaveChanges();
             }
@@ -223,12 +280,29 @@ namespace CooperativaProduccion
             }
         }
 
-        private int CalcularNumeroFardo(Guid PesadaId)
+        private long ContadorNumeroFardo(Guid PesadaId)
         {
-            int numFardo = 0;
+            long numFardo = 0;
             var pesadaDetalle = Context.PesadaDetalle
                 .Where(x=>x.PesadaId == PesadaId)
-                .OrderByDescending(x=>x.NumFardo)
+                .OrderByDescending(x=>x.ContadorFardo)
+                .FirstOrDefault();
+            if (pesadaDetalle != null)
+            {
+                numFardo = pesadaDetalle.ContadorFardo.Value + 1;
+            }
+            else
+            {
+                numFardo = 1;
+            }
+            return numFardo;
+        }
+
+        private long NumeradorFardo()
+        {
+            long numFardo = 0;
+            var pesadaDetalle = Context.PesadaDetalle
+                .OrderByDescending(x => x.NumFardo)
                 .FirstOrDefault();
             if (pesadaDetalle != null)
             {
@@ -241,49 +315,143 @@ namespace CooperativaProduccion
             return numFardo;
         }
 
-        //private void AddNewRow()
-        //{
-        //    DataGridViewColumn d1 = new DataGridViewTextBoxColumn();
-        //    DataGridViewColumn d2 = new DataGridViewTextBoxColumn();
-        //    DataGridViewColumn d3 = new DataGridViewTextBoxColumn();
-        //    DataGridViewColumn d4 = new DataGridViewTextBoxColumn();
-        //    DataGridViewColumn d5 = new DataGridViewTextBoxColumn();
-        //    DataGridViewColumn d6 = new DataGridViewTextBoxColumn();
-
-        //    //Add Header Texts to be displayed on the Columns
-        //    d1.HeaderText = "Id";
-        //    d2.HeaderText = "PreingresoDetalleId";
-        //    d3.HeaderText = "ProductorId";
-        //    d4.HeaderText = "Nro. Fardo";
-        //    d5.HeaderText = "Clase";
-        //    d6.HeaderText = "Kilos";
-            
-        //    d1.Visible = false;
-        //    d2.Width = 120;
-        //    d3.Width = 300;
-        //    d4.Width = 120;
-        //    d5.Width = 120;
-        //    d6.Width = 120;
-        //    //Add the Columns to the DataGridView
-        //    dgvPesada.Columns.AddRange(d1, d2, d3, d4,d5,d6);
-        //}
-
         private void CargarGrilla()
         {
             var result = (
                    from a in Context.Vw_Pesada
                    select new
                    {
-                       CAJA = a.NumFardo,
+                       ID = a.PesadaDetalleId,
+                       NUMERO_FARDO = a.NumFardo,
+                       CONTADOR_CAJA = a.ContadorFardo,
                        CLASE = a.Nombre,
-                       KILOS = a.Kilos
+                       KILOS = a.Kilos,
+                       SUBTOTAL = a.Subtotal
                    })
+                   .OrderByDescending(x=>x.CONTADOR_CAJA)
                    .ToList();
 
             if (result.Count > 0)
             {
-                dgvPesada.DataSource = result;
+                gridControlPesada.DataSource = result;
+                gridViewPesada.Columns[0].Visible = false;
+                gridViewPesada.Columns[5].Visible = false;
             }
         }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            var resultado = MessageBox.Show("¿Desea eliminar la pesada seleccionada?",
+               "Eliminar Datos", MessageBoxButtons.OKCancel);
+
+            if (resultado != DialogResult.OK)
+            {
+                return;
+            }
+            EliminarDatos();
+            CargarGrilla();
+        }
+
+        private void EliminarDatos()
+        {
+            Guid Id;
+            if (gridViewPesada.SelectedRowsCount > 0)
+            {
+                Id = new Guid(gridViewPesada
+                    .GetRowCellValue(gridViewPesada.FocusedRowHandle, "ID")
+                    .ToString());
+                var pesadaDetalle = Context.PesadaDetalle.Find(Id);
+
+                if (pesadaDetalle == null)
+                {
+                    MessageBox.Show("No existe la pesada.",
+                        "Se requiere", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    Context.Entry(pesadaDetalle).State = EntityState.Deleted;
+                    Context.SaveChanges();
+
+                    MessageBox.Show("Se eliminó la pesada.",
+                        "Confirmación", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else
+            {
+                MessageBox.Show("No se ha seleccionado ningun registro.",
+                    "Se requiere", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnFinalizar_Click(object sender, EventArgs e)
+        {
+            var resultado = MessageBox.Show("¿Desea finalizar la pesada?",
+                   "Atención", MessageBoxButtons.OKCancel);
+            if (resultado != DialogResult.OK)
+            {
+                return;
+            }
+            ActualizarPesada(PesadaId);
+            Limpiar();
+          
+        }
+
+        private void ActualizarPesada(Guid PesadaId)
+        {
+            var pesada = Context.Pesada.Find(PesadaId);
+            if (pesada != null)
+            {
+                pesada.TotalFardo = Int32.Parse(txtTotalFardo.Text);
+                pesada.TotalKg = float.Parse(txtTotalKilo.Text);
+                pesada.ImporteBruto = float.Parse(txtImporteBruto.Text);
+
+                Context.Entry(pesada).State = EntityState.Modified;
+                Context.SaveChanges();
+
+                var preingresoDetalle = Context.PreingresoDetalle
+                    .Where(x=>x.PreingresoId == pesada.PreingresoId 
+                        && x.ProductorId == ProductorId)
+                    .FirstOrDefault();
+                var preingreso = Context.PreingresoDetalle.Find(preingresoDetalle.Id);
+
+                if (preingreso != null)
+                {
+                    preingreso.Estado = false;
+
+                    Context.Entry(preingreso).State = EntityState.Modified;
+                    Context.SaveChanges();
+                    MessageBox.Show("Se ha registrado la pesada.",
+                        "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
+
+        private void Limpiar()
+        {
+            txtFet.Text = "";
+            txtNombre.Text = "";
+            txtPreingreso.Text = "";
+            txtCuit.Text = "";
+            txtProvincia.Text = "";
+            txtKilos.Text = "";
+            txtTotalKilo.Text = "";
+            txtTotalFardo.Text = "";
+            txtImporteBruto.Text = "";
+            txtPrecioPromedio.Text = "";
+            gridControlPesada.DataSource = null;
+        }
+
+        private void btnPesadaMostrador_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var mostradorPesada = new Form_RomaneoPesadaMostrador();
+            mostradorPesada.Show(this);
+        }
+
+      
     }
 }

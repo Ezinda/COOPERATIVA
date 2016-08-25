@@ -71,6 +71,12 @@
     <Compile Include="Form_RomaneoBuscarPreingreso.Designer.cs">
       <DependentUpon>Form_RomaneoBuscarPreingreso.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_RomaneoPesadaMostrador.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_RomaneoPesadaMostrador.Designer.cs">
+      <DependentUpon>Form_RomaneoPesadaMostrador.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_RomaneoPreingreso.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,6 +108,7 @@
       <DependentUpon>Form_SysPrincipal.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\DevConstantes.cs" />
+    <Compile Include="Interface\IEnlaceMostradorPesada.cs" />
     <Compile Include="Interface\IEnlace.cs" />
     <Compile Include="Interface\IEnlaceActualizarHistorico.cs" />
     <Compile Include="Interface\IEnlaceNovedades.cs" />
@@ -121,6 +128,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_RomaneoPesada.resx">
       <DependentUpon>Form_RomaneoPesada.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_RomaneoPesadaMostrador.resx">
+      <DependentUpon>Form_RomaneoPesadaMostrador.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_RomaneoPreingreso.resx">
       <DependentUpon>Form_RomaneoPreingreso.cs</DependentUpon>
