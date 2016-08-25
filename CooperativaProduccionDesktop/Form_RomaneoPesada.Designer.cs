@@ -31,8 +31,14 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_RomaneoPesada));
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
+            this.btnRecuperarPesada = new DevExpress.XtraBars.BarEditItem();
+            this.repositoryItemButtonEdit3 = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.repositoryItemTextEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
+            this.repositoryItemButtonEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
+            this.repositoryItemTextEdit2 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
+            this.repositoryItemButtonEdit2 = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
             this.txtPreingreso = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
@@ -76,15 +82,13 @@
             this.groupControl5 = new DevExpress.XtraEditors.GroupControl();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
-            this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
-            this.repositoryItemTextEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
-            this.ribbonPageRecuperar = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.repositoryItemButtonEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
-            this.txtNumRomaneo = new DevExpress.XtraBars.BarEditItem();
-            this.repositoryItemTextEdit2 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
-            this.barEditItem1 = new DevExpress.XtraBars.BarEditItem();
-            this.repositoryItemButtonEdit2 = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
+            this.btnRecuperar = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEdit3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEdit1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEdit2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
             this.groupControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
@@ -96,10 +100,6 @@
             this.groupControl4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl5)).BeginInit();
             this.groupControl5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEdit1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEdit2)).BeginInit();
             this.SuspendLayout();
             // 
             // ribbon
@@ -108,10 +108,9 @@
             this.ribbon.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
             this.ribbon.ExpandCollapseItem,
             this.barButtonItem1,
-            this.txtNumRomaneo,
-            this.barEditItem1});
+            this.btnRecuperarPesada});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
-            this.ribbon.MaxItemId = 6;
+            this.ribbon.MaxItemId = 7;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
@@ -119,15 +118,16 @@
             this.repositoryItemTextEdit1,
             this.repositoryItemButtonEdit1,
             this.repositoryItemTextEdit2,
-            this.repositoryItemButtonEdit2});
+            this.repositoryItemButtonEdit2,
+            this.repositoryItemButtonEdit3});
             this.ribbon.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.Office2013;
             this.ribbon.ShowApplicationButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowCategoryInCaption = false;
             this.ribbon.ShowExpandCollapseButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowFullScreenButton = DevExpress.Utils.DefaultBoolean.False;
-            this.ribbon.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Show;
+            this.ribbon.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Hide;
             this.ribbon.ShowToolbarCustomizeItem = false;
-            this.ribbon.Size = new System.Drawing.Size(711, 144);
+            this.ribbon.Size = new System.Drawing.Size(624, 123);
             this.ribbon.Toolbar.ShowCustomizeItem = false;
             // 
             // barButtonItem1
@@ -138,11 +138,28 @@
             this.barButtonItem1.Name = "barButtonItem1";
             this.barButtonItem1.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
             // 
+            // btnRecuperarPesada
+            // 
+            this.btnRecuperarPesada.Caption = "Recuperar última pesada";
+            this.btnRecuperarPesada.Edit = this.repositoryItemButtonEdit3;
+            this.btnRecuperarPesada.Glyph = ((System.Drawing.Image)(resources.GetObject("btnRecuperarPesada.Glyph")));
+            this.btnRecuperarPesada.Id = 6;
+            this.btnRecuperarPesada.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnRecuperarPesada.LargeGlyph")));
+            this.btnRecuperarPesada.Name = "btnRecuperarPesada";
+            this.btnRecuperarPesada.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.btnRecuperarPesada.Width = 100;
+            // 
+            // repositoryItemButtonEdit3
+            // 
+            this.repositoryItemButtonEdit3.AutoHeight = false;
+            this.repositoryItemButtonEdit3.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.repositoryItemButtonEdit3.Name = "repositoryItemButtonEdit3";
+            // 
             // ribbonPage1
             // 
             this.ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
-            this.ribbonPageGroup1,
-            this.ribbonPageRecuperar});
+            this.ribbonPageGroup1});
             this.ribbonPage1.Name = "ribbonPage1";
             this.ribbonPage1.Text = "Principal";
             // 
@@ -153,6 +170,31 @@
             this.ribbonPageGroup1.Name = "ribbonPageGroup1";
             this.ribbonPageGroup1.ShowCaptionButton = false;
             this.ribbonPageGroup1.Text = "Opciones";
+            // 
+            // repositoryItemTextEdit1
+            // 
+            this.repositoryItemTextEdit1.AutoHeight = false;
+            this.repositoryItemTextEdit1.Name = "repositoryItemTextEdit1";
+            // 
+            // repositoryItemButtonEdit1
+            // 
+            this.repositoryItemButtonEdit1.AutoHeight = false;
+            this.repositoryItemButtonEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.repositoryItemButtonEdit1.ButtonsStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003;
+            this.repositoryItemButtonEdit1.Name = "repositoryItemButtonEdit1";
+            // 
+            // repositoryItemTextEdit2
+            // 
+            this.repositoryItemTextEdit2.AutoHeight = false;
+            this.repositoryItemTextEdit2.Name = "repositoryItemTextEdit2";
+            // 
+            // repositoryItemButtonEdit2
+            // 
+            this.repositoryItemButtonEdit2.AutoHeight = false;
+            this.repositoryItemButtonEdit2.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.repositoryItemButtonEdit2.Name = "repositoryItemButtonEdit2";
             // 
             // groupControl2
             // 
@@ -167,113 +209,115 @@
             this.groupControl2.Controls.Add(this.txtFet);
             this.groupControl2.Controls.Add(this.label3);
             this.groupControl2.Controls.Add(this.btnBuscarProductor);
-            this.groupControl2.Location = new System.Drawing.Point(4, 182);
+            this.groupControl2.Location = new System.Drawing.Point(4, 157);
             this.groupControl2.Name = "groupControl2";
-            this.groupControl2.Size = new System.Drawing.Size(705, 87);
+            this.groupControl2.Size = new System.Drawing.Size(617, 76);
             this.groupControl2.TabIndex = 21;
             this.groupControl2.Text = "Buscar Productor";
             // 
             // txtPreingreso
             // 
             this.txtPreingreso.Enabled = false;
-            this.txtPreingreso.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPreingreso.Location = new System.Drawing.Point(102, 56);
+            this.txtPreingreso.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPreingreso.Location = new System.Drawing.Point(80, 50);
             this.txtPreingreso.Name = "txtPreingreso";
-            this.txtPreingreso.Size = new System.Drawing.Size(133, 26);
+            this.txtPreingreso.Size = new System.Drawing.Size(114, 22);
             this.txtPreingreso.TabIndex = 65;
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(5, 60);
+            this.label13.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(5, 53);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(100, 20);
+            this.label13.Size = new System.Drawing.Size(69, 16);
             this.label13.TabIndex = 64;
-            this.label13.Text = "PREINGRESO:";
+            this.label13.Text = "Preingreso:";
             // 
             // txtProvincia
             // 
             this.txtProvincia.Enabled = false;
-            this.txtProvincia.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtProvincia.Location = new System.Drawing.Point(550, 57);
+            this.txtProvincia.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtProvincia.Location = new System.Drawing.Point(475, 50);
             this.txtProvincia.Name = "txtProvincia";
-            this.txtProvincia.Size = new System.Drawing.Size(151, 26);
+            this.txtProvincia.Size = new System.Drawing.Size(124, 22);
             this.txtProvincia.TabIndex = 63;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(479, 60);
+            this.label1.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(418, 53);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(72, 20);
+            this.label1.Size = new System.Drawing.Size(61, 16);
             this.label1.TabIndex = 62;
             this.label1.Text = "Provincia:";
             // 
             // txtCuit
             // 
             this.txtCuit.Enabled = false;
-            this.txtCuit.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCuit.Location = new System.Drawing.Point(322, 57);
+            this.txtCuit.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCuit.Location = new System.Drawing.Point(265, 50);
             this.txtCuit.Name = "txtCuit";
-            this.txtCuit.Size = new System.Drawing.Size(151, 26);
+            this.txtCuit.Size = new System.Drawing.Size(147, 22);
             this.txtCuit.TabIndex = 60;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(265, 62);
+            this.label4.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(212, 53);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(55, 20);
+            this.label4.Size = new System.Drawing.Size(47, 16);
             this.label4.TabIndex = 59;
             this.label4.Text = "C.U.I.T:";
             // 
             // txtNombre
             // 
             this.txtNombre.Enabled = false;
-            this.txtNombre.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNombre.Location = new System.Drawing.Point(322, 25);
+            this.txtNombre.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNombre.Location = new System.Drawing.Point(265, 24);
             this.txtNombre.Name = "txtNombre";
-            this.txtNombre.Size = new System.Drawing.Size(379, 26);
+            this.txtNombre.Size = new System.Drawing.Size(334, 22);
             this.txtNombre.TabIndex = 58;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(241, 28);
+            this.label2.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(200, 28);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(75, 20);
+            this.label2.Size = new System.Drawing.Size(65, 16);
             this.label2.TabIndex = 57;
             this.label2.Text = "Productor:";
             // 
             // txtFet
             // 
-            this.txtFet.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFet.Location = new System.Drawing.Point(63, 24);
+            this.txtFet.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFet.Location = new System.Drawing.Point(80, 24);
             this.txtFet.Name = "txtFet";
-            this.txtFet.Size = new System.Drawing.Size(145, 26);
+            this.txtFet.Size = new System.Drawing.Size(87, 22);
             this.txtFet.TabIndex = 56;
             this.txtFet.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFet_KeyPress);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(5, 28);
+            this.label3.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(7, 27);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(57, 20);
+            this.label3.Size = new System.Drawing.Size(48, 16);
             this.label3.TabIndex = 55;
             this.label3.Text = "N° FET:";
             // 
             // btnBuscarProductor
             // 
+            this.btnBuscarProductor.Appearance.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBuscarProductor.Appearance.Options.UseFont = true;
             this.btnBuscarProductor.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscarProductor.Image")));
-            this.btnBuscarProductor.Location = new System.Drawing.Point(210, 24);
+            this.btnBuscarProductor.Location = new System.Drawing.Point(169, 24);
             this.btnBuscarProductor.Name = "btnBuscarProductor";
-            this.btnBuscarProductor.Size = new System.Drawing.Size(25, 26);
+            this.btnBuscarProductor.Size = new System.Drawing.Size(25, 22);
             this.btnBuscarProductor.TabIndex = 39;
             // 
             // groupControl1
@@ -284,29 +328,31 @@
             this.groupControl1.Controls.Add(this.cbBoca);
             this.groupControl1.Controls.Add(this.label7);
             this.groupControl1.Controls.Add(this.label8);
-            this.groupControl1.Location = new System.Drawing.Point(4, 271);
+            this.groupControl1.Location = new System.Drawing.Point(4, 236);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(705, 83);
+            this.groupControl1.Size = new System.Drawing.Size(617, 54);
             this.groupControl1.TabIndex = 22;
             this.groupControl1.Text = "Parámetros";
             // 
             // btnCancelarPesada
             // 
             this.btnCancelarPesada.Image = ((System.Drawing.Image)(resources.GetObject("btnCancelarPesada.Image")));
-            this.btnCancelarPesada.Location = new System.Drawing.Point(141, 52);
+            this.btnCancelarPesada.Location = new System.Drawing.Point(518, 24);
             this.btnCancelarPesada.Name = "btnCancelarPesada";
-            this.btnCancelarPesada.Size = new System.Drawing.Size(126, 26);
+            this.btnCancelarPesada.Size = new System.Drawing.Size(93, 26);
             this.btnCancelarPesada.TabIndex = 61;
             this.btnCancelarPesada.Text = "Cancelar";
+            this.btnCancelarPesada.Click += new System.EventHandler(this.btnCancelarPesada_Click);
             // 
             // btnIniciarPesada
             // 
             this.btnIniciarPesada.Image = ((System.Drawing.Image)(resources.GetObject("btnIniciarPesada.Image")));
-            this.btnIniciarPesada.Location = new System.Drawing.Point(12, 52);
+            this.btnIniciarPesada.Location = new System.Drawing.Point(424, 24);
             this.btnIniciarPesada.Name = "btnIniciarPesada";
-            this.btnIniciarPesada.Size = new System.Drawing.Size(126, 26);
+            this.btnIniciarPesada.Size = new System.Drawing.Size(87, 26);
             this.btnIniciarPesada.TabIndex = 60;
             this.btnIniciarPesada.Text = "Iniciar";
+            this.btnIniciarPesada.Click += new System.EventHandler(this.btnIniciarPesada_Click);
             // 
             // cbOpcionCompra
             // 
@@ -314,9 +360,9 @@
             this.cbOpcionCompra.FormattingEnabled = true;
             this.cbOpcionCompra.Items.AddRange(new object[] {
             "Cooperativa"});
-            this.cbOpcionCompra.Location = new System.Drawing.Point(141, 25);
+            this.cbOpcionCompra.Location = new System.Drawing.Point(124, 25);
             this.cbOpcionCompra.Name = "cbOpcionCompra";
-            this.cbOpcionCompra.Size = new System.Drawing.Size(197, 21);
+            this.cbOpcionCompra.Size = new System.Drawing.Size(135, 21);
             this.cbOpcionCompra.TabIndex = 59;
             // 
             // cbBoca
@@ -325,28 +371,28 @@
             this.cbBoca.FormattingEnabled = true;
             this.cbBoca.Items.AddRange(new object[] {
             "Puerta 1"});
-            this.cbBoca.Location = new System.Drawing.Point(448, 25);
+            this.cbBoca.Location = new System.Drawing.Point(309, 26);
             this.cbBoca.Name = "cbBoca";
-            this.cbBoca.Size = new System.Drawing.Size(197, 21);
+            this.cbBoca.Size = new System.Drawing.Size(109, 21);
             this.cbBoca.TabIndex = 58;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(398, 26);
+            this.label7.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(264, 27);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(44, 20);
+            this.label7.Size = new System.Drawing.Size(39, 16);
             this.label7.TabIndex = 57;
             this.label7.Text = "Boca:";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(8, 23);
+            this.label8.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(8, 26);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(130, 20);
+            this.label8.Size = new System.Drawing.Size(110, 16);
             this.label8.TabIndex = 55;
             this.label8.Text = "Opción de Compra:";
             // 
@@ -361,27 +407,27 @@
             this.groupControl3.Controls.Add(this.cbClase);
             this.groupControl3.Controls.Add(this.label5);
             this.groupControl3.Controls.Add(this.label6);
-            this.groupControl3.Location = new System.Drawing.Point(4, 357);
+            this.groupControl3.Location = new System.Drawing.Point(4, 292);
             this.groupControl3.Name = "groupControl3";
-            this.groupControl3.Size = new System.Drawing.Size(705, 280);
+            this.groupControl3.Size = new System.Drawing.Size(617, 267);
             this.groupControl3.TabIndex = 23;
             this.groupControl3.Text = "Parámetros";
             // 
             // btnReimprimir
             // 
             this.btnReimprimir.Image = ((System.Drawing.Image)(resources.GetObject("btnReimprimir.Image")));
-            this.btnReimprimir.Location = new System.Drawing.Point(443, 248);
+            this.btnReimprimir.Location = new System.Drawing.Point(353, 237);
             this.btnReimprimir.Name = "btnReimprimir";
-            this.btnReimprimir.Size = new System.Drawing.Size(126, 26);
+            this.btnReimprimir.Size = new System.Drawing.Size(126, 25);
             this.btnReimprimir.TabIndex = 66;
             this.btnReimprimir.Text = "Reimprimir";
             // 
             // btnEliminar
             // 
             this.btnEliminar.Image = ((System.Drawing.Image)(resources.GetObject("btnEliminar.Image")));
-            this.btnEliminar.Location = new System.Drawing.Point(575, 248);
+            this.btnEliminar.Location = new System.Drawing.Point(485, 237);
             this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(126, 26);
+            this.btnEliminar.Size = new System.Drawing.Size(126, 25);
             this.btnEliminar.TabIndex = 65;
             this.btnEliminar.Text = "Eliminar";
             // 
@@ -390,162 +436,167 @@
             this.dgvPesada.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvPesada.Location = new System.Drawing.Point(5, 54);
             this.dgvPesada.Name = "dgvPesada";
-            this.dgvPesada.Size = new System.Drawing.Size(695, 188);
+            this.dgvPesada.Size = new System.Drawing.Size(606, 181);
             this.dgvPesada.TabIndex = 64;
             // 
             // txtKilos
             // 
             this.txtKilos.Enabled = false;
-            this.txtKilos.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtKilos.Location = new System.Drawing.Point(448, 24);
+            this.txtKilos.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtKilos.Location = new System.Drawing.Point(360, 26);
             this.txtKilos.Name = "txtKilos";
-            this.txtKilos.Size = new System.Drawing.Size(121, 26);
+            this.txtKilos.Size = new System.Drawing.Size(92, 22);
             this.txtKilos.TabIndex = 63;
             // 
             // checkBalanzaAutomatica
             // 
             this.checkBalanzaAutomatica.AutoSize = true;
-            this.checkBalanzaAutomatica.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBalanzaAutomatica.Location = new System.Drawing.Point(221, 26);
+            this.checkBalanzaAutomatica.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBalanzaAutomatica.Location = new System.Drawing.Point(169, 26);
             this.checkBalanzaAutomatica.Name = "checkBalanzaAutomatica";
-            this.checkBalanzaAutomatica.Size = new System.Drawing.Size(150, 24);
+            this.checkBalanzaAutomatica.Size = new System.Drawing.Size(130, 20);
             this.checkBalanzaAutomatica.TabIndex = 62;
             this.checkBalanzaAutomatica.Text = "Balanza Automática";
             this.checkBalanzaAutomatica.UseVisualStyleBackColor = true;
+            this.checkBalanzaAutomatica.CheckedChanged += new System.EventHandler(this.checkBalanzaAutomatica_CheckedChanged);
             // 
             // btnAgregarCaja
             // 
             this.btnAgregarCaja.Image = ((System.Drawing.Image)(resources.GetObject("btnAgregarCaja.Image")));
-            this.btnAgregarCaja.Location = new System.Drawing.Point(575, 24);
+            this.btnAgregarCaja.Location = new System.Drawing.Point(485, 24);
             this.btnAgregarCaja.Name = "btnAgregarCaja";
             this.btnAgregarCaja.Size = new System.Drawing.Size(126, 26);
             this.btnAgregarCaja.TabIndex = 60;
             this.btnAgregarCaja.Text = "Agregar";
+            this.btnAgregarCaja.Click += new System.EventHandler(this.btnAgregarCaja_Click);
             // 
             // cbClase
             // 
+            this.cbClase.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbClase.FormattingEnabled = true;
-            this.cbClase.Location = new System.Drawing.Point(61, 27);
+            this.cbClase.Location = new System.Drawing.Point(61, 24);
             this.cbClase.Name = "cbClase";
-            this.cbClase.Size = new System.Drawing.Size(133, 21);
+            this.cbClase.Size = new System.Drawing.Size(100, 24);
             this.cbClase.TabIndex = 59;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(398, 27);
+            this.label5.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(310, 29);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(45, 20);
+            this.label5.Size = new System.Drawing.Size(39, 16);
             this.label5.TabIndex = 57;
             this.label5.Text = "Kilos:";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(8, 25);
+            this.label6.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(8, 27);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(47, 20);
+            this.label6.Size = new System.Drawing.Size(41, 16);
             this.label6.TabIndex = 55;
             this.label6.Text = "Clase:";
             // 
             // groupControl4
             // 
             this.groupControl4.Controls.Add(this.txtPrecioPromedio);
+            this.groupControl4.Controls.Add(this.btnFinalizar);
             this.groupControl4.Controls.Add(this.label12);
+            this.groupControl4.Controls.Add(this.btnSalir);
             this.groupControl4.Controls.Add(this.txtImporteBruto);
             this.groupControl4.Controls.Add(this.label11);
             this.groupControl4.Controls.Add(this.txtTotalKilo);
             this.groupControl4.Controls.Add(this.label10);
             this.groupControl4.Controls.Add(this.txtTotalFardo);
             this.groupControl4.Controls.Add(this.label9);
-            this.groupControl4.Location = new System.Drawing.Point(5, 640);
+            this.groupControl4.Location = new System.Drawing.Point(5, 562);
             this.groupControl4.Name = "groupControl4";
-            this.groupControl4.Size = new System.Drawing.Size(704, 89);
+            this.groupControl4.Size = new System.Drawing.Size(616, 85);
             this.groupControl4.TabIndex = 24;
             this.groupControl4.Text = "Totales";
             // 
             // txtPrecioPromedio
             // 
             this.txtPrecioPromedio.Enabled = false;
-            this.txtPrecioPromedio.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPrecioPromedio.Location = new System.Drawing.Point(126, 57);
+            this.txtPrecioPromedio.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPrecioPromedio.Location = new System.Drawing.Point(110, 53);
             this.txtPrecioPromedio.Name = "txtPrecioPromedio";
-            this.txtPrecioPromedio.Size = new System.Drawing.Size(108, 26);
+            this.txtPrecioPromedio.Size = new System.Drawing.Size(101, 22);
             this.txtPrecioPromedio.TabIndex = 71;
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(10, 60);
+            this.label12.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(10, 53);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(118, 20);
+            this.label12.Size = new System.Drawing.Size(98, 16);
             this.label12.TabIndex = 70;
             this.label12.Text = "Precio Promedio:";
             // 
             // txtImporteBruto
             // 
             this.txtImporteBruto.Enabled = false;
-            this.txtImporteBruto.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtImporteBruto.Location = new System.Drawing.Point(556, 25);
+            this.txtImporteBruto.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtImporteBruto.Location = new System.Drawing.Point(484, 27);
             this.txtImporteBruto.Name = "txtImporteBruto";
-            this.txtImporteBruto.Size = new System.Drawing.Size(117, 26);
+            this.txtImporteBruto.Size = new System.Drawing.Size(127, 22);
             this.txtImporteBruto.TabIndex = 69;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(451, 27);
+            this.label11.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(392, 30);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(99, 20);
+            this.label11.Size = new System.Drawing.Size(86, 16);
             this.label11.TabIndex = 68;
             this.label11.Text = "Importe Bruto:";
             // 
             // txtTotalKilo
             // 
             this.txtTotalKilo.Enabled = false;
-            this.txtTotalKilo.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTotalKilo.Location = new System.Drawing.Point(321, 25);
+            this.txtTotalKilo.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalKilo.Location = new System.Drawing.Point(280, 27);
             this.txtTotalKilo.Name = "txtTotalKilo";
-            this.txtTotalKilo.Size = new System.Drawing.Size(109, 26);
+            this.txtTotalKilo.Size = new System.Drawing.Size(109, 22);
             this.txtTotalKilo.TabIndex = 67;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(235, 27);
+            this.label10.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(211, 30);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(80, 20);
+            this.label10.Size = new System.Drawing.Size(68, 16);
             this.label10.TabIndex = 66;
             this.label10.Text = "Total Kilos:";
             // 
             // txtTotalFardo
             // 
             this.txtTotalFardo.Enabled = false;
-            this.txtTotalFardo.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTotalFardo.Location = new System.Drawing.Point(126, 25);
+            this.txtTotalFardo.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalFardo.Location = new System.Drawing.Point(110, 27);
             this.txtTotalFardo.Name = "txtTotalFardo";
-            this.txtTotalFardo.Size = new System.Drawing.Size(108, 26);
+            this.txtTotalFardo.Size = new System.Drawing.Size(101, 22);
             this.txtTotalFardo.TabIndex = 65;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.Location = new System.Drawing.Point(10, 27);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(91, 20);
+            this.label9.Size = new System.Drawing.Size(78, 16);
             this.label9.TabIndex = 64;
             this.label9.Text = "Total Fardos:";
             // 
             // btnFinalizar
             // 
             this.btnFinalizar.Image = ((System.Drawing.Image)(resources.GetObject("btnFinalizar.Image")));
-            this.btnFinalizar.Location = new System.Drawing.Point(452, 732);
+            this.btnFinalizar.Location = new System.Drawing.Point(350, 54);
             this.btnFinalizar.Name = "btnFinalizar";
             this.btnFinalizar.Size = new System.Drawing.Size(126, 26);
             this.btnFinalizar.TabIndex = 68;
@@ -554,7 +605,7 @@
             // btnSalir
             // 
             this.btnSalir.Image = ((System.Drawing.Image)(resources.GetObject("btnSalir.Image")));
-            this.btnSalir.Location = new System.Drawing.Point(583, 732);
+            this.btnSalir.Location = new System.Drawing.Point(484, 54);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(126, 26);
             this.btnSalir.TabIndex = 67;
@@ -564,99 +615,47 @@
             // 
             this.groupControl5.Controls.Add(this.textBox3);
             this.groupControl5.Controls.Add(this.label15);
-            this.groupControl5.Controls.Add(this.simpleButton1);
-            this.groupControl5.Location = new System.Drawing.Point(4, 145);
+            this.groupControl5.Controls.Add(this.btnRecuperar);
+            this.groupControl5.Location = new System.Drawing.Point(4, 123);
             this.groupControl5.Name = "groupControl5";
             this.groupControl5.ShowCaption = false;
-            this.groupControl5.Size = new System.Drawing.Size(705, 34);
+            this.groupControl5.Size = new System.Drawing.Size(617, 31);
             this.groupControl5.TabIndex = 70;
             this.groupControl5.Text = "Buscar Productor";
             // 
             // textBox3
             // 
-            this.textBox3.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(155, 5);
+            this.textBox3.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox3.Location = new System.Drawing.Point(129, 6);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(159, 26);
+            this.textBox3.Size = new System.Drawing.Size(159, 22);
             this.textBox3.TabIndex = 58;
             // 
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(5, 6);
+            this.label15.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(7, 8);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(144, 20);
+            this.label15.Size = new System.Drawing.Size(122, 16);
             this.label15.TabIndex = 57;
             this.label15.Text = "Numero de Romaneo:";
             // 
-            // simpleButton1
+            // btnRecuperar
             // 
-            this.simpleButton1.Image = ((System.Drawing.Image)(resources.GetObject("simpleButton1.Image")));
-            this.simpleButton1.Location = new System.Drawing.Point(320, 5);
-            this.simpleButton1.Name = "simpleButton1";
-            this.simpleButton1.Size = new System.Drawing.Size(161, 26);
-            this.simpleButton1.TabIndex = 39;
-            this.simpleButton1.Text = "Recuperar última pesada";
-            // 
-            // repositoryItemTextEdit1
-            // 
-            this.repositoryItemTextEdit1.AutoHeight = false;
-            this.repositoryItemTextEdit1.Name = "repositoryItemTextEdit1";
-            // 
-            // ribbonPageRecuperar
-            // 
-            this.ribbonPageRecuperar.AllowTextClipping = false;
-            this.ribbonPageRecuperar.ItemLinks.Add(this.txtNumRomaneo);
-            this.ribbonPageRecuperar.ItemLinks.Add(this.barEditItem1);
-            this.ribbonPageRecuperar.Name = "ribbonPageRecuperar";
-            this.ribbonPageRecuperar.ShowCaptionButton = false;
-            this.ribbonPageRecuperar.Text = "Recuperar última pesada";
-            // 
-            // repositoryItemButtonEdit1
-            // 
-            this.repositoryItemButtonEdit1.AutoHeight = false;
-            this.repositoryItemButtonEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.repositoryItemButtonEdit1.ButtonsStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003;
-            this.repositoryItemButtonEdit1.Name = "repositoryItemButtonEdit1";
-            // 
-            // txtNumRomaneo
-            // 
-            this.txtNumRomaneo.Caption = "Numero de Romaneo:";
-            this.txtNumRomaneo.Edit = this.repositoryItemTextEdit2;
-            this.txtNumRomaneo.Id = 4;
-            this.txtNumRomaneo.Name = "txtNumRomaneo";
-            this.txtNumRomaneo.ItemPress += new DevExpress.XtraBars.ItemClickEventHandler(this.barEditItem2_ItemPress);
-            // 
-            // repositoryItemTextEdit2
-            // 
-            this.repositoryItemTextEdit2.AutoHeight = false;
-            this.repositoryItemTextEdit2.Name = "repositoryItemTextEdit2";
-            // 
-            // barEditItem1
-            // 
-            this.barEditItem1.Caption = "barEditItem1";
-            this.barEditItem1.Edit = this.repositoryItemButtonEdit2;
-            this.barEditItem1.Id = 5;
-            this.barEditItem1.Name = "barEditItem1";
-            this.barEditItem1.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barEditItem1_ItemClick);
-            // 
-            // repositoryItemButtonEdit2
-            // 
-            this.repositoryItemButtonEdit2.AutoHeight = false;
-            this.repositoryItemButtonEdit2.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.repositoryItemButtonEdit2.Name = "repositoryItemButtonEdit2";
+            this.btnRecuperar.Image = ((System.Drawing.Image)(resources.GetObject("btnRecuperar.Image")));
+            this.btnRecuperar.Location = new System.Drawing.Point(292, 6);
+            this.btnRecuperar.Name = "btnRecuperar";
+            this.btnRecuperar.Size = new System.Drawing.Size(161, 22);
+            this.btnRecuperar.TabIndex = 39;
+            this.btnRecuperar.Text = "Recuperar última pesada";
             // 
             // Form_RomaneoPesada
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(711, 760);
+            this.ClientSize = new System.Drawing.Size(624, 649);
             this.Controls.Add(this.groupControl5);
-            this.Controls.Add(this.btnFinalizar);
-            this.Controls.Add(this.btnSalir);
             this.Controls.Add(this.groupControl4);
             this.Controls.Add(this.groupControl3);
             this.Controls.Add(this.groupControl1);
@@ -667,6 +666,11 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Romaneo - Pesada";
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEdit3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEdit1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEdit2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
             this.groupControl2.ResumeLayout(false);
             this.groupControl2.PerformLayout();
@@ -683,10 +687,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.groupControl5)).EndInit();
             this.groupControl5.ResumeLayout(false);
             this.groupControl5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEdit1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEdit2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -738,15 +738,14 @@
         private DevExpress.XtraEditors.GroupControl groupControl5;
         public System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Label label15;
-        private DevExpress.XtraEditors.SimpleButton simpleButton1;
+        private DevExpress.XtraEditors.SimpleButton btnRecuperar;
         public System.Windows.Forms.TextBox txtPreingreso;
         private System.Windows.Forms.Label label13;
-        private DevExpress.XtraBars.BarEditItem txtNumRomaneo;
         private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit2;
-        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageRecuperar;
         private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit1;
         private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit repositoryItemButtonEdit1;
-        private DevExpress.XtraBars.BarEditItem barEditItem1;
         private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit repositoryItemButtonEdit2;
+        private DevExpress.XtraBars.BarEditItem btnRecuperarPesada;
+        private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit repositoryItemButtonEdit3;
     }
 }

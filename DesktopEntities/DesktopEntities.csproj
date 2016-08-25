@@ -49,6 +49,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Clase.cs">
+      <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\CooperativaDesktopModels.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -64,6 +67,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CooperativaDesktopModels.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Pesada.cs">
+      <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PesadaDetalle.cs">
+      <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Preingreso.cs">
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>
@@ -74,6 +83,9 @@
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Usuario.cs">
+      <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Vw_Pesada.cs">
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Vw_Preingreso.cs">

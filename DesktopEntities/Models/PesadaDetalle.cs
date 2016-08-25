@@ -12,12 +12,12 @@ namespace DesktopEntities.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Productor
+    public partial class PesadaDetalle
     {
         public System.Guid Id { get; set; }
-        public string Cuit { get; set; }
-        public string Fet { get; set; }
-        public string Nombre { get; set; }
-        public string Provincia { get; set; }
+        public Nullable<System.Guid> PesadaId { get; set; }
+        public Nullable<int> NumFardo { get; set; }
+        public Nullable<System.Guid> ClaseId { get; set; }
+        public Nullable<double> Kilos { get; set; }
     }
 }
