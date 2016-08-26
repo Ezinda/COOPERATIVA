@@ -18,7 +18,8 @@ namespace CooperativaProduccion
         public CooperativaProduccionEntities Context { get; set; }
         private Guid ProductorId;
         private Guid PesadaId;
-       
+        Form_RomaneoPesadaMostrador pesadaMostrador = new Form_RomaneoPesadaMostrador();
+        
         public Form_RomaneoPesada()
         {
             InitializeComponent();
@@ -59,6 +60,7 @@ namespace CooperativaProduccion
                     txtProvincia.Text = preingreso.Provincia;
                     txtPreingreso.Text = preingreso.NumeroPreingreso.ToString();
                     GrabarPesada();
+                    PasarMostrador(txtNombre.Text,txtCuit.Text);
                 }
             }
         }
@@ -118,12 +120,20 @@ namespace CooperativaProduccion
 
         private void btnAgregarCaja_Click(object sender, EventArgs e)
         {
-            GrabarPesadaDetalle();
-            CargarGrilla();
-            txtKilos.Text = GetRandomNumber(1, 100).ToString("n2");
-            txtTotalFardo.Text = CalcularTotalFardo(PesadaId).ToString(); 
-            txtTotalKilo.Text = CalcularTotalKilos(PesadaId).ToString();
-            txtImporteBruto.Text = CalcularTotalImporteBruto(PesadaId).ToString();
+            if (txtKilos.Text != string.Empty)
+            {
+                GrabarPesadaDetalle();
+                CargarGrilla();
+                txtKilos.Text = GetRandomNumber(1, 100).ToString("n2");
+                txtTotalFardo.Text = CalcularTotalFardo(PesadaId).ToString();
+                txtTotalKilo.Text = CalcularTotalKilos(PesadaId).ToString();
+                txtImporteBruto.Text = CalcularTotalImporteBruto(PesadaId).ToString();
+                PasarFardoMostrador();
+            }
+            else
+            {
+                MessageBox.Show("No hay un valor de kg.","Se Requiere", MessageBoxButtons.OK);
+            }
         }
 
         private float CalcularTotalImporteBruto(Guid PesadaId)
@@ -184,8 +194,6 @@ namespace CooperativaProduccion
             }
         }
 
-
-
         private void GrabarPesadaDetalle()
         {
             if (ValidarCamposPesadaDetalle())
@@ -201,6 +209,22 @@ namespace CooperativaProduccion
             {
                 var codigo = Context.Pesada
                     .Max(x => x.NumPesada)
+                    .ToString();
+                return (Int16.Parse(codigo) + 1);
+            }
+            else
+            {
+                return 1;
+            }
+        }
+
+        private int ContadorNumeroRomaneo()
+        {
+            var count = Context.Pesada.Count();
+            if (count != 0)
+            {
+                var codigo = Context.Pesada
+                    .Max(x => x.NumRomaneo)
                     .ToString();
                 return (Int16.Parse(codigo) + 1);
             }
@@ -247,6 +271,8 @@ namespace CooperativaProduccion
                     .FirstOrDefault();
                 pesada.PreingresoId = preingreso.Id;
                 pesada.ProductorId = ProductorId;
+                pesada.Fecha = DateTime.Now.Date;
+                pesada.NumRomaneo = ContadorNumeroRomaneo();
 
                 Context.Pesada.Add(pesada);
                 Context.SaveChanges();
@@ -324,7 +350,7 @@ namespace CooperativaProduccion
                        ID = a.PesadaDetalleId,
                        NUMERO_FARDO = a.NumFardo,
                        CONTADOR_CAJA = a.ContadorFardo,
-                       CLASE = a.Nombre,
+                       CLASE = a.Clase,
                        KILOS = a.Kilos,
                        SUBTOTAL = a.Subtotal
                    })
@@ -448,10 +474,23 @@ namespace CooperativaProduccion
 
         private void btnPesadaMostrador_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var mostradorPesada = new Form_RomaneoPesadaMostrador();
-            mostradorPesada.Show(this);
+            pesadaMostrador.Show();
         }
 
+        private void PasarMostrador(string Productor,string Cuit)
+        {
+            pesadaMostrador.nombre = Productor;
+            pesadaMostrador.cuit = Cuit;
+            pesadaMostrador.CargarDatos();
+        }
+
+        private void PasarFardoMostrador()
+        {
+            pesadaMostrador.numFardo = gridViewPesada.GetRowCellValue(0, "CONTADOR_CAJA").ToString();
+            pesadaMostrador.clase = gridViewPesada.GetRowCellValue(0, "CLASE").ToString();
+            pesadaMostrador.totalkg = txtTotalKilo.Text;
+            pesadaMostrador.CargarFardo();
+        }
       
     }
 }

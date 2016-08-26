@@ -26,13 +26,13 @@ namespace DesktopEntities.Models
         }
     
         public virtual DbSet<Clase> Clase { get; set; }
-        public virtual DbSet<Pesada> Pesada { get; set; }
         public virtual DbSet<PesadaDetalle> PesadaDetalle { get; set; }
         public virtual DbSet<Preingreso> Preingreso { get; set; }
         public virtual DbSet<PreingresoDetalle> PreingresoDetalle { get; set; }
         public virtual DbSet<Productor> Productor { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
         public virtual DbSet<Vw_Preingreso> Vw_Preingreso { get; set; }
+        public virtual DbSet<Pesada> Pesada { get; set; }
         public virtual DbSet<Vw_Pesada> Vw_Pesada { get; set; }
     }
 }

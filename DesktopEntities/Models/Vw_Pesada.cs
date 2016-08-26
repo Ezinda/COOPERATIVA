@@ -18,9 +18,15 @@ namespace DesktopEntities.Models
         public System.Guid PesadaDetalleId { get; set; }
         public Nullable<long> NumFardo { get; set; }
         public Nullable<long> ContadorFardo { get; set; }
-        public string Nombre { get; set; }
+        public string Clase { get; set; }
         public Nullable<double> Valor { get; set; }
         public Nullable<double> Kilos { get; set; }
         public Nullable<decimal> Subtotal { get; set; }
+        public Nullable<System.DateTime> Fecha { get; set; }
+        public Nullable<long> NumRomaneo { get; set; }
+        public string Productor { get; set; }
+        public string Fet { get; set; }
+        public string Cuit { get; set; }
+        public string Provincia { get; set; }
     }
 }

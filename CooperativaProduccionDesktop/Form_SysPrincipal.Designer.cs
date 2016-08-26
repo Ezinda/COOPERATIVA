@@ -37,6 +37,7 @@
             this.btnAsignarRoles = new DevExpress.XtraBars.BarButtonItem();
             this.btnVerUsuario = new DevExpress.XtraBars.BarButtonItem();
             this.btnGestionProductores = new DevExpress.XtraBars.BarButtonItem();
+            this.btnFardos = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPageRomaneo = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupPorteria = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroupBalanza = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -45,6 +46,7 @@
             this.ribbonPageGroupProductores = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPage3 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPage4 = new DevExpress.XtraBars.Ribbon.RibbonPage();
+            this.ribbonPageGroupFardos = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPage5 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPage6 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupSeguridad = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -62,9 +64,10 @@
             this.btnNuevoUsuario,
             this.btnAsignarRoles,
             this.btnVerUsuario,
-            this.btnGestionProductores});
+            this.btnGestionProductores,
+            this.btnFardos});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
-            this.ribbon.MaxItemId = 8;
+            this.ribbon.MaxItemId = 9;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPageRomaneo,
@@ -145,6 +148,15 @@
             this.btnGestionProductores.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnGestionProductores.LargeGlyph")));
             this.btnGestionProductores.Name = "btnGestionProductores";
             // 
+            // btnFardos
+            // 
+            this.btnFardos.Caption = "Administración de Fardos";
+            this.btnFardos.Glyph = ((System.Drawing.Image)(resources.GetObject("btnFardos.Glyph")));
+            this.btnFardos.Id = 8;
+            this.btnFardos.Name = "btnFardos";
+            this.btnFardos.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText)));
+            this.btnFardos.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnFardos_ItemClick);
+            // 
             // ribbonPageRomaneo
             // 
             this.ribbonPageRomaneo.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -203,9 +215,20 @@
             // 
             // ribbonPage4
             // 
+            this.ribbonPage4.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
+            this.ribbonPageGroupFardos});
             this.ribbonPage4.Image = ((System.Drawing.Image)(resources.GetObject("ribbonPage4.Image")));
             this.ribbonPage4.Name = "ribbonPage4";
             this.ribbonPage4.Text = "Inventario";
+            // 
+            // ribbonPageGroupFardos
+            // 
+            this.ribbonPageGroupFardos.AllowTextClipping = false;
+            this.ribbonPageGroupFardos.Glyph = ((System.Drawing.Image)(resources.GetObject("ribbonPageGroupFardos.Glyph")));
+            this.ribbonPageGroupFardos.ItemLinks.Add(this.btnFardos);
+            this.ribbonPageGroupFardos.Name = "ribbonPageGroupFardos";
+            this.ribbonPageGroupFardos.ShowCaptionButton = false;
+            this.ribbonPageGroupFardos.Text = "Materia Prima";
             // 
             // ribbonPage5
             // 
@@ -269,5 +292,7 @@
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroupSeguridad;
         private DevExpress.XtraBars.BarButtonItem btnGestionProductores;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroupProductores;
+        private DevExpress.XtraBars.BarButtonItem btnFardos;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroupFardos;
     }
 }

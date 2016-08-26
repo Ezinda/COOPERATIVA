@@ -189,5 +189,11 @@ namespace CooperativaProduccion
             var pesada = new Form_RomaneoPesada();
             pesada.Show();
         }
+
+        private void btnFardos_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var fardos = new Form_InventarioFardos();
+            fardos.Show();
+        }
     }
 }

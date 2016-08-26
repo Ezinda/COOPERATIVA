@@ -22,5 +22,7 @@ namespace DesktopEntities.Models
         public Nullable<double> TotalKg { get; set; }
         public Nullable<double> ImporteBruto { get; set; }
         public Nullable<double> PrecioPromedio { get; set; }
+        public Nullable<System.DateTime> Fecha { get; set; }
+        public Nullable<long> NumRomaneo { get; set; }
     }
 }

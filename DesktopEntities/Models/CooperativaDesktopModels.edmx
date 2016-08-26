@@ -25,6 +25,8 @@
           <Property Name="TotalKg" Type="float" />
           <Property Name="ImporteBruto" Type="float" />
           <Property Name="PrecioPromedio" Type="float" />
+          <Property Name="Fecha" Type="date" />
+          <Property Name="NumRomaneo" Type="bigint" />
         </EntityType>
         <EntityType Name="PesadaDetalle">
           <Key>
@@ -91,10 +93,16 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Pesada' does not have
           <Property Name="PesadaDetalleId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="NumFardo" Type="bigint" />
           <Property Name="ContadorFardo" Type="bigint" />
-          <Property Name="Nombre" Type="nvarchar" MaxLength="50" />
+          <Property Name="Clase" Type="nvarchar" MaxLength="50" />
           <Property Name="Valor" Type="float" />
           <Property Name="Kilos" Type="float" />
           <Property Name="Subtotal" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Fecha" Type="date" />
+          <Property Name="NumRomaneo" Type="bigint" />
+          <Property Name="Productor" Type="nvarchar" MaxLength="250" />
+          <Property Name="Fet" Type="nvarchar" MaxLength="150" />
+          <Property Name="Cuit" Type="nvarchar" MaxLength="150" />
+          <Property Name="Provincia" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Preingreso' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -149,10 +157,16 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Preingreso' does not 
     [Vw_Pesada].[PesadaDetalleId] AS [PesadaDetalleId], 
     [Vw_Pesada].[NumFardo] AS [NumFardo], 
     [Vw_Pesada].[ContadorFardo] AS [ContadorFardo], 
-    [Vw_Pesada].[Nombre] AS [Nombre], 
+    [Vw_Pesada].[Clase] AS [Clase], 
     [Vw_Pesada].[Valor] AS [Valor], 
     [Vw_Pesada].[Kilos] AS [Kilos], 
-    [Vw_Pesada].[Subtotal] AS [Subtotal]
+    [Vw_Pesada].[Subtotal] AS [Subtotal], 
+    [Vw_Pesada].[Fecha] AS [Fecha], 
+    [Vw_Pesada].[NumRomaneo] AS [NumRomaneo], 
+    [Vw_Pesada].[Productor] AS [Productor], 
+    [Vw_Pesada].[Fet] AS [Fet], 
+    [Vw_Pesada].[Cuit] AS [Cuit], 
+    [Vw_Pesada].[Provincia] AS [Provincia]
     FROM [dbo].[Vw_Pesada] AS [Vw_Pesada]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="Vw_Preingreso" EntityType="Self.Vw_Preingreso" store:Type="Views" store:Schema="dbo">
@@ -186,7 +200,6 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Preingreso' does not 
       <Schema Namespace="CooperativaProduccionModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="CooperativaProduccionEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Clase" EntityType="CooperativaProduccionModel.Clase" />
-          <EntitySet Name="Pesada" EntityType="CooperativaProduccionModel.Pesada" />
           <EntitySet Name="PesadaDetalle" EntityType="CooperativaProduccionModel.PesadaDetalle" />
           <EntitySet Name="Preingreso" EntityType="CooperativaProduccionModel.Preingreso" />
           <EntitySet Name="PreingresoDetalle" EntityType="CooperativaProduccionModel.PreingresoDetalle" />
@@ -197,6 +210,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Preingreso' does not 
             <End Role="Preingreso" EntitySet="Preingreso" />
             <End Role="PreingresoDetalle" EntitySet="PreingresoDetalle" />
           </AssociationSet>
+          <EntitySet Name="Pesada" EntityType="CooperativaProduccionModel.Pesada" />
           <EntitySet Name="Vw_Pesada" EntityType="CooperativaProduccionModel.Vw_Pesada" />
         </EntityContainer>
         <EntityType Name="Clase">
@@ -206,19 +220,6 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Preingreso' does not 
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Valor" Type="Double" />
-        </EntityType>
-        <EntityType Name="Pesada">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="NumPesada" Type="Int32" />
-          <Property Name="PreingresoId" Type="Guid" />
-          <Property Name="ProductorId" Type="Guid" />
-          <Property Name="TotalFardo" Type="Int32" />
-          <Property Name="TotalKg" Type="Double" />
-          <Property Name="ImporteBruto" Type="Double" />
-          <Property Name="PrecioPromedio" Type="Double" />
         </EntityType>
         <EntityType Name="PesadaDetalle">
           <Key>
@@ -313,6 +314,21 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Preingreso' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Pesada">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="NumPesada" Type="Int32" />
+          <Property Name="PreingresoId" Type="Guid" />
+          <Property Name="ProductorId" Type="Guid" />
+          <Property Name="TotalFardo" Type="Int32" />
+          <Property Name="TotalKg" Type="Double" />
+          <Property Name="ImporteBruto" Type="Double" />
+          <Property Name="PrecioPromedio" Type="Double" />
+          <Property Name="Fecha" Type="DateTime" Precision="0" />
+          <Property Name="NumRomaneo" Type="Int64" />
+        </EntityType>
         <EntityType Name="Vw_Pesada">
           <Key>
             <PropertyRef Name="PesadaId" />
@@ -322,10 +338,16 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Preingreso' does not 
           <Property Name="PesadaDetalleId" Type="Guid" Nullable="false" />
           <Property Name="NumFardo" Type="Int64" />
           <Property Name="ContadorFardo" Type="Int64" />
-          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Clase" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Valor" Type="Double" />
           <Property Name="Kilos" Type="Double" />
           <Property Name="Subtotal" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Fecha" Type="DateTime" Precision="0" />
+          <Property Name="NumRomaneo" Type="Int64" />
+          <Property Name="Productor" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Fet" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Cuit" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Provincia" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -338,20 +360,6 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Preingreso' does not 
               <MappingFragment StoreEntitySet="Clase">
                 <ScalarProperty Name="Valor" ColumnName="Valor" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Pesada">
-            <EntityTypeMapping TypeName="CooperativaProduccionModel.Pesada">
-              <MappingFragment StoreEntitySet="Pesada">
-                <ScalarProperty Name="PrecioPromedio" ColumnName="PrecioPromedio" />
-                <ScalarProperty Name="ImporteBruto" ColumnName="ImporteBruto" />
-                <ScalarProperty Name="TotalKg" ColumnName="TotalKg" />
-                <ScalarProperty Name="TotalFardo" ColumnName="TotalFardo" />
-                <ScalarProperty Name="ProductorId" ColumnName="ProductorId" />
-                <ScalarProperty Name="PreingresoId" ColumnName="PreingresoId" />
-                <ScalarProperty Name="NumPesada" ColumnName="NumPesada" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -437,13 +445,35 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Preingreso' does not 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Pesada">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.Pesada">
+              <MappingFragment StoreEntitySet="Pesada">
+                <ScalarProperty Name="NumRomaneo" ColumnName="NumRomaneo" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="PrecioPromedio" ColumnName="PrecioPromedio" />
+                <ScalarProperty Name="ImporteBruto" ColumnName="ImporteBruto" />
+                <ScalarProperty Name="TotalKg" ColumnName="TotalKg" />
+                <ScalarProperty Name="TotalFardo" ColumnName="TotalFardo" />
+                <ScalarProperty Name="ProductorId" ColumnName="ProductorId" />
+                <ScalarProperty Name="PreingresoId" ColumnName="PreingresoId" />
+                <ScalarProperty Name="NumPesada" ColumnName="NumPesada" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Vw_Pesada">
             <EntityTypeMapping TypeName="CooperativaProduccionModel.Vw_Pesada">
               <MappingFragment StoreEntitySet="Vw_Pesada">
+                <ScalarProperty Name="Provincia" ColumnName="Provincia" />
+                <ScalarProperty Name="Cuit" ColumnName="Cuit" />
+                <ScalarProperty Name="Fet" ColumnName="Fet" />
+                <ScalarProperty Name="Productor" ColumnName="Productor" />
+                <ScalarProperty Name="NumRomaneo" ColumnName="NumRomaneo" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
                 <ScalarProperty Name="Subtotal" ColumnName="Subtotal" />
                 <ScalarProperty Name="Kilos" ColumnName="Kilos" />
                 <ScalarProperty Name="Valor" ColumnName="Valor" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Clase" ColumnName="Clase" />
                 <ScalarProperty Name="ContadorFardo" ColumnName="ContadorFardo" />
                 <ScalarProperty Name="NumFardo" ColumnName="NumFardo" />
                 <ScalarProperty Name="PesadaDetalleId" ColumnName="PesadaDetalleId" />

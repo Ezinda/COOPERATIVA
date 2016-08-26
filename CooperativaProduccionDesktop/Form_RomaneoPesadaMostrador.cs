@@ -10,25 +10,29 @@ using DevExpress.XtraBars;
 
 namespace CooperativaProduccion
 {
-    public partial class Form_RomaneoPesadaMostrador : DevExpress.XtraBars.Ribbon.RibbonForm, IEnlaceMostradorPesada
+    public partial class Form_RomaneoPesadaMostrador : DevExpress.XtraBars.Ribbon.RibbonForm
     {
-        Form_RomaneoPesada ownerForm = null;
+        public string nombre;
+        public string cuit;
+        public string totalkg;
+        public string clase;
+        public string numFardo;
 
-        public Form_RomaneoPesadaMostrador(Form_RomaneoPesada ownerForm)
+        public Form_RomaneoPesadaMostrador()
         {
             InitializeComponent();
-            this.ownerForm = ownerForm;
         }
 
-        private void btnSalir_Click(object sender, EventArgs e)
+        public void CargarDatos()
         {
-            this.Close();
-        }
-
-        void IEnlaceMostradorPesada.Enviar(string productor, string cuit)
-        {
-            lblProductor.Text = productor;
+            lblProductor.Text = nombre;
             lblCuit.Text = cuit;
+        }
+        public void CargarFardo()
+        {
+            lblClase.Text = clase;
+            lblFardo.Text = numFardo;
+            lblTotalKg.Text = totalkg;
         }
 
     }
