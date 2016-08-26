@@ -14,12 +14,13 @@ namespace CooperativaProduccion
     public partial class Form_InventarioFardos : DevExpress.XtraBars.Ribbon.RibbonForm
     {
         public CooperativaProduccionEntities Context { get; set; }
+        private Form_AdministracionBuscarProductor _formBuscarProductor;
+        private Guid ProductorId;
 
         public Form_InventarioFardos()
         {
             InitializeComponent();
             Context = new CooperativaProduccionEntities();
-
         }
 
         private void Buscar()
@@ -35,54 +36,28 @@ namespace CooperativaProduccion
                     CUIT = a.Cuit
                 });
 
-            if (!string.IsNullOrEmpty(txtBuscador.Text))
+            if (!string.IsNullOrEmpty(txtFet.Text))
             {
                 var count = result
-                    .Where(r => r.full.Contains(txtBuscador.Text))
+                    .Where(r => r.FET.Contains(txtFet.Text))
                     .Count();
                 if (count > 1)
                 {
                     var empleado = Context.Productor
-                        .Where(x => x.Fet.Contains(txtBuscador.Text));
+                        .Where(x => x.Fet.Contains(txtFet.Text));
                     if (empleado.Count() > 1)
                     {
                         _formBuscarProductor = new Form_AdministracionBuscarProductor();
-                        _formBuscarProductor.fet = txtBuscador.Text;
+                        _formBuscarProductor.fet = txtFet.Text;
                         _formBuscarProductor.target = DevConstantes.Preingreso;
                         _formBuscarProductor.BuscarFet();
                         _formBuscarProductor.ShowDialog(this);
-                    }
-                    else
-                    {
-                        empleado = Context.Productor
-                            .Where(x => x.Nombre.Contains(txtBuscador.Text));
-                        if (empleado.Count() > 1)
-                        {
-                            _formBuscarProductor = new Form_AdministracionBuscarProductor();
-                            _formBuscarProductor.nombre = txtBuscador.Text;
-                            _formBuscarProductor.target = DevConstantes.Preingreso;
-                            _formBuscarProductor.BuscarNombre();
-                            _formBuscarProductor.ShowDialog(this);
-                        }
-                        else
-                        {
-                            empleado = Context.Productor
-                            .Where(x => x.Nombre.Contains(txtBuscador.Text));
-                            if (empleado.Count() > 1)
-                            {
-                                _formBuscarProductor = new Form_AdministracionBuscarProductor();
-                                _formBuscarProductor.nombre = txtBuscador.Text;
-                                _formBuscarProductor.target = DevConstantes.Preingreso;
-                                _formBuscarProductor.BuscarFet();
-                                _formBuscarProductor.ShowDialog(this);
-                            }
-                        }
                     }
                 }
                 else if (count == 1)
                 {
                     var empleado = Context.Productor
-                        .Where(x => x.Fet.Contains(txtBuscador.Text));
+                        .Where(x => x.Fet.Contains(txtFet.Text));
                     if (empleado.Count() == 1)
                     {
                         var busqueda = empleado.FirstOrDefault();
@@ -101,53 +76,97 @@ namespace CooperativaProduccion
                     }
                     else
                     {
-                        empleado = Context.Productor
-                            .Where(x => x.Nombre.Contains(txtBuscador.Text));
-                        if (empleado.Count() == 1)
+                        MessageBox.Show("Productor no válido.",
+                                              "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+            }
+            else if (!string.IsNullOrEmpty(txtNombre.Text))
+            {
+                var count = result
+                    .Where(r => r.PRODUCTOR.Contains(txtNombre.Text))
+                    .Count();
+                if (count > 1)
+                {
+                    var empleado = Context.Productor
+                        .Where(x => x.Nombre.Contains(txtNombre.Text));
+                    if (empleado.Count() > 1)
+                    {
+                        _formBuscarProductor = new Form_AdministracionBuscarProductor();
+                        _formBuscarProductor.nombre = txtNombre.Text;
+                        _formBuscarProductor.target = DevConstantes.Preingreso;
+                        _formBuscarProductor.BuscarNombre();
+                        _formBuscarProductor.ShowDialog(this);
+                    }
+                }
+                else if (count == 1)
+                {
+                    var empleado = Context.Productor
+                        .Where(x => x.Nombre.Contains(txtNombre.Text));
+                    if (empleado.Count() == 1)
+                    {
+                        var busqueda = empleado.FirstOrDefault();
+                        if (busqueda != null)
                         {
-                            var busqueda = empleado.FirstOrDefault();
-                            if (busqueda != null)
-                            {
-                                ProductorId = busqueda.Id;
-                                txtFet.Text = busqueda.Fet.ToString();
-                                txtNombre.Text = busqueda.Nombre.ToString();
-                                txtCuit.Text = busqueda.Cuit.ToString();
-                            }
-                            else
-                            {
-                                MessageBox.Show("Nombre no válido.",
-                                    "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            }
+                            ProductorId = busqueda.Id;
+                            txtFet.Text = busqueda.Fet.ToString();
+                            txtNombre.Text = busqueda.Nombre.ToString();
+                            txtCuit.Text = busqueda.Cuit.ToString();
                         }
                         else
                         {
-                            empleado = Context.Productor
-                            .Where(x => x.Cuit.Contains(txtBuscador.Text));
-                            if (empleado.Count() == 1)
-                            {
-                                var busqueda = empleado.FirstOrDefault();
-                                if (busqueda != null)
-                                {
-                                    ProductorId = busqueda.Id;
-                                    txtFet.Text = busqueda.Fet.ToString();
-                                    txtNombre.Text = busqueda.Nombre.ToString();
-                                    txtCuit.Text = busqueda.Cuit.ToString();
-                                }
-                                else
-                                {
-                                    MessageBox.Show("C.U.I.T no válido.",
-                                        "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                }
-                            }
+                            MessageBox.Show("N° FET no válido.",
+                                "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
                     }
-                }
-                else
-                {
-                    MessageBox.Show("Productor no válido.",
-                                          "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    else
+                    {
+                        MessageBox.Show("Productor no válido.",
+                                              "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                 }
             }
         }
-    }
+
+        private void txtFet_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                if (!string.IsNullOrEmpty(txtFet.Text))
+                {
+                    Buscar();
+                }
+                else
+                {
+                    txtNombre.Focus();
+                }
+            }
+        }
+
+        private void btnBuscarFet_Click(object sender, EventArgs e)
+        {
+            Buscar();
+        }
+
+        private void txtNombre_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                if (!string.IsNullOrEmpty(txtNombre.Text))
+                {
+                    Buscar();
+                }
+                else
+                {
+                    txtFet.Focus();
+                }
+            }
+        }
+
+        private void btnBuscarProductor_Click(object sender, EventArgs e)
+        {
+            Buscar();
+        }
+
+   }
 }
