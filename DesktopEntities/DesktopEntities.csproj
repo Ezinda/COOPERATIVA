@@ -67,6 +67,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CooperativaDesktopModels.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Movimiento.cs">
+      <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Pesada.cs">
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>

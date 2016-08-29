@@ -152,7 +152,7 @@ namespace CooperativaProduccion
             if (gridViewUsuario.SelectedRowsCount > 0)
             {
                 var usuario = Context.Usuario.Find(UsuarioId);
-                if (!String.IsNullOrEmpty(usuario.Id.ToString()))
+                if (!string.IsNullOrEmpty(usuario.Id.ToString()))
                 {
                     usuario.Nombre = txtNombre.Text;
                     usuario.Apellido = txtApellido.Text;

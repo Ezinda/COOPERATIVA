@@ -442,6 +442,7 @@
             this.btnReimprimir.Size = new System.Drawing.Size(126, 25);
             this.btnReimprimir.TabIndex = 66;
             this.btnReimprimir.Text = "Reimprimir";
+            this.btnReimprimir.Click += new System.EventHandler(this.btnReimprimir_Click);
             // 
             // btnEliminar
             // 

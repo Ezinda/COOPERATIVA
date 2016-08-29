@@ -195,5 +195,11 @@ namespace CooperativaProduccion
             var fardos = new Form_InventarioFardos();
             fardos.Show();
         }
+
+        private void btnClasificacion_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var reclasificacion = new Form_RomaneoReclasificacion();
+            reclasificacion.Show();
+        }
     }
 }

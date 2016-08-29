@@ -10,6 +10,9 @@ using DevExpress.XtraBars;
 using DesktopEntities.Models;
 using DevExpress.XtraEditors;
 using System.Data.Entity;
+using CooperativaProduccion.Reports;
+using System.Globalization;
+using DevExpress.XtraReports.UI;
 
 namespace CooperativaProduccion
 {
@@ -18,7 +21,7 @@ namespace CooperativaProduccion
         public CooperativaProduccionEntities Context { get; set; }
         private Guid ProductorId;
         private Guid PesadaId;
-        Form_RomaneoPesadaMostrador pesadaMostrador = new Form_RomaneoPesadaMostrador();
+        Form_RomaneoPesadaMostrador pesadaMostrador;
         
         public Form_RomaneoPesada()
         {
@@ -28,6 +31,7 @@ namespace CooperativaProduccion
             cbBoca.SelectedIndex = 0;
             CargarCombo();
             checkBalanzaAutomatica.Checked = true;
+            pesadaMostrador = new Form_RomaneoPesadaMostrador();
         }
 
         private void txtFet_KeyPress(object sender, KeyPressEventArgs e)
@@ -294,10 +298,20 @@ namespace CooperativaProduccion
                 pesadaDetalle.ContadorFardo = ContadorNumeroFardo(PesadaId);
                 pesadaDetalle.NumFardo = NumeradorFardo();
                 pesadaDetalle.ClaseId = new Guid(cbClase.SelectedValue.ToString());
-                var a = float.Parse(Math.Round(decimal.Parse(txtKilos.Text), 2).ToString());
-                pesadaDetalle.Kilos = (float)Math.Round(a * 100f) / 100f;
+                pesadaDetalle.Kilos = float.Parse(Math.Round(decimal.Parse(txtKilos.Text), 0).ToString());
           
                 Context.PesadaDetalle.Add(pesadaDetalle);
+                Context.SaveChanges();
+
+                Movimiento movimiento;
+                movimiento = new Movimiento();
+                movimiento.Id = Guid.NewGuid();
+                movimiento.Fecha = DateTime.Now.Date;
+                movimiento.TransaccionId = pesadaDetalle.Id;
+                movimiento.Unidad = DevConstantes.Kg;
+                movimiento.Ingreso = pesadaDetalle.Kilos;
+
+                Context.Movimiento.Add(movimiento);
                 Context.SaveChanges();
             }
             catch
@@ -424,6 +438,7 @@ namespace CooperativaProduccion
             }
             ActualizarPesada(PesadaId);
             Limpiar();
+            ImpimirRomaneo(PesadaId);
           
         }
 
@@ -474,6 +489,10 @@ namespace CooperativaProduccion
 
         private void btnPesadaMostrador_ItemClick(object sender, ItemClickEventArgs e)
         {
+            pesadaMostrador = new Form_RomaneoPesadaMostrador();
+            pesadaMostrador.nombre = txtNombre.Text;
+            pesadaMostrador.cuit = txtCuit.Text;
+            pesadaMostrador.CargarDatos();
             pesadaMostrador.Show();
         }
 
@@ -490,6 +509,77 @@ namespace CooperativaProduccion
             pesadaMostrador.clase = gridViewPesada.GetRowCellValue(0, "CLASE").ToString();
             pesadaMostrador.totalkg = txtTotalKilo.Text;
             pesadaMostrador.CargarFardo();
+        }
+
+        private void ImprimirEtiqueta()
+        {
+            if (gridViewPesada.SelectedRowsCount > 0)
+            {
+                for (int i = 0; i < gridViewPesada.DataRowCount; i++)
+                {
+                    if (gridViewPesada.IsRowSelected(i))
+                    {
+                        var Id = new Guid(gridViewPesada.
+                           GetRowCellValue(i, "ID")
+                           .ToString());
+                        var pesadaDetalle = Context.Vw_Pesada
+                            .Where(x => x.PesadaDetalleId == Id)
+                            .FirstOrDefault();
+                        if (pesadaDetalle.PesadaDetalleId != null)
+                        {
+                            var reporte = new EtiquetaFardoReport();
+                            reporte.Parameters["Fardo"].Value = pesadaDetalle.NumFardo;
+                            reporte.Parameters["barCodeNumFardo"].Value = pesadaDetalle.NumFardo;
+                            reporte.Parameters["Clase"].Value = pesadaDetalle.Clase;
+                            reporte.Parameters["Kilos"].Value = pesadaDetalle.Kilos;
+                            reporte.Parameters["Fecha"].Value = pesadaDetalle.Fecha.Value
+                                .ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
+                           
+                            using (ReportPrintTool tool = new ReportPrintTool(reporte))
+                            {
+                                reporte.ShowPreviewMarginLines = false;
+                                tool.PreviewForm.Text = "Etiqueta";
+                                tool.ShowPreviewDialog();
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Debe seleccionar registro.", "Atención", MessageBoxButtons.OK);
+            }
+        }
+
+        private void btnReimprimir_Click(object sender, EventArgs e)
+        {
+            ImprimirEtiqueta();
+        }
+
+        private void ImpimirRomaneo(Guid PesadaId)
+        {
+            var pesada = Context.Vw_Pesada
+                           .Where(x => x.PesadaId == PesadaId)
+                           .FirstOrDefault();
+            if (pesada.PesadaId != null)
+            {
+                var reporte = new RomaneoReport();
+                reporte.Parameters["Productor"].Value = pesada.Productor;
+                reporte.Parameters["Fet"].Value = pesada.Fet;
+                reporte.Parameters["Localidad"].Value = pesada.Provincia;
+                reporte.Parameters["Provincia"].Value = pesada.Provincia;
+                reporte.Parameters["NumRomaneo"].Value = pesada.NumRomaneo;
+                reporte.Parameters["Fecha"].Value = pesada.Fecha.Value
+                    .ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+
+                using (ReportPrintTool tool = new ReportPrintTool(reporte))
+                {
+                    reporte.ShowPreviewMarginLines = false;
+                    tool.PreviewForm.Text = "Etiqueta";
+                    tool.ShowPreviewDialog();
+                }
+            }
         }
       
     }

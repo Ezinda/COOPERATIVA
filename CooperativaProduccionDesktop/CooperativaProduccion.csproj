@@ -33,12 +33,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.Charts.v13.2.Core, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Data.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Office.v13.2.Core, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.PivotGrid.v13.2.Core, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Printing.v13.2.Core, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.RichEdit.v13.2.Core, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Sparkline.v13.2.Core, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Utils.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Utils.v13.2.UI, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraBars.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraCharts.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraEditors.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraGrid.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraPrinting.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraReports.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraReports.v13.2.Extensions, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
@@ -89,6 +99,12 @@
     <Compile Include="Form_RomaneoPesada.Designer.cs">
       <DependentUpon>Form_RomaneoPesada.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_RomaneoReclasificacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_RomaneoReclasificacion.Designer.cs">
+      <DependentUpon>Form_RomaneoReclasificacion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_SeguridadGestionUsuario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -112,6 +128,11 @@
     <Compile Include="Interface\IEnlace.cs" />
     <Compile Include="Interface\IEnlaceActualizarHistorico.cs" />
     <Compile Include="Interface\IEnlaceNovedades.cs" />
+    <Compile Include="pesadadet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>pesadadet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Form_RomaneoPesadaMostrador.cs">
@@ -119,6 +140,25 @@
     </Compile>
     <Compile Include="Form_RomaneoPesadaMostrador.Designer.cs">
       <DependentUpon>Form_RomaneoPesadaMostrador.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReportModels\RegistroPesada.cs" />
+    <Compile Include="Reports\EtiquetaFardoReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\EtiquetaFardoReport.Designer.cs">
+      <DependentUpon>EtiquetaFardoReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\PesadaDetalleReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\PesadaDetalleReport.Designer.cs">
+      <DependentUpon>PesadaDetalleReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\RomaneoReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\RomaneoReport.Designer.cs">
+      <DependentUpon>RomaneoReport.cs</DependentUpon>
     </Compile>
     <Compile Include="SplashScreen1.cs">
       <SubType>Form</SubType>
@@ -140,6 +180,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_RomaneoPreingreso.resx">
       <DependentUpon>Form_RomaneoPreingreso.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_RomaneoReclasificacion.resx">
+      <DependentUpon>Form_RomaneoReclasificacion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_SeguridadGestionUsuario.resx">
       <DependentUpon>Form_SeguridadGestionUsuario.cs</DependentUpon>
@@ -164,10 +207,30 @@
     <EmbeddedResource Include="Form_RomaneoPesadaMostrador.resx">
       <DependentUpon>Form_RomaneoPesadaMostrador.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\EtiquetaFardoReport.resx">
+      <DependentUpon>EtiquetaFardoReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\PesadaDetalleReport.resx">
+      <DependentUpon>PesadaDetalleReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\RomaneoReport.resx">
+      <DependentUpon>RomaneoReport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SplashScreen1.resx">
       <DependentUpon>SplashScreen1.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
+    <None Include="pesadadet.xsc">
+      <DependentUpon>pesadadet.xsd</DependentUpon>
+    </None>
+    <None Include="pesadadet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>pesadadet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="pesadadet.xss">
+      <DependentUpon>pesadadet.xsd</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -190,6 +253,7 @@
   <ItemGroup>
     <None Include="Resources\SistemaCopat.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

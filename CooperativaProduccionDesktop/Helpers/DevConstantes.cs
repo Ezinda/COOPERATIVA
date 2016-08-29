@@ -10,6 +10,7 @@ namespace CooperativaProduccion
     {
         public static string Preingreso = "Preingreso";
         public static string Pesada = "Pesada";
+        public static string Kg = "Kg";
 
         #region Datos 
         

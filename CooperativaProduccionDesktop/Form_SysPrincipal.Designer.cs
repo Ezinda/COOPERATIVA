@@ -111,6 +111,7 @@
             this.btnClasificacion.Id = 3;
             this.btnClasificacion.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnClasificacion.LargeGlyph")));
             this.btnClasificacion.Name = "btnClasificacion";
+            this.btnClasificacion.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnClasificacion_ItemClick);
             // 
             // btnNuevoUsuario
             // 
