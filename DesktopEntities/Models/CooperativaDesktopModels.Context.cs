@@ -35,5 +35,7 @@ namespace DesktopEntities.Models
         public virtual DbSet<Vw_Pesada> Vw_Pesada { get; set; }
         public virtual DbSet<PesadaDetalle> PesadaDetalle { get; set; }
         public virtual DbSet<Movimiento> Movimiento { get; set; }
+        public virtual DbSet<ResumenPesada> ResumenPesada { get; set; }
+        public virtual DbSet<ResumenPesadaPorClase> ResumenPesadaPorClase { get; set; }
     }
 }

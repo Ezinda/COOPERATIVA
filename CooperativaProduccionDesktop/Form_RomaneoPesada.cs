@@ -13,6 +13,7 @@ using System.Data.Entity;
 using CooperativaProduccion.Reports;
 using System.Globalization;
 using DevExpress.XtraReports.UI;
+using CooperativaProduccion.ReportModels;
 
 namespace CooperativaProduccion
 {
@@ -572,6 +573,13 @@ namespace CooperativaProduccion
                 reporte.Parameters["Fecha"].Value = pesada.Fecha.Value
                     .ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
 
+                #region Subreport Fardos
+
+                List<RegistroFardo> datasourceFardo;
+                datasourceFardo = GenerarReporteFardo(PesadaId);
+                reporte.reportPesadaDetalle.ReportSource.DataSource = datasourceFardo;
+
+                #endregion
 
                 using (ReportPrintTool tool = new ReportPrintTool(reporte))
                 {
@@ -581,6 +589,26 @@ namespace CooperativaProduccion
                 }
             }
         }
-      
+        public List<RegistroFardo> GenerarReporteFardo(Guid PesadaId)
+        {
+            List<RegistroFardo> datasource = new List<RegistroFardo>();
+
+            var fardos = Context.Vw_Pesada
+                .Where(x => x.PesadaId == PesadaId)
+                .ToList();
+            
+
+            foreach (var fardo in fardos)
+            {
+                RegistroFardo registroFardos = new RegistroFardo();
+                registroFardos.NumFardo = fardo.NumFardo.ToString();
+                registroFardos.Clase = fardo.Clase;
+                registroFardos.Kilos = fardo.Kilos.ToString();
+
+                datasource.Add(registroFardos);
+            }
+            return datasource;
+        }
+
     }
 }

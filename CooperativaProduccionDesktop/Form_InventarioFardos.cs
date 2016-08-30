@@ -141,6 +141,12 @@ namespace CooperativaProduccion
                     txtNombre.Focus();
                 }
             }
+            if (e.KeyChar == 8)
+            {
+                txtFet.Text = string.Empty;
+                txtNombre.Text = string.Empty;
+                txtCuit.Text = string.Empty;
+            }
         }
 
         private void btnBuscarFet_Click(object sender, EventArgs e)
@@ -160,6 +166,12 @@ namespace CooperativaProduccion
                 {
                     txtFet.Focus();
                 }
+            }
+            if (e.KeyChar == 8)
+            {
+                txtFet.Text = string.Empty;
+                txtNombre.Text = string.Empty;
+                txtCuit.Text = string.Empty;
             }
         }
 

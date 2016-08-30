@@ -145,7 +145,6 @@
             // 
             // txtNumRomaneo
             // 
-            this.txtNumRomaneo.Enabled = false;
             this.txtNumRomaneo.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNumRomaneo.Location = new System.Drawing.Point(692, 24);
             this.txtNumRomaneo.Name = "txtNumRomaneo";
@@ -173,6 +172,7 @@
             // 
             // dpHasta
             // 
+            this.dpHasta.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dpHasta.Location = new System.Drawing.Point(262, 25);
             this.dpHasta.Name = "dpHasta";
             this.dpHasta.Size = new System.Drawing.Size(102, 21);
@@ -190,6 +190,7 @@
             // 
             // dpDesde
             // 
+            this.dpDesde.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dpDesde.Location = new System.Drawing.Point(83, 25);
             this.dpDesde.Name = "dpDesde";
             this.dpDesde.Size = new System.Drawing.Size(102, 21);
@@ -197,7 +198,6 @@
             // 
             // txtNumFardo
             // 
-            this.txtNumFardo.Enabled = false;
             this.txtNumFardo.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNumFardo.Location = new System.Drawing.Point(480, 24);
             this.txtNumFardo.Name = "txtNumFardo";

@@ -20,17 +20,17 @@ namespace CooperativaProduccion {
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
     [global::System.ComponentModel.ToolboxItem(true)]
     [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema")]
-    [global::System.Xml.Serialization.XmlRootAttribute("pesadadet")]
+    [global::System.Xml.Serialization.XmlRootAttribute("sdf")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
-    public partial class pesadadet : global::System.Data.DataSet {
+    public partial class sdf : global::System.Data.DataSet {
         
-        private Vw_PesadaDataTable tableVw_Pesada;
+        private ResumenPesadaPorClaseDataTable tableResumenPesadaPorClase;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public pesadadet() {
+        public sdf() {
             this.BeginInit();
             this.InitClass();
             global::System.ComponentModel.CollectionChangeEventHandler schemaChangedHandler = new global::System.ComponentModel.CollectionChangeEventHandler(this.SchemaChanged);
@@ -41,7 +41,7 @@ namespace CooperativaProduccion {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        protected pesadadet(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+        protected sdf(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                 base(info, context, false) {
             if ((this.IsBinarySerialized(info, context) == true)) {
                 this.InitVars(false);
@@ -54,8 +54,8 @@ namespace CooperativaProduccion {
             if ((this.DetermineSchemaSerializationMode(info, context) == global::System.Data.SchemaSerializationMode.IncludeSchema)) {
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXmlSchema(new global::System.Xml.XmlTextReader(new global::System.IO.StringReader(strSchema)));
-                if ((ds.Tables["Vw_Pesada"] != null)) {
-                    base.Tables.Add(new Vw_PesadaDataTable(ds.Tables["Vw_Pesada"]));
+                if ((ds.Tables["ResumenPesadaPorClase"] != null)) {
+                    base.Tables.Add(new ResumenPesadaPorClaseDataTable(ds.Tables["ResumenPesadaPorClase"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -79,9 +79,9 @@ namespace CooperativaProduccion {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public Vw_PesadaDataTable Vw_Pesada {
+        public ResumenPesadaPorClaseDataTable ResumenPesadaPorClase {
             get {
-                return this.tableVw_Pesada;
+                return this.tableResumenPesadaPorClase;
             }
         }
         
@@ -127,7 +127,7 @@ namespace CooperativaProduccion {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         public override global::System.Data.DataSet Clone() {
-            pesadadet cln = ((pesadadet)(base.Clone()));
+            sdf cln = ((sdf)(base.Clone()));
             cln.InitVars();
             cln.SchemaSerializationMode = this.SchemaSerializationMode;
             return cln;
@@ -152,8 +152,8 @@ namespace CooperativaProduccion {
                 this.Reset();
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXml(reader);
-                if ((ds.Tables["Vw_Pesada"] != null)) {
-                    base.Tables.Add(new Vw_PesadaDataTable(ds.Tables["Vw_Pesada"]));
+                if ((ds.Tables["ResumenPesadaPorClase"] != null)) {
+                    base.Tables.Add(new ResumenPesadaPorClaseDataTable(ds.Tables["ResumenPesadaPorClase"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -188,10 +188,10 @@ namespace CooperativaProduccion {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         internal void InitVars(bool initTable) {
-            this.tableVw_Pesada = ((Vw_PesadaDataTable)(base.Tables["Vw_Pesada"]));
+            this.tableResumenPesadaPorClase = ((ResumenPesadaPorClaseDataTable)(base.Tables["ResumenPesadaPorClase"]));
             if ((initTable == true)) {
-                if ((this.tableVw_Pesada != null)) {
-                    this.tableVw_Pesada.InitVars();
+                if ((this.tableResumenPesadaPorClase != null)) {
+                    this.tableResumenPesadaPorClase.InitVars();
                 }
             }
         }
@@ -199,17 +199,17 @@ namespace CooperativaProduccion {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitClass() {
-            this.DataSetName = "pesadadet";
+            this.DataSetName = "sdf";
             this.Prefix = "";
             this.EnforceConstraints = true;
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
-            this.tableVw_Pesada = new Vw_PesadaDataTable();
-            base.Tables.Add(this.tableVw_Pesada);
+            this.tableResumenPesadaPorClase = new ResumenPesadaPorClaseDataTable();
+            base.Tables.Add(this.tableResumenPesadaPorClase);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        private bool ShouldSerializeVw_Pesada() {
+        private bool ShouldSerializeResumenPesadaPorClase() {
             return false;
         }
         
@@ -224,7 +224,7 @@ namespace CooperativaProduccion {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedDataSetSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
-            pesadadet ds = new pesadadet();
+            sdf ds = new sdf();
             global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
             global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
             global::System.Xml.Schema.XmlSchemaAny any = new global::System.Xml.Schema.XmlSchemaAny();
@@ -269,47 +269,25 @@ namespace CooperativaProduccion {
         }
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public delegate void Vw_PesadaRowChangeEventHandler(object sender, Vw_PesadaRowChangeEvent e);
+        public delegate void ResumenPesadaPorClaseRowChangeEventHandler(object sender, ResumenPesadaPorClaseRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class Vw_PesadaDataTable : global::System.Data.TypedTableBase<Vw_PesadaRow> {
+        public partial class ResumenPesadaPorClaseDataTable : global::System.Data.TypedTableBase<ResumenPesadaPorClaseRow> {
             
             private global::System.Data.DataColumn columnPesadaId;
             
-            private global::System.Data.DataColumn columnPesadaDetalleId;
-            
-            private global::System.Data.DataColumn columnNumFardo;
-            
-            private global::System.Data.DataColumn columnContadorFardo;
-            
             private global::System.Data.DataColumn columnClase;
-            
-            private global::System.Data.DataColumn columnValor;
             
             private global::System.Data.DataColumn columnKilos;
             
-            private global::System.Data.DataColumn columnSubtotal;
-            
-            private global::System.Data.DataColumn columnFecha;
-            
-            private global::System.Data.DataColumn columnNumRomaneo;
-            
-            private global::System.Data.DataColumn columnProductor;
-            
-            private global::System.Data.DataColumn columnFet;
-            
-            private global::System.Data.DataColumn columnCuit;
-            
-            private global::System.Data.DataColumn columnProvincia;
-            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public Vw_PesadaDataTable() {
-                this.TableName = "Vw_Pesada";
+            public ResumenPesadaPorClaseDataTable() {
+                this.TableName = "ResumenPesadaPorClase";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
@@ -317,7 +295,7 @@ namespace CooperativaProduccion {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal Vw_PesadaDataTable(global::System.Data.DataTable table) {
+            internal ResumenPesadaPorClaseDataTable(global::System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -334,7 +312,7 @@ namespace CooperativaProduccion {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected Vw_PesadaDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+            protected ResumenPesadaPorClaseDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
             }
@@ -349,30 +327,6 @@ namespace CooperativaProduccion {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn PesadaDetalleIdColumn {
-                get {
-                    return this.columnPesadaDetalleId;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn NumFardoColumn {
-                get {
-                    return this.columnNumFardo;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn ContadorFardoColumn {
-                get {
-                    return this.columnContadorFardo;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public global::System.Data.DataColumn ClaseColumn {
                 get {
                     return this.columnClase;
@@ -381,73 +335,9 @@ namespace CooperativaProduccion {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn ValorColumn {
-                get {
-                    return this.columnValor;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public global::System.Data.DataColumn KilosColumn {
                 get {
                     return this.columnKilos;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn SubtotalColumn {
-                get {
-                    return this.columnSubtotal;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn FechaColumn {
-                get {
-                    return this.columnFecha;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn NumRomaneoColumn {
-                get {
-                    return this.columnNumRomaneo;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn ProductorColumn {
-                get {
-                    return this.columnProductor;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn FetColumn {
-                get {
-                    return this.columnFet;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn CuitColumn {
-                get {
-                    return this.columnCuit;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn ProvinciaColumn {
-                get {
-                    return this.columnProvincia;
                 }
             }
             
@@ -462,58 +352,54 @@ namespace CooperativaProduccion {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public Vw_PesadaRow this[int index] {
+            public ResumenPesadaPorClaseRow this[int index] {
                 get {
-                    return ((Vw_PesadaRow)(this.Rows[index]));
+                    return ((ResumenPesadaPorClaseRow)(this.Rows[index]));
                 }
             }
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event Vw_PesadaRowChangeEventHandler Vw_PesadaRowChanging;
+            public event ResumenPesadaPorClaseRowChangeEventHandler ResumenPesadaPorClaseRowChanging;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event Vw_PesadaRowChangeEventHandler Vw_PesadaRowChanged;
+            public event ResumenPesadaPorClaseRowChangeEventHandler ResumenPesadaPorClaseRowChanged;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event Vw_PesadaRowChangeEventHandler Vw_PesadaRowDeleting;
+            public event ResumenPesadaPorClaseRowChangeEventHandler ResumenPesadaPorClaseRowDeleting;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event Vw_PesadaRowChangeEventHandler Vw_PesadaRowDeleted;
+            public event ResumenPesadaPorClaseRowChangeEventHandler ResumenPesadaPorClaseRowDeleted;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void AddVw_PesadaRow(Vw_PesadaRow row) {
+            public void AddResumenPesadaPorClaseRow(ResumenPesadaPorClaseRow row) {
                 this.Rows.Add(row);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public Vw_PesadaRow AddVw_PesadaRow(System.Guid PesadaId, System.Guid PesadaDetalleId, long NumFardo, long ContadorFardo, string Clase, double Valor, double Kilos, decimal Subtotal, System.DateTime Fecha, long NumRomaneo, string Productor, string Fet, string Cuit, string Provincia) {
-                Vw_PesadaRow rowVw_PesadaRow = ((Vw_PesadaRow)(this.NewRow()));
+            public ResumenPesadaPorClaseRow AddResumenPesadaPorClaseRow(System.Guid PesadaId, string Clase, double Kilos) {
+                ResumenPesadaPorClaseRow rowResumenPesadaPorClaseRow = ((ResumenPesadaPorClaseRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         PesadaId,
-                        PesadaDetalleId,
-                        NumFardo,
-                        ContadorFardo,
                         Clase,
-                        Valor,
-                        Kilos,
-                        Subtotal,
-                        Fecha,
-                        NumRomaneo,
-                        Productor,
-                        Fet,
-                        Cuit,
-                        Provincia};
-                rowVw_PesadaRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowVw_PesadaRow);
-                return rowVw_PesadaRow;
+                        Kilos};
+                rowResumenPesadaPorClaseRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowResumenPesadaPorClaseRow);
+                return rowResumenPesadaPorClaseRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public ResumenPesadaPorClaseRow FindByPesadaId(System.Guid PesadaId) {
+                return ((ResumenPesadaPorClaseRow)(this.Rows.Find(new object[] {
+                            PesadaId})));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public override global::System.Data.DataTable Clone() {
-                Vw_PesadaDataTable cln = ((Vw_PesadaDataTable)(base.Clone()));
+                ResumenPesadaPorClaseDataTable cln = ((ResumenPesadaPorClaseDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
@@ -521,26 +407,15 @@ namespace CooperativaProduccion {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override global::System.Data.DataTable CreateInstance() {
-                return new Vw_PesadaDataTable();
+                return new ResumenPesadaPorClaseDataTable();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             internal void InitVars() {
                 this.columnPesadaId = base.Columns["PesadaId"];
-                this.columnPesadaDetalleId = base.Columns["PesadaDetalleId"];
-                this.columnNumFardo = base.Columns["NumFardo"];
-                this.columnContadorFardo = base.Columns["ContadorFardo"];
                 this.columnClase = base.Columns["Clase"];
-                this.columnValor = base.Columns["Valor"];
                 this.columnKilos = base.Columns["Kilos"];
-                this.columnSubtotal = base.Columns["Subtotal"];
-                this.columnFecha = base.Columns["Fecha"];
-                this.columnNumRomaneo = base.Columns["NumRomaneo"];
-                this.columnProductor = base.Columns["Productor"];
-                this.columnFet = base.Columns["Fet"];
-                this.columnCuit = base.Columns["Cuit"];
-                this.columnProvincia = base.Columns["Provincia"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -548,66 +423,41 @@ namespace CooperativaProduccion {
             private void InitClass() {
                 this.columnPesadaId = new global::System.Data.DataColumn("PesadaId", typeof(global::System.Guid), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnPesadaId);
-                this.columnPesadaDetalleId = new global::System.Data.DataColumn("PesadaDetalleId", typeof(global::System.Guid), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPesadaDetalleId);
-                this.columnNumFardo = new global::System.Data.DataColumn("NumFardo", typeof(long), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnNumFardo);
-                this.columnContadorFardo = new global::System.Data.DataColumn("ContadorFardo", typeof(long), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnContadorFardo);
                 this.columnClase = new global::System.Data.DataColumn("Clase", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnClase);
-                this.columnValor = new global::System.Data.DataColumn("Valor", typeof(double), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnValor);
                 this.columnKilos = new global::System.Data.DataColumn("Kilos", typeof(double), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnKilos);
-                this.columnSubtotal = new global::System.Data.DataColumn("Subtotal", typeof(decimal), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnSubtotal);
-                this.columnFecha = new global::System.Data.DataColumn("Fecha", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnFecha);
-                this.columnNumRomaneo = new global::System.Data.DataColumn("NumRomaneo", typeof(long), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnNumRomaneo);
-                this.columnProductor = new global::System.Data.DataColumn("Productor", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnProductor);
-                this.columnFet = new global::System.Data.DataColumn("Fet", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnFet);
-                this.columnCuit = new global::System.Data.DataColumn("Cuit", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnCuit);
-                this.columnProvincia = new global::System.Data.DataColumn("Provincia", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnProvincia);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
+                                this.columnPesadaId}, true));
                 this.columnPesadaId.AllowDBNull = false;
-                this.columnPesadaDetalleId.AllowDBNull = false;
+                this.columnPesadaId.Unique = true;
                 this.columnClase.MaxLength = 50;
-                this.columnSubtotal.ReadOnly = true;
-                this.columnProductor.MaxLength = 250;
-                this.columnFet.MaxLength = 150;
-                this.columnCuit.MaxLength = 150;
-                this.columnProvincia.MaxLength = 50;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public Vw_PesadaRow NewVw_PesadaRow() {
-                return ((Vw_PesadaRow)(this.NewRow()));
+            public ResumenPesadaPorClaseRow NewResumenPesadaPorClaseRow() {
+                return ((ResumenPesadaPorClaseRow)(this.NewRow()));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new Vw_PesadaRow(builder);
+                return new ResumenPesadaPorClaseRow(builder);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override global::System.Type GetRowType() {
-                return typeof(Vw_PesadaRow);
+                return typeof(ResumenPesadaPorClaseRow);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.Vw_PesadaRowChanged != null)) {
-                    this.Vw_PesadaRowChanged(this, new Vw_PesadaRowChangeEvent(((Vw_PesadaRow)(e.Row)), e.Action));
+                if ((this.ResumenPesadaPorClaseRowChanged != null)) {
+                    this.ResumenPesadaPorClaseRowChanged(this, new ResumenPesadaPorClaseRowChangeEvent(((ResumenPesadaPorClaseRow)(e.Row)), e.Action));
                 }
             }
             
@@ -615,8 +465,8 @@ namespace CooperativaProduccion {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.Vw_PesadaRowChanging != null)) {
-                    this.Vw_PesadaRowChanging(this, new Vw_PesadaRowChangeEvent(((Vw_PesadaRow)(e.Row)), e.Action));
+                if ((this.ResumenPesadaPorClaseRowChanging != null)) {
+                    this.ResumenPesadaPorClaseRowChanging(this, new ResumenPesadaPorClaseRowChangeEvent(((ResumenPesadaPorClaseRow)(e.Row)), e.Action));
                 }
             }
             
@@ -624,8 +474,8 @@ namespace CooperativaProduccion {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.Vw_PesadaRowDeleted != null)) {
-                    this.Vw_PesadaRowDeleted(this, new Vw_PesadaRowChangeEvent(((Vw_PesadaRow)(e.Row)), e.Action));
+                if ((this.ResumenPesadaPorClaseRowDeleted != null)) {
+                    this.ResumenPesadaPorClaseRowDeleted(this, new ResumenPesadaPorClaseRowChangeEvent(((ResumenPesadaPorClaseRow)(e.Row)), e.Action));
                 }
             }
             
@@ -633,14 +483,14 @@ namespace CooperativaProduccion {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.Vw_PesadaRowDeleting != null)) {
-                    this.Vw_PesadaRowDeleting(this, new Vw_PesadaRowChangeEvent(((Vw_PesadaRow)(e.Row)), e.Action));
+                if ((this.ResumenPesadaPorClaseRowDeleting != null)) {
+                    this.ResumenPesadaPorClaseRowDeleting(this, new ResumenPesadaPorClaseRowChangeEvent(((ResumenPesadaPorClaseRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void RemoveVw_PesadaRow(Vw_PesadaRow row) {
+            public void RemoveResumenPesadaPorClaseRow(ResumenPesadaPorClaseRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -649,7 +499,7 @@ namespace CooperativaProduccion {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                pesadadet ds = new pesadadet();
+                sdf ds = new sdf();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -667,7 +517,7 @@ namespace CooperativaProduccion {
                 type.Attributes.Add(attribute1);
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "Vw_PesadaDataTable";
+                attribute2.FixedValue = "ResumenPesadaPorClaseDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -711,68 +561,25 @@ namespace CooperativaProduccion {
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
-        public partial class Vw_PesadaRow : global::System.Data.DataRow {
+        public partial class ResumenPesadaPorClaseRow : global::System.Data.DataRow {
             
-            private Vw_PesadaDataTable tableVw_Pesada;
+            private ResumenPesadaPorClaseDataTable tableResumenPesadaPorClase;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal Vw_PesadaRow(global::System.Data.DataRowBuilder rb) : 
+            internal ResumenPesadaPorClaseRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
-                this.tableVw_Pesada = ((Vw_PesadaDataTable)(this.Table));
+                this.tableResumenPesadaPorClase = ((ResumenPesadaPorClaseDataTable)(this.Table));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public System.Guid PesadaId {
                 get {
-                    return ((global::System.Guid)(this[this.tableVw_Pesada.PesadaIdColumn]));
+                    return ((global::System.Guid)(this[this.tableResumenPesadaPorClase.PesadaIdColumn]));
                 }
                 set {
-                    this[this.tableVw_Pesada.PesadaIdColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public System.Guid PesadaDetalleId {
-                get {
-                    return ((global::System.Guid)(this[this.tableVw_Pesada.PesadaDetalleIdColumn]));
-                }
-                set {
-                    this[this.tableVw_Pesada.PesadaDetalleIdColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public long NumFardo {
-                get {
-                    try {
-                        return ((long)(this[this.tableVw_Pesada.NumFardoColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'NumFardo\' in table \'Vw_Pesada\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableVw_Pesada.NumFardoColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public long ContadorFardo {
-                get {
-                    try {
-                        return ((long)(this[this.tableVw_Pesada.ContadorFardoColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'ContadorFardo\' in table \'Vw_Pesada\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableVw_Pesada.ContadorFardoColumn] = value;
+                    this[this.tableResumenPesadaPorClase.PesadaIdColumn] = value;
                 }
             }
             
@@ -781,30 +588,14 @@ namespace CooperativaProduccion {
             public string Clase {
                 get {
                     try {
-                        return ((string)(this[this.tableVw_Pesada.ClaseColumn]));
+                        return ((string)(this[this.tableResumenPesadaPorClase.ClaseColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Clase\' in table \'Vw_Pesada\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Clase\' in table \'ResumenPesadaPorClase\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableVw_Pesada.ClaseColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public double Valor {
-                get {
-                    try {
-                        return ((double)(this[this.tableVw_Pesada.ValorColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Valor\' in table \'Vw_Pesada\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableVw_Pesada.ValorColumn] = value;
+                    this[this.tableResumenPesadaPorClase.ClaseColumn] = value;
                 }
             }
             
@@ -813,271 +604,39 @@ namespace CooperativaProduccion {
             public double Kilos {
                 get {
                     try {
-                        return ((double)(this[this.tableVw_Pesada.KilosColumn]));
+                        return ((double)(this[this.tableResumenPesadaPorClase.KilosColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Kilos\' in table \'Vw_Pesada\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Kilos\' in table \'ResumenPesadaPorClase\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableVw_Pesada.KilosColumn] = value;
+                    this[this.tableResumenPesadaPorClase.KilosColumn] = value;
                 }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public decimal Subtotal {
-                get {
-                    try {
-                        return ((decimal)(this[this.tableVw_Pesada.SubtotalColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Subtotal\' in table \'Vw_Pesada\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableVw_Pesada.SubtotalColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public System.DateTime Fecha {
-                get {
-                    try {
-                        return ((global::System.DateTime)(this[this.tableVw_Pesada.FechaColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Fecha\' in table \'Vw_Pesada\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableVw_Pesada.FechaColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public long NumRomaneo {
-                get {
-                    try {
-                        return ((long)(this[this.tableVw_Pesada.NumRomaneoColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'NumRomaneo\' in table \'Vw_Pesada\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableVw_Pesada.NumRomaneoColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string Productor {
-                get {
-                    try {
-                        return ((string)(this[this.tableVw_Pesada.ProductorColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Productor\' in table \'Vw_Pesada\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableVw_Pesada.ProductorColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string Fet {
-                get {
-                    try {
-                        return ((string)(this[this.tableVw_Pesada.FetColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Fet\' in table \'Vw_Pesada\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableVw_Pesada.FetColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string Cuit {
-                get {
-                    try {
-                        return ((string)(this[this.tableVw_Pesada.CuitColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Cuit\' in table \'Vw_Pesada\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableVw_Pesada.CuitColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string Provincia {
-                get {
-                    try {
-                        return ((string)(this[this.tableVw_Pesada.ProvinciaColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Provincia\' in table \'Vw_Pesada\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableVw_Pesada.ProvinciaColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsNumFardoNull() {
-                return this.IsNull(this.tableVw_Pesada.NumFardoColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetNumFardoNull() {
-                this[this.tableVw_Pesada.NumFardoColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsContadorFardoNull() {
-                return this.IsNull(this.tableVw_Pesada.ContadorFardoColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetContadorFardoNull() {
-                this[this.tableVw_Pesada.ContadorFardoColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsClaseNull() {
-                return this.IsNull(this.tableVw_Pesada.ClaseColumn);
+                return this.IsNull(this.tableResumenPesadaPorClase.ClaseColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetClaseNull() {
-                this[this.tableVw_Pesada.ClaseColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsValorNull() {
-                return this.IsNull(this.tableVw_Pesada.ValorColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetValorNull() {
-                this[this.tableVw_Pesada.ValorColumn] = global::System.Convert.DBNull;
+                this[this.tableResumenPesadaPorClase.ClaseColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsKilosNull() {
-                return this.IsNull(this.tableVw_Pesada.KilosColumn);
+                return this.IsNull(this.tableResumenPesadaPorClase.KilosColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetKilosNull() {
-                this[this.tableVw_Pesada.KilosColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsSubtotalNull() {
-                return this.IsNull(this.tableVw_Pesada.SubtotalColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetSubtotalNull() {
-                this[this.tableVw_Pesada.SubtotalColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsFechaNull() {
-                return this.IsNull(this.tableVw_Pesada.FechaColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetFechaNull() {
-                this[this.tableVw_Pesada.FechaColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsNumRomaneoNull() {
-                return this.IsNull(this.tableVw_Pesada.NumRomaneoColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetNumRomaneoNull() {
-                this[this.tableVw_Pesada.NumRomaneoColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsProductorNull() {
-                return this.IsNull(this.tableVw_Pesada.ProductorColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetProductorNull() {
-                this[this.tableVw_Pesada.ProductorColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsFetNull() {
-                return this.IsNull(this.tableVw_Pesada.FetColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetFetNull() {
-                this[this.tableVw_Pesada.FetColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsCuitNull() {
-                return this.IsNull(this.tableVw_Pesada.CuitColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetCuitNull() {
-                this[this.tableVw_Pesada.CuitColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsProvinciaNull() {
-                return this.IsNull(this.tableVw_Pesada.ProvinciaColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetProvinciaNull() {
-                this[this.tableVw_Pesada.ProvinciaColumn] = global::System.Convert.DBNull;
+                this[this.tableResumenPesadaPorClase.KilosColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -1085,22 +644,22 @@ namespace CooperativaProduccion {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public class Vw_PesadaRowChangeEvent : global::System.EventArgs {
+        public class ResumenPesadaPorClaseRowChangeEvent : global::System.EventArgs {
             
-            private Vw_PesadaRow eventRow;
+            private ResumenPesadaPorClaseRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public Vw_PesadaRowChangeEvent(Vw_PesadaRow row, global::System.Data.DataRowAction action) {
+            public ResumenPesadaPorClaseRowChangeEvent(ResumenPesadaPorClaseRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public Vw_PesadaRow Row {
+            public ResumenPesadaPorClaseRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -1116,7 +675,7 @@ namespace CooperativaProduccion {
         }
     }
 }
-namespace CooperativaProduccion.pesadadetTableAdapters {
+namespace CooperativaProduccion.sdfTableAdapters {
     
     
     /// <summary>
@@ -1128,7 +687,7 @@ namespace CooperativaProduccion.pesadadetTableAdapters {
     [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
         ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-    public partial class Vw_PesadaAdapter : global::System.ComponentModel.Component {
+    public partial class ResumenPesadaPorClaseAdapter : global::System.ComponentModel.Component {
         
         private global::System.Data.SqlClient.SqlDataAdapter _adapter;
         
@@ -1140,7 +699,7 @@ namespace CooperativaProduccion.pesadadetTableAdapters {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public Vw_PesadaAdapter() {
+        public ResumenPesadaPorClaseAdapter() {
             this.ClearBeforeFill = true;
         }
         
@@ -1211,21 +770,10 @@ namespace CooperativaProduccion.pesadadetTableAdapters {
             this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
             global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
             tableMapping.SourceTable = "Table";
-            tableMapping.DataSetTable = "Vw_Pesada";
+            tableMapping.DataSetTable = "ResumenPesadaPorClase";
             tableMapping.ColumnMappings.Add("PesadaId", "PesadaId");
-            tableMapping.ColumnMappings.Add("PesadaDetalleId", "PesadaDetalleId");
-            tableMapping.ColumnMappings.Add("NumFardo", "NumFardo");
-            tableMapping.ColumnMappings.Add("ContadorFardo", "ContadorFardo");
             tableMapping.ColumnMappings.Add("Clase", "Clase");
-            tableMapping.ColumnMappings.Add("Valor", "Valor");
             tableMapping.ColumnMappings.Add("Kilos", "Kilos");
-            tableMapping.ColumnMappings.Add("Subtotal", "Subtotal");
-            tableMapping.ColumnMappings.Add("Fecha", "Fecha");
-            tableMapping.ColumnMappings.Add("NumRomaneo", "NumRomaneo");
-            tableMapping.ColumnMappings.Add("Productor", "Productor");
-            tableMapping.ColumnMappings.Add("Fet", "Fet");
-            tableMapping.ColumnMappings.Add("Cuit", "Cuit");
-            tableMapping.ColumnMappings.Add("Provincia", "Provincia");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -1243,8 +791,7 @@ namespace CooperativaProduccion.pesadadetTableAdapters {
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT PesadaId, PesadaDetalleId, NumFardo, ContadorFardo, Clase, Valor, Kilos, S" +
-                "ubtotal, Fecha, NumRomaneo, Productor, Fet, Cuit, Provincia FROM dbo.Vw_Pesada";
+            this._commandCollection[0].CommandText = "SELECT PesadaId, Clase, Kilos FROM dbo.ResumenPesadaPorClase";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -1252,7 +799,7 @@ namespace CooperativaProduccion.pesadadetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(pesadadet.Vw_PesadaDataTable dataTable) {
+        public virtual int Fill(sdf.ResumenPesadaPorClaseDataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -1265,9 +812,9 @@ namespace CooperativaProduccion.pesadadetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual pesadadet.Vw_PesadaDataTable GetData() {
+        public virtual sdf.ResumenPesadaPorClaseDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            pesadadet.Vw_PesadaDataTable dataTable = new pesadadet.Vw_PesadaDataTable();
+            sdf.ResumenPesadaPorClaseDataTable dataTable = new sdf.ResumenPesadaPorClaseDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }

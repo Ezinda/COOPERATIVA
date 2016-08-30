@@ -10,6 +10,7 @@ using DevExpress.XtraBars;
 using DesktopEntities.Models;
 using System.Threading;
 using DevExpress.XtraSplashScreen;
+using DevExpress.XtraReports.UI;
 
 namespace CooperativaProduccion
 {
@@ -198,6 +199,15 @@ namespace CooperativaProduccion
 
         private void btnClasificacion_ItemClick(object sender, ItemClickEventArgs e)
         {
+            //var reporte = new PesadaDetalleReport();
+           
+
+            //using (ReportPrintTool tool = new ReportPrintTool(reporte))
+            //{
+            //    reporte.ShowPreviewMarginLines = false;
+            //    tool.PreviewForm.Text = "Etiqueta";
+            //    tool.ShowPreviewDialog();
+            //}
             var reclasificacion = new Form_RomaneoReclasificacion();
             reclasificacion.Show();
         }

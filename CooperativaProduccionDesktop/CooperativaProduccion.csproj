@@ -128,10 +128,12 @@
     <Compile Include="Interface\IEnlace.cs" />
     <Compile Include="Interface\IEnlaceActualizarHistorico.cs" />
     <Compile Include="Interface\IEnlaceNovedades.cs" />
-    <Compile Include="pesadadet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>pesadadet.xsd</DependentUpon>
+    <Compile Include="ReportModels\RegistroFardo.cs" />
+    <Compile Include="Reports\PesadaDetalleReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\PesadaDetalleReport.Designer.cs">
+      <DependentUpon>PesadaDetalleReport.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -148,17 +150,22 @@
     <Compile Include="Reports\EtiquetaFardoReport.Designer.cs">
       <DependentUpon>EtiquetaFardoReport.cs</DependentUpon>
     </Compile>
-    <Compile Include="Reports\PesadaDetalleReport.cs">
+    <Compile Include="Reports\PesadaResumenPorCajaReport.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Reports\PesadaDetalleReport.Designer.cs">
-      <DependentUpon>PesadaDetalleReport.cs</DependentUpon>
+    <Compile Include="Reports\PesadaResumenPorCajaReport.Designer.cs">
+      <DependentUpon>PesadaResumenPorCajaReport.cs</DependentUpon>
     </Compile>
     <Compile Include="Reports\RomaneoReport.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\RomaneoReport.Designer.cs">
       <DependentUpon>RomaneoReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="sdf.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>sdf.xsd</DependentUpon>
     </Compile>
     <Compile Include="SplashScreen1.cs">
       <SubType>Form</SubType>
@@ -193,6 +200,9 @@
     <EmbeddedResource Include="Form_SysPrincipal.resx">
       <DependentUpon>Form_SysPrincipal.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\PesadaDetalleReport.resx">
+      <DependentUpon>PesadaDetalleReport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -210,8 +220,8 @@
     <EmbeddedResource Include="Reports\EtiquetaFardoReport.resx">
       <DependentUpon>EtiquetaFardoReport.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports\PesadaDetalleReport.resx">
-      <DependentUpon>PesadaDetalleReport.cs</DependentUpon>
+    <EmbeddedResource Include="Reports\PesadaResumenPorCajaReport.resx">
+      <DependentUpon>PesadaResumenPorCajaReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\RomaneoReport.resx">
       <DependentUpon>RomaneoReport.cs</DependentUpon>
@@ -220,17 +230,7 @@
       <DependentUpon>SplashScreen1.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
-    <None Include="pesadadet.xsc">
-      <DependentUpon>pesadadet.xsd</DependentUpon>
-    </None>
-    <None Include="pesadadet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>pesadadet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="pesadadet.xss">
-      <DependentUpon>pesadadet.xsd</DependentUpon>
-    </None>
+    <None Include="Properties\DataSources\CooperativaProduccion.ReportModels.RegistroFardo.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -240,6 +240,17 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="sdf.xsc">
+      <DependentUpon>sdf.xsd</DependentUpon>
+    </None>
+    <None Include="sdf.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>sdf.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="sdf.xss">
+      <DependentUpon>sdf.xsd</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -4,11 +4,11 @@ using System.Collections;
 using System.ComponentModel;
 using DevExpress.XtraReports.UI;
 
-namespace CooperativaProduccion
+namespace CooperativaProduccion.Reports
 {
-    public partial class PesadaDetalleReport : DevExpress.XtraReports.UI.XtraReport
+    public partial class PesadaResumenPorCajaReport : DevExpress.XtraReports.UI.XtraReport
     {
-        public PesadaDetalleReport()
+        public PesadaResumenPorCajaReport()
         {
             InitializeComponent();
         }
