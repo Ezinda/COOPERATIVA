@@ -234,6 +234,7 @@
             this.btnBuscar.Size = new System.Drawing.Size(106, 35);
             this.btnBuscar.TabIndex = 39;
             this.btnBuscar.Text = "Buscar";
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // groupControl3
             // 

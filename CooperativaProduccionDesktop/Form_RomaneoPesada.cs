@@ -14,6 +14,8 @@ using CooperativaProduccion.Reports;
 using System.Globalization;
 using DevExpress.XtraReports.UI;
 using CooperativaProduccion.ReportModels;
+using System.Data.SqlClient;
+using System.Configuration;
 
 namespace CooperativaProduccion
 {
@@ -23,6 +25,9 @@ namespace CooperativaProduccion
         private Guid ProductorId;
         private Guid PesadaId;
         Form_RomaneoPesadaMostrador pesadaMostrador;
+        private string totalfardo;
+        private string totalkilo;
+        private string importebruto;
         
         public Form_RomaneoPesada()
         {
@@ -437,6 +442,9 @@ namespace CooperativaProduccion
             {
                 return;
             }
+            totalfardo = txtTotalFardo.Text;
+            totalkilo = txtTotalKilo.Text;
+            importebruto = txtImporteBruto.Text;
             ActualizarPesada(PesadaId);
             Limpiar();
             ImpimirRomaneo(PesadaId);
@@ -581,6 +589,22 @@ namespace CooperativaProduccion
 
                 #endregion
 
+                #region Subreport Clase
+
+                List<RegistroPesada> datasourcePesada;
+                datasourcePesada = GenerarReporteClase(PesadaId);
+                reporte.reportDetalleClase.ReportSource.DataSource = datasourcePesada;
+
+                #endregion
+
+                #region Parametros Totales
+
+                reporte.Parameters["totalfardo"].Value = totalfardo;
+                reporte.Parameters["totalKilos"].Value = totalkilo;
+                reporte.Parameters["ImporteBruto"].Value = importebruto;
+
+                #endregion
+
                 using (ReportPrintTool tool = new ReportPrintTool(reporte))
                 {
                     reporte.ShowPreviewMarginLines = false;
@@ -589,6 +613,7 @@ namespace CooperativaProduccion
                 }
             }
         }
+
         public List<RegistroFardo> GenerarReporteFardo(Guid PesadaId)
         {
             List<RegistroFardo> datasource = new List<RegistroFardo>();
@@ -608,6 +633,47 @@ namespace CooperativaProduccion
                 datasource.Add(registroFardos);
             }
             return datasource;
+        }
+
+        public List<RegistroPesada> GenerarReporteClase(Guid PesadaId)
+        {
+            List<RegistroPesada> datasource = new List<RegistroPesada>();
+            DataTable dt = new DataTable();
+            using (SqlConnection conn = new SqlConnection("server=25.120.114.66;database=CooperativaProduccion;uid=fs1;password=1;Connection Timeout=30"))
+            {
+                conn.Open();
+
+                string sql = @"SELECT * FROM dbo.Vw_ResumenPesadaPorClase where PesadaId='" + PesadaId + "'";
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(dt);
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    RegistroPesada registroFardos = new RegistroPesada();
+                    registroFardos.Clase = row["Clase"].ToString();
+                    registroFardos.Kilos = row["Kilos"].ToString();
+
+                    datasource.Add(registroFardos);
+                }
+
+                return datasource;
+            }
+
+            //var fardos = Context.Vw_ResumenPesadaPorClase.AsEnumerable()
+            //    .Where(x => x.PesadaId == PesadaId)
+            //    .ToList();
+
+            //foreach (var fardo in fardos)
+            //{
+            //    RegistroPesada registroFardos = new RegistroPesada();
+            //    registroFardos.Clase = fardo.Clase;
+            //    registroFardos.Kilos = fardo.Kilos.ToString();
+
+            //    datasource.Add(registroFardos);
+            //}
+            //return datasource;
         }
 
     }

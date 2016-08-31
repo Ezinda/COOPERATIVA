@@ -12,10 +12,11 @@ namespace DesktopEntities.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ResumenPesadaPorClase
+    public partial class Vw_ResumenPesada
     {
         public System.Guid PesadaId { get; set; }
-        public string Clase { get; set; }
-        public Nullable<double> Kilos { get; set; }
+        public Nullable<int> totalfardo { get; set; }
+        public Nullable<double> kilos { get; set; }
+        public Nullable<decimal> Subtotal { get; set; }
     }
 }

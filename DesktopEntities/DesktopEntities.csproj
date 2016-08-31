@@ -85,19 +85,22 @@
     <Compile Include="Models\Productor.cs">
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ResumenPesada.cs">
-      <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ResumenPesadaPorClase.cs">
-      <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Usuario.cs">
+      <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Vw_Movimiento.cs">
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Vw_Pesada.cs">
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Vw_Preingreso.cs">
+      <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Vw_ResumenPesada.cs">
+      <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Vw_ResumenPesadaPorClase.cs">
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

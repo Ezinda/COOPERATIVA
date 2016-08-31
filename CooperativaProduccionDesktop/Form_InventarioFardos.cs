@@ -180,5 +180,37 @@ namespace CooperativaProduccion
             Buscar();
         }
 
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            var result = (
+                from a in Context.Vw_Movimiento
+                select new
+                {
+
+                   a.Id,
+      a.NumFardo,
+      a.Clase,
+      a.Kilos,
+      a.NumRomaneo,
+      a.Productor,
+      a.Fet,
+      a.Cuit,
+      a.Provincia,
+      a.Fecha,
+      a.Unidad,
+      a.Ingreso,
+      a.Egreso
+                })
+                .OrderBy(x => x.Fecha)
+                .ToList();
+
+            if (result.Count > 0)
+            {
+                gridControlFardos.DataSource = result;
+                gridViewFardos.Columns[0].Visible = false;
+            }
+
+        }
+
    }
 }

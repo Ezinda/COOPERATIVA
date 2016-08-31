@@ -9,6 +9,6 @@ namespace CooperativaProduccion.ReportModels
     {
         public long NumFardo { get; set; }
         public string Clase { get; set; }
-        public double Kilos { get; set; }
+        public string Kilos { get; set; }
     }
 }

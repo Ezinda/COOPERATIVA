@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             this.Detail = new DevExpress.XtraReports.UI.DetailBand();
+            this.reportDetalleClase = new DevExpress.XtraReports.UI.XRSubreport();
+            this.xrLine1 = new DevExpress.XtraReports.UI.XRLine();
+            this.reportPesadaDetalle = new DevExpress.XtraReports.UI.XRSubreport();
             this.TopMargin = new DevExpress.XtraReports.UI.TopMarginBand();
             this.BottomMargin = new DevExpress.XtraReports.UI.BottomMarginBand();
             this.ReportHeader = new DevExpress.XtraReports.UI.ReportHeaderBand();
@@ -53,19 +56,57 @@
             this.NumRomaneo = new DevExpress.XtraReports.Parameters.Parameter();
             this.xrLabel2 = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLabel1 = new DevExpress.XtraReports.UI.XRLabel();
-            this.reportPesadaDetalle = new DevExpress.XtraReports.UI.XRSubreport();
-            this.xrLine1 = new DevExpress.XtraReports.UI.XRLine();
+            this.xrLine2 = new DevExpress.XtraReports.UI.XRLine();
+            this.xrLabel16 = new DevExpress.XtraReports.UI.XRLabel();
+            this.xrLabel17 = new DevExpress.XtraReports.UI.XRLabel();
+            this.xrLabel18 = new DevExpress.XtraReports.UI.XRLabel();
+            this.xrLabel19 = new DevExpress.XtraReports.UI.XRLabel();
+            this.xrLabel20 = new DevExpress.XtraReports.UI.XRLabel();
+            this.xrLabel21 = new DevExpress.XtraReports.UI.XRLabel();
+            this.totalfardo = new DevExpress.XtraReports.Parameters.Parameter();
+            this.totalKilos = new DevExpress.XtraReports.Parameters.Parameter();
+            this.ImporteBruto = new DevExpress.XtraReports.Parameters.Parameter();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // Detail
             // 
             this.Detail.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
+            this.xrLabel16,
+            this.xrLabel17,
+            this.xrLabel18,
+            this.xrLabel19,
+            this.xrLabel20,
+            this.xrLabel21,
+            this.xrLine2,
+            this.reportDetalleClase,
             this.xrLine1,
             this.reportPesadaDetalle});
-            this.Detail.HeightF = 298.9583F;
+            this.Detail.HeightF = 318.75F;
             this.Detail.Name = "Detail";
             this.Detail.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100F);
             this.Detail.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft;
+            // 
+            // reportDetalleClase
+            // 
+            this.reportDetalleClase.Id = 0;
+            this.reportDetalleClase.LocationFloat = new DevExpress.Utils.PointFloat(192.7083F, 156.4166F);
+            this.reportDetalleClase.Name = "reportDetalleClase";
+            this.reportDetalleClase.ReportSource = new CooperativaProduccion.Reports.PesadaResumenPorCajaReport();
+            this.reportDetalleClase.SizeF = new System.Drawing.SizeF(295.8333F, 82.37502F);
+            // 
+            // xrLine1
+            // 
+            this.xrLine1.LocationFloat = new DevExpress.Utils.PointFloat(7.000001F, 144.9583F);
+            this.xrLine1.Name = "xrLine1";
+            this.xrLine1.SizeF = new System.Drawing.SizeF(704.9999F, 9.458328F);
+            // 
+            // reportPesadaDetalle
+            // 
+            this.reportPesadaDetalle.Id = 0;
+            this.reportPesadaDetalle.LocationFloat = new DevExpress.Utils.PointFloat(7.000001F, 3.00001F);
+            this.reportPesadaDetalle.Name = "reportPesadaDetalle";
+            this.reportPesadaDetalle.ReportSource = new CooperativaProduccion.PesadaDetalleReport();
+            this.reportPesadaDetalle.SizeF = new System.Drawing.SizeF(705F, 139.6667F);
             // 
             // TopMargin
             // 
@@ -318,19 +359,101 @@
             this.xrLabel1.Text = "\"COOPERATIVA DE PRODUCTORES AGROPECUARIOS DEL TUCUMAN LTDA.\"";
             this.xrLabel1.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
             // 
-            // reportPesadaDetalle
+            // xrLine2
             // 
-            this.reportPesadaDetalle.Id = 0;
-            this.reportPesadaDetalle.LocationFloat = new DevExpress.Utils.PointFloat(7.000001F, 3.00001F);
-            this.reportPesadaDetalle.Name = "reportPesadaDetalle";
-            this.reportPesadaDetalle.ReportSource = new CooperativaProduccion.PesadaDetalleReport();
-            this.reportPesadaDetalle.SizeF = new System.Drawing.SizeF(705F, 139.6667F);
+            this.xrLine2.LocationFloat = new DevExpress.Utils.PointFloat(0F, 238.7917F);
+            this.xrLine2.Name = "xrLine2";
+            this.xrLine2.SizeF = new System.Drawing.SizeF(704.9999F, 9.458328F);
             // 
-            // xrLine1
+            // xrLabel16
             // 
-            this.xrLine1.LocationFloat = new DevExpress.Utils.PointFloat(7.000001F, 144.9583F);
-            this.xrLine1.Name = "xrLine1";
-            this.xrLine1.SizeF = new System.Drawing.SizeF(704.9999F, 9.458328F);
+            this.xrLabel16.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.xrLabel16.LocationFloat = new DevExpress.Utils.PointFloat(195.125F, 259.0416F);
+            this.xrLabel16.Name = "xrLabel16";
+            this.xrLabel16.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.xrLabel16.SizeF = new System.Drawing.SizeF(68.33344F, 14.125F);
+            this.xrLabel16.StylePriority.UseFont = false;
+            this.xrLabel16.StylePriority.UseTextAlignment = false;
+            this.xrLabel16.Text = "Total Fardos:";
+            this.xrLabel16.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft;
+            // 
+            // xrLabel17
+            // 
+            this.xrLabel17.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.xrLabel17.LocationFloat = new DevExpress.Utils.PointFloat(195.125F, 277.1666F);
+            this.xrLabel17.Name = "xrLabel17";
+            this.xrLabel17.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.xrLabel17.SizeF = new System.Drawing.SizeF(68.33344F, 14.125F);
+            this.xrLabel17.StylePriority.UseFont = false;
+            this.xrLabel17.StylePriority.UseTextAlignment = false;
+            this.xrLabel17.Text = "Total Kilos:";
+            this.xrLabel17.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft;
+            // 
+            // xrLabel18
+            // 
+            this.xrLabel18.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.xrLabel18.LocationFloat = new DevExpress.Utils.PointFloat(195.125F, 295.2917F);
+            this.xrLabel18.Name = "xrLabel18";
+            this.xrLabel18.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.xrLabel18.SizeF = new System.Drawing.SizeF(68.33344F, 13.45834F);
+            this.xrLabel18.StylePriority.UseFont = false;
+            this.xrLabel18.StylePriority.UseTextAlignment = false;
+            this.xrLabel18.Text = "Importe Bruto (Sin I.V.A):";
+            this.xrLabel18.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft;
+            // 
+            // xrLabel19
+            // 
+            this.xrLabel19.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
+            new DevExpress.XtraReports.UI.XRBinding(this.ImporteBruto, "Text", "")});
+            this.xrLabel19.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.xrLabel19.LocationFloat = new DevExpress.Utils.PointFloat(266.7916F, 295.2917F);
+            this.xrLabel19.Name = "xrLabel19";
+            this.xrLabel19.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.xrLabel19.SizeF = new System.Drawing.SizeF(249.5834F, 13.45834F);
+            this.xrLabel19.StylePriority.UseFont = false;
+            this.xrLabel19.StylePriority.UseTextAlignment = false;
+            this.xrLabel19.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft;
+            // 
+            // xrLabel20
+            // 
+            this.xrLabel20.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
+            new DevExpress.XtraReports.UI.XRBinding(this.totalKilos, "Text", "")});
+            this.xrLabel20.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.xrLabel20.LocationFloat = new DevExpress.Utils.PointFloat(266.7916F, 277.1666F);
+            this.xrLabel20.Name = "xrLabel20";
+            this.xrLabel20.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.xrLabel20.SizeF = new System.Drawing.SizeF(113.1251F, 14.125F);
+            this.xrLabel20.StylePriority.UseFont = false;
+            this.xrLabel20.StylePriority.UseTextAlignment = false;
+            this.xrLabel20.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft;
+            // 
+            // xrLabel21
+            // 
+            this.xrLabel21.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
+            new DevExpress.XtraReports.UI.XRBinding(this.totalfardo, "Text", "")});
+            this.xrLabel21.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.xrLabel21.LocationFloat = new DevExpress.Utils.PointFloat(266.7916F, 259.0416F);
+            this.xrLabel21.Name = "xrLabel21";
+            this.xrLabel21.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.xrLabel21.SizeF = new System.Drawing.SizeF(249.5834F, 14.125F);
+            this.xrLabel21.StylePriority.UseFont = false;
+            this.xrLabel21.StylePriority.UseTextAlignment = false;
+            this.xrLabel21.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft;
+            // 
+            // totalfardo
+            // 
+            this.totalfardo.Name = "totalfardo";
+            this.totalfardo.Visible = false;
+            // 
+            // totalKilos
+            // 
+            this.totalKilos.Name = "totalKilos";
+            this.totalKilos.Visible = false;
+            // 
+            // ImporteBruto
+            // 
+            this.ImporteBruto.Name = "ImporteBruto";
+            this.ImporteBruto.Visible = false;
             // 
             // RomaneoReport
             // 
@@ -349,7 +472,10 @@
             this.Fet,
             this.Localidad,
             this.Provincia,
-            this.Fecha});
+            this.Fecha,
+            this.totalfardo,
+            this.totalKilos,
+            this.ImporteBruto});
             this.Version = "13.2";
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
@@ -384,5 +510,16 @@
         private DevExpress.XtraReports.Parameters.Parameter Fecha;
         public DevExpress.XtraReports.UI.XRSubreport reportPesadaDetalle;
         private DevExpress.XtraReports.UI.XRLine xrLine1;
+        public DevExpress.XtraReports.UI.XRSubreport reportDetalleClase;
+        private DevExpress.XtraReports.UI.XRLabel xrLabel16;
+        private DevExpress.XtraReports.UI.XRLabel xrLabel17;
+        private DevExpress.XtraReports.UI.XRLabel xrLabel18;
+        private DevExpress.XtraReports.UI.XRLabel xrLabel19;
+        private DevExpress.XtraReports.Parameters.Parameter ImporteBruto;
+        private DevExpress.XtraReports.UI.XRLabel xrLabel20;
+        private DevExpress.XtraReports.Parameters.Parameter totalKilos;
+        private DevExpress.XtraReports.UI.XRLabel xrLabel21;
+        private DevExpress.XtraReports.Parameters.Parameter totalfardo;
+        private DevExpress.XtraReports.UI.XRLine xrLine2;
     }
 }
