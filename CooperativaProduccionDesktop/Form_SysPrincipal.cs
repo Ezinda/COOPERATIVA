@@ -11,6 +11,8 @@ using DesktopEntities.Models;
 using System.Threading;
 using DevExpress.XtraSplashScreen;
 using DevExpress.XtraReports.UI;
+using System.Net;
+using System.IO;
 
 namespace CooperativaProduccion
 {
@@ -210,6 +212,36 @@ namespace CooperativaProduccion
             //}
             var reclasificacion = new Form_RomaneoReclasificacion();
             reclasificacion.Show();
+        }
+
+        private void barButtonItem1_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            byte[] zpl = Encoding.UTF8.GetBytes("^xa^cfa,50^fo100,100^fdHello World^fs^xz");
+
+            // adjust print density (8dpmm), label width (4 inches), label height (6 inches), and label index (0) as necessary
+            var request = (HttpWebRequest)WebRequest.Create("http://api.labelary.com/v1/printers/8dpmm/labels/4x6/0/");
+            request.Method = "POST";
+            request.Accept = "application/pdf"; // omit this line to get PNG images back
+            request.ContentType = "application/x-www-form-urlencoded";
+            request.ContentLength = zpl.Length;
+
+            var requestStream = request.GetRequestStream();
+            requestStream.Write(zpl, 0, zpl.Length);
+            requestStream.Close();
+
+            try
+            {
+                var response = (HttpWebResponse)request.GetResponse();
+                var responseStream = response.GetResponseStream();
+                var fileStream = File.Create("label.pdf"); // change file name for PNG images
+                responseStream.CopyTo(fileStream);
+                responseStream.Close();
+                fileStream.Close();
+            }
+            catch (WebException se)
+            {
+                Console.WriteLine("Error: {0}", se.Status);
+            }
         }
     }
 }

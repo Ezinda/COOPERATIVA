@@ -365,6 +365,7 @@ namespace CooperativaProduccion
         {
             var result = (
                    from a in Context.Vw_Pesada
+                       .Where(x=>x.PesadaId == PesadaId)
                    select new
                    {
                        ID = a.PesadaDetalleId,
