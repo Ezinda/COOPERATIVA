@@ -30,6 +30,54 @@ namespace CooperativaProduccion
             SolicitarCredenciales(_CurrentUser);
             CloseSessionForm();
         }
+        
+        #region Method Code
+
+        private void btnNuevoUsuario_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var nuevoUsuario = new Form_SeguridadNuevoUsuario();
+            nuevoUsuario.Show();
+        }
+
+        private void btnVerUsuario_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var verUsuario = new Form_SeguridadGestionUsuario();
+            verUsuario.Show();
+        }
+
+        private void btnPreingreso_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var preingreso = new Form_RomaneoPreingreso();
+            preingreso.Show();
+        }
+
+        private void btnPesada_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var pesada = new Form_RomaneoPesada();
+            pesada.Show();
+        }
+
+        private void btnFardos_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var fardos = new Form_InventarioFardos();
+            fardos.Show();
+        }
+
+        private void btnClasificacion_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var reclasificacion = new Form_RomaneoReclasificacion();
+            reclasificacion.Show();
+        }
+
+        private void btnListaPrecio_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var listaPrecio = new Form_AdministracionListaPrecio();
+            listaPrecio.Show();
+        }
+
+        #endregion
+
+        #region Method Dev
 
         private Usuario CheckCredentials()
         {
@@ -49,7 +97,7 @@ namespace CooperativaProduccion
 
         private void SolicitarCredenciales(Usuario usuario)
         {
-           // #region Permisos de Empresas
+            // #region Permisos de Empresas
 
             //var empresas = Context.UsuarioEmpresa
             //    .Where(x => x.UsuarioId.Equals(usuario.Id))
@@ -169,79 +217,21 @@ namespace CooperativaProduccion
             SplashScreenManager.CloseForm();
         }
 
-        private void btnNuevoUsuario_ItemClick(object sender, ItemClickEventArgs e)
+        #endregion
+
+        private void btnLiquidacion_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var nuevoUsuario = new Form_SeguridadNuevoUsuario();
-            nuevoUsuario.Show();
+            var liquidacion = new Form_AdministracionLiquidacion();
+            liquidacion.Show();
         }
 
-        private void btnVerUsuario_ItemClick(object sender, ItemClickEventArgs e)
+        private void btnOrdenPago_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var verUsuario = new Form_SeguridadGestionUsuario();
-            verUsuario.Show();
+            var op = new Form_AdministracionOrdenPago();
+            op.Show();
         }
 
-        private void btnPreingreso_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            var preingreso = new Form_RomaneoPreingreso();
-            preingreso.Show();
-        }
-
-        private void btnPesada_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            var pesada = new Form_RomaneoPesada();
-            pesada.Show();
-        }
-
-        private void btnFardos_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            var fardos = new Form_InventarioFardos();
-            fardos.Show();
-        }
-
-        private void btnClasificacion_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            //var reporte = new PesadaDetalleReport();
-           
-
-            //using (ReportPrintTool tool = new ReportPrintTool(reporte))
-            //{
-            //    reporte.ShowPreviewMarginLines = false;
-            //    tool.PreviewForm.Text = "Etiqueta";
-            //    tool.ShowPreviewDialog();
-            //}
-            var reclasificacion = new Form_RomaneoReclasificacion();
-            reclasificacion.Show();
-        }
-
-        private void barButtonItem1_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            byte[] zpl = Encoding.UTF8.GetBytes("^xa^cfa,50^fo100,100^fdHello World^fs^xz");
-
-            // adjust print density (8dpmm), label width (4 inches), label height (6 inches), and label index (0) as necessary
-            var request = (HttpWebRequest)WebRequest.Create("http://api.labelary.com/v1/printers/8dpmm/labels/4x6/0/");
-            request.Method = "POST";
-            request.Accept = "application/pdf"; // omit this line to get PNG images back
-            request.ContentType = "application/x-www-form-urlencoded";
-            request.ContentLength = zpl.Length;
-
-            var requestStream = request.GetRequestStream();
-            requestStream.Write(zpl, 0, zpl.Length);
-            requestStream.Close();
-
-            try
-            {
-                var response = (HttpWebResponse)request.GetResponse();
-                var responseStream = response.GetResponseStream();
-                var fileStream = File.Create("label.pdf"); // change file name for PNG images
-                responseStream.CopyTo(fileStream);
-                responseStream.Close();
-                fileStream.Close();
-            }
-            catch (WebException se)
-            {
-                Console.WriteLine("Error: {0}", se.Status);
-            }
-        }
+      
+   
     }
 }

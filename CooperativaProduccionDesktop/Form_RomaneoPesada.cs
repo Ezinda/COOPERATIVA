@@ -16,6 +16,7 @@ using DevExpress.XtraReports.UI;
 using CooperativaProduccion.ReportModels;
 using System.Data.SqlClient;
 using System.Configuration;
+using DevExpress.Utils;
 
 namespace CooperativaProduccion
 {
@@ -33,12 +34,11 @@ namespace CooperativaProduccion
         {
             InitializeComponent();
             Context = new CooperativaProduccionEntities();
-            cbOpcionCompra.SelectedIndex = 0;
-            cbBoca.SelectedIndex = 0;
-            CargarCombo();
-            checkBalanzaAutomatica.Checked = true;
             pesadaMostrador = new Form_RomaneoPesadaMostrador();
+            Iniciar();
         }
+
+        #region Method Code
 
         private void txtFet_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -46,6 +46,116 @@ namespace CooperativaProduccion
             {
                 Buscar();
             }
+        }
+      
+        private void checkBalanzaAutomatica_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBalanzaAutomatica.Checked == false)
+            {
+                txtKilos.Enabled = true;
+                txtKilos.Text = "";
+            }
+            else
+            {
+                txtKilos.Enabled = false;
+                txtKilos.Text = "";
+            }
+        }
+
+        private void btnIniciarPesada_Click(object sender, EventArgs e)
+        {
+            CalcularTotales();
+        }
+
+        private void btnCancelarPesada_Click(object sender, EventArgs e)
+        {
+            txtKilos.Text = "";
+        }
+
+        private void btnAgregarCaja_Click(object sender, EventArgs e)
+        {
+            if (txtKilos.Text != string.Empty)
+            {
+                GrabarPesadaDetalle();
+                CargarGrilla();
+                CalcularTotales();
+                PasarFardoMostrador();
+            }
+            else
+            {
+                MessageBox.Show("No hay un valor de kg.", "Se Requiere", MessageBoxButtons.OK);
+            }
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            var resultado = MessageBox.Show("¿Desea eliminar la pesada seleccionada?",
+               "Eliminar Datos", MessageBoxButtons.OKCancel);
+
+            if (resultado != DialogResult.OK)
+            {
+                return;
+            }
+            EliminarDatos();
+            CargarGrilla();
+            CalcularTotales();
+        }
+
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnFinalizar_Click(object sender, EventArgs e)
+        {
+            var resultado = MessageBox.Show("¿Desea finalizar la pesada?",
+                   "Atención", MessageBoxButtons.OKCancel);
+            if (resultado != DialogResult.OK)
+            {
+                return;
+            }
+            totalfardo = txtTotalFardo.Text;
+            totalkilo = txtTotalKilo.Text;
+            importebruto = txtImporteBruto.Text;
+            ActualizarPesada(PesadaId);
+            Limpiar();
+            ImpimirRomaneo(PesadaId);
+
+        }
+
+        private void btnPesadaMostrador_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            pesadaMostrador = new Form_RomaneoPesadaMostrador();
+            pesadaMostrador.nombre = txtNombre.Text;
+            pesadaMostrador.cuit = txtCuit.Text;
+            pesadaMostrador.CargarDatos();
+            pesadaMostrador.Show();
+        }
+
+        private void btnReimprimir_Click(object sender, EventArgs e)
+        {
+            ImprimirEtiqueta();
+        }
+        
+        #endregion
+
+        #region Method Dev
+
+        private void Iniciar()
+        {
+            cbOpcionCompra.SelectedIndex = 0;
+            cbBoca.SelectedIndex = 0;
+            CargarCombo();
+            checkBalanzaAutomatica.Checked = true;
+        }
+
+        private void CalcularTotales()
+        {
+            txtKilos.Text = GetRandomNumber(1, 100).ToString("n2");
+            txtTotalFardo.Text = CalcularTotalFardo(PesadaId).ToString();
+            txtTotalKilo.Text = CalcularTotalKilos(PesadaId).ToString();
+            txtImporteBruto.Text = CalcularTotalImporteBruto(PesadaId).ToString();
+            txtPrecioPromedio.Text = CalcularPrecioPromedio(PesadaId).ToString();
         }
 
         private void Buscar()
@@ -59,12 +169,12 @@ namespace CooperativaProduccion
             if (!string.IsNullOrEmpty(txtFet.Text))
             {
                 var preingreso = result
-                    .Where(r => r.Fet.Contains(txtFet.Text))
+                    .Where(r => r.FET.Contains(txtFet.Text))
                     .FirstOrDefault();
-                if(preingreso.Fet!=null)
+                if(preingreso != null)
                 {
-                    ProductorId = preingreso.ProductorId;
-                    txtFet.Text = preingreso.Fet.ToString();
+                    ProductorId = preingreso.ProductorId.Value;
+                    txtFet.Text = preingreso.FET.ToString();
                     txtNombre.Text = preingreso.Nombre;
                     txtCuit.Text = preingreso.Cuit;
                     txtProvincia.Text = preingreso.Provincia;
@@ -80,33 +190,19 @@ namespace CooperativaProduccion
             ProductorId = Id;
             txtFet.Text = fet;
             txtPreingreso.Text = nombre;
-            var empleado = Context.Productor
-                .Where(x => x.Id == ProductorId)
+            var empleado = Context.Vw_Productor
+                .Where(x => x.ID == ProductorId)
                 .FirstOrDefault();
-            txtCuit.Text = empleado.Cuit;
+            txtCuit.Text = empleado.CUIT;
             txtProvincia.Text = empleado.Provincia;
         }
 
         private void CargarCombo()
         {
-            var clase = Context.Clase.ToList();
+            var clase = Context.Vw_Clase.ToList();
             cbClase.DataSource = clase;
-            cbClase.DisplayMember = "Nombre";
-            cbClase.ValueMember = "Id";      
-        }
-
-        private void checkBalanzaAutomatica_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBalanzaAutomatica.Checked == false)
-            {
-                txtKilos.Enabled = true;
-                txtKilos.Text = "";
-            }
-            else
-            {
-                txtKilos.Enabled = false;
-                txtKilos.Text = "";
-            }
+            cbClase.DisplayMember = "NOMBRE";
+            cbClase.ValueMember = "ID";      
         }
 
         public double GetRandomNumber(double minimum, double maximum)
@@ -114,38 +210,7 @@ namespace CooperativaProduccion
             Random random = new Random();
             return random.NextDouble() * (maximum - minimum) + minimum;
         }
-
-        private void btnIniciarPesada_Click(object sender, EventArgs e)
-        {
-            txtKilos.Text = GetRandomNumber(1, 100).ToString("n2");
-            txtTotalFardo.Text = CalcularTotalFardo(PesadaId).ToString();
-            txtTotalKilo.Text = CalcularTotalKilos(PesadaId).ToString();
-            txtImporteBruto.Text = CalcularTotalImporteBruto(PesadaId).ToString();
-        }
-
-        private void btnCancelarPesada_Click(object sender, EventArgs e)
-        {
-            txtKilos.Text = "";
-        }
-
-        private void btnAgregarCaja_Click(object sender, EventArgs e)
-        {
-            if (txtKilos.Text != string.Empty)
-            {
-                GrabarPesadaDetalle();
-                CargarGrilla();
-                txtKilos.Text = GetRandomNumber(1, 100).ToString("n2");
-                txtTotalFardo.Text = CalcularTotalFardo(PesadaId).ToString();
-                txtTotalKilo.Text = CalcularTotalKilos(PesadaId).ToString();
-                txtImporteBruto.Text = CalcularTotalImporteBruto(PesadaId).ToString();
-                PasarFardoMostrador();
-            }
-            else
-            {
-                MessageBox.Show("No hay un valor de kg.","Se Requiere", MessageBoxButtons.OK);
-            }
-        }
-
+     
         private float CalcularTotalImporteBruto(Guid PesadaId)
         {
             float totalKilos = 0;
@@ -180,13 +245,45 @@ namespace CooperativaProduccion
         {
             float totalKilos = 0;
             var pesadas = Context.Vw_Pesada
-                .Where(x => x.PesadaId == PesadaId);
-            foreach (var pesada in pesadas)
+                .Where(x => x.PesadaId == PesadaId).ToList();
+            if (pesadas != null)
             {
-                totalKilos = totalKilos + Convert.ToSingle(pesada.Kilos.Value);
+                foreach (var pesada in pesadas)
+                {
+                    totalKilos = totalKilos + Convert.ToSingle(pesada.Kilos.Value);
+                }
+            }
+            else
+            {
+                totalKilos = 0;
             }
 
             return totalKilos;
+        }
+
+        private decimal CalcularPrecioPromedio(Guid PesadaId)
+        {
+            decimal totalpromedio = 0;
+            decimal precioPromedio = 0;
+            var pesadas = Context.PesadaDetalle
+                .Where(x => x.PesadaId == PesadaId);
+            if (pesadas != null)
+            {
+                foreach (var pesada in pesadas)
+                {
+                    precioPromedio = precioPromedio + pesada.PrecioClase.Value;
+                    var count = Context.PesadaDetalle
+                              .Where(x => x.PesadaId == PesadaId)
+                              .Count();
+                    totalpromedio = precioPromedio / count;
+                }
+            }
+            else
+            {
+                precioPromedio = 0;
+            }           
+            
+            return totalpromedio;
         }
 
         private void GrabarPesada()
@@ -200,7 +297,7 @@ namespace CooperativaProduccion
                     return;
                 }
                 GuardarDatosPesada();
-               
+
             }
         }
 
@@ -228,25 +325,34 @@ namespace CooperativaProduccion
             }
         }
 
-        private int ContadorNumeroRomaneo()
+        //private int ContadorNumeroRomaneo()
+        //{
+        //    var count = Context.Pesada.Count();
+        //    if (count != 0)
+        //    {
+        //        var codigo = Context.Pesada
+        //            .Max(x => x.NumRomaneo)
+        //            .ToString();
+        //        return (Int16.Parse(codigo) + 1);
+        //    }
+        //    else
+        //    {
+        //        return 1;
+        //    }
+        //}
+
+        private string ContadorNumeroRomaneo()
         {
-            var count = Context.Pesada.Count();
-            if (count != 0)
-            {
-                var codigo = Context.Pesada
-                    .Max(x => x.NumRomaneo)
-                    .ToString();
-                return (Int16.Parse(codigo) + 1);
-            }
-            else
-            {
-                return 1;
-            }
+            var contador = Context.Contador
+                .Max(x => x.Valor);
+
+            string number = DevConstantes.PuntoVenta + "-" + (contador.Value + 1).ToString().PadLeft(8, '0');
+            return number;
         }
 
         private bool ValidarCamposPesada()
         {
-            if (ProductorId==null)
+            if (ProductorId == null)
             {
                 MessageBox.Show("No se ha seleccionado un productor",
                     "Se requiere", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -254,10 +360,10 @@ namespace CooperativaProduccion
             }
             return true;
         }
-        
+
         private bool ValidarCamposPesadaDetalle()
         {
-            if (ProductorId == null && PesadaId == null && cbClase.Text == null && txtKilos.Text == string.Empty)
+            if (ProductorId == null && PesadaId == null && cbClase.Text == string.Empty && txtKilos.Text == string.Empty)
             {
                 MessageBox.Show("No se ha seleccionado un productor",
                     "Se requiere", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -281,11 +387,26 @@ namespace CooperativaProduccion
                     .FirstOrDefault();
                 pesada.PreingresoId = preingreso.Id;
                 pesada.ProductorId = ProductorId;
-                pesada.Fecha = DateTime.Now.Date;
+                pesada.FechaRomaneo = DateTime.Now.Date;
                 pesada.NumRomaneo = ContadorNumeroRomaneo();
-
+                pesada.IvaPorcentaje = decimal.Parse(DevConstantes.Iva);
                 Context.Pesada.Add(pesada);
                 Context.SaveChanges();
+
+                #region Actualizar contador
+
+                var contador = Context.Contador
+                    .Where(x=>x.Nombre.Equals(DevConstantes.PuntoVenta))
+                    .FirstOrDefault();
+                var count = Context.Contador.Find(contador.Id);
+                if (count != null)
+                {
+                    count.Valor = count.Valor + 1;
+                    Context.Entry(count).State = EntityState.Modified;
+                    Context.SaveChanges();
+                }
+
+                #endregion
             }
             catch
             {
@@ -303,9 +424,15 @@ namespace CooperativaProduccion
                 pesadaDetalle.PesadaId = PesadaId;
                 pesadaDetalle.ContadorFardo = ContadorNumeroFardo(PesadaId);
                 pesadaDetalle.NumFardo = NumeradorFardo();
-                pesadaDetalle.ClaseId = new Guid(cbClase.SelectedValue.ToString());
+                Guid ClaseId = new Guid(cbClase.SelectedValue.ToString());
+                pesadaDetalle.ClaseId = ClaseId;
                 pesadaDetalle.Kilos = float.Parse(Math.Round(decimal.Parse(txtKilos.Text), 0).ToString());
-          
+                var clase = Context.Vw_Clase
+                    .Where(x => x.Vigente == true
+                        && x.ID == ClaseId)
+                    .FirstOrDefault();
+                pesadaDetalle.PrecioClase = clase.PRECIOCOMPRA;
+
                 Context.PesadaDetalle.Add(pesadaDetalle);
                 Context.SaveChanges();
 
@@ -330,8 +457,8 @@ namespace CooperativaProduccion
         {
             long numFardo = 0;
             var pesadaDetalle = Context.PesadaDetalle
-                .Where(x=>x.PesadaId == PesadaId)
-                .OrderByDescending(x=>x.ContadorFardo)
+                .Where(x => x.PesadaId == PesadaId)
+                .OrderByDescending(x => x.ContadorFardo)
                 .FirstOrDefault();
             if (pesadaDetalle != null)
             {
@@ -363,40 +490,40 @@ namespace CooperativaProduccion
 
         private void CargarGrilla()
         {
+            CooperativaProduccionEntities Context = new CooperativaProduccionEntities();
             var result = (
-                   from a in Context.Vw_Pesada
-                       .Where(x=>x.PesadaId == PesadaId)
-                   select new
-                   {
-                       ID = a.PesadaDetalleId,
-                       NUMERO_FARDO = a.NumFardo,
-                       CONTADOR_CAJA = a.ContadorFardo,
-                       CLASE = a.Clase,
-                       KILOS = a.Kilos,
-                       SUBTOTAL = a.Subtotal
-                   })
-                   .OrderByDescending(x=>x.CONTADOR_CAJA)
-                   .ToList();
+                from a in Context.Vw_Pesada
+                    .Where(x => x.PesadaId == PesadaId)
+                select new
+                {
+                    ID = a.PesadaDetalleId,
+                    NUMERO_FARDO = a.NumFardo,
+                    CONTADOR_CAJA = a.ContadorFardo,
+                    CLASE = a.Clase,
+                    KILOS = a.Kilos,
+                    SUBTOTAL = a.Subtotal
+                })
+                .OrderByDescending(x => x.CONTADOR_CAJA)
+                .ToList();
 
-            if (result.Count > 0)
+            if (result.Count > -1)
             {
                 gridControlPesada.DataSource = result;
                 gridViewPesada.Columns[0].Visible = false;
+                gridViewPesada.Columns[1].Caption = "Número Fardo";
+                gridViewPesada.Columns[1].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+                gridViewPesada.Columns[1].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+                gridViewPesada.Columns[2].Caption = "Contador Caja";
+                gridViewPesada.Columns[2].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+                gridViewPesada.Columns[2].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+                gridViewPesada.Columns[3].Caption = "Clase";
+                gridViewPesada.Columns[3].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+                gridViewPesada.Columns[3].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+                gridViewPesada.Columns[4].Caption = "Kilos";
+                gridViewPesada.Columns[4].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+                gridViewPesada.Columns[4].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
                 gridViewPesada.Columns[5].Visible = false;
             }
-        }
-
-        private void btnEliminar_Click(object sender, EventArgs e)
-        {
-            var resultado = MessageBox.Show("¿Desea eliminar la pesada seleccionada?",
-               "Eliminar Datos", MessageBoxButtons.OKCancel);
-
-            if (resultado != DialogResult.OK)
-            {
-                return;
-            }
-            EliminarDatos();
-            CargarGrilla();
         }
 
         private void EliminarDatos()
@@ -418,9 +545,7 @@ namespace CooperativaProduccion
                 {
                     Context.Entry(pesadaDetalle).State = EntityState.Deleted;
                     Context.SaveChanges();
-
-                    MessageBox.Show("Se eliminó la pesada.",
-                        "Confirmación", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    CargarGrilla();
                 }
             }
             else
@@ -430,28 +555,6 @@ namespace CooperativaProduccion
             }
         }
 
-        private void btnSalir_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void btnFinalizar_Click(object sender, EventArgs e)
-        {
-            var resultado = MessageBox.Show("¿Desea finalizar la pesada?",
-                   "Atención", MessageBoxButtons.OKCancel);
-            if (resultado != DialogResult.OK)
-            {
-                return;
-            }
-            totalfardo = txtTotalFardo.Text;
-            totalkilo = txtTotalKilo.Text;
-            importebruto = txtImporteBruto.Text;
-            ActualizarPesada(PesadaId);
-            Limpiar();
-            ImpimirRomaneo(PesadaId);
-          
-        }
-
         private void ActualizarPesada(Guid PesadaId)
         {
             var pesada = Context.Pesada.Find(PesadaId);
@@ -459,13 +562,13 @@ namespace CooperativaProduccion
             {
                 pesada.TotalFardo = Int32.Parse(txtTotalFardo.Text);
                 pesada.TotalKg = float.Parse(txtTotalKilo.Text);
-                pesada.ImporteBruto = float.Parse(txtImporteBruto.Text);
+                pesada.ImporteBruto = decimal.Parse(txtImporteBruto.Text);
 
                 Context.Entry(pesada).State = EntityState.Modified;
                 Context.SaveChanges();
 
                 var preingresoDetalle = Context.PreingresoDetalle
-                    .Where(x=>x.PreingresoId == pesada.PreingresoId 
+                    .Where(x => x.PreingresoId == pesada.PreingresoId
                         && x.ProductorId == ProductorId)
                     .FirstOrDefault();
                 var preingreso = Context.PreingresoDetalle.Find(preingresoDetalle.Id);
@@ -476,8 +579,6 @@ namespace CooperativaProduccion
 
                     Context.Entry(preingreso).State = EntityState.Modified;
                     Context.SaveChanges();
-                    MessageBox.Show("Se ha registrado la pesada.",
-                        "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
         }
@@ -497,16 +598,7 @@ namespace CooperativaProduccion
             gridControlPesada.DataSource = null;
         }
 
-        private void btnPesadaMostrador_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            pesadaMostrador = new Form_RomaneoPesadaMostrador();
-            pesadaMostrador.nombre = txtNombre.Text;
-            pesadaMostrador.cuit = txtCuit.Text;
-            pesadaMostrador.CargarDatos();
-            pesadaMostrador.Show();
-        }
-
-        private void PasarMostrador(string Productor,string Cuit)
+        private void PasarMostrador(string Productor, string Cuit)
         {
             pesadaMostrador.nombre = Productor;
             pesadaMostrador.cuit = Cuit;
@@ -542,9 +634,9 @@ namespace CooperativaProduccion
                             reporte.Parameters["barCodeNumFardo"].Value = pesadaDetalle.NumFardo;
                             reporte.Parameters["Clase"].Value = pesadaDetalle.Clase;
                             reporte.Parameters["Kilos"].Value = pesadaDetalle.Kilos;
-                            reporte.Parameters["Fecha"].Value = pesadaDetalle.Fecha.Value
+                            reporte.Parameters["Fecha"].Value = pesadaDetalle.FechaRomaneo.Value
                                 .ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
-                           
+
                             using (ReportPrintTool tool = new ReportPrintTool(reporte))
                             {
                                 reporte.ShowPreviewMarginLines = false;
@@ -561,25 +653,20 @@ namespace CooperativaProduccion
             }
         }
 
-        private void btnReimprimir_Click(object sender, EventArgs e)
-        {
-            ImprimirEtiqueta();
-        }
-
         private void ImpimirRomaneo(Guid PesadaId)
         {
             var pesada = Context.Vw_Pesada
-                           .Where(x => x.PesadaId == PesadaId)
-                           .FirstOrDefault();
+                .Where(x => x.PesadaId == PesadaId)
+                .FirstOrDefault();
             if (pesada.PesadaId != null)
             {
                 var reporte = new RomaneoReport();
                 reporte.Parameters["Productor"].Value = pesada.Productor;
                 reporte.Parameters["Fet"].Value = pesada.Fet;
-                reporte.Parameters["Localidad"].Value = pesada.Provincia;
+                reporte.Parameters["Localidad"].Value = pesada.Localidad;
                 reporte.Parameters["Provincia"].Value = pesada.Provincia;
                 reporte.Parameters["NumRomaneo"].Value = pesada.NumRomaneo;
-                reporte.Parameters["Fecha"].Value = pesada.Fecha.Value
+                reporte.Parameters["Fecha"].Value = pesada.FechaRomaneo.Value
                     .ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
 
                 #region Subreport Fardos
@@ -622,7 +709,7 @@ namespace CooperativaProduccion
             var fardos = Context.Vw_Pesada
                 .Where(x => x.PesadaId == PesadaId)
                 .ToList();
-            
+
 
             foreach (var fardo in fardos)
             {
@@ -640,7 +727,7 @@ namespace CooperativaProduccion
         {
             List<RegistroPesada> datasource = new List<RegistroPesada>();
             DataTable dt = new DataTable();
-            using (SqlConnection conn = new SqlConnection("server=25.120.114.66;database=CooperativaProduccion;uid=fs1;password=1;Connection Timeout=30"))
+            using (SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["myConnectionString"].ToString()))
             {
                 conn.Open();
 
@@ -661,21 +748,9 @@ namespace CooperativaProduccion
 
                 return datasource;
             }
-
-            //var fardos = Context.Vw_ResumenPesadaPorClase.AsEnumerable()
-            //    .Where(x => x.PesadaId == PesadaId)
-            //    .ToList();
-
-            //foreach (var fardo in fardos)
-            //{
-            //    RegistroPesada registroFardos = new RegistroPesada();
-            //    registroFardos.Clase = fardo.Clase;
-            //    registroFardos.Kilos = fardo.Kilos.ToString();
-
-            //    datasource.Add(registroFardos);
-            //}
-            //return datasource;
         }
+
+        #endregion
 
     }
 }

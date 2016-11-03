@@ -57,8 +57,8 @@
             this.txtTransporte = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.groupControl4 = new DevExpress.XtraEditors.GroupControl();
-            this.btnEliminarProductor = new DevExpress.XtraEditors.SimpleButton();
             this.dgvProductores = new System.Windows.Forms.DataGridView();
+            this.btnEliminarProductor = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
             this.groupControl2.SuspendLayout();
@@ -379,6 +379,17 @@
             this.groupControl4.TabIndex = 24;
             this.groupControl4.Text = "Lista de Productores";
             // 
+            // dgvProductores
+            // 
+            this.dgvProductores.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvProductores.Location = new System.Drawing.Point(5, 24);
+            this.dgvProductores.MultiSelect = false;
+            this.dgvProductores.Name = "dgvProductores";
+            this.dgvProductores.RowHeadersVisible = false;
+            this.dgvProductores.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvProductores.Size = new System.Drawing.Size(552, 201);
+            this.dgvProductores.TabIndex = 63;
+            // 
             // btnEliminarProductor
             // 
             this.btnEliminarProductor.Appearance.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -391,18 +402,7 @@
             this.btnEliminarProductor.Text = "Eliminar Productor";
             this.btnEliminarProductor.Click += new System.EventHandler(this.btnEliminarProductor_Click);
             // 
-            // dgvProductores
-            // 
-            this.dgvProductores.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvProductores.Location = new System.Drawing.Point(5, 24);
-            this.dgvProductores.MultiSelect = false;
-            this.dgvProductores.Name = "dgvProductores";
-            this.dgvProductores.RowHeadersVisible = false;
-            this.dgvProductores.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvProductores.Size = new System.Drawing.Size(552, 201);
-            this.dgvProductores.TabIndex = 63;
-            // 
-            // Form_ProduccionPreingreso
+            // Form_RomaneoPreingreso
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -412,8 +412,9 @@
             this.Controls.Add(this.groupControl1);
             this.Controls.Add(this.groupControl2);
             this.Controls.Add(this.ribbon);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.Name = "Form_ProduccionPreingreso";
+            this.Name = "Form_RomaneoPreingreso";
             this.Ribbon = this.ribbon;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Portería - Preingresos";

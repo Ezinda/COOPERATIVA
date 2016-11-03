@@ -16,23 +16,53 @@ namespace CooperativaProduccion
         public CooperativaProduccionEntities Context { get; set; }
         public volatile string fet;
         public volatile string target;
+
         public Form_RomaneoBuscarPreingreso()
         {
             InitializeComponent();
             Context = new CooperativaProduccionEntities();
         }
 
+        #region Method Code
+
+        private void gridControlPringreso_DoubleClick(object sender, EventArgs e)
+        {
+            if (target.Equals(DevConstantes.Pesada))
+            {
+                IEnlace mienlace = this.Owner as Form_RomaneoPesada;
+                if (mienlace != null)
+                {
+                    mienlace.Enviar(
+                        new Guid(gridViewPreingreso.GetRowCellValue(gridViewPreingreso.FocusedRowHandle, "ID").ToString()),
+                        gridViewPreingreso.GetRowCellValue(gridViewPreingreso.FocusedRowHandle, "FET").ToString(),
+                        gridViewPreingreso.GetRowCellValue(gridViewPreingreso.FocusedRowHandle, "PREINGRESO").ToString());
+                }
+                this.Dispose();
+            }
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            Buscar();
+        }
+
+        #endregion
+
+        #region Method Dev
+
         public void Buscar()
         {
             var result = (
                 from a in Context.Vw_Preingreso
-                .Where(x => x.Estado.Equals(true))
+                .Where(x => x.Estado.Equals(true)
+                    && x.Fecha >= dpDesde.Value
+                    && x.Fecha <= dpHasta.Value)
                 .OrderBy(x => x.Fecha)
                 .ThenBy(x => x.Hora)
                 select new
                 {
                     ID = a.PreIngresoId,
-                    FET = a.Fet,
+                    FET = a.FET,
                     PRODUCTOR = a.Nombre,
                     CUIT = a.Cuit,
                     PROVINCIA = a.Provincia,
@@ -65,14 +95,14 @@ namespace CooperativaProduccion
         {
             var result = (
                 from a in Context.Vw_Preingreso
-                .Where(x => x.Estado == true 
-                    && x.Fet.Contains(fet))
+                .Where(x => x.Estado == true
+                    && x.FET.Contains(fet))
                 .OrderBy(x => x.Fecha)
                 .ThenBy(x => x.Hora)
                 select new
                 {
                     ID = a.PreIngresoId,
-                    FET = a.Fet,
+                    FET = a.FET,
                     PRODUCTOR = a.Nombre,
                     CUIT = a.Cuit,
                     PROVINCIA = a.Provincia,
@@ -85,7 +115,7 @@ namespace CooperativaProduccion
                     PATENTE = a.Patente,
                     REMITO = a.NumRemito
                 })
-                .OrderBy(x => x.FECHA)                
+                .OrderBy(x => x.FECHA)
                 .ThenBy(x => x.HORA)
                 .ToList();
             if (result.Count() > 0)
@@ -100,20 +130,7 @@ namespace CooperativaProduccion
             }
         }
 
-        private void gridControlPringreso_DoubleClick(object sender, EventArgs e)
-        {
-            if (target.Equals(DevConstantes.Pesada))
-            {
-                IEnlace mienlace = this.Owner as Form_RomaneoPesada;
-                if (mienlace != null)
-                {
-                    mienlace.Enviar(
-                        new Guid(gridViewPreingreso.GetRowCellValue(gridViewPreingreso.FocusedRowHandle, "ID").ToString()),
-                        gridViewPreingreso.GetRowCellValue(gridViewPreingreso.FocusedRowHandle, "FET").ToString(),
-                        gridViewPreingreso.GetRowCellValue(gridViewPreingreso.FocusedRowHandle, "PREINGRESO").ToString());
-                }
-                this.Dispose();
-            }
-        }
-    }
+        #endregion
+
+     }
 }

@@ -18,11 +18,14 @@ namespace CooperativaProduccion
         public volatile string target;
         public volatile string nombre;
         public volatile string cuit;
+
         public Form_AdministracionBuscarProductor()
         {
             InitializeComponent();
             Context = new CooperativaProduccionEntities();
         }
+
+        #region Method Code
 
         private void txtBusqueda_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -32,19 +35,63 @@ namespace CooperativaProduccion
             }
         }
 
+        private void gridControlProductor_DoubleClick(object sender, EventArgs e)
+        {
+            if (target.Equals(DevConstantes.Preingreso))
+            {
+                IEnlace mienlace = this.Owner as Form_RomaneoPreingreso;
+                if (mienlace != null)
+                {
+                    mienlace.Enviar(
+                        new Guid(gridViewProductor.GetRowCellValue(gridViewProductor.FocusedRowHandle, "ID").ToString()),
+                        gridViewProductor.GetRowCellValue(gridViewProductor.FocusedRowHandle, "FET").ToString(),
+                        gridViewProductor.GetRowCellValue(gridViewProductor.FocusedRowHandle, "PRODUCTOR").ToString());
+                }
+                this.Dispose();
+            }
+            else if (target.Equals(DevConstantes.Liquidacion))
+            {
+                IEnlace mienlace = this.Owner as Form_AdministracionLiquidacion;
+                if (mienlace != null)
+                {
+                    mienlace.Enviar(
+                        new Guid(gridViewProductor.GetRowCellValue(gridViewProductor.FocusedRowHandle, "ID").ToString()),
+                        gridViewProductor.GetRowCellValue(gridViewProductor.FocusedRowHandle, "FET").ToString(),
+                        gridViewProductor.GetRowCellValue(gridViewProductor.FocusedRowHandle, "PRODUCTOR").ToString());
+                }
+                this.Dispose();
+            }
+            else if (target.Equals(DevConstantes.OrdenPago))
+            {
+                IEnlace mienlace = this.Owner as Form_AdministracionOrdenPago;
+                if (mienlace != null)
+                {
+                    mienlace.Enviar(
+                        new Guid(gridViewProductor.GetRowCellValue(gridViewProductor.FocusedRowHandle, "ID").ToString()),
+                        gridViewProductor.GetRowCellValue(gridViewProductor.FocusedRowHandle, "FET").ToString(),
+                        gridViewProductor.GetRowCellValue(gridViewProductor.FocusedRowHandle, "PRODUCTOR").ToString());
+                }
+                this.Dispose();
+            }
+        }
+
+        #endregion
+
+        #region Method dev
+
         public void Buscar()
         {
             var result = (
-                   from a in Context.Productor
-                   select new
-                   {
-                       ID = a.Id,
-                       full = a.Fet + a.Nombre + a.Cuit,
-                       FET = a.Fet,
-                       PRODUCTOR = a.Nombre,
-                       CUIT = a.Cuit,
-                       PROVINCIA = a.Provincia
-                   });
+              from a in Context.Vw_Productor
+              select new
+              {
+                  full = a.nrofet + a.NOMBRE + a.CUIT,
+                  ID = a.ID,
+                  FET = a.nrofet,
+                  PRODUCTOR = a.NOMBRE,
+                  CUIT = a.CUIT,
+                  PROVINCIA = a.Provincia
+              });
             var busqueda = result
                 .Where(r => r.full.Contains(txtBusqueda.Text))
                 .ToList();
@@ -64,16 +111,16 @@ namespace CooperativaProduccion
         {
             var dbContext = new DesktopEntities.Models.CooperativaProduccionEntities();
             var result = (
-                    from a in dbContext.Productor
-                    select new
-                    {
-                        ID = a.Id,
-                        full = a.Fet + a.Nombre + a.Cuit,
-                        FET = a.Fet,
-                        PRODUCTOR = a.Nombre,
-                        CUIT = a.Cuit,
-                        PROVINCIA = a.Provincia
-                    });
+              from a in Context.Vw_Productor
+              select new
+              {
+                  full = a.nrofet + a.NOMBRE + a.CUIT,
+                  ID = a.ID,
+                  FET = a.nrofet,
+                  PRODUCTOR = a.NOMBRE,
+                  CUIT = a.CUIT,
+                  PROVINCIA = a.Provincia
+              });
             var busqueda = result
                 .Where(r => r.FET.Contains(fet))
                 .ToList();
@@ -93,16 +140,16 @@ namespace CooperativaProduccion
         {
             var dbContext = new DesktopEntities.Models.CooperativaProduccionEntities();
             var result = (
-                    from a in dbContext.Productor
-                    select new
-                    {
-                        ID = a.Id,
-                        full = a.Fet + a.Nombre + a.Cuit,
-                        FET = a.Fet,
-                        PRODUCTOR = a.Nombre,
-                        CUIT = a.Cuit,
-                        PROVINCIA = a.Provincia
-                    });
+               from a in Context.Vw_Productor
+               select new
+               {
+                   full = a.nrofet + a.NOMBRE + a.CUIT,
+                   ID = a.ID,
+                   FET = a.nrofet,
+                   PRODUCTOR = a.NOMBRE,
+                   CUIT = a.CUIT,
+                   PROVINCIA = a.Provincia
+               });
             var busqueda = result
                 .Where(r => r.PRODUCTOR.Contains(nombre))
                 .ToList();
@@ -122,16 +169,16 @@ namespace CooperativaProduccion
         {
             var dbContext = new DesktopEntities.Models.CooperativaProduccionEntities();
             var result = (
-                    from a in dbContext.Productor
-                    select new
-                    {
-                        ID = a.Id,
-                        full = a.Fet + a.Nombre + a.Cuit,
-                        FET = a.Fet,
-                        PRODUCTOR = a.Nombre,
-                        CUIT = a.Cuit,
-                        PROVINCIA = a.Provincia
-                    });
+                        from a in Context.Vw_Productor
+                        select new
+                        {
+                            full = a.nrofet + a.NOMBRE + a.CUIT,
+                            ID = a.ID,
+                            FET = a.nrofet,
+                            PRODUCTOR = a.NOMBRE,
+                            CUIT = a.CUIT,
+                            PROVINCIA = a.Provincia
+                        });
             var busqueda = result
                 .Where(r => r.CUIT.Contains(cuit))
                 .ToList();
@@ -147,21 +194,7 @@ namespace CooperativaProduccion
             }
         }
 
-        private void gridControlProductor_DoubleClick(object sender, EventArgs e)
-        {
-            if (target.Equals(DevConstantes.Preingreso))
-            {
-                IEnlace mienlace = this.Owner as Form_RomaneoPreingreso;
-                if (mienlace != null)
-                {
-                    mienlace.Enviar(
-                        new Guid(gridViewProductor.GetRowCellValue(gridViewProductor.FocusedRowHandle, "ID").ToString()),
-                        gridViewProductor.GetRowCellValue(gridViewProductor.FocusedRowHandle, "FET").ToString(),
-                        gridViewProductor.GetRowCellValue(gridViewProductor.FocusedRowHandle, "PRODUCTOR").ToString());
-                }
-                this.Dispose();
-            }
-        }
+        #endregion
 
     }
 }

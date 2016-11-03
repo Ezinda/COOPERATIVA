@@ -23,6 +23,8 @@ namespace CooperativaProduccion
             CargarCombo();
         }
 
+        #region Method Code
+
         private void btnSalir_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -41,6 +43,10 @@ namespace CooperativaProduccion
             }
         }
 
+        #endregion
+
+        #region Method Dev
+
         private void CargarCombo()
         {
             var clase = Context.Clase.ToList();
@@ -58,20 +64,20 @@ namespace CooperativaProduccion
 
             if (!string.IsNullOrEmpty(result.Id.ToString()))
             {
-                if (result.ReclasificacionId != null)
-                {
-                    var reclasificacion = Context.Clase
-                   .Where(x => x.Id == result.ReclasificacionId)
-                   .FirstOrDefault();
-                    txtClase.Text = reclasificacion.Nombre;
-                }
-                else
-                {
-                    var clase = Context.Clase
-                        .Where(x => x.Id == result.ClaseId)
-                        .FirstOrDefault();
-                    txtClase.Text = clase.Nombre;
-                }
+                //if (result.ReclasificacionId != null)
+                //{
+                //    var reclasificacion = Context.Clase
+                //   .Where(x => x.Id == result.ReclasificacionId)
+                //   .FirstOrDefault();
+                //    txtClase.Text = reclasificacion.Nombre;
+                //}
+                //else
+                //{
+                //    var clase = Context.Clase
+                //        .Where(x => x.Id == result.ClaseId)
+                //        .FirstOrDefault();
+                //    txtClase.Text = clase.Nombre;
+                //}
             }
         }
 
@@ -119,5 +125,7 @@ namespace CooperativaProduccion
             txtFardo.Text = string.Empty;
             txtClase.Text = string.Empty;
         }
+
+        #endregion
     }
 }

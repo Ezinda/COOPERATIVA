@@ -23,17 +23,21 @@ namespace CooperativaProduccion
             InitializeComponent();
         }
 
+        #region Method Dev
+
         public void CargarDatos()
         {
             lblProductor.Text = nombre;
             lblCuit.Text = cuit;
         }
+
         public void CargarFardo()
         {
             lblClase.Text = clase;
             lblFardo.Text = numFardo;
             lblTotalKg.Text = totalkg;
         }
-
+        
+        #endregion
     }
 }

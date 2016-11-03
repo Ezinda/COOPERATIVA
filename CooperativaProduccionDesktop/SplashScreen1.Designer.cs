@@ -45,20 +45,20 @@
             // 
             // pictureEdit2
             // 
-            this.pictureEdit2.EditValue = global::CooperativaProduccion.Properties.Resources.SistemaCopat;
-            this.pictureEdit2.Location = new System.Drawing.Point(103, 1);
+            this.pictureEdit2.EditValue = global::CooperativaProduccion.Properties.Resources.sm_Ezinda;
+            this.pictureEdit2.Location = new System.Drawing.Point(107, 12);
             this.pictureEdit2.Name = "pictureEdit2";
             this.pictureEdit2.Properties.AllowFocused = false;
             this.pictureEdit2.Properties.Appearance.BackColor = System.Drawing.Color.Transparent;
             this.pictureEdit2.Properties.Appearance.Options.UseBackColor = true;
             this.pictureEdit2.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.pictureEdit2.Properties.ShowMenu = false;
-            this.pictureEdit2.Size = new System.Drawing.Size(225, 154);
+            this.pictureEdit2.Size = new System.Drawing.Size(225, 98);
             this.pictureEdit2.TabIndex = 9;
             // 
             // btnSalir
             // 
-            this.btnSalir.Location = new System.Drawing.Point(215, 251);
+            this.btnSalir.Location = new System.Drawing.Point(215, 214);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(75, 23);
             this.btnSalir.TabIndex = 26;
@@ -68,7 +68,7 @@
             // 
             // btnLogin
             // 
-            this.btnLogin.Location = new System.Drawing.Point(134, 251);
+            this.btnLogin.Location = new System.Drawing.Point(134, 214);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(75, 23);
             this.btnLogin.TabIndex = 25;
@@ -78,7 +78,7 @@
             // 
             // txtPass
             // 
-            this.txtPass.Location = new System.Drawing.Point(144, 219);
+            this.txtPass.Location = new System.Drawing.Point(144, 182);
             this.txtPass.Name = "txtPass";
             this.txtPass.Properties.UseSystemPasswordChar = true;
             this.txtPass.Size = new System.Drawing.Size(137, 20);
@@ -88,7 +88,7 @@
             // 
             // txtUsuario
             // 
-            this.txtUsuario.Location = new System.Drawing.Point(144, 174);
+            this.txtUsuario.Location = new System.Drawing.Point(144, 137);
             this.txtUsuario.Name = "txtUsuario";
             this.txtUsuario.Size = new System.Drawing.Size(137, 20);
             this.txtUsuario.TabIndex = 23;
@@ -97,7 +97,7 @@
             // 
             // labelControlUser
             // 
-            this.labelControlUser.Location = new System.Drawing.Point(195, 155);
+            this.labelControlUser.Location = new System.Drawing.Point(195, 118);
             this.labelControlUser.Name = "labelControlUser";
             this.labelControlUser.Size = new System.Drawing.Size(36, 13);
             this.labelControlUser.TabIndex = 28;
@@ -106,7 +106,7 @@
             // 
             // labelControlPassword
             // 
-            this.labelControlPassword.Location = new System.Drawing.Point(184, 200);
+            this.labelControlPassword.Location = new System.Drawing.Point(184, 163);
             this.labelControlPassword.Name = "labelControlPassword";
             this.labelControlPassword.Size = new System.Drawing.Size(56, 13);
             this.labelControlPassword.TabIndex = 27;
@@ -115,7 +115,7 @@
             // 
             // labelControlTarea
             // 
-            this.labelControlTarea.Location = new System.Drawing.Point(10, 218);
+            this.labelControlTarea.Location = new System.Drawing.Point(10, 181);
             this.labelControlTarea.Name = "labelControlTarea";
             this.labelControlTarea.Size = new System.Drawing.Size(137, 13);
             this.labelControlTarea.TabIndex = 30;
@@ -124,7 +124,7 @@
             // marqueeProgressBarControl1
             // 
             this.marqueeProgressBarControl1.EditValue = 0;
-            this.marqueeProgressBarControl1.Location = new System.Drawing.Point(10, 235);
+            this.marqueeProgressBarControl1.Location = new System.Drawing.Point(10, 198);
             this.marqueeProgressBarControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.marqueeProgressBarControl1.Name = "marqueeProgressBarControl1";
             this.marqueeProgressBarControl1.Size = new System.Drawing.Size(400, 14);
@@ -134,7 +134,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(423, 286);
+            this.ClientSize = new System.Drawing.Size(423, 250);
             this.Controls.Add(this.labelControlTarea);
             this.Controls.Add(this.marqueeProgressBarControl1);
             this.Controls.Add(this.btnSalir);

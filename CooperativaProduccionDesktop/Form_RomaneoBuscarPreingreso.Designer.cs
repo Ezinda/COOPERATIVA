@@ -33,12 +33,12 @@
             this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
             this.gridControlPringreso = new DevExpress.XtraGrid.GridControl();
             this.gridViewPreingreso = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.dpDesde = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
-            this.btnBuscar = new DevExpress.XtraEditors.SimpleButton();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
+            this.dpHasta = new System.Windows.Forms.DateTimePicker();
+            this.btnBuscar = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
             this.groupControl2.SuspendLayout();
@@ -100,13 +100,14 @@
             this.gridViewPreingreso.OptionsEditForm.ActionOnModifiedRowChange = DevExpress.XtraGrid.Views.Grid.EditFormModifiedAction.Nothing;
             this.gridViewPreingreso.OptionsView.ShowGroupPanel = false;
             // 
-            // dateTimePicker1
+            // dpDesde
             // 
-            this.dateTimePicker1.CustomFormat = "dd/MM/yyyy";
-            this.dateTimePicker1.Location = new System.Drawing.Point(92, 24);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(101, 21);
-            this.dateTimePicker1.TabIndex = 1;
+            this.dpDesde.CustomFormat = "dd/MM/yyyy";
+            this.dpDesde.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dpDesde.Location = new System.Drawing.Point(92, 24);
+            this.dpDesde.Name = "dpDesde";
+            this.dpDesde.Size = new System.Drawing.Size(101, 21);
+            this.dpDesde.TabIndex = 1;
             // 
             // label1
             // 
@@ -121,32 +122,15 @@
             // groupControl1
             // 
             this.groupControl1.Controls.Add(this.label3);
-            this.groupControl1.Controls.Add(this.dateTimePicker2);
+            this.groupControl1.Controls.Add(this.dpHasta);
             this.groupControl1.Controls.Add(this.btnBuscar);
             this.groupControl1.Controls.Add(this.label1);
-            this.groupControl1.Controls.Add(this.dateTimePicker1);
+            this.groupControl1.Controls.Add(this.dpDesde);
             this.groupControl1.Location = new System.Drawing.Point(5, 30);
             this.groupControl1.Name = "groupControl1";
             this.groupControl1.Size = new System.Drawing.Size(792, 52);
             this.groupControl1.TabIndex = 24;
             this.groupControl1.Text = "Búsqueda";
-            // 
-            // btnBuscar
-            // 
-            this.btnBuscar.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscar.Image")));
-            this.btnBuscar.Location = new System.Drawing.Point(395, 21);
-            this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(84, 26);
-            this.btnBuscar.TabIndex = 60;
-            this.btnBuscar.Text = "Buscar";
-            // 
-            // dateTimePicker2
-            // 
-            this.dateTimePicker2.CustomFormat = "dd/MM/yyyy";
-            this.dateTimePicker2.Location = new System.Drawing.Point(288, 24);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(101, 21);
-            this.dateTimePicker2.TabIndex = 61;
             // 
             // label3
             // 
@@ -158,6 +142,25 @@
             this.label3.TabIndex = 63;
             this.label3.Text = "Fecha Hasta:";
             // 
+            // dpHasta
+            // 
+            this.dpHasta.CustomFormat = "dd/MM/yyyy";
+            this.dpHasta.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dpHasta.Location = new System.Drawing.Point(288, 24);
+            this.dpHasta.Name = "dpHasta";
+            this.dpHasta.Size = new System.Drawing.Size(101, 21);
+            this.dpHasta.TabIndex = 61;
+            // 
+            // btnBuscar
+            // 
+            this.btnBuscar.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscar.Image")));
+            this.btnBuscar.Location = new System.Drawing.Point(395, 21);
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(84, 26);
+            this.btnBuscar.TabIndex = 60;
+            this.btnBuscar.Text = "Buscar";
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            // 
             // Form_RomaneoBuscarPreingreso
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -166,6 +169,7 @@
             this.Controls.Add(this.groupControl1);
             this.Controls.Add(this.groupControl2);
             this.Controls.Add(this.ribbon);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form_RomaneoBuscarPreingreso";
             this.Ribbon = this.ribbon;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -188,10 +192,10 @@
         private DevExpress.XtraEditors.GroupControl groupControl2;
         private DevExpress.XtraGrid.GridControl gridControlPringreso;
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewPreingreso;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker dpDesde;
         private System.Windows.Forms.Label label1;
         private DevExpress.XtraEditors.GroupControl groupControl1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker2;
+        private System.Windows.Forms.DateTimePicker dpHasta;
         private DevExpress.XtraEditors.SimpleButton btnBuscar;
         private System.Windows.Forms.Label label3;
     }

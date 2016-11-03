@@ -87,7 +87,7 @@
             this.gridControlProductor.MenuManager = this.ribbon;
             this.gridControlProductor.Name = "gridControlProductor";
             this.gridControlProductor.Size = new System.Drawing.Size(696, 369);
-            this.gridControlProductor.TabIndex = 0;
+            this.gridControlProductor.TabIndex = 1;
             this.gridControlProductor.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewProductor});
             this.gridControlProductor.DoubleClick += new System.EventHandler(this.gridControlProductor_DoubleClick);
@@ -109,7 +109,7 @@
             this.txtBusqueda.Location = new System.Drawing.Point(206, 33);
             this.txtBusqueda.Name = "txtBusqueda";
             this.txtBusqueda.Size = new System.Drawing.Size(282, 23);
-            this.txtBusqueda.TabIndex = 38;
+            this.txtBusqueda.TabIndex = 2;
             this.txtBusqueda.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBusqueda_KeyPress);
             // 
             // btnBuscar
@@ -119,7 +119,7 @@
             this.btnBuscar.Location = new System.Drawing.Point(488, 33);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(29, 23);
-            this.btnBuscar.TabIndex = 37;
+            this.btnBuscar.TabIndex = 3;
             // 
             // Form_AdministracionBuscarProductor
             // 
@@ -130,6 +130,7 @@
             this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.groupControl2);
             this.Controls.Add(this.ribbon);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form_AdministracionBuscarProductor";
             this.Ribbon = this.ribbon;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

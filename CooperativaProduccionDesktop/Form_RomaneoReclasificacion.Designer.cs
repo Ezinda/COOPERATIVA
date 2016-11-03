@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_RomaneoReclasificacion));
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
+            this.cbClase = new System.Windows.Forms.ComboBox();
             this.btnSalir = new DevExpress.XtraEditors.SimpleButton();
             this.label2 = new System.Windows.Forms.Label();
             this.txtClase = new System.Windows.Forms.TextBox();
@@ -38,7 +39,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnActualizar = new DevExpress.XtraEditors.SimpleButton();
             this.txtFardo = new System.Windows.Forms.TextBox();
-            this.cbClase = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
             this.groupControl2.SuspendLayout();
@@ -77,6 +77,15 @@
             this.groupControl2.Size = new System.Drawing.Size(266, 152);
             this.groupControl2.TabIndex = 21;
             this.groupControl2.Text = "Fardo";
+            // 
+            // cbClase
+            // 
+            this.cbClase.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbClase.FormattingEnabled = true;
+            this.cbClase.Location = new System.Drawing.Point(89, 84);
+            this.cbClase.Name = "cbClase";
+            this.cbClase.Size = new System.Drawing.Size(154, 24);
+            this.cbClase.TabIndex = 62;
             // 
             // btnSalir
             // 
@@ -150,15 +159,6 @@
             this.txtFardo.TabIndex = 38;
             this.txtFardo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBuscador_KeyPress);
             // 
-            // cbClase
-            // 
-            this.cbClase.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbClase.FormattingEnabled = true;
-            this.cbClase.Location = new System.Drawing.Point(89, 84);
-            this.cbClase.Name = "cbClase";
-            this.cbClase.Size = new System.Drawing.Size(154, 24);
-            this.cbClase.TabIndex = 62;
-            // 
             // Form_RomaneoReclasificacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -166,6 +166,7 @@
             this.ClientSize = new System.Drawing.Size(273, 187);
             this.Controls.Add(this.groupControl2);
             this.Controls.Add(this.ribbon);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Form_RomaneoReclasificacion";
             this.Ribbon = this.ribbon;
