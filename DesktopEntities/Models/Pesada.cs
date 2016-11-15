@@ -20,9 +20,21 @@ namespace DesktopEntities.Models
         public Nullable<System.Guid> ProductorId { get; set; }
         public Nullable<int> TotalFardo { get; set; }
         public Nullable<double> TotalKg { get; set; }
-        public Nullable<double> ImporteBruto { get; set; }
-        public Nullable<double> PrecioPromedio { get; set; }
-        public Nullable<System.DateTime> Fecha { get; set; }
-        public Nullable<long> NumRomaneo { get; set; }
+        public Nullable<decimal> ImporteBruto { get; set; }
+        public Nullable<decimal> PrecioPromedio { get; set; }
+        public Nullable<System.DateTime> FechaRomaneo { get; set; }
+        public string NumRomaneo { get; set; }
+        public Nullable<System.DateTime> FechaInternaLiquidacion { get; set; }
+        public Nullable<long> NumInternoLiquidacion { get; set; }
+        public string condIva { get; set; }
+        public Nullable<decimal> IvaPorcentaje { get; set; }
+        public Nullable<decimal> IvaCalculado { get; set; }
+        public Nullable<decimal> ImporteNeto { get; set; }
+        public Nullable<decimal> Total { get; set; }
+        public string NumAfipLiquidacion { get; set; }
+        public Nullable<System.DateTime> FechaAfipLiquidacion { get; set; }
+        public string Cae { get; set; }
+        public Nullable<System.DateTime> FechaVtoCae { get; set; }
+        public Nullable<System.Guid> OrdenPagoId { get; set; }
     }
 }

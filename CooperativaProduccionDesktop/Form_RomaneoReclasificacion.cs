@@ -49,10 +49,10 @@ namespace CooperativaProduccion
 
         private void CargarCombo()
         {
-            var clase = Context.Clase.ToList();
+            var clase = Context.Vw_Clase.ToList();
             cbClase.DataSource = clase;
-            cbClase.DisplayMember = "Nombre";
-            cbClase.ValueMember = "Id";
+            cbClase.DisplayMember = "NOMBRE";
+            cbClase.ValueMember = "ID";      
         }
 
         private void Buscar(string numFardo)

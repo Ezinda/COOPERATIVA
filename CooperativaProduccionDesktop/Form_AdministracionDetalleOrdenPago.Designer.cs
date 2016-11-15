@@ -47,6 +47,9 @@
             this.txtProductor = new System.Windows.Forms.TextBox();
             this.dpFechaOrden = new System.Windows.Forms.DateTimePicker();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
+            this.dgvPendientes = new System.Windows.Forms.DataGridView();
+            this.checkComision = new System.Windows.Forms.CheckBox();
+            this.btnPago = new DevExpress.XtraEditors.SimpleButton();
             this.gridControlConceptosImputados = new DevExpress.XtraGrid.GridControl();
             this.gridViewConceptosImputados = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.label24 = new System.Windows.Forms.Label();
@@ -78,23 +81,20 @@
             this.txtDetalle = new System.Windows.Forms.TextBox();
             this.txtComision = new System.Windows.Forms.TextBox();
             this.txtCesion = new System.Windows.Forms.TextBox();
-            this.checkComision = new System.Windows.Forms.CheckBox();
             this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
-            this.btnPago = new DevExpress.XtraEditors.SimpleButton();
-            this.btnImprimir = new DevExpress.XtraEditors.SimpleButton();
-            this.btnGrabar = new DevExpress.XtraEditors.SimpleButton();
             this.btnCancelar = new DevExpress.XtraEditors.SimpleButton();
-            this.dgvPendientes = new System.Windows.Forms.DataGridView();
+            this.btnGrabar = new DevExpress.XtraEditors.SimpleButton();
+            this.btnImprimir = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
             this.groupControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPendientes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlConceptosImputados)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewConceptosImputados)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).BeginInit();
             this.groupControl3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvPendientes)).BeginInit();
             this.SuspendLayout();
             // 
             // ribbon
@@ -312,6 +312,42 @@
             this.groupControl1.Size = new System.Drawing.Size(683, 400);
             this.groupControl1.TabIndex = 23;
             this.groupControl1.Text = "Lista de Productores";
+            // 
+            // dgvPendientes
+            // 
+            this.dgvPendientes.AllowUserToAddRows = false;
+            this.dgvPendientes.AllowUserToDeleteRows = false;
+            this.dgvPendientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvPendientes.Location = new System.Drawing.Point(220, 203);
+            this.dgvPendientes.Name = "dgvPendientes";
+            this.dgvPendientes.RowHeadersVisible = false;
+            this.dgvPendientes.Size = new System.Drawing.Size(458, 161);
+            this.dgvPendientes.TabIndex = 41;
+            this.dgvPendientes.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dgvPendientes_CellBeginEdit);
+            this.dgvPendientes.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPendientes_CellEndEdit);
+            this.dgvPendientes.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvPendientes_DataBindingComplete);
+            this.dgvPendientes.SelectionChanged += new System.EventHandler(this.dgvPendientes_SelectionChanged);
+            // 
+            // checkComision
+            // 
+            this.checkComision.AutoSize = true;
+            this.checkComision.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.checkComision.Location = new System.Drawing.Point(10, 80);
+            this.checkComision.Name = "checkComision";
+            this.checkComision.Size = new System.Drawing.Size(68, 17);
+            this.checkComision.TabIndex = 40;
+            this.checkComision.Text = "Comisión";
+            this.checkComision.UseVisualStyleBackColor = true;
+            // 
+            // btnPago
+            // 
+            this.btnPago.Image = ((System.Drawing.Image)(resources.GetObject("btnPago.Image")));
+            this.btnPago.Location = new System.Drawing.Point(220, 370);
+            this.btnPago.Name = "btnPago";
+            this.btnPago.Size = new System.Drawing.Size(90, 22);
+            this.btnPago.TabIndex = 0;
+            this.btnPago.Text = "F. Pago";
+            this.btnPago.Click += new System.EventHandler(this.btnPago_Click);
             // 
             // gridControlConceptosImputados
             // 
@@ -591,17 +627,6 @@
             this.txtCesion.TabIndex = 1;
             this.txtCesion.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // checkComision
-            // 
-            this.checkComision.AutoSize = true;
-            this.checkComision.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.checkComision.Location = new System.Drawing.Point(10, 80);
-            this.checkComision.Name = "checkComision";
-            this.checkComision.Size = new System.Drawing.Size(68, 17);
-            this.checkComision.TabIndex = 40;
-            this.checkComision.Text = "Comisión";
-            this.checkComision.UseVisualStyleBackColor = true;
-            // 
             // groupControl3
             // 
             this.groupControl3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -616,33 +641,6 @@
             this.groupControl3.TabIndex = 25;
             this.groupControl3.Text = "Lista de Productores";
             // 
-            // btnPago
-            // 
-            this.btnPago.Image = ((System.Drawing.Image)(resources.GetObject("btnPago.Image")));
-            this.btnPago.Location = new System.Drawing.Point(220, 370);
-            this.btnPago.Name = "btnPago";
-            this.btnPago.Size = new System.Drawing.Size(90, 22);
-            this.btnPago.TabIndex = 0;
-            this.btnPago.Text = "F. Pago";
-            // 
-            // btnImprimir
-            // 
-            this.btnImprimir.Image = ((System.Drawing.Image)(resources.GetObject("btnImprimir.Image")));
-            this.btnImprimir.Location = new System.Drawing.Point(5, 3);
-            this.btnImprimir.Name = "btnImprimir";
-            this.btnImprimir.Size = new System.Drawing.Size(90, 22);
-            this.btnImprimir.TabIndex = 1;
-            this.btnImprimir.Text = "Imprimir";
-            // 
-            // btnGrabar
-            // 
-            this.btnGrabar.Image = ((System.Drawing.Image)(resources.GetObject("btnGrabar.Image")));
-            this.btnGrabar.Location = new System.Drawing.Point(101, 3);
-            this.btnGrabar.Name = "btnGrabar";
-            this.btnGrabar.Size = new System.Drawing.Size(90, 22);
-            this.btnGrabar.TabIndex = 2;
-            this.btnGrabar.Text = "Grabar";
-            // 
             // btnCancelar
             // 
             this.btnCancelar.Image = ((System.Drawing.Image)(resources.GetObject("btnCancelar.Image")));
@@ -653,14 +651,23 @@
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
-            // dgvPendientes
+            // btnGrabar
             // 
-            this.dgvPendientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvPendientes.Location = new System.Drawing.Point(220, 203);
-            this.dgvPendientes.Name = "dgvPendientes";
-            this.dgvPendientes.RowHeadersVisible = false;
-            this.dgvPendientes.Size = new System.Drawing.Size(458, 161);
-            this.dgvPendientes.TabIndex = 41;
+            this.btnGrabar.Image = ((System.Drawing.Image)(resources.GetObject("btnGrabar.Image")));
+            this.btnGrabar.Location = new System.Drawing.Point(101, 3);
+            this.btnGrabar.Name = "btnGrabar";
+            this.btnGrabar.Size = new System.Drawing.Size(90, 22);
+            this.btnGrabar.TabIndex = 2;
+            this.btnGrabar.Text = "Grabar";
+            // 
+            // btnImprimir
+            // 
+            this.btnImprimir.Image = ((System.Drawing.Image)(resources.GetObject("btnImprimir.Image")));
+            this.btnImprimir.Location = new System.Drawing.Point(5, 3);
+            this.btnImprimir.Name = "btnImprimir";
+            this.btnImprimir.Size = new System.Drawing.Size(90, 22);
+            this.btnImprimir.TabIndex = 1;
+            this.btnImprimir.Text = "Imprimir";
             // 
             // Form_AdministracionDetalleOrdenPago
             // 
@@ -683,11 +690,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
             this.groupControl1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPendientes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlConceptosImputados)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewConceptosImputados)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).EndInit();
             this.groupControl3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvPendientes)).EndInit();
             this.ResumeLayout(false);
 
         }

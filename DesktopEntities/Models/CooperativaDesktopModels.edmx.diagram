@@ -4,21 +4,28 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="8c0a263bdce7457da51fd62f656dcf9e" Name="Diagram1" ZoomLevel="40">
+      <Diagram DiagramId="8c0a263bdce7457da51fd62f656dcf9e" Name="Diagram1" ZoomLevel="46">
         <EntityTypeShape EntityType="CooperativaProduccionModel.Clase" Width="1.5" PointX="0.75" PointY="4.75" />
-        <EntityTypeShape EntityType="CooperativaProduccionModel.Movimiento" Width="1.5" PointX="2.75" PointY="4.75" />
-        <EntityTypeShape EntityType="CooperativaProduccionModel.Pesada" Width="1.5" PointX="4.75" PointY="4.75" />
-        <EntityTypeShape EntityType="CooperativaProduccionModel.PesadaDetalle" Width="1.5" PointX="5.75" PointY="0.75" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.Contador" Width="1.5" PointX="2.75" PointY="4.75" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.Movimiento" Width="1.5" PointX="4.75" PointY="4.75" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.OrdenPago" Width="1.5" PointX="6.75" PointY="0.75" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.Pesada" Width="1.5" PointX="6.75" PointY="5.75" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.PesadaDetalle" Width="1.5" PointX="0.75" PointY="7.75" />
         <EntityTypeShape EntityType="CooperativaProduccionModel.Preingreso" Width="1.5" PointX="0.75" PointY="1" />
         <EntityTypeShape EntityType="CooperativaProduccionModel.PreingresoDetalle" Width="1.5" PointX="3" PointY="1" />
-        <EntityTypeShape EntityType="CooperativaProduccionModel.Productor" Width="1.5" PointX="6.75" PointY="4.75" />
-        <EntityTypeShape EntityType="CooperativaProduccionModel.Usuario" Width="1.5" PointX="7.75" PointY="0.75" />
-        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_Pesada" Width="1.5" PointX="0.75" PointY="7.75" />
-        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_Preingreso" Width="1.5" PointX="6.75" PointY="7.75" />
-        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_ResumenPesada" Width="1.5" PointX="2.75" PointY="8.75" />
-        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_ResumenPesadaPorClase" Width="1.5" PointX="8.75" PointY="3.75" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.Usuario" Width="1.5" PointX="2.75" PointY="7.75" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_Clase" Width="1.5" PointX="8.75" PointY="0.75" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_Movimiento" Width="1.5" PointX="8.75" PointY="4.75" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_OrdenPago" Width="1.5" PointX="8.75" PointY="9.75" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_Pesada" Width="1.5" PointX="10.75" PointY="0.75" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_Preingreso" Width="1.5" PointX="2.75" PointY="10.75" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_Productor" Width="1.5" PointX="10.75" PointY="6.75" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_ResumenPesada" Width="1.5" PointX="4.75" PointY="11.75" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_ResumenPesadaPorClase" Width="1.5" PointX="10.75" PointY="11.75" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_ResumenRomaneoPorClase" Width="1.5" PointX="12.75" PointY="0.75" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_Romaneo" Width="1.5" PointX="12.75" PointY="3.75" />
         <AssociationConnector Association="CooperativaProduccionModel.FK_DetallePreingreso_Preingreso" />
-        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_Movimiento" Width="1.5" PointX="9.375" PointY="6.75" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.Pago" Width="1.5" PointX="13.375" PointY="9.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

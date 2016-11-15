@@ -71,7 +71,7 @@ namespace CooperativaProduccion
             var result = (
                from a in Context.Vw_Romaneo
                    .Where(pred)
-                   .Where(x=>x.ordenPago == null)
+                   .Where(x=>x.OrdenPagoId == null)
                select new
                {
                    ID = a.PesadaId,
@@ -321,7 +321,7 @@ namespace CooperativaProduccion
             var liquidaciones = (
                from a in Context.Vw_Romaneo
                    .Where(pred)
-                   .Where(x => x.ordenPago == null)
+                   .Where(x => x.OrdenPagoId == null)
                select new
                {
                    ID = a.PesadaId,

@@ -92,6 +92,8 @@
             this.gridControlLiquidacion = new DevExpress.XtraGrid.GridControl();
             this.gridViewLiquidacion = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.TabConsultaLiquidacion = new DevExpress.XtraTab.XtraTabPage();
+            this.groupControl10 = new DevExpress.XtraEditors.GroupControl();
+            this.btnFormaPago = new DevExpress.XtraEditors.SimpleButton();
             this.groupControl7 = new DevExpress.XtraEditors.GroupControl();
             this.btnPrevisualizar = new DevExpress.XtraEditors.SimpleButton();
             this.btnSubirAfip = new DevExpress.XtraEditors.SimpleButton();
@@ -115,8 +117,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.dpDesdeOrdenPago = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
-            this.groupControl10 = new DevExpress.XtraEditors.GroupControl();
-            this.btnFormaPago = new DevExpress.XtraEditors.SimpleButton();
+            this.txtNumeroOP = new System.Windows.Forms.TextBox();
+            this.label26 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlOrdenPago)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewOrdenPago)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
@@ -135,6 +137,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridControlLiquidacion)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewLiquidacion)).BeginInit();
             this.TabConsultaLiquidacion.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl10)).BeginInit();
+            this.groupControl10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl7)).BeginInit();
             this.groupControl7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl6)).BeginInit();
@@ -145,8 +149,6 @@
             this.groupControl3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
             this.groupControl2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl10)).BeginInit();
-            this.groupControl10.SuspendLayout();
             this.SuspendLayout();
             // 
             // gridControlOrdenPago
@@ -632,6 +634,8 @@
             // 
             this.groupControl8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupControl8.Controls.Add(this.label26);
+            this.groupControl8.Controls.Add(this.txtNumeroOP);
             this.groupControl8.Controls.Add(this.btnGenerarOP);
             this.groupControl8.Controls.Add(this.label9);
             this.groupControl8.Controls.Add(this.txtObservaciones);
@@ -651,7 +655,7 @@
             // btnGenerarOP
             // 
             this.btnGenerarOP.Image = ((System.Drawing.Image)(resources.GetObject("btnGenerarOP.Image")));
-            this.btnGenerarOP.Location = new System.Drawing.Point(1017, 5);
+            this.btnGenerarOP.Location = new System.Drawing.Point(1162, 5);
             this.btnGenerarOP.Name = "btnGenerarOP";
             this.btnGenerarOP.Size = new System.Drawing.Size(90, 22);
             this.btnGenerarOP.TabIndex = 61;
@@ -662,7 +666,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(528, 8);
+            this.label9.Location = new System.Drawing.Point(670, 8);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(90, 16);
             this.label9.TabIndex = 69;
@@ -670,7 +674,7 @@
             // 
             // txtObservaciones
             // 
-            this.txtObservaciones.Location = new System.Drawing.Point(621, 6);
+            this.txtObservaciones.Location = new System.Drawing.Point(766, 6);
             this.txtObservaciones.Name = "txtObservaciones";
             this.txtObservaciones.Size = new System.Drawing.Size(390, 21);
             this.txtObservaciones.TabIndex = 68;
@@ -837,6 +841,28 @@
             this.TabConsultaLiquidacion.Name = "TabConsultaLiquidacion";
             this.TabConsultaLiquidacion.Size = new System.Drawing.Size(1268, 462);
             this.TabConsultaLiquidacion.Text = "Consulta de Ordenes de Pago";
+            // 
+            // groupControl10
+            // 
+            this.groupControl10.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupControl10.Controls.Add(this.btnFormaPago);
+            this.groupControl10.Location = new System.Drawing.Point(1, 429);
+            this.groupControl10.Name = "groupControl10";
+            this.groupControl10.ShowCaption = false;
+            this.groupControl10.Size = new System.Drawing.Size(1267, 32);
+            this.groupControl10.TabIndex = 77;
+            this.groupControl10.Text = "Buscar Romaneo";
+            // 
+            // btnFormaPago
+            // 
+            this.btnFormaPago.Image = ((System.Drawing.Image)(resources.GetObject("btnFormaPago.Image")));
+            this.btnFormaPago.Location = new System.Drawing.Point(9, 5);
+            this.btnFormaPago.Name = "btnFormaPago";
+            this.btnFormaPago.Size = new System.Drawing.Size(81, 22);
+            this.btnFormaPago.TabIndex = 40;
+            this.btnFormaPago.Text = "F. Pago";
+            this.btnFormaPago.Click += new System.EventHandler(this.btnFormaPago_Click);
             // 
             // groupControl7
             // 
@@ -1071,27 +1097,24 @@
             this.label3.TabIndex = 57;
             this.label3.Text = "Fecha Desde:";
             // 
-            // groupControl10
+            // txtNumeroOP
             // 
-            this.groupControl10.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupControl10.Controls.Add(this.btnFormaPago);
-            this.groupControl10.Location = new System.Drawing.Point(1, 429);
-            this.groupControl10.Name = "groupControl10";
-            this.groupControl10.ShowCaption = false;
-            this.groupControl10.Size = new System.Drawing.Size(1267, 32);
-            this.groupControl10.TabIndex = 77;
-            this.groupControl10.Text = "Buscar Romaneo";
+            this.txtNumeroOP.Enabled = false;
+            this.txtNumeroOP.Location = new System.Drawing.Point(585, 6);
+            this.txtNumeroOP.Name = "txtNumeroOP";
+            this.txtNumeroOP.Size = new System.Drawing.Size(79, 21);
+            this.txtNumeroOP.TabIndex = 70;
+            this.txtNumeroOP.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // btnFormaPago
+            // label26
             // 
-            this.btnFormaPago.Image = ((System.Drawing.Image)(resources.GetObject("btnFormaPago.Image")));
-            this.btnFormaPago.Location = new System.Drawing.Point(9, 5);
-            this.btnFormaPago.Name = "btnFormaPago";
-            this.btnFormaPago.Size = new System.Drawing.Size(81, 22);
-            this.btnFormaPago.TabIndex = 40;
-            this.btnFormaPago.Text = "F. Pago";
-            this.btnFormaPago.Click += new System.EventHandler(this.btnFormaPago_Click);
+            this.label26.AutoSize = true;
+            this.label26.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label26.Location = new System.Drawing.Point(528, 8);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(51, 16);
+            this.label26.TabIndex = 71;
+            this.label26.Text = "Pago N°";
             // 
             // Form_AdministracionOrdenPago
             // 
@@ -1126,6 +1149,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridControlLiquidacion)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewLiquidacion)).EndInit();
             this.TabConsultaLiquidacion.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl10)).EndInit();
+            this.groupControl10.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl7)).EndInit();
             this.groupControl7.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl6)).EndInit();
@@ -1138,8 +1163,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
             this.groupControl2.ResumeLayout(false);
             this.groupControl2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl10)).EndInit();
-            this.groupControl10.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1234,5 +1257,7 @@
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewLiquidacionDetalles;
         private DevExpress.XtraEditors.GroupControl groupControl10;
         private DevExpress.XtraEditors.SimpleButton btnFormaPago;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.TextBox txtNumeroOP;
     }
 }

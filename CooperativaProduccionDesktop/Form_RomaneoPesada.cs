@@ -29,7 +29,8 @@ namespace CooperativaProduccion
         private string totalfardo;
         private string totalkilo;
         private string importebruto;
-        
+        private Form_AdministracionBuscarProductor _formBuscarProductor;
+
         public Form_RomaneoPesada()
         {
             InitializeComponent();
@@ -160,27 +161,42 @@ namespace CooperativaProduccion
 
         private void Buscar()
         {
-            var result = Context.Vw_Preingreso
-                    .Where(x => x.Estado == true)
-                    .OrderBy(x => x.Fecha)
-                    .ThenBy(x => x.Hora)
-                    .ToList();
-
             if (!string.IsNullOrEmpty(txtFet.Text))
             {
-                var preingreso = result
-                    .Where(r => r.FET.Contains(txtFet.Text))
-                    .FirstOrDefault();
-                if(preingreso != null)
+                var result = Context.Vw_Preingreso
+                   .Where(x => x.Estado == true 
+                       && x.FET.Contains(txtFet.Text))
+                   .OrderBy(x => x.Fecha)
+                   .ThenBy(x => x.Hora);
+
+                if (result.Any().Equals(true))
                 {
-                    ProductorId = preingreso.ProductorId.Value;
-                    txtFet.Text = preingreso.FET.ToString();
-                    txtNombre.Text = preingreso.Nombre;
-                    txtCuit.Text = preingreso.Cuit;
-                    txtProvincia.Text = preingreso.Provincia;
-                    txtPreingreso.Text = preingreso.NumeroPreingreso.ToString();
-                    GrabarPesada();
-                    PasarMostrador(txtNombre.Text,txtCuit.Text);
+                    if (result.Count() > 1)
+                    {
+
+                    }
+                    else if(result.Count() == 1)
+                    {
+                        var preingreso = result
+                            .Where(r => r.FET.Contains(txtFet.Text))
+                            .FirstOrDefault();
+
+                        if (preingreso != null)
+                        {
+                            ProductorId = preingreso.ProductorId.Value;
+                            txtFet.Text = preingreso.FET.ToString();
+                            txtNombre.Text = preingreso.Nombre;
+                            txtCuit.Text = preingreso.Cuit;
+                            txtProvincia.Text = preingreso.Provincia;
+                            txtPreingreso.Text = preingreso.NumeroPreingreso.ToString();
+                            GrabarPesada();
+                            PasarMostrador(txtNombre.Text, txtCuit.Text);
+                        }
+                    }
+                }
+                else
+                {
+                    BuscarProductor();
                 }
             }
         }
@@ -752,5 +768,115 @@ namespace CooperativaProduccion
 
         #endregion
 
+        private void BuscarProductor()
+        {
+            var result = (
+                from a in Context.Vw_Productor
+                select new
+                {
+                    full = a.nrofet + a.NOMBRE + a.CUIT,
+                    ID = a.ID,
+                    FET = a.nrofet,
+                    PRODUCTOR = a.NOMBRE,
+                    CUIT = a.CUIT,
+                    PROVINCIA = a.Provincia
+                });
+
+            if (!string.IsNullOrEmpty(txtFet.Text))
+            {
+                var count = result
+                    .Where(r => r.FET.Equals(txtFet.Text))
+                    .Count();
+
+                if (count > 1)
+                {
+                    _formBuscarProductor = new Form_AdministracionBuscarProductor();
+                    _formBuscarProductor.fet = txtFet.Text;
+                    _formBuscarProductor.target = DevConstantes.Pesada;
+                    _formBuscarProductor.BuscarFet();
+                    _formBuscarProductor.ShowDialog(this);
+                }
+                else if(count == 1)
+                {
+                    var busqueda = result
+                        .Where(x => x.FET.Equals(txtFet.Text))
+                        .FirstOrDefault();
+                    if (busqueda != null)
+                    {
+                        ProductorId = busqueda.ID.Value;
+                        txtFet.Text = busqueda.FET.ToString();
+                        txtNombre.Text = busqueda.PRODUCTOR.ToString();
+                        txtProvincia.Text = busqueda.PROVINCIA.ToString();
+
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("N° de Fet no válido.",
+                        "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+        }
+
+        private void BuscarProductorPreingreso()
+        {
+            var result = (
+                from a in Context.Vw_Preingreso
+                select new
+                {
+                    ID = a.PreIngresoId,
+                    FET = a.FET,
+                    PRODUCTOR = a.Nombre,
+                    CUIT = a.Cuit,
+                    PROVINCIA = a.Provincia
+                });
+
+            if (!string.IsNullOrEmpty(txtFet.Text))
+            {
+                var count = result
+                    .Where(r => r.FET.Equals(txtFet.Text))
+                    .Count();
+
+                if (count > 1)
+                {
+                    _formBuscarProductor = new Form_AdministracionBuscarProductor();
+                    _formBuscarProductor.fet = txtFet.Text;
+                    _formBuscarProductor.target = DevConstantes.Pesada;
+                    _formBuscarProductor.BuscarFet();
+                    _formBuscarProductor.ShowDialog(this);
+                }
+                else if (count == 1)
+                {
+                    var busqueda = result
+                        .Where(x => x.FET.Equals(txtFet.Text))
+                        .FirstOrDefault();
+
+                    if (busqueda != null)
+                    {
+                        ProductorId = busqueda.ID;
+                        txtFet.Text = busqueda.FET.ToString();
+                        txtNombre.Text = busqueda.PRODUCTOR.ToString();
+                        txtProvincia.Text = busqueda.PROVINCIA.ToString();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("N° de Fet no válido.",
+                        "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+        }
+
+        void IEnlace.Enviar(Guid Id, string fet, string nombre)
+        {
+            ProductorId = Id;
+            txtFet.Text = fet;
+            txtNombre.Text = nombre;
+            var empleado = Context.Vw_Productor
+                .Where(x => x.ID == ProductorId)
+                .FirstOrDefault();
+            txtCuit.Text = empleado.CUIT;
+            txtProvincia.Text = empleado.Provincia;
+        }
     }
 }

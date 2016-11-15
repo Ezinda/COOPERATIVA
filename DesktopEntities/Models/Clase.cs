@@ -15,7 +15,9 @@ namespace DesktopEntities.Models
     public partial class Clase
     {
         public System.Guid Id { get; set; }
-        public string Nombre { get; set; }
-        public Nullable<double> Valor { get; set; }
+        public System.Guid ClaseId { get; set; }
+        public decimal Valor { get; set; }
+        public System.DateTime FechaModificacion { get; set; }
+        public bool Vigente { get; set; }
     }
 }

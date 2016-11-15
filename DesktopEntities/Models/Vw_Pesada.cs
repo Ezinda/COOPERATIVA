@@ -19,14 +19,21 @@ namespace DesktopEntities.Models
         public Nullable<long> NumFardo { get; set; }
         public Nullable<long> ContadorFardo { get; set; }
         public string Clase { get; set; }
-        public Nullable<double> Valor { get; set; }
+        public decimal Valor { get; set; }
         public Nullable<double> Kilos { get; set; }
         public Nullable<decimal> Subtotal { get; set; }
-        public Nullable<System.DateTime> Fecha { get; set; }
-        public Nullable<long> NumRomaneo { get; set; }
+        public Nullable<System.DateTime> FechaRomaneo { get; set; }
+        public string NumRomaneo { get; set; }
         public string Productor { get; set; }
         public string Fet { get; set; }
         public string Cuit { get; set; }
         public string Provincia { get; set; }
+        public string Localidad { get; set; }
+        public string IVA { get; set; }
+        public Nullable<System.DateTime> FechainternaLiquidacion { get; set; }
+        public Nullable<long> NumInternoLiquidacion { get; set; }
+        public string condIva { get; set; }
+        public string NumAfipLiquidacion { get; set; }
+        public Nullable<System.DateTime> FechaAfipLiquidacion { get; set; }
     }
 }

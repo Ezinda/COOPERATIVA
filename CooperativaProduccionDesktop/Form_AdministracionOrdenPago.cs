@@ -11,6 +11,8 @@ using DesktopEntities.Models;
 using System.Linq.Expressions;
 using Extensions;
 using DevExpress.Utils;
+using DevExpress.XtraGrid;
+using System.Data.Entity;
 namespace CooperativaProduccion
 {
     public partial class Form_AdministracionOrdenPago : DevExpress.XtraBars.Ribbon.RibbonForm, IEnlace
@@ -124,8 +126,8 @@ namespace CooperativaProduccion
             txtRiego.Text = "0.00";
             txtMonotributo.Text = "0.00";
             txtNeto.Text = "0.00";
-
-
+            txtNumeroOP.Text = ContadorNumeroOP().ToString();
+            
         }
 
         private void Buscar(bool buscar)
@@ -133,8 +135,8 @@ namespace CooperativaProduccion
             decimal coeficiente = decimal.Parse("1.21");
             decimal iva = decimal.Parse("0.21");
             decimal gcias = decimal.Parse("0.02");
-            decimal iibb = decimal.Parse("0.175");
-            decimal coeficientegral = decimal.Parse("0.05");
+            decimal iibb = decimal.Parse("0.0175");
+            decimal coeficientegral = decimal.Parse("0.005");
 
             CooperativaProduccionEntities Context = new CooperativaProduccionEntities();
             Expression<Func<Vw_Romaneo, bool>> pred = x => true;
@@ -145,7 +147,7 @@ namespace CooperativaProduccion
             var result = (
                from a in Context.Vw_Romaneo
                    .Where(pred)
-                   .Where(x => x.ordenPago == null)
+                   .Where(x => x.OrdenPagoId == null)
                    .AsEnumerable()
                select new
                {
@@ -162,26 +164,26 @@ namespace CooperativaProduccion
                    AFECTAR = txtPorcentajePago.Text != "0.00" ? 
                     decimal.Round(decimal.Parse(((a.ImporteBruto * decimal.Parse(txtPorcentajePago.Text)) / 100).ToString()), 2, MidpointRounding.AwayFromZero) : 
                     decimal.Parse("0.00"),
-                    GCIAS = txtPorcentajePago.Text != "0.00" ? 
-                    decimal.Round(decimal.Parse(((a.ImporteBruto / coeficiente) * gcias).ToString()), 2, MidpointRounding.AwayFromZero) : 
+                    GCIAS = txtPorcentajePago.Text != "0.00" ?
+                    decimal.Round(decimal.Parse(((decimal.Round(decimal.Parse(((a.ImporteBruto * decimal.Parse(txtPorcentajePago.Text)) / 100).ToString()), 2, MidpointRounding.AwayFromZero) / coeficiente) * gcias).ToString()), 2, MidpointRounding.AwayFromZero) : 
                     decimal.Parse("0.00"),
-                    IVA = txtPorcentajePago.Text != "0.00" ? 
-                    decimal.Round(decimal.Parse(((a.ImporteBruto /coeficiente) * iva).ToString()), 2, MidpointRounding.AwayFromZero) : 
+                    IVA = txtPorcentajePago.Text != "0.00" ?
+                    decimal.Round(decimal.Parse(((decimal.Round(decimal.Parse(((a.ImporteBruto * decimal.Parse(txtPorcentajePago.Text)) / 100).ToString()), 2, MidpointRounding.AwayFromZero) / coeficiente) * iva).ToString()), 2, MidpointRounding.AwayFromZero) : 
                     decimal.Parse("0.00"),
-                    IIBB = txtPorcentajePago.Text != "0.00" ? 
-                    decimal.Round(decimal.Parse(((a.ImporteBruto /coeficiente) * iibb).ToString()), 2, MidpointRounding.AwayFromZero) : 
+                    IIBB = txtPorcentajePago.Text != "0.00" ?
+                    decimal.Round(decimal.Parse(((decimal.Round(decimal.Parse(((a.ImporteBruto * decimal.Parse(txtPorcentajePago.Text)) / 100).ToString()), 2, MidpointRounding.AwayFromZero) / coeficiente) * iibb).ToString()), 2, MidpointRounding.AwayFromZero) : 
                     decimal.Parse("0.00"),
-                    SaludPublica = txtPorcentajePago.Text != "0.00" ? 
-                    decimal.Round(decimal.Parse(((a.ImporteBruto /coeficiente) * coeficientegral).ToString()), 2, MidpointRounding.AwayFromZero) : 
+                    SaludPublica = txtPorcentajePago.Text != "0.00" ?
+                    decimal.Round(decimal.Parse(((decimal.Round(decimal.Parse(((a.ImporteBruto * decimal.Parse(txtPorcentajePago.Text)) / 100).ToString()), 2, MidpointRounding.AwayFromZero) / coeficiente) * coeficientegral).ToString()), 2, MidpointRounding.AwayFromZero) : 
                     decimal.Parse("0.00"),
-                    EEAOC = txtPorcentajePago.Text != "0.00" ? 
-                    decimal.Round(decimal.Parse(((a.ImporteBruto /coeficiente) * coeficientegral).ToString()), 2, MidpointRounding.AwayFromZero) : 
+                    EEAOC = txtPorcentajePago.Text != "0.00" ?
+                    decimal.Round(decimal.Parse(((decimal.Round(decimal.Parse(((a.ImporteBruto * decimal.Parse(txtPorcentajePago.Text)) / 100).ToString()), 2, MidpointRounding.AwayFromZero) / coeficiente) * coeficientegral).ToString()), 2, MidpointRounding.AwayFromZero) : 
                     decimal.Parse("0.00"),
                     Riego = txtPorcentajePago.Text != "0.00" ?
-                    decimal.Round(decimal.Parse(((a.ImporteBruto / coeficiente) * coeficientegral).ToString()), 2, MidpointRounding.AwayFromZero) :
+                    decimal.Round(decimal.Parse(((decimal.Round(decimal.Parse(((a.ImporteBruto * decimal.Parse(txtPorcentajePago.Text)) / 100).ToString()), 2, MidpointRounding.AwayFromZero) / coeficiente) * coeficientegral).ToString()), 2, MidpointRounding.AwayFromZero) :
                     decimal.Parse("0.00"),
                     Monotributo = txtPorcentajePago.Text != "0.00" ?
-                    decimal.Round(decimal.Parse(((a.ImporteBruto / coeficiente) * coeficientegral).ToString()), 2, MidpointRounding.AwayFromZero) :
+                    decimal.Round(decimal.Parse(((decimal.Round(decimal.Parse(((a.ImporteBruto * decimal.Parse(txtPorcentajePago.Text)) / 100).ToString()), 2, MidpointRounding.AwayFromZero) / coeficiente) * coeficientegral).ToString()), 2, MidpointRounding.AwayFromZero) :
                     decimal.Parse("0.00")
                })
                .OrderByDescending(x => x.FECHA)
@@ -538,10 +540,14 @@ namespace CooperativaProduccion
                     {
                         try
                         {
+
+                            #region Generar Orden Pago
+
                             OrdenPago ordenPago;
                             ordenPago = new OrdenPago();
                             ordenPago.Id = Guid.NewGuid();
-                            ordenPago.OrdenPago1 = ContadorNumeroOP();
+                            ordenPago.NumIntOrdenPago = ContadorNumeroInternoOP();
+                            ordenPago.NumOrdenPago = Int64.Parse(txtNumeroOP.Text);
                             Guid ProductorId = new Guid (gridViewLiquidacion.GetRowCellValue(i, "PRODUCTORID").ToString());
                             ordenPago.ProductorId = ProductorId;
                             ordenPago.Fecha = dpFechaPago.Value.Date;
@@ -562,14 +568,23 @@ namespace CooperativaProduccion
                             decimal monotributo = decimal.Parse(gridViewLiquidacion.GetRowCellValue(i, "Monotributo").ToString());
                             ordenPago.Monotributo = monotributo;
                             ordenPago.Neto = afectar + gcias + iva + iibb + salud + eeaoc + riego + monotributo;
-                            Int32 numIntLiq = Int32.Parse(gridViewLiquidacion.GetRowCellValue(i, "NUMINTLIQ").ToString());
-                            ordenPago.NumInternoLiquidacion = numIntLiq;
-                            String numAfipLiq = gridViewLiquidacion.GetRowCellValue(i, "NUMAFIPLIQ").ToString();
-                            ordenPago.NumAfipLiquidacion = numAfipLiq;
                             ordenPago.Detalle = txtObservaciones.Text;
 
+                            #region Actualizar Liquidacion con OrdenPagoId
+
+                            Guid PesadaId = new Guid(gridViewLiquidacion.GetRowCellValue(i, "ID").ToString());
+                            var liquidacion = Context.Pesada.Find(PesadaId);
+                     
+                            liquidacion.OrdenPagoId = ordenPago.Id;
+                            Context.Entry(liquidacion).State = EntityState.Modified;
+                            Context.SaveChanges();
+
+                            #endregion
+   
                             Context.OrdenPago.Add(ordenPago);
                             Context.SaveChanges();
+
+                            #endregion                         
 
                         }
                         catch
@@ -581,13 +596,29 @@ namespace CooperativaProduccion
             }
         }
 
+        private int ContadorNumeroInternoOP()
+        {
+            var count = Context.OrdenPago.Count();
+            if (count != 0)
+            {
+                var codigo = Context.OrdenPago
+                    .Max(x => x.NumIntOrdenPago)
+                    .ToString();
+                return (Int16.Parse(codigo) + 1);
+            }
+            else
+            {
+                return 1;
+            }
+        }
+
         private int ContadorNumeroOP()
         {
             var count = Context.OrdenPago.Count();
             if (count != 0)
             {
                 var codigo = Context.OrdenPago
-                    .Max(x => x.OrdenPago1)
+                    .Max(x => x.NumOrdenPago)
                     .ToString();
                 return (Int16.Parse(codigo) + 1);
             }

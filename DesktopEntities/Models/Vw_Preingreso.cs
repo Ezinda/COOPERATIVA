@@ -25,8 +25,8 @@ namespace DesktopEntities.Models
         public System.DateTime Fecha { get; set; }
         public System.TimeSpan Hora { get; set; }
         public Nullable<bool> Estado { get; set; }
-        public System.Guid ProductorId { get; set; }
-        public string Fet { get; set; }
+        public Nullable<System.Guid> ProductorId { get; set; }
+        public string FET { get; set; }
         public string Nombre { get; set; }
         public string Cuit { get; set; }
         public string Provincia { get; set; }
