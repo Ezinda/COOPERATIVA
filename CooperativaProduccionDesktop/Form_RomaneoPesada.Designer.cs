@@ -54,10 +54,6 @@
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.btnCancelarPesada = new DevExpress.XtraEditors.SimpleButton();
             this.btnIniciarPesada = new DevExpress.XtraEditors.SimpleButton();
-            this.cbOpcionCompra = new System.Windows.Forms.ComboBox();
-            this.cbBoca = new System.Windows.Forms.ComboBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
             this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
             this.gridControlPesada = new DevExpress.XtraGrid.GridControl();
             this.gridViewPesada = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -222,9 +218,9 @@
             // 
             this.txtPreingreso.Enabled = false;
             this.txtPreingreso.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPreingreso.Location = new System.Drawing.Point(80, 50);
+            this.txtPreingreso.Location = new System.Drawing.Point(73, 50);
             this.txtPreingreso.Name = "txtPreingreso";
-            this.txtPreingreso.Size = new System.Drawing.Size(114, 22);
+            this.txtPreingreso.Size = new System.Drawing.Size(121, 22);
             this.txtPreingreso.TabIndex = 65;
             // 
             // label13
@@ -297,9 +293,9 @@
             // txtFet
             // 
             this.txtFet.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFet.Location = new System.Drawing.Point(80, 24);
+            this.txtFet.Location = new System.Drawing.Point(73, 24);
             this.txtFet.Name = "txtFet";
-            this.txtFet.Size = new System.Drawing.Size(87, 22);
+            this.txtFet.Size = new System.Drawing.Size(94, 22);
             this.txtFet.TabIndex = 56;
             this.txtFet.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFet_KeyPress);
             // 
@@ -322,15 +318,12 @@
             this.btnBuscarProductor.Name = "btnBuscarProductor";
             this.btnBuscarProductor.Size = new System.Drawing.Size(25, 22);
             this.btnBuscarProductor.TabIndex = 39;
+            this.btnBuscarProductor.Click += new System.EventHandler(this.btnBuscarProductor_Click);
             // 
             // groupControl1
             // 
             this.groupControl1.Controls.Add(this.btnCancelarPesada);
             this.groupControl1.Controls.Add(this.btnIniciarPesada);
-            this.groupControl1.Controls.Add(this.cbOpcionCompra);
-            this.groupControl1.Controls.Add(this.cbBoca);
-            this.groupControl1.Controls.Add(this.label7);
-            this.groupControl1.Controls.Add(this.label8);
             this.groupControl1.Location = new System.Drawing.Point(4, 236);
             this.groupControl1.Name = "groupControl1";
             this.groupControl1.Size = new System.Drawing.Size(617, 54);
@@ -356,48 +349,6 @@
             this.btnIniciarPesada.TabIndex = 60;
             this.btnIniciarPesada.Text = "Iniciar";
             this.btnIniciarPesada.Click += new System.EventHandler(this.btnIniciarPesada_Click);
-            // 
-            // cbOpcionCompra
-            // 
-            this.cbOpcionCompra.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbOpcionCompra.FormattingEnabled = true;
-            this.cbOpcionCompra.Items.AddRange(new object[] {
-            "Cooperativa"});
-            this.cbOpcionCompra.Location = new System.Drawing.Point(124, 25);
-            this.cbOpcionCompra.Name = "cbOpcionCompra";
-            this.cbOpcionCompra.Size = new System.Drawing.Size(135, 21);
-            this.cbOpcionCompra.TabIndex = 59;
-            // 
-            // cbBoca
-            // 
-            this.cbBoca.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbBoca.FormattingEnabled = true;
-            this.cbBoca.Items.AddRange(new object[] {
-            "Puerta 1"});
-            this.cbBoca.Location = new System.Drawing.Point(309, 26);
-            this.cbBoca.Name = "cbBoca";
-            this.cbBoca.Size = new System.Drawing.Size(109, 21);
-            this.cbBoca.TabIndex = 58;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(264, 27);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(39, 16);
-            this.label7.TabIndex = 57;
-            this.label7.Text = "Boca:";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(8, 26);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(110, 16);
-            this.label8.TabIndex = 55;
-            this.label8.Text = "Opción de Compra:";
             // 
             // groupControl3
             // 
@@ -489,9 +440,9 @@
             // 
             this.cbClase.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbClase.FormattingEnabled = true;
-            this.cbClase.Location = new System.Drawing.Point(61, 24);
+            this.cbClase.Location = new System.Drawing.Point(73, 24);
             this.cbClase.Name = "cbClase";
-            this.cbClase.Size = new System.Drawing.Size(100, 24);
+            this.cbClase.Size = new System.Drawing.Size(88, 24);
             this.cbClase.TabIndex = 59;
             // 
             // label5
@@ -694,7 +645,6 @@
             this.groupControl2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
-            this.groupControl1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).EndInit();
             this.groupControl3.ResumeLayout(false);
             this.groupControl3.PerformLayout();
@@ -727,10 +677,6 @@
         private System.Windows.Forms.Label label3;
         private DevExpress.XtraEditors.SimpleButton btnBuscarProductor;
         private DevExpress.XtraEditors.GroupControl groupControl1;
-        private System.Windows.Forms.ComboBox cbOpcionCompra;
-        private System.Windows.Forms.ComboBox cbBoca;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label8;
         private DevExpress.XtraEditors.SimpleButton btnCancelarPesada;
         private DevExpress.XtraEditors.SimpleButton btnIniciarPesada;
         private DevExpress.XtraEditors.GroupControl groupControl3;

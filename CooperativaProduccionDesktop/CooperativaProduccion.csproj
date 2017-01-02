@@ -172,6 +172,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\ExtensionMethods.OrAnd.cs" />
+    <Compile Include="Form_AdministracionActualizarOrdenVenta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_AdministracionActualizarOrdenVenta.Designer.cs">
+      <DependentUpon>Form_AdministracionActualizarOrdenVenta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_AdministracionBuscarCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_AdministracionBuscarCliente.Designer.cs">
+      <DependentUpon>Form_AdministracionBuscarCliente.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_AdministracionBuscarProductor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -183,6 +195,24 @@
     </Compile>
     <Compile Include="Form_AdministracionDetalleOrdenPago.Designer.cs">
       <DependentUpon>Form_AdministracionDetalleOrdenPago.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_AdministracionFormaPago.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_AdministracionFormaPago.Designer.cs">
+      <DependentUpon>Form_AdministracionFormaPago.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_AdministracionGestionCaja.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_AdministracionGestionCaja.Designer.cs">
+      <DependentUpon>Form_AdministracionGestionCaja.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_AdministracionGestionCata.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_AdministracionGestionCata.Designer.cs">
+      <DependentUpon>Form_AdministracionGestionCata.cs</DependentUpon>
     </Compile>
     <Compile Include="Form_AdministracionLiquidacion.cs">
       <SubType>Form</SubType>
@@ -196,17 +226,35 @@
     <Compile Include="Form_AdministracionListaPrecio.Designer.cs">
       <DependentUpon>Form_AdministracionListaPrecio.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_AdministracionNuevoRemito.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_AdministracionNuevoRemito.Designer.cs">
+      <DependentUpon>Form_AdministracionNuevoRemito.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_AdministracionOrdenPago.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form_AdministracionOrdenPago.Designer.cs">
       <DependentUpon>Form_AdministracionOrdenPago.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_AdministracionOrdenVenta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_AdministracionOrdenVenta.Designer.cs">
+      <DependentUpon>Form_AdministracionOrdenVenta.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_InventarioFardos.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form_InventarioFardos.Designer.cs">
       <DependentUpon>Form_InventarioFardos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_AdministracionRemitoElectronico.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_AdministracionRemitoElectronico.Designer.cs">
+      <DependentUpon>Form_AdministracionRemitoElectronico.cs</DependentUpon>
     </Compile>
     <Compile Include="Form_RomaneoBuscarPreingreso.cs">
       <SubType>Form</SubType>
@@ -320,11 +368,27 @@
     <Compile Include="SplashScreen1.Designer.cs">
       <DependentUpon>SplashScreen1.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Form_AdministracionActualizarOrdenVenta.resx">
+      <DependentUpon>Form_AdministracionActualizarOrdenVenta.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_AdministracionBuscarCliente.resx">
+      <DependentUpon>Form_AdministracionBuscarCliente.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form_AdministracionBuscarProductor.resx">
       <DependentUpon>Form_AdministracionBuscarProductor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_AdministracionDetalleOrdenPago.resx">
       <DependentUpon>Form_AdministracionDetalleOrdenPago.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_AdministracionFormaPago.resx">
+      <DependentUpon>Form_AdministracionFormaPago.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_AdministracionGestionCaja.resx">
+      <DependentUpon>Form_AdministracionGestionCaja.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_AdministracionGestionCata.resx">
+      <DependentUpon>Form_AdministracionGestionCata.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_AdministracionLiquidacion.resx">
       <DependentUpon>Form_AdministracionLiquidacion.cs</DependentUpon>
@@ -332,11 +396,20 @@
     <EmbeddedResource Include="Form_AdministracionListaPrecio.resx">
       <DependentUpon>Form_AdministracionListaPrecio.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form_AdministracionNuevoRemito.resx">
+      <DependentUpon>Form_AdministracionNuevoRemito.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form_AdministracionOrdenPago.resx">
       <DependentUpon>Form_AdministracionOrdenPago.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form_AdministracionOrdenVenta.resx">
+      <DependentUpon>Form_AdministracionOrdenVenta.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form_InventarioFardos.resx">
       <DependentUpon>Form_InventarioFardos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_AdministracionRemitoElectronico.resx">
+      <DependentUpon>Form_AdministracionRemitoElectronico.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_RomaneoBuscarPreingreso.resx">
       <DependentUpon>Form_RomaneoBuscarPreingreso.cs</DependentUpon>

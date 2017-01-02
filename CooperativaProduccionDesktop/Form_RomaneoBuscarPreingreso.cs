@@ -108,7 +108,8 @@ namespace CooperativaProduccion
                     PROVINCIA = a.Provincia,
                     FECHA = a.Fecha,
                     HORA = a.Hora,
-                    ESTADO = a.Estado == true ? "PENDIENTE" : "CERRADO",
+                    ESTADO = a.Estado == true ? 
+                        DevConstantes.Pentiende : DevConstantes.Cerrado,
                     PREINGRESO = a.NumeroPreingreso,
                     TRANSPORTE = a.Transporte,
                     CHOFER = a.Chofer,

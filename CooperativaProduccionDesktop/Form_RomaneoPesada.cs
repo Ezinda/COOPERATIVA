@@ -30,6 +30,7 @@ namespace CooperativaProduccion
         private string totalkilo;
         private string importebruto;
         private Form_AdministracionBuscarProductor _formBuscarProductor;
+        private Form_RomaneoBuscarPreingreso _formBuscarPreingreso;
 
         public Form_RomaneoPesada()
         {
@@ -144,8 +145,6 @@ namespace CooperativaProduccion
 
         private void Iniciar()
         {
-            cbOpcionCompra.SelectedIndex = 0;
-            cbBoca.SelectedIndex = 0;
             CargarCombo();
             checkBalanzaAutomatica.Checked = true;
         }
@@ -173,7 +172,27 @@ namespace CooperativaProduccion
                 {
                     if (result.Count() > 1)
                     {
+                        _formBuscarPreingreso = new Form_RomaneoBuscarPreingreso();
+                        _formBuscarPreingreso.fet = txtFet.Text;
+                        _formBuscarPreingreso.target = DevConstantes.Pesada;
+                        _formBuscarPreingreso.BuscarFet();
+                        _formBuscarPreingreso.ShowDialog(this);
 
+                        //var preingreso = result
+                        //   .Where(r => r.FET.Contains(txtFet.Text))
+                        //   .FirstOrDefault();
+
+                        //if (preingreso != null)
+                        //{
+                        //    ProductorId = preingreso.ProductorId.Value;
+                        //    txtFet.Text = preingreso.FET.ToString();
+                        //    txtNombre.Text = preingreso.Nombre;
+                        //    txtCuit.Text = preingreso.Cuit;
+                        //    txtProvincia.Text = preingreso.Provincia;
+                        //    txtPreingreso.Text = preingreso.NumeroPreingreso.ToString();
+                        //    GrabarPesada();
+                        //    PasarMostrador(txtNombre.Text, txtCuit.Text);
+                        //}
                     }
                     else if(result.Count() == 1)
                     {
@@ -277,17 +296,17 @@ namespace CooperativaProduccion
             return totalKilos;
         }
 
-        private decimal CalcularPrecioPromedio(Guid PesadaId)
+        private float CalcularPrecioPromedio(Guid PesadaId)
         {
-            decimal totalpromedio = 0;
-            decimal precioPromedio = 0;
+            float totalpromedio = 0;
+            float precioPromedio = 0;
             var pesadas = Context.PesadaDetalle
                 .Where(x => x.PesadaId == PesadaId);
             if (pesadas != null)
             {
                 foreach (var pesada in pesadas)
                 {
-                    precioPromedio = precioPromedio + pesada.PrecioClase.Value;
+                    precioPromedio = precioPromedio + float.Parse(pesada.PrecioClase.Value.ToString());
                     var count = Context.PesadaDetalle
                               .Where(x => x.PesadaId == PesadaId)
                               .Count();
@@ -867,7 +886,7 @@ namespace CooperativaProduccion
             }
         }
 
-        void IEnlace.Enviar(Guid Id, string fet, string nombre)
+        void Enviar(Guid Id, string fet, string nombre)
         {
             ProductorId = Id;
             txtFet.Text = fet;
@@ -877,6 +896,11 @@ namespace CooperativaProduccion
                 .FirstOrDefault();
             txtCuit.Text = empleado.CUIT;
             txtProvincia.Text = empleado.Provincia;
+        }
+
+        private void btnBuscarProductor_Click(object sender, EventArgs e)
+        {
+            Buscar();
         }
     }
 }

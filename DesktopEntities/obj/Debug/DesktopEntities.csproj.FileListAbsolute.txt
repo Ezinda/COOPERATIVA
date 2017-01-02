@@ -8,3 +8,12 @@ D:\repositorios\Nueva carpeta\COPAT\CooperativaProduccion\DesktopEntities\bin\De
 D:\repositorios\Nueva carpeta\COPAT\CooperativaProduccion\DesktopEntities\obj\Debug\DesktopEntities.dll
 D:\repositorios\Nueva carpeta\COPAT\CooperativaProduccion\DesktopEntities\obj\Debug\DesktopEntities.pdb
 D:\repositorios\Nueva carpeta\COPAT\CooperativaProduccion\DesktopEntities\obj\Debug\DesktopEntities.csprojResolveAssemblyReference.cache
+C:\Repo\COOPERATIVA\Cooperativa\DesktopEntities\bin\Debug\DesktopEntities.dll.config
+C:\Repo\COOPERATIVA\Cooperativa\DesktopEntities\bin\Debug\DesktopEntities.dll
+C:\Repo\COOPERATIVA\Cooperativa\DesktopEntities\bin\Debug\DesktopEntities.pdb
+C:\Repo\COOPERATIVA\Cooperativa\DesktopEntities\bin\Debug\EntityFramework.dll
+C:\Repo\COOPERATIVA\Cooperativa\DesktopEntities\bin\Debug\EntityFramework.SqlServer.dll
+C:\Repo\COOPERATIVA\Cooperativa\DesktopEntities\bin\Debug\EntityFramework.xml
+C:\Repo\COOPERATIVA\Cooperativa\DesktopEntities\bin\Debug\EntityFramework.SqlServer.xml
+C:\Repo\COOPERATIVA\Cooperativa\DesktopEntities\obj\Debug\DesktopEntities.dll
+C:\Repo\COOPERATIVA\Cooperativa\DesktopEntities\obj\Debug\DesktopEntities.pdb

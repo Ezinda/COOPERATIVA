@@ -141,9 +141,9 @@
             this.ribbon.ShowCategoryInCaption = false;
             this.ribbon.ShowExpandCollapseButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowFullScreenButton = DevExpress.Utils.DefaultBoolean.False;
-            this.ribbon.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Hide;
+            this.ribbon.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Show;
             this.ribbon.ShowToolbarCustomizeItem = false;
-            this.ribbon.Size = new System.Drawing.Size(1270, 27);
+            this.ribbon.Size = new System.Drawing.Size(1270, 49);
             this.ribbon.Toolbar.ShowCustomizeItem = false;
             // 
             // groupControl5

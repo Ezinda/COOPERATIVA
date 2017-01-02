@@ -231,7 +231,29 @@ namespace CooperativaProduccion
             op.Show();
         }
 
-      
-   
+        private void btnGestionCata_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var gc = new Form_AdministracionGestionCata();
+            gc.Show();
+        }
+
+        private void btnIngresoCaja_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var gc = new Form_AdministracionGestionCaja();
+            gc.Show();
+        }
+
+        private void btnOrdenVenta_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var ov = new Form_AdministracionOrdenVenta();
+            ov.Show();
+        }
+
+        private void btnRemitoElectronico_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var ov = new Form_AdministracionRemitoElectronico();
+            ov.Show();
+        }
+
     }
 }

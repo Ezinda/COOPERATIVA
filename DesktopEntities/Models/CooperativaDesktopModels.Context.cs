@@ -45,5 +45,12 @@ namespace DesktopEntities.Models
         public virtual DbSet<Vw_ResumenRomaneoPorClase> Vw_ResumenRomaneoPorClase { get; set; }
         public virtual DbSet<Vw_Romaneo> Vw_Romaneo { get; set; }
         public virtual DbSet<Pago> Pago { get; set; }
+        public virtual DbSet<Vw_Producto> Vw_Producto { get; set; }
+        public virtual DbSet<Caja> Caja { get; set; }
+        public virtual DbSet<Cata> Cata { get; set; }
+        public virtual DbSet<Vw_Cliente> Vw_Cliente { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<OrdenVenta> OrdenVenta { get; set; }
+        public virtual DbSet<Remito> Remito { get; set; }
     }
 }

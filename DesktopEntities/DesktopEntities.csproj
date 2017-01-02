@@ -49,6 +49,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Caja.cs">
+      <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Cata.cs">
+      <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Clase.cs">
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>
@@ -76,6 +82,9 @@
     <Compile Include="Models\OrdenPago.cs">
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\OrdenVenta.cs">
+      <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Pago.cs">
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>
@@ -91,10 +100,19 @@
     <Compile Include="Models\PreingresoDetalle.cs">
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Remito.cs">
+      <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagrams.cs">
+      <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Usuario.cs">
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Vw_Clase.cs">
+      <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Vw_Cliente.cs">
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Vw_Movimiento.cs">
@@ -107,6 +125,9 @@
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Vw_Preingreso.cs">
+      <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Vw_Producto.cs">
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Vw_Productor.cs">

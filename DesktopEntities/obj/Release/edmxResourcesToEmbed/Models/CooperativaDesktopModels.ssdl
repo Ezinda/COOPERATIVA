@@ -1,0 +1,278 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CooperativaProduccionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Clase">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar" MaxLength="50" />
+    <Property Name="Valor" Type="float" />
+  </EntityType>
+  <EntityType Name="Movimiento">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="TransaccionId" Type="uniqueidentifier" />
+    <Property Name="Fecha" Type="date" />
+    <Property Name="Unidad" Type="nvarchar" MaxLength="50" />
+    <Property Name="Ingreso" Type="float" />
+    <Property Name="Egreso" Type="float" />
+  </EntityType>
+  <EntityType Name="Pesada">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="NumPesada" Type="int" />
+    <Property Name="PreingresoId" Type="uniqueidentifier" />
+    <Property Name="ProductorId" Type="uniqueidentifier" />
+    <Property Name="TotalFardo" Type="int" />
+    <Property Name="TotalKg" Type="float" />
+    <Property Name="ImporteBruto" Type="float" />
+    <Property Name="PrecioPromedio" Type="float" />
+    <Property Name="Fecha" Type="date" />
+    <Property Name="NumRomaneo" Type="bigint" />
+  </EntityType>
+  <EntityType Name="PesadaDetalle">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="PesadaId" Type="uniqueidentifier" />
+    <Property Name="NumFardo" Type="bigint" />
+    <Property Name="ClaseId" Type="uniqueidentifier" />
+    <Property Name="Kilos" Type="float" />
+    <Property Name="ContadorFardo" Type="bigint" />
+    <Property Name="ReclasificacionId" Type="uniqueidentifier" />
+  </EntityType>
+  <EntityType Name="Preingreso">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Transporte" Type="nvarchar" MaxLength="200" />
+    <Property Name="Chofer" Type="nvarchar" MaxLength="200" />
+    <Property Name="Patente" Type="nvarchar" MaxLength="50" />
+    <Property Name="NumRemito" Type="nvarchar" MaxLength="50" />
+    <Property Name="Observaciones" Type="text" />
+    <Property Name="NumeroPreingreso" Type="int" />
+  </EntityType>
+  <EntityType Name="PreingresoDetalle">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="PreingresoId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Fecha" Type="date" Nullable="false" />
+    <Property Name="Hora" Type="time" Precision="7" Nullable="false" />
+    <Property Name="ProductorId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Estado" Type="bit" />
+  </EntityType>
+  <EntityType Name="Productor">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Cuit" Type="nvarchar" MaxLength="150" />
+    <Property Name="Fet" Type="nvarchar" MaxLength="150" />
+    <Property Name="Nombre" Type="nvarchar" MaxLength="250" />
+    <Property Name="Provincia" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Usuario" Type="nvarchar" MaxLength="100" />
+    <Property Name="Password" Type="nvarchar" MaxLength="100" />
+    <Property Name="Nombre" Type="nvarchar" MaxLength="100" />
+    <Property Name="Apellido" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Movimiento' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Vw_Movimiento">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="NumFardo" Type="bigint" />
+    <Property Name="Clase" Type="nvarchar" MaxLength="50" />
+    <Property Name="Kilos" Type="float" />
+    <Property Name="NumRomaneo" Type="bigint" />
+    <Property Name="Productor" Type="nvarchar" MaxLength="250" />
+    <Property Name="Fet" Type="nvarchar" MaxLength="150" />
+    <Property Name="Cuit" Type="nvarchar" MaxLength="150" />
+    <Property Name="Provincia" Type="nvarchar" MaxLength="50" />
+    <Property Name="Fecha" Type="date" />
+    <Property Name="Unidad" Type="nvarchar" MaxLength="50" />
+    <Property Name="Ingreso" Type="float" />
+    <Property Name="Egreso" Type="float" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Pesada' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Vw_Pesada">
+    <Key>
+      <PropertyRef Name="PesadaId" />
+      <PropertyRef Name="PesadaDetalleId" />
+    </Key>
+    <Property Name="PesadaId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="PesadaDetalleId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="NumFardo" Type="bigint" />
+    <Property Name="ContadorFardo" Type="bigint" />
+    <Property Name="Clase" Type="nvarchar" MaxLength="50" />
+    <Property Name="Valor" Type="float" />
+    <Property Name="Kilos" Type="float" />
+    <Property Name="Subtotal" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="Fecha" Type="date" />
+    <Property Name="NumRomaneo" Type="bigint" />
+    <Property Name="Productor" Type="nvarchar" MaxLength="250" />
+    <Property Name="Fet" Type="nvarchar" MaxLength="150" />
+    <Property Name="Cuit" Type="nvarchar" MaxLength="150" />
+    <Property Name="Provincia" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Preingreso' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Vw_Preingreso">
+    <Key>
+      <PropertyRef Name="PreIngresoId" />
+      <PropertyRef Name="PreIngresoDetalleId" />
+      <PropertyRef Name="Fecha" />
+      <PropertyRef Name="Hora" />
+      <PropertyRef Name="ProductorId" />
+    </Key>
+    <Property Name="PreIngresoId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Transporte" Type="nvarchar" MaxLength="200" />
+    <Property Name="Chofer" Type="nvarchar" MaxLength="200" />
+    <Property Name="Patente" Type="nvarchar" MaxLength="50" />
+    <Property Name="NumRemito" Type="nvarchar" MaxLength="50" />
+    <Property Name="Observaciones" Type="text" />
+    <Property Name="NumeroPreingreso" Type="int" />
+    <Property Name="PreIngresoDetalleId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Fecha" Type="date" Nullable="false" />
+    <Property Name="Hora" Type="time" Precision="7" Nullable="false" />
+    <Property Name="Estado" Type="bit" />
+    <Property Name="ProductorId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Fet" Type="nvarchar" MaxLength="150" />
+    <Property Name="Nombre" Type="nvarchar" MaxLength="250" />
+    <Property Name="Cuit" Type="nvarchar" MaxLength="150" />
+    <Property Name="Provincia" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenPesada' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Vw_ResumenPesada">
+    <Key>
+      <PropertyRef Name="PesadaId" />
+    </Key>
+    <Property Name="PesadaId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="totalfardo" Type="int" />
+    <Property Name="kilos" Type="float" />
+    <Property Name="Subtotal" Type="decimal" Precision="38" Scale="2" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenPesadaPorClase' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Vw_ResumenPesadaPorClase">
+    <Key>
+      <PropertyRef Name="PesadaId" />
+    </Key>
+    <Property Name="PesadaId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Clase" Type="nvarchar" MaxLength="50" />
+    <Property Name="Kilos" Type="float" />
+  </EntityType>
+  <Association Name="FK_DetallePreingreso_Preingreso">
+    <End Role="Preingreso" Type="Self.Preingreso" Multiplicity="1" />
+    <End Role="PreingresoDetalle" Type="Self.PreingresoDetalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Preingreso">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PreingresoDetalle">
+        <PropertyRef Name="PreingresoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CooperativaProduccionModelStoreContainer">
+    <EntitySet Name="Clase" EntityType="Self.Clase" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Movimiento" EntityType="Self.Movimiento" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Pesada" EntityType="Self.Pesada" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PesadaDetalle" EntityType="Self.PesadaDetalle" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Preingreso" EntityType="Self.Preingreso" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PreingresoDetalle" EntityType="Self.PreingresoDetalle" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Productor" EntityType="Self.Productor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Vw_Movimiento" EntityType="Self.Vw_Movimiento" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Vw_Movimiento].[Id] AS [Id], 
+    [Vw_Movimiento].[NumFardo] AS [NumFardo], 
+    [Vw_Movimiento].[Clase] AS [Clase], 
+    [Vw_Movimiento].[Kilos] AS [Kilos], 
+    [Vw_Movimiento].[NumRomaneo] AS [NumRomaneo], 
+    [Vw_Movimiento].[Productor] AS [Productor], 
+    [Vw_Movimiento].[Fet] AS [Fet], 
+    [Vw_Movimiento].[Cuit] AS [Cuit], 
+    [Vw_Movimiento].[Provincia] AS [Provincia], 
+    [Vw_Movimiento].[Fecha] AS [Fecha], 
+    [Vw_Movimiento].[Unidad] AS [Unidad], 
+    [Vw_Movimiento].[Ingreso] AS [Ingreso], 
+    [Vw_Movimiento].[Egreso] AS [Egreso]
+    FROM [dbo].[Vw_Movimiento] AS [Vw_Movimiento]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Vw_Pesada" EntityType="Self.Vw_Pesada" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Vw_Pesada].[PesadaId] AS [PesadaId], 
+    [Vw_Pesada].[PesadaDetalleId] AS [PesadaDetalleId], 
+    [Vw_Pesada].[NumFardo] AS [NumFardo], 
+    [Vw_Pesada].[ContadorFardo] AS [ContadorFardo], 
+    [Vw_Pesada].[Clase] AS [Clase], 
+    [Vw_Pesada].[Valor] AS [Valor], 
+    [Vw_Pesada].[Kilos] AS [Kilos], 
+    [Vw_Pesada].[Subtotal] AS [Subtotal], 
+    [Vw_Pesada].[Fecha] AS [Fecha], 
+    [Vw_Pesada].[NumRomaneo] AS [NumRomaneo], 
+    [Vw_Pesada].[Productor] AS [Productor], 
+    [Vw_Pesada].[Fet] AS [Fet], 
+    [Vw_Pesada].[Cuit] AS [Cuit], 
+    [Vw_Pesada].[Provincia] AS [Provincia]
+    FROM [dbo].[Vw_Pesada] AS [Vw_Pesada]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Vw_Preingreso" EntityType="Self.Vw_Preingreso" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Vw_Preingreso].[PreIngresoId] AS [PreIngresoId], 
+    [Vw_Preingreso].[Transporte] AS [Transporte], 
+    [Vw_Preingreso].[Chofer] AS [Chofer], 
+    [Vw_Preingreso].[Patente] AS [Patente], 
+    [Vw_Preingreso].[NumRemito] AS [NumRemito], 
+    [Vw_Preingreso].[Observaciones] AS [Observaciones], 
+    [Vw_Preingreso].[NumeroPreingreso] AS [NumeroPreingreso], 
+    [Vw_Preingreso].[PreIngresoDetalleId] AS [PreIngresoDetalleId], 
+    [Vw_Preingreso].[Fecha] AS [Fecha], 
+    [Vw_Preingreso].[Hora] AS [Hora], 
+    [Vw_Preingreso].[Estado] AS [Estado], 
+    [Vw_Preingreso].[ProductorId] AS [ProductorId], 
+    [Vw_Preingreso].[Fet] AS [Fet], 
+    [Vw_Preingreso].[Nombre] AS [Nombre], 
+    [Vw_Preingreso].[Cuit] AS [Cuit], 
+    [Vw_Preingreso].[Provincia] AS [Provincia]
+    FROM [dbo].[Vw_Preingreso] AS [Vw_Preingreso]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Vw_ResumenPesada" EntityType="Self.Vw_ResumenPesada" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Vw_ResumenPesada].[PesadaId] AS [PesadaId], 
+    [Vw_ResumenPesada].[totalfardo] AS [totalfardo], 
+    [Vw_ResumenPesada].[kilos] AS [kilos], 
+    [Vw_ResumenPesada].[Subtotal] AS [Subtotal]
+    FROM [dbo].[Vw_ResumenPesada] AS [Vw_ResumenPesada]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Vw_ResumenPesadaPorClase" EntityType="Self.Vw_ResumenPesadaPorClase" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Vw_ResumenPesadaPorClase].[PesadaId] AS [PesadaId], 
+    [Vw_ResumenPesadaPorClase].[Clase] AS [Clase], 
+    [Vw_ResumenPesadaPorClase].[Kilos] AS [Kilos]
+    FROM [dbo].[Vw_ResumenPesadaPorClase] AS [Vw_ResumenPesadaPorClase]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_DetallePreingreso_Preingreso" Association="Self.FK_DetallePreingreso_Preingreso">
+      <End Role="Preingreso" EntitySet="Preingreso" />
+      <End Role="PreingresoDetalle" EntitySet="PreingresoDetalle" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

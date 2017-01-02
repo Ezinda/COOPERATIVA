@@ -4,14 +4,53 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="CooperativaProduccionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="CooperativaProduccionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Caja">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="NumeroCaja" Type="bigint" Nullable="false" />
+          <Property Name="OrdenVentaId" Type="uniqueidentifier" />
+          <Property Name="LoteCaja" Type="bigint" />
+          <Property Name="Fecha" Type="date" Nullable="false" />
+          <Property Name="Hora" Type="time" Precision="7" Nullable="false" />
+          <Property Name="ProductoId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Bruto" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Tara" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Neto" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="CataId" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="Cata">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Lote" Type="bigint" />
+          <Property Name="Cata" Type="bigint" />
+          <Property Name="NumOrden" Type="bigint" />
+          <Property Name="NumCaja" Type="bigint" />
+          <Property Name="OrdenVentaId" Type="uniqueidentifier" />
+          <Property Name="CajaId" Type="uniqueidentifier" />
+        </EntityType>
         <EntityType Name="Clase">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ClaseId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Valor" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="FechaModificacion" Type="datetime" Nullable="false" />
+          <Property Name="Vigente" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Contador">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Nombre" Type="nvarchar" MaxLength="50" />
-          <Property Name="Valor" Type="float" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="50" />
+          <Property Name="Valor" Type="int" />
         </EntityType>
         <EntityType Name="Movimiento">
           <Key>
@@ -24,6 +63,48 @@
           <Property Name="Ingreso" Type="float" />
           <Property Name="Egreso" Type="float" />
         </EntityType>
+        <EntityType Name="OrdenPago">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="NumOrdenPago" Type="bigint" />
+          <Property Name="NumIntOrdenPago" Type="bigint" />
+          <Property Name="Fecha" Type="date" />
+          <Property Name="ProductorId" Type="uniqueidentifier" />
+          <Property Name="Subtotal" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Ganancias" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="IVA" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="IIBB" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="SaludPublica" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="EEAOC" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Riego" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Monotributo" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Neto" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Detalle" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="OrdenVenta">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="NumOrden" Type="bigint" Nullable="false" />
+          <Property Name="NumOperacion" Type="bigint" Nullable="false" />
+          <Property Name="ClienteId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ProductoId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DesdeCaja" Type="bigint" />
+          <Property Name="HastaCaja" Type="bigint" />
+          <Property Name="Fecha" Type="date" Nullable="false" />
+          <Property Name="Pendiente" Type="bit" />
+        </EntityType>
+        <EntityType Name="Pago">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OrdenPagoId" Type="uniqueidentifier" />
+          <Property Name="Importe" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Pesada">
           <Key>
             <PropertyRef Name="Id" />
@@ -34,10 +115,22 @@
           <Property Name="ProductorId" Type="uniqueidentifier" />
           <Property Name="TotalFardo" Type="int" />
           <Property Name="TotalKg" Type="float" />
-          <Property Name="ImporteBruto" Type="float" />
-          <Property Name="PrecioPromedio" Type="float" />
-          <Property Name="Fecha" Type="date" />
-          <Property Name="NumRomaneo" Type="bigint" />
+          <Property Name="ImporteBruto" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PrecioPromedio" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="FechaRomaneo" Type="date" />
+          <Property Name="NumRomaneo" Type="nvarchar" MaxLength="50" />
+          <Property Name="FechaInternaLiquidacion" Type="date" />
+          <Property Name="NumInternoLiquidacion" Type="bigint" />
+          <Property Name="condIva" Type="nvarchar" MaxLength="50" />
+          <Property Name="IvaPorcentaje" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="IvaCalculado" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ImporteNeto" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Total" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="NumAfipLiquidacion" Type="nvarchar" MaxLength="100" />
+          <Property Name="FechaAfipLiquidacion" Type="date" />
+          <Property Name="Cae" Type="nvarchar" MaxLength="50" />
+          <Property Name="FechaVtoCae" Type="date" />
+          <Property Name="OrdenPagoId" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="PesadaDetalle">
           <Key>
@@ -48,6 +141,7 @@
           <Property Name="NumFardo" Type="bigint" />
           <Property Name="ClaseId" Type="uniqueidentifier" />
           <Property Name="Kilos" Type="float" />
+          <Property Name="PrecioClase" Type="decimal" Precision="18" Scale="2" />
           <Property Name="ContadorFardo" Type="bigint" />
           <Property Name="ReclasificacionId" Type="uniqueidentifier" />
         </EntityType>
@@ -74,15 +168,31 @@
           <Property Name="ProductorId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Estado" Type="bit" />
         </EntityType>
-        <EntityType Name="Productor">
+        <EntityType Name="Remito">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Cuit" Type="nvarchar" MaxLength="150" />
-          <Property Name="Fet" Type="nvarchar" MaxLength="150" />
-          <Property Name="Nombre" Type="nvarchar" MaxLength="250" />
-          <Property Name="Provincia" Type="nvarchar" MaxLength="50" />
+          <Property Name="NumRemito" Type="bigint" />
+          <Property Name="PuntoVenta" Type="int" />
+          <Property Name="NumOperacion" Type="bigint" />
+          <Property Name="NumOrden" Type="bigint" />
+          <Property Name="ClienteId" Type="uniqueidentifier" />
+          <Property Name="ProductoId" Type="uniqueidentifier" />
+          <Property Name="DesdeCaja" Type="bigint" />
+          <Property Name="HastaCaja" Type="bigint" />
+          <Property Name="Fecha" Type="date" />
+          <Property Name="OrdenVentaId" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
@@ -93,6 +203,50 @@
           <Property Name="Password" Type="nvarchar" MaxLength="100" />
           <Property Name="Nombre" Type="nvarchar" MaxLength="100" />
           <Property Name="Apellido" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Clase' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Vw_Clase">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="NOMBRE" Type="varchar" MaxLength="120" />
+          <Property Name="ID_PRODUCTO" Type="uniqueidentifier" />
+          <Property Name="COD_PRODUCTO" Type="varchar" MaxLength="30" />
+          <Property Name="DESCRIPCION" Type="varchar" MaxLength="150" />
+          <Property Name="PRECIOCOMPRA" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Vigente" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Cliente' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Vw_Cliente">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="DOMICILIO" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CODIGO" Type="varchar" MaxLength="15" />
+          <Property Name="RAZONSOCIAL" Type="varchar" MaxLength="100" />
+          <Property Name="CUIT" Type="varchar" MaxLength="40" />
+          <Property Name="CALLE" Type="varchar" MaxLength="100" />
+          <Property Name="DOMICILIO" Type="varchar" MaxLength="182" Nullable="false" />
+          <Property Name="DENOMINACION" Type="varchar" MaxLength="100" />
+          <Property Name="ZONA" Type="varchar" MaxLength="100" />
+          <Property Name="TELEFONO" Type="varchar" MaxLength="20" />
+          <Property Name="MAIL" Type="varchar" MaxLength="100" />
+          <Property Name="TP" Type="varchar" MaxLength="40" />
+          <Property Name="TipoPago" Type="varchar" MaxLength="150" />
+          <Property Name="ACTIVESTATUSTP" Type="int" />
+          <Property Name="Provincia" Type="varchar" MaxLength="40" />
+          <Property Name="Ciudad" Type="varchar" MaxLength="40" />
+          <Property Name="CONCATENADO" Type="varchar" MaxLength="157" />
+          <Property Name="IVA" Type="varchar" MaxLength="10" />
+          <Property Name="IDPAGO" Type="uniqueidentifier" />
+          <Property Name="domicilio_id" Type="uniqueidentifier" />
+          <Property Name="listaprecio" Type="uniqueidentifier" />
+          <Property Name="CREDITOMAXIMO" Type="decimal" Precision="22" Scale="10" />
+          <Property Name="CUITE" Type="varchar" MaxLength="30" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Movimiento' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -115,26 +269,59 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Movimiento' does not 
           <Property Name="Egreso" Type="float" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_OrdenPago' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Vw_OrdenPago">
+          <Key>
+            <PropertyRef Name="OrdenPagoId" />
+          </Key>
+          <Property Name="OrdenPagoId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="NumIntOrdenPago" Type="bigint" />
+          <Property Name="NumOrdenPago" Type="bigint" />
+          <Property Name="Fecha" Type="date" />
+          <Property Name="ProductorId" Type="uniqueidentifier" />
+          <Property Name="NOMBRE" Type="varchar" MaxLength="100" />
+          <Property Name="CUIT" Type="varchar" MaxLength="40" />
+          <Property Name="nrofet" Type="varchar" MaxLength="30" />
+          <Property Name="Subtotal" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Ganancias" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="IVA" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="IIBB" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="SaludPublica" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="EEAOC" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Riego" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Monotributo" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Neto" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="detalle" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Pesada' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_Pesada">
           <Key>
             <PropertyRef Name="PesadaId" />
             <PropertyRef Name="PesadaDetalleId" />
+            <PropertyRef Name="Valor" />
           </Key>
           <Property Name="PesadaId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="PesadaDetalleId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="NumFardo" Type="bigint" />
           <Property Name="ContadorFardo" Type="bigint" />
-          <Property Name="Clase" Type="nvarchar" MaxLength="50" />
-          <Property Name="Valor" Type="float" />
+          <Property Name="Clase" Type="varchar" MaxLength="120" />
+          <Property Name="Valor" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="Kilos" Type="float" />
           <Property Name="Subtotal" Type="decimal" Precision="10" Scale="2" />
-          <Property Name="Fecha" Type="date" />
-          <Property Name="NumRomaneo" Type="bigint" />
-          <Property Name="Productor" Type="nvarchar" MaxLength="250" />
-          <Property Name="Fet" Type="nvarchar" MaxLength="150" />
-          <Property Name="Cuit" Type="nvarchar" MaxLength="150" />
-          <Property Name="Provincia" Type="nvarchar" MaxLength="50" />
+          <Property Name="FechaRomaneo" Type="date" />
+          <Property Name="NumRomaneo" Type="nvarchar" MaxLength="50" />
+          <Property Name="Productor" Type="varchar" MaxLength="100" />
+          <Property Name="Fet" Type="varchar" MaxLength="30" />
+          <Property Name="Cuit" Type="varchar" MaxLength="40" />
+          <Property Name="Provincia" Type="varchar" MaxLength="40" />
+          <Property Name="Localidad" Type="varchar" MaxLength="40" />
+          <Property Name="IVA" Type="varchar" MaxLength="10" />
+          <Property Name="FechainternaLiquidacion" Type="date" />
+          <Property Name="NumInternoLiquidacion" Type="bigint" />
+          <Property Name="condIva" Type="nvarchar" MaxLength="50" />
+          <Property Name="NumAfipLiquidacion" Type="nvarchar" MaxLength="100" />
+          <Property Name="FechaAfipLiquidacion" Type="date" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Preingreso' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -144,7 +331,6 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Preingreso' does not 
             <PropertyRef Name="PreIngresoDetalleId" />
             <PropertyRef Name="Fecha" />
             <PropertyRef Name="Hora" />
-            <PropertyRef Name="ProductorId" />
           </Key>
           <Property Name="PreIngresoId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Transporte" Type="nvarchar" MaxLength="200" />
@@ -157,11 +343,43 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Preingreso' does not 
           <Property Name="Fecha" Type="date" Nullable="false" />
           <Property Name="Hora" Type="time" Precision="7" Nullable="false" />
           <Property Name="Estado" Type="bit" />
-          <Property Name="ProductorId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Fet" Type="nvarchar" MaxLength="150" />
-          <Property Name="Nombre" Type="nvarchar" MaxLength="250" />
-          <Property Name="Cuit" Type="nvarchar" MaxLength="150" />
-          <Property Name="Provincia" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProductorId" Type="uniqueidentifier" />
+          <Property Name="FET" Type="varchar" MaxLength="30" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" />
+          <Property Name="Cuit" Type="varchar" MaxLength="40" />
+          <Property Name="Provincia" Type="varchar" MaxLength="40" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Producto' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Vw_Producto">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CODIGO" Type="varchar" MaxLength="30" />
+          <Property Name="DESCRIPCION" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Productor' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Vw_Productor">
+          <Key>
+            <PropertyRef Name="DOMICILIO" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" />
+          <Property Name="CUIT" Type="varchar" MaxLength="40" />
+          <Property Name="nrofet" Type="varchar" MaxLength="30" />
+          <Property Name="NOMBRE" Type="varchar" MaxLength="100" />
+          <Property Name="Provincia" Type="varchar" MaxLength="40" />
+          <Property Name="CODIGO" Type="varchar" MaxLength="15" />
+          <Property Name="CALLE" Type="varchar" MaxLength="100" />
+          <Property Name="DOMICILIO" Type="varchar" MaxLength="182" Nullable="false" />
+          <Property Name="DENOMINACION" Type="varchar" MaxLength="100" />
+          <Property Name="TELEFONO" Type="varchar" MaxLength="20" />
+          <Property Name="MAIL" Type="varchar" MaxLength="100" />
+          <Property Name="TP" Type="varchar" MaxLength="40" />
+          <Property Name="TipoPago" Type="varchar" MaxLength="150" />
+          <Property Name="Ciudad" Type="varchar" MaxLength="40" />
+          <Property Name="IVA" Type="varchar" MaxLength="10" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenPesada' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -181,9 +399,61 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenPesadaPorClase
             <PropertyRef Name="PesadaId" />
           </Key>
           <Property Name="PesadaId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Clase" Type="nvarchar" MaxLength="50" />
+          <Property Name="Clase" Type="varchar" MaxLength="120" />
           <Property Name="Kilos" Type="float" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenRomaneoPorClase' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Vw_ResumenRomaneoPorClase">
+          <Key>
+            <PropertyRef Name="PesadaId" />
+          </Key>
+          <Property Name="PesadaId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Clase" Type="varchar" MaxLength="120" />
+          <Property Name="Fardos" Type="int" />
+          <Property Name="Kilos" Type="float" />
+          <Property Name="PrecioClase" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Total" Type="decimal" Precision="12" Scale="2" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Vw_Romaneo">
+          <Key>
+            <PropertyRef Name="PesadaId" />
+            <PropertyRef Name="Letra" />
+          </Key>
+          <Property Name="PesadaId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FechaRomaneo" Type="date" />
+          <Property Name="NumRomaneo" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProductorId" Type="uniqueidentifier" />
+          <Property Name="NOMBRE" Type="varchar" MaxLength="100" />
+          <Property Name="CUIT" Type="varchar" MaxLength="40" />
+          <Property Name="nrofet" Type="varchar" MaxLength="30" />
+          <Property Name="IVA" Type="varchar" MaxLength="10" />
+          <Property Name="Totalkg" Type="float" />
+          <Property Name="ImporteBruto" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="numInternoLiquidacion" Type="bigint" />
+          <Property Name="fechaInternaLiquidacion" Type="date" />
+          <Property Name="Letra" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="Provincia" Type="varchar" MaxLength="40" />
+          <Property Name="numAfipLiquidacion" Type="nvarchar" MaxLength="100" />
+          <Property Name="fechaAfipLiquidacion" Type="date" />
+          <Property Name="cae" Type="nvarchar" MaxLength="50" />
+          <Property Name="fechaVtoCae" Type="date" />
+          <Property Name="OrdenPagoId" Type="uniqueidentifier" />
+        </EntityType>
+        <Association Name="FK_Caja_Cata">
+          <End Role="Cata" Type="Self.Cata" Multiplicity="0..1" />
+          <End Role="Caja" Type="Self.Caja" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cata">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Caja">
+              <PropertyRef Name="CataId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_DetallePreingreso_Preingreso">
           <End Role="Preingreso" Type="Self.Preingreso" Multiplicity="1" />
           <End Role="PreingresoDetalle" Type="Self.PreingresoDetalle" Multiplicity="*" />
@@ -196,15 +466,71 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenPesadaPorClase
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Remito_OrdenVenta">
+          <End Role="OrdenVenta" Type="Self.OrdenVenta" Multiplicity="0..1" />
+          <End Role="Remito" Type="Self.Remito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrdenVenta">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Remito">
+              <PropertyRef Name="OrdenVentaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="CooperativaProduccionModelStoreContainer">
+          <EntitySet Name="Caja" EntityType="Self.Caja" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cata" EntityType="Self.Cata" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Clase" EntityType="Self.Clase" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Contador" EntityType="Self.Contador" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Movimiento" EntityType="Self.Movimiento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrdenPago" EntityType="Self.OrdenPago" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrdenVenta" EntityType="Self.OrdenVenta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pago" EntityType="Self.Pago" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pesada" EntityType="Self.Pesada" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PesadaDetalle" EntityType="Self.PesadaDetalle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Preingreso" EntityType="Self.Preingreso" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PreingresoDetalle" EntityType="Self.PreingresoDetalle" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Productor" EntityType="Self.Productor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Remito" EntityType="Self.Remito" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vw_Clase" EntityType="Self.Vw_Clase" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Vw_Clase].[ID] AS [ID], 
+    [Vw_Clase].[NOMBRE] AS [NOMBRE], 
+    [Vw_Clase].[ID_PRODUCTO] AS [ID_PRODUCTO], 
+    [Vw_Clase].[COD_PRODUCTO] AS [COD_PRODUCTO], 
+    [Vw_Clase].[DESCRIPCION] AS [DESCRIPCION], 
+    [Vw_Clase].[PRECIOCOMPRA] AS [PRECIOCOMPRA], 
+    [Vw_Clase].[Vigente] AS [Vigente]
+    FROM [dbo].[Vw_Clase] AS [Vw_Clase]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Vw_Cliente" EntityType="Self.Vw_Cliente" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Vw_Cliente].[ID] AS [ID], 
+    [Vw_Cliente].[CODIGO] AS [CODIGO], 
+    [Vw_Cliente].[RAZONSOCIAL] AS [RAZONSOCIAL], 
+    [Vw_Cliente].[CUIT] AS [CUIT], 
+    [Vw_Cliente].[CALLE] AS [CALLE], 
+    [Vw_Cliente].[DOMICILIO] AS [DOMICILIO], 
+    [Vw_Cliente].[DENOMINACION] AS [DENOMINACION], 
+    [Vw_Cliente].[ZONA] AS [ZONA], 
+    [Vw_Cliente].[TELEFONO] AS [TELEFONO], 
+    [Vw_Cliente].[MAIL] AS [MAIL], 
+    [Vw_Cliente].[TP] AS [TP], 
+    [Vw_Cliente].[TipoPago] AS [TipoPago], 
+    [Vw_Cliente].[ACTIVESTATUSTP] AS [ACTIVESTATUSTP], 
+    [Vw_Cliente].[Provincia] AS [Provincia], 
+    [Vw_Cliente].[Ciudad] AS [Ciudad], 
+    [Vw_Cliente].[CONCATENADO] AS [CONCATENADO], 
+    [Vw_Cliente].[IVA] AS [IVA], 
+    [Vw_Cliente].[IDPAGO] AS [IDPAGO], 
+    [Vw_Cliente].[domicilio_id] AS [domicilio_id], 
+    [Vw_Cliente].[listaprecio] AS [listaprecio], 
+    [Vw_Cliente].[CREDITOMAXIMO] AS [CREDITOMAXIMO], 
+    [Vw_Cliente].[CUITE] AS [CUITE]
+    FROM [dbo].[Vw_Cliente] AS [Vw_Cliente]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="Vw_Movimiento" EntityType="Self.Vw_Movimiento" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [Vw_Movimiento].[Id] AS [Id], 
@@ -222,6 +548,28 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenPesadaPorClase
     [Vw_Movimiento].[Egreso] AS [Egreso]
     FROM [dbo].[Vw_Movimiento] AS [Vw_Movimiento]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="Vw_OrdenPago" EntityType="Self.Vw_OrdenPago" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Vw_OrdenPago].[OrdenPagoId] AS [OrdenPagoId], 
+    [Vw_OrdenPago].[NumIntOrdenPago] AS [NumIntOrdenPago], 
+    [Vw_OrdenPago].[NumOrdenPago] AS [NumOrdenPago], 
+    [Vw_OrdenPago].[Fecha] AS [Fecha], 
+    [Vw_OrdenPago].[ProductorId] AS [ProductorId], 
+    [Vw_OrdenPago].[NOMBRE] AS [NOMBRE], 
+    [Vw_OrdenPago].[CUIT] AS [CUIT], 
+    [Vw_OrdenPago].[nrofet] AS [nrofet], 
+    [Vw_OrdenPago].[Subtotal] AS [Subtotal], 
+    [Vw_OrdenPago].[Ganancias] AS [Ganancias], 
+    [Vw_OrdenPago].[IVA] AS [IVA], 
+    [Vw_OrdenPago].[IIBB] AS [IIBB], 
+    [Vw_OrdenPago].[SaludPublica] AS [SaludPublica], 
+    [Vw_OrdenPago].[EEAOC] AS [EEAOC], 
+    [Vw_OrdenPago].[Riego] AS [Riego], 
+    [Vw_OrdenPago].[Monotributo] AS [Monotributo], 
+    [Vw_OrdenPago].[Neto] AS [Neto], 
+    [Vw_OrdenPago].[detalle] AS [detalle]
+    FROM [dbo].[Vw_OrdenPago] AS [Vw_OrdenPago]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="Vw_Pesada" EntityType="Self.Vw_Pesada" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [Vw_Pesada].[PesadaId] AS [PesadaId], 
@@ -232,12 +580,19 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenPesadaPorClase
     [Vw_Pesada].[Valor] AS [Valor], 
     [Vw_Pesada].[Kilos] AS [Kilos], 
     [Vw_Pesada].[Subtotal] AS [Subtotal], 
-    [Vw_Pesada].[Fecha] AS [Fecha], 
+    [Vw_Pesada].[FechaRomaneo] AS [FechaRomaneo], 
     [Vw_Pesada].[NumRomaneo] AS [NumRomaneo], 
     [Vw_Pesada].[Productor] AS [Productor], 
     [Vw_Pesada].[Fet] AS [Fet], 
     [Vw_Pesada].[Cuit] AS [Cuit], 
-    [Vw_Pesada].[Provincia] AS [Provincia]
+    [Vw_Pesada].[Provincia] AS [Provincia], 
+    [Vw_Pesada].[Localidad] AS [Localidad], 
+    [Vw_Pesada].[IVA] AS [IVA], 
+    [Vw_Pesada].[FechainternaLiquidacion] AS [FechainternaLiquidacion], 
+    [Vw_Pesada].[NumInternoLiquidacion] AS [NumInternoLiquidacion], 
+    [Vw_Pesada].[condIva] AS [condIva], 
+    [Vw_Pesada].[NumAfipLiquidacion] AS [NumAfipLiquidacion], 
+    [Vw_Pesada].[FechaAfipLiquidacion] AS [FechaAfipLiquidacion]
     FROM [dbo].[Vw_Pesada] AS [Vw_Pesada]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="Vw_Preingreso" EntityType="Self.Vw_Preingreso" store:Type="Views" store:Schema="dbo">
@@ -254,11 +609,37 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenPesadaPorClase
     [Vw_Preingreso].[Hora] AS [Hora], 
     [Vw_Preingreso].[Estado] AS [Estado], 
     [Vw_Preingreso].[ProductorId] AS [ProductorId], 
-    [Vw_Preingreso].[Fet] AS [Fet], 
+    [Vw_Preingreso].[FET] AS [FET], 
     [Vw_Preingreso].[Nombre] AS [Nombre], 
     [Vw_Preingreso].[Cuit] AS [Cuit], 
     [Vw_Preingreso].[Provincia] AS [Provincia]
     FROM [dbo].[Vw_Preingreso] AS [Vw_Preingreso]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Vw_Producto" EntityType="Self.Vw_Producto" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Vw_Producto].[ID] AS [ID], 
+    [Vw_Producto].[CODIGO] AS [CODIGO], 
+    [Vw_Producto].[DESCRIPCION] AS [DESCRIPCION]
+    FROM [dbo].[Vw_Producto] AS [Vw_Producto]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Vw_Productor" EntityType="Self.Vw_Productor" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Vw_Productor].[ID] AS [ID], 
+    [Vw_Productor].[CUIT] AS [CUIT], 
+    [Vw_Productor].[nrofet] AS [nrofet], 
+    [Vw_Productor].[NOMBRE] AS [NOMBRE], 
+    [Vw_Productor].[Provincia] AS [Provincia], 
+    [Vw_Productor].[CODIGO] AS [CODIGO], 
+    [Vw_Productor].[CALLE] AS [CALLE], 
+    [Vw_Productor].[DOMICILIO] AS [DOMICILIO], 
+    [Vw_Productor].[DENOMINACION] AS [DENOMINACION], 
+    [Vw_Productor].[TELEFONO] AS [TELEFONO], 
+    [Vw_Productor].[MAIL] AS [MAIL], 
+    [Vw_Productor].[TP] AS [TP], 
+    [Vw_Productor].[TipoPago] AS [TipoPago], 
+    [Vw_Productor].[Ciudad] AS [Ciudad], 
+    [Vw_Productor].[IVA] AS [IVA]
+    FROM [dbo].[Vw_Productor] AS [Vw_Productor]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="Vw_ResumenPesada" EntityType="Self.Vw_ResumenPesada" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -275,9 +656,50 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenPesadaPorClase
     [Vw_ResumenPesadaPorClase].[Kilos] AS [Kilos]
     FROM [dbo].[Vw_ResumenPesadaPorClase] AS [Vw_ResumenPesadaPorClase]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="Vw_ResumenRomaneoPorClase" EntityType="Self.Vw_ResumenRomaneoPorClase" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Vw_ResumenRomaneoPorClase].[PesadaId] AS [PesadaId], 
+    [Vw_ResumenRomaneoPorClase].[Clase] AS [Clase], 
+    [Vw_ResumenRomaneoPorClase].[Fardos] AS [Fardos], 
+    [Vw_ResumenRomaneoPorClase].[Kilos] AS [Kilos], 
+    [Vw_ResumenRomaneoPorClase].[PrecioClase] AS [PrecioClase], 
+    [Vw_ResumenRomaneoPorClase].[Total] AS [Total]
+    FROM [dbo].[Vw_ResumenRomaneoPorClase] AS [Vw_ResumenRomaneoPorClase]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Vw_Romaneo" EntityType="Self.Vw_Romaneo" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Vw_Romaneo].[PesadaId] AS [PesadaId], 
+    [Vw_Romaneo].[FechaRomaneo] AS [FechaRomaneo], 
+    [Vw_Romaneo].[NumRomaneo] AS [NumRomaneo], 
+    [Vw_Romaneo].[ProductorId] AS [ProductorId], 
+    [Vw_Romaneo].[NOMBRE] AS [NOMBRE], 
+    [Vw_Romaneo].[CUIT] AS [CUIT], 
+    [Vw_Romaneo].[nrofet] AS [nrofet], 
+    [Vw_Romaneo].[IVA] AS [IVA], 
+    [Vw_Romaneo].[Totalkg] AS [Totalkg], 
+    [Vw_Romaneo].[ImporteBruto] AS [ImporteBruto], 
+    [Vw_Romaneo].[numInternoLiquidacion] AS [numInternoLiquidacion], 
+    [Vw_Romaneo].[fechaInternaLiquidacion] AS [fechaInternaLiquidacion], 
+    [Vw_Romaneo].[Letra] AS [Letra], 
+    [Vw_Romaneo].[Provincia] AS [Provincia], 
+    [Vw_Romaneo].[numAfipLiquidacion] AS [numAfipLiquidacion], 
+    [Vw_Romaneo].[fechaAfipLiquidacion] AS [fechaAfipLiquidacion], 
+    [Vw_Romaneo].[cae] AS [cae], 
+    [Vw_Romaneo].[fechaVtoCae] AS [fechaVtoCae], 
+    [Vw_Romaneo].[OrdenPagoId] AS [OrdenPagoId]
+    FROM [dbo].[Vw_Romaneo] AS [Vw_Romaneo]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Caja_Cata" Association="Self.FK_Caja_Cata">
+            <End Role="Cata" EntitySet="Cata" />
+            <End Role="Caja" EntitySet="Caja" />
+          </AssociationSet>
           <AssociationSet Name="FK_DetallePreingreso_Preingreso" Association="Self.FK_DetallePreingreso_Preingreso">
             <End Role="Preingreso" EntitySet="Preingreso" />
             <End Role="PreingresoDetalle" EntitySet="PreingresoDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Remito_OrdenVenta" Association="Self.FK_Remito_OrdenVenta">
+            <End Role="OrdenVenta" EntitySet="OrdenVenta" />
+            <End Role="Remito" EntitySet="Remito" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -286,30 +708,63 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenPesadaPorClase
       <Schema Namespace="CooperativaProduccionModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="CooperativaProduccionEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Clase" EntityType="CooperativaProduccionModel.Clase" />
+          <EntitySet Name="Contador" EntityType="CooperativaProduccionModel.Contador" />
           <EntitySet Name="Movimiento" EntityType="CooperativaProduccionModel.Movimiento" />
+          <EntitySet Name="OrdenPago" EntityType="CooperativaProduccionModel.OrdenPago" />
           <EntitySet Name="Pesada" EntityType="CooperativaProduccionModel.Pesada" />
           <EntitySet Name="PesadaDetalle" EntityType="CooperativaProduccionModel.PesadaDetalle" />
           <EntitySet Name="Preingreso" EntityType="CooperativaProduccionModel.Preingreso" />
           <EntitySet Name="PreingresoDetalle" EntityType="CooperativaProduccionModel.PreingresoDetalle" />
-          <EntitySet Name="Productor" EntityType="CooperativaProduccionModel.Productor" />
           <EntitySet Name="Usuario" EntityType="CooperativaProduccionModel.Usuario" />
+          <EntitySet Name="Vw_Clase" EntityType="CooperativaProduccionModel.Vw_Clase" />
+          <EntitySet Name="Vw_Movimiento" EntityType="CooperativaProduccionModel.Vw_Movimiento" />
+          <EntitySet Name="Vw_OrdenPago" EntityType="CooperativaProduccionModel.Vw_OrdenPago" />
           <EntitySet Name="Vw_Pesada" EntityType="CooperativaProduccionModel.Vw_Pesada" />
           <EntitySet Name="Vw_Preingreso" EntityType="CooperativaProduccionModel.Vw_Preingreso" />
+          <EntitySet Name="Vw_Productor" EntityType="CooperativaProduccionModel.Vw_Productor" />
           <EntitySet Name="Vw_ResumenPesada" EntityType="CooperativaProduccionModel.Vw_ResumenPesada" />
           <EntitySet Name="Vw_ResumenPesadaPorClase" EntityType="CooperativaProduccionModel.Vw_ResumenPesadaPorClase" />
+          <EntitySet Name="Vw_ResumenRomaneoPorClase" EntityType="CooperativaProduccionModel.Vw_ResumenRomaneoPorClase" />
+          <EntitySet Name="Vw_Romaneo" EntityType="CooperativaProduccionModel.Vw_Romaneo" />
           <AssociationSet Name="FK_DetallePreingreso_Preingreso" Association="CooperativaProduccionModel.FK_DetallePreingreso_Preingreso">
             <End Role="Preingreso" EntitySet="Preingreso" />
             <End Role="PreingresoDetalle" EntitySet="PreingresoDetalle" />
           </AssociationSet>
-          <EntitySet Name="Vw_Movimiento" EntityType="CooperativaProduccionModel.Vw_Movimiento" />
+          <EntitySet Name="Pago" EntityType="CooperativaProduccionModel.Pago" />
+          <EntitySet Name="Vw_Producto" EntityType="CooperativaProduccionModel.Vw_Producto" />
+          <EntitySet Name="Caja" EntityType="CooperativaProduccionModel.Caja" />
+          <EntitySet Name="Cata" EntityType="CooperativaProduccionModel.Cata" />
+          <AssociationSet Name="FK_Caja_Cata" Association="CooperativaProduccionModel.FK_Caja_Cata">
+            <End Role="Cata" EntitySet="Cata" />
+            <End Role="Caja" EntitySet="Caja" />
+          </AssociationSet>
+          <EntitySet Name="Vw_Cliente" EntityType="CooperativaProduccionModel.Vw_Cliente" />
+          <EntitySet Name="sysdiagrams" EntityType="CooperativaProduccionModel.sysdiagrams" />
+          <EntitySet Name="OrdenVenta" EntityType="CooperativaProduccionModel.OrdenVenta" />
+          <EntitySet Name="Remito" EntityType="CooperativaProduccionModel.Remito" />
+          <AssociationSet Name="FK_Remito_OrdenVenta" Association="CooperativaProduccionModel.FK_Remito_OrdenVenta">
+            <End Role="OrdenVenta" EntitySet="OrdenVenta" />
+            <End Role="Remito" EntitySet="Remito" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Clase">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="ClaseId" Type="Guid" Nullable="false" />
+          <Property Name="Valor" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="FechaModificacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Vigente" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Contador">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Valor" Type="Double" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Valor" Type="Int32" />
         </EntityType>
         <EntityType Name="Movimiento">
           <Key>
@@ -322,6 +777,26 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenPesadaPorClase
           <Property Name="Ingreso" Type="Double" />
           <Property Name="Egreso" Type="Double" />
         </EntityType>
+        <EntityType Name="OrdenPago">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="NumOrdenPago" Type="Int64" />
+          <Property Name="NumIntOrdenPago" Type="Int64" />
+          <Property Name="Fecha" Type="DateTime" Precision="0" />
+          <Property Name="ProductorId" Type="Guid" />
+          <Property Name="Subtotal" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Ganancias" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="IVA" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="IIBB" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="SaludPublica" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="EEAOC" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Riego" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Monotributo" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Neto" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Detalle" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="Pesada">
           <Key>
             <PropertyRef Name="Id" />
@@ -332,10 +807,22 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenPesadaPorClase
           <Property Name="ProductorId" Type="Guid" />
           <Property Name="TotalFardo" Type="Int32" />
           <Property Name="TotalKg" Type="Double" />
-          <Property Name="ImporteBruto" Type="Double" />
-          <Property Name="PrecioPromedio" Type="Double" />
-          <Property Name="Fecha" Type="DateTime" Precision="0" />
-          <Property Name="NumRomaneo" Type="Int64" />
+          <Property Name="ImporteBruto" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PrecioPromedio" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="FechaRomaneo" Type="DateTime" Precision="0" />
+          <Property Name="NumRomaneo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FechaInternaLiquidacion" Type="DateTime" Precision="0" />
+          <Property Name="NumInternoLiquidacion" Type="Int64" />
+          <Property Name="condIva" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IvaPorcentaje" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="IvaCalculado" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ImporteNeto" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Total" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="NumAfipLiquidacion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FechaAfipLiquidacion" Type="DateTime" Precision="0" />
+          <Property Name="Cae" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FechaVtoCae" Type="DateTime" Precision="0" />
+          <Property Name="OrdenPagoId" Type="Guid" />
         </EntityType>
         <EntityType Name="PesadaDetalle">
           <Key>
@@ -346,6 +833,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenPesadaPorClase
           <Property Name="NumFardo" Type="Int64" />
           <Property Name="ClaseId" Type="Guid" />
           <Property Name="Kilos" Type="Double" />
+          <Property Name="PrecioClase" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="ContadorFardo" Type="Int64" />
           <Property Name="ReclasificacionId" Type="Guid" />
         </EntityType>
@@ -374,16 +862,6 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenPesadaPorClase
           <Property Name="Estado" Type="Boolean" />
           <NavigationProperty Name="Preingreso" Relationship="CooperativaProduccionModel.FK_DetallePreingreso_Preingreso" FromRole="PreingresoDetalle" ToRole="Preingreso" />
         </EntityType>
-        <EntityType Name="Productor">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="Cuit" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Fet" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Nombre" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Provincia" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="Usuario">
           <Key>
             <PropertyRef Name="Id" />
@@ -394,80 +872,18 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenPesadaPorClase
           <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Apellido" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="Vw_Pesada">
+        <EntityType Name="Vw_Clase">
           <Key>
-            <PropertyRef Name="PesadaId" />
-            <PropertyRef Name="PesadaDetalleId" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="PesadaId" Type="Guid" Nullable="false" />
-          <Property Name="PesadaDetalleId" Type="Guid" Nullable="false" />
-          <Property Name="NumFardo" Type="Int64" />
-          <Property Name="ContadorFardo" Type="Int64" />
-          <Property Name="Clase" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Valor" Type="Double" />
-          <Property Name="Kilos" Type="Double" />
-          <Property Name="Subtotal" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="Fecha" Type="DateTime" Precision="0" />
-          <Property Name="NumRomaneo" Type="Int64" />
-          <Property Name="Productor" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Fet" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Cuit" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Provincia" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="NOMBRE" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="ID_PRODUCTO" Type="Guid" />
+          <Property Name="COD_PRODUCTO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="PRECIOCOMPRA" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Vigente" Type="Boolean" />
         </EntityType>
-        <EntityType Name="Vw_Preingreso">
-          <Key>
-            <PropertyRef Name="PreIngresoId" />
-            <PropertyRef Name="PreIngresoDetalleId" />
-            <PropertyRef Name="Fecha" />
-            <PropertyRef Name="Hora" />
-            <PropertyRef Name="ProductorId" />
-          </Key>
-          <Property Name="PreIngresoId" Type="Guid" Nullable="false" />
-          <Property Name="Transporte" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="Chofer" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="Patente" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="NumRemito" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Observaciones" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="NumeroPreingreso" Type="Int32" />
-          <Property Name="PreIngresoDetalleId" Type="Guid" Nullable="false" />
-          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Hora" Type="Time" Nullable="false" Precision="7" />
-          <Property Name="Estado" Type="Boolean" />
-          <Property Name="ProductorId" Type="Guid" Nullable="false" />
-          <Property Name="Fet" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Nombre" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Cuit" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Provincia" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Vw_ResumenPesada">
-          <Key>
-            <PropertyRef Name="PesadaId" />
-          </Key>
-          <Property Name="PesadaId" Type="Guid" Nullable="false" />
-          <Property Name="totalfardo" Type="Int32" />
-          <Property Name="kilos" Type="Double" />
-          <Property Name="Subtotal" Type="Decimal" Precision="38" Scale="2" />
-        </EntityType>
-        <EntityType Name="Vw_ResumenPesadaPorClase">
-          <Key>
-            <PropertyRef Name="PesadaId" />
-          </Key>
-          <Property Name="PesadaId" Type="Guid" Nullable="false" />
-          <Property Name="Clase" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Kilos" Type="Double" />
-        </EntityType>
-        <Association Name="FK_DetallePreingreso_Preingreso">
-          <End Type="CooperativaProduccionModel.Preingreso" Role="Preingreso" Multiplicity="1" />
-          <End Type="CooperativaProduccionModel.PreingresoDetalle" Role="PreingresoDetalle" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Preingreso">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="PreingresoDetalle">
-              <PropertyRef Name="PreingresoId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Vw_Movimiento">
           <Key>
             <PropertyRef Name="Id" />
@@ -486,6 +902,306 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenPesadaPorClase
           <Property Name="Ingreso" Type="Double" />
           <Property Name="Egreso" Type="Double" />
         </EntityType>
+        <EntityType Name="Vw_OrdenPago">
+          <Key>
+            <PropertyRef Name="OrdenPagoId" />
+          </Key>
+          <Property Name="OrdenPagoId" Type="Guid" Nullable="false" />
+          <Property Name="NumIntOrdenPago" Type="Int64" />
+          <Property Name="NumOrdenPago" Type="Int64" />
+          <Property Name="Fecha" Type="DateTime" Precision="0" />
+          <Property Name="ProductorId" Type="Guid" />
+          <Property Name="NOMBRE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CUIT" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="nrofet" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Subtotal" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Ganancias" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="IVA" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="IIBB" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="SaludPublica" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="EEAOC" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Riego" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Monotributo" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Neto" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="detalle" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Vw_Pesada">
+          <Key>
+            <PropertyRef Name="PesadaId" />
+            <PropertyRef Name="PesadaDetalleId" />
+            <PropertyRef Name="Valor" />
+          </Key>
+          <Property Name="PesadaId" Type="Guid" Nullable="false" />
+          <Property Name="PesadaDetalleId" Type="Guid" Nullable="false" />
+          <Property Name="NumFardo" Type="Int64" />
+          <Property Name="ContadorFardo" Type="Int64" />
+          <Property Name="Clase" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="Valor" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Kilos" Type="Double" />
+          <Property Name="Subtotal" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="FechaRomaneo" Type="DateTime" Precision="0" />
+          <Property Name="NumRomaneo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Productor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Fet" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Cuit" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Provincia" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Localidad" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="IVA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="FechainternaLiquidacion" Type="DateTime" Precision="0" />
+          <Property Name="NumInternoLiquidacion" Type="Int64" />
+          <Property Name="condIva" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NumAfipLiquidacion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FechaAfipLiquidacion" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="Vw_Preingreso">
+          <Key>
+            <PropertyRef Name="PreIngresoId" />
+            <PropertyRef Name="PreIngresoDetalleId" />
+            <PropertyRef Name="Fecha" />
+            <PropertyRef Name="Hora" />
+          </Key>
+          <Property Name="PreIngresoId" Type="Guid" Nullable="false" />
+          <Property Name="Transporte" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Chofer" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Patente" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NumRemito" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Observaciones" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="NumeroPreingreso" Type="Int32" />
+          <Property Name="PreIngresoDetalleId" Type="Guid" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Hora" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="Estado" Type="Boolean" />
+          <Property Name="ProductorId" Type="Guid" />
+          <Property Name="FET" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Cuit" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Provincia" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Vw_Productor">
+          <Key>
+            <PropertyRef Name="DOMICILIO" />
+          </Key>
+          <Property Name="ID" Type="Guid" />
+          <Property Name="CUIT" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="nrofet" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="NOMBRE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Provincia" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="CODIGO" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="CALLE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DOMICILIO" Type="String" Nullable="false" MaxLength="182" FixedLength="false" Unicode="false" />
+          <Property Name="DENOMINACION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TELEFONO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="MAIL" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TP" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="TipoPago" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Ciudad" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="IVA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Vw_ResumenPesada">
+          <Key>
+            <PropertyRef Name="PesadaId" />
+          </Key>
+          <Property Name="PesadaId" Type="Guid" Nullable="false" />
+          <Property Name="totalfardo" Type="Int32" />
+          <Property Name="kilos" Type="Double" />
+          <Property Name="Subtotal" Type="Decimal" Precision="38" Scale="2" />
+        </EntityType>
+        <EntityType Name="Vw_ResumenPesadaPorClase">
+          <Key>
+            <PropertyRef Name="PesadaId" />
+          </Key>
+          <Property Name="PesadaId" Type="Guid" Nullable="false" />
+          <Property Name="Clase" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="Kilos" Type="Double" />
+        </EntityType>
+        <EntityType Name="Vw_ResumenRomaneoPorClase">
+          <Key>
+            <PropertyRef Name="PesadaId" />
+          </Key>
+          <Property Name="PesadaId" Type="Guid" Nullable="false" />
+          <Property Name="Clase" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="Fardos" Type="Int32" />
+          <Property Name="Kilos" Type="Double" />
+          <Property Name="PrecioClase" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Total" Type="Decimal" Precision="12" Scale="2" />
+        </EntityType>
+        <EntityType Name="Vw_Romaneo">
+          <Key>
+            <PropertyRef Name="PesadaId" />
+            <PropertyRef Name="Letra" />
+          </Key>
+          <Property Name="PesadaId" Type="Guid" Nullable="false" />
+          <Property Name="FechaRomaneo" Type="DateTime" Precision="0" />
+          <Property Name="NumRomaneo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProductorId" Type="Guid" />
+          <Property Name="NOMBRE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CUIT" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="nrofet" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="IVA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Totalkg" Type="Double" />
+          <Property Name="ImporteBruto" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="numInternoLiquidacion" Type="Int64" />
+          <Property Name="fechaInternaLiquidacion" Type="DateTime" Precision="0" />
+          <Property Name="Letra" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="Provincia" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="numAfipLiquidacion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="fechaAfipLiquidacion" Type="DateTime" Precision="0" />
+          <Property Name="cae" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fechaVtoCae" Type="DateTime" Precision="0" />
+          <Property Name="OrdenPagoId" Type="Guid" />
+        </EntityType>
+        <Association Name="FK_DetallePreingreso_Preingreso">
+          <End Type="CooperativaProduccionModel.Preingreso" Role="Preingreso" Multiplicity="1" />
+          <End Type="CooperativaProduccionModel.PreingresoDetalle" Role="PreingresoDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Preingreso">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PreingresoDetalle">
+              <PropertyRef Name="PreingresoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Pago">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="OrdenPagoId" Type="Guid" />
+          <Property Name="Importe" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Vw_Producto">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="CODIGO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Caja">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="NumeroCaja" Type="Int64" Nullable="false" />
+          <Property Name="OrdenVentaId" Type="Guid" />
+          <Property Name="LoteCaja" Type="Int64" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Hora" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="ProductoId" Type="Guid" Nullable="false" />
+          <Property Name="Bruto" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Tara" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Neto" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="CataId" Type="Guid" />
+          <NavigationProperty Name="Cata" Relationship="CooperativaProduccionModel.FK_Caja_Cata" FromRole="Caja" ToRole="Cata" />
+        </EntityType>
+        <EntityType Name="Cata">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Lote" Type="Int64" />
+          <Property Name="Cata1" Type="Int64" />
+          <Property Name="NumOrden" Type="Int64" />
+          <Property Name="NumCaja" Type="Int64" />
+          <Property Name="OrdenVentaId" Type="Guid" />
+          <Property Name="CajaId" Type="Guid" />
+          <NavigationProperty Name="Caja" Relationship="CooperativaProduccionModel.FK_Caja_Cata" FromRole="Cata" ToRole="Caja" />
+        </EntityType>
+        <Association Name="FK_Caja_Cata">
+          <End Type="CooperativaProduccionModel.Cata" Role="Cata" Multiplicity="0..1" />
+          <End Type="CooperativaProduccionModel.Caja" Role="Caja" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cata">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Caja">
+              <PropertyRef Name="CataId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Vw_Cliente">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="DOMICILIO" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="CODIGO" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="RAZONSOCIAL" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CUIT" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="CALLE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DOMICILIO" Type="String" Nullable="false" MaxLength="182" FixedLength="false" Unicode="false" />
+          <Property Name="DENOMINACION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ZONA" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TELEFONO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="MAIL" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TP" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="TipoPago" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="ACTIVESTATUSTP" Type="Int32" />
+          <Property Name="Provincia" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Ciudad" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="CONCATENADO" Type="String" MaxLength="157" FixedLength="false" Unicode="false" />
+          <Property Name="IVA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="IDPAGO" Type="Guid" />
+          <Property Name="domicilio_id" Type="Guid" />
+          <Property Name="listaprecio" Type="Guid" />
+          <Property Name="CREDITOMAXIMO" Type="Decimal" Precision="22" Scale="10" />
+          <Property Name="CUITE" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="OrdenVenta">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="NumOrden" Type="Int64" Nullable="false" />
+          <Property Name="NumOperacion" Type="Int64" Nullable="false" />
+          <Property Name="ClienteId" Type="Guid" Nullable="false" />
+          <Property Name="ProductoId" Type="Guid" Nullable="false" />
+          <Property Name="DesdeCaja" Type="Int64" />
+          <Property Name="HastaCaja" Type="Int64" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Pendiente" Type="Boolean" />
+          <NavigationProperty Name="Remito" Relationship="CooperativaProduccionModel.FK_Remito_OrdenVenta" FromRole="OrdenVenta" ToRole="Remito" />
+        </EntityType>
+        <EntityType Name="Remito">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="NumRemito" Type="Int64" />
+          <Property Name="PuntoVenta" Type="Int32" />
+          <Property Name="NumOperacion" Type="Int64" />
+          <Property Name="NumOrden" Type="Int64" />
+          <Property Name="ClienteId" Type="Guid" />
+          <Property Name="ProductoId" Type="Guid" />
+          <Property Name="DesdeCaja" Type="Int64" />
+          <Property Name="HastaCaja" Type="Int64" />
+          <Property Name="Fecha" Type="DateTime" Precision="0" />
+          <Property Name="OrdenVentaId" Type="Guid" />
+          <NavigationProperty Name="OrdenVenta" Relationship="CooperativaProduccionModel.FK_Remito_OrdenVenta" FromRole="Remito" ToRole="OrdenVenta" />
+        </EntityType>
+        <Association Name="FK_Remito_OrdenVenta">
+          <End Type="CooperativaProduccionModel.OrdenVenta" Role="OrdenVenta" Multiplicity="0..1" />
+          <End Type="CooperativaProduccionModel.Remito" Role="Remito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrdenVenta">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Remito">
+              <PropertyRef Name="OrdenVentaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -495,7 +1211,19 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenPesadaPorClase
           <EntitySetMapping Name="Clase">
             <EntityTypeMapping TypeName="CooperativaProduccionModel.Clase">
               <MappingFragment StoreEntitySet="Clase">
+                <ScalarProperty Name="Vigente" ColumnName="Vigente" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
                 <ScalarProperty Name="Valor" ColumnName="Valor" />
+                <ScalarProperty Name="ClaseId" ColumnName="ClaseId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contador">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.Contador">
+              <MappingFragment StoreEntitySet="Contador">
+                <ScalarProperty Name="Valor" ColumnName="Valor" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
@@ -513,11 +1241,44 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenPesadaPorClase
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="OrdenPago">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.OrdenPago">
+              <MappingFragment StoreEntitySet="OrdenPago">
+                <ScalarProperty Name="Detalle" ColumnName="Detalle" />
+                <ScalarProperty Name="Neto" ColumnName="Neto" />
+                <ScalarProperty Name="Monotributo" ColumnName="Monotributo" />
+                <ScalarProperty Name="Riego" ColumnName="Riego" />
+                <ScalarProperty Name="EEAOC" ColumnName="EEAOC" />
+                <ScalarProperty Name="SaludPublica" ColumnName="SaludPublica" />
+                <ScalarProperty Name="IIBB" ColumnName="IIBB" />
+                <ScalarProperty Name="IVA" ColumnName="IVA" />
+                <ScalarProperty Name="Ganancias" ColumnName="Ganancias" />
+                <ScalarProperty Name="Subtotal" ColumnName="Subtotal" />
+                <ScalarProperty Name="ProductorId" ColumnName="ProductorId" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="NumIntOrdenPago" ColumnName="NumIntOrdenPago" />
+                <ScalarProperty Name="NumOrdenPago" ColumnName="NumOrdenPago" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Pesada">
             <EntityTypeMapping TypeName="CooperativaProduccionModel.Pesada">
               <MappingFragment StoreEntitySet="Pesada">
+                <ScalarProperty Name="OrdenPagoId" ColumnName="OrdenPagoId" />
+                <ScalarProperty Name="FechaVtoCae" ColumnName="FechaVtoCae" />
+                <ScalarProperty Name="Cae" ColumnName="Cae" />
+                <ScalarProperty Name="FechaAfipLiquidacion" ColumnName="FechaAfipLiquidacion" />
+                <ScalarProperty Name="NumAfipLiquidacion" ColumnName="NumAfipLiquidacion" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="ImporteNeto" ColumnName="ImporteNeto" />
+                <ScalarProperty Name="IvaCalculado" ColumnName="IvaCalculado" />
+                <ScalarProperty Name="IvaPorcentaje" ColumnName="IvaPorcentaje" />
+                <ScalarProperty Name="condIva" ColumnName="condIva" />
+                <ScalarProperty Name="NumInternoLiquidacion" ColumnName="NumInternoLiquidacion" />
+                <ScalarProperty Name="FechaInternaLiquidacion" ColumnName="FechaInternaLiquidacion" />
                 <ScalarProperty Name="NumRomaneo" ColumnName="NumRomaneo" />
-                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="FechaRomaneo" ColumnName="FechaRomaneo" />
                 <ScalarProperty Name="PrecioPromedio" ColumnName="PrecioPromedio" />
                 <ScalarProperty Name="ImporteBruto" ColumnName="ImporteBruto" />
                 <ScalarProperty Name="TotalKg" ColumnName="TotalKg" />
@@ -534,6 +1295,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenPesadaPorClase
               <MappingFragment StoreEntitySet="PesadaDetalle">
                 <ScalarProperty Name="ReclasificacionId" ColumnName="ReclasificacionId" />
                 <ScalarProperty Name="ContadorFardo" ColumnName="ContadorFardo" />
+                <ScalarProperty Name="PrecioClase" ColumnName="PrecioClase" />
                 <ScalarProperty Name="Kilos" ColumnName="Kilos" />
                 <ScalarProperty Name="ClaseId" ColumnName="ClaseId" />
                 <ScalarProperty Name="NumFardo" ColumnName="NumFardo" />
@@ -567,17 +1329,6 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenPesadaPorClase
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Productor">
-            <EntityTypeMapping TypeName="CooperativaProduccionModel.Productor">
-              <MappingFragment StoreEntitySet="Productor">
-                <ScalarProperty Name="Provincia" ColumnName="Provincia" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="Fet" ColumnName="Fet" />
-                <ScalarProperty Name="Cuit" ColumnName="Cuit" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Usuario">
             <EntityTypeMapping TypeName="CooperativaProduccionModel.Usuario">
               <MappingFragment StoreEntitySet="Usuario">
@@ -589,64 +1340,16 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenPesadaPorClase
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Vw_Pesada">
-            <EntityTypeMapping TypeName="CooperativaProduccionModel.Vw_Pesada">
-              <MappingFragment StoreEntitySet="Vw_Pesada">
-                <ScalarProperty Name="Provincia" ColumnName="Provincia" />
-                <ScalarProperty Name="Cuit" ColumnName="Cuit" />
-                <ScalarProperty Name="Fet" ColumnName="Fet" />
-                <ScalarProperty Name="Productor" ColumnName="Productor" />
-                <ScalarProperty Name="NumRomaneo" ColumnName="NumRomaneo" />
-                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
-                <ScalarProperty Name="Subtotal" ColumnName="Subtotal" />
-                <ScalarProperty Name="Kilos" ColumnName="Kilos" />
-                <ScalarProperty Name="Valor" ColumnName="Valor" />
-                <ScalarProperty Name="Clase" ColumnName="Clase" />
-                <ScalarProperty Name="ContadorFardo" ColumnName="ContadorFardo" />
-                <ScalarProperty Name="NumFardo" ColumnName="NumFardo" />
-                <ScalarProperty Name="PesadaDetalleId" ColumnName="PesadaDetalleId" />
-                <ScalarProperty Name="PesadaId" ColumnName="PesadaId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Vw_Preingreso">
-            <EntityTypeMapping TypeName="CooperativaProduccionModel.Vw_Preingreso">
-              <MappingFragment StoreEntitySet="Vw_Preingreso">
-                <ScalarProperty Name="Provincia" ColumnName="Provincia" />
-                <ScalarProperty Name="Cuit" ColumnName="Cuit" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="Fet" ColumnName="Fet" />
-                <ScalarProperty Name="ProductorId" ColumnName="ProductorId" />
-                <ScalarProperty Name="Estado" ColumnName="Estado" />
-                <ScalarProperty Name="Hora" ColumnName="Hora" />
-                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
-                <ScalarProperty Name="PreIngresoDetalleId" ColumnName="PreIngresoDetalleId" />
-                <ScalarProperty Name="NumeroPreingreso" ColumnName="NumeroPreingreso" />
-                <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
-                <ScalarProperty Name="NumRemito" ColumnName="NumRemito" />
-                <ScalarProperty Name="Patente" ColumnName="Patente" />
-                <ScalarProperty Name="Chofer" ColumnName="Chofer" />
-                <ScalarProperty Name="Transporte" ColumnName="Transporte" />
-                <ScalarProperty Name="PreIngresoId" ColumnName="PreIngresoId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Vw_ResumenPesada">
-            <EntityTypeMapping TypeName="CooperativaProduccionModel.Vw_ResumenPesada">
-              <MappingFragment StoreEntitySet="Vw_ResumenPesada">
-                <ScalarProperty Name="Subtotal" ColumnName="Subtotal" />
-                <ScalarProperty Name="kilos" ColumnName="kilos" />
-                <ScalarProperty Name="totalfardo" ColumnName="totalfardo" />
-                <ScalarProperty Name="PesadaId" ColumnName="PesadaId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Vw_ResumenPesadaPorClase">
-            <EntityTypeMapping TypeName="CooperativaProduccionModel.Vw_ResumenPesadaPorClase">
-              <MappingFragment StoreEntitySet="Vw_ResumenPesadaPorClase">
-                <ScalarProperty Name="Kilos" ColumnName="Kilos" />
-                <ScalarProperty Name="Clase" ColumnName="Clase" />
-                <ScalarProperty Name="PesadaId" ColumnName="PesadaId" />
+          <EntitySetMapping Name="Vw_Clase">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.Vw_Clase">
+              <MappingFragment StoreEntitySet="Vw_Clase">
+                <ScalarProperty Name="Vigente" ColumnName="Vigente" />
+                <ScalarProperty Name="PRECIOCOMPRA" ColumnName="PRECIOCOMPRA" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="COD_PRODUCTO" ColumnName="COD_PRODUCTO" />
+                <ScalarProperty Name="ID_PRODUCTO" ColumnName="ID_PRODUCTO" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -669,7 +1372,276 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenPesadaPorClase
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          <EntitySetMapping Name="Vw_OrdenPago">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.Vw_OrdenPago">
+              <MappingFragment StoreEntitySet="Vw_OrdenPago">
+                <ScalarProperty Name="detalle" ColumnName="detalle" />
+                <ScalarProperty Name="Neto" ColumnName="Neto" />
+                <ScalarProperty Name="Monotributo" ColumnName="Monotributo" />
+                <ScalarProperty Name="Riego" ColumnName="Riego" />
+                <ScalarProperty Name="EEAOC" ColumnName="EEAOC" />
+                <ScalarProperty Name="SaludPublica" ColumnName="SaludPublica" />
+                <ScalarProperty Name="IIBB" ColumnName="IIBB" />
+                <ScalarProperty Name="IVA" ColumnName="IVA" />
+                <ScalarProperty Name="Ganancias" ColumnName="Ganancias" />
+                <ScalarProperty Name="Subtotal" ColumnName="Subtotal" />
+                <ScalarProperty Name="nrofet" ColumnName="nrofet" />
+                <ScalarProperty Name="CUIT" ColumnName="CUIT" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="ProductorId" ColumnName="ProductorId" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="NumOrdenPago" ColumnName="NumOrdenPago" />
+                <ScalarProperty Name="NumIntOrdenPago" ColumnName="NumIntOrdenPago" />
+                <ScalarProperty Name="OrdenPagoId" ColumnName="OrdenPagoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vw_Pesada">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.Vw_Pesada">
+              <MappingFragment StoreEntitySet="Vw_Pesada">
+                <ScalarProperty Name="FechaAfipLiquidacion" ColumnName="FechaAfipLiquidacion" />
+                <ScalarProperty Name="NumAfipLiquidacion" ColumnName="NumAfipLiquidacion" />
+                <ScalarProperty Name="condIva" ColumnName="condIva" />
+                <ScalarProperty Name="NumInternoLiquidacion" ColumnName="NumInternoLiquidacion" />
+                <ScalarProperty Name="FechainternaLiquidacion" ColumnName="FechainternaLiquidacion" />
+                <ScalarProperty Name="IVA" ColumnName="IVA" />
+                <ScalarProperty Name="Localidad" ColumnName="Localidad" />
+                <ScalarProperty Name="Provincia" ColumnName="Provincia" />
+                <ScalarProperty Name="Cuit" ColumnName="Cuit" />
+                <ScalarProperty Name="Fet" ColumnName="Fet" />
+                <ScalarProperty Name="Productor" ColumnName="Productor" />
+                <ScalarProperty Name="NumRomaneo" ColumnName="NumRomaneo" />
+                <ScalarProperty Name="FechaRomaneo" ColumnName="FechaRomaneo" />
+                <ScalarProperty Name="Subtotal" ColumnName="Subtotal" />
+                <ScalarProperty Name="Kilos" ColumnName="Kilos" />
+                <ScalarProperty Name="Valor" ColumnName="Valor" />
+                <ScalarProperty Name="Clase" ColumnName="Clase" />
+                <ScalarProperty Name="ContadorFardo" ColumnName="ContadorFardo" />
+                <ScalarProperty Name="NumFardo" ColumnName="NumFardo" />
+                <ScalarProperty Name="PesadaDetalleId" ColumnName="PesadaDetalleId" />
+                <ScalarProperty Name="PesadaId" ColumnName="PesadaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vw_Preingreso">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.Vw_Preingreso">
+              <MappingFragment StoreEntitySet="Vw_Preingreso">
+                <ScalarProperty Name="Provincia" ColumnName="Provincia" />
+                <ScalarProperty Name="Cuit" ColumnName="Cuit" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="FET" ColumnName="FET" />
+                <ScalarProperty Name="ProductorId" ColumnName="ProductorId" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Hora" ColumnName="Hora" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="PreIngresoDetalleId" ColumnName="PreIngresoDetalleId" />
+                <ScalarProperty Name="NumeroPreingreso" ColumnName="NumeroPreingreso" />
+                <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+                <ScalarProperty Name="NumRemito" ColumnName="NumRemito" />
+                <ScalarProperty Name="Patente" ColumnName="Patente" />
+                <ScalarProperty Name="Chofer" ColumnName="Chofer" />
+                <ScalarProperty Name="Transporte" ColumnName="Transporte" />
+                <ScalarProperty Name="PreIngresoId" ColumnName="PreIngresoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vw_Productor">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.Vw_Productor">
+              <MappingFragment StoreEntitySet="Vw_Productor">
+                <ScalarProperty Name="IVA" ColumnName="IVA" />
+                <ScalarProperty Name="Ciudad" ColumnName="Ciudad" />
+                <ScalarProperty Name="TipoPago" ColumnName="TipoPago" />
+                <ScalarProperty Name="TP" ColumnName="TP" />
+                <ScalarProperty Name="MAIL" ColumnName="MAIL" />
+                <ScalarProperty Name="TELEFONO" ColumnName="TELEFONO" />
+                <ScalarProperty Name="DENOMINACION" ColumnName="DENOMINACION" />
+                <ScalarProperty Name="DOMICILIO" ColumnName="DOMICILIO" />
+                <ScalarProperty Name="CALLE" ColumnName="CALLE" />
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="Provincia" ColumnName="Provincia" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="nrofet" ColumnName="nrofet" />
+                <ScalarProperty Name="CUIT" ColumnName="CUIT" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vw_ResumenPesada">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.Vw_ResumenPesada">
+              <MappingFragment StoreEntitySet="Vw_ResumenPesada">
+                <ScalarProperty Name="Subtotal" ColumnName="Subtotal" />
+                <ScalarProperty Name="kilos" ColumnName="kilos" />
+                <ScalarProperty Name="totalfardo" ColumnName="totalfardo" />
+                <ScalarProperty Name="PesadaId" ColumnName="PesadaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vw_ResumenPesadaPorClase">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.Vw_ResumenPesadaPorClase">
+              <MappingFragment StoreEntitySet="Vw_ResumenPesadaPorClase">
+                <ScalarProperty Name="Kilos" ColumnName="Kilos" />
+                <ScalarProperty Name="Clase" ColumnName="Clase" />
+                <ScalarProperty Name="PesadaId" ColumnName="PesadaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vw_ResumenRomaneoPorClase">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.Vw_ResumenRomaneoPorClase">
+              <MappingFragment StoreEntitySet="Vw_ResumenRomaneoPorClase">
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="PrecioClase" ColumnName="PrecioClase" />
+                <ScalarProperty Name="Kilos" ColumnName="Kilos" />
+                <ScalarProperty Name="Fardos" ColumnName="Fardos" />
+                <ScalarProperty Name="Clase" ColumnName="Clase" />
+                <ScalarProperty Name="PesadaId" ColumnName="PesadaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vw_Romaneo">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.Vw_Romaneo">
+              <MappingFragment StoreEntitySet="Vw_Romaneo">
+                <ScalarProperty Name="OrdenPagoId" ColumnName="OrdenPagoId" />
+                <ScalarProperty Name="fechaVtoCae" ColumnName="fechaVtoCae" />
+                <ScalarProperty Name="cae" ColumnName="cae" />
+                <ScalarProperty Name="fechaAfipLiquidacion" ColumnName="fechaAfipLiquidacion" />
+                <ScalarProperty Name="numAfipLiquidacion" ColumnName="numAfipLiquidacion" />
+                <ScalarProperty Name="Provincia" ColumnName="Provincia" />
+                <ScalarProperty Name="Letra" ColumnName="Letra" />
+                <ScalarProperty Name="fechaInternaLiquidacion" ColumnName="fechaInternaLiquidacion" />
+                <ScalarProperty Name="numInternoLiquidacion" ColumnName="numInternoLiquidacion" />
+                <ScalarProperty Name="ImporteBruto" ColumnName="ImporteBruto" />
+                <ScalarProperty Name="Totalkg" ColumnName="Totalkg" />
+                <ScalarProperty Name="IVA" ColumnName="IVA" />
+                <ScalarProperty Name="nrofet" ColumnName="nrofet" />
+                <ScalarProperty Name="CUIT" ColumnName="CUIT" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="ProductorId" ColumnName="ProductorId" />
+                <ScalarProperty Name="NumRomaneo" ColumnName="NumRomaneo" />
+                <ScalarProperty Name="FechaRomaneo" ColumnName="FechaRomaneo" />
+                <ScalarProperty Name="PesadaId" ColumnName="PesadaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pago">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.Pago">
+              <MappingFragment StoreEntitySet="Pago">
+                <ScalarProperty Name="Importe" ColumnName="Importe" />
+                <ScalarProperty Name="OrdenPagoId" ColumnName="OrdenPagoId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vw_Producto">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.Vw_Producto">
+              <MappingFragment StoreEntitySet="Vw_Producto">
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Caja">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.Caja">
+              <MappingFragment StoreEntitySet="Caja">
+                <ScalarProperty Name="CataId" ColumnName="CataId" />
+                <ScalarProperty Name="Neto" ColumnName="Neto" />
+                <ScalarProperty Name="Tara" ColumnName="Tara" />
+                <ScalarProperty Name="Bruto" ColumnName="Bruto" />
+                <ScalarProperty Name="ProductoId" ColumnName="ProductoId" />
+                <ScalarProperty Name="Hora" ColumnName="Hora" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="LoteCaja" ColumnName="LoteCaja" />
+                <ScalarProperty Name="OrdenVentaId" ColumnName="OrdenVentaId" />
+                <ScalarProperty Name="NumeroCaja" ColumnName="NumeroCaja" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cata">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.Cata">
+              <MappingFragment StoreEntitySet="Cata">
+                <ScalarProperty Name="CajaId" ColumnName="CajaId" />
+                <ScalarProperty Name="OrdenVentaId" ColumnName="OrdenVentaId" />
+                <ScalarProperty Name="NumCaja" ColumnName="NumCaja" />
+                <ScalarProperty Name="NumOrden" ColumnName="NumOrden" />
+                <ScalarProperty Name="Cata1" ColumnName="Cata" />
+                <ScalarProperty Name="Lote" ColumnName="Lote" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vw_Cliente">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.Vw_Cliente">
+              <MappingFragment StoreEntitySet="Vw_Cliente">
+                <ScalarProperty Name="CUITE" ColumnName="CUITE" />
+                <ScalarProperty Name="CREDITOMAXIMO" ColumnName="CREDITOMAXIMO" />
+                <ScalarProperty Name="listaprecio" ColumnName="listaprecio" />
+                <ScalarProperty Name="domicilio_id" ColumnName="domicilio_id" />
+                <ScalarProperty Name="IDPAGO" ColumnName="IDPAGO" />
+                <ScalarProperty Name="IVA" ColumnName="IVA" />
+                <ScalarProperty Name="CONCATENADO" ColumnName="CONCATENADO" />
+                <ScalarProperty Name="Ciudad" ColumnName="Ciudad" />
+                <ScalarProperty Name="Provincia" ColumnName="Provincia" />
+                <ScalarProperty Name="ACTIVESTATUSTP" ColumnName="ACTIVESTATUSTP" />
+                <ScalarProperty Name="TipoPago" ColumnName="TipoPago" />
+                <ScalarProperty Name="TP" ColumnName="TP" />
+                <ScalarProperty Name="MAIL" ColumnName="MAIL" />
+                <ScalarProperty Name="TELEFONO" ColumnName="TELEFONO" />
+                <ScalarProperty Name="ZONA" ColumnName="ZONA" />
+                <ScalarProperty Name="DENOMINACION" ColumnName="DENOMINACION" />
+                <ScalarProperty Name="DOMICILIO" ColumnName="DOMICILIO" />
+                <ScalarProperty Name="CALLE" ColumnName="CALLE" />
+                <ScalarProperty Name="CUIT" ColumnName="CUIT" />
+                <ScalarProperty Name="RAZONSOCIAL" ColumnName="RAZONSOCIAL" />
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrdenVenta">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.OrdenVenta">
+              <MappingFragment StoreEntitySet="OrdenVenta">
+                <ScalarProperty Name="Pendiente" ColumnName="Pendiente" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="HastaCaja" ColumnName="HastaCaja" />
+                <ScalarProperty Name="DesdeCaja" ColumnName="DesdeCaja" />
+                <ScalarProperty Name="ProductoId" ColumnName="ProductoId" />
+                <ScalarProperty Name="ClienteId" ColumnName="ClienteId" />
+                <ScalarProperty Name="NumOperacion" ColumnName="NumOperacion" />
+                <ScalarProperty Name="NumOrden" ColumnName="NumOrden" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Remito">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.Remito">
+              <MappingFragment StoreEntitySet="Remito">
+                <ScalarProperty Name="OrdenVentaId" ColumnName="OrdenVentaId" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="HastaCaja" ColumnName="HastaCaja" />
+                <ScalarProperty Name="DesdeCaja" ColumnName="DesdeCaja" />
+                <ScalarProperty Name="ProductoId" ColumnName="ProductoId" />
+                <ScalarProperty Name="ClienteId" ColumnName="ClienteId" />
+                <ScalarProperty Name="NumOrden" ColumnName="NumOrden" />
+                <ScalarProperty Name="NumOperacion" ColumnName="NumOperacion" />
+                <ScalarProperty Name="PuntoVenta" ColumnName="PuntoVenta" />
+                <ScalarProperty Name="NumRemito" ColumnName="NumRemito" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

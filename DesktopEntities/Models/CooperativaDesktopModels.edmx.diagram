@@ -26,6 +26,15 @@
         <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_Romaneo" Width="1.5" PointX="12.75" PointY="3.75" />
         <AssociationConnector Association="CooperativaProduccionModel.FK_DetallePreingreso_Preingreso" />
         <EntityTypeShape EntityType="CooperativaProduccionModel.Pago" Width="1.5" PointX="13.375" PointY="9.75" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_Producto" Width="1.5" PointX="5.375" PointY="14.75" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.Caja" Width="1.5" PointX="15.625" PointY="13" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.Cata" Width="1.5" PointX="13.375" PointY="13.375" />
+        <AssociationConnector Association="CooperativaProduccionModel.FK_Caja_Cata" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_Cliente" Width="1.5" PointX="0.75" PointY="15.75" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.sysdiagrams" Width="1.5" PointX="7.375" PointY="15.75" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.OrdenVenta" Width="1.5" PointX="15.375" PointY="1.125" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.Remito" Width="1.5" PointX="17.625" PointY="1" />
+        <AssociationConnector Association="CooperativaProduccionModel.FK_Remito_OrdenVenta" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

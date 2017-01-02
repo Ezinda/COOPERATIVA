@@ -51,8 +51,8 @@ namespace CooperativaProduccion
         private void btnBuscarProductor_Click(object sender, EventArgs e)
         {
             Buscar();
-            txtTransporte.Focus();
             txtBuscador.Text = string.Empty;
+            txtTransporte.Focus();
         }
 
         private void txtTransporte_KeyPress(object sender, KeyPressEventArgs e)
@@ -150,7 +150,7 @@ namespace CooperativaProduccion
             {
                 if (dgvProductores.Rows[item.Index].Cells[item.Index].Value == null)
                 {
-                    valorCelda = "";
+                    valorCelda = string.Empty;
                 }
                 else
                 {
