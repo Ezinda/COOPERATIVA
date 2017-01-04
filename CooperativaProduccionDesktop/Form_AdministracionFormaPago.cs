@@ -84,13 +84,21 @@ namespace CooperativaProduccion
 
         private void btnGrabar_Click(object sender, EventArgs e)
         {
-            Pago pago;
-            pago = new Pago();
-            pago.Id = Guid.NewGuid();
-            pago.OrdenPagoId = OrdenId;
-            pago.Importe = txtImportePagar.Text;
-            Context.Pago.Add(pago);
-            Context.SaveChanges();
+            try
+            {
+                Pago pago;
+                pago = new Pago();
+                pago.Id = Guid.NewGuid();
+                pago.OrdenPagoId = OrdenId;
+                pago.Importe = txtImportePagar.Text;
+                Context.Pago.Add(pago);
+                Context.SaveChanges();
+                
+            }
+            catch
+            {
+                throw;
+            }
             this.Close();
         }
 

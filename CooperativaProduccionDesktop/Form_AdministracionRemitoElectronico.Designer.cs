@@ -37,6 +37,7 @@
             this.gridViewOrdenVentaPendiente = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
+            this.checkPeriodo = new System.Windows.Forms.CheckBox();
             this.btnBuscarOrdenVentaPendiente = new DevExpress.XtraEditors.SimpleButton();
             this.btnBuscarCliente = new DevExpress.XtraEditors.SimpleButton();
             this.txtCliente = new System.Windows.Forms.TextBox();
@@ -46,24 +47,25 @@
             this.dpDesde = new System.Windows.Forms.DateTimePicker();
             this.label15 = new System.Windows.Forms.Label();
             this.TabConsultaRemito = new DevExpress.XtraTab.XtraTabPage();
-            this.groupControl8 = new DevExpress.XtraEditors.GroupControl();
-            this.btnAsignarCata = new DevExpress.XtraEditors.SimpleButton();
             this.groupControl7 = new DevExpress.XtraEditors.GroupControl();
             this.btnPrevisualizar = new DevExpress.XtraEditors.SimpleButton();
             this.btnSubirAfip = new DevExpress.XtraEditors.SimpleButton();
             this.groupControl6 = new DevExpress.XtraEditors.GroupControl();
-            this.gridControlCajaConsulta = new DevExpress.XtraGrid.GridControl();
-            this.gridViewCajaConsulta = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.gridControlRemito = new DevExpress.XtraGrid.GridControl();
+            this.gridViewRemito = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gridViewLiquidacionDetalle = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.groupControl4 = new DevExpress.XtraEditors.GroupControl();
             this.btnBuscarLiquidacion = new DevExpress.XtraEditors.SimpleButton();
             this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
-            this.txtCantidadCajaConsulta = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.btnBuscarCaja = new DevExpress.XtraEditors.SimpleButton();
-            this.cbProductoConsulta = new System.Windows.Forms.ComboBox();
+            this.checkPeriodoRemito = new System.Windows.Forms.CheckBox();
+            this.btnBuscarRemito = new DevExpress.XtraEditors.SimpleButton();
+            this.btnBuscarClienteRemito = new DevExpress.XtraEditors.SimpleButton();
+            this.txtClienteRemito = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.checkPeriodo = new System.Windows.Forms.CheckBox();
+            this.dpHastaRemito = new System.Windows.Forms.DateTimePicker();
+            this.label4 = new System.Windows.Forms.Label();
+            this.dpDesdeRemito = new System.Windows.Forms.DateTimePicker();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Remito)).BeginInit();
             this.Remito.SuspendLayout();
@@ -76,14 +78,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             this.TabConsultaRemito.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl8)).BeginInit();
-            this.groupControl8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl7)).BeginInit();
             this.groupControl7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl6)).BeginInit();
             this.groupControl6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridControlCajaConsulta)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridViewCajaConsulta)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControlRemito)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewRemito)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewLiquidacionDetalle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl4)).BeginInit();
             this.groupControl4.SuspendLayout();
@@ -106,7 +106,7 @@
             this.ribbon.ShowFullScreenButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Show;
             this.ribbon.ShowToolbarCustomizeItem = false;
-            this.ribbon.Size = new System.Drawing.Size(888, 49);
+            this.ribbon.Size = new System.Drawing.Size(907, 49);
             this.ribbon.Toolbar.ShowCustomizeItem = false;
             // 
             // Remito
@@ -117,7 +117,7 @@
             this.Remito.Location = new System.Drawing.Point(-3, 54);
             this.Remito.Name = "Remito";
             this.Remito.SelectedTabPage = this.TabIngresoRemito;
-            this.Remito.Size = new System.Drawing.Size(896, 482);
+            this.Remito.Size = new System.Drawing.Size(915, 482);
             this.Remito.TabIndex = 76;
             this.Remito.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.TabIngresoRemito,
@@ -129,7 +129,7 @@
             this.TabIngresoRemito.Controls.Add(this.groupControl1);
             this.TabIngresoRemito.Image = ((System.Drawing.Image)(resources.GetObject("TabIngresoRemito.Image")));
             this.TabIngresoRemito.Name = "TabIngresoRemito";
-            this.TabIngresoRemito.Size = new System.Drawing.Size(890, 451);
+            this.TabIngresoRemito.Size = new System.Drawing.Size(909, 451);
             this.TabIngresoRemito.Text = "Ingreso de Remito";
             // 
             // groupControl3
@@ -140,7 +140,7 @@
             this.groupControl3.Controls.Add(this.gridControlOrdenVentaPendiente);
             this.groupControl3.Location = new System.Drawing.Point(0, 54);
             this.groupControl3.Name = "groupControl3";
-            this.groupControl3.Size = new System.Drawing.Size(891, 397);
+            this.groupControl3.Size = new System.Drawing.Size(910, 397);
             this.groupControl3.TabIndex = 76;
             this.groupControl3.Text = "Ordenes de Venta Pendientes";
             // 
@@ -151,7 +151,7 @@
             this.gridControlOrdenVentaPendiente.MainView = this.gridViewOrdenVentaPendiente;
             this.gridControlOrdenVentaPendiente.MenuManager = this.ribbon;
             this.gridControlOrdenVentaPendiente.Name = "gridControlOrdenVentaPendiente";
-            this.gridControlOrdenVentaPendiente.Size = new System.Drawing.Size(887, 374);
+            this.gridControlOrdenVentaPendiente.Size = new System.Drawing.Size(906, 374);
             this.gridControlOrdenVentaPendiente.TabIndex = 68;
             this.gridControlOrdenVentaPendiente.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewOrdenVentaPendiente,
@@ -174,8 +174,7 @@
             // 
             // groupControl1
             // 
-            this.groupControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.groupControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupControl1.Controls.Add(this.checkPeriodo);
             this.groupControl1.Controls.Add(this.btnBuscarOrdenVentaPendiente);
@@ -188,9 +187,18 @@
             this.groupControl1.Controls.Add(this.label15);
             this.groupControl1.Location = new System.Drawing.Point(1, 1);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(888, 52);
+            this.groupControl1.Size = new System.Drawing.Size(907, 52);
             this.groupControl1.TabIndex = 72;
             this.groupControl1.Text = "Buscar ordenes de venta pendientes";
+            // 
+            // checkPeriodo
+            // 
+            this.checkPeriodo.AutoSize = true;
+            this.checkPeriodo.Location = new System.Drawing.Point(377, 29);
+            this.checkPeriodo.Name = "checkPeriodo";
+            this.checkPeriodo.Size = new System.Drawing.Size(15, 14);
+            this.checkPeriodo.TabIndex = 83;
+            this.checkPeriodo.UseVisualStyleBackColor = true;
             // 
             // btnBuscarOrdenVentaPendiente
             // 
@@ -268,36 +276,14 @@
             // 
             // TabConsultaRemito
             // 
-            this.TabConsultaRemito.Controls.Add(this.groupControl8);
+            this.TabConsultaRemito.Controls.Add(this.groupControl2);
             this.TabConsultaRemito.Controls.Add(this.groupControl7);
             this.TabConsultaRemito.Controls.Add(this.groupControl6);
             this.TabConsultaRemito.Controls.Add(this.groupControl4);
-            this.TabConsultaRemito.Controls.Add(this.groupControl2);
             this.TabConsultaRemito.Image = ((System.Drawing.Image)(resources.GetObject("TabConsultaRemito.Image")));
             this.TabConsultaRemito.Name = "TabConsultaRemito";
-            this.TabConsultaRemito.Size = new System.Drawing.Size(929, 451);
+            this.TabConsultaRemito.Size = new System.Drawing.Size(909, 451);
             this.TabConsultaRemito.Text = "Consulta de Remitos";
-            // 
-            // groupControl8
-            // 
-            this.groupControl8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupControl8.Controls.Add(this.btnAsignarCata);
-            this.groupControl8.Location = new System.Drawing.Point(1, 419);
-            this.groupControl8.Name = "groupControl8";
-            this.groupControl8.ShowCaption = false;
-            this.groupControl8.Size = new System.Drawing.Size(928, 31);
-            this.groupControl8.TabIndex = 73;
-            this.groupControl8.Text = "Buscar Cata";
-            // 
-            // btnAsignarCata
-            // 
-            this.btnAsignarCata.Image = ((System.Drawing.Image)(resources.GetObject("btnAsignarCata.Image")));
-            this.btnAsignarCata.Location = new System.Drawing.Point(5, 2);
-            this.btnAsignarCata.Name = "btnAsignarCata";
-            this.btnAsignarCata.Size = new System.Drawing.Size(100, 26);
-            this.btnAsignarCata.TabIndex = 60;
-            this.btnAsignarCata.Text = "Asignar Cata";
             // 
             // groupControl7
             // 
@@ -307,7 +293,7 @@
             this.groupControl7.Location = new System.Drawing.Point(1, 601);
             this.groupControl7.Name = "groupControl7";
             this.groupControl7.ShowCaption = false;
-            this.groupControl7.Size = new System.Drawing.Size(1368, 33);
+            this.groupControl7.Size = new System.Drawing.Size(1387, 33);
             this.groupControl7.TabIndex = 76;
             this.groupControl7.Text = "Buscar Romaneo";
             // 
@@ -334,37 +320,38 @@
             this.groupControl6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupControl6.Controls.Add(this.gridControlCajaConsulta);
-            this.groupControl6.Location = new System.Drawing.Point(-1, 55);
+            this.groupControl6.Controls.Add(this.gridControlRemito);
+            this.groupControl6.Location = new System.Drawing.Point(-1, 54);
             this.groupControl6.Name = "groupControl6";
-            this.groupControl6.Size = new System.Drawing.Size(930, 365);
+            this.groupControl6.Size = new System.Drawing.Size(910, 395);
             this.groupControl6.TabIndex = 75;
             this.groupControl6.Text = "Lista de Cajas";
             // 
-            // gridControlCajaConsulta
+            // gridControlRemito
             // 
-            this.gridControlCajaConsulta.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridControlCajaConsulta.Location = new System.Drawing.Point(2, 21);
-            this.gridControlCajaConsulta.MainView = this.gridViewCajaConsulta;
-            this.gridControlCajaConsulta.MenuManager = this.ribbon;
-            this.gridControlCajaConsulta.Name = "gridControlCajaConsulta";
-            this.gridControlCajaConsulta.Size = new System.Drawing.Size(926, 342);
-            this.gridControlCajaConsulta.TabIndex = 68;
-            this.gridControlCajaConsulta.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gridViewCajaConsulta,
+            this.gridControlRemito.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridControlRemito.Location = new System.Drawing.Point(2, 21);
+            this.gridControlRemito.MainView = this.gridViewRemito;
+            this.gridControlRemito.MenuManager = this.ribbon;
+            this.gridControlRemito.Name = "gridControlRemito";
+            this.gridControlRemito.Size = new System.Drawing.Size(906, 372);
+            this.gridControlRemito.TabIndex = 68;
+            this.gridControlRemito.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridViewRemito,
             this.gridViewLiquidacionDetalle});
+            this.gridControlRemito.DoubleClick += new System.EventHandler(this.gridControlRemito_DoubleClick);
             // 
-            // gridViewCajaConsulta
+            // gridViewRemito
             // 
-            this.gridViewCajaConsulta.GridControl = this.gridControlCajaConsulta;
-            this.gridViewCajaConsulta.Name = "gridViewCajaConsulta";
-            this.gridViewCajaConsulta.OptionsBehavior.Editable = false;
-            this.gridViewCajaConsulta.OptionsSelection.MultiSelect = true;
-            this.gridViewCajaConsulta.OptionsView.ShowGroupPanel = false;
+            this.gridViewRemito.GridControl = this.gridControlRemito;
+            this.gridViewRemito.Name = "gridViewRemito";
+            this.gridViewRemito.OptionsBehavior.Editable = false;
+            this.gridViewRemito.OptionsSelection.MultiSelect = true;
+            this.gridViewRemito.OptionsView.ShowGroupPanel = false;
             // 
             // gridViewLiquidacionDetalle
             // 
-            this.gridViewLiquidacionDetalle.GridControl = this.gridControlCajaConsulta;
+            this.gridViewLiquidacionDetalle.GridControl = this.gridControlRemito;
             this.gridViewLiquidacionDetalle.Name = "gridViewLiquidacionDetalle";
             this.gridViewLiquidacionDetalle.OptionsView.ShowGroupPanel = false;
             // 
@@ -372,7 +359,7 @@
             // 
             this.groupControl4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.groupControl4.Controls.Add(this.btnBuscarLiquidacion);
-            this.groupControl4.Location = new System.Drawing.Point(1283, 1);
+            this.groupControl4.Location = new System.Drawing.Point(1302, 1);
             this.groupControl4.Name = "groupControl4";
             this.groupControl4.Size = new System.Drawing.Size(86, 82);
             this.groupControl4.TabIndex = 74;
@@ -391,76 +378,109 @@
             // 
             this.groupControl2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupControl2.Controls.Add(this.txtCantidadCajaConsulta);
-            this.groupControl2.Controls.Add(this.label11);
-            this.groupControl2.Controls.Add(this.btnBuscarCaja);
-            this.groupControl2.Controls.Add(this.cbProductoConsulta);
+            this.groupControl2.Controls.Add(this.checkPeriodoRemito);
+            this.groupControl2.Controls.Add(this.btnBuscarRemito);
+            this.groupControl2.Controls.Add(this.btnBuscarClienteRemito);
+            this.groupControl2.Controls.Add(this.txtClienteRemito);
             this.groupControl2.Controls.Add(this.label3);
-            this.groupControl2.Location = new System.Drawing.Point(1, 1);
+            this.groupControl2.Controls.Add(this.dpHastaRemito);
+            this.groupControl2.Controls.Add(this.label4);
+            this.groupControl2.Controls.Add(this.dpDesdeRemito);
+            this.groupControl2.Controls.Add(this.label5);
+            this.groupControl2.Location = new System.Drawing.Point(3, 1);
             this.groupControl2.Name = "groupControl2";
-            this.groupControl2.Size = new System.Drawing.Size(928, 53);
-            this.groupControl2.TabIndex = 72;
-            this.groupControl2.Text = "Buscar Cata";
+            this.groupControl2.Size = new System.Drawing.Size(907, 52);
+            this.groupControl2.TabIndex = 77;
+            this.groupControl2.Text = "Buscar Remitos";
             // 
-            // txtCantidadCajaConsulta
+            // checkPeriodoRemito
             // 
-            this.txtCantidadCajaConsulta.Location = new System.Drawing.Point(388, 26);
-            this.txtCantidadCajaConsulta.Name = "txtCantidadCajaConsulta";
-            this.txtCantidadCajaConsulta.Size = new System.Drawing.Size(53, 21);
-            this.txtCantidadCajaConsulta.TabIndex = 62;
+            this.checkPeriodoRemito.AutoSize = true;
+            this.checkPeriodoRemito.Location = new System.Drawing.Point(377, 29);
+            this.checkPeriodoRemito.Name = "checkPeriodoRemito";
+            this.checkPeriodoRemito.Size = new System.Drawing.Size(15, 14);
+            this.checkPeriodoRemito.TabIndex = 83;
+            this.checkPeriodoRemito.UseVisualStyleBackColor = true;
             // 
-            // label11
+            // btnBuscarRemito
             // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(274, 28);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(108, 16);
-            this.label11.TabIndex = 61;
-            this.label11.Text = "Cantidad de Cajas:";
+            this.btnBuscarRemito.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscarRemito.Image")));
+            this.btnBuscarRemito.Location = new System.Drawing.Point(807, 26);
+            this.btnBuscarRemito.Name = "btnBuscarRemito";
+            this.btnBuscarRemito.Size = new System.Drawing.Size(76, 21);
+            this.btnBuscarRemito.TabIndex = 82;
+            this.btnBuscarRemito.Text = "Buscar";
+            this.btnBuscarRemito.Click += new System.EventHandler(this.btnBuscarRemito_Click);
             // 
-            // btnBuscarCaja
+            // btnBuscarClienteRemito
             // 
-            this.btnBuscarCaja.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscarCaja.Image")));
-            this.btnBuscarCaja.Location = new System.Drawing.Point(447, 23);
-            this.btnBuscarCaja.Name = "btnBuscarCaja";
-            this.btnBuscarCaja.Size = new System.Drawing.Size(76, 26);
-            this.btnBuscarCaja.TabIndex = 60;
-            this.btnBuscarCaja.Text = "Buscar";
+            this.btnBuscarClienteRemito.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscarClienteRemito.Image")));
+            this.btnBuscarClienteRemito.Location = new System.Drawing.Point(757, 26);
+            this.btnBuscarClienteRemito.Name = "btnBuscarClienteRemito";
+            this.btnBuscarClienteRemito.Size = new System.Drawing.Size(25, 21);
+            this.btnBuscarClienteRemito.TabIndex = 81;
+            this.btnBuscarClienteRemito.Click += new System.EventHandler(this.btnBuscarClienteRemito_Click);
             // 
-            // cbProductoConsulta
+            // txtClienteRemito
             // 
-            this.cbProductoConsulta.FormattingEnabled = true;
-            this.cbProductoConsulta.Location = new System.Drawing.Point(69, 26);
-            this.cbProductoConsulta.Name = "cbProductoConsulta";
-            this.cbProductoConsulta.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.cbProductoConsulta.Size = new System.Drawing.Size(199, 21);
-            this.cbProductoConsulta.TabIndex = 58;
+            this.txtClienteRemito.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtClienteRemito.Location = new System.Drawing.Point(448, 26);
+            this.txtClienteRemito.Name = "txtClienteRemito";
+            this.txtClienteRemito.Size = new System.Drawing.Size(307, 21);
+            this.txtClienteRemito.TabIndex = 80;
+            this.txtClienteRemito.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtClienteRemito_KeyPress);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(6, 27);
+            this.label3.Location = new System.Drawing.Point(397, 27);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(57, 16);
-            this.label3.TabIndex = 57;
-            this.label3.Text = "Producto";
+            this.label3.Size = new System.Drawing.Size(45, 16);
+            this.label3.TabIndex = 79;
+            this.label3.Text = "Cliente";
             // 
-            // checkPeriodo
+            // dpHastaRemito
             // 
-            this.checkPeriodo.AutoSize = true;
-            this.checkPeriodo.Location = new System.Drawing.Point(377, 29);
-            this.checkPeriodo.Name = "checkPeriodo";
-            this.checkPeriodo.Size = new System.Drawing.Size(15, 14);
-            this.checkPeriodo.TabIndex = 83;
-            this.checkPeriodo.UseVisualStyleBackColor = true;
+            this.dpHastaRemito.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dpHastaRemito.Location = new System.Drawing.Point(272, 26);
+            this.dpHastaRemito.Name = "dpHastaRemito";
+            this.dpHastaRemito.Size = new System.Drawing.Size(99, 21);
+            this.dpHastaRemito.TabIndex = 77;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(191, 27);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(72, 16);
+            this.label4.TabIndex = 78;
+            this.label4.Text = "Fecha hasta";
+            // 
+            // dpDesdeRemito
+            // 
+            this.dpDesdeRemito.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dpDesdeRemito.Location = new System.Drawing.Point(86, 26);
+            this.dpDesdeRemito.Name = "dpDesdeRemito";
+            this.dpDesdeRemito.Size = new System.Drawing.Size(99, 21);
+            this.dpDesdeRemito.TabIndex = 1;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(5, 27);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(75, 16);
+            this.label5.TabIndex = 76;
+            this.label5.Text = "Fecha desde";
             // 
             // Form_AdministracionRemitoElectronico
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(888, 529);
+            this.ClientSize = new System.Drawing.Size(907, 529);
             this.Controls.Add(this.Remito);
             this.Controls.Add(this.ribbon);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -481,14 +501,12 @@
             this.groupControl1.ResumeLayout(false);
             this.groupControl1.PerformLayout();
             this.TabConsultaRemito.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl8)).EndInit();
-            this.groupControl8.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl7)).EndInit();
             this.groupControl7.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl6)).EndInit();
             this.groupControl6.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.gridControlCajaConsulta)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridViewCajaConsulta)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControlRemito)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewRemito)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewLiquidacionDetalle)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl4)).EndInit();
             this.groupControl4.ResumeLayout(false);
@@ -508,23 +526,15 @@
         private System.Windows.Forms.DateTimePicker dpDesde;
         private System.Windows.Forms.Label label15;
         private DevExpress.XtraTab.XtraTabPage TabConsultaRemito;
-        private DevExpress.XtraEditors.GroupControl groupControl8;
-        private DevExpress.XtraEditors.SimpleButton btnAsignarCata;
         private DevExpress.XtraEditors.GroupControl groupControl7;
         private DevExpress.XtraEditors.SimpleButton btnPrevisualizar;
         private DevExpress.XtraEditors.SimpleButton btnSubirAfip;
         private DevExpress.XtraEditors.GroupControl groupControl6;
-        private DevExpress.XtraGrid.GridControl gridControlCajaConsulta;
-        private DevExpress.XtraGrid.Views.Grid.GridView gridViewCajaConsulta;
+        private DevExpress.XtraGrid.GridControl gridControlRemito;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridViewRemito;
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewLiquidacionDetalle;
         private DevExpress.XtraEditors.GroupControl groupControl4;
         private DevExpress.XtraEditors.SimpleButton btnBuscarLiquidacion;
-        private DevExpress.XtraEditors.GroupControl groupControl2;
-        private System.Windows.Forms.TextBox txtCantidadCajaConsulta;
-        private System.Windows.Forms.Label label11;
-        private DevExpress.XtraEditors.SimpleButton btnBuscarCaja;
-        private System.Windows.Forms.ComboBox cbProductoConsulta;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DateTimePicker dpHasta;
         private System.Windows.Forms.Label label1;
@@ -536,5 +546,15 @@
         private DevExpress.XtraGrid.Views.Grid.GridView gridView2;
         private DevExpress.XtraEditors.SimpleButton btnBuscarOrdenVentaPendiente;
         private System.Windows.Forms.CheckBox checkPeriodo;
+        private DevExpress.XtraEditors.GroupControl groupControl2;
+        private System.Windows.Forms.CheckBox checkPeriodoRemito;
+        private DevExpress.XtraEditors.SimpleButton btnBuscarRemito;
+        private DevExpress.XtraEditors.SimpleButton btnBuscarClienteRemito;
+        private System.Windows.Forms.TextBox txtClienteRemito;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.DateTimePicker dpHastaRemito;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.DateTimePicker dpDesdeRemito;
+        private System.Windows.Forms.Label label5;
     }
 }

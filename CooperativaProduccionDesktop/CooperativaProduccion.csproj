@@ -489,7 +489,9 @@
       <Name>DesktopEntities</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\sm_Ezinda2.jpg" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="Resources\ezindaIco.ico" />
   </ItemGroup>

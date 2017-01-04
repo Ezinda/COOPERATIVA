@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pictureEdit2 = new DevExpress.XtraEditors.PictureEdit();
             this.btnSalir = new DevExpress.XtraEditors.SimpleButton();
             this.btnLogin = new DevExpress.XtraEditors.SimpleButton();
             this.txtPass = new DevExpress.XtraEditors.TextEdit();
@@ -37,24 +36,12 @@
             this.labelControlPassword = new DevExpress.XtraEditors.LabelControl();
             this.labelControlTarea = new DevExpress.XtraEditors.LabelControl();
             this.marqueeProgressBarControl1 = new DevExpress.XtraEditors.MarqueeProgressBarControl();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureEdit2.Properties)).BeginInit();
+            this.pictureEdit2 = new DevExpress.XtraEditors.PictureEdit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPass.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtUsuario.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.marqueeProgressBarControl1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureEdit2.Properties)).BeginInit();
             this.SuspendLayout();
-            // 
-            // pictureEdit2
-            // 
-            this.pictureEdit2.EditValue = global::CooperativaProduccion.Properties.Resources.sm_Ezinda;
-            this.pictureEdit2.Location = new System.Drawing.Point(107, 12);
-            this.pictureEdit2.Name = "pictureEdit2";
-            this.pictureEdit2.Properties.AllowFocused = false;
-            this.pictureEdit2.Properties.Appearance.BackColor = System.Drawing.Color.Transparent;
-            this.pictureEdit2.Properties.Appearance.Options.UseBackColor = true;
-            this.pictureEdit2.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.pictureEdit2.Properties.ShowMenu = false;
-            this.pictureEdit2.Size = new System.Drawing.Size(225, 98);
-            this.pictureEdit2.TabIndex = 9;
             // 
             // btnSalir
             // 
@@ -130,6 +117,19 @@
             this.marqueeProgressBarControl1.Size = new System.Drawing.Size(400, 14);
             this.marqueeProgressBarControl1.TabIndex = 29;
             // 
+            // pictureEdit2
+            // 
+            this.pictureEdit2.EditValue = global::CooperativaProduccion.Properties.Resources.sm_Ezinda2;
+            this.pictureEdit2.Location = new System.Drawing.Point(5, 1);
+            this.pictureEdit2.Name = "pictureEdit2";
+            this.pictureEdit2.Properties.AllowFocused = false;
+            this.pictureEdit2.Properties.Appearance.BackColor = System.Drawing.Color.Transparent;
+            this.pictureEdit2.Properties.Appearance.Options.UseBackColor = true;
+            this.pictureEdit2.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.pictureEdit2.Properties.ShowMenu = false;
+            this.pictureEdit2.Size = new System.Drawing.Size(414, 247);
+            this.pictureEdit2.TabIndex = 9;
+            // 
             // SplashScreen1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -146,10 +146,10 @@
             this.Controls.Add(this.pictureEdit2);
             this.Name = "SplashScreen1";
             this.Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureEdit2.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPass.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtUsuario.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.marqueeProgressBarControl1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureEdit2.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

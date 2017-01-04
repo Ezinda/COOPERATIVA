@@ -31,28 +31,32 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_AdministracionNuevoRemito));
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
+            this.dpOrdenVenta = new System.Windows.Forms.DateTimePicker();
+            this.label15 = new System.Windows.Forms.Label();
             this.txtCliente = new System.Windows.Forms.TextBox();
             this.txtCuit = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.txtNumOperacion = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.dpOrdenVenta = new System.Windows.Forms.DateTimePicker();
-            this.label15 = new System.Windows.Forms.Label();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.gridControlDetalleOrdenVenta = new DevExpress.XtraGrid.GridControl();
             this.gridViewDetalleOrdenVenta = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.btnPrevisualizarPdf = new DevExpress.XtraEditors.SimpleButton();
+            this.btnCancelar = new DevExpress.XtraEditors.SimpleButton();
+            this.btnGrabarRemito = new DevExpress.XtraEditors.SimpleButton();
+            this.btnBorrarPdf = new DevExpress.XtraEditors.SimpleButton();
+            this.txtNombrePdf = new System.Windows.Forms.TextBox();
+            this.btnSeleccionarPdf = new DevExpress.XtraEditors.SimpleButton();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.txtNumRemito = new System.Windows.Forms.TextBox();
+            this.dpRemito = new System.Windows.Forms.DateTimePicker();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtPuntoVenta = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.ofd = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).BeginInit();
             this.groupControl3.SuspendLayout();
@@ -99,8 +103,28 @@
             this.groupControl3.TabIndex = 74;
             this.groupControl3.Text = "Orden de Venta";
             // 
+            // dpOrdenVenta
+            // 
+            this.dpOrdenVenta.Enabled = false;
+            this.dpOrdenVenta.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dpOrdenVenta.Location = new System.Drawing.Point(260, 24);
+            this.dpOrdenVenta.Name = "dpOrdenVenta";
+            this.dpOrdenVenta.Size = new System.Drawing.Size(80, 21);
+            this.dpOrdenVenta.TabIndex = 76;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(214, 25);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(40, 16);
+            this.label15.TabIndex = 75;
+            this.label15.Text = "Fecha";
+            // 
             // txtCliente
             // 
+            this.txtCliente.Enabled = false;
             this.txtCliente.Location = new System.Drawing.Point(83, 54);
             this.txtCliente.Name = "txtCliente";
             this.txtCliente.Size = new System.Drawing.Size(257, 21);
@@ -108,6 +132,7 @@
             // 
             // txtCuit
             // 
+            this.txtCuit.Enabled = false;
             this.txtCuit.Location = new System.Drawing.Point(381, 54);
             this.txtCuit.Name = "txtCuit";
             this.txtCuit.Size = new System.Drawing.Size(155, 21);
@@ -150,24 +175,6 @@
             this.label1.Size = new System.Drawing.Size(77, 16);
             this.label1.TabIndex = 57;
             this.label1.Text = "Razon Social";
-            // 
-            // dpOrdenVenta
-            // 
-            this.dpOrdenVenta.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dpOrdenVenta.Location = new System.Drawing.Point(260, 24);
-            this.dpOrdenVenta.Name = "dpOrdenVenta";
-            this.dpOrdenVenta.Size = new System.Drawing.Size(80, 21);
-            this.dpOrdenVenta.TabIndex = 76;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(214, 25);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(40, 16);
-            this.label15.TabIndex = 75;
-            this.label15.Text = "Fecha";
             // 
             // groupControl1
             // 
@@ -212,28 +219,111 @@
             // 
             this.groupControl2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupControl2.Controls.Add(this.textBox4);
-            this.groupControl2.Controls.Add(this.dateTimePicker1);
-            this.groupControl2.Controls.Add(this.label2);
-            this.groupControl2.Controls.Add(this.textBox1);
-            this.groupControl2.Controls.Add(this.textBox2);
+            this.groupControl2.Controls.Add(this.btnPrevisualizarPdf);
+            this.groupControl2.Controls.Add(this.btnCancelar);
+            this.groupControl2.Controls.Add(this.btnGrabarRemito);
+            this.groupControl2.Controls.Add(this.btnBorrarPdf);
+            this.groupControl2.Controls.Add(this.txtNombrePdf);
+            this.groupControl2.Controls.Add(this.btnSeleccionarPdf);
             this.groupControl2.Controls.Add(this.label3);
-            this.groupControl2.Controls.Add(this.textBox3);
+            this.groupControl2.Controls.Add(this.txtNumRemito);
+            this.groupControl2.Controls.Add(this.dpRemito);
+            this.groupControl2.Controls.Add(this.label2);
+            this.groupControl2.Controls.Add(this.txtPuntoVenta);
             this.groupControl2.Controls.Add(this.label4);
-            this.groupControl2.Controls.Add(this.label5);
             this.groupControl2.Location = new System.Drawing.Point(3, 256);
             this.groupControl2.Name = "groupControl2";
             this.groupControl2.Size = new System.Drawing.Size(641, 83);
             this.groupControl2.TabIndex = 78;
             this.groupControl2.Text = "Remito Electrónico Generado";
             // 
-            // dateTimePicker1
+            // btnPrevisualizarPdf
             // 
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker1.Location = new System.Drawing.Point(81, 23);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(80, 21);
-            this.dateTimePicker1.TabIndex = 76;
+            this.btnPrevisualizarPdf.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnPrevisualizarPdf.Image = ((System.Drawing.Image)(resources.GetObject("btnPrevisualizarPdf.Image")));
+            this.btnPrevisualizarPdf.Location = new System.Drawing.Point(474, 23);
+            this.btnPrevisualizarPdf.Name = "btnPrevisualizarPdf";
+            this.btnPrevisualizarPdf.Size = new System.Drawing.Size(162, 23);
+            this.btnPrevisualizarPdf.TabIndex = 84;
+            this.btnPrevisualizarPdf.Text = "Previsualizar";
+            this.btnPrevisualizarPdf.Click += new System.EventHandler(this.btnPrevisualizarPdf_Click);
+            // 
+            // btnCancelar
+            // 
+            this.btnCancelar.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnCancelar.Image = ((System.Drawing.Image)(resources.GetObject("btnCancelar.Image")));
+            this.btnCancelar.Location = new System.Drawing.Point(558, 52);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(78, 23);
+            this.btnCancelar.TabIndex = 83;
+            this.btnCancelar.Text = "Cancelar";
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            // 
+            // btnGrabarRemito
+            // 
+            this.btnGrabarRemito.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnGrabarRemito.Image = ((System.Drawing.Image)(resources.GetObject("btnGrabarRemito.Image")));
+            this.btnGrabarRemito.Location = new System.Drawing.Point(474, 52);
+            this.btnGrabarRemito.Name = "btnGrabarRemito";
+            this.btnGrabarRemito.Size = new System.Drawing.Size(78, 23);
+            this.btnGrabarRemito.TabIndex = 82;
+            this.btnGrabarRemito.Text = "Grabar";
+            this.btnGrabarRemito.Click += new System.EventHandler(this.btnGrabarRemito_Click);
+            // 
+            // btnBorrarPdf
+            // 
+            this.btnBorrarPdf.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnBorrarPdf.Image = ((System.Drawing.Image)(resources.GetObject("btnBorrarPdf.Image")));
+            this.btnBorrarPdf.Location = new System.Drawing.Point(129, 50);
+            this.btnBorrarPdf.Name = "btnBorrarPdf";
+            this.btnBorrarPdf.Size = new System.Drawing.Size(24, 23);
+            this.btnBorrarPdf.TabIndex = 81;
+            this.btnBorrarPdf.Click += new System.EventHandler(this.btnBorrarPdf_Click);
+            // 
+            // txtNombrePdf
+            // 
+            this.txtNombrePdf.Enabled = false;
+            this.txtNombrePdf.Location = new System.Drawing.Point(172, 52);
+            this.txtNombrePdf.Name = "txtNombrePdf";
+            this.txtNombrePdf.Size = new System.Drawing.Size(272, 21);
+            this.txtNombrePdf.TabIndex = 80;
+            // 
+            // btnSeleccionarPdf
+            // 
+            this.btnSeleccionarPdf.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnSeleccionarPdf.Image = ((System.Drawing.Image)(resources.GetObject("btnSeleccionarPdf.Image")));
+            this.btnSeleccionarPdf.Location = new System.Drawing.Point(99, 50);
+            this.btnSeleccionarPdf.Name = "btnSeleccionarPdf";
+            this.btnSeleccionarPdf.Size = new System.Drawing.Size(24, 23);
+            this.btnSeleccionarPdf.TabIndex = 79;
+            this.btnSeleccionarPdf.Click += new System.EventHandler(this.btnSeleccionarPdf_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(5, 53);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(93, 16);
+            this.label3.TabIndex = 78;
+            this.label3.Text = "Adjuntar Remito";
+            // 
+            // txtNumRemito
+            // 
+            this.txtNumRemito.Location = new System.Drawing.Point(347, 22);
+            this.txtNumRemito.Name = "txtNumRemito";
+            this.txtNumRemito.Size = new System.Drawing.Size(97, 21);
+            this.txtNumRemito.TabIndex = 77;
+            this.txtNumRemito.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNumRemito_KeyPress);
+            // 
+            // dpRemito
+            // 
+            this.dpRemito.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dpRemito.Location = new System.Drawing.Point(73, 23);
+            this.dpRemito.Name = "dpRemito";
+            this.dpRemito.Size = new System.Drawing.Size(80, 21);
+            this.dpRemito.TabIndex = 76;
+            this.dpRemito.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dpRemito_KeyPress);
             // 
             // label2
             // 
@@ -245,65 +335,23 @@
             this.label2.TabIndex = 75;
             this.label2.Text = "Fecha";
             // 
-            // textBox1
+            // txtPuntoVenta
             // 
-            this.textBox1.Location = new System.Drawing.Point(83, 54);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(257, 21);
-            this.textBox1.TabIndex = 74;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(381, 54);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(155, 21);
-            this.textBox2.TabIndex = 73;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(345, 57);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(30, 16);
-            this.label3.TabIndex = 72;
-            this.label3.Text = "Cuit";
-            // 
-            // textBox3
-            // 
-            this.textBox3.Enabled = false;
-            this.textBox3.Location = new System.Drawing.Point(268, 23);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(72, 21);
-            this.textBox3.TabIndex = 64;
+            this.txtPuntoVenta.Location = new System.Drawing.Point(269, 22);
+            this.txtPuntoVenta.Name = "txtPuntoVenta";
+            this.txtPuntoVenta.Size = new System.Drawing.Size(72, 21);
+            this.txtPuntoVenta.TabIndex = 64;
+            this.txtPuntoVenta.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPuntoVenta_KeyPress);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(168, 24);
+            this.label4.Location = new System.Drawing.Point(169, 23);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(96, 16);
             this.label4.TabIndex = 63;
             this.label4.Text = "Comprobante N°";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(5, 55);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(77, 16);
-            this.label5.TabIndex = 57;
-            this.label5.Text = "Razon Social";
-            // 
-            // textBox4
-            // 
-            this.textBox4.Enabled = false;
-            this.textBox4.Location = new System.Drawing.Point(346, 23);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(97, 21);
-            this.textBox4.TabIndex = 77;
             // 
             // Form_AdministracionNuevoRemito
             // 
@@ -352,14 +400,18 @@
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewDetalleOrdenVenta;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView2;
         private DevExpress.XtraEditors.GroupControl groupControl2;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker dpRemito;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox txtPuntoVenta;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox txtNumRemito;
+        private System.Windows.Forms.Label label3;
+        private DevExpress.XtraEditors.SimpleButton btnCancelar;
+        private DevExpress.XtraEditors.SimpleButton btnGrabarRemito;
+        private DevExpress.XtraEditors.SimpleButton btnBorrarPdf;
+        private System.Windows.Forms.TextBox txtNombrePdf;
+        private DevExpress.XtraEditors.SimpleButton btnSeleccionarPdf;
+        private DevExpress.XtraEditors.SimpleButton btnPrevisualizarPdf;
+        private System.Windows.Forms.OpenFileDialog ofd;
     }
 }

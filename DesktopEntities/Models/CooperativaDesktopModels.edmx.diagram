@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="8c0a263bdce7457da51fd62f656dcf9e" Name="Diagram1" ZoomLevel="46">
+      <Diagram DiagramId="8c0a263bdce7457da51fd62f656dcf9e" Name="Diagram1" ZoomLevel="67">
         <EntityTypeShape EntityType="CooperativaProduccionModel.Clase" Width="1.5" PointX="0.75" PointY="4.75" />
         <EntityTypeShape EntityType="CooperativaProduccionModel.Contador" Width="1.5" PointX="2.75" PointY="4.75" />
         <EntityTypeShape EntityType="CooperativaProduccionModel.Movimiento" Width="1.5" PointX="4.75" PointY="4.75" />
@@ -32,7 +32,7 @@
         <AssociationConnector Association="CooperativaProduccionModel.FK_Caja_Cata" />
         <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_Cliente" Width="1.5" PointX="0.75" PointY="15.75" />
         <EntityTypeShape EntityType="CooperativaProduccionModel.sysdiagrams" Width="1.5" PointX="7.375" PointY="15.75" />
-        <EntityTypeShape EntityType="CooperativaProduccionModel.OrdenVenta" Width="1.5" PointX="15.375" PointY="1.125" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.OrdenVenta" Width="1.5" PointX="15.375" PointY="1.625" />
         <EntityTypeShape EntityType="CooperativaProduccionModel.Remito" Width="1.5" PointX="17.625" PointY="1" />
         <AssociationConnector Association="CooperativaProduccionModel.FK_Remito_OrdenVenta" />
       </Diagram>

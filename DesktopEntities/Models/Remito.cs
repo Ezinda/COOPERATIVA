@@ -23,8 +23,12 @@ namespace DesktopEntities.Models
         public Nullable<System.Guid> ProductoId { get; set; }
         public Nullable<long> DesdeCaja { get; set; }
         public Nullable<long> HastaCaja { get; set; }
-        public Nullable<System.DateTime> Fecha { get; set; }
+        public Nullable<System.DateTime> FechaOrden { get; set; }
+        public Nullable<System.DateTime> FechaRemito { get; set; }
         public Nullable<System.Guid> OrdenVentaId { get; set; }
+        public string PathOrigin { get; set; }
+        public string PathSystem { get; set; }
+        public byte[] File { get; set; }
     
         public virtual OrdenVenta OrdenVenta { get; set; }
     }

@@ -312,10 +312,11 @@ namespace CooperativaProduccion
 
         private void CrearTxtVinculacion()
         {
-
-            string path = @"C:\TxtVinculacion";
+            string path = @"C:\SystemDocumentsCooperativa";
             CreateIfMissing(path);
-            string fileName = @"C:\TxtVinculacion\VINCULACION_" + cbLote.Text + ".txt";
+            path = @"C:\SystemDocumentsCooperativa\TxtVinculacion";
+            CreateIfMissing(path);
+            string fileName = @"C:\SystemDocumentsCooperativa\TxtVinculacion\VINCULACION_" + cbLote.Text + ".txt";
             try
             {
                 // Check if file already exists. If yes, delete it. 

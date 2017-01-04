@@ -334,7 +334,7 @@ namespace CooperativaProduccion
 
         private void btnExportarResumen_Click(object sender, EventArgs e)
         {
-            if (gridViewOrdenVentaConsulta.DataRowCount > 0)
+            if (gridViewOrdenVentaConsulta.SelectedRowsCount > 0)
             {
                 var resultado = MessageBox.Show("¿Desea exportar el archivo de vinculación?",
                           "Atención", MessageBoxButtons.OKCancel);
@@ -356,9 +356,11 @@ namespace CooperativaProduccion
        
         private void CrearTxtVinculacion(Guid OrdenVentaId)
         {
-            string path = @"C:\TxtResumen";
+            string path = @"C:\SystemDocumentsCooperativa";
             CreateIfMissing(path);
-            string fileName = @"C:\TxtResumen\Resumen_" + cbOperacionCliente.Text + ".txt";
+            path = @"C:\SystemDocumentsCooperativa\TxtResumen";
+            CreateIfMissing(path);
+            string fileName = @"C:\SystemDocumentsCooperativa\TxtResumen\Resumen_" + cbOperacionCliente.Text + ".txt";
             try
             {
                 // Check if file already exists. If yes, delete it. 

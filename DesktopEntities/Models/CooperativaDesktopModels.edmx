@@ -181,8 +181,12 @@
           <Property Name="ProductoId" Type="uniqueidentifier" />
           <Property Name="DesdeCaja" Type="bigint" />
           <Property Name="HastaCaja" Type="bigint" />
-          <Property Name="Fecha" Type="date" />
+          <Property Name="FechaOrden" Type="date" />
+          <Property Name="FechaRemito" Type="date" />
           <Property Name="OrdenVentaId" Type="uniqueidentifier" />
+          <Property Name="PathOrigin" Type="nvarchar(max)" />
+          <Property Name="PathSystem" Type="nvarchar(max)" />
+          <Property Name="File" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -1186,8 +1190,12 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
           <Property Name="ProductoId" Type="Guid" />
           <Property Name="DesdeCaja" Type="Int64" />
           <Property Name="HastaCaja" Type="Int64" />
-          <Property Name="Fecha" Type="DateTime" Precision="0" />
+          <Property Name="FechaOrden" Type="DateTime" Precision="0" />
+          <Property Name="FechaRemito" Type="DateTime" Precision="0" />
           <Property Name="OrdenVentaId" Type="Guid" />
+          <Property Name="PathOrigin" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PathSystem" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="File" Type="Binary" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="OrdenVenta" Relationship="CooperativaProduccionModel.FK_Remito_OrdenVenta" FromRole="Remito" ToRole="OrdenVenta" />
         </EntityType>
         <Association Name="FK_Remito_OrdenVenta">
@@ -1627,8 +1635,12 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
           <EntitySetMapping Name="Remito">
             <EntityTypeMapping TypeName="CooperativaProduccionModel.Remito">
               <MappingFragment StoreEntitySet="Remito">
+                <ScalarProperty Name="File" ColumnName="File" />
+                <ScalarProperty Name="PathSystem" ColumnName="PathSystem" />
+                <ScalarProperty Name="PathOrigin" ColumnName="PathOrigin" />
                 <ScalarProperty Name="OrdenVentaId" ColumnName="OrdenVentaId" />
-                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="FechaRemito" ColumnName="FechaRemito" />
+                <ScalarProperty Name="FechaOrden" ColumnName="FechaOrden" />
                 <ScalarProperty Name="HastaCaja" ColumnName="HastaCaja" />
                 <ScalarProperty Name="DesdeCaja" ColumnName="DesdeCaja" />
                 <ScalarProperty Name="ProductoId" ColumnName="ProductoId" />
