@@ -18,7 +18,6 @@ namespace CooperativaProduccion
         public static string IIBB = "33-70819460-9";
         public static string Ines = "24096";
         public static string InicioActividades = "01-02-03";
-        public static string InicioActividadesAlternativo = "01/02/2003";
         public static string PuntoVenta = "0001";
         public static string Iva = "21.00";
 

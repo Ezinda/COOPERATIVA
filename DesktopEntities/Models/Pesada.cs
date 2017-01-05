@@ -15,7 +15,7 @@ namespace DesktopEntities.Models
     public partial class Pesada
     {
         public System.Guid Id { get; set; }
-        public Nullable<int> NumPesada { get; set; }
+        public Nullable<long> NumPesada { get; set; }
         public Nullable<System.Guid> PreingresoId { get; set; }
         public Nullable<System.Guid> ProductorId { get; set; }
         public Nullable<int> TotalFardo { get; set; }

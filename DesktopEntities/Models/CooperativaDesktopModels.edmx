@@ -50,7 +50,7 @@
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Nombre" Type="nvarchar" MaxLength="50" />
           <Property Name="Descripcion" Type="nvarchar" MaxLength="50" />
-          <Property Name="Valor" Type="int" />
+          <Property Name="Valor" Type="bigint" />
         </EntityType>
         <EntityType Name="Movimiento">
           <Key>
@@ -110,7 +110,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="NumPesada" Type="int" />
+          <Property Name="NumPesada" Type="bigint" />
           <Property Name="PreingresoId" Type="uniqueidentifier" />
           <Property Name="ProductorId" Type="uniqueidentifier" />
           <Property Name="TotalFardo" Type="int" />
@@ -118,7 +118,7 @@
           <Property Name="ImporteBruto" Type="decimal" Precision="18" Scale="2" />
           <Property Name="PrecioPromedio" Type="decimal" Precision="18" Scale="2" />
           <Property Name="FechaRomaneo" Type="date" />
-          <Property Name="NumRomaneo" Type="nvarchar" MaxLength="50" />
+          <Property Name="NumRomaneo" Type="nvarchar" MaxLength="500" />
           <Property Name="FechaInternaLiquidacion" Type="date" />
           <Property Name="NumInternoLiquidacion" Type="bigint" />
           <Property Name="condIva" Type="nvarchar" MaxLength="50" />
@@ -711,46 +711,76 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
     <edmx:ConceptualModels>
       <Schema Namespace="CooperativaProduccionModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="CooperativaProduccionEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Caja" EntityType="CooperativaProduccionModel.Caja" />
+          <EntitySet Name="Cata" EntityType="CooperativaProduccionModel.Cata" />
           <EntitySet Name="Clase" EntityType="CooperativaProduccionModel.Clase" />
           <EntitySet Name="Contador" EntityType="CooperativaProduccionModel.Contador" />
           <EntitySet Name="Movimiento" EntityType="CooperativaProduccionModel.Movimiento" />
           <EntitySet Name="OrdenPago" EntityType="CooperativaProduccionModel.OrdenPago" />
+          <EntitySet Name="OrdenVenta" EntityType="CooperativaProduccionModel.OrdenVenta" />
+          <EntitySet Name="Pago" EntityType="CooperativaProduccionModel.Pago" />
           <EntitySet Name="Pesada" EntityType="CooperativaProduccionModel.Pesada" />
           <EntitySet Name="PesadaDetalle" EntityType="CooperativaProduccionModel.PesadaDetalle" />
           <EntitySet Name="Preingreso" EntityType="CooperativaProduccionModel.Preingreso" />
           <EntitySet Name="PreingresoDetalle" EntityType="CooperativaProduccionModel.PreingresoDetalle" />
+          <EntitySet Name="Remito" EntityType="CooperativaProduccionModel.Remito" />
+          <EntitySet Name="sysdiagrams" EntityType="CooperativaProduccionModel.sysdiagrams" />
           <EntitySet Name="Usuario" EntityType="CooperativaProduccionModel.Usuario" />
           <EntitySet Name="Vw_Clase" EntityType="CooperativaProduccionModel.Vw_Clase" />
+          <EntitySet Name="Vw_Cliente" EntityType="CooperativaProduccionModel.Vw_Cliente" />
           <EntitySet Name="Vw_Movimiento" EntityType="CooperativaProduccionModel.Vw_Movimiento" />
           <EntitySet Name="Vw_OrdenPago" EntityType="CooperativaProduccionModel.Vw_OrdenPago" />
           <EntitySet Name="Vw_Pesada" EntityType="CooperativaProduccionModel.Vw_Pesada" />
           <EntitySet Name="Vw_Preingreso" EntityType="CooperativaProduccionModel.Vw_Preingreso" />
+          <EntitySet Name="Vw_Producto" EntityType="CooperativaProduccionModel.Vw_Producto" />
           <EntitySet Name="Vw_Productor" EntityType="CooperativaProduccionModel.Vw_Productor" />
           <EntitySet Name="Vw_ResumenPesada" EntityType="CooperativaProduccionModel.Vw_ResumenPesada" />
           <EntitySet Name="Vw_ResumenPesadaPorClase" EntityType="CooperativaProduccionModel.Vw_ResumenPesadaPorClase" />
           <EntitySet Name="Vw_ResumenRomaneoPorClase" EntityType="CooperativaProduccionModel.Vw_ResumenRomaneoPorClase" />
           <EntitySet Name="Vw_Romaneo" EntityType="CooperativaProduccionModel.Vw_Romaneo" />
-          <AssociationSet Name="FK_DetallePreingreso_Preingreso" Association="CooperativaProduccionModel.FK_DetallePreingreso_Preingreso">
-            <End Role="Preingreso" EntitySet="Preingreso" />
-            <End Role="PreingresoDetalle" EntitySet="PreingresoDetalle" />
-          </AssociationSet>
-          <EntitySet Name="Pago" EntityType="CooperativaProduccionModel.Pago" />
-          <EntitySet Name="Vw_Producto" EntityType="CooperativaProduccionModel.Vw_Producto" />
-          <EntitySet Name="Caja" EntityType="CooperativaProduccionModel.Caja" />
-          <EntitySet Name="Cata" EntityType="CooperativaProduccionModel.Cata" />
           <AssociationSet Name="FK_Caja_Cata" Association="CooperativaProduccionModel.FK_Caja_Cata">
             <End Role="Cata" EntitySet="Cata" />
             <End Role="Caja" EntitySet="Caja" />
           </AssociationSet>
-          <EntitySet Name="Vw_Cliente" EntityType="CooperativaProduccionModel.Vw_Cliente" />
-          <EntitySet Name="sysdiagrams" EntityType="CooperativaProduccionModel.sysdiagrams" />
-          <EntitySet Name="OrdenVenta" EntityType="CooperativaProduccionModel.OrdenVenta" />
-          <EntitySet Name="Remito" EntityType="CooperativaProduccionModel.Remito" />
           <AssociationSet Name="FK_Remito_OrdenVenta" Association="CooperativaProduccionModel.FK_Remito_OrdenVenta">
             <End Role="OrdenVenta" EntitySet="OrdenVenta" />
             <End Role="Remito" EntitySet="Remito" />
           </AssociationSet>
+          <AssociationSet Name="FK_DetallePreingreso_Preingreso" Association="CooperativaProduccionModel.FK_DetallePreingreso_Preingreso">
+            <End Role="Preingreso" EntitySet="Preingreso" />
+            <End Role="PreingresoDetalle" EntitySet="PreingresoDetalle" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Caja">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="NumeroCaja" Type="Int64" Nullable="false" />
+          <Property Name="OrdenVentaId" Type="Guid" />
+          <Property Name="LoteCaja" Type="Int64" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Hora" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="ProductoId" Type="Guid" Nullable="false" />
+          <Property Name="Bruto" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Tara" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Neto" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="CataId" Type="Guid" />
+          <NavigationProperty Name="Cata" Relationship="CooperativaProduccionModel.FK_Caja_Cata" FromRole="Caja" ToRole="Cata" />
+        </EntityType>
+        <EntityType Name="Cata">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Lote" Type="Int64" />
+          <Property Name="Cata1" Type="Int64" />
+          <Property Name="NumOrden" Type="Int64" />
+          <Property Name="NumCaja" Type="Int64" />
+          <Property Name="OrdenVentaId" Type="Guid" />
+          <Property Name="CajaId" Type="Guid" />
+          <NavigationProperty Name="Caja" Relationship="CooperativaProduccionModel.FK_Caja_Cata" FromRole="Cata" ToRole="Caja" />
+        </EntityType>
         <EntityType Name="Clase">
           <Key>
             <PropertyRef Name="Id" />
@@ -768,7 +798,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Valor" Type="Int32" />
+          <Property Name="Valor" Type="Int64" />
         </EntityType>
         <EntityType Name="Movimiento">
           <Key>
@@ -801,12 +831,35 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
           <Property Name="Neto" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="Detalle" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="OrdenVenta">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="NumOrden" Type="Int64" Nullable="false" />
+          <Property Name="NumOperacion" Type="Int64" Nullable="false" />
+          <Property Name="ClienteId" Type="Guid" Nullable="false" />
+          <Property Name="ProductoId" Type="Guid" Nullable="false" />
+          <Property Name="DesdeCaja" Type="Int64" />
+          <Property Name="HastaCaja" Type="Int64" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Pendiente" Type="Boolean" />
+          <NavigationProperty Name="Remito" Relationship="CooperativaProduccionModel.FK_Remito_OrdenVenta" FromRole="OrdenVenta" ToRole="Remito" />
+        </EntityType>
+        <EntityType Name="Pago">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="OrdenPagoId" Type="Guid" />
+          <Property Name="Importe" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="Pesada">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="NumPesada" Type="Int32" />
+          <Property Name="NumPesada" Type="Int64" />
           <Property Name="PreingresoId" Type="Guid" />
           <Property Name="ProductorId" Type="Guid" />
           <Property Name="TotalFardo" Type="Int32" />
@@ -814,7 +867,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
           <Property Name="ImporteBruto" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="PrecioPromedio" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="FechaRomaneo" Type="DateTime" Precision="0" />
-          <Property Name="NumRomaneo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NumRomaneo" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="FechaInternaLiquidacion" Type="DateTime" Precision="0" />
           <Property Name="NumInternoLiquidacion" Type="Int64" />
           <Property Name="condIva" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -866,6 +919,37 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
           <Property Name="Estado" Type="Boolean" />
           <NavigationProperty Name="Preingreso" Relationship="CooperativaProduccionModel.FK_DetallePreingreso_Preingreso" FromRole="PreingresoDetalle" ToRole="Preingreso" />
         </EntityType>
+        <EntityType Name="Remito">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="NumRemito" Type="Int64" />
+          <Property Name="PuntoVenta" Type="Int32" />
+          <Property Name="NumOperacion" Type="Int64" />
+          <Property Name="NumOrden" Type="Int64" />
+          <Property Name="ClienteId" Type="Guid" />
+          <Property Name="ProductoId" Type="Guid" />
+          <Property Name="DesdeCaja" Type="Int64" />
+          <Property Name="HastaCaja" Type="Int64" />
+          <Property Name="FechaOrden" Type="DateTime" Precision="0" />
+          <Property Name="FechaRemito" Type="DateTime" Precision="0" />
+          <Property Name="OrdenVentaId" Type="Guid" />
+          <Property Name="PathOrigin" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PathSystem" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="File" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="OrdenVenta" Relationship="CooperativaProduccionModel.FK_Remito_OrdenVenta" FromRole="Remito" ToRole="OrdenVenta" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
         <EntityType Name="Usuario">
           <Key>
             <PropertyRef Name="Id" />
@@ -887,6 +971,34 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
           <Property Name="DESCRIPCION" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="PRECIOCOMPRA" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="Vigente" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Vw_Cliente">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="DOMICILIO" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="CODIGO" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="RAZONSOCIAL" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CUIT" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="CALLE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DOMICILIO" Type="String" Nullable="false" MaxLength="182" FixedLength="false" Unicode="false" />
+          <Property Name="DENOMINACION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ZONA" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TELEFONO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="MAIL" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TP" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="TipoPago" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="ACTIVESTATUSTP" Type="Int32" />
+          <Property Name="Provincia" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Ciudad" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="CONCATENADO" Type="String" MaxLength="157" FixedLength="false" Unicode="false" />
+          <Property Name="IVA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="IDPAGO" Type="Guid" />
+          <Property Name="domicilio_id" Type="Guid" />
+          <Property Name="listaprecio" Type="Guid" />
+          <Property Name="CREDITOMAXIMO" Type="Decimal" Precision="22" Scale="10" />
+          <Property Name="CUITE" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Vw_Movimiento">
           <Key>
@@ -981,6 +1093,14 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
           <Property Name="Cuit" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Name="Provincia" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="Vw_Producto">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="CODIGO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="Vw_Productor">
           <Key>
             <PropertyRef Name="DOMICILIO" />
@@ -1054,64 +1174,6 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
           <Property Name="fechaVtoCae" Type="DateTime" Precision="0" />
           <Property Name="OrdenPagoId" Type="Guid" />
         </EntityType>
-        <Association Name="FK_DetallePreingreso_Preingreso">
-          <End Type="CooperativaProduccionModel.Preingreso" Role="Preingreso" Multiplicity="1" />
-          <End Type="CooperativaProduccionModel.PreingresoDetalle" Role="PreingresoDetalle" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Preingreso">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="PreingresoDetalle">
-              <PropertyRef Name="PreingresoId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Pago">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="OrdenPagoId" Type="Guid" />
-          <Property Name="Importe" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Vw_Producto">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Guid" Nullable="false" />
-          <Property Name="CODIGO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="DESCRIPCION" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="Caja">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="NumeroCaja" Type="Int64" Nullable="false" />
-          <Property Name="OrdenVentaId" Type="Guid" />
-          <Property Name="LoteCaja" Type="Int64" />
-          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Hora" Type="Time" Nullable="false" Precision="7" />
-          <Property Name="ProductoId" Type="Guid" Nullable="false" />
-          <Property Name="Bruto" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="Tara" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="Neto" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="CataId" Type="Guid" />
-          <NavigationProperty Name="Cata" Relationship="CooperativaProduccionModel.FK_Caja_Cata" FromRole="Caja" ToRole="Cata" />
-        </EntityType>
-        <EntityType Name="Cata">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="Lote" Type="Int64" />
-          <Property Name="Cata1" Type="Int64" />
-          <Property Name="NumOrden" Type="Int64" />
-          <Property Name="NumCaja" Type="Int64" />
-          <Property Name="OrdenVentaId" Type="Guid" />
-          <Property Name="CajaId" Type="Guid" />
-          <NavigationProperty Name="Caja" Relationship="CooperativaProduccionModel.FK_Caja_Cata" FromRole="Cata" ToRole="Caja" />
-        </EntityType>
         <Association Name="FK_Caja_Cata">
           <End Type="CooperativaProduccionModel.Cata" Role="Cata" Multiplicity="0..1" />
           <End Type="CooperativaProduccionModel.Caja" Role="Caja" Multiplicity="*" />
@@ -1124,80 +1186,6 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Vw_Cliente">
-          <Key>
-            <PropertyRef Name="ID" />
-            <PropertyRef Name="DOMICILIO" />
-          </Key>
-          <Property Name="ID" Type="Guid" Nullable="false" />
-          <Property Name="CODIGO" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="RAZONSOCIAL" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="CUIT" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
-          <Property Name="CALLE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="DOMICILIO" Type="String" Nullable="false" MaxLength="182" FixedLength="false" Unicode="false" />
-          <Property Name="DENOMINACION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="ZONA" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="TELEFONO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="MAIL" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="TP" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
-          <Property Name="TipoPago" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="ACTIVESTATUSTP" Type="Int32" />
-          <Property Name="Provincia" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
-          <Property Name="Ciudad" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
-          <Property Name="CONCATENADO" Type="String" MaxLength="157" FixedLength="false" Unicode="false" />
-          <Property Name="IVA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="IDPAGO" Type="Guid" />
-          <Property Name="domicilio_id" Type="Guid" />
-          <Property Name="listaprecio" Type="Guid" />
-          <Property Name="CREDITOMAXIMO" Type="Decimal" Precision="22" Scale="10" />
-          <Property Name="CUITE" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
-        <EntityType Name="OrdenVenta">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="NumOrden" Type="Int64" Nullable="false" />
-          <Property Name="NumOperacion" Type="Int64" Nullable="false" />
-          <Property Name="ClienteId" Type="Guid" Nullable="false" />
-          <Property Name="ProductoId" Type="Guid" Nullable="false" />
-          <Property Name="DesdeCaja" Type="Int64" />
-          <Property Name="HastaCaja" Type="Int64" />
-          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Pendiente" Type="Boolean" />
-          <NavigationProperty Name="Remito" Relationship="CooperativaProduccionModel.FK_Remito_OrdenVenta" FromRole="OrdenVenta" ToRole="Remito" />
-        </EntityType>
-        <EntityType Name="Remito">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="NumRemito" Type="Int64" />
-          <Property Name="PuntoVenta" Type="Int32" />
-          <Property Name="NumOperacion" Type="Int64" />
-          <Property Name="NumOrden" Type="Int64" />
-          <Property Name="ClienteId" Type="Guid" />
-          <Property Name="ProductoId" Type="Guid" />
-          <Property Name="DesdeCaja" Type="Int64" />
-          <Property Name="HastaCaja" Type="Int64" />
-          <Property Name="FechaOrden" Type="DateTime" Precision="0" />
-          <Property Name="FechaRemito" Type="DateTime" Precision="0" />
-          <Property Name="OrdenVentaId" Type="Guid" />
-          <Property Name="PathOrigin" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="PathSystem" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="File" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <NavigationProperty Name="OrdenVenta" Relationship="CooperativaProduccionModel.FK_Remito_OrdenVenta" FromRole="Remito" ToRole="OrdenVenta" />
-        </EntityType>
         <Association Name="FK_Remito_OrdenVenta">
           <End Type="CooperativaProduccionModel.OrdenVenta" Role="OrdenVenta" Multiplicity="0..1" />
           <End Type="CooperativaProduccionModel.Remito" Role="Remito" Multiplicity="*" />
@@ -1210,12 +1198,54 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DetallePreingreso_Preingreso">
+          <End Type="CooperativaProduccionModel.Preingreso" Role="Preingreso" Multiplicity="1" />
+          <End Type="CooperativaProduccionModel.PreingresoDetalle" Role="PreingresoDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Preingreso">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PreingresoDetalle">
+              <PropertyRef Name="PreingresoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="CooperativaProduccionModelStoreContainer" CdmEntityContainer="CooperativaProduccionEntities">
+          <EntitySetMapping Name="Caja">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.Caja">
+              <MappingFragment StoreEntitySet="Caja">
+                <ScalarProperty Name="CataId" ColumnName="CataId" />
+                <ScalarProperty Name="Neto" ColumnName="Neto" />
+                <ScalarProperty Name="Tara" ColumnName="Tara" />
+                <ScalarProperty Name="Bruto" ColumnName="Bruto" />
+                <ScalarProperty Name="ProductoId" ColumnName="ProductoId" />
+                <ScalarProperty Name="Hora" ColumnName="Hora" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="LoteCaja" ColumnName="LoteCaja" />
+                <ScalarProperty Name="OrdenVentaId" ColumnName="OrdenVentaId" />
+                <ScalarProperty Name="NumeroCaja" ColumnName="NumeroCaja" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cata">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.Cata">
+              <MappingFragment StoreEntitySet="Cata">
+                <ScalarProperty Name="CajaId" ColumnName="CajaId" />
+                <ScalarProperty Name="OrdenVentaId" ColumnName="OrdenVentaId" />
+                <ScalarProperty Name="NumCaja" ColumnName="NumCaja" />
+                <ScalarProperty Name="NumOrden" ColumnName="NumOrden" />
+                <ScalarProperty Name="Cata1" ColumnName="Cata" />
+                <ScalarProperty Name="Lote" ColumnName="Lote" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Clase">
             <EntityTypeMapping TypeName="CooperativaProduccionModel.Clase">
               <MappingFragment StoreEntitySet="Clase">
@@ -1266,6 +1296,30 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
                 <ScalarProperty Name="Fecha" ColumnName="Fecha" />
                 <ScalarProperty Name="NumIntOrdenPago" ColumnName="NumIntOrdenPago" />
                 <ScalarProperty Name="NumOrdenPago" ColumnName="NumOrdenPago" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrdenVenta">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.OrdenVenta">
+              <MappingFragment StoreEntitySet="OrdenVenta">
+                <ScalarProperty Name="Pendiente" ColumnName="Pendiente" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="HastaCaja" ColumnName="HastaCaja" />
+                <ScalarProperty Name="DesdeCaja" ColumnName="DesdeCaja" />
+                <ScalarProperty Name="ProductoId" ColumnName="ProductoId" />
+                <ScalarProperty Name="ClienteId" ColumnName="ClienteId" />
+                <ScalarProperty Name="NumOperacion" ColumnName="NumOperacion" />
+                <ScalarProperty Name="NumOrden" ColumnName="NumOrden" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pago">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.Pago">
+              <MappingFragment StoreEntitySet="Pago">
+                <ScalarProperty Name="Importe" ColumnName="Importe" />
+                <ScalarProperty Name="OrdenPagoId" ColumnName="OrdenPagoId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1337,6 +1391,38 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Remito">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.Remito">
+              <MappingFragment StoreEntitySet="Remito">
+                <ScalarProperty Name="File" ColumnName="File" />
+                <ScalarProperty Name="PathSystem" ColumnName="PathSystem" />
+                <ScalarProperty Name="PathOrigin" ColumnName="PathOrigin" />
+                <ScalarProperty Name="OrdenVentaId" ColumnName="OrdenVentaId" />
+                <ScalarProperty Name="FechaRemito" ColumnName="FechaRemito" />
+                <ScalarProperty Name="FechaOrden" ColumnName="FechaOrden" />
+                <ScalarProperty Name="HastaCaja" ColumnName="HastaCaja" />
+                <ScalarProperty Name="DesdeCaja" ColumnName="DesdeCaja" />
+                <ScalarProperty Name="ProductoId" ColumnName="ProductoId" />
+                <ScalarProperty Name="ClienteId" ColumnName="ClienteId" />
+                <ScalarProperty Name="NumOrden" ColumnName="NumOrden" />
+                <ScalarProperty Name="NumOperacion" ColumnName="NumOperacion" />
+                <ScalarProperty Name="PuntoVenta" ColumnName="PuntoVenta" />
+                <ScalarProperty Name="NumRemito" ColumnName="NumRemito" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Usuario">
             <EntityTypeMapping TypeName="CooperativaProduccionModel.Usuario">
               <MappingFragment StoreEntitySet="Usuario">
@@ -1357,6 +1443,34 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
                 <ScalarProperty Name="COD_PRODUCTO" ColumnName="COD_PRODUCTO" />
                 <ScalarProperty Name="ID_PRODUCTO" ColumnName="ID_PRODUCTO" />
                 <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vw_Cliente">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.Vw_Cliente">
+              <MappingFragment StoreEntitySet="Vw_Cliente">
+                <ScalarProperty Name="CUITE" ColumnName="CUITE" />
+                <ScalarProperty Name="CREDITOMAXIMO" ColumnName="CREDITOMAXIMO" />
+                <ScalarProperty Name="listaprecio" ColumnName="listaprecio" />
+                <ScalarProperty Name="domicilio_id" ColumnName="domicilio_id" />
+                <ScalarProperty Name="IDPAGO" ColumnName="IDPAGO" />
+                <ScalarProperty Name="IVA" ColumnName="IVA" />
+                <ScalarProperty Name="CONCATENADO" ColumnName="CONCATENADO" />
+                <ScalarProperty Name="Ciudad" ColumnName="Ciudad" />
+                <ScalarProperty Name="Provincia" ColumnName="Provincia" />
+                <ScalarProperty Name="ACTIVESTATUSTP" ColumnName="ACTIVESTATUSTP" />
+                <ScalarProperty Name="TipoPago" ColumnName="TipoPago" />
+                <ScalarProperty Name="TP" ColumnName="TP" />
+                <ScalarProperty Name="MAIL" ColumnName="MAIL" />
+                <ScalarProperty Name="TELEFONO" ColumnName="TELEFONO" />
+                <ScalarProperty Name="ZONA" ColumnName="ZONA" />
+                <ScalarProperty Name="DENOMINACION" ColumnName="DENOMINACION" />
+                <ScalarProperty Name="DOMICILIO" ColumnName="DOMICILIO" />
+                <ScalarProperty Name="CALLE" ColumnName="CALLE" />
+                <ScalarProperty Name="CUIT" ColumnName="CUIT" />
+                <ScalarProperty Name="RAZONSOCIAL" ColumnName="RAZONSOCIAL" />
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1453,6 +1567,15 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Vw_Producto">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.Vw_Producto">
+              <MappingFragment StoreEntitySet="Vw_Producto">
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Vw_Productor">
             <EntityTypeMapping TypeName="CooperativaProduccionModel.Vw_Productor">
               <MappingFragment StoreEntitySet="Vw_Productor">
@@ -1530,130 +1653,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Pago">
-            <EntityTypeMapping TypeName="CooperativaProduccionModel.Pago">
-              <MappingFragment StoreEntitySet="Pago">
-                <ScalarProperty Name="Importe" ColumnName="Importe" />
-                <ScalarProperty Name="OrdenPagoId" ColumnName="OrdenPagoId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Vw_Producto">
-            <EntityTypeMapping TypeName="CooperativaProduccionModel.Vw_Producto">
-              <MappingFragment StoreEntitySet="Vw_Producto">
-                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
-                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Caja">
-            <EntityTypeMapping TypeName="CooperativaProduccionModel.Caja">
-              <MappingFragment StoreEntitySet="Caja">
-                <ScalarProperty Name="CataId" ColumnName="CataId" />
-                <ScalarProperty Name="Neto" ColumnName="Neto" />
-                <ScalarProperty Name="Tara" ColumnName="Tara" />
-                <ScalarProperty Name="Bruto" ColumnName="Bruto" />
-                <ScalarProperty Name="ProductoId" ColumnName="ProductoId" />
-                <ScalarProperty Name="Hora" ColumnName="Hora" />
-                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
-                <ScalarProperty Name="LoteCaja" ColumnName="LoteCaja" />
-                <ScalarProperty Name="OrdenVentaId" ColumnName="OrdenVentaId" />
-                <ScalarProperty Name="NumeroCaja" ColumnName="NumeroCaja" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Cata">
-            <EntityTypeMapping TypeName="CooperativaProduccionModel.Cata">
-              <MappingFragment StoreEntitySet="Cata">
-                <ScalarProperty Name="CajaId" ColumnName="CajaId" />
-                <ScalarProperty Name="OrdenVentaId" ColumnName="OrdenVentaId" />
-                <ScalarProperty Name="NumCaja" ColumnName="NumCaja" />
-                <ScalarProperty Name="NumOrden" ColumnName="NumOrden" />
-                <ScalarProperty Name="Cata1" ColumnName="Cata" />
-                <ScalarProperty Name="Lote" ColumnName="Lote" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Vw_Cliente">
-            <EntityTypeMapping TypeName="CooperativaProduccionModel.Vw_Cliente">
-              <MappingFragment StoreEntitySet="Vw_Cliente">
-                <ScalarProperty Name="CUITE" ColumnName="CUITE" />
-                <ScalarProperty Name="CREDITOMAXIMO" ColumnName="CREDITOMAXIMO" />
-                <ScalarProperty Name="listaprecio" ColumnName="listaprecio" />
-                <ScalarProperty Name="domicilio_id" ColumnName="domicilio_id" />
-                <ScalarProperty Name="IDPAGO" ColumnName="IDPAGO" />
-                <ScalarProperty Name="IVA" ColumnName="IVA" />
-                <ScalarProperty Name="CONCATENADO" ColumnName="CONCATENADO" />
-                <ScalarProperty Name="Ciudad" ColumnName="Ciudad" />
-                <ScalarProperty Name="Provincia" ColumnName="Provincia" />
-                <ScalarProperty Name="ACTIVESTATUSTP" ColumnName="ACTIVESTATUSTP" />
-                <ScalarProperty Name="TipoPago" ColumnName="TipoPago" />
-                <ScalarProperty Name="TP" ColumnName="TP" />
-                <ScalarProperty Name="MAIL" ColumnName="MAIL" />
-                <ScalarProperty Name="TELEFONO" ColumnName="TELEFONO" />
-                <ScalarProperty Name="ZONA" ColumnName="ZONA" />
-                <ScalarProperty Name="DENOMINACION" ColumnName="DENOMINACION" />
-                <ScalarProperty Name="DOMICILIO" ColumnName="DOMICILIO" />
-                <ScalarProperty Name="CALLE" ColumnName="CALLE" />
-                <ScalarProperty Name="CUIT" ColumnName="CUIT" />
-                <ScalarProperty Name="RAZONSOCIAL" ColumnName="RAZONSOCIAL" />
-                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="CooperativaProduccionModel.sysdiagrams">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="definition" ColumnName="definition" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="OrdenVenta">
-            <EntityTypeMapping TypeName="CooperativaProduccionModel.OrdenVenta">
-              <MappingFragment StoreEntitySet="OrdenVenta">
-                <ScalarProperty Name="Pendiente" ColumnName="Pendiente" />
-                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
-                <ScalarProperty Name="HastaCaja" ColumnName="HastaCaja" />
-                <ScalarProperty Name="DesdeCaja" ColumnName="DesdeCaja" />
-                <ScalarProperty Name="ProductoId" ColumnName="ProductoId" />
-                <ScalarProperty Name="ClienteId" ColumnName="ClienteId" />
-                <ScalarProperty Name="NumOperacion" ColumnName="NumOperacion" />
-                <ScalarProperty Name="NumOrden" ColumnName="NumOrden" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Remito">
-            <EntityTypeMapping TypeName="CooperativaProduccionModel.Remito">
-              <MappingFragment StoreEntitySet="Remito">
-                <ScalarProperty Name="File" ColumnName="File" />
-                <ScalarProperty Name="PathSystem" ColumnName="PathSystem" />
-                <ScalarProperty Name="PathOrigin" ColumnName="PathOrigin" />
-                <ScalarProperty Name="OrdenVentaId" ColumnName="OrdenVentaId" />
-                <ScalarProperty Name="FechaRemito" ColumnName="FechaRemito" />
-                <ScalarProperty Name="FechaOrden" ColumnName="FechaOrden" />
-                <ScalarProperty Name="HastaCaja" ColumnName="HastaCaja" />
-                <ScalarProperty Name="DesdeCaja" ColumnName="DesdeCaja" />
-                <ScalarProperty Name="ProductoId" ColumnName="ProductoId" />
-                <ScalarProperty Name="ClienteId" ColumnName="ClienteId" />
-                <ScalarProperty Name="NumOrden" ColumnName="NumOrden" />
-                <ScalarProperty Name="NumOperacion" ColumnName="NumOperacion" />
-                <ScalarProperty Name="PuntoVenta" ColumnName="PuntoVenta" />
-                <ScalarProperty Name="NumRemito" ColumnName="NumRemito" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          </EntityContainerMapping>
+        </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

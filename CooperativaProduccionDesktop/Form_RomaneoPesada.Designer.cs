@@ -62,7 +62,6 @@
             this.txtKilos = new System.Windows.Forms.TextBox();
             this.checkBalanzaAutomatica = new System.Windows.Forms.CheckBox();
             this.btnAgregarCaja = new DevExpress.XtraEditors.SimpleButton();
-            this.cbClase = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.groupControl4 = new DevExpress.XtraEditors.GroupControl();
@@ -76,10 +75,7 @@
             this.label10 = new System.Windows.Forms.Label();
             this.txtTotalFardo = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.groupControl5 = new DevExpress.XtraEditors.GroupControl();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.btnRecuperar = new DevExpress.XtraEditors.SimpleButton();
+            this.txtClase = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEdit3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).BeginInit();
@@ -96,8 +92,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridViewPesada)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl4)).BeginInit();
             this.groupControl4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl5)).BeginInit();
-            this.groupControl5.SuspendLayout();
             this.SuspendLayout();
             // 
             // ribbon
@@ -208,7 +202,7 @@
             this.groupControl2.Controls.Add(this.txtFet);
             this.groupControl2.Controls.Add(this.label3);
             this.groupControl2.Controls.Add(this.btnBuscarProductor);
-            this.groupControl2.Location = new System.Drawing.Point(4, 157);
+            this.groupControl2.Location = new System.Drawing.Point(4, 123);
             this.groupControl2.Name = "groupControl2";
             this.groupControl2.Size = new System.Drawing.Size(617, 76);
             this.groupControl2.TabIndex = 21;
@@ -222,6 +216,7 @@
             this.txtPreingreso.Name = "txtPreingreso";
             this.txtPreingreso.Size = new System.Drawing.Size(121, 22);
             this.txtPreingreso.TabIndex = 65;
+            this.txtPreingreso.Visible = false;
             // 
             // label13
             // 
@@ -232,14 +227,15 @@
             this.label13.Size = new System.Drawing.Size(69, 16);
             this.label13.TabIndex = 64;
             this.label13.Text = "Preingreso:";
+            this.label13.Visible = false;
             // 
             // txtProvincia
             // 
             this.txtProvincia.Enabled = false;
             this.txtProvincia.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtProvincia.Location = new System.Drawing.Point(475, 50);
+            this.txtProvincia.Location = new System.Drawing.Point(485, 50);
             this.txtProvincia.Name = "txtProvincia";
-            this.txtProvincia.Size = new System.Drawing.Size(124, 22);
+            this.txtProvincia.Size = new System.Drawing.Size(126, 22);
             this.txtProvincia.TabIndex = 63;
             // 
             // label1
@@ -265,7 +261,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(212, 53);
+            this.label4.Location = new System.Drawing.Point(218, 53);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(47, 16);
             this.label4.TabIndex = 59;
@@ -277,7 +273,7 @@
             this.txtNombre.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNombre.Location = new System.Drawing.Point(265, 24);
             this.txtNombre.Name = "txtNombre";
-            this.txtNombre.Size = new System.Drawing.Size(334, 22);
+            this.txtNombre.Size = new System.Drawing.Size(346, 22);
             this.txtNombre.TabIndex = 58;
             // 
             // label2
@@ -324,16 +320,17 @@
             // 
             this.groupControl1.Controls.Add(this.btnCancelarPesada);
             this.groupControl1.Controls.Add(this.btnIniciarPesada);
-            this.groupControl1.Location = new System.Drawing.Point(4, 236);
+            this.groupControl1.Location = new System.Drawing.Point(4, 201);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(617, 54);
+            this.groupControl1.ShowCaption = false;
+            this.groupControl1.Size = new System.Drawing.Size(617, 34);
             this.groupControl1.TabIndex = 22;
             this.groupControl1.Text = "Parámetros";
             // 
             // btnCancelarPesada
             // 
             this.btnCancelarPesada.Image = ((System.Drawing.Image)(resources.GetObject("btnCancelarPesada.Image")));
-            this.btnCancelarPesada.Location = new System.Drawing.Point(518, 24);
+            this.btnCancelarPesada.Location = new System.Drawing.Point(518, 4);
             this.btnCancelarPesada.Name = "btnCancelarPesada";
             this.btnCancelarPesada.Size = new System.Drawing.Size(93, 26);
             this.btnCancelarPesada.TabIndex = 61;
@@ -343,7 +340,7 @@
             // btnIniciarPesada
             // 
             this.btnIniciarPesada.Image = ((System.Drawing.Image)(resources.GetObject("btnIniciarPesada.Image")));
-            this.btnIniciarPesada.Location = new System.Drawing.Point(424, 24);
+            this.btnIniciarPesada.Location = new System.Drawing.Point(424, 4);
             this.btnIniciarPesada.Name = "btnIniciarPesada";
             this.btnIniciarPesada.Size = new System.Drawing.Size(87, 26);
             this.btnIniciarPesada.TabIndex = 60;
@@ -352,28 +349,29 @@
             // 
             // groupControl3
             // 
+            this.groupControl3.Controls.Add(this.txtClase);
             this.groupControl3.Controls.Add(this.gridControlPesada);
             this.groupControl3.Controls.Add(this.btnReimprimir);
             this.groupControl3.Controls.Add(this.btnEliminar);
             this.groupControl3.Controls.Add(this.txtKilos);
             this.groupControl3.Controls.Add(this.checkBalanzaAutomatica);
             this.groupControl3.Controls.Add(this.btnAgregarCaja);
-            this.groupControl3.Controls.Add(this.cbClase);
             this.groupControl3.Controls.Add(this.label5);
             this.groupControl3.Controls.Add(this.label6);
-            this.groupControl3.Location = new System.Drawing.Point(4, 292);
+            this.groupControl3.Location = new System.Drawing.Point(4, 237);
             this.groupControl3.Name = "groupControl3";
-            this.groupControl3.Size = new System.Drawing.Size(617, 267);
+            this.groupControl3.ShowCaption = false;
+            this.groupControl3.Size = new System.Drawing.Size(617, 248);
             this.groupControl3.TabIndex = 23;
             this.groupControl3.Text = "Parámetros";
             // 
             // gridControlPesada
             // 
-            this.gridControlPesada.Location = new System.Drawing.Point(5, 52);
+            this.gridControlPesada.Location = new System.Drawing.Point(5, 35);
             this.gridControlPesada.MainView = this.gridViewPesada;
             this.gridControlPesada.MenuManager = this.ribbon;
             this.gridControlPesada.Name = "gridControlPesada";
-            this.gridControlPesada.Size = new System.Drawing.Size(607, 179);
+            this.gridControlPesada.Size = new System.Drawing.Size(607, 181);
             this.gridControlPesada.TabIndex = 67;
             this.gridControlPesada.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewPesada});
@@ -388,9 +386,9 @@
             // btnReimprimir
             // 
             this.btnReimprimir.Image = ((System.Drawing.Image)(resources.GetObject("btnReimprimir.Image")));
-            this.btnReimprimir.Location = new System.Drawing.Point(353, 237);
+            this.btnReimprimir.Location = new System.Drawing.Point(424, 219);
             this.btnReimprimir.Name = "btnReimprimir";
-            this.btnReimprimir.Size = new System.Drawing.Size(126, 25);
+            this.btnReimprimir.Size = new System.Drawing.Size(87, 25);
             this.btnReimprimir.TabIndex = 66;
             this.btnReimprimir.Text = "Reimprimir";
             this.btnReimprimir.Click += new System.EventHandler(this.btnReimprimir_Click);
@@ -398,9 +396,9 @@
             // btnEliminar
             // 
             this.btnEliminar.Image = ((System.Drawing.Image)(resources.GetObject("btnEliminar.Image")));
-            this.btnEliminar.Location = new System.Drawing.Point(485, 237);
+            this.btnEliminar.Location = new System.Drawing.Point(518, 219);
             this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(126, 25);
+            this.btnEliminar.Size = new System.Drawing.Size(93, 25);
             this.btnEliminar.TabIndex = 65;
             this.btnEliminar.Text = "Eliminar";
             this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
@@ -409,7 +407,7 @@
             // 
             this.txtKilos.Enabled = false;
             this.txtKilos.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtKilos.Location = new System.Drawing.Point(360, 26);
+            this.txtKilos.Location = new System.Drawing.Point(360, 6);
             this.txtKilos.Name = "txtKilos";
             this.txtKilos.Size = new System.Drawing.Size(92, 22);
             this.txtKilos.TabIndex = 63;
@@ -417,8 +415,9 @@
             // checkBalanzaAutomatica
             // 
             this.checkBalanzaAutomatica.AutoSize = true;
+            this.checkBalanzaAutomatica.Enabled = false;
             this.checkBalanzaAutomatica.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBalanzaAutomatica.Location = new System.Drawing.Point(169, 26);
+            this.checkBalanzaAutomatica.Location = new System.Drawing.Point(169, 7);
             this.checkBalanzaAutomatica.Name = "checkBalanzaAutomatica";
             this.checkBalanzaAutomatica.Size = new System.Drawing.Size(130, 20);
             this.checkBalanzaAutomatica.TabIndex = 62;
@@ -429,27 +428,18 @@
             // btnAgregarCaja
             // 
             this.btnAgregarCaja.Image = ((System.Drawing.Image)(resources.GetObject("btnAgregarCaja.Image")));
-            this.btnAgregarCaja.Location = new System.Drawing.Point(485, 24);
+            this.btnAgregarCaja.Location = new System.Drawing.Point(518, 5);
             this.btnAgregarCaja.Name = "btnAgregarCaja";
-            this.btnAgregarCaja.Size = new System.Drawing.Size(126, 26);
+            this.btnAgregarCaja.Size = new System.Drawing.Size(93, 26);
             this.btnAgregarCaja.TabIndex = 60;
             this.btnAgregarCaja.Text = "Agregar";
             this.btnAgregarCaja.Click += new System.EventHandler(this.btnAgregarCaja_Click);
-            // 
-            // cbClase
-            // 
-            this.cbClase.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbClase.FormattingEnabled = true;
-            this.cbClase.Location = new System.Drawing.Point(73, 24);
-            this.cbClase.Name = "cbClase";
-            this.cbClase.Size = new System.Drawing.Size(88, 24);
-            this.cbClase.TabIndex = 59;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(310, 29);
+            this.label5.Location = new System.Drawing.Point(315, 9);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(39, 16);
             this.label5.TabIndex = 57;
@@ -459,7 +449,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(8, 27);
+            this.label6.Location = new System.Drawing.Point(11, 8);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(41, 16);
             this.label6.TabIndex = 55;
@@ -477,7 +467,7 @@
             this.groupControl4.Controls.Add(this.label10);
             this.groupControl4.Controls.Add(this.txtTotalFardo);
             this.groupControl4.Controls.Add(this.label9);
-            this.groupControl4.Location = new System.Drawing.Point(5, 562);
+            this.groupControl4.Location = new System.Drawing.Point(5, 488);
             this.groupControl4.Name = "groupControl4";
             this.groupControl4.Size = new System.Drawing.Size(616, 85);
             this.groupControl4.TabIndex = 24;
@@ -495,9 +485,9 @@
             // btnFinalizar
             // 
             this.btnFinalizar.Image = ((System.Drawing.Image)(resources.GetObject("btnFinalizar.Image")));
-            this.btnFinalizar.Location = new System.Drawing.Point(350, 54);
+            this.btnFinalizar.Location = new System.Drawing.Point(423, 55);
             this.btnFinalizar.Name = "btnFinalizar";
-            this.btnFinalizar.Size = new System.Drawing.Size(126, 26);
+            this.btnFinalizar.Size = new System.Drawing.Size(87, 26);
             this.btnFinalizar.TabIndex = 68;
             this.btnFinalizar.Text = "Finalizar";
             this.btnFinalizar.Click += new System.EventHandler(this.btnFinalizar_Click);
@@ -515,9 +505,9 @@
             // btnSalir
             // 
             this.btnSalir.Image = ((System.Drawing.Image)(resources.GetObject("btnSalir.Image")));
-            this.btnSalir.Location = new System.Drawing.Point(484, 54);
+            this.btnSalir.Location = new System.Drawing.Point(517, 54);
             this.btnSalir.Name = "btnSalir";
-            this.btnSalir.Size = new System.Drawing.Size(126, 26);
+            this.btnSalir.Size = new System.Drawing.Size(93, 26);
             this.btnSalir.TabIndex = 67;
             this.btnSalir.Text = "Salir";
             this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
@@ -579,57 +569,29 @@
             this.label9.TabIndex = 64;
             this.label9.Text = "Total Fardos:";
             // 
-            // groupControl5
+            // txtClase
             // 
-            this.groupControl5.Controls.Add(this.textBox3);
-            this.groupControl5.Controls.Add(this.label15);
-            this.groupControl5.Controls.Add(this.btnRecuperar);
-            this.groupControl5.Location = new System.Drawing.Point(4, 123);
-            this.groupControl5.Name = "groupControl5";
-            this.groupControl5.ShowCaption = false;
-            this.groupControl5.Size = new System.Drawing.Size(617, 31);
-            this.groupControl5.TabIndex = 70;
-            this.groupControl5.Text = "Buscar Productor";
-            // 
-            // textBox3
-            // 
-            this.textBox3.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(129, 6);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(159, 22);
-            this.textBox3.TabIndex = 58;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(7, 8);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(122, 16);
-            this.label15.TabIndex = 57;
-            this.label15.Text = "Numero de Romaneo:";
-            // 
-            // btnRecuperar
-            // 
-            this.btnRecuperar.Image = ((System.Drawing.Image)(resources.GetObject("btnRecuperar.Image")));
-            this.btnRecuperar.Location = new System.Drawing.Point(292, 6);
-            this.btnRecuperar.Name = "btnRecuperar";
-            this.btnRecuperar.Size = new System.Drawing.Size(161, 22);
-            this.btnRecuperar.TabIndex = 39;
-            this.btnRecuperar.Text = "Recuperar última pesada";
+            this.txtClase.Enabled = false;
+            this.txtClase.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtClase.Location = new System.Drawing.Point(71, 6);
+            this.txtClase.Name = "txtClase";
+            this.txtClase.Size = new System.Drawing.Size(92, 22);
+            this.txtClase.TabIndex = 68;
+            this.txtClase.TextChanged += new System.EventHandler(this.txtClase_TextChanged);
             // 
             // Form_RomaneoPesada
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(624, 649);
-            this.Controls.Add(this.groupControl5);
+            this.ClientSize = new System.Drawing.Size(624, 575);
             this.Controls.Add(this.groupControl4);
             this.Controls.Add(this.groupControl3);
             this.Controls.Add(this.groupControl1);
             this.Controls.Add(this.groupControl2);
             this.Controls.Add(this.ribbon);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "Form_RomaneoPesada";
             this.Ribbon = this.ribbon;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -653,9 +615,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.groupControl4)).EndInit();
             this.groupControl4.ResumeLayout(false);
             this.groupControl4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl5)).EndInit();
-            this.groupControl5.ResumeLayout(false);
-            this.groupControl5.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -685,7 +644,6 @@
         public System.Windows.Forms.TextBox txtKilos;
         private System.Windows.Forms.CheckBox checkBalanzaAutomatica;
         private DevExpress.XtraEditors.SimpleButton btnAgregarCaja;
-        private System.Windows.Forms.ComboBox cbClase;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private DevExpress.XtraEditors.GroupControl groupControl4;
@@ -699,10 +657,6 @@
         private System.Windows.Forms.Label label9;
         private DevExpress.XtraEditors.SimpleButton btnFinalizar;
         private DevExpress.XtraEditors.SimpleButton btnSalir;
-        private DevExpress.XtraEditors.GroupControl groupControl5;
-        public System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.Label label15;
-        private DevExpress.XtraEditors.SimpleButton btnRecuperar;
         public System.Windows.Forms.TextBox txtPreingreso;
         private System.Windows.Forms.Label label13;
         private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit2;
@@ -713,5 +667,6 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit repositoryItemButtonEdit3;
         private DevExpress.XtraGrid.GridControl gridControlPesada;
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewPesada;
+        public System.Windows.Forms.TextBox txtClase;
     }
 }

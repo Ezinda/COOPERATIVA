@@ -49,6 +49,18 @@ namespace CooperativaProduccion
                 }
                 this.Dispose();
             }
+            else if (target.Equals(DevConstantes.Pesada))
+            {
+                IEnlace mienlace = this.Owner as Form_RomaneoPesada;
+                if (mienlace != null)
+                {
+                    mienlace.Enviar(
+                        new Guid(gridViewProductor.GetRowCellValue(gridViewProductor.FocusedRowHandle, "ID").ToString()),
+                        gridViewProductor.GetRowCellValue(gridViewProductor.FocusedRowHandle, "FET").ToString(),
+                        gridViewProductor.GetRowCellValue(gridViewProductor.FocusedRowHandle, "PRODUCTOR").ToString());
+                }
+                this.Dispose();
+            }
             else if (target.Equals(DevConstantes.Liquidacion))
             {
                 IEnlace mienlace = this.Owner as Form_AdministracionLiquidacion;

@@ -17,6 +17,6 @@ namespace DesktopEntities.Models
         public System.Guid Id { get; set; }
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
-        public Nullable<int> Valor { get; set; }
+        public Nullable<long> Valor { get; set; }
     }
 }
