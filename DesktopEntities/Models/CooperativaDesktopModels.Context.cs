@@ -33,7 +33,6 @@ namespace DesktopEntities.Models
         public virtual DbSet<OrdenPago> OrdenPago { get; set; }
         public virtual DbSet<OrdenVenta> OrdenVenta { get; set; }
         public virtual DbSet<Pago> Pago { get; set; }
-        public virtual DbSet<Pesada> Pesada { get; set; }
         public virtual DbSet<PesadaDetalle> PesadaDetalle { get; set; }
         public virtual DbSet<Preingreso> Preingreso { get; set; }
         public virtual DbSet<PreingresoDetalle> PreingresoDetalle { get; set; }
@@ -52,5 +51,6 @@ namespace DesktopEntities.Models
         public virtual DbSet<Vw_ResumenPesadaPorClase> Vw_ResumenPesadaPorClase { get; set; }
         public virtual DbSet<Vw_ResumenRomaneoPorClase> Vw_ResumenRomaneoPorClase { get; set; }
         public virtual DbSet<Vw_Romaneo> Vw_Romaneo { get; set; }
+        public virtual DbSet<Pesada> Pesada { get; set; }
     }
 }

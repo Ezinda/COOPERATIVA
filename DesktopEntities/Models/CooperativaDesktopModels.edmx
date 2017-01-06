@@ -119,6 +119,7 @@
           <Property Name="PrecioPromedio" Type="decimal" Precision="18" Scale="2" />
           <Property Name="FechaRomaneo" Type="date" />
           <Property Name="NumRomaneo" Type="nvarchar" MaxLength="500" />
+          <Property Name="RomaneoPendiente" Type="bit" />
           <Property Name="FechaInternaLiquidacion" Type="date" />
           <Property Name="NumInternoLiquidacion" Type="bigint" />
           <Property Name="condIva" Type="nvarchar" MaxLength="50" />
@@ -719,7 +720,6 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
           <EntitySet Name="OrdenPago" EntityType="CooperativaProduccionModel.OrdenPago" />
           <EntitySet Name="OrdenVenta" EntityType="CooperativaProduccionModel.OrdenVenta" />
           <EntitySet Name="Pago" EntityType="CooperativaProduccionModel.Pago" />
-          <EntitySet Name="Pesada" EntityType="CooperativaProduccionModel.Pesada" />
           <EntitySet Name="PesadaDetalle" EntityType="CooperativaProduccionModel.PesadaDetalle" />
           <EntitySet Name="Preingreso" EntityType="CooperativaProduccionModel.Preingreso" />
           <EntitySet Name="PreingresoDetalle" EntityType="CooperativaProduccionModel.PreingresoDetalle" />
@@ -750,6 +750,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
             <End Role="Preingreso" EntitySet="Preingreso" />
             <End Role="PreingresoDetalle" EntitySet="PreingresoDetalle" />
           </AssociationSet>
+          <EntitySet Name="Pesada" EntityType="CooperativaProduccionModel.Pesada" />
         </EntityContainer>
         <EntityType Name="Caja">
           <Key>
@@ -853,33 +854,6 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="OrdenPagoId" Type="Guid" />
           <Property Name="Importe" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Pesada">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="NumPesada" Type="Int64" />
-          <Property Name="PreingresoId" Type="Guid" />
-          <Property Name="ProductorId" Type="Guid" />
-          <Property Name="TotalFardo" Type="Int32" />
-          <Property Name="TotalKg" Type="Double" />
-          <Property Name="ImporteBruto" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="PrecioPromedio" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="FechaRomaneo" Type="DateTime" Precision="0" />
-          <Property Name="NumRomaneo" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="FechaInternaLiquidacion" Type="DateTime" Precision="0" />
-          <Property Name="NumInternoLiquidacion" Type="Int64" />
-          <Property Name="condIva" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IvaPorcentaje" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="IvaCalculado" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="ImporteNeto" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Total" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="NumAfipLiquidacion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="FechaAfipLiquidacion" Type="DateTime" Precision="0" />
-          <Property Name="Cae" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FechaVtoCae" Type="DateTime" Precision="0" />
-          <Property Name="OrdenPagoId" Type="Guid" />
         </EntityType>
         <EntityType Name="PesadaDetalle">
           <Key>
@@ -1210,6 +1184,34 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Pesada">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="NumPesada" Type="Int64" />
+          <Property Name="PreingresoId" Type="Guid" />
+          <Property Name="ProductorId" Type="Guid" />
+          <Property Name="TotalFardo" Type="Int32" />
+          <Property Name="TotalKg" Type="Double" />
+          <Property Name="ImporteBruto" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PrecioPromedio" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="FechaRomaneo" Type="DateTime" Precision="0" />
+          <Property Name="NumRomaneo" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="RomaneoPendiente" Type="Boolean" />
+          <Property Name="FechaInternaLiquidacion" Type="DateTime" Precision="0" />
+          <Property Name="NumInternoLiquidacion" Type="Int64" />
+          <Property Name="condIva" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IvaPorcentaje" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="IvaCalculado" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ImporteNeto" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Total" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="NumAfipLiquidacion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FechaAfipLiquidacion" Type="DateTime" Precision="0" />
+          <Property Name="Cae" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FechaVtoCae" Type="DateTime" Precision="0" />
+          <Property Name="OrdenPagoId" Type="Guid" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1320,34 +1322,6 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
               <MappingFragment StoreEntitySet="Pago">
                 <ScalarProperty Name="Importe" ColumnName="Importe" />
                 <ScalarProperty Name="OrdenPagoId" ColumnName="OrdenPagoId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Pesada">
-            <EntityTypeMapping TypeName="CooperativaProduccionModel.Pesada">
-              <MappingFragment StoreEntitySet="Pesada">
-                <ScalarProperty Name="OrdenPagoId" ColumnName="OrdenPagoId" />
-                <ScalarProperty Name="FechaVtoCae" ColumnName="FechaVtoCae" />
-                <ScalarProperty Name="Cae" ColumnName="Cae" />
-                <ScalarProperty Name="FechaAfipLiquidacion" ColumnName="FechaAfipLiquidacion" />
-                <ScalarProperty Name="NumAfipLiquidacion" ColumnName="NumAfipLiquidacion" />
-                <ScalarProperty Name="Total" ColumnName="Total" />
-                <ScalarProperty Name="ImporteNeto" ColumnName="ImporteNeto" />
-                <ScalarProperty Name="IvaCalculado" ColumnName="IvaCalculado" />
-                <ScalarProperty Name="IvaPorcentaje" ColumnName="IvaPorcentaje" />
-                <ScalarProperty Name="condIva" ColumnName="condIva" />
-                <ScalarProperty Name="NumInternoLiquidacion" ColumnName="NumInternoLiquidacion" />
-                <ScalarProperty Name="FechaInternaLiquidacion" ColumnName="FechaInternaLiquidacion" />
-                <ScalarProperty Name="NumRomaneo" ColumnName="NumRomaneo" />
-                <ScalarProperty Name="FechaRomaneo" ColumnName="FechaRomaneo" />
-                <ScalarProperty Name="PrecioPromedio" ColumnName="PrecioPromedio" />
-                <ScalarProperty Name="ImporteBruto" ColumnName="ImporteBruto" />
-                <ScalarProperty Name="TotalKg" ColumnName="TotalKg" />
-                <ScalarProperty Name="TotalFardo" ColumnName="TotalFardo" />
-                <ScalarProperty Name="ProductorId" ColumnName="ProductorId" />
-                <ScalarProperty Name="PreingresoId" ColumnName="PreingresoId" />
-                <ScalarProperty Name="NumPesada" ColumnName="NumPesada" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1650,6 +1624,35 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
                 <ScalarProperty Name="NumRomaneo" ColumnName="NumRomaneo" />
                 <ScalarProperty Name="FechaRomaneo" ColumnName="FechaRomaneo" />
                 <ScalarProperty Name="PesadaId" ColumnName="PesadaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pesada">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.Pesada">
+              <MappingFragment StoreEntitySet="Pesada">
+                <ScalarProperty Name="OrdenPagoId" ColumnName="OrdenPagoId" />
+                <ScalarProperty Name="FechaVtoCae" ColumnName="FechaVtoCae" />
+                <ScalarProperty Name="Cae" ColumnName="Cae" />
+                <ScalarProperty Name="FechaAfipLiquidacion" ColumnName="FechaAfipLiquidacion" />
+                <ScalarProperty Name="NumAfipLiquidacion" ColumnName="NumAfipLiquidacion" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="ImporteNeto" ColumnName="ImporteNeto" />
+                <ScalarProperty Name="IvaCalculado" ColumnName="IvaCalculado" />
+                <ScalarProperty Name="IvaPorcentaje" ColumnName="IvaPorcentaje" />
+                <ScalarProperty Name="condIva" ColumnName="condIva" />
+                <ScalarProperty Name="NumInternoLiquidacion" ColumnName="NumInternoLiquidacion" />
+                <ScalarProperty Name="FechaInternaLiquidacion" ColumnName="FechaInternaLiquidacion" />
+                <ScalarProperty Name="RomaneoPendiente" ColumnName="RomaneoPendiente" />
+                <ScalarProperty Name="NumRomaneo" ColumnName="NumRomaneo" />
+                <ScalarProperty Name="FechaRomaneo" ColumnName="FechaRomaneo" />
+                <ScalarProperty Name="PrecioPromedio" ColumnName="PrecioPromedio" />
+                <ScalarProperty Name="ImporteBruto" ColumnName="ImporteBruto" />
+                <ScalarProperty Name="TotalKg" ColumnName="TotalKg" />
+                <ScalarProperty Name="TotalFardo" ColumnName="TotalFardo" />
+                <ScalarProperty Name="ProductorId" ColumnName="ProductorId" />
+                <ScalarProperty Name="PreingresoId" ColumnName="PreingresoId" />
+                <ScalarProperty Name="NumPesada" ColumnName="NumPesada" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

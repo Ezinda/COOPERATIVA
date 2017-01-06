@@ -24,6 +24,7 @@ namespace DesktopEntities.Models
         public Nullable<decimal> PrecioPromedio { get; set; }
         public Nullable<System.DateTime> FechaRomaneo { get; set; }
         public string NumRomaneo { get; set; }
+        public Nullable<bool> RomaneoPendiente { get; set; }
         public Nullable<System.DateTime> FechaInternaLiquidacion { get; set; }
         public Nullable<long> NumInternoLiquidacion { get; set; }
         public string condIva { get; set; }

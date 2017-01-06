@@ -53,8 +53,24 @@ namespace CooperativaProduccion
 
         private void btnPesada_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var pesada = new Form_RomaneoPesada();
-            pesada.Show();
+            var romaneo = Context.Pesada
+                .Where(x => x.RomaneoPendiente == true)
+                .FirstOrDefault();
+            
+            if (romaneo != null)
+            {
+                var pesada = new Form_RomaneoPesada();
+                pesada.Show();
+            }
+            else
+            {
+                var resultado = MessageBox.Show("Existen un romaneo pendiente.¿Desea reabrirlo?",
+                   "Crear Preingreso", MessageBoxButtons.OKCancel);
+                if (resultado != DialogResult.OK)
+                {
+                    return;
+                }
+            }
         }
 
         private void btnFardos_ItemClick(object sender, ItemClickEventArgs e)

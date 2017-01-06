@@ -55,6 +55,7 @@
             this.btnCancelarPesada = new DevExpress.XtraEditors.SimpleButton();
             this.btnIniciarPesada = new DevExpress.XtraEditors.SimpleButton();
             this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
+            this.txtClase = new System.Windows.Forms.TextBox();
             this.gridControlPesada = new DevExpress.XtraGrid.GridControl();
             this.gridViewPesada = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.btnReimprimir = new DevExpress.XtraEditors.SimpleButton();
@@ -75,7 +76,6 @@
             this.label10 = new System.Windows.Forms.Label();
             this.txtTotalFardo = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.txtClase = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEdit3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).BeginInit();
@@ -365,6 +365,16 @@
             this.groupControl3.TabIndex = 23;
             this.groupControl3.Text = "Parámetros";
             // 
+            // txtClase
+            // 
+            this.txtClase.Enabled = false;
+            this.txtClase.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtClase.Location = new System.Drawing.Point(71, 6);
+            this.txtClase.Name = "txtClase";
+            this.txtClase.Size = new System.Drawing.Size(92, 22);
+            this.txtClase.TabIndex = 68;
+            this.txtClase.TextChanged += new System.EventHandler(this.txtClase_TextChanged);
+            // 
             // gridControlPesada
             // 
             this.gridControlPesada.Location = new System.Drawing.Point(5, 35);
@@ -568,16 +578,6 @@
             this.label9.Size = new System.Drawing.Size(78, 16);
             this.label9.TabIndex = 64;
             this.label9.Text = "Total Fardos:";
-            // 
-            // txtClase
-            // 
-            this.txtClase.Enabled = false;
-            this.txtClase.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtClase.Location = new System.Drawing.Point(71, 6);
-            this.txtClase.Name = "txtClase";
-            this.txtClase.Size = new System.Drawing.Size(92, 22);
-            this.txtClase.TabIndex = 68;
-            this.txtClase.TextChanged += new System.EventHandler(this.txtClase_TextChanged);
             // 
             // Form_RomaneoPesada
             // 

@@ -95,25 +95,21 @@
             // 
             // lblTotalKg
             // 
-            this.lblTotalKg.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblTotalKg.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTotalKg.AutoSize = true;
             this.lblTotalKg.Font = new System.Drawing.Font("Arial Narrow", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalKg.Location = new System.Drawing.Point(828, 120);
+            this.lblTotalKg.Location = new System.Drawing.Point(836, 120);
             this.lblTotalKg.Name = "lblTotalKg";
             this.lblTotalKg.Size = new System.Drawing.Size(0, 57);
             this.lblTotalKg.TabIndex = 66;
             // 
             // label8
             // 
-            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Arial Black", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.Color.Firebrick;
-            this.label8.Location = new System.Drawing.Point(785, 72);
+            this.label8.Location = new System.Drawing.Point(760, 72);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(289, 41);
             this.label8.TabIndex = 65;
@@ -121,25 +117,21 @@
             // 
             // lblFardo
             // 
-            this.lblFardo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblFardo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblFardo.AutoSize = true;
             this.lblFardo.Font = new System.Drawing.Font("Arial Narrow", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFardo.Location = new System.Drawing.Point(464, 120);
+            this.lblFardo.Location = new System.Drawing.Point(447, 120);
             this.lblFardo.Name = "lblFardo";
             this.lblFardo.Size = new System.Drawing.Size(0, 57);
             this.lblFardo.TabIndex = 64;
             // 
             // label6
             // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Arial Black", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.Green;
-            this.label6.Location = new System.Drawing.Point(373, 72);
+            this.label6.Location = new System.Drawing.Point(356, 72);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(273, 41);
             this.label6.TabIndex = 63;
@@ -152,7 +144,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblClase.AutoSize = true;
             this.lblClase.Font = new System.Drawing.Font("Arial Narrow", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblClase.Location = new System.Drawing.Point(78, 120);
+            this.lblClase.Location = new System.Drawing.Point(86, 120);
             this.lblClase.Name = "lblClase";
             this.lblClase.Size = new System.Drawing.Size(0, 57);
             this.lblClase.TabIndex = 62;
@@ -165,7 +157,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Arial Black", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Green;
-            this.label1.Location = new System.Drawing.Point(59, 72);
+            this.label1.Location = new System.Drawing.Point(67, 72);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(125, 41);
             this.label1.TabIndex = 61;

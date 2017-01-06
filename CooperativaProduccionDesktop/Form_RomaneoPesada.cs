@@ -106,14 +106,14 @@ namespace CooperativaProduccion
                 var romaneo = Context.Pesada.Find(pesada.Id);
                 Context.Entry(romaneo).State = EntityState.Deleted;
                 Context.SaveChanges();
-            }
-
-            if (contador != null)
-            {
-                var conta = Context.Contador.Find(contador.Id);
-                conta.Valor = conta.Valor - 1;
-                Context.Entry(conta).State = EntityState.Modified;
-                Context.SaveChanges();
+                
+                if (contador != null)
+                {
+                    var conta = Context.Contador.Find(contador.Id);
+                    conta.Valor = conta.Valor - 1;
+                    Context.Entry(conta).State = EntityState.Modified;
+                    Context.SaveChanges();
+                }
             }
 
             Deshabilitar();
@@ -121,7 +121,7 @@ namespace CooperativaProduccion
 
         private void btnAgregarCaja_Click(object sender, EventArgs e)
         {
-            if (txtKilos.Text != string.Empty)
+            if (txtKilos.Text != string.Empty && txtClase.Text != string.Empty)
             {
                 GrabarPesadaDetalle();
                 CargarGrilla();
@@ -940,6 +940,7 @@ namespace CooperativaProduccion
             txtPreingreso.Text = string.Empty;
             txtCuit.Text = string.Empty;
             txtProvincia.Text = string.Empty;
+            txtClase.Text = string.Empty;
             txtKilos.Text = string.Empty;
             txtTotalKilo.Text = string.Empty;
             txtTotalFardo.Text = string.Empty;
@@ -955,7 +956,7 @@ namespace CooperativaProduccion
             btnReimprimir.Enabled = false;
             btnEliminar.Enabled = false;
             btnFinalizar.Enabled = false;
-
+            btnIniciarPesada.Enabled = true;
         }
 
         private void Habilitar()
