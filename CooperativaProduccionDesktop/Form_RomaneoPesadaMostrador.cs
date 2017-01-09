@@ -33,9 +33,13 @@ namespace CooperativaProduccion
 
         public void CargarFardo()
         {
-            lblClase.Text = clase;
-            lblFardo.Text = numFardo;
-            lblTotalKg.Text = totalkg;
+            //lblClase.Text = clase;
+            lblClase.Invoke((MethodInvoker)(() => lblClase.Text = clase));
+            //lblFardo.Text = numFardo;
+            lblFardo.Invoke((MethodInvoker)(() => lblFardo.Text = numFardo));
+            //lblTotalKg.Text = totalkg;
+            lblTotalKg.Invoke((MethodInvoker)(() => lblTotalKg.Text = totalkg));
+            
         }
         
         #endregion

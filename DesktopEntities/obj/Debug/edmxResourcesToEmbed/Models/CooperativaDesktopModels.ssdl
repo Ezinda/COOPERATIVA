@@ -45,7 +45,7 @@
     <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
     <Property Name="Nombre" Type="nvarchar" MaxLength="50" />
     <Property Name="Descripcion" Type="nvarchar" MaxLength="50" />
-    <Property Name="Valor" Type="int" />
+    <Property Name="Valor" Type="bigint" />
   </EntityType>
   <EntityType Name="Movimiento">
     <Key>
@@ -105,7 +105,7 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="NumPesada" Type="int" />
+    <Property Name="NumPesada" Type="bigint" />
     <Property Name="PreingresoId" Type="uniqueidentifier" />
     <Property Name="ProductorId" Type="uniqueidentifier" />
     <Property Name="TotalFardo" Type="int" />
@@ -113,7 +113,8 @@
     <Property Name="ImporteBruto" Type="decimal" Precision="18" Scale="2" />
     <Property Name="PrecioPromedio" Type="decimal" Precision="18" Scale="2" />
     <Property Name="FechaRomaneo" Type="date" />
-    <Property Name="NumRomaneo" Type="nvarchar" MaxLength="50" />
+    <Property Name="NumRomaneo" Type="nvarchar" MaxLength="500" />
+    <Property Name="RomaneoPendiente" Type="bit" />
     <Property Name="FechaInternaLiquidacion" Type="date" />
     <Property Name="NumInternoLiquidacion" Type="bigint" />
     <Property Name="condIva" Type="nvarchar" MaxLength="50" />
@@ -162,6 +163,36 @@
     <Property Name="Hora" Type="time" Precision="7" Nullable="false" />
     <Property Name="ProductorId" Type="uniqueidentifier" Nullable="false" />
     <Property Name="Estado" Type="bit" />
+  </EntityType>
+  <EntityType Name="Remito">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="NumRemito" Type="bigint" />
+    <Property Name="PuntoVenta" Type="int" />
+    <Property Name="NumOperacion" Type="bigint" />
+    <Property Name="NumOrden" Type="bigint" />
+    <Property Name="ClienteId" Type="uniqueidentifier" />
+    <Property Name="ProductoId" Type="uniqueidentifier" />
+    <Property Name="DesdeCaja" Type="bigint" />
+    <Property Name="HastaCaja" Type="bigint" />
+    <Property Name="FechaOrden" Type="date" />
+    <Property Name="FechaRemito" Type="date" />
+    <Property Name="OrdenVentaId" Type="uniqueidentifier" />
+    <Property Name="PathOrigin" Type="nvarchar(max)" />
+    <Property Name="PathSystem" Type="nvarchar(max)" />
+    <Property Name="File" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
   <EntityType Name="Usuario">
     <Key>
@@ -435,6 +466,18 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Remito_OrdenVenta">
+    <End Role="OrdenVenta" Type="Self.OrdenVenta" Multiplicity="0..1" />
+    <End Role="Remito" Type="Self.Remito" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrdenVenta">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Remito">
+        <PropertyRef Name="OrdenVentaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="CooperativaProduccionModelStoreContainer">
     <EntitySet Name="Caja" EntityType="Self.Caja" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Cata" EntityType="Self.Cata" Schema="dbo" store:Type="Tables" />
@@ -448,6 +491,8 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
     <EntitySet Name="PesadaDetalle" EntityType="Self.PesadaDetalle" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Preingreso" EntityType="Self.Preingreso" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PreingresoDetalle" EntityType="Self.PreingresoDetalle" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Remito" EntityType="Self.Remito" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Vw_Clase" EntityType="Self.Vw_Clase" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
@@ -651,6 +696,10 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
     <AssociationSet Name="FK_DetallePreingreso_Preingreso" Association="Self.FK_DetallePreingreso_Preingreso">
       <End Role="Preingreso" EntitySet="Preingreso" />
       <End Role="PreingresoDetalle" EntitySet="PreingresoDetalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Remito_OrdenVenta" Association="Self.FK_Remito_OrdenVenta">
+      <End Role="OrdenVenta" EntitySet="OrdenVenta" />
+      <End Role="Remito" EntitySet="Remito" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

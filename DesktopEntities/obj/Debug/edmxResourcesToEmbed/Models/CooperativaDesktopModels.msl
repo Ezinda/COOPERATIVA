@@ -1,6 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="CooperativaProduccionModelStoreContainer" CdmEntityContainer="CooperativaProduccionEntities">
+    <EntitySetMapping Name="Caja">
+      <EntityTypeMapping TypeName="CooperativaProduccionModel.Caja">
+        <MappingFragment StoreEntitySet="Caja">
+          <ScalarProperty Name="CataId" ColumnName="CataId" />
+          <ScalarProperty Name="Neto" ColumnName="Neto" />
+          <ScalarProperty Name="Tara" ColumnName="Tara" />
+          <ScalarProperty Name="Bruto" ColumnName="Bruto" />
+          <ScalarProperty Name="ProductoId" ColumnName="ProductoId" />
+          <ScalarProperty Name="Hora" ColumnName="Hora" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+          <ScalarProperty Name="LoteCaja" ColumnName="LoteCaja" />
+          <ScalarProperty Name="OrdenVentaId" ColumnName="OrdenVentaId" />
+          <ScalarProperty Name="NumeroCaja" ColumnName="NumeroCaja" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cata">
+      <EntityTypeMapping TypeName="CooperativaProduccionModel.Cata">
+        <MappingFragment StoreEntitySet="Cata">
+          <ScalarProperty Name="CajaId" ColumnName="CajaId" />
+          <ScalarProperty Name="OrdenVentaId" ColumnName="OrdenVentaId" />
+          <ScalarProperty Name="NumCaja" ColumnName="NumCaja" />
+          <ScalarProperty Name="NumOrden" ColumnName="NumOrden" />
+          <ScalarProperty Name="Cata1" ColumnName="Cata" />
+          <ScalarProperty Name="Lote" ColumnName="Lote" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Clase">
       <EntityTypeMapping TypeName="CooperativaProduccionModel.Clase">
         <MappingFragment StoreEntitySet="Clase">
@@ -55,6 +85,30 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="OrdenVenta">
+      <EntityTypeMapping TypeName="CooperativaProduccionModel.OrdenVenta">
+        <MappingFragment StoreEntitySet="OrdenVenta">
+          <ScalarProperty Name="Pendiente" ColumnName="Pendiente" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+          <ScalarProperty Name="HastaCaja" ColumnName="HastaCaja" />
+          <ScalarProperty Name="DesdeCaja" ColumnName="DesdeCaja" />
+          <ScalarProperty Name="ProductoId" ColumnName="ProductoId" />
+          <ScalarProperty Name="ClienteId" ColumnName="ClienteId" />
+          <ScalarProperty Name="NumOperacion" ColumnName="NumOperacion" />
+          <ScalarProperty Name="NumOrden" ColumnName="NumOrden" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pago">
+      <EntityTypeMapping TypeName="CooperativaProduccionModel.Pago">
+        <MappingFragment StoreEntitySet="Pago">
+          <ScalarProperty Name="Importe" ColumnName="Importe" />
+          <ScalarProperty Name="OrdenPagoId" ColumnName="OrdenPagoId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Pesada">
       <EntityTypeMapping TypeName="CooperativaProduccionModel.Pesada">
         <MappingFragment StoreEntitySet="Pesada">
@@ -70,6 +124,7 @@
           <ScalarProperty Name="condIva" ColumnName="condIva" />
           <ScalarProperty Name="NumInternoLiquidacion" ColumnName="NumInternoLiquidacion" />
           <ScalarProperty Name="FechaInternaLiquidacion" ColumnName="FechaInternaLiquidacion" />
+          <ScalarProperty Name="RomaneoPendiente" ColumnName="RomaneoPendiente" />
           <ScalarProperty Name="NumRomaneo" ColumnName="NumRomaneo" />
           <ScalarProperty Name="FechaRomaneo" ColumnName="FechaRomaneo" />
           <ScalarProperty Name="PrecioPromedio" ColumnName="PrecioPromedio" />
@@ -122,6 +177,38 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Remito">
+      <EntityTypeMapping TypeName="CooperativaProduccionModel.Remito">
+        <MappingFragment StoreEntitySet="Remito">
+          <ScalarProperty Name="File" ColumnName="File" />
+          <ScalarProperty Name="PathSystem" ColumnName="PathSystem" />
+          <ScalarProperty Name="PathOrigin" ColumnName="PathOrigin" />
+          <ScalarProperty Name="OrdenVentaId" ColumnName="OrdenVentaId" />
+          <ScalarProperty Name="FechaRemito" ColumnName="FechaRemito" />
+          <ScalarProperty Name="FechaOrden" ColumnName="FechaOrden" />
+          <ScalarProperty Name="HastaCaja" ColumnName="HastaCaja" />
+          <ScalarProperty Name="DesdeCaja" ColumnName="DesdeCaja" />
+          <ScalarProperty Name="ProductoId" ColumnName="ProductoId" />
+          <ScalarProperty Name="ClienteId" ColumnName="ClienteId" />
+          <ScalarProperty Name="NumOrden" ColumnName="NumOrden" />
+          <ScalarProperty Name="NumOperacion" ColumnName="NumOperacion" />
+          <ScalarProperty Name="PuntoVenta" ColumnName="PuntoVenta" />
+          <ScalarProperty Name="NumRemito" ColumnName="NumRemito" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="CooperativaProduccionModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="definition" ColumnName="definition" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Usuario">
       <EntityTypeMapping TypeName="CooperativaProduccionModel.Usuario">
         <MappingFragment StoreEntitySet="Usuario">
@@ -142,6 +229,34 @@
           <ScalarProperty Name="COD_PRODUCTO" ColumnName="COD_PRODUCTO" />
           <ScalarProperty Name="ID_PRODUCTO" ColumnName="ID_PRODUCTO" />
           <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Vw_Cliente">
+      <EntityTypeMapping TypeName="CooperativaProduccionModel.Vw_Cliente">
+        <MappingFragment StoreEntitySet="Vw_Cliente">
+          <ScalarProperty Name="CUITE" ColumnName="CUITE" />
+          <ScalarProperty Name="CREDITOMAXIMO" ColumnName="CREDITOMAXIMO" />
+          <ScalarProperty Name="listaprecio" ColumnName="listaprecio" />
+          <ScalarProperty Name="domicilio_id" ColumnName="domicilio_id" />
+          <ScalarProperty Name="IDPAGO" ColumnName="IDPAGO" />
+          <ScalarProperty Name="IVA" ColumnName="IVA" />
+          <ScalarProperty Name="CONCATENADO" ColumnName="CONCATENADO" />
+          <ScalarProperty Name="Ciudad" ColumnName="Ciudad" />
+          <ScalarProperty Name="Provincia" ColumnName="Provincia" />
+          <ScalarProperty Name="ACTIVESTATUSTP" ColumnName="ACTIVESTATUSTP" />
+          <ScalarProperty Name="TipoPago" ColumnName="TipoPago" />
+          <ScalarProperty Name="TP" ColumnName="TP" />
+          <ScalarProperty Name="MAIL" ColumnName="MAIL" />
+          <ScalarProperty Name="TELEFONO" ColumnName="TELEFONO" />
+          <ScalarProperty Name="ZONA" ColumnName="ZONA" />
+          <ScalarProperty Name="DENOMINACION" ColumnName="DENOMINACION" />
+          <ScalarProperty Name="DOMICILIO" ColumnName="DOMICILIO" />
+          <ScalarProperty Name="CALLE" ColumnName="CALLE" />
+          <ScalarProperty Name="CUIT" ColumnName="CUIT" />
+          <ScalarProperty Name="RAZONSOCIAL" ColumnName="RAZONSOCIAL" />
+          <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
           <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -238,6 +353,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Vw_Producto">
+      <EntityTypeMapping TypeName="CooperativaProduccionModel.Vw_Producto">
+        <MappingFragment StoreEntitySet="Vw_Producto">
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Vw_Productor">
       <EntityTypeMapping TypeName="CooperativaProduccionModel.Vw_Productor">
         <MappingFragment StoreEntitySet="Vw_Productor">
@@ -312,97 +436,6 @@
           <ScalarProperty Name="NumRomaneo" ColumnName="NumRomaneo" />
           <ScalarProperty Name="FechaRomaneo" ColumnName="FechaRomaneo" />
           <ScalarProperty Name="PesadaId" ColumnName="PesadaId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Pago">
-      <EntityTypeMapping TypeName="CooperativaProduccionModel.Pago">
-        <MappingFragment StoreEntitySet="Pago">
-          <ScalarProperty Name="Importe" ColumnName="Importe" />
-          <ScalarProperty Name="OrdenPagoId" ColumnName="OrdenPagoId" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Vw_Producto">
-      <EntityTypeMapping TypeName="CooperativaProduccionModel.Vw_Producto">
-        <MappingFragment StoreEntitySet="Vw_Producto">
-          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
-          <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Caja">
-      <EntityTypeMapping TypeName="CooperativaProduccionModel.Caja">
-        <MappingFragment StoreEntitySet="Caja">
-          <ScalarProperty Name="CataId" ColumnName="CataId" />
-          <ScalarProperty Name="Neto" ColumnName="Neto" />
-          <ScalarProperty Name="Tara" ColumnName="Tara" />
-          <ScalarProperty Name="Bruto" ColumnName="Bruto" />
-          <ScalarProperty Name="ProductoId" ColumnName="ProductoId" />
-          <ScalarProperty Name="Hora" ColumnName="Hora" />
-          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
-          <ScalarProperty Name="LoteCaja" ColumnName="LoteCaja" />
-          <ScalarProperty Name="OrdenVentaId" ColumnName="OrdenVentaId" />
-          <ScalarProperty Name="NumeroCaja" ColumnName="NumeroCaja" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Cata">
-      <EntityTypeMapping TypeName="CooperativaProduccionModel.Cata">
-        <MappingFragment StoreEntitySet="Cata">
-          <ScalarProperty Name="CajaId" ColumnName="CajaId" />
-          <ScalarProperty Name="OrdenVentaId" ColumnName="OrdenVentaId" />
-          <ScalarProperty Name="NumCaja" ColumnName="NumCaja" />
-          <ScalarProperty Name="NumOrden" ColumnName="NumOrden" />
-          <ScalarProperty Name="Cata1" ColumnName="Cata" />
-          <ScalarProperty Name="Lote" ColumnName="Lote" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="OrdenVenta">
-      <EntityTypeMapping TypeName="CooperativaProduccionModel.OrdenVenta">
-        <MappingFragment StoreEntitySet="OrdenVenta">
-          <ScalarProperty Name="Pendiente" ColumnName="Pendiente" />
-          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
-          <ScalarProperty Name="HastaCaja" ColumnName="HastaCaja" />
-          <ScalarProperty Name="DesdeCaja" ColumnName="DesdeCaja" />
-          <ScalarProperty Name="ProductoId" ColumnName="ProductoId" />
-          <ScalarProperty Name="ClienteId" ColumnName="ClienteId" />
-          <ScalarProperty Name="NumOperacion" ColumnName="NumOperacion" />
-          <ScalarProperty Name="NumOrden" ColumnName="NumOrden" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Vw_Cliente">
-      <EntityTypeMapping TypeName="CooperativaProduccionModel.Vw_Cliente">
-        <MappingFragment StoreEntitySet="Vw_Cliente">
-          <ScalarProperty Name="CUITE" ColumnName="CUITE" />
-          <ScalarProperty Name="CREDITOMAXIMO" ColumnName="CREDITOMAXIMO" />
-          <ScalarProperty Name="listaprecio" ColumnName="listaprecio" />
-          <ScalarProperty Name="domicilio_id" ColumnName="domicilio_id" />
-          <ScalarProperty Name="IDPAGO" ColumnName="IDPAGO" />
-          <ScalarProperty Name="IVA" ColumnName="IVA" />
-          <ScalarProperty Name="CONCATENADO" ColumnName="CONCATENADO" />
-          <ScalarProperty Name="Ciudad" ColumnName="Ciudad" />
-          <ScalarProperty Name="Provincia" ColumnName="Provincia" />
-          <ScalarProperty Name="ACTIVESTATUSTP" ColumnName="ACTIVESTATUSTP" />
-          <ScalarProperty Name="TipoPago" ColumnName="TipoPago" />
-          <ScalarProperty Name="TP" ColumnName="TP" />
-          <ScalarProperty Name="MAIL" ColumnName="MAIL" />
-          <ScalarProperty Name="TELEFONO" ColumnName="TELEFONO" />
-          <ScalarProperty Name="ZONA" ColumnName="ZONA" />
-          <ScalarProperty Name="DENOMINACION" ColumnName="DENOMINACION" />
-          <ScalarProperty Name="DOMICILIO" ColumnName="DOMICILIO" />
-          <ScalarProperty Name="CALLE" ColumnName="CALLE" />
-          <ScalarProperty Name="CUIT" ColumnName="CUIT" />
-          <ScalarProperty Name="RAZONSOCIAL" ColumnName="RAZONSOCIAL" />
-          <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

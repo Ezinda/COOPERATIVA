@@ -15,5 +15,6 @@ C:\Repo\COOPERATIVA\Cooperativa\DesktopEntities\bin\Debug\EntityFramework.dll
 C:\Repo\COOPERATIVA\Cooperativa\DesktopEntities\bin\Debug\EntityFramework.SqlServer.dll
 C:\Repo\COOPERATIVA\Cooperativa\DesktopEntities\bin\Debug\EntityFramework.xml
 C:\Repo\COOPERATIVA\Cooperativa\DesktopEntities\bin\Debug\EntityFramework.SqlServer.xml
+C:\Repo\COOPERATIVA\Cooperativa\DesktopEntities\obj\Debug\DesktopEntities.csprojResolveAssemblyReference.cache
 C:\Repo\COOPERATIVA\Cooperativa\DesktopEntities\obj\Debug\DesktopEntities.dll
 C:\Repo\COOPERATIVA\Cooperativa\DesktopEntities\obj\Debug\DesktopEntities.pdb

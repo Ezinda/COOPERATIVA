@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_RomaneoReclasificacion));
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
-            this.cbClase = new System.Windows.Forms.ComboBox();
             this.btnSalir = new DevExpress.XtraEditors.SimpleButton();
             this.label2 = new System.Windows.Forms.Label();
             this.txtClase = new System.Windows.Forms.TextBox();
@@ -39,6 +38,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnActualizar = new DevExpress.XtraEditors.SimpleButton();
             this.txtFardo = new System.Windows.Forms.TextBox();
+            this.txtReclasificacion = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
             this.groupControl2.SuspendLayout();
@@ -59,12 +59,12 @@
             this.ribbon.ShowFullScreenButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Hide;
             this.ribbon.ShowToolbarCustomizeItem = false;
-            this.ribbon.Size = new System.Drawing.Size(273, 27);
+            this.ribbon.Size = new System.Drawing.Size(331, 27);
             this.ribbon.Toolbar.ShowCustomizeItem = false;
             // 
             // groupControl2
             // 
-            this.groupControl2.Controls.Add(this.cbClase);
+            this.groupControl2.Controls.Add(this.txtReclasificacion);
             this.groupControl2.Controls.Add(this.btnSalir);
             this.groupControl2.Controls.Add(this.label2);
             this.groupControl2.Controls.Add(this.txtClase);
@@ -74,25 +74,16 @@
             this.groupControl2.Controls.Add(this.txtFardo);
             this.groupControl2.Location = new System.Drawing.Point(3, 31);
             this.groupControl2.Name = "groupControl2";
-            this.groupControl2.Size = new System.Drawing.Size(266, 152);
+            this.groupControl2.Size = new System.Drawing.Size(324, 191);
             this.groupControl2.TabIndex = 21;
             this.groupControl2.Text = "Fardo";
-            // 
-            // cbClase
-            // 
-            this.cbClase.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbClase.FormattingEnabled = true;
-            this.cbClase.Location = new System.Drawing.Point(89, 84);
-            this.cbClase.Name = "cbClase";
-            this.cbClase.Size = new System.Drawing.Size(154, 24);
-            this.cbClase.TabIndex = 62;
             // 
             // btnSalir
             // 
             this.btnSalir.Appearance.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSalir.Appearance.Options.UseFont = true;
             this.btnSalir.Image = ((System.Drawing.Image)(resources.GetObject("btnSalir.Image")));
-            this.btnSalir.Location = new System.Drawing.Point(140, 114);
+            this.btnSalir.Location = new System.Drawing.Point(224, 158);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(92, 26);
             this.btnSalir.TabIndex = 61;
@@ -102,48 +93,48 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(6, 84);
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(5, 118);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(85, 20);
+            this.label2.Size = new System.Drawing.Size(117, 24);
             this.label2.TabIndex = 57;
-            this.label2.Text = "Reclasificar:";
+            this.label2.Text = "Reclasificar";
             // 
             // txtClase
             // 
             this.txtClase.Enabled = false;
-            this.txtClase.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtClase.Location = new System.Drawing.Point(89, 55);
+            this.txtClase.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtClase.Location = new System.Drawing.Point(123, 73);
             this.txtClase.Name = "txtClase";
-            this.txtClase.Size = new System.Drawing.Size(154, 26);
+            this.txtClase.Size = new System.Drawing.Size(194, 29);
             this.txtClase.TabIndex = 56;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(6, 58);
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(20, 75);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(47, 20);
+            this.label3.Size = new System.Drawing.Size(62, 24);
             this.label3.TabIndex = 55;
-            this.label3.Text = "Clase:";
+            this.label3.Text = "Clase";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(6, 27);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(5, 34);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(68, 20);
+            this.label1.Size = new System.Drawing.Size(93, 24);
             this.label1.TabIndex = 54;
-            this.label1.Text = "N° Fardo:";
+            this.label1.Text = "N° Fardo";
             // 
             // btnActualizar
             // 
             this.btnActualizar.Appearance.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnActualizar.Appearance.Options.UseFont = true;
             this.btnActualizar.Image = ((System.Drawing.Image)(resources.GetObject("btnActualizar.Image")));
-            this.btnActualizar.Location = new System.Drawing.Point(26, 114);
+            this.btnActualizar.Location = new System.Drawing.Point(126, 158);
             this.btnActualizar.Name = "btnActualizar";
             this.btnActualizar.Size = new System.Drawing.Size(92, 26);
             this.btnActualizar.TabIndex = 53;
@@ -152,20 +143,31 @@
             // 
             // txtFardo
             // 
-            this.txtFardo.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFardo.Location = new System.Drawing.Point(89, 24);
+            this.txtFardo.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFardo.Location = new System.Drawing.Point(123, 32);
             this.txtFardo.Name = "txtFardo";
-            this.txtFardo.Size = new System.Drawing.Size(154, 26);
+            this.txtFardo.Size = new System.Drawing.Size(194, 29);
             this.txtFardo.TabIndex = 38;
+            this.txtFardo.TextChanged += new System.EventHandler(this.txtFardo_TextChanged);
             this.txtFardo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBuscador_KeyPress);
+            // 
+            // txtReclasificacion
+            // 
+            this.txtReclasificacion.Enabled = false;
+            this.txtReclasificacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtReclasificacion.Location = new System.Drawing.Point(122, 113);
+            this.txtReclasificacion.Name = "txtReclasificacion";
+            this.txtReclasificacion.Size = new System.Drawing.Size(194, 29);
+            this.txtReclasificacion.TabIndex = 62;
             // 
             // Form_RomaneoReclasificacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(273, 187);
+            this.ClientSize = new System.Drawing.Size(331, 224);
             this.Controls.Add(this.groupControl2);
             this.Controls.Add(this.ribbon);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Form_RomaneoReclasificacion";
@@ -184,7 +186,6 @@
 
         private DevExpress.XtraBars.Ribbon.RibbonControl ribbon;
         private DevExpress.XtraEditors.GroupControl groupControl2;
-        private System.Windows.Forms.ComboBox cbClase;
         private DevExpress.XtraEditors.SimpleButton btnSalir;
         private System.Windows.Forms.Label label2;
         public System.Windows.Forms.TextBox txtClase;
@@ -192,5 +193,6 @@
         private System.Windows.Forms.Label label1;
         private DevExpress.XtraEditors.SimpleButton btnActualizar;
         public System.Windows.Forms.TextBox txtFardo;
+        public System.Windows.Forms.TextBox txtReclasificacion;
     }
 }

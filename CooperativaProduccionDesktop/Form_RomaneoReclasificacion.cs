@@ -20,7 +20,6 @@ namespace CooperativaProduccion
         {
             InitializeComponent();
             Context = new CooperativaProduccionEntities();
-            CargarCombo();
         }
 
         #region Method Code
@@ -46,14 +45,6 @@ namespace CooperativaProduccion
         #endregion
 
         #region Method Dev
-
-        private void CargarCombo()
-        {
-            var clase = Context.Vw_Clase.ToList();
-            cbClase.DataSource = clase;
-            cbClase.DisplayMember = "NOMBRE";
-            cbClase.ValueMember = "ID";      
-        }
 
         private void Buscar(string numFardo)
         {
@@ -110,13 +101,19 @@ namespace CooperativaProduccion
             if (!string.IsNullOrEmpty(result.Id.ToString()))
             {
                 var pesadaDetalle = Context.PesadaDetalle.Find(result.Id);
-                pesadaDetalle.ReclasificacionId = new Guid(cbClase.SelectedValue.ToString());
- 
-                Context.Entry(pesadaDetalle).State = EntityState.Modified;
-                Context.SaveChanges();
-                Limpiar();
-                MessageBox.Show("Fardo Reclasificado.",
-                    "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                var clase = Context.Vw_Clase
+                    .Where(x => x.NOMBRE.Equals(txtReclasificacion.Text))
+                    .FirstOrDefault();
+                if (clase != null)
+                {
+                    pesadaDetalle.ReclasificacionId = new Guid(txtReclasificacion.Text);
+
+                    pesadaDetalle.ReclasificacionPrecio =
+                                   Context.Entry(pesadaDetalle).State = EntityState.Modified;
+                    Context.SaveChanges();
+
+                    Limpiar();
+                }
             }
         }
 
@@ -127,5 +124,13 @@ namespace CooperativaProduccion
         }
 
         #endregion
+
+        private void txtFardo_TextChanged(object sender, EventArgs e)
+        {
+            if (txtFardo.Text != string.Empty)
+            {
+                txtClase.Focus();
+            }
+        }
     }
 }

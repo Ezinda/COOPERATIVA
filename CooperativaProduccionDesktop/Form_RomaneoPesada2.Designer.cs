@@ -427,6 +427,8 @@
             // checkBalanzaAutomatica
             // 
             this.checkBalanzaAutomatica.AutoSize = true;
+            this.checkBalanzaAutomatica.Checked = true;
+            this.checkBalanzaAutomatica.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBalanzaAutomatica.Enabled = false;
             this.checkBalanzaAutomatica.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBalanzaAutomatica.Location = new System.Drawing.Point(169, 7);
