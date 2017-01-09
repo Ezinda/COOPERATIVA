@@ -17,12 +17,14 @@ using CooperativaProduccion.ReportModels;
 using System.Data.SqlClient;
 using System.Configuration;
 using DevExpress.Utils;
+using System.IO.Ports;
 using System.Runtime.InteropServices;
 using System.IO;
+using System.Drawing.Printing;
 
 namespace CooperativaProduccion
 {
-    public partial class Form_RomaneoPesada : DevExpress.XtraBars.Ribbon.RibbonForm, IEnlace
+    public partial class Form_RomaneoPesada2 : DevExpress.XtraBars.Ribbon.RibbonForm, IEnlace
     {
         public CooperativaProduccionEntities Context { get; set; }
         private Guid ProductorId;
@@ -34,18 +36,105 @@ namespace CooperativaProduccion
         private Form_AdministracionBuscarProductor _formBuscarProductor;
         private Form_RomaneoBuscarPreingreso _formBuscarPreingreso;
 
-        public Form_RomaneoPesada()
+        private string lectura;
+        private static TimeSpan _horaInicio;
+        private static List<RegPesada> _bufferentrada;
+        private static RegPesada _registrotemporal;
+        private static List<RegPesada> _buffersalida;
+        private static double _intervalodecomprobacion = 1.5;
+        private static decimal _minimonuevaentrada = 15;
+        private static decimal _bajadaynuevaentrada_porcentaje = 10;
+        private static System.Timers.Timer _timer;
+
+        public Form_RomaneoPesada2()
         {
             InitializeComponent();
             Context = new CooperativaProduccionEntities();
             Iniciar();
+
+            #region Balanza
+
+            _bufferentrada = new List<RegPesada>();
+            _buffersalida = new List<RegPesada>();
+            _registrotemporal = null;
+
+            m_serialPort1.BaudRate = 9600;
+            m_serialPort1.Parity = Parity.None;
+            m_serialPort1.StopBits = StopBits.One;
+            m_serialPort1.DataBits = 8;
+            m_serialPort1.Handshake = Handshake.None;
+            m_serialPort1.RtsEnable = true;
+
+            _horaInicio = DateTime.Now.TimeOfDay;
+            _timer = new System.Timers.Timer(1000 * _intervalodecomprobacion);
+            _timer.Elapsed += new System.Timers.ElapsedEventHandler(_timer_Elapsed);
+            _timer.Enabled = true;
+            m_serialPort1.Open();
+            m_serialPort1.DataReceived += new SerialDataReceivedEventHandler(m_serialPort1_DataReceived);
+            
+            #endregion
         }
 
         #region Method Code
 
-        private void Form_RomaneoPesada_Load(object sender, EventArgs e)
+        void _timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            CheckForIllegalCrossThreadCalls = false;
+            try
+            {
+                _timer.Stop();
+
+                decimal minimopeso = 0;
+                decimal maximoValor = 0;
+                TimeSpan hora = TimeSpan.Zero;
+
+                foreach (var item in _bufferentrada)
+                {
+                    if (maximoValor < item.Valor)
+                    {
+                        maximoValor = item.Valor;
+                        hora = item.Hora;
+                    }
+                }
+
+                if (maximoValor >= _minimonuevaentrada)
+                {
+                    var registroactual = new RegPesada()
+                    {
+                        Hora = hora - _horaInicio,
+                        Valor = maximoValor
+                    };
+
+                    if (_registrotemporal == null)
+                    {
+                        _registrotemporal = registroactual;
+                    }
+                    else
+                    {
+                        var bajadaynuevaentrada = (_bajadaynuevaentrada_porcentaje * _registrotemporal.Valor) / 100;
+
+                        if (registroactual.Valor >= _registrotemporal.Valor)
+                        {
+                            _registrotemporal = registroactual;
+                        }
+                        else if ((registroactual.Valor - bajadaynuevaentrada) <= (_registrotemporal.Valor - bajadaynuevaentrada))
+                        {
+                            _buffersalida.Add(_registrotemporal);
+
+                            System.Console.WriteLine(_registrotemporal.ToString());
+                            txtKilos.Text = _registrotemporal.Valor.ToString();
+                            SaveAndPrintKg();
+
+                            _registrotemporal = null;
+                        }
+                    }
+                }
+
+                _bufferentrada.Clear();
+            }
+            finally
+            {
+                _timer.Start();
+            }
         }
 
         private void btnPesadaMostrador_ItemClick(object sender, ItemClickEventArgs e)
@@ -986,6 +1075,228 @@ namespace CooperativaProduccion
             Deshabilitar();
         }
 
+        private void m_serialPort1_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            m_serialPort1.ReadTimeout = 2000; //El timeout es esencial para parar la conexion pasado un tiempo. En este caso 2 segundos.
+            //    m_serialPort1.Open(); //Abrimos el puerto
+            try
+            {
+                lectura = m_serialPort1.ReadLine();
+
+                byte[] bytesDeLectura = Encoding.ASCII.GetBytes(lectura);
+
+                var bytesNeto = bytesDeLectura.Skip(2).Take(9).ToArray();
+
+                var valorstr = Encoding.ASCII.GetString(bytesNeto);
+
+                decimal valor;
+
+                try
+                {
+                    valor = Convert.ToDecimal(valorstr);
+                }
+                catch (Exception)
+                {
+                    return;
+                }
+
+                var registro = new RegPesada()
+                {
+                    Hora = DateTime.Now.TimeOfDay,
+                    Valor = valor
+                };
+
+                _bufferentrada.Add(registro);
+
+               // txtKilos.Text = valor.ToString();
+               // txtLectura.Text = valor.ToString();
+
+                //Leemos una linea del puerto
+               // txtBalanza.Text = lectura;
+            }
+            catch (InvalidOperationException ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+
+            //m_serialPort1.Close();//Cerramos puerto
+            // m_serialPort1.Dispose();//Liberamos recursos
+
+        }
+
+        private void SaveAndPrintKg()
+        {
+            if (txtKilos.Text != string.Empty && txtClase.Text != string.Empty)
+            {
+                GrabarPesadaDetalle();
+                CargarGrilla();
+                PrintTicket(txtClase.Text, txtKilos.Text);
+                CalcularTotales();
+                PasarFardoMostrador(false);
+            }
+            else
+            {
+                MessageBox.Show("No hay un valor de kg.",
+                    "Se Requiere", MessageBoxButtons.OK);
+            }
+        }
+
+        private void PrintTicket(string clase, string lectura)
+        {
+            string s = "^XA";
+            s = s + "^FX Top section with company logo, name and address.";
+            s = s + "^LH25,50";
+            s = s + "^PW900";
+            s = s + "^CF0,40";
+            s = s + "^FO120,50^FDCOOPERATIVA DE PRODUCTORES^FS";
+            s = s + "^CF0,40";
+            s = s + "^FO120,100^FDAGROPECUARIOS DEL TUCUMAN^FS";
+            s = s + "^FO320,150^FDLTDA.^FS";
+            s = s + "^CF0,30";
+            s = s + "^FO130,250^FDRUTA 38 KM 699-LA INVERNADA^FS";
+            s = s + "^FO310,290^FDDPTO. LA COCHA^FS";
+            s = s + "^FX Third section with barcode.";
+            s = s + "^CF0,35";
+            s = s + "^FO90,400^FDFARDO  CLASE:" + clase + "  KILOS:" + lectura + "^FS";
+            s = s + "^BY3,2,270";
+            s = s + "^FO160,550^BC^FD56786085^FS";
+            s = s + "^XZ";
+
+            PrintDialog pd = new PrintDialog();
+            pd.PrinterSettings = new PrinterSettings();
+
+            RawPrinterHelper.SendStringToPrinter(pd.PrinterSettings.PrinterName, s);
+        }
     }
 
+    public class RegPesada
+    {
+        public TimeSpan Hora { get; set; }
+        public decimal Valor { get; set; }
+
+        public override string ToString()
+        {
+            return Hora.ToString("mm\\:ss") + " - " + Valor;
+        }
+    }
+
+    public class RawPrinterHelper
+    {
+        // Structure and API declarions:
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
+        public class DOCINFOA
+        {
+            [MarshalAs(UnmanagedType.LPStr)]
+            public string pDocName;
+            [MarshalAs(UnmanagedType.LPStr)]
+            public string pOutputFile;
+            [MarshalAs(UnmanagedType.LPStr)]
+            public string pDataType;
+        }
+        [DllImport("winspool.Drv", EntryPoint = "OpenPrinterA", SetLastError = true, CharSet = CharSet.Ansi, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
+        public static extern bool OpenPrinter([MarshalAs(UnmanagedType.LPStr)] string szPrinter, out IntPtr hPrinter, IntPtr pd);
+
+        [DllImport("winspool.Drv", EntryPoint = "ClosePrinter", SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
+        public static extern bool ClosePrinter(IntPtr hPrinter);
+
+        [DllImport("winspool.Drv", EntryPoint = "StartDocPrinterA", SetLastError = true, CharSet = CharSet.Ansi, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
+        public static extern bool StartDocPrinter(IntPtr hPrinter, Int32 level, [In, MarshalAs(UnmanagedType.LPStruct)] DOCINFOA di);
+
+        [DllImport("winspool.Drv", EntryPoint = "EndDocPrinter", SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
+        public static extern bool EndDocPrinter(IntPtr hPrinter);
+
+        [DllImport("winspool.Drv", EntryPoint = "StartPagePrinter", SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
+        public static extern bool StartPagePrinter(IntPtr hPrinter);
+
+        [DllImport("winspool.Drv", EntryPoint = "EndPagePrinter", SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
+        public static extern bool EndPagePrinter(IntPtr hPrinter);
+
+        [DllImport("winspool.Drv", EntryPoint = "WritePrinter", SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
+        public static extern bool WritePrinter(IntPtr hPrinter, IntPtr pBytes, Int32 dwCount, out Int32 dwWritten);
+
+        // SendBytesToPrinter()
+        // When the function is given a printer name and an unmanaged array
+        // of bytes, the function sends those bytes to the print queue.
+        // Returns true on success, false on failure.
+        public static bool SendBytesToPrinter(string szPrinterName, IntPtr pBytes, Int32 dwCount)
+        {
+            Int32 dwError = 0, dwWritten = 0;
+            IntPtr hPrinter = new IntPtr(0);
+            DOCINFOA di = new DOCINFOA();
+            bool bSuccess = false; // Assume failure unless you specifically succeed.
+            di.pDocName = "My C#.NET RAW Document";
+            di.pDataType = "RAW";
+
+            // Open the printer.
+            if (OpenPrinter(szPrinterName.Normalize(), out hPrinter, IntPtr.Zero))
+            {
+                // Start a document.
+                if (StartDocPrinter(hPrinter, 1, di))
+                {
+                    // Start a page.
+                    if (StartPagePrinter(hPrinter))
+                    {
+                        // Write your bytes.
+                        bSuccess = WritePrinter(hPrinter, pBytes, dwCount, out dwWritten);
+                        EndPagePrinter(hPrinter);
+                    }
+                    EndDocPrinter(hPrinter);
+                }
+                ClosePrinter(hPrinter);
+            }
+            // If you did not succeed, GetLastError may give more information
+            // about why not.
+            if (bSuccess == false)
+            {
+                dwError = Marshal.GetLastWin32Error();
+            }
+            return bSuccess;
+        }
+
+        public static bool SendFileToPrinter(string szPrinterName, string szFileName)
+        {
+            // Open the file.
+            FileStream fs = new FileStream(szFileName, FileMode.Open);
+            // Create a BinaryReader on the file.
+            BinaryReader br = new BinaryReader(fs);
+            // Dim an array of bytes big enough to hold the file's contents.
+            Byte[] bytes = new Byte[fs.Length];
+            bool bSuccess = false;
+            // Your unmanaged pointer.
+            IntPtr pUnmanagedBytes = new IntPtr(0);
+            int nLength;
+
+            nLength = Convert.ToInt32(fs.Length);
+            // Read the contents of the file into the array.
+            bytes = br.ReadBytes(nLength);
+            // Allocate some unmanaged memory for those bytes.
+            pUnmanagedBytes = Marshal.AllocCoTaskMem(nLength);
+            // Copy the managed byte array into the unmanaged array.
+            Marshal.Copy(bytes, 0, pUnmanagedBytes, nLength);
+            // Send the unmanaged bytes to the printer.
+            bSuccess = SendBytesToPrinter(szPrinterName, pUnmanagedBytes, nLength);
+            // Free the unmanaged memory that you allocated earlier.
+            Marshal.FreeCoTaskMem(pUnmanagedBytes);
+            return bSuccess;
+        }
+
+        public static bool SendStringToPrinter(string szPrinterName, string szString)
+        {
+            IntPtr pBytes;
+            Int32 dwCount;
+
+            // How many characters are in the string?
+            // Fix from Nicholas Piasecki:
+            //   dwCount = szString.Length;
+            dwCount = (szString.Length + 1) * Marshal.SystemMaxDBCSCharSize;
+
+            // Assume that the printer is expecting ANSI text, and then convert
+            // the string to ANSI text.
+            pBytes = Marshal.StringToCoTaskMemAnsi(szString);
+            // Send the converted ANSI string to the printer.
+            SendBytesToPrinter(szPrinterName, pBytes, dwCount);
+            Marshal.FreeCoTaskMem(pBytes);
+            return true;
+        }
+    }
 }

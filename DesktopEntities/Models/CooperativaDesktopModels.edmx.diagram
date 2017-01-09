@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="8c0a263bdce7457da51fd62f656dcf9e" Name="Diagram1" ZoomLevel="71">
+      <Diagram DiagramId="8c0a263bdce7457da51fd62f656dcf9e" Name="Diagram1" ZoomLevel="21">
         <EntityTypeShape EntityType="CooperativaProduccionModel.Caja" Width="1.5" PointX="8" PointY="5" />
         <EntityTypeShape EntityType="CooperativaProduccionModel.Cata" Width="1.5" PointX="5.75" PointY="5.375" />
         <EntityTypeShape EntityType="CooperativaProduccionModel.Clase" Width="1.5" PointX="0.75" PointY="6.75" />
@@ -13,6 +13,7 @@
         <EntityTypeShape EntityType="CooperativaProduccionModel.OrdenPago" Width="1.5" PointX="0.75" PointY="9.75" />
         <EntityTypeShape EntityType="CooperativaProduccionModel.OrdenVenta" Width="1.5" PointX="0.75" PointY="1.625" />
         <EntityTypeShape EntityType="CooperativaProduccionModel.Pago" Width="1.5" PointX="6.75" PointY="9.75" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.Pesada" Width="1.5" PointX="8.75" PointY="9.75" />
         <EntityTypeShape EntityType="CooperativaProduccionModel.PesadaDetalle" Width="1.5" PointX="10.75" PointY="0.75" />
         <EntityTypeShape EntityType="CooperativaProduccionModel.Preingreso" Width="1.5" PointX="5.75" PointY="1" />
         <EntityTypeShape EntityType="CooperativaProduccionModel.PreingresoDetalle" Width="1.5" PointX="8" PointY="1" />
@@ -30,11 +31,10 @@
         <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_ResumenPesada" Width="1.5" PointX="14.75" PointY="8.75" />
         <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_ResumenPesadaPorClase" Width="1.5" PointX="14.75" PointY="11.75" />
         <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_ResumenRomaneoPorClase" Width="1.5" PointX="14.75" PointY="14.75" />
-        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_Romaneo" Width="1.5" PointX="6.75" PointY="15.75" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_Romaneo" Width="1.5" PointX="16.75" PointY="0.75" />
         <AssociationConnector Association="CooperativaProduccionModel.FK_Caja_Cata" />
         <AssociationConnector Association="CooperativaProduccionModel.FK_Remito_OrdenVenta" />
         <AssociationConnector Association="CooperativaProduccionModel.FK_DetallePreingreso_Preingreso" />
-        <EntityTypeShape EntityType="CooperativaProduccionModel.Pesada" Width="1.5" PointX="9.375" PointY="14.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

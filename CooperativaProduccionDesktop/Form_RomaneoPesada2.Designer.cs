@@ -1,6 +1,6 @@
 ﻿namespace CooperativaProduccion
 {
-    partial class Form_RomaneoPesada
+    partial class Form_RomaneoPesada2
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_RomaneoPesada));
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_RomaneoPesada2));
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.btnPesadaMostrador = new DevExpress.XtraBars.BarButtonItem();
             this.btnRecuperarPesada = new DevExpress.XtraBars.BarEditItem();
@@ -76,6 +77,7 @@
             this.label10 = new System.Windows.Forms.Label();
             this.txtTotalFardo = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.m_serialPort1 = new System.IO.Ports.SerialPort(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEdit3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).BeginInit();
@@ -579,7 +581,11 @@
             this.label9.TabIndex = 64;
             this.label9.Text = "Total Fardos:";
             // 
-            // Form_RomaneoPesada
+            // m_serialPort1
+            // 
+            this.m_serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.m_serialPort1_DataReceived);
+            // 
+            // Form_RomaneoPesada2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -592,11 +598,10 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.Name = "Form_RomaneoPesada";
+            this.Name = "Form_RomaneoPesada2";
             this.Ribbon = this.ribbon;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Romaneo - Pesada";
-            this.Load += new System.EventHandler(this.Form_RomaneoPesada_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEdit3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).EndInit();
@@ -669,5 +674,6 @@
         private DevExpress.XtraGrid.GridControl gridControlPesada;
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewPesada;
         public System.Windows.Forms.TextBox txtClase;
+        private System.IO.Ports.SerialPort m_serialPort1;
     }
 }

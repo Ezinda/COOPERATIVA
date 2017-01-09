@@ -59,6 +59,7 @@
             this.ribbonPage5 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPage6 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupSeguridad = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.btnPesada2 = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             this.SuspendLayout();
             // 
@@ -81,9 +82,10 @@
             this.btnGestionCata,
             this.btnIngresoCaja,
             this.btnOrdenVenta,
-            this.btnRemitoElectronico});
+            this.btnRemitoElectronico,
+            this.btnPesada2});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
-            this.ribbon.MaxItemId = 17;
+            this.ribbon.MaxItemId = 18;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPageRomaneo,
@@ -258,6 +260,7 @@
             // 
             this.ribbonPageGroupBalanza.AllowTextClipping = false;
             this.ribbonPageGroupBalanza.ItemLinks.Add(this.btnPesada);
+            this.ribbonPageGroupBalanza.ItemLinks.Add(this.btnPesada2);
             this.ribbonPageGroupBalanza.Name = "ribbonPageGroupBalanza";
             this.ribbonPageGroupBalanza.ShowCaptionButton = false;
             this.ribbonPageGroupBalanza.Text = "Balanza";
@@ -355,6 +358,15 @@
             this.ribbonPageGroupSeguridad.ShowCaptionButton = false;
             this.ribbonPageGroupSeguridad.Text = "Seguridad";
             // 
+            // btnPesada2
+            // 
+            this.btnPesada2.Caption = "Pesada 2";
+            this.btnPesada2.Glyph = ((System.Drawing.Image)(resources.GetObject("btnPesada2.Glyph")));
+            this.btnPesada2.Id = 17;
+            this.btnPesada2.Name = "btnPesada2";
+            this.btnPesada2.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.btnPesada2.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnPesada2_ItemClick);
+            // 
             // Form_SysPrincipal
             // 
             this.AllowFormGlass = DevExpress.Utils.DefaultBoolean.True;
@@ -405,5 +417,6 @@
         private DevExpress.XtraBars.BarButtonItem btnIngresoCaja;
         private DevExpress.XtraBars.BarButtonItem btnOrdenVenta;
         private DevExpress.XtraBars.BarButtonItem btnRemitoElectronico;
+        private DevExpress.XtraBars.BarButtonItem btnPesada2;
     }
 }

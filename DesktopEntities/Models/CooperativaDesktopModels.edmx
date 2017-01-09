@@ -209,8 +209,8 @@
           <Property Name="Nombre" Type="nvarchar" MaxLength="100" />
           <Property Name="Apellido" Type="nvarchar" MaxLength="100" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Clase' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_Clase' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="Vw_Clase">
           <Key>
             <PropertyRef Name="ID" />
@@ -223,8 +223,8 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Clase' does not have 
           <Property Name="PRECIOCOMPRA" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Vigente" Type="bit" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Cliente' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_Cliente' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="Vw_Cliente">
           <Key>
             <PropertyRef Name="ID" />
@@ -253,8 +253,8 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Cliente' does not hav
           <Property Name="CREDITOMAXIMO" Type="decimal" Precision="22" Scale="10" />
           <Property Name="CUITE" Type="varchar" MaxLength="30" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Movimiento' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_Movimiento' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="Vw_Movimiento">
           <Key>
             <PropertyRef Name="Id" />
@@ -273,8 +273,8 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Movimiento' does not 
           <Property Name="Ingreso" Type="float" />
           <Property Name="Egreso" Type="float" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_OrdenPago' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_OrdenPago' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="Vw_OrdenPago">
           <Key>
             <PropertyRef Name="OrdenPagoId" />
@@ -298,8 +298,8 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_OrdenPago' does not h
           <Property Name="Neto" Type="decimal" Precision="18" Scale="2" />
           <Property Name="detalle" Type="nvarchar" MaxLength="500" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Pesada' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_Pesada' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="Vw_Pesada">
           <Key>
             <PropertyRef Name="PesadaId" />
@@ -328,8 +328,8 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Pesada' does not have
           <Property Name="NumAfipLiquidacion" Type="nvarchar" MaxLength="100" />
           <Property Name="FechaAfipLiquidacion" Type="date" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Preingreso' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_Preingreso' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="Vw_Preingreso">
           <Key>
             <PropertyRef Name="PreIngresoId" />
@@ -354,8 +354,8 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Preingreso' does not 
           <Property Name="Cuit" Type="varchar" MaxLength="40" />
           <Property Name="Provincia" Type="varchar" MaxLength="40" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Producto' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_Producto' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="Vw_Producto">
           <Key>
             <PropertyRef Name="ID" />
@@ -364,8 +364,8 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Producto' does not ha
           <Property Name="CODIGO" Type="varchar" MaxLength="30" />
           <Property Name="DESCRIPCION" Type="varchar" MaxLength="150" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Productor' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_Productor' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="Vw_Productor">
           <Key>
             <PropertyRef Name="DOMICILIO" />
@@ -386,8 +386,8 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Productor' does not h
           <Property Name="Ciudad" Type="varchar" MaxLength="40" />
           <Property Name="IVA" Type="varchar" MaxLength="10" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenPesada' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_ResumenPesada' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="Vw_ResumenPesada">
           <Key>
             <PropertyRef Name="PesadaId" />
@@ -397,8 +397,8 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenPesada' does n
           <Property Name="kilos" Type="float" />
           <Property Name="Subtotal" Type="decimal" Precision="38" Scale="2" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenPesadaPorClase' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_ResumenPesadaPorClase' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="Vw_ResumenPesadaPorClase">
           <Key>
             <PropertyRef Name="PesadaId" />
@@ -407,8 +407,8 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenPesadaPorClase
           <Property Name="Clase" Type="varchar" MaxLength="120" />
           <Property Name="Kilos" Type="float" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenRomaneoPorClase' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_ResumenRomaneoPorClase' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="Vw_ResumenRomaneoPorClase">
           <Key>
             <PropertyRef Name="PesadaId" />
@@ -420,8 +420,8 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenRomaneoPorClas
           <Property Name="PrecioClase" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Total" Type="decimal" Precision="12" Scale="2" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_Romaneo' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="Vw_Romaneo">
           <Key>
             <PropertyRef Name="PesadaId" />
@@ -720,6 +720,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
           <EntitySet Name="OrdenPago" EntityType="CooperativaProduccionModel.OrdenPago" />
           <EntitySet Name="OrdenVenta" EntityType="CooperativaProduccionModel.OrdenVenta" />
           <EntitySet Name="Pago" EntityType="CooperativaProduccionModel.Pago" />
+          <EntitySet Name="Pesada" EntityType="CooperativaProduccionModel.Pesada" />
           <EntitySet Name="PesadaDetalle" EntityType="CooperativaProduccionModel.PesadaDetalle" />
           <EntitySet Name="Preingreso" EntityType="CooperativaProduccionModel.Preingreso" />
           <EntitySet Name="PreingresoDetalle" EntityType="CooperativaProduccionModel.PreingresoDetalle" />
@@ -750,7 +751,6 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
             <End Role="Preingreso" EntitySet="Preingreso" />
             <End Role="PreingresoDetalle" EntitySet="PreingresoDetalle" />
           </AssociationSet>
-          <EntitySet Name="Pesada" EntityType="CooperativaProduccionModel.Pesada" />
         </EntityContainer>
         <EntityType Name="Caja">
           <Key>
@@ -854,6 +854,34 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="OrdenPagoId" Type="Guid" />
           <Property Name="Importe" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Pesada">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="NumPesada" Type="Int64" />
+          <Property Name="PreingresoId" Type="Guid" />
+          <Property Name="ProductorId" Type="Guid" />
+          <Property Name="TotalFardo" Type="Int32" />
+          <Property Name="TotalKg" Type="Double" />
+          <Property Name="ImporteBruto" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PrecioPromedio" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="FechaRomaneo" Type="DateTime" Precision="0" />
+          <Property Name="NumRomaneo" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="RomaneoPendiente" Type="Boolean" />
+          <Property Name="FechaInternaLiquidacion" Type="DateTime" Precision="0" />
+          <Property Name="NumInternoLiquidacion" Type="Int64" />
+          <Property Name="condIva" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IvaPorcentaje" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="IvaCalculado" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ImporteNeto" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Total" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="NumAfipLiquidacion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FechaAfipLiquidacion" Type="DateTime" Precision="0" />
+          <Property Name="Cae" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FechaVtoCae" Type="DateTime" Precision="0" />
+          <Property Name="OrdenPagoId" Type="Guid" />
         </EntityType>
         <EntityType Name="PesadaDetalle">
           <Key>
@@ -1184,34 +1212,6 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Pesada">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="NumPesada" Type="Int64" />
-          <Property Name="PreingresoId" Type="Guid" />
-          <Property Name="ProductorId" Type="Guid" />
-          <Property Name="TotalFardo" Type="Int32" />
-          <Property Name="TotalKg" Type="Double" />
-          <Property Name="ImporteBruto" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="PrecioPromedio" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="FechaRomaneo" Type="DateTime" Precision="0" />
-          <Property Name="NumRomaneo" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="RomaneoPendiente" Type="Boolean" />
-          <Property Name="FechaInternaLiquidacion" Type="DateTime" Precision="0" />
-          <Property Name="NumInternoLiquidacion" Type="Int64" />
-          <Property Name="condIva" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IvaPorcentaje" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="IvaCalculado" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="ImporteNeto" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Total" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="NumAfipLiquidacion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="FechaAfipLiquidacion" Type="DateTime" Precision="0" />
-          <Property Name="Cae" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FechaVtoCae" Type="DateTime" Precision="0" />
-          <Property Name="OrdenPagoId" Type="Guid" />
-        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1322,6 +1322,35 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
               <MappingFragment StoreEntitySet="Pago">
                 <ScalarProperty Name="Importe" ColumnName="Importe" />
                 <ScalarProperty Name="OrdenPagoId" ColumnName="OrdenPagoId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pesada">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.Pesada">
+              <MappingFragment StoreEntitySet="Pesada">
+                <ScalarProperty Name="OrdenPagoId" ColumnName="OrdenPagoId" />
+                <ScalarProperty Name="FechaVtoCae" ColumnName="FechaVtoCae" />
+                <ScalarProperty Name="Cae" ColumnName="Cae" />
+                <ScalarProperty Name="FechaAfipLiquidacion" ColumnName="FechaAfipLiquidacion" />
+                <ScalarProperty Name="NumAfipLiquidacion" ColumnName="NumAfipLiquidacion" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="ImporteNeto" ColumnName="ImporteNeto" />
+                <ScalarProperty Name="IvaCalculado" ColumnName="IvaCalculado" />
+                <ScalarProperty Name="IvaPorcentaje" ColumnName="IvaPorcentaje" />
+                <ScalarProperty Name="condIva" ColumnName="condIva" />
+                <ScalarProperty Name="NumInternoLiquidacion" ColumnName="NumInternoLiquidacion" />
+                <ScalarProperty Name="FechaInternaLiquidacion" ColumnName="FechaInternaLiquidacion" />
+                <ScalarProperty Name="RomaneoPendiente" ColumnName="RomaneoPendiente" />
+                <ScalarProperty Name="NumRomaneo" ColumnName="NumRomaneo" />
+                <ScalarProperty Name="FechaRomaneo" ColumnName="FechaRomaneo" />
+                <ScalarProperty Name="PrecioPromedio" ColumnName="PrecioPromedio" />
+                <ScalarProperty Name="ImporteBruto" ColumnName="ImporteBruto" />
+                <ScalarProperty Name="TotalKg" ColumnName="TotalKg" />
+                <ScalarProperty Name="TotalFardo" ColumnName="TotalFardo" />
+                <ScalarProperty Name="ProductorId" ColumnName="ProductorId" />
+                <ScalarProperty Name="PreingresoId" ColumnName="PreingresoId" />
+                <ScalarProperty Name="NumPesada" ColumnName="NumPesada" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1624,35 +1653,6 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
                 <ScalarProperty Name="NumRomaneo" ColumnName="NumRomaneo" />
                 <ScalarProperty Name="FechaRomaneo" ColumnName="FechaRomaneo" />
                 <ScalarProperty Name="PesadaId" ColumnName="PesadaId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Pesada">
-            <EntityTypeMapping TypeName="CooperativaProduccionModel.Pesada">
-              <MappingFragment StoreEntitySet="Pesada">
-                <ScalarProperty Name="OrdenPagoId" ColumnName="OrdenPagoId" />
-                <ScalarProperty Name="FechaVtoCae" ColumnName="FechaVtoCae" />
-                <ScalarProperty Name="Cae" ColumnName="Cae" />
-                <ScalarProperty Name="FechaAfipLiquidacion" ColumnName="FechaAfipLiquidacion" />
-                <ScalarProperty Name="NumAfipLiquidacion" ColumnName="NumAfipLiquidacion" />
-                <ScalarProperty Name="Total" ColumnName="Total" />
-                <ScalarProperty Name="ImporteNeto" ColumnName="ImporteNeto" />
-                <ScalarProperty Name="IvaCalculado" ColumnName="IvaCalculado" />
-                <ScalarProperty Name="IvaPorcentaje" ColumnName="IvaPorcentaje" />
-                <ScalarProperty Name="condIva" ColumnName="condIva" />
-                <ScalarProperty Name="NumInternoLiquidacion" ColumnName="NumInternoLiquidacion" />
-                <ScalarProperty Name="FechaInternaLiquidacion" ColumnName="FechaInternaLiquidacion" />
-                <ScalarProperty Name="RomaneoPendiente" ColumnName="RomaneoPendiente" />
-                <ScalarProperty Name="NumRomaneo" ColumnName="NumRomaneo" />
-                <ScalarProperty Name="FechaRomaneo" ColumnName="FechaRomaneo" />
-                <ScalarProperty Name="PrecioPromedio" ColumnName="PrecioPromedio" />
-                <ScalarProperty Name="ImporteBruto" ColumnName="ImporteBruto" />
-                <ScalarProperty Name="TotalKg" ColumnName="TotalKg" />
-                <ScalarProperty Name="TotalFardo" ColumnName="TotalFardo" />
-                <ScalarProperty Name="ProductorId" ColumnName="ProductorId" />
-                <ScalarProperty Name="PreingresoId" ColumnName="PreingresoId" />
-                <ScalarProperty Name="NumPesada" ColumnName="NumPesada" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

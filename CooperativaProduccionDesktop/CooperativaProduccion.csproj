@@ -262,6 +262,12 @@
     <Compile Include="Form_RomaneoBuscarPreingreso.Designer.cs">
       <DependentUpon>Form_RomaneoBuscarPreingreso.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_RomaneoPesada2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_RomaneoPesada2.Designer.cs">
+      <DependentUpon>Form_RomaneoPesada2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_RomaneoPreingreso.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -413,6 +419,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_RomaneoBuscarPreingreso.resx">
       <DependentUpon>Form_RomaneoBuscarPreingreso.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_RomaneoPesada2.resx">
+      <DependentUpon>Form_RomaneoPesada2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_RomaneoPesada.resx">
       <DependentUpon>Form_RomaneoPesada.cs</DependentUpon>

@@ -63,11 +63,9 @@
             this.ribbon.ShowCategoryInCaption = false;
             this.ribbon.ShowExpandCollapseButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowFullScreenButton = DevExpress.Utils.DefaultBoolean.False;
-            this.ribbon.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Hide;
-            this.ribbon.ShowToolbarCustomizeItem = false;
-            this.ribbon.Size = new System.Drawing.Size(1140, 27);
+            this.ribbon.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Show;
+            this.ribbon.Size = new System.Drawing.Size(1140, 49);
             this.ribbon.StatusBar = this.ribbonStatusBar;
-            this.ribbon.Toolbar.ShowCustomizeItem = false;
             // 
             // ribbonStatusBar
             // 
@@ -78,8 +76,7 @@
             // 
             // groupControl1
             // 
-            this.groupControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.groupControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupControl1.Controls.Add(this.lblTotalKg);
             this.groupControl1.Controls.Add(this.label8);
@@ -87,29 +84,29 @@
             this.groupControl1.Controls.Add(this.label6);
             this.groupControl1.Controls.Add(this.lblClase);
             this.groupControl1.Controls.Add(this.label1);
-            this.groupControl1.Location = new System.Drawing.Point(6, 307);
+            this.groupControl1.Location = new System.Drawing.Point(6, 323);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(1129, 422);
+            this.groupControl1.Size = new System.Drawing.Size(1129, 408);
             this.groupControl1.TabIndex = 65;
             this.groupControl1.Text = "FARDOS PROCESADOS";
             // 
             // lblTotalKg
             // 
-            this.lblTotalKg.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblTotalKg.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblTotalKg.AutoSize = true;
             this.lblTotalKg.Font = new System.Drawing.Font("Arial Narrow", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalKg.Location = new System.Drawing.Point(836, 120);
+            this.lblTotalKg.Location = new System.Drawing.Point(761, 120);
             this.lblTotalKg.Name = "lblTotalKg";
             this.lblTotalKg.Size = new System.Drawing.Size(0, 57);
             this.lblTotalKg.TabIndex = 66;
             // 
             // label8
             // 
-            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label8.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Arial Black", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.Color.Firebrick;
-            this.label8.Location = new System.Drawing.Point(760, 72);
+            this.label8.Location = new System.Drawing.Point(685, 72);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(289, 41);
             this.label8.TabIndex = 65;
@@ -117,7 +114,7 @@
             // 
             // lblFardo
             // 
-            this.lblFardo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblFardo.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblFardo.AutoSize = true;
             this.lblFardo.Font = new System.Drawing.Font("Arial Narrow", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFardo.Location = new System.Drawing.Point(447, 120);
@@ -127,7 +124,7 @@
             // 
             // label6
             // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label6.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Arial Black", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.Green;
@@ -139,25 +136,21 @@
             // 
             // lblClase
             // 
-            this.lblClase.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblClase.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblClase.AutoSize = true;
             this.lblClase.Font = new System.Drawing.Font("Arial Narrow", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblClase.Location = new System.Drawing.Point(86, 120);
+            this.lblClase.Location = new System.Drawing.Point(138, 120);
             this.lblClase.Name = "lblClase";
             this.lblClase.Size = new System.Drawing.Size(0, 57);
             this.lblClase.TabIndex = 62;
             // 
             // label1
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Arial Black", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Green;
-            this.label1.Location = new System.Drawing.Point(67, 72);
+            this.label1.Location = new System.Drawing.Point(119, 72);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(125, 41);
             this.label1.TabIndex = 61;
@@ -165,13 +158,12 @@
             // 
             // groupControl2
             // 
-            this.groupControl2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupControl2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.groupControl2.Controls.Add(this.label5);
             this.groupControl2.Controls.Add(this.label4);
             this.groupControl2.Controls.Add(this.lblCuit);
             this.groupControl2.Controls.Add(this.lblProductor);
-            this.groupControl2.Location = new System.Drawing.Point(6, 33);
+            this.groupControl2.Location = new System.Drawing.Point(6, 51);
             this.groupControl2.Name = "groupControl2";
             this.groupControl2.Size = new System.Drawing.Size(1129, 268);
             this.groupControl2.TabIndex = 66;
@@ -244,6 +236,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.StatusBar = this.ribbonStatusBar;
             this.Text = "Pesada Mostrador";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
