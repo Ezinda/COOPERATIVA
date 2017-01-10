@@ -318,7 +318,7 @@ namespace CooperativaProduccion
             {
                 foreach (var pesada in pesadas)
                 {
-                    precioPromedio = precioPromedio + Convert.ToSingle(pesada.PrecioClase.Value.ToString());
+                    precioPromedio = precioPromedio + Convert.ToSingle(pesada.ClasePrecio.Value.ToString());
                     var count = Context.PesadaDetalle
                               .Where(x => x.PesadaId == PesadaId)
                               .Count();
@@ -469,7 +469,7 @@ namespace CooperativaProduccion
                     .FirstOrDefault();
                 pesadaDetalle.ClaseId = clase.ID;
                 pesadaDetalle.Kilos = float.Parse(Math.Round(decimal.Parse(txtKilos.Text), 0).ToString());
-                pesadaDetalle.PrecioClase = clase.PRECIOCOMPRA;
+                pesadaDetalle.ClasePrecio = clase.PRECIOCOMPRA;
                 Context.PesadaDetalle.Add(pesadaDetalle);
                 Context.SaveChanges();
 
@@ -936,11 +936,6 @@ namespace CooperativaProduccion
             PasarMostrador(txtNombre.Text, txtCuit.Text);
         }
 
-        private void btnRecuperar_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void Habilitar()
         {
             txtClase.Enabled = true;
@@ -950,11 +945,6 @@ namespace CooperativaProduccion
             btnReimprimir.Enabled = true;
             btnEliminar.Enabled = true;
             btnFinalizar.Enabled = true;
-        }
-
-        private void txtClase_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void CancelarPesada()
@@ -987,5 +977,4 @@ namespace CooperativaProduccion
         }
 
     }
-
 }

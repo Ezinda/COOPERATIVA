@@ -140,10 +140,10 @@
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="PesadaId" Type="uniqueidentifier" />
           <Property Name="NumFardo" Type="bigint" />
-          <Property Name="ClaseId" Type="uniqueidentifier" />
-          <Property Name="Kilos" Type="float" />
-          <Property Name="PrecioClase" Type="decimal" Precision="18" Scale="2" />
           <Property Name="ContadorFardo" Type="bigint" />
+          <Property Name="ClaseId" Type="uniqueidentifier" />
+          <Property Name="ClasePrecio" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Kilos" Type="float" />
           <Property Name="ReclasificacionId" Type="uniqueidentifier" />
           <Property Name="ReclasificacionPrecio" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
@@ -418,7 +418,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenRomaneoPorClas
           <Property Name="Clase" Type="varchar" MaxLength="120" />
           <Property Name="Fardos" Type="int" />
           <Property Name="Kilos" Type="float" />
-          <Property Name="PrecioClase" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ClasePrecio" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Total" Type="decimal" Precision="12" Scale="2" />
         </EntityType>
         <!--Errors Found During Generation:
@@ -430,7 +430,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
           </Key>
           <Property Name="PesadaId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="FechaRomaneo" Type="date" />
-          <Property Name="NumRomaneo" Type="nvarchar" MaxLength="50" />
+          <Property Name="NumRomaneo" Type="nvarchar" MaxLength="500" />
           <Property Name="ProductorId" Type="uniqueidentifier" />
           <Property Name="NOMBRE" Type="varchar" MaxLength="100" />
           <Property Name="CUIT" Type="varchar" MaxLength="40" />
@@ -447,6 +447,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
           <Property Name="cae" Type="nvarchar" MaxLength="50" />
           <Property Name="fechaVtoCae" Type="date" />
           <Property Name="OrdenPagoId" Type="uniqueidentifier" />
+          <Property Name="RomaneoPendiente" Type="bit" />
         </EntityType>
         <Association Name="FK_Caja_Cata">
           <End Role="Cata" Type="Self.Cata" Multiplicity="0..1" />
@@ -668,7 +669,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
     [Vw_ResumenRomaneoPorClase].[Clase] AS [Clase], 
     [Vw_ResumenRomaneoPorClase].[Fardos] AS [Fardos], 
     [Vw_ResumenRomaneoPorClase].[Kilos] AS [Kilos], 
-    [Vw_ResumenRomaneoPorClase].[PrecioClase] AS [PrecioClase], 
+    [Vw_ResumenRomaneoPorClase].[ClasePrecio] AS [ClasePrecio], 
     [Vw_ResumenRomaneoPorClase].[Total] AS [Total]
     FROM [dbo].[Vw_ResumenRomaneoPorClase] AS [Vw_ResumenRomaneoPorClase]</DefiningQuery>
           </EntitySet>
@@ -692,7 +693,8 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
     [Vw_Romaneo].[fechaAfipLiquidacion] AS [fechaAfipLiquidacion], 
     [Vw_Romaneo].[cae] AS [cae], 
     [Vw_Romaneo].[fechaVtoCae] AS [fechaVtoCae], 
-    [Vw_Romaneo].[OrdenPagoId] AS [OrdenPagoId]
+    [Vw_Romaneo].[OrdenPagoId] AS [OrdenPagoId], 
+    [Vw_Romaneo].[RomaneoPendiente] AS [RomaneoPendiente]
     FROM [dbo].[Vw_Romaneo] AS [Vw_Romaneo]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_Caja_Cata" Association="Self.FK_Caja_Cata">
@@ -891,10 +893,10 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="PesadaId" Type="Guid" />
           <Property Name="NumFardo" Type="Int64" />
-          <Property Name="ClaseId" Type="Guid" />
-          <Property Name="Kilos" Type="Double" />
-          <Property Name="PrecioClase" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="ContadorFardo" Type="Int64" />
+          <Property Name="ClaseId" Type="Guid" />
+          <Property Name="ClasePrecio" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Kilos" Type="Double" />
           <Property Name="ReclasificacionId" Type="Guid" />
           <Property Name="ReclasificacionPrecio" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
@@ -1150,7 +1152,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
           <Property Name="Clase" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
           <Property Name="Fardos" Type="Int32" />
           <Property Name="Kilos" Type="Double" />
-          <Property Name="PrecioClase" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ClasePrecio" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="Total" Type="Decimal" Precision="12" Scale="2" />
         </EntityType>
         <EntityType Name="Vw_Romaneo">
@@ -1160,7 +1162,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
           </Key>
           <Property Name="PesadaId" Type="Guid" Nullable="false" />
           <Property Name="FechaRomaneo" Type="DateTime" Precision="0" />
-          <Property Name="NumRomaneo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NumRomaneo" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="ProductorId" Type="Guid" />
           <Property Name="NOMBRE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="CUIT" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
@@ -1177,6 +1179,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
           <Property Name="cae" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="fechaVtoCae" Type="DateTime" Precision="0" />
           <Property Name="OrdenPagoId" Type="Guid" />
+          <Property Name="RomaneoPendiente" Type="Boolean" />
         </EntityType>
         <Association Name="FK_Caja_Cata">
           <End Type="CooperativaProduccionModel.Cata" Role="Cata" Multiplicity="0..1" />
@@ -1362,10 +1365,10 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
               <MappingFragment StoreEntitySet="PesadaDetalle">
                 <ScalarProperty Name="ReclasificacionPrecio" ColumnName="ReclasificacionPrecio" />
                 <ScalarProperty Name="ReclasificacionId" ColumnName="ReclasificacionId" />
-                <ScalarProperty Name="ContadorFardo" ColumnName="ContadorFardo" />
-                <ScalarProperty Name="PrecioClase" ColumnName="PrecioClase" />
                 <ScalarProperty Name="Kilos" ColumnName="Kilos" />
+                <ScalarProperty Name="ClasePrecio" ColumnName="ClasePrecio" />
                 <ScalarProperty Name="ClaseId" ColumnName="ClaseId" />
+                <ScalarProperty Name="ContadorFardo" ColumnName="ContadorFardo" />
                 <ScalarProperty Name="NumFardo" ColumnName="NumFardo" />
                 <ScalarProperty Name="PesadaId" ColumnName="PesadaId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -1626,7 +1629,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
             <EntityTypeMapping TypeName="CooperativaProduccionModel.Vw_ResumenRomaneoPorClase">
               <MappingFragment StoreEntitySet="Vw_ResumenRomaneoPorClase">
                 <ScalarProperty Name="Total" ColumnName="Total" />
-                <ScalarProperty Name="PrecioClase" ColumnName="PrecioClase" />
+                <ScalarProperty Name="ClasePrecio" ColumnName="ClasePrecio" />
                 <ScalarProperty Name="Kilos" ColumnName="Kilos" />
                 <ScalarProperty Name="Fardos" ColumnName="Fardos" />
                 <ScalarProperty Name="Clase" ColumnName="Clase" />
@@ -1637,6 +1640,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
           <EntitySetMapping Name="Vw_Romaneo">
             <EntityTypeMapping TypeName="CooperativaProduccionModel.Vw_Romaneo">
               <MappingFragment StoreEntitySet="Vw_Romaneo">
+                <ScalarProperty Name="RomaneoPendiente" ColumnName="RomaneoPendiente" />
                 <ScalarProperty Name="OrdenPagoId" ColumnName="OrdenPagoId" />
                 <ScalarProperty Name="fechaVtoCae" ColumnName="fechaVtoCae" />
                 <ScalarProperty Name="cae" ColumnName="cae" />

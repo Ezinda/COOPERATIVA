@@ -17,10 +17,10 @@ namespace DesktopEntities.Models
         public System.Guid Id { get; set; }
         public Nullable<System.Guid> PesadaId { get; set; }
         public Nullable<long> NumFardo { get; set; }
-        public Nullable<System.Guid> ClaseId { get; set; }
-        public Nullable<double> Kilos { get; set; }
-        public Nullable<decimal> PrecioClase { get; set; }
         public Nullable<long> ContadorFardo { get; set; }
+        public Nullable<System.Guid> ClaseId { get; set; }
+        public Nullable<decimal> ClasePrecio { get; set; }
+        public Nullable<double> Kilos { get; set; }
         public Nullable<System.Guid> ReclasificacionId { get; set; }
         public Nullable<decimal> ReclasificacionPrecio { get; set; }
     }

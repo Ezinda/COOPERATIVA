@@ -147,7 +147,8 @@ namespace CooperativaProduccion
             var result = (
                from a in Context.Vw_Romaneo
                    .Where(pred)
-                   .Where(x => x.OrdenPagoId == null)
+                   .Where(x => x.OrdenPagoId == null 
+                       && x.RomaneoPendiente == false)
                    .AsEnumerable()
                select new
                {
@@ -161,30 +162,30 @@ namespace CooperativaProduccion
                    NUMEROCOMPROBANTE = a.numAfipLiquidacion,
                    KILOS = a.Totalkg,
                    BRUTOSINIVA = a.ImporteBruto,
-                   AFECTAR = txtPorcentajePago.Text != "0.00" ? 
-                    decimal.Round(decimal.Parse(((a.ImporteBruto * decimal.Parse(txtPorcentajePago.Text)) / 100).ToString()), 2, MidpointRounding.AwayFromZero) : 
+                   AFECTAR = txtPorcentajePago.Text != "0.00" ?
+                    decimal.Round(decimal.Parse(((a.ImporteBruto * decimal.Parse(txtPorcentajePago.Text)) / 100).ToString()), 2, MidpointRounding.AwayFromZero) :
                     decimal.Parse("0.00"),
-                    GCIAS = txtPorcentajePago.Text != "0.00" ?
-                    decimal.Round(decimal.Parse(((decimal.Round(decimal.Parse(((a.ImporteBruto * decimal.Parse(txtPorcentajePago.Text)) / 100).ToString()), 2, MidpointRounding.AwayFromZero) / coeficiente) * gcias).ToString()), 2, MidpointRounding.AwayFromZero) : 
-                    decimal.Parse("0.00"),
-                    IVA = txtPorcentajePago.Text != "0.00" ?
-                    decimal.Round(decimal.Parse(((decimal.Round(decimal.Parse(((a.ImporteBruto * decimal.Parse(txtPorcentajePago.Text)) / 100).ToString()), 2, MidpointRounding.AwayFromZero) / coeficiente) * iva).ToString()), 2, MidpointRounding.AwayFromZero) : 
-                    decimal.Parse("0.00"),
-                    IIBB = txtPorcentajePago.Text != "0.00" ?
-                    decimal.Round(decimal.Parse(((decimal.Round(decimal.Parse(((a.ImporteBruto * decimal.Parse(txtPorcentajePago.Text)) / 100).ToString()), 2, MidpointRounding.AwayFromZero) / coeficiente) * iibb).ToString()), 2, MidpointRounding.AwayFromZero) : 
-                    decimal.Parse("0.00"),
-                    SaludPublica = txtPorcentajePago.Text != "0.00" ?
-                    decimal.Round(decimal.Parse(((decimal.Round(decimal.Parse(((a.ImporteBruto * decimal.Parse(txtPorcentajePago.Text)) / 100).ToString()), 2, MidpointRounding.AwayFromZero) / coeficiente) * coeficientegral).ToString()), 2, MidpointRounding.AwayFromZero) : 
-                    decimal.Parse("0.00"),
-                    EEAOC = txtPorcentajePago.Text != "0.00" ?
-                    decimal.Round(decimal.Parse(((decimal.Round(decimal.Parse(((a.ImporteBruto * decimal.Parse(txtPorcentajePago.Text)) / 100).ToString()), 2, MidpointRounding.AwayFromZero) / coeficiente) * coeficientegral).ToString()), 2, MidpointRounding.AwayFromZero) : 
-                    decimal.Parse("0.00"),
-                    Riego = txtPorcentajePago.Text != "0.00" ?
-                    decimal.Round(decimal.Parse(((decimal.Round(decimal.Parse(((a.ImporteBruto * decimal.Parse(txtPorcentajePago.Text)) / 100).ToString()), 2, MidpointRounding.AwayFromZero) / coeficiente) * coeficientegral).ToString()), 2, MidpointRounding.AwayFromZero) :
-                    decimal.Parse("0.00"),
-                    Monotributo = txtPorcentajePago.Text != "0.00" ?
-                    decimal.Round(decimal.Parse(((decimal.Round(decimal.Parse(((a.ImporteBruto * decimal.Parse(txtPorcentajePago.Text)) / 100).ToString()), 2, MidpointRounding.AwayFromZero) / coeficiente) * coeficientegral).ToString()), 2, MidpointRounding.AwayFromZero) :
-                    decimal.Parse("0.00")
+                   GCIAS = txtPorcentajePago.Text != "0.00" ?
+                   decimal.Round(decimal.Parse(((decimal.Round(decimal.Parse(((a.ImporteBruto * decimal.Parse(txtPorcentajePago.Text)) / 100).ToString()), 2, MidpointRounding.AwayFromZero) / coeficiente) * gcias).ToString()), 2, MidpointRounding.AwayFromZero) :
+                   decimal.Parse("0.00"),
+                   IVA = txtPorcentajePago.Text != "0.00" ?
+                   decimal.Round(decimal.Parse(((decimal.Round(decimal.Parse(((a.ImporteBruto * decimal.Parse(txtPorcentajePago.Text)) / 100).ToString()), 2, MidpointRounding.AwayFromZero) / coeficiente) * iva).ToString()), 2, MidpointRounding.AwayFromZero) :
+                   decimal.Parse("0.00"),
+                   IIBB = txtPorcentajePago.Text != "0.00" ?
+                   decimal.Round(decimal.Parse(((decimal.Round(decimal.Parse(((a.ImporteBruto * decimal.Parse(txtPorcentajePago.Text)) / 100).ToString()), 2, MidpointRounding.AwayFromZero) / coeficiente) * iibb).ToString()), 2, MidpointRounding.AwayFromZero) :
+                   decimal.Parse("0.00"),
+                   SaludPublica = txtPorcentajePago.Text != "0.00" ?
+                   decimal.Round(decimal.Parse(((decimal.Round(decimal.Parse(((a.ImporteBruto * decimal.Parse(txtPorcentajePago.Text)) / 100).ToString()), 2, MidpointRounding.AwayFromZero) / coeficiente) * coeficientegral).ToString()), 2, MidpointRounding.AwayFromZero) :
+                   decimal.Parse("0.00"),
+                   EEAOC = txtPorcentajePago.Text != "0.00" ?
+                   decimal.Round(decimal.Parse(((decimal.Round(decimal.Parse(((a.ImporteBruto * decimal.Parse(txtPorcentajePago.Text)) / 100).ToString()), 2, MidpointRounding.AwayFromZero) / coeficiente) * coeficientegral).ToString()), 2, MidpointRounding.AwayFromZero) :
+                   decimal.Parse("0.00"),
+                   Riego = txtPorcentajePago.Text != "0.00" ?
+                   decimal.Round(decimal.Parse(((decimal.Round(decimal.Parse(((a.ImporteBruto * decimal.Parse(txtPorcentajePago.Text)) / 100).ToString()), 2, MidpointRounding.AwayFromZero) / coeficiente) * coeficientegral).ToString()), 2, MidpointRounding.AwayFromZero) :
+                   decimal.Parse("0.00"),
+                   Monotributo = txtPorcentajePago.Text != "0.00" ?
+                   decimal.Round(decimal.Parse(((decimal.Round(decimal.Parse(((a.ImporteBruto * decimal.Parse(txtPorcentajePago.Text)) / 100).ToString()), 2, MidpointRounding.AwayFromZero) / coeficiente) * coeficientegral).ToString()), 2, MidpointRounding.AwayFromZero) :
+                   decimal.Parse("0.00")
                })
                .OrderByDescending(x => x.FECHA)
                .ThenBy(x => x.FET)
@@ -195,43 +196,43 @@ namespace CooperativaProduccion
             gridViewLiquidacion.Columns[1].Visible = false;
             gridViewLiquidacion.Columns[2].Visible = false;
             gridViewLiquidacion.Columns[3].Visible = false;
-            gridViewLiquidacion.Columns[4].Caption = "Fecha Liquidación";
-            gridViewLiquidacion.Columns[4].Width = 60;
-            gridViewLiquidacion.Columns[4].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-            gridViewLiquidacion.Columns[4].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-            gridViewLiquidacion.Columns[5].Caption = "Productor";
-            gridViewLiquidacion.Columns[5].Width = 150;
-            gridViewLiquidacion.Columns[6].Caption = "FET";
-            gridViewLiquidacion.Columns[6].Width = 55;
-            gridViewLiquidacion.Columns[6].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-            gridViewLiquidacion.Columns[6].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-            gridViewLiquidacion.Columns[7].Caption = "Comprobante";
-            gridViewLiquidacion.Columns[7].Width = 60;
-            gridViewLiquidacion.Columns[7].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-            gridViewLiquidacion.Columns[7].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-            gridViewLiquidacion.Columns[8].Caption = " Salgo Kilos";
-            gridViewLiquidacion.Columns[8].Width = 40;
-            gridViewLiquidacion.Columns[8].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-            gridViewLiquidacion.Columns[8].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-            gridViewLiquidacion.Columns[9].Caption = "Saldo $";
-            gridViewLiquidacion.Columns[9].Width = 60;
-            gridViewLiquidacion.Columns[9].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-            gridViewLiquidacion.Columns[9].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-            gridViewLiquidacion.Columns[10].Caption = "Afectar";
-            gridViewLiquidacion.Columns[10].Width = 60;
-            gridViewLiquidacion.Columns[10].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-            gridViewLiquidacion.Columns[10].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-            //gridViewLiquidacion.Columns[9].Caption = "Otros";
+            //gridViewLiquidacion.Columns[4].Caption = "Fecha Liquidación";
+            //gridViewLiquidacion.Columns[4].Width = 60;
+            //gridViewLiquidacion.Columns[4].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+            //gridViewLiquidacion.Columns[4].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+            //gridViewLiquidacion.Columns[5].Caption = "Productor";
+            //gridViewLiquidacion.Columns[5].Width = 150;
+            //gridViewLiquidacion.Columns[6].Caption = "FET";
+            //gridViewLiquidacion.Columns[6].Width = 55;
+            //gridViewLiquidacion.Columns[6].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+            //gridViewLiquidacion.Columns[6].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+            //gridViewLiquidacion.Columns[7].Caption = "Comprobante";
+            //gridViewLiquidacion.Columns[7].Width = 60;
+            //gridViewLiquidacion.Columns[7].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+            //gridViewLiquidacion.Columns[7].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+            //gridViewLiquidacion.Columns[8].Caption = " Salgo Kilos";
+            //gridViewLiquidacion.Columns[8].Width = 40;
+            //gridViewLiquidacion.Columns[8].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+            //gridViewLiquidacion.Columns[8].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+            //gridViewLiquidacion.Columns[9].Caption = "Saldo $";
             //gridViewLiquidacion.Columns[9].Width = 60;
             //gridViewLiquidacion.Columns[9].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
             //gridViewLiquidacion.Columns[9].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-            gridViewLiquidacion.Columns[11].Visible = false;
-            gridViewLiquidacion.Columns[12].Visible = false; 
-            gridViewLiquidacion.Columns[13].Visible = false;
-            gridViewLiquidacion.Columns[14].Visible = false; 
-            gridViewLiquidacion.Columns[15].Visible = false;
-            gridViewLiquidacion.Columns[16].Visible = false;
-            gridViewLiquidacion.Columns[17].Visible = false;
+            //gridViewLiquidacion.Columns[10].Caption = "Afectar";
+            //gridViewLiquidacion.Columns[10].Width = 60;
+            //gridViewLiquidacion.Columns[10].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+            //gridViewLiquidacion.Columns[10].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+            ////gridViewLiquidacion.Columns[9].Caption = "Otros";
+            ////gridViewLiquidacion.Columns[9].Width = 60;
+            ////gridViewLiquidacion.Columns[9].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+            ////gridViewLiquidacion.Columns[9].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+            //gridViewLiquidacion.Columns[11].Visible = false;
+            //gridViewLiquidacion.Columns[12].Visible = false; 
+            //gridViewLiquidacion.Columns[13].Visible = false;
+            //gridViewLiquidacion.Columns[14].Visible = false; 
+            //gridViewLiquidacion.Columns[15].Visible = false;
+            //gridViewLiquidacion.Columns[16].Visible = false;
+            //gridViewLiquidacion.Columns[17].Visible = false;
 
             for (var i = 0; i <= gridViewLiquidacion.RowCount; i++)
             {
@@ -326,7 +327,8 @@ namespace CooperativaProduccion
         {
             float totalPesos = 0;
             var liquidaciones = Context.Vw_Romaneo
-                .Where(x => x.PesadaId == PesadaId)
+                .Where(x => x.PesadaId == PesadaId 
+                    && x.RomaneoPendiente == false)
                 .ToList();
             if (liquidaciones != null)
             {

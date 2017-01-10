@@ -121,11 +121,10 @@
             // 
             this.xrTableCell7.Borders = DevExpress.XtraPrinting.BorderSide.None;
             this.xrTableCell7.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
-            new DevExpress.XtraReports.UI.XRBinding("Text", null, "PrecioClase")});
+            new DevExpress.XtraReports.UI.XRBinding("Text", null, "ClasePrecio")});
             this.xrTableCell7.Name = "xrTableCell7";
             this.xrTableCell7.StylePriority.UseBorders = false;
             this.xrTableCell7.StylePriority.UseTextAlignment = false;
-            this.xrTableCell7.Text = "P.Unit";
             this.xrTableCell7.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
             this.xrTableCell7.Weight = 0.90620002746582029D;
             // 

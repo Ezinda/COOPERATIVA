@@ -352,7 +352,7 @@ namespace CooperativaProduccion
                         Clase = a.Clase,
                         Fardos = a.Fardos,
                         Kilos = a.Kilos,
-                        PrecioClase = a.PrecioClase,
+                        ClasePrecio = a.ClasePrecio,
                         Total = a.Total
                     })
                     .ToList();
@@ -362,7 +362,7 @@ namespace CooperativaProduccion
                         Clase = x.Clase,
                         Fardos = x.Fardos,
                         Kilos = x.Kilos,
-                        PrecioClase = x.PrecioClase,
+                        ClasePrecio = x.ClasePrecio,
                         Total = x.Total
                     })
                     .OrderBy(x => x.Clase)
@@ -751,7 +751,7 @@ namespace CooperativaProduccion
                     Clase = a.Clase,
                     Fardos = a.Fardos,
                     Kilos = a.Kilos,
-                    PrecioClase = a.PrecioClase,
+                    PrecioClase = a.ClasePrecio,
                     Total = a.Total
                 })
                 .ToList();
@@ -774,13 +774,13 @@ namespace CooperativaProduccion
                     if (liquidacion.Letra == DevConstantes.A)
                     {
                         var precioSinIva = liquidacionDetalle.PrecioClase.Value / (1 + (liq.IvaPorcentaje / 100));
-                        detalle.PrecioClase = decimal.Round(precioSinIva.Value, 2, MidpointRounding.AwayFromZero);
+                        detalle.ClasePrecio = decimal.Round(precioSinIva.Value, 2, MidpointRounding.AwayFromZero);
                         decimal total = decimal.Parse(liquidacionDetalle.Kilos.ToString()) * precioSinIva.Value;
                         detalle.Total = decimal.Round(total, 2, MidpointRounding.AwayFromZero);
                     }
                     else
                     {
-                        detalle.PrecioClase = decimal.Round(decimal.Parse(liquidacionDetalle.PrecioClase.ToString()), 2,
+                        detalle.ClasePrecio = decimal.Round(decimal.Parse(liquidacionDetalle.PrecioClase.ToString()), 2,
                             MidpointRounding.AwayFromZero);
                         detalle.Total = decimal.Round(decimal.Parse(liquidacionDetalle.Total.ToString()), 2,
                             MidpointRounding.AwayFromZero);

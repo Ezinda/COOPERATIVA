@@ -373,8 +373,7 @@
             this.txtClase.Name = "txtClase";
             this.txtClase.Size = new System.Drawing.Size(92, 22);
             this.txtClase.TabIndex = 68;
-            this.txtClase.TextChanged += new System.EventHandler(this.txtClase_TextChanged);
-            // 
+           // 
             // gridControlPesada
             // 
             this.gridControlPesada.Location = new System.Drawing.Point(5, 35);

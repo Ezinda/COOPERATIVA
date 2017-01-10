@@ -18,7 +18,7 @@ namespace DesktopEntities.Models
         public string Clase { get; set; }
         public Nullable<int> Fardos { get; set; }
         public Nullable<double> Kilos { get; set; }
-        public Nullable<decimal> PrecioClase { get; set; }
+        public Nullable<decimal> ClasePrecio { get; set; }
         public Nullable<decimal> Total { get; set; }
     }
 }

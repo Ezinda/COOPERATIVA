@@ -33,5 +33,6 @@ namespace DesktopEntities.Models
         public string cae { get; set; }
         public Nullable<System.DateTime> fechaVtoCae { get; set; }
         public Nullable<System.Guid> OrdenPagoId { get; set; }
+        public Nullable<bool> RomaneoPendiente { get; set; }
     }
 }
