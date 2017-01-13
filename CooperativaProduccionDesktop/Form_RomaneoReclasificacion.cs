@@ -217,15 +217,15 @@ namespace CooperativaProduccion
             s = s + "^FO310,290^FDDPTO. LA COCHA^FS";
             s = s + "^FX Third section with barcode.";
             s = s + "^CF0,35";
-            s = s + "^FO90,400^FDFARDO " + fardo + "  CLASE " + clase + "  KILOS " + lectura + "RE^FS";
+            s = s + "^FO90,400^FDFARDO " + fardo + "  CLASE " + clase + "  KILOS " + lectura + " - RE^FS";
             s = s + "^BY3,2,270";
             s = s + "^FO160,550^BC^FD" + fardo + "^FS";
             s = s + "^XZ";
 
             PrintDialog pd = new PrintDialog();
-            //pd.PrinterSettings = new PrinterSettings();
+            pd.PrinterSettings = new PrinterSettings();
             //pd.ShowDialog();
-            //RawPrinterHelper.SendStringToPrinter(pd.PrinterSettings.PrinterName, s);
+            RawPrinterHelper.SendStringToPrinter(pd.PrinterSettings.PrinterName, s);
         }
 
         #endregion

@@ -45,6 +45,7 @@
             this.btnIngresoCaja = new DevExpress.XtraBars.BarButtonItem();
             this.btnOrdenVenta = new DevExpress.XtraBars.BarButtonItem();
             this.btnRemitoElectronico = new DevExpress.XtraBars.BarButtonItem();
+            this.btnPesada2 = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPageRomaneo = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupPorteria = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroupBalanza = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -59,7 +60,6 @@
             this.ribbonPage5 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPage6 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupSeguridad = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.btnPesada2 = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             this.SuspendLayout();
             // 
@@ -118,6 +118,7 @@
             this.btnPesada.Id = 2;
             this.btnPesada.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnPesada.LargeGlyph")));
             this.btnPesada.Name = "btnPesada";
+            this.btnPesada.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             this.btnPesada.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnPesada_ItemClick);
             // 
             // btnClasificacion
@@ -238,6 +239,15 @@
             this.btnRemitoElectronico.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
             this.btnRemitoElectronico.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnRemitoElectronico_ItemClick);
             // 
+            // btnPesada2
+            // 
+            this.btnPesada2.Caption = "Pesada";
+            this.btnPesada2.Glyph = ((System.Drawing.Image)(resources.GetObject("btnPesada2.Glyph")));
+            this.btnPesada2.Id = 17;
+            this.btnPesada2.Name = "btnPesada2";
+            this.btnPesada2.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.btnPesada2.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnPesada2_ItemClick);
+            // 
             // ribbonPageRomaneo
             // 
             this.ribbonPageRomaneo.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -357,15 +367,6 @@
             this.ribbonPageGroupSeguridad.Name = "ribbonPageGroupSeguridad";
             this.ribbonPageGroupSeguridad.ShowCaptionButton = false;
             this.ribbonPageGroupSeguridad.Text = "Seguridad";
-            // 
-            // btnPesada2
-            // 
-            this.btnPesada2.Caption = "Pesada 2";
-            this.btnPesada2.Glyph = ((System.Drawing.Image)(resources.GetObject("btnPesada2.Glyph")));
-            this.btnPesada2.Id = 17;
-            this.btnPesada2.Name = "btnPesada2";
-            this.btnPesada2.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
-            this.btnPesada2.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnPesada2_ItemClick);
             // 
             // Form_SysPrincipal
             // 

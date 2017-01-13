@@ -33,6 +33,7 @@ namespace CooperativaProduccion
         private string totalfardo;
         private string totalkilo;
         private string importebruto;
+        private string printerTicket;
         private Form_RomaneoPesadaMostrador _pesadaMostrador;
         private Form_AdministracionBuscarProductor _formBuscarProductor;
         private Form_RomaneoBuscarPreingreso _formBuscarPreingreso;
@@ -70,8 +71,8 @@ namespace CooperativaProduccion
             _timer = new System.Timers.Timer(1000 * _intervalodecomprobacion);
             _timer.Elapsed += new System.Timers.ElapsedEventHandler(_timer_Elapsed);
             _timer.Enabled = true;
-           // m_serialPort1.Open();
-           // m_serialPort1.DataReceived += new SerialDataReceivedEventHandler(m_serialPort1_DataReceived);
+            m_serialPort1.Open();
+            m_serialPort1.DataReceived += new SerialDataReceivedEventHandler(m_serialPort1_DataReceived);
             
             #endregion
 
@@ -108,51 +109,54 @@ namespace CooperativaProduccion
                 decimal maximoValor = 0;
                 TimeSpan hora = TimeSpan.Zero;
 
-                //foreach (var item in _bufferentrada)
-                //{
-                //    if (maximoValor < item.Valor)
-                //    {
-                //        maximoValor = item.Valor;
-                //        hora = item.Hora;
-                //    }
-                //}
+                foreach (var item in _bufferentrada)
+                {
+                    if (maximoValor < item.Valor)
+                    {
+                        maximoValor = item.Valor;
+                        hora = item.Hora;
+                    }
+                }
 
-                //if (maximoValor >= _minimonuevaentrada)
-                //{
-                //    var registroactual = new RegPesada()
-                //    {
-                //        Hora = hora - _horaInicio,
-                //        Valor = maximoValor
-                //    };
+                if (maximoValor >= _minimonuevaentrada)
+                {
+                    var registroactual = new RegPesada()
+                    {
+                        Hora = hora - _horaInicio,
+                        Valor = maximoValor
+                    };
 
-                //    if (_registrotemporal == null)
-                //    {
-                //        _registrotemporal = registroactual;
-                //    }
-                //    else
-                //    {
-                //        var bajadaynuevaentrada = (_bajadaynuevaentrada_porcentaje * _registrotemporal.Valor) / 100;
+                    if (_registrotemporal == null)
+                    {
+                        _registrotemporal = registroactual;
+                    }
+                    else
+                    {
+                        var bajadaynuevaentrada = (_bajadaynuevaentrada_porcentaje * _registrotemporal.Valor) / 100;
 
-                //        if (registroactual.Valor >= _registrotemporal.Valor)
-                //        {
-                //            _registrotemporal = registroactual;
-                //        }
-                //        else if ((registroactual.Valor - bajadaynuevaentrada) <= (_registrotemporal.Valor - bajadaynuevaentrada))
-                //        {
-                //            _buffersalida.Add(_registrotemporal);
+                        if (registroactual.Valor >= _registrotemporal.Valor)
+                        {
+                            _registrotemporal = registroactual;
+                        }
+                        else if ((registroactual.Valor - bajadaynuevaentrada) <= (_registrotemporal.Valor - bajadaynuevaentrada))
+                        {
+                            _buffersalida.Add(_registrotemporal);
 
-                //            System.Console.WriteLine(_registrotemporal.ToString());
-                              if (!this.IsDisposed)
-                              {
-                                  txtKilos.Invoke((MethodInvoker)(() => txtKilos.Text = "345"/*_registrotemporal.Valor.ToString()*/));
-                                  SaveAndPrintKg(PesadaId);
-                              }
-                    //        _registrotemporal = null;
-                    //    }
-                    //}
-                //}
+                            System.Console.WriteLine(_registrotemporal.ToString());
+                            if (!this.IsDisposed)
+                            {
+                                if (_registrotemporal.Valor.ToString() != string.Empty)
+                                {
+                                    txtKilos.Invoke((MethodInvoker)(() => txtKilos.Text = _registrotemporal.Valor.ToString()));
+                                    SaveAndPrintKg(PesadaId);
+                                }
+                            }
+                            _registrotemporal = null;
+                        }
+                    }
+                }
 
-                //_bufferentrada.Clear();
+                _bufferentrada.Clear();
             }
             finally
             {
@@ -284,6 +288,10 @@ namespace CooperativaProduccion
             _pesadaMostrador = new Form_RomaneoPesadaMostrador();
             _pesadaMostrador.Show();
             Deshabilitar();
+            string strFileConfig = @"Config.ini";
+            IniParser parser = new IniParser(strFileConfig);
+            printerTicket = parser.GetSetting("AppSettings", "PrinterTicket");
+    
         }
 
         private void CalcularTotales()
@@ -1056,9 +1064,25 @@ namespace CooperativaProduccion
             btnFinalizar.Enabled = true;
         }
 
+        private string prevClass = String.Empty;
+
         private void txtClase_TextChanged(object sender, EventArgs e)
         {
+            //if (checkBalanzaAutomatica.Checked)
+            //{
+            //    string current = txtClase.Text;
 
+            //    if (prevClass != String.Empty)
+            //    {
+            //        txtClase.Text = current.Substring(prevClass.Length);
+
+            //        prevClass = String.Empty;
+            //    }
+            //    else
+            //    {
+            //        prevClass = txtClase.Text;
+            //    }
+            //}
         }
 
         private void CancelarPesada()
@@ -1157,10 +1181,13 @@ namespace CooperativaProduccion
                 }
                 CalcularTotales();
                 PasarFardoMostrador(false);
+                txtKilos.Invoke((MethodInvoker)(() => txtKilos.Text = "0"));
+                txtClase.Invoke((MethodInvoker)(() => txtClase.Text = string.Empty));
+
             }
         }
 
-        private void PrintTicket(string fardo,string clase, string lectura)
+        private void PrintTicket(string fardo, string clase, string lectura)
         {
             string s = "^XA";
             s = s + "^FX Top section with company logo, name and address.";
@@ -1176,15 +1203,18 @@ namespace CooperativaProduccion
             s = s + "^FO310,290^FDDPTO. LA COCHA^FS";
             s = s + "^FX Third section with barcode.";
             s = s + "^CF0,35";
-            s = s + "^FO90,400^FDFARDO "+ fardo +"  CLASE " + clase + "  KILOS " + lectura + "^FS";
+            s = s + "^FO90,400^FDFARDO " + fardo + "  CLASE " + clase + "  KILOS " + lectura + "^FS";
             s = s + "^BY3,2,270";
             s = s + "^FO160,550^BC^FD" + fardo + "^FS";
             s = s + "^XZ";
 
-            PrintDialog pd = new PrintDialog();
-            pd.PrinterSettings = new PrinterSettings();
-          //  pd.ShowDialog();
-            //RawPrinterHelper.SendStringToPrinter(pd.PrinterSettings.PrinterName, s);
+            if (printerTicket != null)
+            {
+                PrintDialog pd = new PrintDialog();
+                pd.PrinterSettings = new PrinterSettings();
+                //pd.ShowDialog();
+                RawPrinterHelper.SendStringToPrinter(printerTicket, s);
+            }
         }
 
         class RowPesada
