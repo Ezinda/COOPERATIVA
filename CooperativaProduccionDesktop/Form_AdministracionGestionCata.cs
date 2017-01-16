@@ -129,7 +129,7 @@ namespace CooperativaProduccion
                                 {
                                     var catas = Context.Cata
                                         .Where(x => x.Lote == numerolote
-                                            && x.Cata1 == numerocata)
+                                            && x.NumCata == numerocata)
                                         .Any();
                                     if (catas.Equals(false))
                                     {
@@ -139,7 +139,7 @@ namespace CooperativaProduccion
                                             cata = new Cata();
                                             cata.Id = Guid.NewGuid();
                                             cata.Lote = numerolote;
-                                            cata.Cata1 = numerocata;
+                                            cata.NumCata = numerocata;
                                             Context.Cata.Add(cata);
                                             Context.SaveChanges();
                                         }
@@ -233,7 +233,7 @@ namespace CooperativaProduccion
                 {
                     ID = a.Id,
                     Lote = a.Lote,
-                    Cata = a.Cata1,
+                    Cata = a.NumCata,
                     NumOrden = a.NumOrden,
                     NumCaja = a.NumCaja
                 })
@@ -339,7 +339,7 @@ namespace CooperativaProduccion
                         var caja = Context.Caja
                             .Where(x=>x.CataId == cata.Id)
                             .FirstOrDefault();
-                        sw.WriteLine("2;" + cata.Cata1 + ";2;1;" + caja.Bruto + ";"
+                        sw.WriteLine("2;" + cata.NumCata + ";2;1;" + caja.Bruto + ";"
                             + cata.NumOrden.ToString().PadLeft(8, '0')
                             + cata.NumCaja.ToString().PadLeft(19, '0'));
                     }

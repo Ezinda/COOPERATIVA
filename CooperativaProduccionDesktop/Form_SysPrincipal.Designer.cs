@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_SysPrincipal));
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.btnPreingreso = new DevExpress.XtraBars.BarButtonItem();
-            this.btnPesada = new DevExpress.XtraBars.BarButtonItem();
             this.btnClasificacion = new DevExpress.XtraBars.BarButtonItem();
             this.btnNuevoUsuario = new DevExpress.XtraBars.BarButtonItem();
             this.btnAsignarRoles = new DevExpress.XtraBars.BarButtonItem();
@@ -45,7 +44,7 @@
             this.btnIngresoCaja = new DevExpress.XtraBars.BarButtonItem();
             this.btnOrdenVenta = new DevExpress.XtraBars.BarButtonItem();
             this.btnRemitoElectronico = new DevExpress.XtraBars.BarButtonItem();
-            this.btnPesada2 = new DevExpress.XtraBars.BarButtonItem();
+            this.btnPesada = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPageRomaneo = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupPorteria = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroupBalanza = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -60,6 +59,7 @@
             this.ribbonPage5 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPage6 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupSeguridad = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.btnGestionRomaneo = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             this.SuspendLayout();
             // 
@@ -69,7 +69,6 @@
             this.ribbon.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
             this.ribbon.ExpandCollapseItem,
             this.btnPreingreso,
-            this.btnPesada,
             this.btnClasificacion,
             this.btnNuevoUsuario,
             this.btnAsignarRoles,
@@ -83,9 +82,10 @@
             this.btnIngresoCaja,
             this.btnOrdenVenta,
             this.btnRemitoElectronico,
-            this.btnPesada2});
+            this.btnPesada,
+            this.btnGestionRomaneo});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
-            this.ribbon.MaxItemId = 18;
+            this.ribbon.MaxItemId = 19;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPageRomaneo,
@@ -110,16 +110,6 @@
             this.btnPreingreso.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnPreingreso.LargeGlyph")));
             this.btnPreingreso.Name = "btnPreingreso";
             this.btnPreingreso.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnPreingreso_ItemClick);
-            // 
-            // btnPesada
-            // 
-            this.btnPesada.Caption = "Pesada";
-            this.btnPesada.Glyph = ((System.Drawing.Image)(resources.GetObject("btnPesada.Glyph")));
-            this.btnPesada.Id = 2;
-            this.btnPesada.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnPesada.LargeGlyph")));
-            this.btnPesada.Name = "btnPesada";
-            this.btnPesada.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
-            this.btnPesada.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnPesada_ItemClick);
             // 
             // btnClasificacion
             // 
@@ -181,6 +171,7 @@
             this.btnListaPrecio.Glyph = ((System.Drawing.Image)(resources.GetObject("btnListaPrecio.Glyph")));
             this.btnListaPrecio.Id = 10;
             this.btnListaPrecio.Name = "btnListaPrecio";
+            this.btnListaPrecio.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
             this.btnListaPrecio.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnListaPrecio_ItemClick);
             // 
             // btnLiquidacion
@@ -239,14 +230,14 @@
             this.btnRemitoElectronico.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
             this.btnRemitoElectronico.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnRemitoElectronico_ItemClick);
             // 
-            // btnPesada2
+            // btnPesada
             // 
-            this.btnPesada2.Caption = "Pesada";
-            this.btnPesada2.Glyph = ((System.Drawing.Image)(resources.GetObject("btnPesada2.Glyph")));
-            this.btnPesada2.Id = 17;
-            this.btnPesada2.Name = "btnPesada2";
-            this.btnPesada2.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
-            this.btnPesada2.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnPesada2_ItemClick);
+            this.btnPesada.Caption = "Pesada";
+            this.btnPesada.Glyph = ((System.Drawing.Image)(resources.GetObject("btnPesada.Glyph")));
+            this.btnPesada.Id = 17;
+            this.btnPesada.Name = "btnPesada";
+            this.btnPesada.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.btnPesada.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnPesada_ItemClick);
             // 
             // ribbonPageRomaneo
             // 
@@ -270,7 +261,7 @@
             // 
             this.ribbonPageGroupBalanza.AllowTextClipping = false;
             this.ribbonPageGroupBalanza.ItemLinks.Add(this.btnPesada);
-            this.ribbonPageGroupBalanza.ItemLinks.Add(this.btnPesada2);
+            this.ribbonPageGroupBalanza.ItemLinks.Add(this.btnGestionRomaneo);
             this.ribbonPageGroupBalanza.Name = "ribbonPageGroupBalanza";
             this.ribbonPageGroupBalanza.ShowCaptionButton = false;
             this.ribbonPageGroupBalanza.Text = "Balanza";
@@ -300,7 +291,7 @@
             this.ribbonPageGroupAdministracion.ItemLinks.Add(this.btnOrdenPago);
             this.ribbonPageGroupAdministracion.Name = "ribbonPageGroupAdministracion";
             this.ribbonPageGroupAdministracion.ShowCaptionButton = false;
-            this.ribbonPageGroupAdministracion.Text = "Administración";
+            this.ribbonPageGroupAdministracion.Text = "Liquidación";
             // 
             // ribbonPageGroup1
             // 
@@ -368,6 +359,15 @@
             this.ribbonPageGroupSeguridad.ShowCaptionButton = false;
             this.ribbonPageGroupSeguridad.Text = "Seguridad";
             // 
+            // btnGestionRomaneo
+            // 
+            this.btnGestionRomaneo.Caption = "Gestión de Romaneo";
+            this.btnGestionRomaneo.Glyph = ((System.Drawing.Image)(resources.GetObject("btnGestionRomaneo.Glyph")));
+            this.btnGestionRomaneo.Id = 18;
+            this.btnGestionRomaneo.Name = "btnGestionRomaneo";
+            this.btnGestionRomaneo.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.btnGestionRomaneo.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnGestionRomaneo_ItemClick);
+            // 
             // Form_SysPrincipal
             // 
             this.AllowFormGlass = DevExpress.Utils.DefaultBoolean.True;
@@ -397,7 +397,6 @@
         private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage4;
         private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage5;
         private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage6;
-        private DevExpress.XtraBars.BarButtonItem btnPesada;
         private DevExpress.XtraBars.BarButtonItem btnClasificacion;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroupBalanza;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroupClasificacion;
@@ -418,6 +417,7 @@
         private DevExpress.XtraBars.BarButtonItem btnIngresoCaja;
         private DevExpress.XtraBars.BarButtonItem btnOrdenVenta;
         private DevExpress.XtraBars.BarButtonItem btnRemitoElectronico;
-        private DevExpress.XtraBars.BarButtonItem btnPesada2;
+        private DevExpress.XtraBars.BarButtonItem btnPesada;
+        private DevExpress.XtraBars.BarButtonItem btnGestionRomaneo;
     }
 }

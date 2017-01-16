@@ -49,13 +49,7 @@ namespace CooperativaProduccion
         {
             var preingreso = new Form_RomaneoPreingreso();
             preingreso.Show();
-        }
-
-        private void btnPesada_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            var pesada = new Form_RomaneoPesada();
-            pesada.Show();
-        }
+        }      
 
         private void btnFardos_ItemClick(object sender, ItemClickEventArgs e)
         {
@@ -255,11 +249,16 @@ namespace CooperativaProduccion
             ov.Show();
         }
 
-        private void btnPesada2_ItemClick(object sender, ItemClickEventArgs e)
+        private void btnPesada_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var pesada2 = new Form_RomaneoPesada2();
-            pesada2.Show();
+            var pesada = new Form_RomaneoPesada();
+            pesada.Show();
         }
 
+        private void btnGestionRomaneo_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var romaneo = new Form_RomaneoGestionRomaneo();
+            romaneo.Show();
+        }
     }
 }

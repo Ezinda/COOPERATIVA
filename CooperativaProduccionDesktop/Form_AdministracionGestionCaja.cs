@@ -338,7 +338,7 @@ namespace CooperativaProduccion
                     Bruto = c.Bruto,
                     Tara = c.Tara,
                     Neto = c.Neto,
-                    Cata = c.Cata.Cata1,
+                    Cata = c.Cata.NumCata,
                     Fecha = c.Fecha
                 })
                 .OrderBy(x => x.NumCaja)
@@ -484,7 +484,7 @@ namespace CooperativaProduccion
                      Bruto = c.Bruto,
                      Tara = c.Tara,
                      Neto = c.Neto,
-                     Cata = c.Cata.Cata1,
+                     Cata = c.Cata.NumCata,
                      Fecha = c.Fecha
                  })
                  .Take(cantidad)

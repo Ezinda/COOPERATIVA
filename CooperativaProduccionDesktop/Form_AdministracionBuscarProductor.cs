@@ -51,7 +51,7 @@ namespace CooperativaProduccion
             }
             else if (target.Equals(DevConstantes.Pesada))
             {
-                IEnlace mienlace = this.Owner as Form_RomaneoPesada2;
+                IEnlace mienlace = this.Owner as Form_RomaneoPesada;
                 if (mienlace != null)
                 {
                     mienlace.Enviar(

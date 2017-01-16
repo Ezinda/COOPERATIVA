@@ -190,6 +190,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\ExtensionMethods.OrAnd.cs" />
+    <Compile Include="Form_RomaneoPendiente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_RomaneoPendiente.Designer.cs">
+      <DependentUpon>Form_RomaneoPendiente.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_AdministracionActualizarOrdenVenta.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -286,23 +292,17 @@
     <Compile Include="Form_RomaneoGestionRomaneo.Designer.cs">
       <DependentUpon>Form_RomaneoGestionRomaneo.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form_RomaneoPesada2.cs">
+    <Compile Include="Form_RomaneoPesada.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_RomaneoPesada2.Designer.cs">
-      <DependentUpon>Form_RomaneoPesada2.cs</DependentUpon>
+    <Compile Include="Form_RomaneoPesada.Designer.cs">
+      <DependentUpon>Form_RomaneoPesada.cs</DependentUpon>
     </Compile>
     <Compile Include="Form_RomaneoPreingreso.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form_RomaneoPreingreso.Designer.cs">
       <DependentUpon>Form_RomaneoPreingreso.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Form_RomaneoPesada.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_RomaneoPesada.Designer.cs">
-      <DependentUpon>Form_RomaneoPesada.cs</DependentUpon>
     </Compile>
     <Compile Include="Form_RomaneoReclasificacion.cs">
       <SubType>Form</SubType>
@@ -450,8 +450,8 @@
       <DependentUpon>Form_RomaneoGestionRomaneo.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_RomaneoPesada2.resx">
-      <DependentUpon>Form_RomaneoPesada2.cs</DependentUpon>
+    <EmbeddedResource Include="Form_RomaneoPendiente.resx">
+      <DependentUpon>Form_RomaneoPendiente.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_RomaneoPesada.resx">
       <DependentUpon>Form_RomaneoPesada.cs</DependentUpon>

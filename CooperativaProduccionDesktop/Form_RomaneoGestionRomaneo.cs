@@ -172,10 +172,11 @@ namespace CooperativaProduccion
 
             pred = !string.IsNullOrEmpty(txtFet.Text) ? pred.And(x => x.ProductorId == ProductorId) : pred;
 
+            pred = pred.And(x => x.OrdenPagoId == null);
+
             var result = (
                from a in Context.Vw_Romaneo
                    .Where(pred)
-                   .Where(x => x.OrdenPagoId == null)
                select new
                {
                    ID = a.PesadaId,

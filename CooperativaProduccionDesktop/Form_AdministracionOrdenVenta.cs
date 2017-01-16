@@ -386,7 +386,7 @@ namespace CooperativaProduccion
                         .ToList();
                     foreach (var cata in catas)
                     {  
-                        sw.WriteLine("2;" + cata.Cata1);
+                        sw.WriteLine("2;" + cata.NumCata);
                     }
                 }
 
