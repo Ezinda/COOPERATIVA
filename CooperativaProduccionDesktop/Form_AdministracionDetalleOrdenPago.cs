@@ -10,12 +10,13 @@ using DevExpress.XtraBars;
 using DesktopEntities.Models;
 using DevExpress.Utils;
 using CooperativaProduccion.ViewModels;
+using CooperativaProduccion.Helpers;
 
 namespace CooperativaProduccion
 {
     public partial class Form_AdministracionDetalleOrdenPago : DevExpress.XtraBars.Ribbon.RibbonForm
     {
-        private CooperativaProduccionEntities Context { get; set; }
+        //private CooperativaProduccionEntities Context { get; set; }
         private const String[] _columns = new String[]
         {
             "Id",             //0
@@ -46,6 +47,9 @@ namespace CooperativaProduccion
 
         private Guid _ordendepagoid;
 
+        private IPagosManager _pagosManager;
+        private IProductoresManager _productoresManager;
+
         public Form_AdministracionDetalleOrdenPago(Guid ordendpagoid)
             : this()
         {
@@ -57,7 +61,10 @@ namespace CooperativaProduccion
         {
             InitializeComponent();
 
-            Context = new CooperativaProduccionEntities();
+            //Context = new CooperativaProduccionEntities();
+            
+            _pagosManager = new PagosManager();
+            _productoresManager = new ProductoresManager();
             
             this.dgvPendientes.CellBeginEdit += this.dgvPendientes_CellBeginEdit;
             this.dgvPendientes.CellEndEdit += this.dgvPendientes_CellEndEdit;
@@ -247,145 +254,159 @@ namespace CooperativaProduccion
         
         private void CargarDatos()
         {
-            var ordenPago = Context.Vw_OrdenPago
-                .Where(x => x.OrdenPagoId == _ordendepagoid)
-                .FirstOrDefault();
+            var ordenesdepagovm = _pagosManager.GetOrdenDePago(_ordendepagoid);
+            var ordenvm = ordenesdepagovm.Items[0];
+            var productorvm = _productoresManager.GetProductor(ordenvm.ProductorId);
 
-            if (ordenPago != null)
-            {
-                #region Datos Orden Pago
+            var fecha = ordenvm.Fecha;
+            var numerodeorden = ordenvm.NumeroDeOrden;
+            var detalle = ordenvm.Observaciones;
+            var productor = ordenvm.Productor;
+            var cuit = ordenvm.CUIT;
+            var fet = ordenvm.FET;
+            var situacioniva = productorvm.SituacionIVATASADescripcion;
+            var provincia = productorvm.Provincia;
 
-                dpFechaOrden.Value = ordenPago.Fecha.Value;
-                txtNumOrdenPago.Text = ordenPago.NumOrdenPago.Value.ToString();
-                txtPuntoVenta.Text = DevConstantes.PuntoVenta;
-                txtDetalle.Text = ordenPago.detalle;
+            var importeporpagar = ordenvm.ImportePorPagar.ToString();
+            
+            var retencioniibb = ordenvm.RetencionesAplicadas.Where(x => x.Nombre == RetencionTypes.RetencionIIBB).Single().Importe.ToString();
+            var retencionEEAOC = ordenvm.RetencionesAplicadas.Where(x => x.Nombre == RetencionTypes.RetencionEEAOC).Single().Importe.ToString();
+            var retencionSaludPublica = ordenvm.RetencionesAplicadas.Where(x => x.Nombre == RetencionTypes.RetencionSaludPublica).Single().Importe.ToString();
+            var retencionGADM = ordenvm.RetencionesAplicadas.Where(x => x.Nombre == RetencionTypes.RetencionGADM).Single().Importe.ToString();
+            var retencionGCIAS = ordenvm.RetencionesAplicadas.Where(x => x.Nombre == RetencionTypes.RetencionGCIAS).Single().Importe.ToString();
+            var retencionRiego = ordenvm.RetencionesAplicadas.Where(x => x.Nombre == RetencionTypes.RetencionRiego).Single().Importe.ToString();
 
-                #endregion
+            var netoporpagar = ordenvm.NetoPorPagar.ToString();
 
-                #region Datos Productor
+            dpFechaOrden.Value = fecha;
+            txtNumOrdenPago.Text = numerodeorden.ToString();
+            txtPuntoVenta.Text = DevConstantes.PuntoVenta;
+            txtDetalle.Text = detalle;
+
+            txtProductor.Text = productor;
+            txtCuit.Text = cuit;
+            txtFet.Text = fet;
+            txtSituacionIva.Text = situacioniva;
+            txtProvincia.Text = provincia;
+
+            txtImporteBruto.Text = importeporpagar;
+            
+            //txtCesion.Text = "0.00";
+            //txtComision.Text = "0.00";
+
+            txtIIBB.Text = retencioniibb;
+            txtEEAOC.Text = retencionEEAOC;
+            txtSaludPublica.Text = retencionSaludPublica;
+            txtGADM.Text = retencionGADM;
+            txtGanancias.Text = retencionGCIAS;
+            txtRiego.Text = retencionRiego;
+
+            //txtOtrosConceptos.Text = "0.00";
+            //txtCuotaSocial.Text = "0.00";
+            //txtAnticipos.Text = "0.00";
+
+            txtNeto.Text = netoporpagar;
 
             
-                txtProductor.Text = ordenPago.NOMBRE;
-                txtFet.Text = ordenPago.nrofet;
-                txtCuit.Text = ordenPago.CUIT;
 
-                var productor = Context.Vw_Productor
-                    .Where(x => x.ID == ordenPago.ProductorId)
-                    .FirstOrDefault();
+            #region Grid Conceptos Imputados
 
-                if (productor != null)
+            var result = (
+                from a in Context.Vw_Romaneo
+                    .Where(x => x.ProductorId == ordenPago.ProductorId)
+                    .Where(x => x.NumAfipLiquidacion != null)
+                select new
                 {
-                    txtSituacionIva.Text = productor.IVA.Equals("MT") ? 
-                        "Monotributo" : "Responsable Inscripto";
-                    txtProvincia.Text = productor.Provincia;
-                }
+                    ID = a.PesadaId,
+                    FECHA = a.FechaAfipLiquidacion,
+                    LETRA = a.Letra,
+                    NUMAFIP = a.NumAfipLiquidacion,
+                    NETO = a.ImporteBruto,
+                    KILOS = a.TotalKg
+                })
+                .OrderBy(x => x.FECHA)
+                .ToList();
 
-                #endregion
+            gridControlConceptosImputados.DataSource = result;
+            gridViewConceptosImputados.Columns[0].Visible = false;
+            gridViewConceptosImputados.Columns[1].Caption = "Fecha";
+            gridViewConceptosImputados.Columns[1].Width = 60;
+            gridViewConceptosImputados.Columns[1].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+            gridViewConceptosImputados.Columns[1].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+            gridViewConceptosImputados.Columns[2].Caption = "Letra";
+            gridViewConceptosImputados.Columns[2].Width = 50;
+            gridViewConceptosImputados.Columns[2].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+            gridViewConceptosImputados.Columns[2].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+            gridViewConceptosImputados.Columns[3].Caption = "Número Comprobante";
+            gridViewConceptosImputados.Columns[3].Width = 70;
+            gridViewConceptosImputados.Columns[3].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+            gridViewConceptosImputados.Columns[3].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+            gridViewConceptosImputados.Columns[4].Caption = "Importe";
+            gridViewConceptosImputados.Columns[4].Width = 70;
+            gridViewConceptosImputados.Columns[4].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+            gridViewConceptosImputados.Columns[4].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+            gridViewConceptosImputados.Columns[5].Caption = "Kilos";
+            gridViewConceptosImputados.Columns[5].Width = 70;
+            gridViewConceptosImputados.Columns[5].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+            gridViewConceptosImputados.Columns[5].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
 
-                #region Totalizadores - Retenciones
+            #endregion
 
-                txtImporteBruto.Text = ordenPago.Subtotal.Value.ToString();
-                txtCesion.Text = "0.00";
-                txtComision.Text = "0.00";
-                txtGanancias.Text = ordenPago.Ganancias.Value.ToString();
-                txtIVA.Text = ordenPago.IVA.Value.ToString();
-                txtIIBB.Text = ordenPago.IIBB.Value.ToString();
-                txtSaludPublica.Text = ordenPago.SaludPublica.Value.ToString();
-                txtEEAOC.Text = ordenPago.EEAOC.Value.ToString();
-                txtRiego.Text = ordenPago.Riego.Value.ToString();
-                txtMonotributo.Text = ordenPago.Monotributo.Value.ToString();
-                txtOtrosConceptos.Text = "0.00";
-                txtCuotaSocial.Text = "0.00";
-                txtAnticipos.Text = "0.00";
-                txtNeto.Text = ordenPago.Neto.Value.ToString();
+            #region Grid Pendientes
 
-                #endregion
-
-                #region Grid Conceptos Imputados
-
-                var result = (
-                    from a in Context.Vw_Romaneo
-                        .Where(x => x.ProductorId == ordenPago.ProductorId)
-                        .Where(x => x.NumAfipLiquidacion != null)
-                    select new
-                    {
-                        ID = a.PesadaId,
-                        FECHA = a.FechaAfipLiquidacion,
-                        LETRA = a.Letra,
-                        NUMAFIP = a.NumAfipLiquidacion,
-                        NETO = a.ImporteBruto,
-                        KILOS = a.TotalKg
-                    })
-                    .OrderBy(x => x.FECHA)
-                    .ToList();
-
-                gridControlConceptosImputados.DataSource = result;
-                gridViewConceptosImputados.Columns[0].Visible = false;
-                gridViewConceptosImputados.Columns[1].Caption = "Fecha";
-                gridViewConceptosImputados.Columns[1].Width = 60;
-                gridViewConceptosImputados.Columns[1].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                gridViewConceptosImputados.Columns[1].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-                gridViewConceptosImputados.Columns[2].Caption = "Letra";
-                gridViewConceptosImputados.Columns[2].Width = 50;
-                gridViewConceptosImputados.Columns[2].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                gridViewConceptosImputados.Columns[2].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-                gridViewConceptosImputados.Columns[3].Caption = "Número Comprobante";
-                gridViewConceptosImputados.Columns[3].Width = 70;
-                gridViewConceptosImputados.Columns[3].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                gridViewConceptosImputados.Columns[3].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-                gridViewConceptosImputados.Columns[4].Caption = "Importe";
-                gridViewConceptosImputados.Columns[4].Width = 70;
-                gridViewConceptosImputados.Columns[4].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                gridViewConceptosImputados.Columns[4].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-                gridViewConceptosImputados.Columns[5].Caption = "Kilos";
-                gridViewConceptosImputados.Columns[5].Width = 70;
-                gridViewConceptosImputados.Columns[5].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                gridViewConceptosImputados.Columns[5].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-
-                #endregion
-
-                #region Grid Pendientes
-
-                var resultPendiente = (
-                    from a in Context.Vw_Romaneo
-                        .Where(x => x.ProductorId == ordenPago.ProductorId)
-                        .Where(x => x.NumAfipLiquidacion != null)
-                    select new
-                    {
-                        ID = a.PesadaId,
-                        FECHA = a.FechaAfipLiquidacion,
-                        LETRA = a.Letra,
-                        NUMAFIP = a.NumAfipLiquidacion,
-                        Saldo = a.ImporteBruto,
-                        Afectar = a.ImporteBruto
-
-                    })
-                    .OrderBy(x => x.FECHA)
-                    .ToList();
-
-                if (dgvPendientes.RowCount > 0)
+            var resultPendiente = (
+                from a in Context.Vw_Romaneo
+                    .Where(x => x.ProductorId == ordenPago.ProductorId)
+                    .Where(x => x.NumAfipLiquidacion != null)
+                select new
                 {
-                    dgvPendientes.Rows.Clear();
-                }
+                    ID = a.PesadaId,
+                    FECHA = a.FechaAfipLiquidacion,
+                    LETRA = a.Letra,
+                    NUMAFIP = a.NumAfipLiquidacion,
+                    Saldo = a.ImporteBruto,
+                    Afectar = a.ImporteBruto
 
-                if (resultPendiente.Count > 0)
-                {
-                    foreach (var resultp in resultPendiente)
-                    {
-                        this.dgvPendientes.Rows.Add(resultp.ID, resultp.FECHA.Value.ToShortDateString(), resultp.LETRA,
-                            resultp.NUMAFIP, resultp.Saldo, resultp.Saldo,string.Empty,string.Empty,string.Empty,
-                            string.Empty,string.Empty,string.Empty,string.Empty,string.Empty);
-                    }
-                    this.dgvPendientes.Columns[2].DefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomCenter;
-                    this.dgvPendientes.Columns[3].DefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomCenter;
-                    this.dgvPendientes.Columns[4].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-                    this.dgvPendientes.Columns[5].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                })
+                .OrderBy(x => x.FECHA)
+                .ToList();
 
-                }
-
-                #endregion
+            if (dgvPendientes.RowCount > 0)
+            {
+                dgvPendientes.Rows.Clear();
             }
+
+            if (resultPendiente.Count > 0)
+            {
+                foreach (var resultp in resultPendiente)
+                {
+                    this.dgvPendientes.Rows.Add(resultp.ID, resultp.FECHA.Value.ToShortDateString(), resultp.LETRA,
+                        resultp.NUMAFIP, resultp.Saldo, resultp.Saldo, string.Empty, string.Empty, string.Empty,
+                        string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
+                }
+                this.dgvPendientes.Columns[2].DefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomCenter;
+                this.dgvPendientes.Columns[3].DefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomCenter;
+                this.dgvPendientes.Columns[4].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                this.dgvPendientes.Columns[5].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            }
+
+            #endregion
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         #region Calcular Totales
 
@@ -393,7 +414,7 @@ namespace CooperativaProduccion
         {
             txtImporteBruto.Text = "0";
             txtGanancias.Text = "0";
-            txtIVA.Text = "0";
+            txtGADM.Text = "0";
             txtIIBB.Text = "0";
             txtSaludPublica.Text = "0";
             txtEEAOC.Text = "0";
@@ -482,11 +503,11 @@ namespace CooperativaProduccion
 
         private void CalcularTotalIVA()
         {
-            txtIVA.Text = "0";
+            txtGADM.Text = "0";
             for (int i = 0; i < dgvPendientes.RowCount; i++)
             {
                 decimal iva = decimal.Parse(dgvPendientes.Rows[i].Cells[7].Value.ToString());
-                txtIVA.Text = decimal.Round((decimal.Parse(txtIVA.Text) + iva), 2, MidpointRounding.AwayFromZero).ToString();
+                txtGADM.Text = decimal.Round((decimal.Parse(txtGADM.Text) + iva), 2, MidpointRounding.AwayFromZero).ToString();
             }
         }
 

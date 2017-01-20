@@ -174,7 +174,7 @@ namespace CooperativaProduccion.Controls
 
                 if (fieldname == "NetoPorPagar")
                 {
-                    var row = e.Row as RowOrdenDePagoGeneracion;
+                    var row = e.Row as RowLiquidacion;
                     var orden = _liquidaciones.Items.Where(x => x.PesadaId == row.ID).Single();
 
                     e.Value = orden.NetoPorPagar;
@@ -188,7 +188,7 @@ namespace CooperativaProduccion.Controls
                         return;
                     }
 
-                    var row = e.Row as RowOrdenDePagoGeneracion;
+                    var row = e.Row as RowLiquidacion;
                     var orden = _liquidaciones.Items.Where(x => x.PesadaId == row.ID).Single();
                     var retencionaplicada = orden.RetencionesAplicadas.Where(x => x.Nombre == retencion.Nombre).Single();
 
@@ -274,7 +274,7 @@ namespace CooperativaProduccion.Controls
         private void ActualizarControlesGeneracionDeOrdenes()
         {
             var source = _liquidaciones.Items
-                .Select(x => new RowOrdenDePagoGeneracion()
+                .Select(x => new RowLiquidacion()
                 {
                     ID = x.PesadaId,
                     PRODUCTORID = x.ProductorId,
@@ -292,7 +292,7 @@ namespace CooperativaProduccion.Controls
 
             gridViewLiquidacion.Columns.Clear();
 
-            gridControlLiquidacion.DataSource = new BindingList<RowOrdenDePagoGeneracion>(source);
+            gridControlLiquidacion.DataSource = new BindingList<RowLiquidacion>(source);
 
             gridViewLiquidacion.Columns["ID"].Visible = false;
             gridViewLiquidacion.Columns["PRODUCTORID"].Visible = false;
@@ -441,7 +441,11 @@ namespace CooperativaProduccion.Controls
         {
             var selectedrowhandles = gridViewLiquidacion.GetSelectedRows();
 
-            var itemsvm = new List<OrdenDePagoViewModel>();
+            if (selectedrowhandles.Count() == 0)
+            {
+                return;
+            }
+
             var retenciones = new String[]
             {
                 RetencionTypes.RetencionIIBB,
@@ -452,13 +456,26 @@ namespace CooperativaProduccion.Controls
                 RetencionTypes.RetencionRiego,
             };
 
+            var retencionesdeordenvm = new List<RetencionAplicadaViewModel>();
+            foreach (var item in retenciones)
+            {
+                var retencionvm = new RetencionAplicadaViewModel()
+                {
+                    Nombre = item,
+                    Importe = 0
+                };
+
+                retencionesdeordenvm.Add(retencionvm);
+            }
+
+            var netodeorden = 0m;
+            var itemsvm = new List<ConceptoDeOrdenDePagoViewModel>();
             foreach (var rowhandle in selectedrowhandles)
             {
-                var fechadepago = dpFechaPago.Value.Date;
-                var observaciones = txtObservaciones.Text.Trim();
-                var row = gridViewLiquidacion.GetRow(rowhandle) as RowOrdenDePagoGeneracion;
                 
-                var retencionesaplicadasvm = new List<RetencionAplicadaViewModel>();
+                var row = gridViewLiquidacion.GetRow(rowhandle) as RowLiquidacion;
+                
+                var retencionesdeconceptovm = new List<RetencionAplicadaViewModel>();
 
                 foreach (var item in retenciones)
 	            {
@@ -469,52 +486,48 @@ namespace CooperativaProduccion.Controls
                         Nombre = item,
                         Importe = importe
                     };
+                    retencionesdeconceptovm.Add(retencionaplicada);
 
-                    retencionesaplicadasvm.Add(retencionaplicada);
+                    var retenciondeorden = retencionesdeordenvm.Where(x => x.Nombre == item).Single();
+                    retenciondeorden.Importe += importe;
 	            }
 
                 var neto = (decimal)gridViewLiquidacion.GetRowCellValue(rowhandle, "NetoPorPagar");
 
-                var ordenvm = new OrdenDePagoViewModel()
+                var conceptovm = new ConceptoDeOrdenDePagoViewModel()
                 {
-                    //Id = Guid.NewGuid(),
-                    //NumeroDeOrden = _pagosManager.GetNumeroDeOrden(),
-                    //NumeroInternoDeOrden = _pagosManager.GetNumeroInternoDeOrden(),
                     PesadaId = row.ID,
                     ProductorId = row.PRODUCTORID,
-                    Fecha = fechadepago,
                     ImportePorPagar = row.ImportePorPagar,
-                    RetencionesAplicadas = retencionesaplicadasvm,
+                    RetencionesAplicadas = retencionesdeconceptovm,
                     
                     NetoPorPagar = neto,
-                    Observaciones = observaciones,
                 };
 
-                itemsvm.Add(ordenvm);
+                itemsvm.Add(conceptovm);
+
+                netodeorden += neto;
             }
 
-            var retencionesvm = new List<RetencionViewModel>();
+            var fechadepago = dpFechaPago.Value.Date;
+            var observaciones = txtObservaciones.Text.Trim();
 
-            foreach (var item in retenciones)
-	        {
-                var retencionvm = new RetencionViewModel()
-                {
-                    Nombre = item,
-                };
-
-                retencionesvm.Add(retencionvm);
-	        }
-
-            var ordenesdepagovm = new OrdenesDePagoViewModel()
+            var ordendepagovm = new OrdenDePagoViewModel()
             {
-                Retenciones = retencionesvm,
+                Id = Guid.NewGuid(),
+                NumeroDeOrden = 0,
+                NumeroInternoDeOrden = 0,
+                FechaDePago = fechadepago,
+                RetencionesAplicadas = retencionesdeordenvm,
                 Items = itemsvm,
+                ImporteNeto = netodeorden,
+                Observaciones = observaciones
             };
 
-            _pagosManager.GenerarOrgenesDePago(ordenesdepagovm);
+            _pagosManager.GenerarOrdenDePago(ordendepagovm);
         }
 
-        class RowOrdenDePagoGeneracion
+        class RowLiquidacion
         {
             public Guid ID { get; set; }
             public Guid PRODUCTORID { get; set; }

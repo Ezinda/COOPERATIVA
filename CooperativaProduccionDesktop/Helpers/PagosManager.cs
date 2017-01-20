@@ -73,27 +73,25 @@ namespace CooperativaProduccion.Helpers
             }
         }
 
-        public void GenerarOrgenesDePago(OrdenesDePagoViewModel ordenesvm)
+        public void GenerarOrdenDePago(OrdenDePagoViewModel ordenvm)
         {
-            var ordenesdepesadas = new Dictionary<Guid, Guid>();
+            var ordenid = Guid.NewGuid();
+            var idspesadasdeorden = new List<Guid>();
+            //var conceptosdepesadas = new Dictionary<Guid, Guid>();
 
             using (var context = new CooperativaProduccionEntities())
             {
-                var ordenes = new List<OrdenPago>();
+                var conceptos = new List<ConceptoDeOrdenDePago>();
 
-                foreach (var item in ordenesvm.Items)
+                foreach (var item in ordenvm.Items)
                 {
-                    var numerodeorden = this.GetNumeroDeOrden();
-                    var numerointernodeorden = this.GetNumeroInternoDeOrden();
-                    var orden = new OrdenPago();
+                    var concepto = new ConceptoDeOrdenDePago();
 
-                    orden.Id = Guid.NewGuid();
-                    orden.NumOrdenPago = numerodeorden;
-                    orden.NumIntOrdenPago = numerointernodeorden;
+                    concepto.Id = Guid.NewGuid();
+                    concepto.PesadaId = item.PesadaId;
+                    concepto.ProductorId = item.ProductorId;
 
-                    orden.ProductorId = item.ProductorId;
-                    orden.Fecha = item.Fecha;
-                    orden.Subtotal = item.ImportePorPagar;
+                    concepto.Subtotal = item.ImportePorPagar;
 
                     var retencionIIBB = item.RetencionesAplicadas.Where(x => x.Nombre == RetencionTypes.RetencionIIBB).Single();
                     var retencionEEAOC = item.RetencionesAplicadas.Where(x => x.Nombre == RetencionTypes.RetencionEEAOC).Single();
@@ -102,39 +100,72 @@ namespace CooperativaProduccion.Helpers
                     var retencionGCIAS = item.RetencionesAplicadas.Where(x => x.Nombre == RetencionTypes.RetencionGCIAS).Single();
                     var retencionRiego = item.RetencionesAplicadas.Where(x => x.Nombre == RetencionTypes.RetencionRiego).Single();
 
-                    orden.IIBB = retencionIIBB.Importe;
-                    orden.EEAOC = retencionEEAOC.Importe;
-                    orden.SaludPublica = retencionSaludPublica.Importe;
-                    orden.GADM = retencionGADM.Importe;
-                    orden.Ganancias = retencionGCIAS.Importe;
-                    orden.Riego = retencionRiego.Importe;
+                    concepto.IIBB = retencionIIBB.Importe;
+                    concepto.EEAOC = retencionEEAOC.Importe;
+                    concepto.SaludPublica = retencionSaludPublica.Importe;
+                    concepto.GADM = retencionGADM.Importe;
+                    concepto.Ganancias = retencionGCIAS.Importe;
+                    concepto.Riego = retencionRiego.Importe;
 
-                    orden.Neto = item.NetoPorPagar;
-                    orden.Detalle = item.Observaciones;
+                    concepto.Neto = item.NetoPorPagar;
 
-                    ordenesdepesadas.Add(orden.Id, item.PesadaId);
-                    ordenes.Add(orden);
+                    idspesadasdeorden.Add(item.PesadaId);
+                    //conceptosdepesadas.Add(concepto.Id, item.PesadaId);
+                    conceptos.Add(concepto);
                 }
 
-                context.OrdenPago.AddRange(ordenes);
+                var numerodeorden = this.GetNumeroDeOrden();
+                var numerointernodeorden = this.GetNumeroInternoDeOrden();
+
+                var orden = new OrdenPago();
+
+                orden.Id = ordenid;
+                orden.NumOrdenPago = numerodeorden;
+                orden.NumIntOrdenPago = numerointernodeorden;
+                orden.Fecha = ordenvm.FechaDePago;
+                orden.Detalle = ordenvm.Observaciones;
+
+                var retenciondeordenIIBB = ordenvm.RetencionesAplicadas.Where(x => x.Nombre == RetencionTypes.RetencionIIBB).Single();
+                var retenciondeordenEEAOC = ordenvm.RetencionesAplicadas.Where(x => x.Nombre == RetencionTypes.RetencionEEAOC).Single();
+                var retenciondeordenSaludPublica = ordenvm.RetencionesAplicadas.Where(x => x.Nombre == RetencionTypes.RetencionSaludPublica).Single();
+                var retenciondeordenGADM = ordenvm.RetencionesAplicadas.Where(x => x.Nombre == RetencionTypes.RetencionGADM).Single();
+                var retenciondeordenGCIAS = ordenvm.RetencionesAplicadas.Where(x => x.Nombre == RetencionTypes.RetencionGCIAS).Single();
+                var retenciondeordenRiego = ordenvm.RetencionesAplicadas.Where(x => x.Nombre == RetencionTypes.RetencionRiego).Single();
+
+                orden.IIBB = retenciondeordenIIBB.Importe;
+                orden.EEAOC = retenciondeordenEEAOC.Importe;
+                orden.SaludPublica = retenciondeordenSaludPublica.Importe;
+                orden.GADM = retenciondeordenGADM.Importe;
+                orden.Ganancias = retenciondeordenGCIAS.Importe;
+                orden.Riego = retenciondeordenRiego.Importe;
+
+                orden.ConceptoDeOrdenDePago = conceptos;
+
+                orden.Neto = ordenvm.ImporteNeto;
+
+                context.OrdenPago.Add(orden);
                 context.SaveChanges();
             }
 
-            using (var context = new CooperativaProduccionEntities())
-            {
-                var liquidaciones = context.Pesada
-                    .Where(x => ordenesdepesadas.ContainsKey(x.Id))
-                    .ToList();
+            // UNA LIQUIDACION PUEDE TENER MUCHAS ORDENES
 
-                foreach (var item in liquidaciones)
-	            {
-                    item.OrdenPagoId = ordenesdepesadas[item.Id];
-
-                    context.Entry(item).State = System.Data.Entity.EntityState.Modified;
-	            }
-
-                context.SaveChanges();
-            }
+            //using (var context = new CooperativaProduccionEntities())
+            //{
+            //    var liquidaciones = context.Pesada
+            //        .Where(x => idspesadasdeorden.ContainsKey(x.Id))
+            //        //.Where(x => conceptosdepesadas.ContainsKey(x.Id))
+            //        .ToList();
+            //
+            //    foreach (var item in liquidaciones)
+	        //    {
+            //        item.OrdenPagoId = ordenid;
+            //        //item.OrdenPagoId = conceptosdepesadas[item.Id];
+            //
+            //        context.Entry(item).State = System.Data.Entity.EntityState.Modified;
+	        //    }
+            //
+            //    context.SaveChanges();
+            //}
         }
 
         public OrdenesDePagoDetalleViewModel ListarOrdenesDePago()
@@ -142,7 +173,7 @@ namespace CooperativaProduccion.Helpers
             Expression<Func<Vw_OrdenPago, bool>> pred = x => true;
 
             var entities = _GetEntitiesOrdenesDePago(pred);
-            var result = _GetOrdenesDePagos(entities);
+            var result = _GetViewModelOrdenesDePagos(entities);
 
             return result;
         }
@@ -154,7 +185,7 @@ namespace CooperativaProduccion.Helpers
             pred = pred.And(x => x.Fecha >= desde && x.Fecha <= hasta);
 
             var entities = _GetEntitiesOrdenesDePago(pred);
-            var result = _GetOrdenesDePagos(entities);
+            var result = _GetViewModelOrdenesDePagos(entities);
 
             return result;
         }
@@ -166,7 +197,7 @@ namespace CooperativaProduccion.Helpers
             pred = pred.And(x => x.ProductorId == productorid);
 
             var entities = _GetEntitiesOrdenesDePago(pred);
-            var result = _GetOrdenesDePagos(entities);
+            var result = _GetViewModelOrdenesDePagos(entities);
 
             return result;
         }
@@ -179,7 +210,20 @@ namespace CooperativaProduccion.Helpers
             pred = pred.And(x => x.ProductorId == productorid);
 
             var entities = _GetEntitiesOrdenesDePago(pred);
-            var result = _GetOrdenesDePagos(entities);
+            var result = _GetViewModelOrdenesDePagos(entities);
+
+            return result;
+        }
+
+        public OrdenesDePagoDetalleViewModel GetOrdenDePago(Guid id)
+        {
+            var entitie = _GetEntitieOrdenDePago(id);
+            var list = new List<Vw_OrdenPago>()
+            {
+                entitie
+            };
+
+            var result = _GetViewModelOrdenesDePagos(list);
 
             return result;
         }
@@ -378,6 +422,20 @@ namespace CooperativaProduccion.Helpers
             }
         }
 
+        private Vw_OrdenPago _GetEntitieOrdenDePago(Guid id)
+        {
+            Vw_OrdenPago entitie;
+
+            using (var context = new CooperativaProduccionEntities())
+            {
+                entitie = context.Vw_OrdenPago
+                    .Where(x => x.OrdenPagoId == id)
+                    .Single();
+            }
+
+            return entitie;
+        }
+
         private List<Vw_OrdenPago> _GetEntitiesOrdenesDePago(Expression<Func<Vw_OrdenPago, bool>> pred)
         {
             List<Vw_OrdenPago> entities;
@@ -394,7 +452,7 @@ namespace CooperativaProduccion.Helpers
             return entities;
         }
 
-        private OrdenesDePagoDetalleViewModel _GetOrdenesDePagos(List<Vw_OrdenPago> entities)
+        private OrdenesDePagoDetalleViewModel _GetViewModelOrdenesDePagos(List<Vw_OrdenPago> entities)
         {
             var retenciones = new String[]
             {
@@ -536,8 +594,8 @@ namespace CooperativaProduccion.Helpers
         long GetNumeroDeOrden();
 
         long GetNumeroInternoDeOrden();
-        
-        void GenerarOrgenesDePago(OrdenesDePagoViewModel ordenesdepagovm);
+
+        void GenerarOrdenDePago(OrdenDePagoViewModel ordendepagovm);
 
         OrdenesDePagoDetalleViewModel ListarOrdenesDePago();
 
@@ -546,5 +604,7 @@ namespace CooperativaProduccion.Helpers
         OrdenesDePagoDetalleViewModel ListarOrdenesDePagoDeProductor(Guid productorid);
 
         OrdenesDePagoDetalleViewModel ListarOrdenesDePagoDeProductor(Guid productorid, DateTime desde, DateTime hasta);
+
+        OrdenesDePagoDetalleViewModel GetOrdenDePago(Guid _ordendepagoid);
     }
 }

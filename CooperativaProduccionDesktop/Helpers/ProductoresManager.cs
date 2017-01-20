@@ -15,17 +15,43 @@ namespace CooperativaProduccion.Helpers
             {
                 var productor = context.Vw_Productor
                     .Where(x => x.ID == productorid)
-                    .Select(x => new ProductorViewModel()
+                    .Select(x => new
                     {
-                        Id = x.ID.Value,
-                        Nombre = x.NOMBRE,
-                        CUIT = x.CUIT,
-                        FET = x.nrofet,
-                        Provincia = x.Provincia
+                        ID = x.ID.Value,
+                        x.NOMBRE,
+                        x.CUIT,
+                        x.nrofet,
+                        x.Provincia,
+                        x.IVA
                     })
                     .Single();
 
-                return productor;
+                ProductorIVATASATypes situacionIVATASA;
+
+                switch (productor.IVA)
+	            {
+	            	case "MT":
+                        situacionIVATASA = ProductorIVATASATypes.Monotributista;
+                        break;
+                    default:
+                        situacionIVATASA = ProductorIVATASATypes.ResponsableInscripto;
+                        break;
+	            }
+
+                var situacionIVATASADescripcion = ProductorIVATASA.GetDescription(situacionIVATASA);
+
+                var productorvm = new ProductorViewModel()
+                {
+                    Id = productor.ID,
+                    Nombre = productor.NOMBRE,
+                    CUIT = productor.CUIT,
+                    FET = productor.nrofet,
+                    Provincia = productor.Provincia,
+                    SituacionIVATASA = situacionIVATASA,
+                    SituacionIVATASADescripcion = situacionIVATASADescripcion
+                };
+
+                return productorvm;
             }
         }
     }

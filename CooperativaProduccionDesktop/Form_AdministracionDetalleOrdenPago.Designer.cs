@@ -73,7 +73,7 @@
             this.txtEEAOC = new System.Windows.Forms.TextBox();
             this.txtGanancias = new System.Windows.Forms.TextBox();
             this.txtIIBB = new System.Windows.Forms.TextBox();
-            this.txtIVA = new System.Windows.Forms.TextBox();
+            this.txtGADM = new System.Windows.Forms.TextBox();
             this.txtImporteBruto = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
@@ -138,7 +138,7 @@
             this.groupControl2.Name = "groupControl2";
             this.groupControl2.Size = new System.Drawing.Size(683, 109);
             this.groupControl2.TabIndex = 22;
-            this.groupControl2.Text = "Lista de Productores";
+            this.groupControl2.Text = "Productor";
             // 
             // label7
             // 
@@ -299,7 +299,7 @@
             this.groupControl1.Controls.Add(this.txtEEAOC);
             this.groupControl1.Controls.Add(this.txtGanancias);
             this.groupControl1.Controls.Add(this.txtIIBB);
-            this.groupControl1.Controls.Add(this.txtIVA);
+            this.groupControl1.Controls.Add(this.txtGADM);
             this.groupControl1.Controls.Add(this.txtImporteBruto);
             this.groupControl1.Controls.Add(this.label11);
             this.groupControl1.Controls.Add(this.label13);
@@ -311,7 +311,7 @@
             this.groupControl1.Name = "groupControl1";
             this.groupControl1.Size = new System.Drawing.Size(683, 400);
             this.groupControl1.TabIndex = 23;
-            this.groupControl1.Text = "Lista de Productores";
+            this.groupControl1.Text = "Detalle de Orden de Pago";
             // 
             // dgvPendientes
             // 
@@ -405,6 +405,7 @@
             this.label23.Size = new System.Drawing.Size(61, 13);
             this.label23.TabIndex = 33;
             this.label23.Text = "Monot.Evt.";
+            this.label23.Visible = false;
             // 
             // label18
             // 
@@ -447,9 +448,9 @@
             this.label16.AutoSize = true;
             this.label16.Location = new System.Drawing.Point(11, 135);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(24, 13);
+            this.label16.Size = new System.Drawing.Size(36, 13);
             this.label16.TabIndex = 28;
-            this.label16.Text = "IVA";
+            this.label16.Text = "GADM";
             // 
             // label17
             // 
@@ -487,6 +488,7 @@
             this.txtMonotributo.Size = new System.Drawing.Size(100, 21);
             this.txtMonotributo.TabIndex = 24;
             this.txtMonotributo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtMonotributo.Visible = false;
             // 
             // txtCuotaSocial
             // 
@@ -551,14 +553,14 @@
             this.txtIIBB.TabIndex = 17;
             this.txtIIBB.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // txtIVA
+            // txtGADM
             // 
-            this.txtIVA.Enabled = false;
-            this.txtIVA.Location = new System.Drawing.Point(107, 132);
-            this.txtIVA.Name = "txtIVA";
-            this.txtIVA.Size = new System.Drawing.Size(100, 21);
-            this.txtIVA.TabIndex = 16;
-            this.txtIVA.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtGADM.Enabled = false;
+            this.txtGADM.Location = new System.Drawing.Point(107, 132);
+            this.txtGADM.Name = "txtGADM";
+            this.txtGADM.Size = new System.Drawing.Size(100, 21);
+            this.txtGADM.TabIndex = 16;
+            this.txtGADM.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // txtImporteBruto
             // 
@@ -736,7 +738,7 @@
         private System.Windows.Forms.TextBox txtEEAOC;
         private System.Windows.Forms.TextBox txtGanancias;
         private System.Windows.Forms.TextBox txtIIBB;
-        private System.Windows.Forms.TextBox txtIVA;
+        private System.Windows.Forms.TextBox txtGADM;
         private System.Windows.Forms.TextBox txtImporteBruto;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label13;

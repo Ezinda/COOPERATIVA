@@ -70,35 +70,35 @@ namespace CooperativaProduccion.ViewModels
     //ordenPago.Neto = afectar + gcias + iva + iibb + salud + eeaoc + riego + monotributo;
     //ordenPago.Detalle = txtObservaciones.Text;
 
-    public class OrdenesDePagoViewModel
-    {
-        public List<RetencionViewModel> Retenciones { get; set; }
-
-        public List<OrdenDePagoViewModel> Items { get; set; }
-    }
-
-    public class OrdenDePagoViewModel
-    {
-        public Guid Id { get; set; }
-
-        public long NumeroDeOrden { get; set; }
-
-        public long NumeroInternoDeOrden { get; set; }
-
-        public Guid PesadaId { get; set; }
-
-        public Guid ProductorId { get; set; }
-
-        public DateTime Fecha { get; set; }
-
-        public decimal ImportePorPagar { get; set; }
-
-        public List<RetencionAplicadaViewModel> RetencionesAplicadas { get; set; }
-
-        public decimal NetoPorPagar { get; set; }
-
-        public string Observaciones { get; set; }
-    }
+    //public class OrdenesDePagoViewModel
+    //{
+    //    public List<RetencionViewModel> Retenciones { get; set; }
+    //
+    //    public List<OrdenDePagoViewModel> Items { get; set; }
+    //}
+    //
+    //public class OrdenDePagoViewModel
+    //{
+    //    public Guid Id { get; set; }
+    //
+    //    public long NumeroDeOrden { get; set; }
+    //
+    //    public long NumeroInternoDeOrden { get; set; }
+    //
+    //    public Guid PesadaId { get; set; }
+    //
+    //    public Guid ProductorId { get; set; }
+    //
+    //    public DateTime Fecha { get; set; }
+    //
+    //    public decimal ImportePorPagar { get; set; }
+    //
+    //    public List<RetencionAplicadaViewModel> RetencionesAplicadas { get; set; }
+    //
+    //    public decimal NetoPorPagar { get; set; }
+    //
+    //    public string Observaciones { get; set; }
+    //}
 
     public class OrdenesDePagoDetalleViewModel
     {
@@ -136,5 +136,44 @@ namespace CooperativaProduccion.ViewModels
         public string Observaciones { get; set; }
 
         public decimal? ImporteNeto { get; set; }
+    }
+
+
+    public class OrdenDePagoViewModel
+    {
+        public Guid Id { get; set; }
+
+        public long NumeroDeOrden { get; set; }
+
+        public long NumeroInternoDeOrden { get; set; }
+
+        public DateTime FechaDePago { get; set; }
+
+        public List<RetencionAplicadaViewModel> RetencionesAplicadas { get; set; }
+
+        public List<ConceptoDeOrdenDePagoViewModel> Items { get; set; }
+
+        public decimal ImporteNeto { get; set; }
+
+        public string Observaciones { get; set; }
+    }
+
+    /// <summary>
+    /// Un Concepto de OP es una liquidación o parte de la misma
+    /// asignada a una Orden de Pago
+    /// </summary>
+    public class ConceptoDeOrdenDePagoViewModel
+    {
+        public Guid Id { get; set; }
+
+        public Guid PesadaId { get; set; }
+        
+        public Guid ProductorId { get; set; }
+        
+        public decimal ImportePorPagar { get; set; }
+        
+        public List<RetencionAplicadaViewModel> RetencionesAplicadas { get; set; }
+        
+        public decimal NetoPorPagar { get; set; }
     }
 }
