@@ -15,26 +15,42 @@ namespace CooperativaProduccion
 {
     public partial class Form_AdministracionDetalleOrdenPago : DevExpress.XtraBars.Ribbon.RibbonForm
     {
-        public CooperativaProduccionEntities Context { get; set; }
-        public MaskedTextBox mask;
+        private CooperativaProduccionEntities Context { get; set; }
+        private const String[] _columns = new String[]
+        {
+            "Id",             //0
+            "Fecha",          //1
+            "Letra",          //2
+            "N° Comprobante", //3
+            "Saldo",          //4
+            "Afectar",        //5
+            
+            RetencionTypes.RetencionIIBB,
+            RetencionTypes.RetencionEEAOC,
+            RetencionTypes.RetencionSaludPublica,
+            RetencionTypes.RetencionGADM,
+            RetencionTypes.RetencionGCIAS,
+            RetencionTypes.RetencionRiego,
+            
+            "Neto" //12
+        };
+        private MaskedTextBox _maskedtextbox;
+
+
         private int currentRow;
-        private bool resetRow = false;
-        private Guid OrdenPagoId;
-
-        #region Coeficiente Retencion
-
         private decimal coeficiente = decimal.Parse("1.21");
         private decimal iva = decimal.Parse("0.21");
         private decimal gcias = decimal.Parse("0.02");
         private decimal iibb = decimal.Parse("0.175");
         private decimal coeficientegral = decimal.Parse("0.05");
 
-        #endregion
+        private Guid _ordendepagoid;
 
-        public Form_AdministracionDetalleOrdenPago(Guid OrdenPagoId)
+        public Form_AdministracionDetalleOrdenPago(Guid ordendpagoid)
             : this()
         {
-            CargarDatos(OrdenPagoId);
+            _ordendepagoid = ordendpagoid;
+            CargarDatos();
         }
 
         private Form_AdministracionDetalleOrdenPago()
@@ -45,7 +61,6 @@ namespace CooperativaProduccion
             
             this.dgvPendientes.CellBeginEdit += this.dgvPendientes_CellBeginEdit;
             this.dgvPendientes.CellEndEdit += this.dgvPendientes_CellEndEdit;
-            this.dgvPendientes.DataBindingComplete += this.dgvPendientes_DataBindingComplete;
             
             this.btnPago.Click += this.btnPago_Click;
             
@@ -54,82 +69,116 @@ namespace CooperativaProduccion
             ConfigurarGrillaDePagosPendientes();
         }
 
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData != Keys.Enter)
+            {
+                return base.ProcessCmdKey(ref msg, keyData);
+            }
+
+            if (dgvPendientes.CurrentCell == null)
+            {
+                return base.ProcessCmdKey(ref msg, keyData);
+            }
+
+            var columnafectar = dgvPendientes.Columns[_columns[5]];
+            int columnindex = dgvPendientes.CurrentCell.ColumnIndex;
+            int rowindex = dgvPendientes.CurrentCell.RowIndex;
+
+            if (columnindex != columnafectar.Index)
+            {
+                return base.ProcessCmdKey(ref msg, keyData);
+            }
+
+            if (rowindex + 1 >= dgvPendientes.RowCount)
+            {
+                return base.ProcessCmdKey(ref msg, keyData);
+            }
+
+            var cell = dgvPendientes.Rows[rowindex + 1].Cells[columnafectar.Index];
+
+            dgvPendientes.CurrentCell = cell;
+
+            dgvPendientes.BeginEdit(true);
+            _maskedtextbox.Focus();
+            _maskedtextbox.SelectionStart = 0;
+
+            return true;
+        }
+
         void dgvPendientes_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
-            if (e.ColumnIndex == 5)
+            var columnafectar = dgvPendientes.Columns[_columns[5]];
+
+            if (e.ColumnIndex == columnafectar.Index)
             {
                 var text = dgvPendientes[e.ColumnIndex, e.RowIndex].Value as String ?? String.Empty;
                 var rect = dgvPendientes.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, true);
 
-                mask.Text = text;
-                mask.Location = rect.Location;
-                mask.Size = rect.Size;
-                mask.Focus();
-                mask.SelectionStart = 0;
-                mask.Visible = true;
+                _maskedtextbox.Text = text;
+                _maskedtextbox.Location = rect.Location;
+                _maskedtextbox.Size = rect.Size;
+                _maskedtextbox.Focus();
+                _maskedtextbox.SelectionStart = 0;
+                _maskedtextbox.Visible = true;
             }
         }
 
         void dgvPendientes_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            if (!mask.Visible)
+            if (!_maskedtextbox.Visible)
             {
                 return;
             }
 
-            if (e.ColumnIndex == 5)
-            {
-                var text = mask.Text;
-                var cell = dgvPendientes.Rows[e.RowIndex].Cells[e.ColumnIndex];
+            var columnafectar = dgvPendientes.Columns[_columns[5]];
 
-                cell.Value = text;
+            if (e.ColumnIndex == columnafectar.Index)
+            {
+                var text = _maskedtextbox.Text;
+                var cell = dgvPendientes.Rows[e.RowIndex].Cells[e.ColumnIndex];
 
                 if (text != String.Empty)
                 {
-                    var precio = Math.Round(Decimal.Parse(text), 2);
-                    var preciostr = (precio).ToString("n2");
+                    var afectar = Math.Round(Decimal.Parse(text), 2);
+                    var afectarstr = (afectar).ToString("n2");
 
-                    cell.Value = preciostr;
+                    cell.Value = afectarstr;
 
-                    decimal gciasTotal = decimal.Round((decimal.Round(decimal.Parse(precio.ToString()), 2, MidpointRounding.AwayFromZero) * gcias), 2, MidpointRounding.AwayFromZero);
-                    dgvPendientes.Rows[dgvPendientes.CurrentCell.RowIndex].Cells[6].Value = gciasTotal;
+                    var precioround = Decimal.Round(afectar, 2, MidpointRounding.AwayFromZero);
+                    var gciasTotal = Decimal.Round(afectar * gcias, 2, MidpointRounding.AwayFromZero);
+                    var ivaTotal = Decimal.Round(precioround * iva, 2, MidpointRounding.AwayFromZero);
+                    var iibbTotal = Decimal.Round(precioround * iibb, 2, MidpointRounding.AwayFromZero);
+                    var coeficienteTotal = Decimal.Round(precioround * coeficientegral, 2, MidpointRounding.AwayFromZero);
 
-                    decimal ivaTotal = decimal.Round((decimal.Round(decimal.Parse(precio.ToString()), 2, MidpointRounding.AwayFromZero) * iva), 2, MidpointRounding.AwayFromZero);
-                    dgvPendientes.Rows[dgvPendientes.CurrentCell.RowIndex].Cells[7].Value = ivaTotal;
-
-                    decimal iibbTotal = decimal.Round((decimal.Round(decimal.Parse(precio.ToString()), 2, MidpointRounding.AwayFromZero) * iibb), 2, MidpointRounding.AwayFromZero);
-                    dgvPendientes.Rows[dgvPendientes.CurrentCell.RowIndex].Cells[8].Value = iibbTotal;
-
-                    decimal coeficienteTotal = decimal.Round((decimal.Round(decimal.Parse(precio.ToString()), 2, MidpointRounding.AwayFromZero) * coeficientegral), 2, MidpointRounding.AwayFromZero);
-
+                    dgvPendientes.Rows[e.RowIndex].Cells[6].Value = gciasTotal;
+                    dgvPendientes.Rows[e.RowIndex].Cells[7].Value = ivaTotal;
+                    dgvPendientes.Rows[e.RowIndex].Cells[8].Value = iibbTotal;
                     dgvPendientes.Rows[e.RowIndex].Cells[9].Value = coeficienteTotal;
                     dgvPendientes.Rows[e.RowIndex].Cells[10].Value = coeficienteTotal;
                     dgvPendientes.Rows[e.RowIndex].Cells[11].Value = coeficienteTotal;
                     dgvPendientes.Rows[e.RowIndex].Cells[12].Value = coeficienteTotal;
 
-                    decimal netoTotal =
-                        decimal.Round((decimal.Round(decimal.Parse(precio.ToString()), 2, MidpointRounding.AwayFromZero) + gciasTotal + ivaTotal + iibbTotal + (coeficienteTotal * 4)), 2, MidpointRounding.AwayFromZero);
-                    dgvPendientes.Rows[dgvPendientes.CurrentCell.RowIndex].Cells[13].Value = netoTotal;
+                    var netoTotal = Decimal.Round(precioround + gciasTotal + ivaTotal + iibbTotal + (coeficienteTotal * 4), 2, MidpointRounding.AwayFromZero);
                     
+                    dgvPendientes.Rows[e.RowIndex].Cells[13].Value = netoTotal;
+
                     CalcularValores();
                 }
+                else
+                {
+                    cell.Value = text;
+                }
 
-                mask.Visible = false;
-            }
-        }
-
-        void dgvPendientes_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
-        {
-            if (resetRow)
-            {
-                resetRow = false;
-                dgvPendientes.CurrentCell = dgvPendientes.Rows[currentRow].Cells[0];
+                _maskedtextbox.Visible = false;
             }
         }
 
         void btnPago_Click(object sender, EventArgs e)
         {
-            var formaPago = new Form_AdministracionFormaPago(OrdenPagoId, txtNeto.Text);
+            var neto = txtNeto.Text;
+            var formaPago = new Form_AdministracionFormaPago(_ordendepagoid, neto);
+
             formaPago.Show();
         }
 
@@ -156,20 +205,20 @@ namespace CooperativaProduccion
             DataGridViewColumn d13 = new DataGridViewTextBoxColumn();
 
             //Add Header Texts to be displayed on the Columns
-            d1.HeaderText = "Id";
-            d2.HeaderText = "Fecha";
-            d3.HeaderText = "Letra";
-            d4.HeaderText = "N° Comprobante";
-            d5.HeaderText = "Saldo";
-            d6.HeaderText = "Afectar";
+            d1.HeaderText = _columns[0];
+            d2.HeaderText = _columns[1];
+            d3.HeaderText = _columns[2];
+            d4.HeaderText = _columns[3];
+            d5.HeaderText = _columns[4];
+            d6.HeaderText = _columns[5];
 
-            d7.HeaderText = RetencionTypes.RetencionIIBB;//RetencionTypes.RetencionGCIAS;
-            d8.HeaderText = RetencionTypes.RetencionEEAOC;
-            d9.HeaderText = RetencionTypes.RetencionSaludPublica;
-            d10.HeaderText = RetencionTypes.RetencionGADM;
-            d11.HeaderText = RetencionTypes.RetencionGCIAS;
-            d12.HeaderText = RetencionTypes.RetencionRiego;
-            d13.HeaderText = "Neto";
+            d7.HeaderText =  _columns[6];//RetencionTypes.RetencionGCIAS;
+            d8.HeaderText =  _columns[7];
+            d9.HeaderText =  _columns[8];
+            d10.HeaderText = _columns[9];
+            d11.HeaderText = _columns[10];
+            d12.HeaderText = _columns[11];
+            d13.HeaderText = _columns[12];
 
             d1.Visible = false;
             d2.Width = 70;
@@ -190,22 +239,22 @@ namespace CooperativaProduccion
             dgvPendientes.Columns.AddRange(d1, d2, d3, d4, d5, d6, d7,
                 d8, d9, d10, d11, d12, d13);
 
-            mask = new MaskedTextBox();
-            dgvPendientes.Controls.Add(mask);
+            _maskedtextbox = new MaskedTextBox();
+            dgvPendientes.Controls.Add(_maskedtextbox);
 
-            mask.Visible = false;
+            _maskedtextbox.Visible = false;
         }
         
-        private void CargarDatos(Guid Id)
+        private void CargarDatos()
         {
             var ordenPago = Context.Vw_OrdenPago
-                .Where(x => x.OrdenPagoId == Id)
+                .Where(x => x.OrdenPagoId == _ordendepagoid)
                 .FirstOrDefault();
+
             if (ordenPago != null)
             {
                 #region Datos Orden Pago
 
-                OrdenPagoId = ordenPago.OrdenPagoId;
                 dpFechaOrden.Value = ordenPago.Fecha.Value;
                 txtNumOrdenPago.Text = ordenPago.NumOrdenPago.Value.ToString();
                 txtPuntoVenta.Text = DevConstantes.PuntoVenta;
@@ -336,38 +385,6 @@ namespace CooperativaProduccion
 
                 #endregion
             }
-        }
-
-        protected override bool ProcessCmdKey(ref System.Windows.Forms.Message msg, System.Windows.Forms.Keys keyData)
-        {
-            if (dgvPendientes.CurrentCell != null)
-            {
-                int icolumn = dgvPendientes.CurrentCell.ColumnIndex;
-                int irow = dgvPendientes.CurrentCell.RowIndex;
-                DataGridViewCell cell;
-                if (keyData == Keys.Enter)
-                {
-                    if (dgvPendientes.CurrentCell.ColumnIndex == 5)
-                    {
-                        if (dgvPendientes.CurrentCell.RowIndex + 1 < dgvPendientes.RowCount)
-                        {
-                            cell = dgvPendientes.Rows[dgvPendientes.CurrentCell.RowIndex + 1].Cells[5];
-                            dgvPendientes.CurrentCell = cell;
-                            dgvPendientes.BeginEdit(true);
-                            mask.Focus();
-                            mask.SelectionStart = 0;
-                            
-                            return true;
-                        }
-                    }
-                }
-                else
-                {
-                    return base.ProcessCmdKey(ref msg, keyData);
-
-                }
-            }
-            return base.ProcessCmdKey(ref msg, keyData);
         }
 
         #region Calcular Totales
