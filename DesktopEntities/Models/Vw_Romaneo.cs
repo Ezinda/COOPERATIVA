@@ -22,17 +22,25 @@ namespace DesktopEntities.Models
         public string CUIT { get; set; }
         public string nrofet { get; set; }
         public string IVA { get; set; }
-        public Nullable<double> Totalkg { get; set; }
+        public Nullable<double> TotalKg { get; set; }
         public Nullable<decimal> ImporteBruto { get; set; }
-        public Nullable<long> numInternoLiquidacion { get; set; }
-        public Nullable<System.DateTime> fechaInternaLiquidacion { get; set; }
+        public Nullable<double> Importeporpagar { get; set; }
+        public Nullable<long> NumInternoLiquidacion { get; set; }
+        public Nullable<System.DateTime> FechaInternaLiquidacion { get; set; }
         public string Letra { get; set; }
         public string Provincia { get; set; }
-        public string numAfipLiquidacion { get; set; }
-        public Nullable<System.DateTime> fechaAfipLiquidacion { get; set; }
-        public string cae { get; set; }
-        public Nullable<System.DateTime> fechaVtoCae { get; set; }
+        public string NumAfipLiquidacion { get; set; }
+        public Nullable<System.DateTime> FechaAfipLiquidacion { get; set; }
+        public string Cae { get; set; }
+        public Nullable<System.DateTime> FechaVtoCae { get; set; }
         public Nullable<System.Guid> OrdenPagoId { get; set; }
         public Nullable<bool> RomaneoPendiente { get; set; }
+        public Nullable<decimal> IIBB { get; set; }
+        public Nullable<decimal> EEAOC { get; set; }
+        public Nullable<decimal> SP { get; set; }
+        public Nullable<decimal> GADM { get; set; }
+        public Nullable<decimal> RIEGO { get; set; }
+        public Nullable<decimal> GANANCIA { get; set; }
+        public double BASEGANANCIA { get; set; }
     }
 }

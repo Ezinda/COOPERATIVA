@@ -323,10 +323,6 @@
             this.dgvPendientes.RowHeadersVisible = false;
             this.dgvPendientes.Size = new System.Drawing.Size(458, 161);
             this.dgvPendientes.TabIndex = 41;
-            this.dgvPendientes.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dgvPendientes_CellBeginEdit);
-            this.dgvPendientes.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPendientes_CellEndEdit);
-            this.dgvPendientes.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvPendientes_DataBindingComplete);
-            this.dgvPendientes.SelectionChanged += new System.EventHandler(this.dgvPendientes_SelectionChanged);
             // 
             // checkComision
             // 
@@ -347,7 +343,6 @@
             this.btnPago.Size = new System.Drawing.Size(90, 22);
             this.btnPago.TabIndex = 0;
             this.btnPago.Text = "F. Pago";
-            this.btnPago.Click += new System.EventHandler(this.btnPago_Click);
             // 
             // gridControlConceptosImputados
             // 
@@ -649,7 +644,6 @@
             this.btnCancelar.Size = new System.Drawing.Size(90, 22);
             this.btnCancelar.TabIndex = 3;
             this.btnCancelar.Text = "Cancelar";
-            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // btnGrabar
             // 

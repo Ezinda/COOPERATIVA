@@ -25,7 +25,7 @@
           <ScalarProperty Name="OrdenVentaId" ColumnName="OrdenVentaId" />
           <ScalarProperty Name="NumCaja" ColumnName="NumCaja" />
           <ScalarProperty Name="NumOrden" ColumnName="NumOrden" />
-          <ScalarProperty Name="Cata1" ColumnName="Cata" />
+          <ScalarProperty Name="NumCata" ColumnName="NumCata" />
           <ScalarProperty Name="Lote" ColumnName="Lote" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
@@ -69,15 +69,15 @@
         <MappingFragment StoreEntitySet="OrdenPago">
           <ScalarProperty Name="Detalle" ColumnName="Detalle" />
           <ScalarProperty Name="Neto" ColumnName="Neto" />
-          <ScalarProperty Name="Monotributo" ColumnName="Monotributo" />
           <ScalarProperty Name="Riego" ColumnName="Riego" />
           <ScalarProperty Name="EEAOC" ColumnName="EEAOC" />
           <ScalarProperty Name="SaludPublica" ColumnName="SaludPublica" />
           <ScalarProperty Name="IIBB" ColumnName="IIBB" />
-          <ScalarProperty Name="IVA" ColumnName="IVA" />
+          <ScalarProperty Name="GADM" ColumnName="GADM" />
           <ScalarProperty Name="Ganancias" ColumnName="Ganancias" />
           <ScalarProperty Name="Subtotal" ColumnName="Subtotal" />
           <ScalarProperty Name="ProductorId" ColumnName="ProductorId" />
+          <ScalarProperty Name="PesadaId" ColumnName="PesadaId" />
           <ScalarProperty Name="Fecha" ColumnName="Fecha" />
           <ScalarProperty Name="NumIntOrdenPago" ColumnName="NumIntOrdenPago" />
           <ScalarProperty Name="NumOrdenPago" ColumnName="NumOrdenPago" />
@@ -106,6 +106,15 @@
           <ScalarProperty Name="Importe" ColumnName="Importe" />
           <ScalarProperty Name="OrdenPagoId" ColumnName="OrdenPagoId" />
           <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ParamPagos">
+      <EntityTypeMapping TypeName="CooperativaProduccionModel.ParamPagos">
+        <MappingFragment StoreEntitySet="ParamPagos">
+          <ScalarProperty Name="porkilo" ColumnName="porkilo" />
+          <ScalarProperty Name="porciento" ColumnName="porciento" />
+          <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -141,11 +150,12 @@
     <EntitySetMapping Name="PesadaDetalle">
       <EntityTypeMapping TypeName="CooperativaProduccionModel.PesadaDetalle">
         <MappingFragment StoreEntitySet="PesadaDetalle">
+          <ScalarProperty Name="ReclasificacionPrecio" ColumnName="ReclasificacionPrecio" />
           <ScalarProperty Name="ReclasificacionId" ColumnName="ReclasificacionId" />
-          <ScalarProperty Name="ContadorFardo" ColumnName="ContadorFardo" />
-          <ScalarProperty Name="PrecioClase" ColumnName="PrecioClase" />
           <ScalarProperty Name="Kilos" ColumnName="Kilos" />
+          <ScalarProperty Name="ClasePrecio" ColumnName="ClasePrecio" />
           <ScalarProperty Name="ClaseId" ColumnName="ClaseId" />
+          <ScalarProperty Name="ContadorFardo" ColumnName="ContadorFardo" />
           <ScalarProperty Name="NumFardo" ColumnName="NumFardo" />
           <ScalarProperty Name="PesadaId" ColumnName="PesadaId" />
           <ScalarProperty Name="Id" ColumnName="Id" />
@@ -365,6 +375,12 @@
     <EntitySetMapping Name="Vw_Productor">
       <EntityTypeMapping TypeName="CooperativaProduccionModel.Vw_Productor">
         <MappingFragment StoreEntitySet="Vw_Productor">
+          <ScalarProperty Name="GANANCIA" ColumnName="GANANCIA" />
+          <ScalarProperty Name="RIEGO" ColumnName="RIEGO" />
+          <ScalarProperty Name="GADM" ColumnName="GADM" />
+          <ScalarProperty Name="SP" ColumnName="SP" />
+          <ScalarProperty Name="EEAOC" ColumnName="EEAOC" />
+          <ScalarProperty Name="IIBB" ColumnName="IIBB" />
           <ScalarProperty Name="IVA" ColumnName="IVA" />
           <ScalarProperty Name="Ciudad" ColumnName="Ciudad" />
           <ScalarProperty Name="TipoPago" ColumnName="TipoPago" />
@@ -406,7 +422,7 @@
       <EntityTypeMapping TypeName="CooperativaProduccionModel.Vw_ResumenRomaneoPorClase">
         <MappingFragment StoreEntitySet="Vw_ResumenRomaneoPorClase">
           <ScalarProperty Name="Total" ColumnName="Total" />
-          <ScalarProperty Name="PrecioClase" ColumnName="PrecioClase" />
+          <ScalarProperty Name="ClasePrecio" ColumnName="ClasePrecio" />
           <ScalarProperty Name="Kilos" ColumnName="Kilos" />
           <ScalarProperty Name="Fardos" ColumnName="Fardos" />
           <ScalarProperty Name="Clase" ColumnName="Clase" />
@@ -417,17 +433,26 @@
     <EntitySetMapping Name="Vw_Romaneo">
       <EntityTypeMapping TypeName="CooperativaProduccionModel.Vw_Romaneo">
         <MappingFragment StoreEntitySet="Vw_Romaneo">
+          <ScalarProperty Name="BASEGANANCIA" ColumnName="BASEGANANCIA" />
+          <ScalarProperty Name="GANANCIA" ColumnName="GANANCIA" />
+          <ScalarProperty Name="RIEGO" ColumnName="RIEGO" />
+          <ScalarProperty Name="GADM" ColumnName="GADM" />
+          <ScalarProperty Name="SP" ColumnName="SP" />
+          <ScalarProperty Name="EEAOC" ColumnName="EEAOC" />
+          <ScalarProperty Name="IIBB" ColumnName="IIBB" />
+          <ScalarProperty Name="RomaneoPendiente" ColumnName="RomaneoPendiente" />
           <ScalarProperty Name="OrdenPagoId" ColumnName="OrdenPagoId" />
-          <ScalarProperty Name="fechaVtoCae" ColumnName="fechaVtoCae" />
-          <ScalarProperty Name="cae" ColumnName="cae" />
-          <ScalarProperty Name="fechaAfipLiquidacion" ColumnName="fechaAfipLiquidacion" />
-          <ScalarProperty Name="numAfipLiquidacion" ColumnName="numAfipLiquidacion" />
+          <ScalarProperty Name="FechaVtoCae" ColumnName="FechaVtoCae" />
+          <ScalarProperty Name="Cae" ColumnName="Cae" />
+          <ScalarProperty Name="FechaAfipLiquidacion" ColumnName="FechaAfipLiquidacion" />
+          <ScalarProperty Name="NumAfipLiquidacion" ColumnName="NumAfipLiquidacion" />
           <ScalarProperty Name="Provincia" ColumnName="Provincia" />
           <ScalarProperty Name="Letra" ColumnName="Letra" />
-          <ScalarProperty Name="fechaInternaLiquidacion" ColumnName="fechaInternaLiquidacion" />
-          <ScalarProperty Name="numInternoLiquidacion" ColumnName="numInternoLiquidacion" />
+          <ScalarProperty Name="FechaInternaLiquidacion" ColumnName="FechaInternaLiquidacion" />
+          <ScalarProperty Name="NumInternoLiquidacion" ColumnName="NumInternoLiquidacion" />
+          <ScalarProperty Name="Importeporpagar" ColumnName="Importeporpagar" />
           <ScalarProperty Name="ImporteBruto" ColumnName="ImporteBruto" />
-          <ScalarProperty Name="Totalkg" ColumnName="Totalkg" />
+          <ScalarProperty Name="TotalKg" ColumnName="TotalKg" />
           <ScalarProperty Name="IVA" ColumnName="IVA" />
           <ScalarProperty Name="nrofet" ColumnName="nrofet" />
           <ScalarProperty Name="CUIT" ColumnName="CUIT" />

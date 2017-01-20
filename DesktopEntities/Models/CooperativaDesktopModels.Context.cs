@@ -33,6 +33,7 @@ namespace DesktopEntities.Models
         public virtual DbSet<OrdenPago> OrdenPago { get; set; }
         public virtual DbSet<OrdenVenta> OrdenVenta { get; set; }
         public virtual DbSet<Pago> Pago { get; set; }
+        public virtual DbSet<ParamPagos> ParamPagos { get; set; }
         public virtual DbSet<Pesada> Pesada { get; set; }
         public virtual DbSet<PesadaDetalle> PesadaDetalle { get; set; }
         public virtual DbSet<Preingreso> Preingreso { get; set; }

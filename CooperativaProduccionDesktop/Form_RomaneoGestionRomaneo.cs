@@ -187,7 +187,7 @@ namespace CooperativaProduccion
                    FET = a.nrofet,
                    PROVINCIA = a.Provincia,
                    LETRA = a.Letra,
-                   KILOS = a.Totalkg,
+                   KILOS = a.TotalKg,
                    BRUTOSINIVA = a.ImporteBruto
                })
                .OrderByDescending(x => x.FECHA)

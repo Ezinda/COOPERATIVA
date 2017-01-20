@@ -1,0 +1,530 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CooperativaProduccionModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="CooperativaProduccionEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Caja" EntityType="CooperativaProduccionModel.Caja" />
+    <EntitySet Name="Cata" EntityType="CooperativaProduccionModel.Cata" />
+    <EntitySet Name="Clase" EntityType="CooperativaProduccionModel.Clase" />
+    <EntitySet Name="Contador" EntityType="CooperativaProduccionModel.Contador" />
+    <EntitySet Name="Movimiento" EntityType="CooperativaProduccionModel.Movimiento" />
+    <EntitySet Name="OrdenPago" EntityType="CooperativaProduccionModel.OrdenPago" />
+    <EntitySet Name="OrdenVenta" EntityType="CooperativaProduccionModel.OrdenVenta" />
+    <EntitySet Name="Pago" EntityType="CooperativaProduccionModel.Pago" />
+    <EntitySet Name="ParamPagos" EntityType="CooperativaProduccionModel.ParamPagos" />
+    <EntitySet Name="Pesada" EntityType="CooperativaProduccionModel.Pesada" />
+    <EntitySet Name="PesadaDetalle" EntityType="CooperativaProduccionModel.PesadaDetalle" />
+    <EntitySet Name="Preingreso" EntityType="CooperativaProduccionModel.Preingreso" />
+    <EntitySet Name="PreingresoDetalle" EntityType="CooperativaProduccionModel.PreingresoDetalle" />
+    <EntitySet Name="Remito" EntityType="CooperativaProduccionModel.Remito" />
+    <EntitySet Name="sysdiagrams" EntityType="CooperativaProduccionModel.sysdiagrams" />
+    <EntitySet Name="Usuario" EntityType="CooperativaProduccionModel.Usuario" />
+    <EntitySet Name="Vw_Clase" EntityType="CooperativaProduccionModel.Vw_Clase" />
+    <EntitySet Name="Vw_Cliente" EntityType="CooperativaProduccionModel.Vw_Cliente" />
+    <EntitySet Name="Vw_Movimiento" EntityType="CooperativaProduccionModel.Vw_Movimiento" />
+    <EntitySet Name="Vw_OrdenPago" EntityType="CooperativaProduccionModel.Vw_OrdenPago" />
+    <EntitySet Name="Vw_Pesada" EntityType="CooperativaProduccionModel.Vw_Pesada" />
+    <EntitySet Name="Vw_Preingreso" EntityType="CooperativaProduccionModel.Vw_Preingreso" />
+    <EntitySet Name="Vw_Producto" EntityType="CooperativaProduccionModel.Vw_Producto" />
+    <EntitySet Name="Vw_Productor" EntityType="CooperativaProduccionModel.Vw_Productor" />
+    <EntitySet Name="Vw_ResumenPesada" EntityType="CooperativaProduccionModel.Vw_ResumenPesada" />
+    <EntitySet Name="Vw_ResumenPesadaPorClase" EntityType="CooperativaProduccionModel.Vw_ResumenPesadaPorClase" />
+    <EntitySet Name="Vw_ResumenRomaneoPorClase" EntityType="CooperativaProduccionModel.Vw_ResumenRomaneoPorClase" />
+    <EntitySet Name="Vw_Romaneo" EntityType="CooperativaProduccionModel.Vw_Romaneo" />
+    <AssociationSet Name="FK_Caja_Cata" Association="CooperativaProduccionModel.FK_Caja_Cata">
+      <End Role="Cata" EntitySet="Cata" />
+      <End Role="Caja" EntitySet="Caja" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Remito_OrdenVenta" Association="CooperativaProduccionModel.FK_Remito_OrdenVenta">
+      <End Role="OrdenVenta" EntitySet="OrdenVenta" />
+      <End Role="Remito" EntitySet="Remito" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetallePreingreso_Preingreso" Association="CooperativaProduccionModel.FK_DetallePreingreso_Preingreso">
+      <End Role="Preingreso" EntitySet="Preingreso" />
+      <End Role="PreingresoDetalle" EntitySet="PreingresoDetalle" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Caja">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="NumeroCaja" Type="Int64" Nullable="false" />
+    <Property Name="OrdenVentaId" Type="Guid" />
+    <Property Name="LoteCaja" Type="Int64" />
+    <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Hora" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="ProductoId" Type="Guid" Nullable="false" />
+    <Property Name="Bruto" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="Tara" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="Neto" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="CataId" Type="Guid" />
+    <NavigationProperty Name="Cata" Relationship="CooperativaProduccionModel.FK_Caja_Cata" FromRole="Caja" ToRole="Cata" />
+  </EntityType>
+  <EntityType Name="Cata">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="Lote" Type="Int64" />
+    <Property Name="NumCata" Type="Int64" />
+    <Property Name="NumOrden" Type="Int64" />
+    <Property Name="NumCaja" Type="Int64" />
+    <Property Name="OrdenVentaId" Type="Guid" />
+    <Property Name="CajaId" Type="Guid" />
+    <NavigationProperty Name="Caja" Relationship="CooperativaProduccionModel.FK_Caja_Cata" FromRole="Cata" ToRole="Caja" />
+  </EntityType>
+  <EntityType Name="Clase">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="ClaseId" Type="Guid" Nullable="false" />
+    <Property Name="Valor" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="FechaModificacion" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Vigente" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Contador">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Valor" Type="Int64" />
+  </EntityType>
+  <EntityType Name="Movimiento">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="TransaccionId" Type="Guid" />
+    <Property Name="Fecha" Type="DateTime" Precision="0" />
+    <Property Name="Unidad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Ingreso" Type="Double" />
+    <Property Name="Egreso" Type="Double" />
+  </EntityType>
+  <EntityType Name="OrdenPago">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="NumOrdenPago" Type="Int64" />
+    <Property Name="NumIntOrdenPago" Type="Int64" />
+    <Property Name="Fecha" Type="DateTime" Precision="0" />
+    <Property Name="ProductorId" Type="Guid" />
+    <Property Name="Subtotal" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Ganancias" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="IVA" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="IIBB" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="SaludPublica" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="EEAOC" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Riego" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Monotributo" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Neto" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Detalle" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="OrdenVenta">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="NumOrden" Type="Int64" Nullable="false" />
+    <Property Name="NumOperacion" Type="Int64" Nullable="false" />
+    <Property Name="ClienteId" Type="Guid" Nullable="false" />
+    <Property Name="ProductoId" Type="Guid" Nullable="false" />
+    <Property Name="DesdeCaja" Type="Int64" />
+    <Property Name="HastaCaja" Type="Int64" />
+    <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Pendiente" Type="Boolean" />
+    <NavigationProperty Name="Remito" Relationship="CooperativaProduccionModel.FK_Remito_OrdenVenta" FromRole="OrdenVenta" ToRole="Remito" />
+  </EntityType>
+  <EntityType Name="Pago">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="OrdenPagoId" Type="Guid" />
+    <Property Name="Importe" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="ParamPagos">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Guid" Nullable="false" />
+    <Property Name="porciento" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="porkilo" Type="Decimal" Precision="18" Scale="0" />
+  </EntityType>
+  <EntityType Name="Pesada">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="NumPesada" Type="Int64" />
+    <Property Name="PreingresoId" Type="Guid" />
+    <Property Name="ProductorId" Type="Guid" />
+    <Property Name="TotalFardo" Type="Int32" />
+    <Property Name="TotalKg" Type="Double" />
+    <Property Name="ImporteBruto" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="PrecioPromedio" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="FechaRomaneo" Type="DateTime" Precision="0" />
+    <Property Name="NumRomaneo" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="RomaneoPendiente" Type="Boolean" />
+    <Property Name="FechaInternaLiquidacion" Type="DateTime" Precision="0" />
+    <Property Name="NumInternoLiquidacion" Type="Int64" />
+    <Property Name="condIva" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IvaPorcentaje" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="IvaCalculado" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="ImporteNeto" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Total" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="NumAfipLiquidacion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="FechaAfipLiquidacion" Type="DateTime" Precision="0" />
+    <Property Name="Cae" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FechaVtoCae" Type="DateTime" Precision="0" />
+    <Property Name="OrdenPagoId" Type="Guid" />
+  </EntityType>
+  <EntityType Name="PesadaDetalle">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="PesadaId" Type="Guid" />
+    <Property Name="NumFardo" Type="Int64" />
+    <Property Name="ContadorFardo" Type="Int64" />
+    <Property Name="ClaseId" Type="Guid" />
+    <Property Name="ClasePrecio" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Kilos" Type="Double" />
+    <Property Name="ReclasificacionId" Type="Guid" />
+    <Property Name="ReclasificacionPrecio" Type="Decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="Preingreso">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="Transporte" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Chofer" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Patente" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NumRemito" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Observaciones" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="NumeroPreingreso" Type="Int32" />
+    <NavigationProperty Name="PreingresoDetalle" Relationship="CooperativaProduccionModel.FK_DetallePreingreso_Preingreso" FromRole="Preingreso" ToRole="PreingresoDetalle" />
+  </EntityType>
+  <EntityType Name="PreingresoDetalle">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="PreingresoId" Type="Guid" Nullable="false" />
+    <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Hora" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="ProductorId" Type="Guid" Nullable="false" />
+    <Property Name="Estado" Type="Boolean" />
+    <NavigationProperty Name="Preingreso" Relationship="CooperativaProduccionModel.FK_DetallePreingreso_Preingreso" FromRole="PreingresoDetalle" ToRole="Preingreso" />
+  </EntityType>
+  <EntityType Name="Remito">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="NumRemito" Type="Int64" />
+    <Property Name="PuntoVenta" Type="Int32" />
+    <Property Name="NumOperacion" Type="Int64" />
+    <Property Name="NumOrden" Type="Int64" />
+    <Property Name="ClienteId" Type="Guid" />
+    <Property Name="ProductoId" Type="Guid" />
+    <Property Name="DesdeCaja" Type="Int64" />
+    <Property Name="HastaCaja" Type="Int64" />
+    <Property Name="FechaOrden" Type="DateTime" Precision="0" />
+    <Property Name="FechaRemito" Type="DateTime" Precision="0" />
+    <Property Name="OrdenVentaId" Type="Guid" />
+    <Property Name="PathOrigin" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PathSystem" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="File" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <NavigationProperty Name="OrdenVenta" Relationship="CooperativaProduccionModel.FK_Remito_OrdenVenta" FromRole="Remito" ToRole="OrdenVenta" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="Usuario1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Apellido" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Vw_Clase">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Guid" Nullable="false" />
+    <Property Name="NOMBRE" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="ID_PRODUCTO" Type="Guid" />
+    <Property Name="COD_PRODUCTO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="PRECIOCOMPRA" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Vigente" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Vw_Cliente">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="DOMICILIO" />
+    </Key>
+    <Property Name="ID" Type="Guid" Nullable="false" />
+    <Property Name="CODIGO" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="RAZONSOCIAL" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="CUIT" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="CALLE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="DOMICILIO" Type="String" Nullable="false" MaxLength="182" FixedLength="false" Unicode="false" />
+    <Property Name="DENOMINACION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ZONA" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="TELEFONO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="MAIL" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="TP" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="TipoPago" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="ACTIVESTATUSTP" Type="Int32" />
+    <Property Name="Provincia" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="Ciudad" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="CONCATENADO" Type="String" MaxLength="157" FixedLength="false" Unicode="false" />
+    <Property Name="IVA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="IDPAGO" Type="Guid" />
+    <Property Name="domicilio_id" Type="Guid" />
+    <Property Name="listaprecio" Type="Guid" />
+    <Property Name="CREDITOMAXIMO" Type="Decimal" Precision="22" Scale="10" />
+    <Property Name="CUITE" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Vw_Movimiento">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="NumFardo" Type="Int64" />
+    <Property Name="Clase" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Kilos" Type="Double" />
+    <Property Name="NumRomaneo" Type="Int64" />
+    <Property Name="Productor" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Fet" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Cuit" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Provincia" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Fecha" Type="DateTime" Precision="0" />
+    <Property Name="Unidad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Ingreso" Type="Double" />
+    <Property Name="Egreso" Type="Double" />
+  </EntityType>
+  <EntityType Name="Vw_OrdenPago">
+    <Key>
+      <PropertyRef Name="OrdenPagoId" />
+    </Key>
+    <Property Name="OrdenPagoId" Type="Guid" Nullable="false" />
+    <Property Name="NumIntOrdenPago" Type="Int64" />
+    <Property Name="NumOrdenPago" Type="Int64" />
+    <Property Name="Fecha" Type="DateTime" Precision="0" />
+    <Property Name="ProductorId" Type="Guid" />
+    <Property Name="NOMBRE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="CUIT" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="nrofet" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Subtotal" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Ganancias" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="IVA" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="IIBB" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="SaludPublica" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="EEAOC" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Riego" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Monotributo" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Neto" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="detalle" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Vw_Pesada">
+    <Key>
+      <PropertyRef Name="PesadaId" />
+      <PropertyRef Name="PesadaDetalleId" />
+      <PropertyRef Name="Valor" />
+    </Key>
+    <Property Name="PesadaId" Type="Guid" Nullable="false" />
+    <Property Name="PesadaDetalleId" Type="Guid" Nullable="false" />
+    <Property Name="NumFardo" Type="Int64" />
+    <Property Name="ContadorFardo" Type="Int64" />
+    <Property Name="Clase" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="Valor" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="Kilos" Type="Double" />
+    <Property Name="Subtotal" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="FechaRomaneo" Type="DateTime" Precision="0" />
+    <Property Name="NumRomaneo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Productor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Fet" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Cuit" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="Provincia" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="Localidad" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="IVA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="FechainternaLiquidacion" Type="DateTime" Precision="0" />
+    <Property Name="NumInternoLiquidacion" Type="Int64" />
+    <Property Name="condIva" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NumAfipLiquidacion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="FechaAfipLiquidacion" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="Vw_Preingreso">
+    <Key>
+      <PropertyRef Name="PreIngresoId" />
+      <PropertyRef Name="PreIngresoDetalleId" />
+      <PropertyRef Name="Fecha" />
+      <PropertyRef Name="Hora" />
+    </Key>
+    <Property Name="PreIngresoId" Type="Guid" Nullable="false" />
+    <Property Name="Transporte" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Chofer" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Patente" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NumRemito" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Observaciones" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="NumeroPreingreso" Type="Int32" />
+    <Property Name="PreIngresoDetalleId" Type="Guid" Nullable="false" />
+    <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Hora" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="Estado" Type="Boolean" />
+    <Property Name="ProductorId" Type="Guid" />
+    <Property Name="FET" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Cuit" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="Provincia" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Vw_Producto">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Guid" Nullable="false" />
+    <Property Name="CODIGO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Vw_Productor">
+    <Key>
+      <PropertyRef Name="DOMICILIO" />
+    </Key>
+    <Property Name="ID" Type="Guid" />
+    <Property Name="CUIT" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="nrofet" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="NOMBRE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Provincia" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="CODIGO" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="CALLE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="DOMICILIO" Type="String" Nullable="false" MaxLength="182" FixedLength="false" Unicode="false" />
+    <Property Name="DENOMINACION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="TELEFONO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="MAIL" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="TP" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="TipoPago" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="Ciudad" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="IVA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="IIBB" Type="Decimal" Precision="38" Scale="10" />
+    <Property Name="EEAOC" Type="Decimal" Precision="38" Scale="10" />
+    <Property Name="SP" Type="Decimal" Precision="38" Scale="10" />
+    <Property Name="GADM" Type="Decimal" Precision="38" Scale="10" />
+    <Property Name="RIEGO" Type="Decimal" Precision="38" Scale="10" />
+    <Property Name="GANANCIA" Type="Decimal" Precision="38" Scale="10" />
+  </EntityType>
+  <EntityType Name="Vw_ResumenPesada">
+    <Key>
+      <PropertyRef Name="PesadaId" />
+    </Key>
+    <Property Name="PesadaId" Type="Guid" Nullable="false" />
+    <Property Name="totalfardo" Type="Int32" />
+    <Property Name="kilos" Type="Double" />
+    <Property Name="Subtotal" Type="Decimal" Precision="38" Scale="2" />
+  </EntityType>
+  <EntityType Name="Vw_ResumenPesadaPorClase">
+    <Key>
+      <PropertyRef Name="PesadaId" />
+    </Key>
+    <Property Name="PesadaId" Type="Guid" Nullable="false" />
+    <Property Name="Clase" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="Kilos" Type="Double" />
+  </EntityType>
+  <EntityType Name="Vw_ResumenRomaneoPorClase">
+    <Key>
+      <PropertyRef Name="PesadaId" />
+    </Key>
+    <Property Name="PesadaId" Type="Guid" Nullable="false" />
+    <Property Name="Clase" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="Fardos" Type="Int32" />
+    <Property Name="Kilos" Type="Double" />
+    <Property Name="ClasePrecio" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Total" Type="Decimal" Precision="12" Scale="2" />
+  </EntityType>
+  <EntityType Name="Vw_Romaneo">
+    <Key>
+      <PropertyRef Name="PesadaId" />
+      <PropertyRef Name="Letra" />
+      <PropertyRef Name="BASEGANANCIA" />
+    </Key>
+    <Property Name="PesadaId" Type="Guid" Nullable="false" />
+    <Property Name="FechaRomaneo" Type="DateTime" Precision="0" />
+    <Property Name="NumRomaneo" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="ProductorId" Type="Guid" />
+    <Property Name="NOMBRE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="CUIT" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="nrofet" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="IVA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="TotalKg" Type="Double" />
+    <Property Name="ImporteBruto" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Importeporpagar" Type="Double" />
+    <Property Name="NumInternoLiquidacion" Type="Int64" />
+    <Property Name="FechaInternaLiquidacion" Type="DateTime" Precision="0" />
+    <Property Name="Letra" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="Provincia" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="NumAfipLiquidacion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="FechaAfipLiquidacion" Type="DateTime" Precision="0" />
+    <Property Name="Cae" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FechaVtoCae" Type="DateTime" Precision="0" />
+    <Property Name="OrdenPagoId" Type="Guid" />
+    <Property Name="RomaneoPendiente" Type="Boolean" />
+    <Property Name="IIBB" Type="Decimal" Precision="38" Scale="10" />
+    <Property Name="EEAOC" Type="Decimal" Precision="38" Scale="10" />
+    <Property Name="SP" Type="Decimal" Precision="38" Scale="10" />
+    <Property Name="GADM" Type="Decimal" Precision="38" Scale="10" />
+    <Property Name="RIEGO" Type="Decimal" Precision="38" Scale="10" />
+    <Property Name="GANANCIA" Type="Decimal" Precision="38" Scale="10" />
+    <Property Name="BASEGANANCIA" Type="Double" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Caja_Cata">
+    <End Type="CooperativaProduccionModel.Cata" Role="Cata" Multiplicity="0..1" />
+    <End Type="CooperativaProduccionModel.Caja" Role="Caja" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cata">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Caja">
+        <PropertyRef Name="CataId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Remito_OrdenVenta">
+    <End Type="CooperativaProduccionModel.OrdenVenta" Role="OrdenVenta" Multiplicity="0..1" />
+    <End Type="CooperativaProduccionModel.Remito" Role="Remito" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrdenVenta">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Remito">
+        <PropertyRef Name="OrdenVentaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetallePreingreso_Preingreso">
+    <End Type="CooperativaProduccionModel.Preingreso" Role="Preingreso" Multiplicity="1" />
+    <End Type="CooperativaProduccionModel.PreingresoDetalle" Role="PreingresoDetalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Preingreso">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PreingresoDetalle">
+        <PropertyRef Name="PreingresoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

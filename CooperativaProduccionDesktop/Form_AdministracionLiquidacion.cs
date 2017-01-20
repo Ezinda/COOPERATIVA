@@ -29,8 +29,35 @@ namespace CooperativaProduccion
         public Form_AdministracionLiquidacion()
         {
             InitializeComponent();
+
+            //Eventos();
+
             Context = new CooperativaProduccionEntities();
+
+            this.Load += Form_AdministracionLiquidacion_Load;
+        }
+
+        void Form_AdministracionLiquidacion_Load(object sender, EventArgs e)
+        {
             Buscar(false);
+        }
+
+        void Eventos()
+        {
+            this.Liquidacion.SelectedPageChanged += this.Liquidacion_SelectedPageChanged;
+
+            this.btnBuscar.Click += this.btnBuscar_Click;
+            this.btnLiquidar.Click += this.btnLiquidar_Click;
+
+            this.btnBuscarLiquidacion.Click += this.btnBuscarLiquidacion_Click;
+            this.btnSubirAfip.Click += this.btnSubirAfip_Click;
+            this.btnPrevisualizar.Click += this.btnPrevisualizar_Click;
+
+            this.txtFet.KeyPress += this.txtFet_KeyPress;
+            this.txtProductor.KeyPress += this.txtProductor_KeyPress;
+
+            this.btnBuscarFet.Click += this.btnBuscarFet_Click;
+            this.btnBuscarProductor.Click += this.btnBuscarProductor_Click;
         }
 
         #region Modulo de Proceso de Liquidacion
@@ -66,13 +93,16 @@ namespace CooperativaProduccion
 
             pred = buscar.Equals(true) ? pred.And(x => x.FechaRomaneo >= dpDesdeRomaneo.Value.Date
                 && x.FechaRomaneo <= dpHastaRomaneo.Value.Date) : pred;
-            pred = pred.And(x => x.fechaAfipLiquidacion == null);
+            pred = pred.And(x => x.FechaAfipLiquidacion == null);
 
-            var result = (
-               from a in Context.Vw_Romaneo
-                   .Where(pred)
-                   .Where(x=>x.OrdenPagoId == null)
-               select new
+            var resultset = Context.Vw_Romaneo
+                .Where(pred)
+                .Where(x=>x.OrdenPagoId == null)
+               .OrderByDescending(x => x.FechaRomaneo)
+               .ThenBy(x => x.nrofet)
+               .ToList();
+
+            var result = resultset.Select(a => new
                {
                    ID = a.PesadaId,
                    FECHA = a.FechaRomaneo,
@@ -82,13 +112,10 @@ namespace CooperativaProduccion
                    FET = a.nrofet,
                    PROVINCIA = a.Provincia,
                    LETRA = a.Letra,
-                   KILOS = a.Totalkg,
+                   KILOS = a.TotalKg,
                    BRUTOSINIVA = a.ImporteBruto,
-                   NUMLIQUIDACION = a.numInternoLiquidacion
-               })
-               .OrderByDescending(x => x.FECHA)
-               .ThenBy(x => x.FET)
-               .ToList();
+                   NUMLIQUIDACION = a.NumInternoLiquidacion
+               }).ToList();
 
             gridControlRomaneo.DataSource = result;
             gridViewRomaneo.Columns[0].Visible = false;
@@ -266,7 +293,7 @@ namespace CooperativaProduccion
        
         private void Liquidacion_SelectedPageChanged(object sender, DevExpress.XtraTab.TabPageChangedEventArgs e)
         {
-            Limpiar();
+            //Limpiar();
         }
 
         private void btnSubirAfip_Click(object sender, EventArgs e)
@@ -308,8 +335,8 @@ namespace CooperativaProduccion
 
             if (checkPeriodo.Checked.Equals(true))
             {
-                pred = pred.And(x => x.fechaInternaLiquidacion >= dpDesdeLiquidacion.Value.Date 
-                    && x.fechaInternaLiquidacion <= dpHastaLiquidacion.Value.Date);
+                pred = pred.And(x => x.FechaInternaLiquidacion >= dpDesdeLiquidacion.Value.Date 
+                    && x.FechaInternaLiquidacion <= dpHastaLiquidacion.Value.Date);
             }
 
             if (ProductorId != Guid.Empty)
@@ -325,19 +352,19 @@ namespace CooperativaProduccion
                select new
                {
                    ID = a.PesadaId,
-                   FECHA = a.fechaInternaLiquidacion,
-                   NUMINTERNO = a.numInternoLiquidacion,
+                   FECHA = a.FechaInternaLiquidacion,
+                   NUMINTERNO = a.NumInternoLiquidacion,
                    PRODUCTOR = a.NOMBRE,
                    CUIT = a.CUIT,
                    FET = a.nrofet,
                    PROVINCIA = a.Provincia,
                    LETRA = a.Letra,
-                   KILOS = a.Totalkg,
+                   KILOS = a.TotalKg,
                    BRUTOSINIVA = a.ImporteBruto,
-                   FECHALIQUIDACIONAFIP = a.fechaAfipLiquidacion,
-                   NUMEROAFIPLIQUIDACION = a.numAfipLiquidacion,
-                   CAE = a.cae,
-                   FECHAVTOCAE = a.fechaVtoCae
+                   FECHALIQUIDACIONAFIP = a.FechaAfipLiquidacion,
+                   NUMEROAFIPLIQUIDACION = a.NumAfipLiquidacion,
+                   CAE = a.Cae,
+                   FECHAVTOCAE = a.FechaVtoCae
                })
                .OrderByDescending(x => x.FECHA)
                .ThenBy(x => x.FET)
@@ -628,8 +655,8 @@ namespace CooperativaProduccion
 
             #region Parametros Cabecera Factura
 
-            reporte.Parameters["nroComprobante"].Value = liquidacion.numAfipLiquidacion == null ? string.Empty : liquidacion.numAfipLiquidacion;
-            reporte.Parameters["fechaEmision"].Value = liquidacion.fechaAfipLiquidacion == null ? string.Empty : liquidacion.fechaAfipLiquidacion.Value.ToShortDateString();
+            reporte.Parameters["nroComprobante"].Value = liquidacion.NumAfipLiquidacion == null ? string.Empty : liquidacion.NumAfipLiquidacion;
+            reporte.Parameters["fechaEmision"].Value = liquidacion.FechaAfipLiquidacion == null ? string.Empty : liquidacion.FechaAfipLiquidacion.Value.ToShortDateString();
             reporte.Parameters["cuitEmpresa"].Value = DevConstantes.CuitEmpresa;
             reporte.Parameters["iibb"].Value = DevConstantes.IIBB;
             reporte.Parameters["ines"].Value = DevConstantes.Ines;
@@ -722,10 +749,10 @@ namespace CooperativaProduccion
 
             #region Parametros Cae
 
-            if (liquidacion.cae != null)
+            if (liquidacion.Cae != null)
             {
-                reporte.Parameters["cae"].Value = liquidacion.cae;
-                reporte.Parameters["fechaVtoCae"].Value = liquidacion.fechaVtoCae.Value.ToShortDateString();
+                reporte.Parameters["cae"].Value = liquidacion.Cae;
+                reporte.Parameters["fechaVtoCae"].Value = liquidacion.FechaVtoCae.Value.ToShortDateString();
             }
 
             #endregion

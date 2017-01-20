@@ -189,6 +189,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\AdministracionGeneracionOPControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\AdministracionGeneracionOPControl.Designer.cs">
+      <DependentUpon>AdministracionGeneracionOPControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\AdministracionVistaOPControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\AdministracionVistaOPControl.Designer.cs">
+      <DependentUpon>AdministracionVistaOPControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Extensions\ExtensionMethods.OrAnd.cs" />
     <Compile Include="Form_RomaneoPendiente.cs">
       <SubType>Form</SubType>
@@ -333,6 +345,8 @@
     <Compile Include="Helpers\DevConstantes.cs" />
     <Compile Include="Helpers\GridRecords\GridLiquidacion.cs" />
     <Compile Include="Helpers\GridRecords\GridLiquidacionDetalle.cs" />
+    <Compile Include="Helpers\PagosManager.cs" />
+    <Compile Include="Helpers\ProductoresManager.cs" />
     <Compile Include="Helpers\RawPrinterHelper.cs" />
     <Compile Include="Interface\IEnlaceMostradorPesada.cs" />
     <Compile Include="Interface\IEnlace.cs" />
@@ -394,12 +408,22 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
+    <Compile Include="Services\MessageBoxService.cs" />
     <Compile Include="SplashScreen1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SplashScreen1.Designer.cs">
       <DependentUpon>SplashScreen1.cs</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\OrdenDePagoViewModel.cs" />
+    <Compile Include="ViewModels\ProductorViewModel.cs" />
+    <Compile Include="ViewModels\RetencionViewModel.cs" />
+    <EmbeddedResource Include="Controls\AdministracionGeneracionOPControl.resx">
+      <DependentUpon>AdministracionGeneracionOPControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\AdministracionVistaOPControl.resx">
+      <DependentUpon>AdministracionVistaOPControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form_AdministracionActualizarOrdenVenta.resx">
       <DependentUpon>Form_AdministracionActualizarOrdenVenta.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -568,6 +592,7 @@
   <ItemGroup>
     <None Include="Resources\logoCooperativaReporteSm.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

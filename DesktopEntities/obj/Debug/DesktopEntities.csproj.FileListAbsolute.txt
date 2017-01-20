@@ -18,3 +18,12 @@ C:\Repo\COOPERATIVA\Cooperativa\DesktopEntities\bin\Debug\EntityFramework.SqlSer
 C:\Repo\COOPERATIVA\Cooperativa\DesktopEntities\obj\Debug\DesktopEntities.csprojResolveAssemblyReference.cache
 C:\Repo\COOPERATIVA\Cooperativa\DesktopEntities\obj\Debug\DesktopEntities.dll
 C:\Repo\COOPERATIVA\Cooperativa\DesktopEntities\obj\Debug\DesktopEntities.pdb
+C:\Users\FaNGTooTH\repositories\ezinda\Cooperativa\DesktopEntities\bin\Debug\DesktopEntities.dll.config
+C:\Users\FaNGTooTH\repositories\ezinda\Cooperativa\DesktopEntities\bin\Debug\DesktopEntities.dll
+C:\Users\FaNGTooTH\repositories\ezinda\Cooperativa\DesktopEntities\bin\Debug\DesktopEntities.pdb
+C:\Users\FaNGTooTH\repositories\ezinda\Cooperativa\DesktopEntities\bin\Debug\EntityFramework.dll
+C:\Users\FaNGTooTH\repositories\ezinda\Cooperativa\DesktopEntities\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\FaNGTooTH\repositories\ezinda\Cooperativa\DesktopEntities\bin\Debug\EntityFramework.xml
+C:\Users\FaNGTooTH\repositories\ezinda\Cooperativa\DesktopEntities\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\FaNGTooTH\repositories\ezinda\Cooperativa\DesktopEntities\obj\Debug\DesktopEntities.dll
+C:\Users\FaNGTooTH\repositories\ezinda\Cooperativa\DesktopEntities\obj\Debug\DesktopEntities.pdb

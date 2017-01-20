@@ -88,6 +88,9 @@
     <Compile Include="Models\Pago.cs">
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ParamPagos.cs">
+      <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Pesada.cs">
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>

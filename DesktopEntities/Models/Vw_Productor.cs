@@ -29,5 +29,11 @@ namespace DesktopEntities.Models
         public string TipoPago { get; set; }
         public string Ciudad { get; set; }
         public string IVA { get; set; }
+        public Nullable<decimal> IIBB { get; set; }
+        public Nullable<decimal> EEAOC { get; set; }
+        public Nullable<decimal> SP { get; set; }
+        public Nullable<decimal> GADM { get; set; }
+        public Nullable<decimal> RIEGO { get; set; }
+        public Nullable<decimal> GANANCIA { get; set; }
     }
 }

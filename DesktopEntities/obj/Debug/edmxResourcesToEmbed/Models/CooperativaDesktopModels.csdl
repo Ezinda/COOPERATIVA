@@ -9,6 +9,7 @@
     <EntitySet Name="OrdenPago" EntityType="CooperativaProduccionModel.OrdenPago" />
     <EntitySet Name="OrdenVenta" EntityType="CooperativaProduccionModel.OrdenVenta" />
     <EntitySet Name="Pago" EntityType="CooperativaProduccionModel.Pago" />
+    <EntitySet Name="ParamPagos" EntityType="CooperativaProduccionModel.ParamPagos" />
     <EntitySet Name="Pesada" EntityType="CooperativaProduccionModel.Pesada" />
     <EntitySet Name="PesadaDetalle" EntityType="CooperativaProduccionModel.PesadaDetalle" />
     <EntitySet Name="Preingreso" EntityType="CooperativaProduccionModel.Preingreso" />
@@ -64,7 +65,7 @@
     </Key>
     <Property Name="Id" Type="Guid" Nullable="false" />
     <Property Name="Lote" Type="Int64" />
-    <Property Name="Cata1" Type="Int64" />
+    <Property Name="NumCata" Type="Int64" />
     <Property Name="NumOrden" Type="Int64" />
     <Property Name="NumCaja" Type="Int64" />
     <Property Name="OrdenVentaId" Type="Guid" />
@@ -106,18 +107,18 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Guid" Nullable="false" />
-    <Property Name="NumOrdenPago" Type="Int64" />
-    <Property Name="NumIntOrdenPago" Type="Int64" />
-    <Property Name="Fecha" Type="DateTime" Precision="0" />
-    <Property Name="ProductorId" Type="Guid" />
+    <Property Name="NumOrdenPago" Type="Int64" Nullable="false" />
+    <Property Name="NumIntOrdenPago" Type="Int64" Nullable="false" />
+    <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="PesadaId" Type="Guid" Nullable="false" />
+    <Property Name="ProductorId" Type="Guid" Nullable="false" />
     <Property Name="Subtotal" Type="Decimal" Precision="18" Scale="2" />
     <Property Name="Ganancias" Type="Decimal" Precision="18" Scale="2" />
-    <Property Name="IVA" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="GADM" Type="Decimal" Precision="18" Scale="2" />
     <Property Name="IIBB" Type="Decimal" Precision="18" Scale="2" />
     <Property Name="SaludPublica" Type="Decimal" Precision="18" Scale="2" />
     <Property Name="EEAOC" Type="Decimal" Precision="18" Scale="2" />
     <Property Name="Riego" Type="Decimal" Precision="18" Scale="2" />
-    <Property Name="Monotributo" Type="Decimal" Precision="18" Scale="2" />
     <Property Name="Neto" Type="Decimal" Precision="18" Scale="2" />
     <Property Name="Detalle" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
   </EntityType>
@@ -143,6 +144,14 @@
     <Property Name="Id" Type="Guid" Nullable="false" />
     <Property Name="OrdenPagoId" Type="Guid" />
     <Property Name="Importe" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="ParamPagos">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Guid" Nullable="false" />
+    <Property Name="porciento" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="porkilo" Type="Decimal" Precision="18" Scale="0" />
   </EntityType>
   <EntityType Name="Pesada">
     <Key>
@@ -179,11 +188,12 @@
     <Property Name="Id" Type="Guid" Nullable="false" />
     <Property Name="PesadaId" Type="Guid" />
     <Property Name="NumFardo" Type="Int64" />
-    <Property Name="ClaseId" Type="Guid" />
-    <Property Name="Kilos" Type="Double" />
-    <Property Name="PrecioClase" Type="Decimal" Precision="18" Scale="2" />
     <Property Name="ContadorFardo" Type="Int64" />
+    <Property Name="ClaseId" Type="Guid" />
+    <Property Name="ClasePrecio" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Kilos" Type="Double" />
     <Property Name="ReclasificacionId" Type="Guid" />
+    <Property Name="ReclasificacionPrecio" Type="Decimal" Precision="18" Scale="2" />
   </EntityType>
   <EntityType Name="Preingreso">
     <Key>
@@ -411,6 +421,12 @@
     <Property Name="TipoPago" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
     <Property Name="Ciudad" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
     <Property Name="IVA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="IIBB" Type="Decimal" Precision="38" Scale="10" />
+    <Property Name="EEAOC" Type="Decimal" Precision="38" Scale="10" />
+    <Property Name="SP" Type="Decimal" Precision="38" Scale="10" />
+    <Property Name="GADM" Type="Decimal" Precision="38" Scale="10" />
+    <Property Name="RIEGO" Type="Decimal" Precision="38" Scale="10" />
+    <Property Name="GANANCIA" Type="Decimal" Precision="38" Scale="10" />
   </EntityType>
   <EntityType Name="Vw_ResumenPesada">
     <Key>
@@ -437,33 +453,43 @@
     <Property Name="Clase" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
     <Property Name="Fardos" Type="Int32" />
     <Property Name="Kilos" Type="Double" />
-    <Property Name="PrecioClase" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="ClasePrecio" Type="Decimal" Precision="18" Scale="2" />
     <Property Name="Total" Type="Decimal" Precision="12" Scale="2" />
   </EntityType>
   <EntityType Name="Vw_Romaneo">
     <Key>
       <PropertyRef Name="PesadaId" />
       <PropertyRef Name="Letra" />
+      <PropertyRef Name="BASEGANANCIA" />
     </Key>
     <Property Name="PesadaId" Type="Guid" Nullable="false" />
     <Property Name="FechaRomaneo" Type="DateTime" Precision="0" />
-    <Property Name="NumRomaneo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NumRomaneo" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Name="ProductorId" Type="Guid" />
     <Property Name="NOMBRE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="CUIT" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
     <Property Name="nrofet" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
     <Property Name="IVA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="Totalkg" Type="Double" />
+    <Property Name="TotalKg" Type="Double" />
     <Property Name="ImporteBruto" Type="Decimal" Precision="18" Scale="2" />
-    <Property Name="numInternoLiquidacion" Type="Int64" />
-    <Property Name="fechaInternaLiquidacion" Type="DateTime" Precision="0" />
+    <Property Name="Importeporpagar" Type="Double" />
+    <Property Name="NumInternoLiquidacion" Type="Int64" />
+    <Property Name="FechaInternaLiquidacion" Type="DateTime" Precision="0" />
     <Property Name="Letra" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
     <Property Name="Provincia" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
-    <Property Name="numAfipLiquidacion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="fechaAfipLiquidacion" Type="DateTime" Precision="0" />
-    <Property Name="cae" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="fechaVtoCae" Type="DateTime" Precision="0" />
+    <Property Name="NumAfipLiquidacion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="FechaAfipLiquidacion" Type="DateTime" Precision="0" />
+    <Property Name="Cae" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FechaVtoCae" Type="DateTime" Precision="0" />
     <Property Name="OrdenPagoId" Type="Guid" />
+    <Property Name="RomaneoPendiente" Type="Boolean" />
+    <Property Name="IIBB" Type="Decimal" Precision="38" Scale="10" />
+    <Property Name="EEAOC" Type="Decimal" Precision="38" Scale="10" />
+    <Property Name="SP" Type="Decimal" Precision="38" Scale="10" />
+    <Property Name="GADM" Type="Decimal" Precision="38" Scale="10" />
+    <Property Name="RIEGO" Type="Decimal" Precision="38" Scale="10" />
+    <Property Name="GANANCIA" Type="Decimal" Precision="38" Scale="10" />
+    <Property Name="BASEGANANCIA" Type="Double" Nullable="false" />
   </EntityType>
   <Association Name="FK_Caja_Cata">
     <End Type="CooperativaProduccionModel.Cata" Role="Cata" Multiplicity="0..1" />

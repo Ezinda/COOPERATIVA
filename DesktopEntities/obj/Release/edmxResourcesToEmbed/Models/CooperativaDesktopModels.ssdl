@@ -1,12 +1,51 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="CooperativaProduccionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Caja">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="NumeroCaja" Type="bigint" Nullable="false" />
+    <Property Name="OrdenVentaId" Type="uniqueidentifier" />
+    <Property Name="LoteCaja" Type="bigint" />
+    <Property Name="Fecha" Type="date" Nullable="false" />
+    <Property Name="Hora" Type="time" Precision="7" Nullable="false" />
+    <Property Name="ProductoId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Bruto" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="Tara" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="Neto" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="CataId" Type="uniqueidentifier" />
+  </EntityType>
+  <EntityType Name="Cata">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Lote" Type="bigint" />
+    <Property Name="NumCata" Type="bigint" />
+    <Property Name="NumOrden" Type="bigint" />
+    <Property Name="NumCaja" Type="bigint" />
+    <Property Name="OrdenVentaId" Type="uniqueidentifier" />
+    <Property Name="CajaId" Type="uniqueidentifier" />
+  </EntityType>
   <EntityType Name="Clase">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ClaseId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Valor" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="FechaModificacion" Type="datetime" Nullable="false" />
+    <Property Name="Vigente" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Contador">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
     <Property Name="Nombre" Type="nvarchar" MaxLength="50" />
-    <Property Name="Valor" Type="float" />
+    <Property Name="Descripcion" Type="nvarchar" MaxLength="50" />
+    <Property Name="Valor" Type="bigint" />
   </EntityType>
   <EntityType Name="Movimiento">
     <Key>
@@ -19,20 +58,83 @@
     <Property Name="Ingreso" Type="float" />
     <Property Name="Egreso" Type="float" />
   </EntityType>
+  <EntityType Name="OrdenPago">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="NumOrdenPago" Type="bigint" />
+    <Property Name="NumIntOrdenPago" Type="bigint" />
+    <Property Name="Fecha" Type="date" />
+    <Property Name="ProductorId" Type="uniqueidentifier" />
+    <Property Name="Subtotal" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Ganancias" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="IVA" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="IIBB" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="SaludPublica" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="EEAOC" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Riego" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Monotributo" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Neto" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Detalle" Type="nvarchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="OrdenVenta">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="NumOrden" Type="bigint" Nullable="false" />
+    <Property Name="NumOperacion" Type="bigint" Nullable="false" />
+    <Property Name="ClienteId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ProductoId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="DesdeCaja" Type="bigint" />
+    <Property Name="HastaCaja" Type="bigint" />
+    <Property Name="Fecha" Type="date" Nullable="false" />
+    <Property Name="Pendiente" Type="bit" />
+  </EntityType>
+  <EntityType Name="Pago">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="OrdenPagoId" Type="uniqueidentifier" />
+    <Property Name="Importe" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ParamPagos">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="porciento" Type="numeric" Precision="18" Scale="0" />
+    <Property Name="porkilo" Type="numeric" Precision="18" Scale="0" />
+  </EntityType>
   <EntityType Name="Pesada">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="NumPesada" Type="int" />
+    <Property Name="NumPesada" Type="bigint" />
     <Property Name="PreingresoId" Type="uniqueidentifier" />
     <Property Name="ProductorId" Type="uniqueidentifier" />
     <Property Name="TotalFardo" Type="int" />
     <Property Name="TotalKg" Type="float" />
-    <Property Name="ImporteBruto" Type="float" />
-    <Property Name="PrecioPromedio" Type="float" />
-    <Property Name="Fecha" Type="date" />
-    <Property Name="NumRomaneo" Type="bigint" />
+    <Property Name="ImporteBruto" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="PrecioPromedio" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="FechaRomaneo" Type="date" />
+    <Property Name="NumRomaneo" Type="nvarchar" MaxLength="500" />
+    <Property Name="RomaneoPendiente" Type="bit" />
+    <Property Name="FechaInternaLiquidacion" Type="date" />
+    <Property Name="NumInternoLiquidacion" Type="bigint" />
+    <Property Name="condIva" Type="nvarchar" MaxLength="50" />
+    <Property Name="IvaPorcentaje" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="IvaCalculado" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="ImporteNeto" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Total" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="NumAfipLiquidacion" Type="nvarchar" MaxLength="100" />
+    <Property Name="FechaAfipLiquidacion" Type="date" />
+    <Property Name="Cae" Type="nvarchar" MaxLength="50" />
+    <Property Name="FechaVtoCae" Type="date" />
+    <Property Name="OrdenPagoId" Type="uniqueidentifier" />
   </EntityType>
   <EntityType Name="PesadaDetalle">
     <Key>
@@ -41,10 +143,12 @@
     <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
     <Property Name="PesadaId" Type="uniqueidentifier" />
     <Property Name="NumFardo" Type="bigint" />
-    <Property Name="ClaseId" Type="uniqueidentifier" />
-    <Property Name="Kilos" Type="float" />
     <Property Name="ContadorFardo" Type="bigint" />
+    <Property Name="ClaseId" Type="uniqueidentifier" />
+    <Property Name="ClasePrecio" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Kilos" Type="float" />
     <Property Name="ReclasificacionId" Type="uniqueidentifier" />
+    <Property Name="ReclasificacionPrecio" Type="decimal" Precision="18" Scale="2" />
   </EntityType>
   <EntityType Name="Preingreso">
     <Key>
@@ -69,15 +173,35 @@
     <Property Name="ProductorId" Type="uniqueidentifier" Nullable="false" />
     <Property Name="Estado" Type="bit" />
   </EntityType>
-  <EntityType Name="Productor">
+  <EntityType Name="Remito">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="Cuit" Type="nvarchar" MaxLength="150" />
-    <Property Name="Fet" Type="nvarchar" MaxLength="150" />
-    <Property Name="Nombre" Type="nvarchar" MaxLength="250" />
-    <Property Name="Provincia" Type="nvarchar" MaxLength="50" />
+    <Property Name="NumRemito" Type="bigint" />
+    <Property Name="PuntoVenta" Type="int" />
+    <Property Name="NumOperacion" Type="bigint" />
+    <Property Name="NumOrden" Type="bigint" />
+    <Property Name="ClienteId" Type="uniqueidentifier" />
+    <Property Name="ProductoId" Type="uniqueidentifier" />
+    <Property Name="DesdeCaja" Type="bigint" />
+    <Property Name="HastaCaja" Type="bigint" />
+    <Property Name="FechaOrden" Type="date" />
+    <Property Name="FechaRemito" Type="date" />
+    <Property Name="OrdenVentaId" Type="uniqueidentifier" />
+    <Property Name="PathOrigin" Type="nvarchar(max)" />
+    <Property Name="PathSystem" Type="nvarchar(max)" />
+    <Property Name="File" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
   <EntityType Name="Usuario">
     <Key>
@@ -88,6 +212,50 @@
     <Property Name="Password" Type="nvarchar" MaxLength="100" />
     <Property Name="Nombre" Type="nvarchar" MaxLength="100" />
     <Property Name="Apellido" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Clase' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Vw_Clase">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="NOMBRE" Type="varchar" MaxLength="120" />
+    <Property Name="ID_PRODUCTO" Type="uniqueidentifier" />
+    <Property Name="COD_PRODUCTO" Type="varchar" MaxLength="30" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="150" />
+    <Property Name="PRECIOCOMPRA" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Vigente" Type="bit" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Cliente' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Vw_Cliente">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="DOMICILIO" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="CODIGO" Type="varchar" MaxLength="15" />
+    <Property Name="RAZONSOCIAL" Type="varchar" MaxLength="100" />
+    <Property Name="CUIT" Type="varchar" MaxLength="40" />
+    <Property Name="CALLE" Type="varchar" MaxLength="100" />
+    <Property Name="DOMICILIO" Type="varchar" MaxLength="182" Nullable="false" />
+    <Property Name="DENOMINACION" Type="varchar" MaxLength="100" />
+    <Property Name="ZONA" Type="varchar" MaxLength="100" />
+    <Property Name="TELEFONO" Type="varchar" MaxLength="20" />
+    <Property Name="MAIL" Type="varchar" MaxLength="100" />
+    <Property Name="TP" Type="varchar" MaxLength="40" />
+    <Property Name="TipoPago" Type="varchar" MaxLength="150" />
+    <Property Name="ACTIVESTATUSTP" Type="int" />
+    <Property Name="Provincia" Type="varchar" MaxLength="40" />
+    <Property Name="Ciudad" Type="varchar" MaxLength="40" />
+    <Property Name="CONCATENADO" Type="varchar" MaxLength="157" />
+    <Property Name="IVA" Type="varchar" MaxLength="10" />
+    <Property Name="IDPAGO" Type="uniqueidentifier" />
+    <Property Name="domicilio_id" Type="uniqueidentifier" />
+    <Property Name="listaprecio" Type="uniqueidentifier" />
+    <Property Name="CREDITOMAXIMO" Type="decimal" Precision="22" Scale="10" />
+    <Property Name="CUITE" Type="varchar" MaxLength="30" />
   </EntityType>
   <!--Errors Found During Generation:
 warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Movimiento' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -110,26 +278,59 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Movimiento' does not 
     <Property Name="Egreso" Type="float" />
   </EntityType>
   <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_OrdenPago' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Vw_OrdenPago">
+    <Key>
+      <PropertyRef Name="OrdenPagoId" />
+    </Key>
+    <Property Name="OrdenPagoId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="NumIntOrdenPago" Type="bigint" />
+    <Property Name="NumOrdenPago" Type="bigint" />
+    <Property Name="Fecha" Type="date" />
+    <Property Name="ProductorId" Type="uniqueidentifier" />
+    <Property Name="NOMBRE" Type="varchar" MaxLength="100" />
+    <Property Name="CUIT" Type="varchar" MaxLength="40" />
+    <Property Name="nrofet" Type="varchar" MaxLength="30" />
+    <Property Name="Subtotal" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Ganancias" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="IVA" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="IIBB" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="SaludPublica" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="EEAOC" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Riego" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Monotributo" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Neto" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="detalle" Type="nvarchar" MaxLength="500" />
+  </EntityType>
+  <!--Errors Found During Generation:
 warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Pesada' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="Vw_Pesada">
     <Key>
       <PropertyRef Name="PesadaId" />
       <PropertyRef Name="PesadaDetalleId" />
+      <PropertyRef Name="Valor" />
     </Key>
     <Property Name="PesadaId" Type="uniqueidentifier" Nullable="false" />
     <Property Name="PesadaDetalleId" Type="uniqueidentifier" Nullable="false" />
     <Property Name="NumFardo" Type="bigint" />
     <Property Name="ContadorFardo" Type="bigint" />
-    <Property Name="Clase" Type="nvarchar" MaxLength="50" />
-    <Property Name="Valor" Type="float" />
+    <Property Name="Clase" Type="varchar" MaxLength="120" />
+    <Property Name="Valor" Type="decimal" Precision="18" Scale="2" Nullable="false" />
     <Property Name="Kilos" Type="float" />
     <Property Name="Subtotal" Type="decimal" Precision="10" Scale="2" />
-    <Property Name="Fecha" Type="date" />
-    <Property Name="NumRomaneo" Type="bigint" />
-    <Property Name="Productor" Type="nvarchar" MaxLength="250" />
-    <Property Name="Fet" Type="nvarchar" MaxLength="150" />
-    <Property Name="Cuit" Type="nvarchar" MaxLength="150" />
-    <Property Name="Provincia" Type="nvarchar" MaxLength="50" />
+    <Property Name="FechaRomaneo" Type="date" />
+    <Property Name="NumRomaneo" Type="nvarchar" MaxLength="50" />
+    <Property Name="Productor" Type="varchar" MaxLength="100" />
+    <Property Name="Fet" Type="varchar" MaxLength="30" />
+    <Property Name="Cuit" Type="varchar" MaxLength="40" />
+    <Property Name="Provincia" Type="varchar" MaxLength="40" />
+    <Property Name="Localidad" Type="varchar" MaxLength="40" />
+    <Property Name="IVA" Type="varchar" MaxLength="10" />
+    <Property Name="FechainternaLiquidacion" Type="date" />
+    <Property Name="NumInternoLiquidacion" Type="bigint" />
+    <Property Name="condIva" Type="nvarchar" MaxLength="50" />
+    <Property Name="NumAfipLiquidacion" Type="nvarchar" MaxLength="100" />
+    <Property Name="FechaAfipLiquidacion" Type="date" />
   </EntityType>
   <!--Errors Found During Generation:
 warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Preingreso' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -139,7 +340,6 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Preingreso' does not 
       <PropertyRef Name="PreIngresoDetalleId" />
       <PropertyRef Name="Fecha" />
       <PropertyRef Name="Hora" />
-      <PropertyRef Name="ProductorId" />
     </Key>
     <Property Name="PreIngresoId" Type="uniqueidentifier" Nullable="false" />
     <Property Name="Transporte" Type="nvarchar" MaxLength="200" />
@@ -152,11 +352,49 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Preingreso' does not 
     <Property Name="Fecha" Type="date" Nullable="false" />
     <Property Name="Hora" Type="time" Precision="7" Nullable="false" />
     <Property Name="Estado" Type="bit" />
-    <Property Name="ProductorId" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="Fet" Type="nvarchar" MaxLength="150" />
-    <Property Name="Nombre" Type="nvarchar" MaxLength="250" />
-    <Property Name="Cuit" Type="nvarchar" MaxLength="150" />
-    <Property Name="Provincia" Type="nvarchar" MaxLength="50" />
+    <Property Name="ProductorId" Type="uniqueidentifier" />
+    <Property Name="FET" Type="varchar" MaxLength="30" />
+    <Property Name="Nombre" Type="varchar" MaxLength="100" />
+    <Property Name="Cuit" Type="varchar" MaxLength="40" />
+    <Property Name="Provincia" Type="varchar" MaxLength="40" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Producto' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Vw_Producto">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="CODIGO" Type="varchar" MaxLength="30" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="150" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Productor' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Vw_Productor">
+    <Key>
+      <PropertyRef Name="DOMICILIO" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" />
+    <Property Name="CUIT" Type="varchar" MaxLength="40" />
+    <Property Name="nrofet" Type="varchar" MaxLength="30" />
+    <Property Name="NOMBRE" Type="varchar" MaxLength="100" />
+    <Property Name="Provincia" Type="varchar" MaxLength="40" />
+    <Property Name="CODIGO" Type="varchar" MaxLength="15" />
+    <Property Name="CALLE" Type="varchar" MaxLength="100" />
+    <Property Name="DOMICILIO" Type="varchar" MaxLength="182" Nullable="false" />
+    <Property Name="DENOMINACION" Type="varchar" MaxLength="100" />
+    <Property Name="TELEFONO" Type="varchar" MaxLength="20" />
+    <Property Name="MAIL" Type="varchar" MaxLength="100" />
+    <Property Name="TP" Type="varchar" MaxLength="40" />
+    <Property Name="TipoPago" Type="varchar" MaxLength="150" />
+    <Property Name="Ciudad" Type="varchar" MaxLength="40" />
+    <Property Name="IVA" Type="varchar" MaxLength="10" />
+    <Property Name="IIBB" Type="decimal" Precision="38" Scale="10" />
+    <Property Name="EEAOC" Type="decimal" Precision="38" Scale="10" />
+    <Property Name="SP" Type="decimal" Precision="38" Scale="10" />
+    <Property Name="GADM" Type="decimal" Precision="38" Scale="10" />
+    <Property Name="RIEGO" Type="decimal" Precision="38" Scale="10" />
+    <Property Name="GANANCIA" Type="decimal" Precision="38" Scale="10" />
   </EntityType>
   <!--Errors Found During Generation:
 warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenPesada' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -176,9 +414,71 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenPesadaPorClase
       <PropertyRef Name="PesadaId" />
     </Key>
     <Property Name="PesadaId" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="Clase" Type="nvarchar" MaxLength="50" />
+    <Property Name="Clase" Type="varchar" MaxLength="120" />
     <Property Name="Kilos" Type="float" />
   </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenRomaneoPorClase' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Vw_ResumenRomaneoPorClase">
+    <Key>
+      <PropertyRef Name="PesadaId" />
+    </Key>
+    <Property Name="PesadaId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Clase" Type="varchar" MaxLength="120" />
+    <Property Name="Fardos" Type="int" />
+    <Property Name="Kilos" Type="float" />
+    <Property Name="ClasePrecio" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Total" Type="decimal" Precision="12" Scale="2" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Vw_Romaneo">
+    <Key>
+      <PropertyRef Name="PesadaId" />
+      <PropertyRef Name="Letra" />
+      <PropertyRef Name="BASEGANANCIA" />
+    </Key>
+    <Property Name="PesadaId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="FechaRomaneo" Type="date" />
+    <Property Name="NumRomaneo" Type="nvarchar" MaxLength="500" />
+    <Property Name="ProductorId" Type="uniqueidentifier" />
+    <Property Name="NOMBRE" Type="varchar" MaxLength="100" />
+    <Property Name="CUIT" Type="varchar" MaxLength="40" />
+    <Property Name="nrofet" Type="varchar" MaxLength="30" />
+    <Property Name="IVA" Type="varchar" MaxLength="10" />
+    <Property Name="TotalKg" Type="float" />
+    <Property Name="ImporteBruto" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Importeporpagar" Type="float" />
+    <Property Name="NumInternoLiquidacion" Type="bigint" />
+    <Property Name="FechaInternaLiquidacion" Type="date" />
+    <Property Name="Letra" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="Provincia" Type="varchar" MaxLength="40" />
+    <Property Name="NumAfipLiquidacion" Type="nvarchar" MaxLength="100" />
+    <Property Name="FechaAfipLiquidacion" Type="date" />
+    <Property Name="Cae" Type="nvarchar" MaxLength="50" />
+    <Property Name="FechaVtoCae" Type="date" />
+    <Property Name="OrdenPagoId" Type="uniqueidentifier" />
+    <Property Name="RomaneoPendiente" Type="bit" />
+    <Property Name="IIBB" Type="decimal" Precision="38" Scale="10" />
+    <Property Name="EEAOC" Type="decimal" Precision="38" Scale="10" />
+    <Property Name="SP" Type="decimal" Precision="38" Scale="10" />
+    <Property Name="GADM" Type="decimal" Precision="38" Scale="10" />
+    <Property Name="RIEGO" Type="decimal" Precision="38" Scale="10" />
+    <Property Name="GANANCIA" Type="decimal" Precision="38" Scale="10" />
+    <Property Name="BASEGANANCIA" Type="float" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Caja_Cata">
+    <End Role="Cata" Type="Self.Cata" Multiplicity="0..1" />
+    <End Role="Caja" Type="Self.Caja" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cata">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Caja">
+        <PropertyRef Name="CataId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_DetallePreingreso_Preingreso">
     <End Role="Preingreso" Type="Self.Preingreso" Multiplicity="1" />
     <End Role="PreingresoDetalle" Type="Self.PreingresoDetalle" Multiplicity="*" />
@@ -191,15 +491,72 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenPesadaPorClase
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Remito_OrdenVenta">
+    <End Role="OrdenVenta" Type="Self.OrdenVenta" Multiplicity="0..1" />
+    <End Role="Remito" Type="Self.Remito" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrdenVenta">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Remito">
+        <PropertyRef Name="OrdenVentaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="CooperativaProduccionModelStoreContainer">
+    <EntitySet Name="Caja" EntityType="Self.Caja" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cata" EntityType="Self.Cata" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Clase" EntityType="Self.Clase" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Contador" EntityType="Self.Contador" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Movimiento" EntityType="Self.Movimiento" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OrdenPago" EntityType="Self.OrdenPago" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OrdenVenta" EntityType="Self.OrdenVenta" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Pago" EntityType="Self.Pago" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ParamPagos" EntityType="Self.ParamPagos" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Pesada" EntityType="Self.Pesada" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PesadaDetalle" EntityType="Self.PesadaDetalle" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Preingreso" EntityType="Self.Preingreso" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PreingresoDetalle" EntityType="Self.PreingresoDetalle" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Productor" EntityType="Self.Productor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Remito" EntityType="Self.Remito" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Vw_Clase" EntityType="Self.Vw_Clase" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Vw_Clase].[ID] AS [ID], 
+    [Vw_Clase].[NOMBRE] AS [NOMBRE], 
+    [Vw_Clase].[ID_PRODUCTO] AS [ID_PRODUCTO], 
+    [Vw_Clase].[COD_PRODUCTO] AS [COD_PRODUCTO], 
+    [Vw_Clase].[DESCRIPCION] AS [DESCRIPCION], 
+    [Vw_Clase].[PRECIOCOMPRA] AS [PRECIOCOMPRA], 
+    [Vw_Clase].[Vigente] AS [Vigente]
+    FROM [dbo].[Vw_Clase] AS [Vw_Clase]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Vw_Cliente" EntityType="Self.Vw_Cliente" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Vw_Cliente].[ID] AS [ID], 
+    [Vw_Cliente].[CODIGO] AS [CODIGO], 
+    [Vw_Cliente].[RAZONSOCIAL] AS [RAZONSOCIAL], 
+    [Vw_Cliente].[CUIT] AS [CUIT], 
+    [Vw_Cliente].[CALLE] AS [CALLE], 
+    [Vw_Cliente].[DOMICILIO] AS [DOMICILIO], 
+    [Vw_Cliente].[DENOMINACION] AS [DENOMINACION], 
+    [Vw_Cliente].[ZONA] AS [ZONA], 
+    [Vw_Cliente].[TELEFONO] AS [TELEFONO], 
+    [Vw_Cliente].[MAIL] AS [MAIL], 
+    [Vw_Cliente].[TP] AS [TP], 
+    [Vw_Cliente].[TipoPago] AS [TipoPago], 
+    [Vw_Cliente].[ACTIVESTATUSTP] AS [ACTIVESTATUSTP], 
+    [Vw_Cliente].[Provincia] AS [Provincia], 
+    [Vw_Cliente].[Ciudad] AS [Ciudad], 
+    [Vw_Cliente].[CONCATENADO] AS [CONCATENADO], 
+    [Vw_Cliente].[IVA] AS [IVA], 
+    [Vw_Cliente].[IDPAGO] AS [IDPAGO], 
+    [Vw_Cliente].[domicilio_id] AS [domicilio_id], 
+    [Vw_Cliente].[listaprecio] AS [listaprecio], 
+    [Vw_Cliente].[CREDITOMAXIMO] AS [CREDITOMAXIMO], 
+    [Vw_Cliente].[CUITE] AS [CUITE]
+    FROM [dbo].[Vw_Cliente] AS [Vw_Cliente]</DefiningQuery>
+    </EntitySet>
     <EntitySet Name="Vw_Movimiento" EntityType="Self.Vw_Movimiento" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
     [Vw_Movimiento].[Id] AS [Id], 
@@ -217,6 +574,28 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenPesadaPorClase
     [Vw_Movimiento].[Egreso] AS [Egreso]
     FROM [dbo].[Vw_Movimiento] AS [Vw_Movimiento]</DefiningQuery>
     </EntitySet>
+    <EntitySet Name="Vw_OrdenPago" EntityType="Self.Vw_OrdenPago" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Vw_OrdenPago].[OrdenPagoId] AS [OrdenPagoId], 
+    [Vw_OrdenPago].[NumIntOrdenPago] AS [NumIntOrdenPago], 
+    [Vw_OrdenPago].[NumOrdenPago] AS [NumOrdenPago], 
+    [Vw_OrdenPago].[Fecha] AS [Fecha], 
+    [Vw_OrdenPago].[ProductorId] AS [ProductorId], 
+    [Vw_OrdenPago].[NOMBRE] AS [NOMBRE], 
+    [Vw_OrdenPago].[CUIT] AS [CUIT], 
+    [Vw_OrdenPago].[nrofet] AS [nrofet], 
+    [Vw_OrdenPago].[Subtotal] AS [Subtotal], 
+    [Vw_OrdenPago].[Ganancias] AS [Ganancias], 
+    [Vw_OrdenPago].[IVA] AS [IVA], 
+    [Vw_OrdenPago].[IIBB] AS [IIBB], 
+    [Vw_OrdenPago].[SaludPublica] AS [SaludPublica], 
+    [Vw_OrdenPago].[EEAOC] AS [EEAOC], 
+    [Vw_OrdenPago].[Riego] AS [Riego], 
+    [Vw_OrdenPago].[Monotributo] AS [Monotributo], 
+    [Vw_OrdenPago].[Neto] AS [Neto], 
+    [Vw_OrdenPago].[detalle] AS [detalle]
+    FROM [dbo].[Vw_OrdenPago] AS [Vw_OrdenPago]</DefiningQuery>
+    </EntitySet>
     <EntitySet Name="Vw_Pesada" EntityType="Self.Vw_Pesada" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
     [Vw_Pesada].[PesadaId] AS [PesadaId], 
@@ -227,12 +606,19 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenPesadaPorClase
     [Vw_Pesada].[Valor] AS [Valor], 
     [Vw_Pesada].[Kilos] AS [Kilos], 
     [Vw_Pesada].[Subtotal] AS [Subtotal], 
-    [Vw_Pesada].[Fecha] AS [Fecha], 
+    [Vw_Pesada].[FechaRomaneo] AS [FechaRomaneo], 
     [Vw_Pesada].[NumRomaneo] AS [NumRomaneo], 
     [Vw_Pesada].[Productor] AS [Productor], 
     [Vw_Pesada].[Fet] AS [Fet], 
     [Vw_Pesada].[Cuit] AS [Cuit], 
-    [Vw_Pesada].[Provincia] AS [Provincia]
+    [Vw_Pesada].[Provincia] AS [Provincia], 
+    [Vw_Pesada].[Localidad] AS [Localidad], 
+    [Vw_Pesada].[IVA] AS [IVA], 
+    [Vw_Pesada].[FechainternaLiquidacion] AS [FechainternaLiquidacion], 
+    [Vw_Pesada].[NumInternoLiquidacion] AS [NumInternoLiquidacion], 
+    [Vw_Pesada].[condIva] AS [condIva], 
+    [Vw_Pesada].[NumAfipLiquidacion] AS [NumAfipLiquidacion], 
+    [Vw_Pesada].[FechaAfipLiquidacion] AS [FechaAfipLiquidacion]
     FROM [dbo].[Vw_Pesada] AS [Vw_Pesada]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="Vw_Preingreso" EntityType="Self.Vw_Preingreso" store:Type="Views" store:Schema="dbo">
@@ -249,11 +635,43 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenPesadaPorClase
     [Vw_Preingreso].[Hora] AS [Hora], 
     [Vw_Preingreso].[Estado] AS [Estado], 
     [Vw_Preingreso].[ProductorId] AS [ProductorId], 
-    [Vw_Preingreso].[Fet] AS [Fet], 
+    [Vw_Preingreso].[FET] AS [FET], 
     [Vw_Preingreso].[Nombre] AS [Nombre], 
     [Vw_Preingreso].[Cuit] AS [Cuit], 
     [Vw_Preingreso].[Provincia] AS [Provincia]
     FROM [dbo].[Vw_Preingreso] AS [Vw_Preingreso]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Vw_Producto" EntityType="Self.Vw_Producto" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Vw_Producto].[ID] AS [ID], 
+    [Vw_Producto].[CODIGO] AS [CODIGO], 
+    [Vw_Producto].[DESCRIPCION] AS [DESCRIPCION]
+    FROM [dbo].[Vw_Producto] AS [Vw_Producto]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Vw_Productor" EntityType="Self.Vw_Productor" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Vw_Productor].[ID] AS [ID], 
+    [Vw_Productor].[CUIT] AS [CUIT], 
+    [Vw_Productor].[nrofet] AS [nrofet], 
+    [Vw_Productor].[NOMBRE] AS [NOMBRE], 
+    [Vw_Productor].[Provincia] AS [Provincia], 
+    [Vw_Productor].[CODIGO] AS [CODIGO], 
+    [Vw_Productor].[CALLE] AS [CALLE], 
+    [Vw_Productor].[DOMICILIO] AS [DOMICILIO], 
+    [Vw_Productor].[DENOMINACION] AS [DENOMINACION], 
+    [Vw_Productor].[TELEFONO] AS [TELEFONO], 
+    [Vw_Productor].[MAIL] AS [MAIL], 
+    [Vw_Productor].[TP] AS [TP], 
+    [Vw_Productor].[TipoPago] AS [TipoPago], 
+    [Vw_Productor].[Ciudad] AS [Ciudad], 
+    [Vw_Productor].[IVA] AS [IVA], 
+    [Vw_Productor].[IIBB] AS [IIBB], 
+    [Vw_Productor].[EEAOC] AS [EEAOC], 
+    [Vw_Productor].[SP] AS [SP], 
+    [Vw_Productor].[GADM] AS [GADM], 
+    [Vw_Productor].[RIEGO] AS [RIEGO], 
+    [Vw_Productor].[GANANCIA] AS [GANANCIA]
+    FROM [dbo].[Vw_Productor] AS [Vw_Productor]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="Vw_ResumenPesada" EntityType="Self.Vw_ResumenPesada" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
@@ -270,9 +688,59 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenPesadaPorClase
     [Vw_ResumenPesadaPorClase].[Kilos] AS [Kilos]
     FROM [dbo].[Vw_ResumenPesadaPorClase] AS [Vw_ResumenPesadaPorClase]</DefiningQuery>
     </EntitySet>
+    <EntitySet Name="Vw_ResumenRomaneoPorClase" EntityType="Self.Vw_ResumenRomaneoPorClase" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Vw_ResumenRomaneoPorClase].[PesadaId] AS [PesadaId], 
+    [Vw_ResumenRomaneoPorClase].[Clase] AS [Clase], 
+    [Vw_ResumenRomaneoPorClase].[Fardos] AS [Fardos], 
+    [Vw_ResumenRomaneoPorClase].[Kilos] AS [Kilos], 
+    [Vw_ResumenRomaneoPorClase].[ClasePrecio] AS [ClasePrecio], 
+    [Vw_ResumenRomaneoPorClase].[Total] AS [Total]
+    FROM [dbo].[Vw_ResumenRomaneoPorClase] AS [Vw_ResumenRomaneoPorClase]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Vw_Romaneo" EntityType="Self.Vw_Romaneo" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Vw_Romaneo].[PesadaId] AS [PesadaId], 
+    [Vw_Romaneo].[FechaRomaneo] AS [FechaRomaneo], 
+    [Vw_Romaneo].[NumRomaneo] AS [NumRomaneo], 
+    [Vw_Romaneo].[ProductorId] AS [ProductorId], 
+    [Vw_Romaneo].[NOMBRE] AS [NOMBRE], 
+    [Vw_Romaneo].[CUIT] AS [CUIT], 
+    [Vw_Romaneo].[nrofet] AS [nrofet], 
+    [Vw_Romaneo].[IVA] AS [IVA], 
+    [Vw_Romaneo].[TotalKg] AS [TotalKg], 
+    [Vw_Romaneo].[ImporteBruto] AS [ImporteBruto], 
+    [Vw_Romaneo].[Importeporpagar] AS [Importeporpagar], 
+    [Vw_Romaneo].[NumInternoLiquidacion] AS [NumInternoLiquidacion], 
+    [Vw_Romaneo].[FechaInternaLiquidacion] AS [FechaInternaLiquidacion], 
+    [Vw_Romaneo].[Letra] AS [Letra], 
+    [Vw_Romaneo].[Provincia] AS [Provincia], 
+    [Vw_Romaneo].[NumAfipLiquidacion] AS [NumAfipLiquidacion], 
+    [Vw_Romaneo].[FechaAfipLiquidacion] AS [FechaAfipLiquidacion], 
+    [Vw_Romaneo].[Cae] AS [Cae], 
+    [Vw_Romaneo].[FechaVtoCae] AS [FechaVtoCae], 
+    [Vw_Romaneo].[OrdenPagoId] AS [OrdenPagoId], 
+    [Vw_Romaneo].[RomaneoPendiente] AS [RomaneoPendiente], 
+    [Vw_Romaneo].[IIBB] AS [IIBB], 
+    [Vw_Romaneo].[EEAOC] AS [EEAOC], 
+    [Vw_Romaneo].[SP] AS [SP], 
+    [Vw_Romaneo].[GADM] AS [GADM], 
+    [Vw_Romaneo].[RIEGO] AS [RIEGO], 
+    [Vw_Romaneo].[GANANCIA] AS [GANANCIA], 
+    [Vw_Romaneo].[BASEGANANCIA] AS [BASEGANANCIA]
+    FROM [dbo].[Vw_Romaneo] AS [Vw_Romaneo]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_Caja_Cata" Association="Self.FK_Caja_Cata">
+      <End Role="Cata" EntitySet="Cata" />
+      <End Role="Caja" EntitySet="Caja" />
+    </AssociationSet>
     <AssociationSet Name="FK_DetallePreingreso_Preingreso" Association="Self.FK_DetallePreingreso_Preingreso">
       <End Role="Preingreso" EntitySet="Preingreso" />
       <End Role="PreingresoDetalle" EntitySet="PreingresoDetalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Remito_OrdenVenta" Association="Self.FK_Remito_OrdenVenta">
+      <End Role="OrdenVenta" EntitySet="OrdenVenta" />
+      <End Role="Remito" EntitySet="Remito" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

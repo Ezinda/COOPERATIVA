@@ -19,10 +19,34 @@ namespace CooperativaProduccion
         public volatile string nombre;
         public volatile string cuit;
 
+        private Guid _idSeleccionado;
+
         public Form_AdministracionBuscarProductor()
         {
             InitializeComponent();
             Context = new CooperativaProduccionEntities();
+
+            _idSeleccionado = Guid.Empty;
+        }
+
+        public Guid IdProductorSeleccionado
+        {
+            get
+            {
+                return _idSeleccionado;
+            }
+        }
+
+        public event EventHandler ProductorSeleccionado;
+
+        private void OnProductorSeleccionado()
+        {
+            var handle = ProductorSeleccionado;
+
+            if (handle != null)
+            {
+                handle(this, EventArgs.Empty);
+            }
         }
 
         #region Method Code
@@ -37,6 +61,12 @@ namespace CooperativaProduccion
 
         private void gridControlProductor_DoubleClick(object sender, EventArgs e)
         {
+            var id = (Guid)gridViewProductor.GetRowCellValue(gridViewProductor.FocusedRowHandle, "ID");
+            var fet = gridViewProductor.GetRowCellValue(gridViewProductor.FocusedRowHandle, "FET") as String;
+            var productor = gridViewProductor.GetRowCellValue(gridViewProductor.FocusedRowHandle, "PRODUCTOR") as String;
+
+            _idSeleccionado = id;
+
             if (target.Equals(DevConstantes.Preingreso))
             {
                 IEnlace mienlace = this.Owner as Form_RomaneoPreingreso;
@@ -75,14 +105,15 @@ namespace CooperativaProduccion
             }
             else if (target.Equals(DevConstantes.OrdenPago))
             {
-                IEnlace mienlace = this.Owner as Form_AdministracionOrdenPago;
-                if (mienlace != null)
-                {
-                    mienlace.Enviar(
-                        new Guid(gridViewProductor.GetRowCellValue(gridViewProductor.FocusedRowHandle, "ID").ToString()),
-                        gridViewProductor.GetRowCellValue(gridViewProductor.FocusedRowHandle, "FET").ToString(),
-                        gridViewProductor.GetRowCellValue(gridViewProductor.FocusedRowHandle, "PRODUCTOR").ToString());
-                }
+                //IEnlace mienlace = this.Owner as IEnlace;
+                //if (mienlace != null)
+                //{
+                //    mienlace.Enviar(
+                //        new Guid(gridViewProductor.GetRowCellValue(gridViewProductor.FocusedRowHandle, "ID").ToString()),
+                //        gridViewProductor.GetRowCellValue(gridViewProductor.FocusedRowHandle, "FET").ToString(),
+                //        gridViewProductor.GetRowCellValue(gridViewProductor.FocusedRowHandle, "PRODUCTOR").ToString());
+                //}
+
                 this.Dispose();
             }
         }
@@ -116,6 +147,86 @@ namespace CooperativaProduccion
                 gridViewProductor.Columns[3].Width = 150;
                 gridViewProductor.Columns[4].Width = 100;
                 gridViewProductor.Columns[5].Width = 100;
+            }
+        }
+
+        public int BuscarPorProductor()
+        {
+            int result = 0;
+
+            using (var context = new CooperativaProduccionEntities())
+            {
+                var texto = this.fet ?? String.Empty;
+                
+                texto = texto.Trim();
+
+                var list = context.Vw_Productor.Where(x => x.NOMBRE.Contains(texto)).ToList();
+                var count = list.Count;
+
+                if (count == 0)
+                {
+                    result = 0;
+
+                    return result;
+                }
+                else if (count == 1)
+                {
+                    _idSeleccionado = list[0].ID.Value;
+
+                    OnProductorSeleccionado();
+
+                    result = 1;
+
+                    return result;
+                }
+                else
+                {
+                    this.BuscarFet();
+
+                    result = count;
+
+                    return result;
+                }
+            }
+        }
+
+        public int BuscarPorFet()
+        {
+            int result = 0;
+
+            using (var context = new CooperativaProduccionEntities())
+            {
+                var texto = this.fet ?? String.Empty;
+
+                texto = texto.Trim();
+
+                var list = context.Vw_Productor.Where(x => x.nrofet == texto).ToList();
+                var count = list.Count;
+
+                if (count == 0)
+                {
+                    result = 0;
+
+                    return result;
+                }
+                else if (count == 1)
+                {
+                    _idSeleccionado = list[0].ID.Value;
+
+                    OnProductorSeleccionado();
+
+                    result = 1;
+
+                    return result;
+                }
+                else
+                {
+                    this.BuscarFet();
+
+                    result = count;
+
+                    return result;
+                }
             }
         }
 
@@ -207,6 +318,5 @@ namespace CooperativaProduccion
         }
 
         #endregion
-
     }
 }

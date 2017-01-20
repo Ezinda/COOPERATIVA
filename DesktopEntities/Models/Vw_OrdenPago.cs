@@ -15,21 +15,20 @@ namespace DesktopEntities.Models
     public partial class Vw_OrdenPago
     {
         public System.Guid OrdenPagoId { get; set; }
-        public Nullable<long> NumIntOrdenPago { get; set; }
-        public Nullable<long> NumOrdenPago { get; set; }
-        public Nullable<System.DateTime> Fecha { get; set; }
-        public Nullable<System.Guid> ProductorId { get; set; }
+        public long NumIntOrdenPago { get; set; }
+        public long NumOrdenPago { get; set; }
+        public System.DateTime Fecha { get; set; }
+        public System.Guid ProductorId { get; set; }
         public string NOMBRE { get; set; }
         public string CUIT { get; set; }
         public string nrofet { get; set; }
         public Nullable<decimal> Subtotal { get; set; }
         public Nullable<decimal> Ganancias { get; set; }
-        public Nullable<decimal> IVA { get; set; }
+        public Nullable<decimal> GADM { get; set; }
         public Nullable<decimal> IIBB { get; set; }
         public Nullable<decimal> SaludPublica { get; set; }
         public Nullable<decimal> EEAOC { get; set; }
         public Nullable<decimal> Riego { get; set; }
-        public Nullable<decimal> Monotributo { get; set; }
         public Nullable<decimal> Neto { get; set; }
         public string detalle { get; set; }
     }
