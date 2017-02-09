@@ -17,6 +17,7 @@ namespace CooperativaProduccion
         public string totalkg;
         public string clase;
         public string numFardo;
+        public string porcentaje;
 
         public Form_RomaneoPesadaMostrador()
         {
@@ -39,7 +40,8 @@ namespace CooperativaProduccion
             lblFardo.Invoke((MethodInvoker)(() => lblFardo.Text = numFardo));
             //lblTotalKg.Text = totalkg;
             lblTotalKg.Invoke((MethodInvoker)(() => lblTotalKg.Text = totalkg));
-            
+
+            lblPorcentaje.Invoke((MethodInvoker)(() => lblPorcentaje.Text = porcentaje));
         }
         
         #endregion

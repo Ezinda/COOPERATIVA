@@ -14,7 +14,7 @@ using DevExpress.Utils;
 
 namespace CooperativaProduccion
 {
-    public partial class Form_AdministracionRemitoElectronico : DevExpress.XtraBars.Ribbon.RibbonForm, IEnlace,IEnlaceActualizarHistorico
+    public partial class Form_AdministracionRemitoElectronico : DevExpress.XtraBars.Ribbon.RibbonForm, IEnlace,IEnlaceActualizar
     {
         public CooperativaProduccionEntities Context { get; set; }
         private Form_AdministracionBuscarCliente _formBuscarCliente;
@@ -206,7 +206,7 @@ namespace CooperativaProduccion
             }
         }
 
-        void IEnlaceActualizarHistorico.Enviar(bool Enviar)
+        void IEnlaceActualizar.Enviar(bool Enviar)
         {
             if (Enviar.Equals(true))
             {

@@ -6,9 +6,9 @@ using DevExpress.XtraReports.UI;
 
 namespace CooperativaProduccion.Reports
 {
-    public partial class LiquidacionAReport : DevExpress.XtraReports.UI.XtraReport
+    public partial class ClasesReport : DevExpress.XtraReports.UI.XtraReport
     {
-        public LiquidacionAReport()
+        public ClasesReport()
         {
             InitializeComponent();
         }

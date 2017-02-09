@@ -19,7 +19,7 @@ namespace CooperativaProduccion
         {
             InitializeComponent(); 
             Context = new CooperativaProduccionEntities();
-            CargarDatos(OrdenPagoId,neto);
+            //CargarDatos(OrdenPagoId,neto);
             OrdenId = OrdenPagoId;
         }
 
@@ -28,30 +28,30 @@ namespace CooperativaProduccion
             this.Close();
         }
 
-        private void CargarDatos(Guid OrdenPagoId,string neto)
-        {
-            var ordenPago = Context.Vw_OrdenPago
-                .Where(x => x.OrdenPagoId == OrdenPagoId)
-                .FirstOrDefault();
-            if (ordenPago != null)
-            {
-                #region Datos Orden Pago
+        //private void CargarDatos(Guid OrdenPagoId,string neto)
+        //{
+        //    var ordenPago = Context.Vw_OrdenPago
+        //        .Where(x => x.OrdenPagoId == OrdenPagoId)
+        //        .FirstOrDefault();
+        //    if (ordenPago != null)
+        //    {
+        //        #region Datos Orden Pago
 
-                dpFechaOrden.Value = ordenPago.Fecha.Value;
-                txtNumOrdenPago.Text = ordenPago.NumOrdenPago.Value.ToString();
-                txtPuntoVenta.Text = DevConstantes.PuntoVenta;
-                txtImporte.Text = neto;
+        //        dpFechaOrden.Value = ordenPago.Fecha.Value;
+        //        txtNumOrdenPago.Text = ordenPago.NumOrdenPago.Value.ToString();
+        //        txtPuntoVenta.Text = DevConstantes.PuntoVenta;
+        //        txtImporte.Text = neto;
 
-                #endregion
+        //        #endregion
 
-                #region Datos Productor
+        //        #region Datos Productor
 
-                txtProductor.Text = ordenPago.NOMBRE;
+        //        txtProductor.Text = ordenPago.NOMBRE;
 
-                #endregion
+        //        #endregion
 
-            }
-        }
+        //    }
+        //}
 
         private void cbOrigen_SelectedIndexChanged(object sender, EventArgs e)
         {

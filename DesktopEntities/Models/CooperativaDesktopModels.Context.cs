@@ -28,6 +28,7 @@ namespace DesktopEntities.Models
         public virtual DbSet<Caja> Caja { get; set; }
         public virtual DbSet<Cata> Cata { get; set; }
         public virtual DbSet<Clase> Clase { get; set; }
+        public virtual DbSet<Configuracion> Configuracion { get; set; }
         public virtual DbSet<Contador> Contador { get; set; }
         public virtual DbSet<Movimiento> Movimiento { get; set; }
         public virtual DbSet<OrdenPago> OrdenPago { get; set; }
@@ -39,7 +40,6 @@ namespace DesktopEntities.Models
         public virtual DbSet<Preingreso> Preingreso { get; set; }
         public virtual DbSet<PreingresoDetalle> PreingresoDetalle { get; set; }
         public virtual DbSet<Remito> Remito { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
         public virtual DbSet<Vw_Clase> Vw_Clase { get; set; }
         public virtual DbSet<Vw_Cliente> Vw_Cliente { get; set; }
@@ -51,7 +51,10 @@ namespace DesktopEntities.Models
         public virtual DbSet<Vw_Productor> Vw_Productor { get; set; }
         public virtual DbSet<Vw_ResumenPesada> Vw_ResumenPesada { get; set; }
         public virtual DbSet<Vw_ResumenPesadaPorClase> Vw_ResumenPesadaPorClase { get; set; }
+        public virtual DbSet<Vw_ResumenRomaneoBurley> Vw_ResumenRomaneoBurley { get; set; }
         public virtual DbSet<Vw_ResumenRomaneoPorClase> Vw_ResumenRomaneoPorClase { get; set; }
+        public virtual DbSet<Vw_ResumenRomaneoVirginia> Vw_ResumenRomaneoVirginia { get; set; }
         public virtual DbSet<Vw_Romaneo> Vw_Romaneo { get; set; }
+        public virtual DbSet<Vw_TipoTabaco> Vw_TipoTabaco { get; set; }
     }
 }

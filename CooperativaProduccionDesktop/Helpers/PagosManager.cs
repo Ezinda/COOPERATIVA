@@ -73,100 +73,100 @@ namespace CooperativaProduccion.Helpers
             }
         }
 
-        public void GenerarOrdenDePago(OrdenDePagoViewModel ordenvm)
-        {
-            var ordenid = Guid.NewGuid();
-            var idspesadasdeorden = new List<Guid>();
-            //var conceptosdepesadas = new Dictionary<Guid, Guid>();
+        //public void GenerarOrdenDePago(OrdenDePagoViewModel ordenvm)
+        //{
+        //    var ordenid = Guid.NewGuid();
+        //    var idspesadasdeorden = new List<Guid>();
+        //    //var conceptosdepesadas = new Dictionary<Guid, Guid>();
 
-            using (var context = new CooperativaProduccionEntities())
-            {
-                var conceptos = new List<ConceptoDeOrdenDePago>();
+        //    using (var context = new CooperativaProduccionEntities())
+        //    {
+        //        var conceptos = new List<ConceptoDeOrdenDePago>();
 
-                foreach (var item in ordenvm.Items)
-                {
-                    var concepto = new ConceptoDeOrdenDePago();
+        //        foreach (var item in ordenvm.Items)
+        //        {
+        //            var concepto = new ConceptoDeOrdenDePago();
 
-                    concepto.Id = Guid.NewGuid();
-                    concepto.PesadaId = item.PesadaId;
-                    concepto.ProductorId = item.ProductorId;
+        //            concepto.Id = Guid.NewGuid();
+        //            concepto.PesadaId = item.PesadaId;
+        //            concepto.ProductorId = item.ProductorId;
 
-                    concepto.Subtotal = item.ImportePorPagar;
+        //            concepto.Subtotal = item.ImportePorPagar;
 
-                    var retencionIIBB = item.RetencionesAplicadas.Where(x => x.Nombre == RetencionTypes.RetencionIIBB).Single();
-                    var retencionEEAOC = item.RetencionesAplicadas.Where(x => x.Nombre == RetencionTypes.RetencionEEAOC).Single();
-                    var retencionSaludPublica = item.RetencionesAplicadas.Where(x => x.Nombre == RetencionTypes.RetencionSaludPublica).Single();
-                    var retencionGADM = item.RetencionesAplicadas.Where(x => x.Nombre == RetencionTypes.RetencionGADM).Single();
-                    var retencionGCIAS = item.RetencionesAplicadas.Where(x => x.Nombre == RetencionTypes.RetencionGCIAS).Single();
-                    var retencionRiego = item.RetencionesAplicadas.Where(x => x.Nombre == RetencionTypes.RetencionRiego).Single();
+        //            var retencionIIBB = item.RetencionesAplicadas.Where(x => x.Nombre == RetencionTypes.RetencionIIBB).Single();
+        //            var retencionEEAOC = item.RetencionesAplicadas.Where(x => x.Nombre == RetencionTypes.RetencionEEAOC).Single();
+        //            var retencionSaludPublica = item.RetencionesAplicadas.Where(x => x.Nombre == RetencionTypes.RetencionSaludPublica).Single();
+        //            var retencionGADM = item.RetencionesAplicadas.Where(x => x.Nombre == RetencionTypes.RetencionGADM).Single();
+        //            var retencionGCIAS = item.RetencionesAplicadas.Where(x => x.Nombre == RetencionTypes.RetencionGCIAS).Single();
+        //            var retencionRiego = item.RetencionesAplicadas.Where(x => x.Nombre == RetencionTypes.RetencionRiego).Single();
 
-                    concepto.IIBB = retencionIIBB.Importe;
-                    concepto.EEAOC = retencionEEAOC.Importe;
-                    concepto.SaludPublica = retencionSaludPublica.Importe;
-                    concepto.GADM = retencionGADM.Importe;
-                    concepto.Ganancias = retencionGCIAS.Importe;
-                    concepto.Riego = retencionRiego.Importe;
+        //            concepto.IIBB = retencionIIBB.Importe;
+        //            concepto.EEAOC = retencionEEAOC.Importe;
+        //            concepto.SaludPublica = retencionSaludPublica.Importe;
+        //            concepto.GADM = retencionGADM.Importe;
+        //            concepto.Ganancias = retencionGCIAS.Importe;
+        //            concepto.Riego = retencionRiego.Importe;
 
-                    concepto.Neto = item.NetoPorPagar;
+        //            concepto.Neto = item.NetoPorPagar;
 
-                    idspesadasdeorden.Add(item.PesadaId);
-                    //conceptosdepesadas.Add(concepto.Id, item.PesadaId);
-                    conceptos.Add(concepto);
-                }
+        //            idspesadasdeorden.Add(item.PesadaId);
+        //            //conceptosdepesadas.Add(concepto.Id, item.PesadaId);
+        //            conceptos.Add(concepto);
+        //        }
 
-                var numerodeorden = this.GetNumeroDeOrden();
-                var numerointernodeorden = this.GetNumeroInternoDeOrden();
+        //        var numerodeorden = this.GetNumeroDeOrden();
+        //        var numerointernodeorden = this.GetNumeroInternoDeOrden();
 
-                var orden = new OrdenPago();
+        //        var orden = new OrdenPago();
 
-                orden.Id = ordenid;
-                orden.NumOrdenPago = numerodeorden;
-                orden.NumIntOrdenPago = numerointernodeorden;
-                orden.Fecha = ordenvm.FechaDePago;
-                orden.Detalle = ordenvm.Observaciones;
+        //        orden.Id = ordenid;
+        //        orden.NumOrdenPago = numerodeorden;
+        //        orden.NumIntOrdenPago = numerointernodeorden;
+        //        orden.Fecha = ordenvm.FechaDePago;
+        //        orden.Detalle = ordenvm.Observaciones;
 
-                var retenciondeordenIIBB = ordenvm.RetencionesAplicadas.Where(x => x.Nombre == RetencionTypes.RetencionIIBB).Single();
-                var retenciondeordenEEAOC = ordenvm.RetencionesAplicadas.Where(x => x.Nombre == RetencionTypes.RetencionEEAOC).Single();
-                var retenciondeordenSaludPublica = ordenvm.RetencionesAplicadas.Where(x => x.Nombre == RetencionTypes.RetencionSaludPublica).Single();
-                var retenciondeordenGADM = ordenvm.RetencionesAplicadas.Where(x => x.Nombre == RetencionTypes.RetencionGADM).Single();
-                var retenciondeordenGCIAS = ordenvm.RetencionesAplicadas.Where(x => x.Nombre == RetencionTypes.RetencionGCIAS).Single();
-                var retenciondeordenRiego = ordenvm.RetencionesAplicadas.Where(x => x.Nombre == RetencionTypes.RetencionRiego).Single();
+        //        var retenciondeordenIIBB = ordenvm.RetencionesAplicadas.Where(x => x.Nombre == RetencionTypes.RetencionIIBB).Single();
+        //        var retenciondeordenEEAOC = ordenvm.RetencionesAplicadas.Where(x => x.Nombre == RetencionTypes.RetencionEEAOC).Single();
+        //        var retenciondeordenSaludPublica = ordenvm.RetencionesAplicadas.Where(x => x.Nombre == RetencionTypes.RetencionSaludPublica).Single();
+        //        var retenciondeordenGADM = ordenvm.RetencionesAplicadas.Where(x => x.Nombre == RetencionTypes.RetencionGADM).Single();
+        //        var retenciondeordenGCIAS = ordenvm.RetencionesAplicadas.Where(x => x.Nombre == RetencionTypes.RetencionGCIAS).Single();
+        //        var retenciondeordenRiego = ordenvm.RetencionesAplicadas.Where(x => x.Nombre == RetencionTypes.RetencionRiego).Single();
 
-                orden.IIBB = retenciondeordenIIBB.Importe;
-                orden.EEAOC = retenciondeordenEEAOC.Importe;
-                orden.SaludPublica = retenciondeordenSaludPublica.Importe;
-                orden.GADM = retenciondeordenGADM.Importe;
-                orden.Ganancias = retenciondeordenGCIAS.Importe;
-                orden.Riego = retenciondeordenRiego.Importe;
+        //        orden.IIBB = retenciondeordenIIBB.Importe;
+        //        orden.EEAOC = retenciondeordenEEAOC.Importe;
+        //        orden.SaludPublica = retenciondeordenSaludPublica.Importe;
+        //        orden.GADM = retenciondeordenGADM.Importe;
+        //        orden.Ganancias = retenciondeordenGCIAS.Importe;
+        //        orden.Riego = retenciondeordenRiego.Importe;
 
-                orden.ConceptoDeOrdenDePago = conceptos;
+        //        //orden.ConceptoDeOrdenDePago = conceptos;
 
-                orden.Neto = ordenvm.ImporteNeto;
+        //        orden.Neto = ordenvm.ImporteNeto;
 
-                context.OrdenPago.Add(orden);
-                context.SaveChanges();
-            }
+        //        context.OrdenPago.Add(orden);
+        //        context.SaveChanges();
+        //    }
 
-            // UNA LIQUIDACION PUEDE TENER MUCHAS ORDENES
+        //    // UNA LIQUIDACION PUEDE TENER MUCHAS ORDENES
 
-            //using (var context = new CooperativaProduccionEntities())
-            //{
-            //    var liquidaciones = context.Pesada
-            //        .Where(x => idspesadasdeorden.ContainsKey(x.Id))
-            //        //.Where(x => conceptosdepesadas.ContainsKey(x.Id))
-            //        .ToList();
-            //
-            //    foreach (var item in liquidaciones)
-	        //    {
-            //        item.OrdenPagoId = ordenid;
-            //        //item.OrdenPagoId = conceptosdepesadas[item.Id];
-            //
-            //        context.Entry(item).State = System.Data.Entity.EntityState.Modified;
-	        //    }
-            //
-            //    context.SaveChanges();
-            //}
-        }
+        //    //using (var context = new CooperativaProduccionEntities())
+        //    //{
+        //    //    var liquidaciones = context.Pesada
+        //    //        .Where(x => idspesadasdeorden.ContainsKey(x.Id))
+        //    //        //.Where(x => conceptosdepesadas.ContainsKey(x.Id))
+        //    //        .ToList();
+        //    //
+        //    //    foreach (var item in liquidaciones)
+	       // //    {
+        //    //        item.OrdenPagoId = ordenid;
+        //    //        //item.OrdenPagoId = conceptosdepesadas[item.Id];
+        //    //
+        //    //        context.Entry(item).State = System.Data.Entity.EntityState.Modified;
+	       // //    }
+        //    //
+        //    //    context.SaveChanges();
+        //    //}
+        //}
 
         public OrdenesDePagoDetalleViewModel ListarOrdenesDePago()
         {
@@ -572,6 +572,11 @@ namespace CooperativaProduccion.Helpers
             var retencioncalculadaredondeada = decimal.Round(retencioncalculada, 2, MidpointRounding.AwayFromZero);
 
             return retencioncalculadaredondeada;
+        }
+
+        public void GenerarOrdenDePago(OrdenDePagoViewModel ordendepagovm)
+        {
+            throw new NotImplementedException();
         }
 
         enum LiquidacionesQueryType

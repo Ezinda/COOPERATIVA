@@ -128,7 +128,7 @@ namespace CooperativaProduccion
                     Context.SaveChanges();
                 }
 
-                IEnlaceActualizarHistorico mienlace = this.Owner as Form_AdministracionOrdenVenta;
+                IEnlaceActualizar mienlace = this.Owner as Form_AdministracionOrdenVenta;
                 if (mienlace != null)
                 {
                     mienlace.Enviar(true);
@@ -183,7 +183,7 @@ namespace CooperativaProduccion
                     Context.Entry(ordenVenta).State = EntityState.Deleted;
                     Context.SaveChanges();
                 }
-                IEnlaceActualizarHistorico mienlace = this.Owner as Form_AdministracionOrdenVenta;
+                IEnlaceActualizar mienlace = this.Owner as Form_AdministracionOrdenVenta;
                 if (mienlace != null)
                 {
                     mienlace.Enviar(true);

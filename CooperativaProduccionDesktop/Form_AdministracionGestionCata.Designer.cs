@@ -42,6 +42,7 @@
             this.progressCata = new System.Windows.Forms.ProgressBar();
             this.TabConsultaCata = new DevExpress.XtraTab.XtraTabPage();
             this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
+            this.btnExportarVinculacion = new DevExpress.XtraEditors.SimpleButton();
             this.txtDisponibles = new System.Windows.Forms.TextBox();
             this.txtUtilizados = new System.Windows.Forms.TextBox();
             this.txtTotal = new System.Windows.Forms.TextBox();
@@ -61,7 +62,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.opd = new System.Windows.Forms.OpenFileDialog();
-            this.btnExportarVinculacion = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewLiquidacionDetalle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlCata)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewCata)).BeginInit();
@@ -231,6 +231,16 @@
             this.groupControl3.TabIndex = 77;
             this.groupControl3.Text = "Buscar Cata";
             // 
+            // btnExportarVinculacion
+            // 
+            this.btnExportarVinculacion.Image = ((System.Drawing.Image)(resources.GetObject("btnExportarVinculacion.Image")));
+            this.btnExportarVinculacion.Location = new System.Drawing.Point(610, 5);
+            this.btnExportarVinculacion.Name = "btnExportarVinculacion";
+            this.btnExportarVinculacion.Size = new System.Drawing.Size(127, 22);
+            this.btnExportarVinculacion.TabIndex = 61;
+            this.btnExportarVinculacion.Text = "Exportar Vinculación";
+            this.btnExportarVinculacion.Click += new System.EventHandler(this.btnExportarVinculacion_Click);
+            // 
             // txtDisponibles
             // 
             this.txtDisponibles.Enabled = false;
@@ -395,9 +405,9 @@
             this.label3.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(6, 27);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(52, 16);
+            this.label3.Size = new System.Drawing.Size(48, 16);
             this.label3.TabIndex = 57;
-            this.label3.Text = "N° Lote:";
+            this.label3.Text = "N° Lote";
             // 
             // backgroundWorker1
             // 
@@ -409,16 +419,6 @@
             // opd
             // 
             this.opd.Multiselect = true;
-            // 
-            // btnExportarVinculacion
-            // 
-            this.btnExportarVinculacion.Image = ((System.Drawing.Image)(resources.GetObject("btnExportarVinculacion.Image")));
-            this.btnExportarVinculacion.Location = new System.Drawing.Point(610, 5);
-            this.btnExportarVinculacion.Name = "btnExportarVinculacion";
-            this.btnExportarVinculacion.Size = new System.Drawing.Size(127, 22);
-            this.btnExportarVinculacion.TabIndex = 61;
-            this.btnExportarVinculacion.Text = "Exportar Vinculación";
-            this.btnExportarVinculacion.Click += new System.EventHandler(this.btnExportarVinculacion_Click);
             // 
             // Form_AdministracionGestionCata
             // 

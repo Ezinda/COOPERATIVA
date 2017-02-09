@@ -16,7 +16,9 @@ namespace DesktopEntities.Models
     {
         public System.Guid PesadaId { get; set; }
         public Nullable<System.DateTime> FechaRomaneo { get; set; }
-        public string NumRomaneo { get; set; }
+        public Nullable<int> PuntoVentaRomaneo { get; set; }
+        public Nullable<long> NumRomaneo { get; set; }
+        public string Tabaco { get; set; }
         public Nullable<System.Guid> ProductorId { get; set; }
         public string NOMBRE { get; set; }
         public string CUIT { get; set; }
@@ -25,6 +27,7 @@ namespace DesktopEntities.Models
         public Nullable<double> TotalKg { get; set; }
         public Nullable<decimal> ImporteBruto { get; set; }
         public Nullable<double> Importeporpagar { get; set; }
+        public Nullable<int> PuntoVentaLiquidacion { get; set; }
         public Nullable<long> NumInternoLiquidacion { get; set; }
         public Nullable<System.DateTime> FechaInternaLiquidacion { get; set; }
         public string Letra { get; set; }

@@ -202,6 +202,24 @@
       <DependentUpon>AdministracionVistaOPControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Extensions\ExtensionMethods.OrAnd.cs" />
+    <Compile Include="Form_ConfiguracionImpresion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_ConfiguracionImpresion.Designer.cs">
+      <DependentUpon>Form_ConfiguracionImpresion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_ConfiguracionImpresionEtiqueta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_ConfiguracionImpresionEtiqueta.Designer.cs">
+      <DependentUpon>Form_ConfiguracionImpresionEtiqueta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_RomaneoGestionClasificacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_RomaneoGestionClasificacion.Designer.cs">
+      <DependentUpon>Form_RomaneoGestionClasificacion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_RomaneoPendiente.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -334,12 +352,20 @@
     <Compile Include="Form_SeguridadNuevoUsuario.Designer.cs">
       <DependentUpon>Form_SeguridadNuevoUsuario.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_SeguridadUsuarioPermiso.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_SeguridadUsuarioPermiso.Designer.cs">
+      <DependentUpon>Form_SeguridadUsuarioPermiso.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_SysPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form_SysPrincipal.Designer.cs">
       <DependentUpon>Form_SysPrincipal.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\GridRecords\GridRomaneo.cs" />
+    <Compile Include="Helpers\GridRecords\GridRomaneoDetalle.cs" />
     <Compile Include="Helpers\IniParser.cs" />
     <Compile Include="Helpers\Numalet.cs" />
     <Compile Include="Helpers\DevConstantes.cs" />
@@ -348,9 +374,9 @@
     <Compile Include="Helpers\PagosManager.cs" />
     <Compile Include="Helpers\ProductoresManager.cs" />
     <Compile Include="Helpers\RawPrinterHelper.cs" />
+    <Compile Include="Interface\IEnlaceActualizar.cs" />
     <Compile Include="Interface\IEnlaceMostradorPesada.cs" />
     <Compile Include="Interface\IEnlace.cs" />
-    <Compile Include="Interface\IEnlaceActualizarHistorico.cs" />
     <Compile Include="Interface\IEnlaceNovedades.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -358,11 +384,30 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="ReportModels\RegistroFardo.cs" />
+    <Compile Include="ReportModels\RegistroResumenRomaneoVirginia.cs" />
+    <Compile Include="Reports\ClasesReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ClasesReport.Designer.cs">
+      <DependentUpon>ClasesReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Reports\DetalleLiquidacionAReport.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\DetalleLiquidacionAReport.Designer.cs">
       <DependentUpon>DetalleLiquidacionAReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\LiquidacionElectronicaReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\LiquidacionElectronicaReport.Designer.cs">
+      <DependentUpon>LiquidacionElectronicaReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\LiquidacionManualReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\LiquidacionManualReport.Designer.cs">
+      <DependentUpon>LiquidacionManualReport.cs</DependentUpon>
     </Compile>
     <Compile Include="Reports\PesadaDetalleReport.cs">
       <SubType>Component</SubType>
@@ -391,11 +436,17 @@
     <Compile Include="Reports\PesadaResumenPorCajaReport.Designer.cs">
       <DependentUpon>PesadaResumenPorCajaReport.cs</DependentUpon>
     </Compile>
-    <Compile Include="Reports\LiquidacionAReport.cs">
+    <Compile Include="Reports\ResumenCompraReport.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Reports\LiquidacionAReport.Designer.cs">
-      <DependentUpon>LiquidacionAReport.cs</DependentUpon>
+    <Compile Include="Reports\ResumenCompraReport.Designer.cs">
+      <DependentUpon>ResumenCompraReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\ResumenRomaneoVirginiaReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ResumenRomaneoVirginiaReport.Designer.cs">
+      <DependentUpon>ResumenRomaneoVirginiaReport.cs</DependentUpon>
     </Compile>
     <Compile Include="Reports\RomaneoReport.cs">
       <SubType>Component</SubType>
@@ -461,6 +512,12 @@
     <EmbeddedResource Include="Form_AdministracionOrdenVenta.resx">
       <DependentUpon>Form_AdministracionOrdenVenta.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form_ConfiguracionImpresion.resx">
+      <DependentUpon>Form_ConfiguracionImpresion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_ConfiguracionImpresionEtiqueta.resx">
+      <DependentUpon>Form_ConfiguracionImpresionEtiqueta.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form_InventarioFardos.resx">
       <DependentUpon>Form_InventarioFardos.cs</DependentUpon>
     </EmbeddedResource>
@@ -469,6 +526,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_RomaneoBuscarPreingreso.resx">
       <DependentUpon>Form_RomaneoBuscarPreingreso.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_RomaneoGestionClasificacion.resx">
+      <DependentUpon>Form_RomaneoGestionClasificacion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_RomaneoGestionRomaneo.resx">
       <DependentUpon>Form_RomaneoGestionRomaneo.cs</DependentUpon>
@@ -492,6 +552,9 @@
     <EmbeddedResource Include="Form_SeguridadNuevoUsuario.resx">
       <DependentUpon>Form_SeguridadNuevoUsuario.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form_SeguridadUsuarioPermiso.resx">
+      <DependentUpon>Form_SeguridadUsuarioPermiso.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form_SysPrincipal.resx">
       <DependentUpon>Form_SysPrincipal.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -500,8 +563,17 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ClasesReport.resx">
+      <DependentUpon>ClasesReport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\DetalleLiquidacionAReport.resx">
       <DependentUpon>DetalleLiquidacionAReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\LiquidacionElectronicaReport.resx">
+      <DependentUpon>LiquidacionElectronicaReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\LiquidacionManualReport.resx">
+      <DependentUpon>LiquidacionManualReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\PesadaDetalleReport.resx">
       <DependentUpon>PesadaDetalleReport.cs</DependentUpon>
@@ -517,8 +589,11 @@
       <DependentUpon>PesadaResumenPorCajaReport.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports\LiquidacionAReport.resx">
-      <DependentUpon>LiquidacionAReport.cs</DependentUpon>
+    <EmbeddedResource Include="Reports\ResumenCompraReport.resx">
+      <DependentUpon>ResumenCompraReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ResumenRomaneoVirginiaReport.resx">
+      <DependentUpon>ResumenRomaneoVirginiaReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\RomaneoReport.resx">
       <DependentUpon>RomaneoReport.cs</DependentUpon>
@@ -530,7 +605,6 @@
     <EmbeddedResource Include="SplashScreen1.resx">
       <DependentUpon>SplashScreen1.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="CooperativaProduccion_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\CooperativaProduccion.Helpers.GridRecords.GridLiquidacionDetalle.datasource" />
     <None Include="Properties\Settings.settings">
@@ -592,7 +666,11 @@
   <ItemGroup>
     <None Include="Resources\logoCooperativaReporteSm.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Resources\copat 4.png" />
+    <Content Include="Resources\copatMd.png" />
+    <Content Include="Resources\copatSm.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

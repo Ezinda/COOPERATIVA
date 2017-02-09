@@ -142,7 +142,11 @@ namespace CooperativaProduccion
                 dgvListaPrecio.Rows.Clear();
             }
             var results = (
-                from a in Context.Vw_Clase.Where(x=>x.Vigente==true || x.Vigente == null)
+                from a in Context.Vw_Clase
+                    .Where(x => (x.Vigente == true || x.Vigente == null)
+                        && x.ID_PRODUCTO != DevConstantes.Generico)
+                    .OrderBy(x => x.DESCRIPCION)
+                    .ThenBy(x => x.NOMBRE)
                 select new
                 {
                     ID = a.ID,
@@ -150,8 +154,8 @@ namespace CooperativaProduccion
                     PRECIOCOMPRA = a.PRECIOCOMPRA,
                     PRODUCTO = a.DESCRIPCION
                 })
-                .OrderBy(x=>x.CLASE)
                 .ToList();
+
             if (results.Count > 0)
             {
                 foreach (var result in results)
@@ -166,12 +170,12 @@ namespace CooperativaProduccion
         private void ModificarClase(Guid Id, string precio)
         {
             CultureInfo culture = CultureInfo.InvariantCulture;
-            NumberStyles style = NumberStyles.AllowDecimalPoint;
             decimal valor;
 
             if (Id != null)
             {
-                if (Decimal.TryParse(precio, style, culture, out valor))
+                var a = decimal.TryParse(precio, out valor);
+                if (Decimal.TryParse(precio, out valor))
                 {
                     var clase = Context.Clase
                         .Where(x => x.ClaseId == Id
@@ -185,6 +189,7 @@ namespace CooperativaProduccion
                             var clases = Context.Clase
                                 .Where(x => x.ClaseId == Id)
                                 .ToList();
+
                             foreach (var cla in clases)
                             {
                                 var cl = Context.Clase.Find(cla.Id);
@@ -196,6 +201,7 @@ namespace CooperativaProduccion
                                     Context.SaveChanges();
                                 }
                             }
+
                             Clase Newclase;
                             Newclase = new Clase();
                             Newclase.Id = Guid.NewGuid();
@@ -224,8 +230,8 @@ namespace CooperativaProduccion
                 }
                 else
                 {
-                   MessageBox.Show("Formato no válido.",
-                        "Se requiere", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Formato no válido.",
+                         "Se requiere", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else

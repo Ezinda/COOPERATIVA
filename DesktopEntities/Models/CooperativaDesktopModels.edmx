@@ -43,6 +43,15 @@
           <Property Name="FechaModificacion" Type="datetime" Nullable="false" />
           <Property Name="Vigente" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="Configuracion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Valor" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="Contador">
           <Key>
             <PropertyRef Name="Id" />
@@ -126,9 +135,12 @@
           <Property Name="ImporteBruto" Type="decimal" Precision="18" Scale="2" />
           <Property Name="PrecioPromedio" Type="decimal" Precision="18" Scale="2" />
           <Property Name="FechaRomaneo" Type="date" />
-          <Property Name="NumRomaneo" Type="nvarchar" MaxLength="500" />
+          <Property Name="PuntoVentaRomaneo" Type="int" />
+          <Property Name="NumRomaneo" Type="bigint" />
+          <Property Name="TipoTabacoId" Type="uniqueidentifier" />
           <Property Name="RomaneoPendiente" Type="bit" />
           <Property Name="FechaInternaLiquidacion" Type="date" />
+          <Property Name="PuntoVentaLiquidacion" Type="int" />
           <Property Name="NumInternoLiquidacion" Type="bigint" />
           <Property Name="condIva" Type="nvarchar" MaxLength="50" />
           <Property Name="IvaPorcentaje" Type="decimal" Precision="18" Scale="2" />
@@ -153,7 +165,6 @@
           <Property Name="ClasePrecio" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Kilos" Type="float" />
           <Property Name="ReclasificacionId" Type="uniqueidentifier" />
-          <Property Name="ReclasificacionPrecio" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="Preingreso">
           <Key>
@@ -198,25 +209,35 @@
           <Property Name="PathSystem" Type="nvarchar(max)" />
           <Property Name="File" Type="varbinary(max)" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
-        </EntityType>
         <EntityType Name="Usuario">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Usuario" Type="nvarchar" MaxLength="100" />
-          <Property Name="Password" Type="nvarchar" MaxLength="100" />
-          <Property Name="Nombre" Type="nvarchar" MaxLength="100" />
-          <Property Name="Apellido" Type="nvarchar" MaxLength="100" />
+          <Property Name="Usuario" Type="nvarchar" MaxLength="500" />
+          <Property Name="Password" Type="nvarchar" MaxLength="500" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="500" />
+          <Property Name="Apellido" Type="nvarchar" MaxLength="500" />
+          <Property Name="Preingreso" Type="bit" />
+          <Property Name="Pesada" Type="bit" />
+          <Property Name="ReimpresionRomaneo" Type="bit" />
+          <Property Name="ResumenRomaneo" Type="bit" />
+          <Property Name="ResumenCompra" Type="bit" />
+          <Property Name="ResumenClaseMes" Type="bit" />
+          <Property Name="ResumenClaseTrimestre" Type="bit" />
+          <Property Name="Reclasificacion" Type="bit" />
+          <Property Name="GestionReclasificacion" Type="bit" />
+          <Property Name="Seguridad" Type="bit" />
+          <Property Name="Configuracion" Type="bit" />
+          <Property Name="Liquidar" Type="bit" />
+          <Property Name="LiquidacionSubirAfip" Type="bit" />
+          <Property Name="LiquidacionImprimir" Type="bit" />
+          <Property Name="GenerarOrdenPago" Type="bit" />
+          <Property Name="GestionCata" Type="bit" />
+          <Property Name="GestionCaja" Type="bit" />
+          <Property Name="GenerarOrdenVenta" Type="bit" />
+          <Property Name="GenerarRemitoElectronico" Type="bit" />
+          <Property Name="GestionarListaPrecio" Type="bit" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Clase' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -227,7 +248,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Clase' does not have 
           <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="NOMBRE" Type="varchar" MaxLength="120" />
           <Property Name="ID_PRODUCTO" Type="uniqueidentifier" />
-          <Property Name="COD_PRODUCTO" Type="varchar" MaxLength="30" />
+          <Property Name="COD_PRODUCTO" Type="varchar" MaxLength="183" />
           <Property Name="DESCRIPCION" Type="varchar" MaxLength="150" />
           <Property Name="PRECIOCOMPRA" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Vigente" Type="bit" />
@@ -270,13 +291,13 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Movimiento' does not 
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="NumFardo" Type="bigint" />
-          <Property Name="Clase" Type="nvarchar" MaxLength="50" />
+          <Property Name="Clase" Type="varchar" MaxLength="120" />
           <Property Name="Kilos" Type="float" />
-          <Property Name="NumRomaneo" Type="bigint" />
-          <Property Name="Productor" Type="nvarchar" MaxLength="250" />
-          <Property Name="Fet" Type="nvarchar" MaxLength="150" />
-          <Property Name="Cuit" Type="nvarchar" MaxLength="150" />
-          <Property Name="Provincia" Type="nvarchar" MaxLength="50" />
+          <Property Name="NumRomaneo" Type="nvarchar" MaxLength="500" />
+          <Property Name="Productor" Type="varchar" MaxLength="100" />
+          <Property Name="Fet" Type="varchar" MaxLength="30" />
+          <Property Name="Cuit" Type="varchar" MaxLength="40" />
+          <Property Name="Provincia" Type="varchar" MaxLength="40" />
           <Property Name="Fecha" Type="date" />
           <Property Name="Unidad" Type="nvarchar" MaxLength="50" />
           <Property Name="Ingreso" Type="float" />
@@ -327,7 +348,10 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Pesada' does not have
           <Property Name="Kilos" Type="float" />
           <Property Name="Subtotal" Type="decimal" Precision="10" Scale="2" />
           <Property Name="FechaRomaneo" Type="date" />
-          <Property Name="NumRomaneo" Type="nvarchar" MaxLength="50" />
+          <Property Name="PuntoVentaRomaneo" Type="int" />
+          <Property Name="NumRomaneo" Type="bigint" />
+          <Property Name="TotalKg" Type="float" />
+          <Property Name="ImporteBruto" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Productor" Type="varchar" MaxLength="100" />
           <Property Name="Fet" Type="varchar" MaxLength="30" />
           <Property Name="Cuit" Type="varchar" MaxLength="40" />
@@ -335,10 +359,13 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Pesada' does not have
           <Property Name="Localidad" Type="varchar" MaxLength="40" />
           <Property Name="IVA" Type="varchar" MaxLength="10" />
           <Property Name="FechainternaLiquidacion" Type="date" />
+          <Property Name="PuntoVentaLiquidacion" Type="int" />
           <Property Name="NumInternoLiquidacion" Type="bigint" />
           <Property Name="condIva" Type="nvarchar" MaxLength="50" />
           <Property Name="NumAfipLiquidacion" Type="nvarchar" MaxLength="100" />
           <Property Name="FechaAfipLiquidacion" Type="date" />
+          <Property Name="ID_PRODUCTO" Type="uniqueidentifier" />
+          <Property Name="DESCRIPCION" Type="varchar" MaxLength="150" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Preingreso' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -426,6 +453,75 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenPesadaPorClase
           <Property Name="Kilos" Type="float" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenRomaneoBurley' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Vw_ResumenRomaneoBurley">
+          <Key>
+            <PropertyRef Name="PesadaId" />
+            <PropertyRef Name="B1F" />
+            <PropertyRef Name="B1FR" />
+            <PropertyRef Name="B2F" />
+            <PropertyRef Name="B2FR" />
+            <PropertyRef Name="B3F" />
+            <PropertyRef Name="B3FR" />
+            <PropertyRef Name="B3K" />
+            <PropertyRef Name="C1F" />
+            <PropertyRef Name="C1L" />
+            <PropertyRef Name="C2F" />
+            <PropertyRef Name="C2L" />
+            <PropertyRef Name="C3F" />
+            <PropertyRef Name="C3K" />
+            <PropertyRef Name="C3L" />
+            <PropertyRef Name="NB" />
+            <PropertyRef Name="NG" />
+            <PropertyRef Name="NX" />
+            <PropertyRef Name="T1F" />
+            <PropertyRef Name="T1FR" />
+            <PropertyRef Name="T2F" />
+            <PropertyRef Name="T2FR" />
+            <PropertyRef Name="T3K" />
+            <PropertyRef Name="X1F" />
+            <PropertyRef Name="X1L" />
+            <PropertyRef Name="X2F" />
+            <PropertyRef Name="X2L" />
+            <PropertyRef Name="X3K" />
+          </Key>
+          <Property Name="PesadaId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="fechaRomaneo" Type="date" />
+          <Property Name="NumRomaneo" Type="bigint" />
+          <Property Name="productor" Type="varchar" MaxLength="100" />
+          <Property Name="cuit" Type="varchar" MaxLength="40" />
+          <Property Name="fet" Type="varchar" MaxLength="30" />
+          <Property Name="B1F" Type="float" Nullable="false" />
+          <Property Name="B1FR" Type="float" Nullable="false" />
+          <Property Name="B2F" Type="float" Nullable="false" />
+          <Property Name="B2FR" Type="float" Nullable="false" />
+          <Property Name="B3F" Type="float" Nullable="false" />
+          <Property Name="B3FR" Type="float" Nullable="false" />
+          <Property Name="B3K" Type="float" Nullable="false" />
+          <Property Name="C1F" Type="float" Nullable="false" />
+          <Property Name="C1L" Type="float" Nullable="false" />
+          <Property Name="C2F" Type="float" Nullable="false" />
+          <Property Name="C2L" Type="float" Nullable="false" />
+          <Property Name="C3F" Type="float" Nullable="false" />
+          <Property Name="C3K" Type="float" Nullable="false" />
+          <Property Name="C3L" Type="float" Nullable="false" />
+          <Property Name="NB" Type="float" Nullable="false" />
+          <Property Name="NG" Type="float" Nullable="false" />
+          <Property Name="NX" Type="float" Nullable="false" />
+          <Property Name="T1F" Type="float" Nullable="false" />
+          <Property Name="T1FR" Type="float" Nullable="false" />
+          <Property Name="T2F" Type="float" Nullable="false" />
+          <Property Name="T2FR" Type="float" Nullable="false" />
+          <Property Name="T3K" Type="float" Nullable="false" />
+          <Property Name="X1F" Type="float" Nullable="false" />
+          <Property Name="X1L" Type="float" Nullable="false" />
+          <Property Name="X2F" Type="float" Nullable="false" />
+          <Property Name="X2L" Type="float" Nullable="false" />
+          <Property Name="X3K" Type="float" Nullable="false" />
+          <Property Name="Totalkg" Type="float" />
+          <Property Name="Importebruto" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenRomaneoPorClase' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_ResumenRomaneoPorClase">
           <Key>
@@ -439,6 +535,117 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenRomaneoPorClas
           <Property Name="Total" Type="decimal" Precision="12" Scale="2" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenRomaneoVirginia' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Vw_ResumenRomaneoVirginia">
+          <Key>
+            <PropertyRef Name="PesadaId" />
+            <PropertyRef Name="B1F" />
+            <PropertyRef Name="B1L" />
+            <PropertyRef Name="B2F" />
+            <PropertyRef Name="B2KF" />
+            <PropertyRef Name="B2KL" />
+            <PropertyRef Name="B2L" />
+            <PropertyRef Name="B3F" />
+            <PropertyRef Name="B3KF" />
+            <PropertyRef Name="B3KL" />
+            <PropertyRef Name="B3L" />
+            <PropertyRef Name="B4F" />
+            <PropertyRef Name="B4L" />
+            <PropertyRef Name="C1F" />
+            <PropertyRef Name="C1L" />
+            <PropertyRef Name="C2F" />
+            <PropertyRef Name="C2K" />
+            <PropertyRef Name="C2L" />
+            <PropertyRef Name="C3F" />
+            <PropertyRef Name="C3K" />
+            <PropertyRef Name="C3L" />
+            <PropertyRef Name="C4F" />
+            <PropertyRef Name="C4L" />
+            <PropertyRef Name="H1F" />
+            <PropertyRef Name="H2F" />
+            <PropertyRef Name="H3F" />
+            <PropertyRef Name="N5B" />
+            <PropertyRef Name="N5C" />
+            <PropertyRef Name="N5K" />
+            <PropertyRef Name="N5X" />
+            <PropertyRef Name="NVB" />
+            <PropertyRef Name="NVC" />
+            <PropertyRef Name="NVX" />
+            <PropertyRef Name="T1F" />
+            <PropertyRef Name="T1L" />
+            <PropertyRef Name="T2F" />
+            <PropertyRef Name="T2KF" />
+            <PropertyRef Name="T2KL" />
+            <PropertyRef Name="T2L" />
+            <PropertyRef Name="X1F" />
+            <PropertyRef Name="X1L" />
+            <PropertyRef Name="X2F" />
+            <PropertyRef Name="X2K" />
+            <PropertyRef Name="X2L" />
+            <PropertyRef Name="X3F" />
+            <PropertyRef Name="X3K" />
+            <PropertyRef Name="X3L" />
+            <PropertyRef Name="X4F" />
+            <PropertyRef Name="X4L" />
+          </Key>
+          <Property Name="PesadaId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="fechaRomaneo" Type="date" />
+          <Property Name="NumRomaneo" Type="bigint" />
+          <Property Name="productor" Type="varchar" MaxLength="100" />
+          <Property Name="cuit" Type="varchar" MaxLength="40" />
+          <Property Name="fet" Type="varchar" MaxLength="30" />
+          <Property Name="B1F" Type="float" Nullable="false" />
+          <Property Name="B1L" Type="float" Nullable="false" />
+          <Property Name="B2F" Type="float" Nullable="false" />
+          <Property Name="B2KF" Type="float" Nullable="false" />
+          <Property Name="B2KL" Type="float" Nullable="false" />
+          <Property Name="B2L" Type="float" Nullable="false" />
+          <Property Name="B3F" Type="float" Nullable="false" />
+          <Property Name="B3KF" Type="float" Nullable="false" />
+          <Property Name="B3KL" Type="float" Nullable="false" />
+          <Property Name="B3L" Type="float" Nullable="false" />
+          <Property Name="B4F" Type="float" Nullable="false" />
+          <Property Name="B4L" Type="float" Nullable="false" />
+          <Property Name="C1F" Type="float" Nullable="false" />
+          <Property Name="C1L" Type="float" Nullable="false" />
+          <Property Name="C2F" Type="float" Nullable="false" />
+          <Property Name="C2K" Type="float" Nullable="false" />
+          <Property Name="C2L" Type="float" Nullable="false" />
+          <Property Name="C3F" Type="float" Nullable="false" />
+          <Property Name="C3K" Type="float" Nullable="false" />
+          <Property Name="C3L" Type="float" Nullable="false" />
+          <Property Name="C4F" Type="float" Nullable="false" />
+          <Property Name="C4L" Type="float" Nullable="false" />
+          <Property Name="H1F" Type="float" Nullable="false" />
+          <Property Name="H2F" Type="float" Nullable="false" />
+          <Property Name="H3F" Type="float" Nullable="false" />
+          <Property Name="N5B" Type="float" Nullable="false" />
+          <Property Name="N5C" Type="float" Nullable="false" />
+          <Property Name="N5K" Type="float" Nullable="false" />
+          <Property Name="N5X" Type="float" Nullable="false" />
+          <Property Name="NVB" Type="float" Nullable="false" />
+          <Property Name="NVC" Type="float" Nullable="false" />
+          <Property Name="NVX" Type="float" Nullable="false" />
+          <Property Name="T1F" Type="float" Nullable="false" />
+          <Property Name="T1L" Type="float" Nullable="false" />
+          <Property Name="T2F" Type="float" Nullable="false" />
+          <Property Name="T2KF" Type="float" Nullable="false" />
+          <Property Name="T2KL" Type="float" Nullable="false" />
+          <Property Name="T2L" Type="float" Nullable="false" />
+          <Property Name="X1F" Type="float" Nullable="false" />
+          <Property Name="X1L" Type="float" Nullable="false" />
+          <Property Name="X2F" Type="float" Nullable="false" />
+          <Property Name="X2K" Type="float" Nullable="false" />
+          <Property Name="X2L" Type="float" Nullable="false" />
+          <Property Name="X3F" Type="float" Nullable="false" />
+          <Property Name="X3K" Type="float" Nullable="false" />
+          <Property Name="X3L" Type="float" Nullable="false" />
+          <Property Name="X4F" Type="float" Nullable="false" />
+          <Property Name="X4L" Type="float" Nullable="false" />
+          <Property Name="Totalkg" Type="float" />
+          <Property Name="Importebruto" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_Romaneo">
           <Key>
@@ -448,7 +655,9 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
           </Key>
           <Property Name="PesadaId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="FechaRomaneo" Type="date" />
-          <Property Name="NumRomaneo" Type="nvarchar" MaxLength="500" />
+          <Property Name="PuntoVentaRomaneo" Type="int" />
+          <Property Name="NumRomaneo" Type="bigint" />
+          <Property Name="Tabaco" Type="varchar" MaxLength="150" />
           <Property Name="ProductorId" Type="uniqueidentifier" />
           <Property Name="NOMBRE" Type="varchar" MaxLength="100" />
           <Property Name="CUIT" Type="varchar" MaxLength="40" />
@@ -457,6 +666,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
           <Property Name="TotalKg" Type="float" />
           <Property Name="ImporteBruto" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Importeporpagar" Type="float" />
+          <Property Name="PuntoVentaLiquidacion" Type="int" />
           <Property Name="NumInternoLiquidacion" Type="bigint" />
           <Property Name="FechaInternaLiquidacion" Type="date" />
           <Property Name="Letra" Type="varchar" MaxLength="1" Nullable="false" />
@@ -474,6 +684,16 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
           <Property Name="RIEGO" Type="decimal" Precision="38" Scale="10" />
           <Property Name="GANANCIA" Type="decimal" Precision="38" Scale="10" />
           <Property Name="BASEGANANCIA" Type="float" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_TipoTabaco' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Vw_TipoTabaco">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="varchar" MaxLength="150" />
+          <Property Name="RUBRO_ID" Type="uniqueidentifier" />
         </EntityType>
         <Association Name="FK_Caja_Cata">
           <End Role="Cata" Type="Self.Cata" Multiplicity="0..1" />
@@ -515,6 +735,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
           <EntitySet Name="Caja" EntityType="Self.Caja" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cata" EntityType="Self.Cata" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Clase" EntityType="Self.Clase" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Configuracion" EntityType="Self.Configuracion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Contador" EntityType="Self.Contador" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Movimiento" EntityType="Self.Movimiento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrdenPago" EntityType="Self.OrdenPago" Schema="dbo" store:Type="Tables" />
@@ -526,7 +747,6 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
           <EntitySet Name="Preingreso" EntityType="Self.Preingreso" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PreingresoDetalle" EntityType="Self.PreingresoDetalle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Remito" EntityType="Self.Remito" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vw_Clase" EntityType="Self.Vw_Clase" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -614,7 +834,10 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
     [Vw_Pesada].[Kilos] AS [Kilos], 
     [Vw_Pesada].[Subtotal] AS [Subtotal], 
     [Vw_Pesada].[FechaRomaneo] AS [FechaRomaneo], 
+    [Vw_Pesada].[PuntoVentaRomaneo] AS [PuntoVentaRomaneo], 
     [Vw_Pesada].[NumRomaneo] AS [NumRomaneo], 
+    [Vw_Pesada].[TotalKg] AS [TotalKg], 
+    [Vw_Pesada].[ImporteBruto] AS [ImporteBruto], 
     [Vw_Pesada].[Productor] AS [Productor], 
     [Vw_Pesada].[Fet] AS [Fet], 
     [Vw_Pesada].[Cuit] AS [Cuit], 
@@ -622,10 +845,13 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
     [Vw_Pesada].[Localidad] AS [Localidad], 
     [Vw_Pesada].[IVA] AS [IVA], 
     [Vw_Pesada].[FechainternaLiquidacion] AS [FechainternaLiquidacion], 
+    [Vw_Pesada].[PuntoVentaLiquidacion] AS [PuntoVentaLiquidacion], 
     [Vw_Pesada].[NumInternoLiquidacion] AS [NumInternoLiquidacion], 
     [Vw_Pesada].[condIva] AS [condIva], 
     [Vw_Pesada].[NumAfipLiquidacion] AS [NumAfipLiquidacion], 
-    [Vw_Pesada].[FechaAfipLiquidacion] AS [FechaAfipLiquidacion]
+    [Vw_Pesada].[FechaAfipLiquidacion] AS [FechaAfipLiquidacion], 
+    [Vw_Pesada].[ID_PRODUCTO] AS [ID_PRODUCTO], 
+    [Vw_Pesada].[DESCRIPCION] AS [DESCRIPCION]
     FROM [dbo].[Vw_Pesada] AS [Vw_Pesada]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="Vw_Preingreso" EntityType="Self.Vw_Preingreso" store:Type="Views" store:Schema="dbo">
@@ -695,6 +921,45 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
     [Vw_ResumenPesadaPorClase].[Kilos] AS [Kilos]
     FROM [dbo].[Vw_ResumenPesadaPorClase] AS [Vw_ResumenPesadaPorClase]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="Vw_ResumenRomaneoBurley" EntityType="Self.Vw_ResumenRomaneoBurley" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Vw_ResumenRomaneoBurley].[PesadaId] AS [PesadaId], 
+    [Vw_ResumenRomaneoBurley].[fechaRomaneo] AS [fechaRomaneo], 
+    [Vw_ResumenRomaneoBurley].[NumRomaneo] AS [NumRomaneo], 
+    [Vw_ResumenRomaneoBurley].[productor] AS [productor], 
+    [Vw_ResumenRomaneoBurley].[cuit] AS [cuit], 
+    [Vw_ResumenRomaneoBurley].[fet] AS [fet], 
+    [Vw_ResumenRomaneoBurley].[B1F] AS [B1F], 
+    [Vw_ResumenRomaneoBurley].[B1FR] AS [B1FR], 
+    [Vw_ResumenRomaneoBurley].[B2F] AS [B2F], 
+    [Vw_ResumenRomaneoBurley].[B2FR] AS [B2FR], 
+    [Vw_ResumenRomaneoBurley].[B3F] AS [B3F], 
+    [Vw_ResumenRomaneoBurley].[B3FR] AS [B3FR], 
+    [Vw_ResumenRomaneoBurley].[B3K] AS [B3K], 
+    [Vw_ResumenRomaneoBurley].[C1F] AS [C1F], 
+    [Vw_ResumenRomaneoBurley].[C1L] AS [C1L], 
+    [Vw_ResumenRomaneoBurley].[C2F] AS [C2F], 
+    [Vw_ResumenRomaneoBurley].[C2L] AS [C2L], 
+    [Vw_ResumenRomaneoBurley].[C3F] AS [C3F], 
+    [Vw_ResumenRomaneoBurley].[C3K] AS [C3K], 
+    [Vw_ResumenRomaneoBurley].[C3L] AS [C3L], 
+    [Vw_ResumenRomaneoBurley].[NB] AS [NB], 
+    [Vw_ResumenRomaneoBurley].[NG] AS [NG], 
+    [Vw_ResumenRomaneoBurley].[NX] AS [NX], 
+    [Vw_ResumenRomaneoBurley].[T1F] AS [T1F], 
+    [Vw_ResumenRomaneoBurley].[T1FR] AS [T1FR], 
+    [Vw_ResumenRomaneoBurley].[T2F] AS [T2F], 
+    [Vw_ResumenRomaneoBurley].[T2FR] AS [T2FR], 
+    [Vw_ResumenRomaneoBurley].[T3K] AS [T3K], 
+    [Vw_ResumenRomaneoBurley].[X1F] AS [X1F], 
+    [Vw_ResumenRomaneoBurley].[X1L] AS [X1L], 
+    [Vw_ResumenRomaneoBurley].[X2F] AS [X2F], 
+    [Vw_ResumenRomaneoBurley].[X2L] AS [X2L], 
+    [Vw_ResumenRomaneoBurley].[X3K] AS [X3K], 
+    [Vw_ResumenRomaneoBurley].[Totalkg] AS [Totalkg], 
+    [Vw_ResumenRomaneoBurley].[Importebruto] AS [Importebruto]
+    FROM [dbo].[Vw_ResumenRomaneoBurley] AS [Vw_ResumenRomaneoBurley]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="Vw_ResumenRomaneoPorClase" EntityType="Self.Vw_ResumenRomaneoPorClase" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [Vw_ResumenRomaneoPorClase].[PesadaId] AS [PesadaId], 
@@ -705,11 +970,73 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
     [Vw_ResumenRomaneoPorClase].[Total] AS [Total]
     FROM [dbo].[Vw_ResumenRomaneoPorClase] AS [Vw_ResumenRomaneoPorClase]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="Vw_ResumenRomaneoVirginia" EntityType="Self.Vw_ResumenRomaneoVirginia" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Vw_ResumenRomaneoVirginia].[PesadaId] AS [PesadaId], 
+    [Vw_ResumenRomaneoVirginia].[fechaRomaneo] AS [fechaRomaneo], 
+    [Vw_ResumenRomaneoVirginia].[NumRomaneo] AS [NumRomaneo], 
+    [Vw_ResumenRomaneoVirginia].[productor] AS [productor], 
+    [Vw_ResumenRomaneoVirginia].[cuit] AS [cuit], 
+    [Vw_ResumenRomaneoVirginia].[fet] AS [fet], 
+    [Vw_ResumenRomaneoVirginia].[B1F] AS [B1F], 
+    [Vw_ResumenRomaneoVirginia].[B1L] AS [B1L], 
+    [Vw_ResumenRomaneoVirginia].[B2F] AS [B2F], 
+    [Vw_ResumenRomaneoVirginia].[B2KF] AS [B2KF], 
+    [Vw_ResumenRomaneoVirginia].[B2KL] AS [B2KL], 
+    [Vw_ResumenRomaneoVirginia].[B2L] AS [B2L], 
+    [Vw_ResumenRomaneoVirginia].[B3F] AS [B3F], 
+    [Vw_ResumenRomaneoVirginia].[B3KF] AS [B3KF], 
+    [Vw_ResumenRomaneoVirginia].[B3KL] AS [B3KL], 
+    [Vw_ResumenRomaneoVirginia].[B3L] AS [B3L], 
+    [Vw_ResumenRomaneoVirginia].[B4F] AS [B4F], 
+    [Vw_ResumenRomaneoVirginia].[B4L] AS [B4L], 
+    [Vw_ResumenRomaneoVirginia].[C1F] AS [C1F], 
+    [Vw_ResumenRomaneoVirginia].[C1L] AS [C1L], 
+    [Vw_ResumenRomaneoVirginia].[C2F] AS [C2F], 
+    [Vw_ResumenRomaneoVirginia].[C2K] AS [C2K], 
+    [Vw_ResumenRomaneoVirginia].[C2L] AS [C2L], 
+    [Vw_ResumenRomaneoVirginia].[C3F] AS [C3F], 
+    [Vw_ResumenRomaneoVirginia].[C3K] AS [C3K], 
+    [Vw_ResumenRomaneoVirginia].[C3L] AS [C3L], 
+    [Vw_ResumenRomaneoVirginia].[C4F] AS [C4F], 
+    [Vw_ResumenRomaneoVirginia].[C4L] AS [C4L], 
+    [Vw_ResumenRomaneoVirginia].[H1F] AS [H1F], 
+    [Vw_ResumenRomaneoVirginia].[H2F] AS [H2F], 
+    [Vw_ResumenRomaneoVirginia].[H3F] AS [H3F], 
+    [Vw_ResumenRomaneoVirginia].[N5B] AS [N5B], 
+    [Vw_ResumenRomaneoVirginia].[N5C] AS [N5C], 
+    [Vw_ResumenRomaneoVirginia].[N5K] AS [N5K], 
+    [Vw_ResumenRomaneoVirginia].[N5X] AS [N5X], 
+    [Vw_ResumenRomaneoVirginia].[NVB] AS [NVB], 
+    [Vw_ResumenRomaneoVirginia].[NVC] AS [NVC], 
+    [Vw_ResumenRomaneoVirginia].[NVX] AS [NVX], 
+    [Vw_ResumenRomaneoVirginia].[T1F] AS [T1F], 
+    [Vw_ResumenRomaneoVirginia].[T1L] AS [T1L], 
+    [Vw_ResumenRomaneoVirginia].[T2F] AS [T2F], 
+    [Vw_ResumenRomaneoVirginia].[T2KF] AS [T2KF], 
+    [Vw_ResumenRomaneoVirginia].[T2KL] AS [T2KL], 
+    [Vw_ResumenRomaneoVirginia].[T2L] AS [T2L], 
+    [Vw_ResumenRomaneoVirginia].[X1F] AS [X1F], 
+    [Vw_ResumenRomaneoVirginia].[X1L] AS [X1L], 
+    [Vw_ResumenRomaneoVirginia].[X2F] AS [X2F], 
+    [Vw_ResumenRomaneoVirginia].[X2K] AS [X2K], 
+    [Vw_ResumenRomaneoVirginia].[X2L] AS [X2L], 
+    [Vw_ResumenRomaneoVirginia].[X3F] AS [X3F], 
+    [Vw_ResumenRomaneoVirginia].[X3K] AS [X3K], 
+    [Vw_ResumenRomaneoVirginia].[X3L] AS [X3L], 
+    [Vw_ResumenRomaneoVirginia].[X4F] AS [X4F], 
+    [Vw_ResumenRomaneoVirginia].[X4L] AS [X4L], 
+    [Vw_ResumenRomaneoVirginia].[Totalkg] AS [Totalkg], 
+    [Vw_ResumenRomaneoVirginia].[Importebruto] AS [Importebruto]
+    FROM [dbo].[Vw_ResumenRomaneoVirginia] AS [Vw_ResumenRomaneoVirginia]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="Vw_Romaneo" EntityType="Self.Vw_Romaneo" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [Vw_Romaneo].[PesadaId] AS [PesadaId], 
     [Vw_Romaneo].[FechaRomaneo] AS [FechaRomaneo], 
+    [Vw_Romaneo].[PuntoVentaRomaneo] AS [PuntoVentaRomaneo], 
     [Vw_Romaneo].[NumRomaneo] AS [NumRomaneo], 
+    [Vw_Romaneo].[Tabaco] AS [Tabaco], 
     [Vw_Romaneo].[ProductorId] AS [ProductorId], 
     [Vw_Romaneo].[NOMBRE] AS [NOMBRE], 
     [Vw_Romaneo].[CUIT] AS [CUIT], 
@@ -718,6 +1045,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
     [Vw_Romaneo].[TotalKg] AS [TotalKg], 
     [Vw_Romaneo].[ImporteBruto] AS [ImporteBruto], 
     [Vw_Romaneo].[Importeporpagar] AS [Importeporpagar], 
+    [Vw_Romaneo].[PuntoVentaLiquidacion] AS [PuntoVentaLiquidacion], 
     [Vw_Romaneo].[NumInternoLiquidacion] AS [NumInternoLiquidacion], 
     [Vw_Romaneo].[FechaInternaLiquidacion] AS [FechaInternaLiquidacion], 
     [Vw_Romaneo].[Letra] AS [Letra], 
@@ -736,6 +1064,13 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
     [Vw_Romaneo].[GANANCIA] AS [GANANCIA], 
     [Vw_Romaneo].[BASEGANANCIA] AS [BASEGANANCIA]
     FROM [dbo].[Vw_Romaneo] AS [Vw_Romaneo]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Vw_TipoTabaco" EntityType="Self.Vw_TipoTabaco" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Vw_TipoTabaco].[id] AS [id], 
+    [Vw_TipoTabaco].[DESCRIPCION] AS [DESCRIPCION], 
+    [Vw_TipoTabaco].[RUBRO_ID] AS [RUBRO_ID]
+    FROM [dbo].[Vw_TipoTabaco] AS [Vw_TipoTabaco]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_Caja_Cata" Association="Self.FK_Caja_Cata">
             <End Role="Cata" EntitySet="Cata" />
@@ -758,6 +1093,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
           <EntitySet Name="Caja" EntityType="CooperativaProduccionModel.Caja" />
           <EntitySet Name="Cata" EntityType="CooperativaProduccionModel.Cata" />
           <EntitySet Name="Clase" EntityType="CooperativaProduccionModel.Clase" />
+          <EntitySet Name="Configuracion" EntityType="CooperativaProduccionModel.Configuracion" />
           <EntitySet Name="Contador" EntityType="CooperativaProduccionModel.Contador" />
           <EntitySet Name="Movimiento" EntityType="CooperativaProduccionModel.Movimiento" />
           <EntitySet Name="OrdenPago" EntityType="CooperativaProduccionModel.OrdenPago" />
@@ -769,7 +1105,6 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
           <EntitySet Name="Preingreso" EntityType="CooperativaProduccionModel.Preingreso" />
           <EntitySet Name="PreingresoDetalle" EntityType="CooperativaProduccionModel.PreingresoDetalle" />
           <EntitySet Name="Remito" EntityType="CooperativaProduccionModel.Remito" />
-          <EntitySet Name="sysdiagrams" EntityType="CooperativaProduccionModel.sysdiagrams" />
           <EntitySet Name="Usuario" EntityType="CooperativaProduccionModel.Usuario" />
           <EntitySet Name="Vw_Clase" EntityType="CooperativaProduccionModel.Vw_Clase" />
           <EntitySet Name="Vw_Cliente" EntityType="CooperativaProduccionModel.Vw_Cliente" />
@@ -781,8 +1116,11 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
           <EntitySet Name="Vw_Productor" EntityType="CooperativaProduccionModel.Vw_Productor" />
           <EntitySet Name="Vw_ResumenPesada" EntityType="CooperativaProduccionModel.Vw_ResumenPesada" />
           <EntitySet Name="Vw_ResumenPesadaPorClase" EntityType="CooperativaProduccionModel.Vw_ResumenPesadaPorClase" />
+          <EntitySet Name="Vw_ResumenRomaneoBurley" EntityType="CooperativaProduccionModel.Vw_ResumenRomaneoBurley" />
           <EntitySet Name="Vw_ResumenRomaneoPorClase" EntityType="CooperativaProduccionModel.Vw_ResumenRomaneoPorClase" />
+          <EntitySet Name="Vw_ResumenRomaneoVirginia" EntityType="CooperativaProduccionModel.Vw_ResumenRomaneoVirginia" />
           <EntitySet Name="Vw_Romaneo" EntityType="CooperativaProduccionModel.Vw_Romaneo" />
+          <EntitySet Name="Vw_TipoTabaco" EntityType="CooperativaProduccionModel.Vw_TipoTabaco" />
           <AssociationSet Name="FK_Caja_Cata" Association="CooperativaProduccionModel.FK_Caja_Cata">
             <End Role="Cata" EntitySet="Cata" />
             <End Role="Caja" EntitySet="Caja" />
@@ -835,6 +1173,15 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
           <Property Name="Valor" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <Property Name="FechaModificacion" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Vigente" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Configuracion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Valor" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Contador">
           <Key>
@@ -920,9 +1267,12 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
           <Property Name="ImporteBruto" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="PrecioPromedio" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="FechaRomaneo" Type="DateTime" Precision="0" />
-          <Property Name="NumRomaneo" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PuntoVentaRomaneo" Type="Int32" />
+          <Property Name="NumRomaneo" Type="Int64" />
+          <Property Name="TipoTabacoId" Type="Guid" />
           <Property Name="RomaneoPendiente" Type="Boolean" />
           <Property Name="FechaInternaLiquidacion" Type="DateTime" Precision="0" />
+          <Property Name="PuntoVentaLiquidacion" Type="Int32" />
           <Property Name="NumInternoLiquidacion" Type="Int64" />
           <Property Name="condIva" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IvaPorcentaje" Type="Decimal" Precision="18" Scale="2" />
@@ -947,7 +1297,6 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
           <Property Name="ClasePrecio" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="Kilos" Type="Double" />
           <Property Name="ReclasificacionId" Type="Guid" />
-          <Property Name="ReclasificacionPrecio" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="Preingreso">
           <Key>
@@ -995,25 +1344,35 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
           <Property Name="File" Type="Binary" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="OrdenVenta" Relationship="CooperativaProduccionModel.FK_Remito_OrdenVenta" FromRole="Remito" ToRole="OrdenVenta" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
         <EntityType Name="Usuario">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="Usuario1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Apellido" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Usuario1" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Nombre" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Apellido" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Preingreso" Type="Boolean" />
+          <Property Name="Pesada" Type="Boolean" />
+          <Property Name="ReimpresionRomaneo" Type="Boolean" />
+          <Property Name="ResumenRomaneo" Type="Boolean" />
+          <Property Name="ResumenCompra" Type="Boolean" />
+          <Property Name="ResumenClaseMes" Type="Boolean" />
+          <Property Name="ResumenClaseTrimestre" Type="Boolean" />
+          <Property Name="Reclasificacion" Type="Boolean" />
+          <Property Name="GestionReclasificacion" Type="Boolean" />
+          <Property Name="Seguridad" Type="Boolean" />
+          <Property Name="Configuracion" Type="Boolean" />
+          <Property Name="Liquidar" Type="Boolean" />
+          <Property Name="LiquidacionSubirAfip" Type="Boolean" />
+          <Property Name="LiquidacionImprimir" Type="Boolean" />
+          <Property Name="GenerarOrdenPago" Type="Boolean" />
+          <Property Name="GestionCata" Type="Boolean" />
+          <Property Name="GestionCaja" Type="Boolean" />
+          <Property Name="GenerarOrdenVenta" Type="Boolean" />
+          <Property Name="GenerarRemitoElectronico" Type="Boolean" />
+          <Property Name="GestionarListaPrecio" Type="Boolean" />
         </EntityType>
         <EntityType Name="Vw_Clase">
           <Key>
@@ -1022,7 +1381,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
           <Property Name="ID" Type="Guid" Nullable="false" />
           <Property Name="NOMBRE" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
           <Property Name="ID_PRODUCTO" Type="Guid" />
-          <Property Name="COD_PRODUCTO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="COD_PRODUCTO" Type="String" MaxLength="183" FixedLength="false" Unicode="false" />
           <Property Name="DESCRIPCION" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="PRECIOCOMPRA" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="Vigente" Type="Boolean" />
@@ -1061,13 +1420,13 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="NumFardo" Type="Int64" />
-          <Property Name="Clase" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Clase" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
           <Property Name="Kilos" Type="Double" />
-          <Property Name="NumRomaneo" Type="Int64" />
-          <Property Name="Productor" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Fet" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Cuit" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Provincia" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NumRomaneo" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Productor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Fet" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Cuit" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Provincia" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Name="Fecha" Type="DateTime" Precision="0" />
           <Property Name="Unidad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Ingreso" Type="Double" />
@@ -1114,7 +1473,10 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
           <Property Name="Kilos" Type="Double" />
           <Property Name="Subtotal" Type="Decimal" Precision="10" Scale="2" />
           <Property Name="FechaRomaneo" Type="DateTime" Precision="0" />
-          <Property Name="NumRomaneo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PuntoVentaRomaneo" Type="Int32" />
+          <Property Name="NumRomaneo" Type="Int64" />
+          <Property Name="TotalKg" Type="Double" />
+          <Property Name="ImporteBruto" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="Productor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Fet" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="Cuit" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
@@ -1122,10 +1484,13 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
           <Property Name="Localidad" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Name="IVA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="FechainternaLiquidacion" Type="DateTime" Precision="0" />
+          <Property Name="PuntoVentaLiquidacion" Type="Int32" />
           <Property Name="NumInternoLiquidacion" Type="Int64" />
           <Property Name="condIva" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="NumAfipLiquidacion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="FechaAfipLiquidacion" Type="DateTime" Precision="0" />
+          <Property Name="ID_PRODUCTO" Type="Guid" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Vw_Preingreso">
           <Key>
@@ -1202,6 +1567,73 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
           <Property Name="Clase" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
           <Property Name="Kilos" Type="Double" />
         </EntityType>
+        <EntityType Name="Vw_ResumenRomaneoBurley">
+          <Key>
+            <PropertyRef Name="PesadaId" />
+            <PropertyRef Name="B1F" />
+            <PropertyRef Name="B1FR" />
+            <PropertyRef Name="B2F" />
+            <PropertyRef Name="B2FR" />
+            <PropertyRef Name="B3F" />
+            <PropertyRef Name="B3FR" />
+            <PropertyRef Name="B3K" />
+            <PropertyRef Name="C1F" />
+            <PropertyRef Name="C1L" />
+            <PropertyRef Name="C2F" />
+            <PropertyRef Name="C2L" />
+            <PropertyRef Name="C3F" />
+            <PropertyRef Name="C3K" />
+            <PropertyRef Name="C3L" />
+            <PropertyRef Name="NB" />
+            <PropertyRef Name="NG" />
+            <PropertyRef Name="NX" />
+            <PropertyRef Name="T1F" />
+            <PropertyRef Name="T1FR" />
+            <PropertyRef Name="T2F" />
+            <PropertyRef Name="T2FR" />
+            <PropertyRef Name="T3K" />
+            <PropertyRef Name="X1F" />
+            <PropertyRef Name="X1L" />
+            <PropertyRef Name="X2F" />
+            <PropertyRef Name="X2L" />
+            <PropertyRef Name="X3K" />
+          </Key>
+          <Property Name="PesadaId" Type="Guid" Nullable="false" />
+          <Property Name="fechaRomaneo" Type="DateTime" Precision="0" />
+          <Property Name="NumRomaneo" Type="Int64" />
+          <Property Name="productor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="cuit" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="fet" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="B1F" Type="Double" Nullable="false" />
+          <Property Name="B1FR" Type="Double" Nullable="false" />
+          <Property Name="B2F" Type="Double" Nullable="false" />
+          <Property Name="B2FR" Type="Double" Nullable="false" />
+          <Property Name="B3F" Type="Double" Nullable="false" />
+          <Property Name="B3FR" Type="Double" Nullable="false" />
+          <Property Name="B3K" Type="Double" Nullable="false" />
+          <Property Name="C1F" Type="Double" Nullable="false" />
+          <Property Name="C1L" Type="Double" Nullable="false" />
+          <Property Name="C2F" Type="Double" Nullable="false" />
+          <Property Name="C2L" Type="Double" Nullable="false" />
+          <Property Name="C3F" Type="Double" Nullable="false" />
+          <Property Name="C3K" Type="Double" Nullable="false" />
+          <Property Name="C3L" Type="Double" Nullable="false" />
+          <Property Name="NB" Type="Double" Nullable="false" />
+          <Property Name="NG" Type="Double" Nullable="false" />
+          <Property Name="NX" Type="Double" Nullable="false" />
+          <Property Name="T1F" Type="Double" Nullable="false" />
+          <Property Name="T1FR" Type="Double" Nullable="false" />
+          <Property Name="T2F" Type="Double" Nullable="false" />
+          <Property Name="T2FR" Type="Double" Nullable="false" />
+          <Property Name="T3K" Type="Double" Nullable="false" />
+          <Property Name="X1F" Type="Double" Nullable="false" />
+          <Property Name="X1L" Type="Double" Nullable="false" />
+          <Property Name="X2F" Type="Double" Nullable="false" />
+          <Property Name="X2L" Type="Double" Nullable="false" />
+          <Property Name="X3K" Type="Double" Nullable="false" />
+          <Property Name="Totalkg" Type="Double" />
+          <Property Name="Importebruto" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
         <EntityType Name="Vw_ResumenRomaneoPorClase">
           <Key>
             <PropertyRef Name="PesadaId" />
@@ -1213,6 +1645,115 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
           <Property Name="ClasePrecio" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="Total" Type="Decimal" Precision="12" Scale="2" />
         </EntityType>
+        <EntityType Name="Vw_ResumenRomaneoVirginia">
+          <Key>
+            <PropertyRef Name="PesadaId" />
+            <PropertyRef Name="B1F" />
+            <PropertyRef Name="B1L" />
+            <PropertyRef Name="B2F" />
+            <PropertyRef Name="B2KF" />
+            <PropertyRef Name="B2KL" />
+            <PropertyRef Name="B2L" />
+            <PropertyRef Name="B3F" />
+            <PropertyRef Name="B3KF" />
+            <PropertyRef Name="B3KL" />
+            <PropertyRef Name="B3L" />
+            <PropertyRef Name="B4F" />
+            <PropertyRef Name="B4L" />
+            <PropertyRef Name="C1F" />
+            <PropertyRef Name="C1L" />
+            <PropertyRef Name="C2F" />
+            <PropertyRef Name="C2K" />
+            <PropertyRef Name="C2L" />
+            <PropertyRef Name="C3F" />
+            <PropertyRef Name="C3K" />
+            <PropertyRef Name="C3L" />
+            <PropertyRef Name="C4F" />
+            <PropertyRef Name="C4L" />
+            <PropertyRef Name="H1F" />
+            <PropertyRef Name="H2F" />
+            <PropertyRef Name="H3F" />
+            <PropertyRef Name="N5B" />
+            <PropertyRef Name="N5C" />
+            <PropertyRef Name="N5K" />
+            <PropertyRef Name="N5X" />
+            <PropertyRef Name="NVB" />
+            <PropertyRef Name="NVC" />
+            <PropertyRef Name="NVX" />
+            <PropertyRef Name="T1F" />
+            <PropertyRef Name="T1L" />
+            <PropertyRef Name="T2F" />
+            <PropertyRef Name="T2KF" />
+            <PropertyRef Name="T2KL" />
+            <PropertyRef Name="T2L" />
+            <PropertyRef Name="X1F" />
+            <PropertyRef Name="X1L" />
+            <PropertyRef Name="X2F" />
+            <PropertyRef Name="X2K" />
+            <PropertyRef Name="X2L" />
+            <PropertyRef Name="X3F" />
+            <PropertyRef Name="X3K" />
+            <PropertyRef Name="X3L" />
+            <PropertyRef Name="X4F" />
+            <PropertyRef Name="X4L" />
+          </Key>
+          <Property Name="PesadaId" Type="Guid" Nullable="false" />
+          <Property Name="fechaRomaneo" Type="DateTime" Precision="0" />
+          <Property Name="NumRomaneo" Type="Int64" />
+          <Property Name="productor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="cuit" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="fet" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="B1F" Type="Double" Nullable="false" />
+          <Property Name="B1L" Type="Double" Nullable="false" />
+          <Property Name="B2F" Type="Double" Nullable="false" />
+          <Property Name="B2KF" Type="Double" Nullable="false" />
+          <Property Name="B2KL" Type="Double" Nullable="false" />
+          <Property Name="B2L" Type="Double" Nullable="false" />
+          <Property Name="B3F" Type="Double" Nullable="false" />
+          <Property Name="B3KF" Type="Double" Nullable="false" />
+          <Property Name="B3KL" Type="Double" Nullable="false" />
+          <Property Name="B3L" Type="Double" Nullable="false" />
+          <Property Name="B4F" Type="Double" Nullable="false" />
+          <Property Name="B4L" Type="Double" Nullable="false" />
+          <Property Name="C1F" Type="Double" Nullable="false" />
+          <Property Name="C1L" Type="Double" Nullable="false" />
+          <Property Name="C2F" Type="Double" Nullable="false" />
+          <Property Name="C2K" Type="Double" Nullable="false" />
+          <Property Name="C2L" Type="Double" Nullable="false" />
+          <Property Name="C3F" Type="Double" Nullable="false" />
+          <Property Name="C3K" Type="Double" Nullable="false" />
+          <Property Name="C3L" Type="Double" Nullable="false" />
+          <Property Name="C4F" Type="Double" Nullable="false" />
+          <Property Name="C4L" Type="Double" Nullable="false" />
+          <Property Name="H1F" Type="Double" Nullable="false" />
+          <Property Name="H2F" Type="Double" Nullable="false" />
+          <Property Name="H3F" Type="Double" Nullable="false" />
+          <Property Name="N5B" Type="Double" Nullable="false" />
+          <Property Name="N5C" Type="Double" Nullable="false" />
+          <Property Name="N5K" Type="Double" Nullable="false" />
+          <Property Name="N5X" Type="Double" Nullable="false" />
+          <Property Name="NVB" Type="Double" Nullable="false" />
+          <Property Name="NVC" Type="Double" Nullable="false" />
+          <Property Name="NVX" Type="Double" Nullable="false" />
+          <Property Name="T1F" Type="Double" Nullable="false" />
+          <Property Name="T1L" Type="Double" Nullable="false" />
+          <Property Name="T2F" Type="Double" Nullable="false" />
+          <Property Name="T2KF" Type="Double" Nullable="false" />
+          <Property Name="T2KL" Type="Double" Nullable="false" />
+          <Property Name="T2L" Type="Double" Nullable="false" />
+          <Property Name="X1F" Type="Double" Nullable="false" />
+          <Property Name="X1L" Type="Double" Nullable="false" />
+          <Property Name="X2F" Type="Double" Nullable="false" />
+          <Property Name="X2K" Type="Double" Nullable="false" />
+          <Property Name="X2L" Type="Double" Nullable="false" />
+          <Property Name="X3F" Type="Double" Nullable="false" />
+          <Property Name="X3K" Type="Double" Nullable="false" />
+          <Property Name="X3L" Type="Double" Nullable="false" />
+          <Property Name="X4F" Type="Double" Nullable="false" />
+          <Property Name="X4L" Type="Double" Nullable="false" />
+          <Property Name="Totalkg" Type="Double" />
+          <Property Name="Importebruto" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
         <EntityType Name="Vw_Romaneo">
           <Key>
             <PropertyRef Name="PesadaId" />
@@ -1221,7 +1762,9 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
           </Key>
           <Property Name="PesadaId" Type="Guid" Nullable="false" />
           <Property Name="FechaRomaneo" Type="DateTime" Precision="0" />
-          <Property Name="NumRomaneo" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PuntoVentaRomaneo" Type="Int32" />
+          <Property Name="NumRomaneo" Type="Int64" />
+          <Property Name="Tabaco" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="ProductorId" Type="Guid" />
           <Property Name="NOMBRE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="CUIT" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
@@ -1230,6 +1773,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
           <Property Name="TotalKg" Type="Double" />
           <Property Name="ImporteBruto" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="Importeporpagar" Type="Double" />
+          <Property Name="PuntoVentaLiquidacion" Type="Int32" />
           <Property Name="NumInternoLiquidacion" Type="Int64" />
           <Property Name="FechaInternaLiquidacion" Type="DateTime" Precision="0" />
           <Property Name="Letra" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
@@ -1247,6 +1791,14 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
           <Property Name="RIEGO" Type="Decimal" Precision="38" Scale="10" />
           <Property Name="GANANCIA" Type="Decimal" Precision="38" Scale="10" />
           <Property Name="BASEGANANCIA" Type="Double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Vw_TipoTabaco">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Guid" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="RUBRO_ID" Type="Guid" />
         </EntityType>
         <Association Name="FK_Caja_Cata">
           <End Type="CooperativaProduccionModel.Cata" Role="Cata" Multiplicity="0..1" />
@@ -1327,6 +1879,16 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
                 <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
                 <ScalarProperty Name="Valor" ColumnName="Valor" />
                 <ScalarProperty Name="ClaseId" ColumnName="ClaseId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Configuracion">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.Configuracion">
+              <MappingFragment StoreEntitySet="Configuracion">
+                <ScalarProperty Name="Valor" ColumnName="Valor" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1421,9 +1983,12 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
                 <ScalarProperty Name="IvaPorcentaje" ColumnName="IvaPorcentaje" />
                 <ScalarProperty Name="condIva" ColumnName="condIva" />
                 <ScalarProperty Name="NumInternoLiquidacion" ColumnName="NumInternoLiquidacion" />
+                <ScalarProperty Name="PuntoVentaLiquidacion" ColumnName="PuntoVentaLiquidacion" />
                 <ScalarProperty Name="FechaInternaLiquidacion" ColumnName="FechaInternaLiquidacion" />
                 <ScalarProperty Name="RomaneoPendiente" ColumnName="RomaneoPendiente" />
+                <ScalarProperty Name="TipoTabacoId" ColumnName="TipoTabacoId" />
                 <ScalarProperty Name="NumRomaneo" ColumnName="NumRomaneo" />
+                <ScalarProperty Name="PuntoVentaRomaneo" ColumnName="PuntoVentaRomaneo" />
                 <ScalarProperty Name="FechaRomaneo" ColumnName="FechaRomaneo" />
                 <ScalarProperty Name="PrecioPromedio" ColumnName="PrecioPromedio" />
                 <ScalarProperty Name="ImporteBruto" ColumnName="ImporteBruto" />
@@ -1439,7 +2004,6 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
           <EntitySetMapping Name="PesadaDetalle">
             <EntityTypeMapping TypeName="CooperativaProduccionModel.PesadaDetalle">
               <MappingFragment StoreEntitySet="PesadaDetalle">
-                <ScalarProperty Name="ReclasificacionPrecio" ColumnName="ReclasificacionPrecio" />
                 <ScalarProperty Name="ReclasificacionId" ColumnName="ReclasificacionId" />
                 <ScalarProperty Name="Kilos" ColumnName="Kilos" />
                 <ScalarProperty Name="ClasePrecio" ColumnName="ClasePrecio" />
@@ -1497,20 +2061,29 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="CooperativaProduccionModel.sysdiagrams">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="definition" ColumnName="definition" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Usuario">
             <EntityTypeMapping TypeName="CooperativaProduccionModel.Usuario">
               <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="GestionarListaPrecio" ColumnName="GestionarListaPrecio" />
+                <ScalarProperty Name="GenerarRemitoElectronico" ColumnName="GenerarRemitoElectronico" />
+                <ScalarProperty Name="GenerarOrdenVenta" ColumnName="GenerarOrdenVenta" />
+                <ScalarProperty Name="GestionCaja" ColumnName="GestionCaja" />
+                <ScalarProperty Name="GestionCata" ColumnName="GestionCata" />
+                <ScalarProperty Name="GenerarOrdenPago" ColumnName="GenerarOrdenPago" />
+                <ScalarProperty Name="LiquidacionImprimir" ColumnName="LiquidacionImprimir" />
+                <ScalarProperty Name="LiquidacionSubirAfip" ColumnName="LiquidacionSubirAfip" />
+                <ScalarProperty Name="Liquidar" ColumnName="Liquidar" />
+                <ScalarProperty Name="Configuracion" ColumnName="Configuracion" />
+                <ScalarProperty Name="Seguridad" ColumnName="Seguridad" />
+                <ScalarProperty Name="GestionReclasificacion" ColumnName="GestionReclasificacion" />
+                <ScalarProperty Name="Reclasificacion" ColumnName="Reclasificacion" />
+                <ScalarProperty Name="ResumenClaseTrimestre" ColumnName="ResumenClaseTrimestre" />
+                <ScalarProperty Name="ResumenClaseMes" ColumnName="ResumenClaseMes" />
+                <ScalarProperty Name="ResumenCompra" ColumnName="ResumenCompra" />
+                <ScalarProperty Name="ResumenRomaneo" ColumnName="ResumenRomaneo" />
+                <ScalarProperty Name="ReimpresionRomaneo" ColumnName="ReimpresionRomaneo" />
+                <ScalarProperty Name="Pesada" ColumnName="Pesada" />
+                <ScalarProperty Name="Preingreso" ColumnName="Preingreso" />
                 <ScalarProperty Name="Apellido" ColumnName="Apellido" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
@@ -1605,10 +2178,13 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
           <EntitySetMapping Name="Vw_Pesada">
             <EntityTypeMapping TypeName="CooperativaProduccionModel.Vw_Pesada">
               <MappingFragment StoreEntitySet="Vw_Pesada">
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="ID_PRODUCTO" ColumnName="ID_PRODUCTO" />
                 <ScalarProperty Name="FechaAfipLiquidacion" ColumnName="FechaAfipLiquidacion" />
                 <ScalarProperty Name="NumAfipLiquidacion" ColumnName="NumAfipLiquidacion" />
                 <ScalarProperty Name="condIva" ColumnName="condIva" />
                 <ScalarProperty Name="NumInternoLiquidacion" ColumnName="NumInternoLiquidacion" />
+                <ScalarProperty Name="PuntoVentaLiquidacion" ColumnName="PuntoVentaLiquidacion" />
                 <ScalarProperty Name="FechainternaLiquidacion" ColumnName="FechainternaLiquidacion" />
                 <ScalarProperty Name="IVA" ColumnName="IVA" />
                 <ScalarProperty Name="Localidad" ColumnName="Localidad" />
@@ -1616,7 +2192,10 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
                 <ScalarProperty Name="Cuit" ColumnName="Cuit" />
                 <ScalarProperty Name="Fet" ColumnName="Fet" />
                 <ScalarProperty Name="Productor" ColumnName="Productor" />
+                <ScalarProperty Name="ImporteBruto" ColumnName="ImporteBruto" />
+                <ScalarProperty Name="TotalKg" ColumnName="TotalKg" />
                 <ScalarProperty Name="NumRomaneo" ColumnName="NumRomaneo" />
+                <ScalarProperty Name="PuntoVentaRomaneo" ColumnName="PuntoVentaRomaneo" />
                 <ScalarProperty Name="FechaRomaneo" ColumnName="FechaRomaneo" />
                 <ScalarProperty Name="Subtotal" ColumnName="Subtotal" />
                 <ScalarProperty Name="Kilos" ColumnName="Kilos" />
@@ -1706,6 +2285,47 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Vw_ResumenRomaneoBurley">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.Vw_ResumenRomaneoBurley">
+              <MappingFragment StoreEntitySet="Vw_ResumenRomaneoBurley">
+                <ScalarProperty Name="Importebruto" ColumnName="Importebruto" />
+                <ScalarProperty Name="Totalkg" ColumnName="Totalkg" />
+                <ScalarProperty Name="X3K" ColumnName="X3K" />
+                <ScalarProperty Name="X2L" ColumnName="X2L" />
+                <ScalarProperty Name="X2F" ColumnName="X2F" />
+                <ScalarProperty Name="X1L" ColumnName="X1L" />
+                <ScalarProperty Name="X1F" ColumnName="X1F" />
+                <ScalarProperty Name="T3K" ColumnName="T3K" />
+                <ScalarProperty Name="T2FR" ColumnName="T2FR" />
+                <ScalarProperty Name="T2F" ColumnName="T2F" />
+                <ScalarProperty Name="T1FR" ColumnName="T1FR" />
+                <ScalarProperty Name="T1F" ColumnName="T1F" />
+                <ScalarProperty Name="NX" ColumnName="NX" />
+                <ScalarProperty Name="NG" ColumnName="NG" />
+                <ScalarProperty Name="NB" ColumnName="NB" />
+                <ScalarProperty Name="C3L" ColumnName="C3L" />
+                <ScalarProperty Name="C3K" ColumnName="C3K" />
+                <ScalarProperty Name="C3F" ColumnName="C3F" />
+                <ScalarProperty Name="C2L" ColumnName="C2L" />
+                <ScalarProperty Name="C2F" ColumnName="C2F" />
+                <ScalarProperty Name="C1L" ColumnName="C1L" />
+                <ScalarProperty Name="C1F" ColumnName="C1F" />
+                <ScalarProperty Name="B3K" ColumnName="B3K" />
+                <ScalarProperty Name="B3FR" ColumnName="B3FR" />
+                <ScalarProperty Name="B3F" ColumnName="B3F" />
+                <ScalarProperty Name="B2FR" ColumnName="B2FR" />
+                <ScalarProperty Name="B2F" ColumnName="B2F" />
+                <ScalarProperty Name="B1FR" ColumnName="B1FR" />
+                <ScalarProperty Name="B1F" ColumnName="B1F" />
+                <ScalarProperty Name="fet" ColumnName="fet" />
+                <ScalarProperty Name="cuit" ColumnName="cuit" />
+                <ScalarProperty Name="productor" ColumnName="productor" />
+                <ScalarProperty Name="NumRomaneo" ColumnName="NumRomaneo" />
+                <ScalarProperty Name="fechaRomaneo" ColumnName="fechaRomaneo" />
+                <ScalarProperty Name="PesadaId" ColumnName="PesadaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Vw_ResumenRomaneoPorClase">
             <EntityTypeMapping TypeName="CooperativaProduccionModel.Vw_ResumenRomaneoPorClase">
               <MappingFragment StoreEntitySet="Vw_ResumenRomaneoPorClase">
@@ -1714,6 +2334,68 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
                 <ScalarProperty Name="Kilos" ColumnName="Kilos" />
                 <ScalarProperty Name="Fardos" ColumnName="Fardos" />
                 <ScalarProperty Name="Clase" ColumnName="Clase" />
+                <ScalarProperty Name="PesadaId" ColumnName="PesadaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vw_ResumenRomaneoVirginia">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.Vw_ResumenRomaneoVirginia">
+              <MappingFragment StoreEntitySet="Vw_ResumenRomaneoVirginia">
+                <ScalarProperty Name="Importebruto" ColumnName="Importebruto" />
+                <ScalarProperty Name="Totalkg" ColumnName="Totalkg" />
+                <ScalarProperty Name="X4L" ColumnName="X4L" />
+                <ScalarProperty Name="X4F" ColumnName="X4F" />
+                <ScalarProperty Name="X3L" ColumnName="X3L" />
+                <ScalarProperty Name="X3K" ColumnName="X3K" />
+                <ScalarProperty Name="X3F" ColumnName="X3F" />
+                <ScalarProperty Name="X2L" ColumnName="X2L" />
+                <ScalarProperty Name="X2K" ColumnName="X2K" />
+                <ScalarProperty Name="X2F" ColumnName="X2F" />
+                <ScalarProperty Name="X1L" ColumnName="X1L" />
+                <ScalarProperty Name="X1F" ColumnName="X1F" />
+                <ScalarProperty Name="T2L" ColumnName="T2L" />
+                <ScalarProperty Name="T2KL" ColumnName="T2KL" />
+                <ScalarProperty Name="T2KF" ColumnName="T2KF" />
+                <ScalarProperty Name="T2F" ColumnName="T2F" />
+                <ScalarProperty Name="T1L" ColumnName="T1L" />
+                <ScalarProperty Name="T1F" ColumnName="T1F" />
+                <ScalarProperty Name="NVX" ColumnName="NVX" />
+                <ScalarProperty Name="NVC" ColumnName="NVC" />
+                <ScalarProperty Name="NVB" ColumnName="NVB" />
+                <ScalarProperty Name="N5X" ColumnName="N5X" />
+                <ScalarProperty Name="N5K" ColumnName="N5K" />
+                <ScalarProperty Name="N5C" ColumnName="N5C" />
+                <ScalarProperty Name="N5B" ColumnName="N5B" />
+                <ScalarProperty Name="H3F" ColumnName="H3F" />
+                <ScalarProperty Name="H2F" ColumnName="H2F" />
+                <ScalarProperty Name="H1F" ColumnName="H1F" />
+                <ScalarProperty Name="C4L" ColumnName="C4L" />
+                <ScalarProperty Name="C4F" ColumnName="C4F" />
+                <ScalarProperty Name="C3L" ColumnName="C3L" />
+                <ScalarProperty Name="C3K" ColumnName="C3K" />
+                <ScalarProperty Name="C3F" ColumnName="C3F" />
+                <ScalarProperty Name="C2L" ColumnName="C2L" />
+                <ScalarProperty Name="C2K" ColumnName="C2K" />
+                <ScalarProperty Name="C2F" ColumnName="C2F" />
+                <ScalarProperty Name="C1L" ColumnName="C1L" />
+                <ScalarProperty Name="C1F" ColumnName="C1F" />
+                <ScalarProperty Name="B4L" ColumnName="B4L" />
+                <ScalarProperty Name="B4F" ColumnName="B4F" />
+                <ScalarProperty Name="B3L" ColumnName="B3L" />
+                <ScalarProperty Name="B3KL" ColumnName="B3KL" />
+                <ScalarProperty Name="B3KF" ColumnName="B3KF" />
+                <ScalarProperty Name="B3F" ColumnName="B3F" />
+                <ScalarProperty Name="B2L" ColumnName="B2L" />
+                <ScalarProperty Name="B2KL" ColumnName="B2KL" />
+                <ScalarProperty Name="B2KF" ColumnName="B2KF" />
+                <ScalarProperty Name="B2F" ColumnName="B2F" />
+                <ScalarProperty Name="B1L" ColumnName="B1L" />
+                <ScalarProperty Name="B1F" ColumnName="B1F" />
+                <ScalarProperty Name="fet" ColumnName="fet" />
+                <ScalarProperty Name="cuit" ColumnName="cuit" />
+                <ScalarProperty Name="productor" ColumnName="productor" />
+                <ScalarProperty Name="NumRomaneo" ColumnName="NumRomaneo" />
+                <ScalarProperty Name="fechaRomaneo" ColumnName="fechaRomaneo" />
                 <ScalarProperty Name="PesadaId" ColumnName="PesadaId" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1738,6 +2420,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
                 <ScalarProperty Name="Letra" ColumnName="Letra" />
                 <ScalarProperty Name="FechaInternaLiquidacion" ColumnName="FechaInternaLiquidacion" />
                 <ScalarProperty Name="NumInternoLiquidacion" ColumnName="NumInternoLiquidacion" />
+                <ScalarProperty Name="PuntoVentaLiquidacion" ColumnName="PuntoVentaLiquidacion" />
                 <ScalarProperty Name="Importeporpagar" ColumnName="Importeporpagar" />
                 <ScalarProperty Name="ImporteBruto" ColumnName="ImporteBruto" />
                 <ScalarProperty Name="TotalKg" ColumnName="TotalKg" />
@@ -1746,9 +2429,20 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not hav
                 <ScalarProperty Name="CUIT" ColumnName="CUIT" />
                 <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
                 <ScalarProperty Name="ProductorId" ColumnName="ProductorId" />
+                <ScalarProperty Name="Tabaco" ColumnName="Tabaco" />
                 <ScalarProperty Name="NumRomaneo" ColumnName="NumRomaneo" />
+                <ScalarProperty Name="PuntoVentaRomaneo" ColumnName="PuntoVentaRomaneo" />
                 <ScalarProperty Name="FechaRomaneo" ColumnName="FechaRomaneo" />
                 <ScalarProperty Name="PesadaId" ColumnName="PesadaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vw_TipoTabaco">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.Vw_TipoTabaco">
+              <MappingFragment StoreEntitySet="Vw_TipoTabaco">
+                <ScalarProperty Name="RUBRO_ID" ColumnName="RUBRO_ID" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

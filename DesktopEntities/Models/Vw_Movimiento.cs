@@ -18,7 +18,7 @@ namespace DesktopEntities.Models
         public Nullable<long> NumFardo { get; set; }
         public string Clase { get; set; }
         public Nullable<double> Kilos { get; set; }
-        public Nullable<long> NumRomaneo { get; set; }
+        public string NumRomaneo { get; set; }
         public string Productor { get; set; }
         public string Fet { get; set; }
         public string Cuit { get; set; }

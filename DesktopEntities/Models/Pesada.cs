@@ -23,9 +23,12 @@ namespace DesktopEntities.Models
         public Nullable<decimal> ImporteBruto { get; set; }
         public Nullable<decimal> PrecioPromedio { get; set; }
         public Nullable<System.DateTime> FechaRomaneo { get; set; }
-        public string NumRomaneo { get; set; }
+        public Nullable<int> PuntoVentaRomaneo { get; set; }
+        public Nullable<long> NumRomaneo { get; set; }
+        public Nullable<System.Guid> TipoTabacoId { get; set; }
         public Nullable<bool> RomaneoPendiente { get; set; }
         public Nullable<System.DateTime> FechaInternaLiquidacion { get; set; }
+        public Nullable<int> PuntoVentaLiquidacion { get; set; }
         public Nullable<long> NumInternoLiquidacion { get; set; }
         public string condIva { get; set; }
         public Nullable<decimal> IvaPorcentaje { get; set; }

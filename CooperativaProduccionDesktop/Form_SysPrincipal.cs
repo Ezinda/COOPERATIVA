@@ -19,7 +19,18 @@ namespace CooperativaProduccion
     public partial class Form_SysPrincipal : DevExpress.XtraBars.Ribbon.RibbonForm
     {
         public CooperativaProduccionEntities Context { get; set; }
-        private Usuario _CurrentUser;
+        private Usuario _CurrentUser; 
+        #region permisos
+        private bool ReimpresionRomaneo;   
+        private bool ResumenRomaneo;       
+        private bool ResumenCompra;        
+        private bool ResumenClaseMes;      
+        private bool ResumenClaseTrimestre;
+        private bool GestionReclasificacion;
+        private bool Liquidar;
+        private bool LiquidacionSubirAfip;
+        private bool LiquidacionImprimir;
+        #endregion
 
         public Form_SysPrincipal()
         {
@@ -59,7 +70,7 @@ namespace CooperativaProduccion
 
         private void btnClasificacion_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var reclasificacion = new Form_RomaneoReclasificacion();
+            var reclasificacion = new Form_RomaneoReclasificacion(null);
             reclasificacion.Show();
         }
 
@@ -91,119 +102,147 @@ namespace CooperativaProduccion
 
         private void SolicitarCredenciales(Usuario usuario)
         {
-            // #region Permisos de Empresas
+            var permisos = Context.Usuario
+             .Where(x => x.Id == usuario.Id)
+             .FirstOrDefault();
 
-            //var empresas = Context.UsuarioEmpresa
-            //    .Where(x => x.UsuarioId.Equals(usuario.Id))
-            //    .ToList();
-            //foreach (var empresa in empresas)
-            //{
-            //    if (empresa.Empresa == "CMP")
-            //    {
-            //        CMP = empresa.Empresa;
-            //    }
-            //    else if (empresa.Empresa == "TDA")
-            //    {
-            //        TDA = empresa.Empresa;
-            //    }
-            //    else if (empresa.Empresa == "TDB")
-            //    {
-            //        TDB = empresa.Empresa;
-            //    }
-            //    else if (empresa.Empresa == "TDI")
-            //    {
-            //        TDI = empresa.Empresa;
-            //    }
-            //    else if (empresa.Empresa == "LACARTUJANA")
-            //    {
-            //        LACARTUJANA = empresa.Empresa;
-            //    }
-            //    else if (empresa.Empresa == "MARGESI")
-            //    {
-            //        MARGESI = empresa.Empresa;
-            //    }
-            //    else if (empresa.Empresa == "EMPAQUESDT")
-            //    {
-            //        EMPAQUESDT = empresa.Empresa;
-            //    }
-            //}
-            //#endregion
+            #region Módulo Romaneo
 
-            //var permisos = Context.Usuario
-            //    .Where(x => x.Id == usuario.Id)
-            //    .FirstOrDefault();
+            ReimpresionRomaneo = permisos.ReimpresionRomaneo.Value;
+            ResumenRomaneo = permisos.ResumenRomaneo.Value;
+            ResumenCompra = permisos.ResumenCompra.Value;
+            ResumenClaseMes = permisos.ResumenClaseMes.Value;
+            ResumenClaseTrimestre = permisos.ResumenClaseTrimestre.Value;
+            GestionReclasificacion = permisos.GestionReclasificacion.Value;
+            Liquidar = permisos.Liquidar.Value;
+            LiquidacionSubirAfip = permisos.LiquidacionSubirAfip.Value;
+            LiquidacionImprimir = permisos.LiquidacionImprimir.Value;
+        
+            if (permisos.Preingreso.Equals(false)
+                && permisos.Pesada.Equals(false)
+                && permisos.ReimpresionRomaneo.Equals(false)
+                && permisos.ResumenRomaneo.Equals(false)
+                && permisos.ResumenCompra.Equals(false)
+                && permisos.ResumenClaseMes.Equals(false)
+                && permisos.ResumenClaseTrimestre.Equals(false)
+                && permisos.Reclasificacion.Equals(false)
+                && permisos.GestionReclasificacion.Equals(false))
+            {
+                ribbonPageRomaneo.Visible = false;
+            }
+            else
+            {
+                ribbonPageRomaneo.Visible = true;
+                ribbonPageGroupPorteria.Visible = permisos.Preingreso.Equals(true) ?
+                    true : false;
+                ribbonPageGroupBalanza.Visible = permisos.Pesada.Equals(true)
+                    || permisos.ReimpresionRomaneo.Equals(true)
+                    || permisos.ResumenRomaneo.Equals(true)
+                    || permisos.ResumenCompra.Equals(true)
+                    || permisos.ResumenClaseMes.Equals(true)
+                    || permisos.ResumenClaseTrimestre.Equals(true) ? true : false;
 
-            //#region Permisos de Acceso a Cubos
+                btnPesada.Visibility = permisos.Pesada.Equals(true) ?
+                    BarItemVisibility.Always : BarItemVisibility.Never;
 
-            //if (permisos.GenerarCuboLiquidacion.Equals(false)
-            //    && permisos.GenerarCuboEmpleado.Equals(false))
-            //{
-            //    ribbonPageGroupInformes.Visible = false;
-            //}
-            //else
-            //{
-            //    ribbonPageGroupInformes.Visible = true;
-            //    btnCuboEmpleados.Visibility = permisos.GenerarCuboEmpleado.Equals(true) ?
-            //            BarItemVisibility.Always : BarItemVisibility.Never;
-            //    btnCuboLiquidaciones.Visibility = permisos.GenerarCuboLiquidacion.Equals(true) ?
-            //            BarItemVisibility.Always : BarItemVisibility.Never;
-            //}
+                btnGestionRomaneo.Visibility = permisos.ReimpresionRomaneo.Equals(true)
+                    || permisos.ResumenRomaneo.Equals(true)
+                    || permisos.ResumenCompra.Equals(true)
+                    || permisos.ResumenClaseMes.Equals(true)
+                    || permisos.ResumenClaseTrimestre.Equals(true) ?
+                    BarItemVisibility.Always : BarItemVisibility.Never;
 
-            //#endregion
+                btnClasificacion.Visibility = permisos.Reclasificacion.Equals(true) ?
+                    BarItemVisibility.Always : BarItemVisibility.Never;
 
-            //#region Permisos de Novedades
+            }
 
-            //grabarNovedad = permisos.PuedeGrabarNovedad.Equals(true) ? true : false;
-            //modificarNovedad = permisos.PuedeModificarNovedad.Equals(true) ? true : false;
-            //eliminarNovedad = permisos.PuedeEliminarNovedad.Equals(true) ? true : false;
-            //listarNovedad = permisos.PuedeListarNovedad.Equals(true) ? true : false;
+            #endregion
 
-            //grabarCapacitacion = permisos.PuedeGrabarCapacitacion.Equals(true) ? true : false;
-            //modificarCapacitacion = permisos.PuedeModificarCapacitacion.Equals(true) ? true : false;
-            //eliminarCapacitacion = permisos.PuedeEliminarCapacitacion.Equals(true) ? true : false;
-            //listarCapacitacion = permisos.PuedeListarCapacitacion.Equals(true) ? true : false;
+            #region Módulo Administración
 
-            //grabarEvaluacion = permisos.PuedeGrabarEvaluacion.Equals(true) ? true : false;
-            //modificarEvaluacion = permisos.PuedeModificarEvaluacion.Equals(true) ? true : false;
-            //eliminarEvaluacion = permisos.PuedeEliminarEvaluacion.Equals(true) ? true : false;
-            //listarEvaluacion = permisos.PuedeListarEvaluacion.Equals(true) ? true : false;
+            if (permisos.Liquidar.Equals(false)
+                && permisos.LiquidacionSubirAfip.Equals(false)
+                && permisos.LiquidacionImprimir.Equals(false)
+                && permisos.GenerarOrdenPago.Equals(false))
+            {
+                ribbonPageGroupLiquidacion.Visible = false;
+            }
+            else
+            {
+                ribbonPageGroupLiquidacion.Visible = true;
 
-            //grabarAccidente = permisos.PuedeGrabarAccidente.Equals(true) ? true : false;
-            //modificarAccidente = permisos.PuedeModificarAccidente.Equals(true) ? true : false;
-            //eliminarAccidente = permisos.PuedeEliminarAccidente.Equals(true) ? true : false;
-            //listarAccidente = permisos.PuedeListarAccidente.Equals(true) ? true : false;
+                btnLiquidacion.Visibility = permisos.Liquidar.Equals(true)
+                || permisos.LiquidacionSubirAfip.Equals(true)
+                || permisos.LiquidacionImprimir.Equals(true)
+                || permisos.GenerarOrdenPago.Equals(true) ?
+                BarItemVisibility.Always : BarItemVisibility.Never;
 
-            //grabarSancion = permisos.PuedeGrabarSancion.Equals(true) ? true : false;
-            //modificarSancion = permisos.PuedeModificarSancion.Equals(true) ? true : false;
-            //eliminarSancion = permisos.PuedeEliminarSancion.Equals(true) ? true : false;
-            //listarSancion = permisos.PuedeListarSancion.Equals(true) ? true : false;
+                btnOrdenPago.Visibility = permisos.GenerarOrdenPago.Equals(true) ?
+                BarItemVisibility.Always : BarItemVisibility.Never;
+            }
 
-            //#endregion
+            if (permisos.GestionCata.Equals(false)
+                && permisos.GestionCaja.Equals(false)
+                && permisos.GenerarOrdenVenta.Equals(false)
+                && permisos.GenerarRemitoElectronico.Equals(false))
+            {
+                ribbonPageGroupOrdenVenta.Visible = false;
+            }
+            else
+            {
+                ribbonPageGroupOrdenVenta.Visible = true;
 
-            //#region Permiso de Seguridad
+                btnGestionCata.Visibility = permisos.GestionCata.Equals(true) ?
+                    BarItemVisibility.Always : BarItemVisibility.Never;
 
-            //ribbonSeguridad.Visible = permisos.PuedeAccederSeguridad.Equals(false) ?
-            //    false : true;
+                btnGestionCaja.Visibility = permisos.GestionCaja.Equals(true) ?
+                   BarItemVisibility.Always : BarItemVisibility.Never;
 
-            //#endregion
+                btnOrdenVenta.Visibility = permisos.GenerarOrdenVenta.Equals(true) ?
+                    BarItemVisibility.Always : BarItemVisibility.Never;
 
-            //#region Permiso de Datos Empleado
+                btnRemitoElectronico.Visibility = permisos.GenerarRemitoElectronico.Equals(true) ?
+                    BarItemVisibility.Always : BarItemVisibility.Never;
+            }
 
-            //accederPersonales = permisos.PuedeAccederPersonales.Equals(true) ? true : false;
-            //accederContractuales = permisos.PuedeAccederContractuales.Equals(true) ? true : false;
-            //accederOrganigrama = permisos.PuedeAccederOrganigrama.Equals(true) ? true : false;
-            //accederPrevisionales = permisos.PuedeAccederPrevisionales.Equals(true) ? true : false;
-            //accederFamiliares = permisos.PuedeAccederFamiliares.Equals(true) ? true : false;
-            //accederLiquidaciones = permisos.PuedeAccederLiquidaciones.Equals(true) ? true : false;
-            //accederNovedades = permisos.PuedeAccederNovedades.Equals(true) ? true : false;
-            //accederCapacitaciones = permisos.PuedeAccederCapacitaciones.Equals(true) ? true : false;
-            //accederEvaluaciones = permisos.PuedeAccederEvaluaciones.Equals(true) ? true : false;
-            //accederAccidentes = permisos.PuedeAccederAccidentes.Equals(true) ? true : false;
-            //accederSanciones = permisos.PuedeAccederSanciones.Equals(true) ? true : false;
-            //accederAfip = permisos.PuedeAccederNovedadesAfip.Equals(true) ? true : false;
+            if (permisos.GestionarListaPrecio.Equals(false))
+            {
+                ribbonPageListaPrecio.Visible = false;
+            }
+            else
+            {
+                ribbonPageListaPrecio.Visible = true;
+            }
 
-            //#endregion
+            #endregion
 
+            #region Módulo Configuracion
+
+            if (permisos.Configuracion.Equals(false))
+            {
+                ribbonPageConfiguracion.Visible = false;
+            }
+            else
+            {
+                ribbonPageConfiguracion.Visible = true;
+            }
+
+            #endregion 
+
+            #region Módulo Seguridad 
+
+            if (permisos.Seguridad.Equals(false))
+            {
+                ribbonPageSeguridad.Visible = false;
+            }
+            else
+            {
+                ribbonPageSeguridad.Visible = true;
+            }
+
+            #endregion
+            
         }
 
         private void CloseSessionForm()
@@ -215,7 +254,8 @@ namespace CooperativaProduccion
 
         private void btnLiquidacion_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var liquidacion = new Form_AdministracionLiquidacion();
+            var liquidacion = new Form_AdministracionLiquidacion( Liquidar, 
+                LiquidacionSubirAfip, LiquidacionImprimir);
             liquidacion.Show();
         }
 
@@ -251,14 +291,51 @@ namespace CooperativaProduccion
 
         private void btnPesada_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var pesada = new Form_RomaneoPesada();
-            pesada.Show();
+            var pendiente = Context.Pesada
+                .Where(x => x.RomaneoPendiente == true)
+                .FirstOrDefault();
+
+            if (pendiente != null)
+            {
+                var atencion = new Form_RomaneoPendiente(pendiente.Id);
+                atencion.Show();
+            }
+            else
+            {
+                var pesada = new Form_RomaneoPesada(null);
+                pesada.Show();
+            }
         }
 
         private void btnGestionRomaneo_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var romaneo = new Form_RomaneoGestionRomaneo();
+            var romaneo = new Form_RomaneoGestionRomaneo(ReimpresionRomaneo, ResumenRomaneo,
+                ResumenCompra, ResumenClaseMes, ResumenClaseTrimestre);
             romaneo.Show();
+        }
+
+        private void btnGestionClasificacion_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var gestionClasificacion = new Form_RomaneoGestionClasificacion(GestionReclasificacion);
+            gestionClasificacion.Show();
+        }
+
+        private void btnAsignarRoles_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var permisos = new Form_SeguridadUsuarioPermiso();
+            permisos.Show();
+        }
+
+        private void btnConfiguracionImpresion_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var configuracion = new Form_ConfiguracionImpresion();
+            configuracion.Show();
+        }
+
+        private void btnImpresionEtiqueta_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var impresion = new Form_ConfiguracionImpresionEtiqueta();
+            impresion.Show();
         }
     }
 }

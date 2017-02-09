@@ -23,7 +23,10 @@ namespace DesktopEntities.Models
         public Nullable<double> Kilos { get; set; }
         public Nullable<decimal> Subtotal { get; set; }
         public Nullable<System.DateTime> FechaRomaneo { get; set; }
-        public string NumRomaneo { get; set; }
+        public Nullable<int> PuntoVentaRomaneo { get; set; }
+        public Nullable<long> NumRomaneo { get; set; }
+        public Nullable<double> TotalKg { get; set; }
+        public Nullable<decimal> ImporteBruto { get; set; }
         public string Productor { get; set; }
         public string Fet { get; set; }
         public string Cuit { get; set; }
@@ -31,9 +34,12 @@ namespace DesktopEntities.Models
         public string Localidad { get; set; }
         public string IVA { get; set; }
         public Nullable<System.DateTime> FechainternaLiquidacion { get; set; }
+        public Nullable<int> PuntoVentaLiquidacion { get; set; }
         public Nullable<long> NumInternoLiquidacion { get; set; }
         public string condIva { get; set; }
         public string NumAfipLiquidacion { get; set; }
         public Nullable<System.DateTime> FechaAfipLiquidacion { get; set; }
+        public Nullable<System.Guid> ID_PRODUCTO { get; set; }
+        public string DESCRIPCION { get; set; }
     }
 }

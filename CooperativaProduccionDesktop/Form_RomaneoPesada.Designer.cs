@@ -53,6 +53,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.btnBuscarProductor = new DevExpress.XtraEditors.SimpleButton();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
+            this.cbTabaco = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.btnCancelarPesada = new DevExpress.XtraEditors.SimpleButton();
             this.btnIniciarPesada = new DevExpress.XtraEditors.SimpleButton();
             this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
@@ -121,7 +123,7 @@
             this.ribbon.ShowFullScreenButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Hide;
             this.ribbon.ShowToolbarCustomizeItem = false;
-            this.ribbon.Size = new System.Drawing.Size(624, 123);
+            this.ribbon.Size = new System.Drawing.Size(624, 122);
             this.ribbon.Toolbar.ShowCustomizeItem = false;
             // 
             // btnPesadaMostrador
@@ -137,12 +139,12 @@
             // 
             this.btnRecuperarPesada.Caption = "Recuperar última pesada";
             this.btnRecuperarPesada.Edit = this.repositoryItemButtonEdit3;
+            this.btnRecuperarPesada.EditWidth = 100;
             this.btnRecuperarPesada.Glyph = ((System.Drawing.Image)(resources.GetObject("btnRecuperarPesada.Glyph")));
             this.btnRecuperarPesada.Id = 6;
             this.btnRecuperarPesada.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnRecuperarPesada.LargeGlyph")));
             this.btnRecuperarPesada.Name = "btnRecuperarPesada";
             this.btnRecuperarPesada.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
-            this.btnRecuperarPesada.Width = 100;
             // 
             // repositoryItemButtonEdit3
             // 
@@ -226,9 +228,9 @@
             this.label13.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.Location = new System.Drawing.Point(5, 53);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(69, 16);
+            this.label13.Size = new System.Drawing.Size(65, 16);
             this.label13.TabIndex = 64;
-            this.label13.Text = "Preingreso:";
+            this.label13.Text = "Preingreso";
             this.label13.Visible = false;
             // 
             // txtProvincia
@@ -246,9 +248,9 @@
             this.label1.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(418, 53);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(61, 16);
+            this.label1.Size = new System.Drawing.Size(57, 16);
             this.label1.TabIndex = 62;
-            this.label1.Text = "Provincia:";
+            this.label1.Text = "Provincia";
             // 
             // txtCuit
             // 
@@ -265,9 +267,9 @@
             this.label4.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(218, 53);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(47, 16);
+            this.label4.Size = new System.Drawing.Size(43, 16);
             this.label4.TabIndex = 59;
-            this.label4.Text = "C.U.I.T:";
+            this.label4.Text = "C.U.I.T";
             // 
             // txtNombre
             // 
@@ -284,9 +286,9 @@
             this.label2.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(200, 28);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(65, 16);
+            this.label2.Size = new System.Drawing.Size(61, 16);
             this.label2.TabIndex = 57;
-            this.label2.Text = "Productor:";
+            this.label2.Text = "Productor";
             // 
             // txtFet
             // 
@@ -294,7 +296,7 @@
             this.txtFet.Location = new System.Drawing.Point(73, 24);
             this.txtFet.Name = "txtFet";
             this.txtFet.Size = new System.Drawing.Size(94, 22);
-            this.txtFet.TabIndex = 56;
+            this.txtFet.TabIndex = 1;
             this.txtFet.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFet_KeyPress);
             // 
             // label3
@@ -303,9 +305,9 @@
             this.label3.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(7, 27);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(48, 16);
+            this.label3.Size = new System.Drawing.Size(44, 16);
             this.label3.TabIndex = 55;
-            this.label3.Text = "N° FET:";
+            this.label3.Text = "N° FET";
             // 
             // btnBuscarProductor
             // 
@@ -320,6 +322,8 @@
             // 
             // groupControl1
             // 
+            this.groupControl1.Controls.Add(this.cbTabaco);
+            this.groupControl1.Controls.Add(this.label7);
             this.groupControl1.Controls.Add(this.btnCancelarPesada);
             this.groupControl1.Controls.Add(this.btnIniciarPesada);
             this.groupControl1.Location = new System.Drawing.Point(4, 201);
@@ -328,6 +332,27 @@
             this.groupControl1.Size = new System.Drawing.Size(617, 34);
             this.groupControl1.TabIndex = 22;
             this.groupControl1.Text = "Parámetros";
+            // 
+            // cbTabaco
+            // 
+            this.cbTabaco.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbTabaco.FormattingEnabled = true;
+            this.cbTabaco.Location = new System.Drawing.Point(270, 7);
+            this.cbTabaco.Name = "cbTabaco";
+            this.cbTabaco.Size = new System.Drawing.Size(142, 21);
+            this.cbTabaco.TabIndex = 2;
+            this.cbTabaco.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cbTabaco_KeyPress);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(219, 9);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(46, 16);
+            this.label7.TabIndex = 82;
+            this.label7.Text = "Tabaco";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnCancelarPesada
             // 
@@ -345,9 +370,10 @@
             this.btnIniciarPesada.Location = new System.Drawing.Point(424, 4);
             this.btnIniciarPesada.Name = "btnIniciarPesada";
             this.btnIniciarPesada.Size = new System.Drawing.Size(87, 26);
-            this.btnIniciarPesada.TabIndex = 60;
+            this.btnIniciarPesada.TabIndex = 3;
             this.btnIniciarPesada.Text = "Iniciar";
             this.btnIniciarPesada.Click += new System.EventHandler(this.btnIniciarPesada_Click);
+            this.btnIniciarPesada.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.btnIniciarPesada_KeyPress);
             // 
             // groupControl3
             // 
@@ -369,13 +395,15 @@
             // 
             // txtClase
             // 
+            this.txtClase.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtClase.Enabled = false;
             this.txtClase.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtClase.Location = new System.Drawing.Point(71, 6);
             this.txtClase.Name = "txtClase";
             this.txtClase.Size = new System.Drawing.Size(92, 22);
-            this.txtClase.TabIndex = 68;
+            this.txtClase.TabIndex = 4;
             this.txtClase.TextChanged += new System.EventHandler(this.txtClase_TextChanged);
+            this.txtClase.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtClase_KeyPress);
             // 
             // gridControlPesada
             // 
@@ -423,6 +451,7 @@
             this.txtKilos.Name = "txtKilos";
             this.txtKilos.Size = new System.Drawing.Size(92, 22);
             this.txtKilos.TabIndex = 63;
+            this.txtKilos.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtKilos_KeyPress);
             // 
             // checkBalanzaAutomatica
             // 
@@ -445,7 +474,7 @@
             this.btnAgregarCaja.Location = new System.Drawing.Point(518, 5);
             this.btnAgregarCaja.Name = "btnAgregarCaja";
             this.btnAgregarCaja.Size = new System.Drawing.Size(93, 26);
-            this.btnAgregarCaja.TabIndex = 60;
+            this.btnAgregarCaja.TabIndex = 5;
             this.btnAgregarCaja.Text = "Agregar";
             this.btnAgregarCaja.Click += new System.EventHandler(this.btnAgregarCaja_Click);
             // 
@@ -455,9 +484,9 @@
             this.label5.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(315, 9);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(39, 16);
+            this.label5.Size = new System.Drawing.Size(35, 16);
             this.label5.TabIndex = 57;
-            this.label5.Text = "Kilos:";
+            this.label5.Text = "Kilos";
             // 
             // label6
             // 
@@ -465,9 +494,9 @@
             this.label6.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(11, 8);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(41, 16);
+            this.label6.Size = new System.Drawing.Size(37, 16);
             this.label6.TabIndex = 55;
-            this.label6.Text = "Clase:";
+            this.label6.Text = "Clase";
             // 
             // groupControl4
             // 
@@ -489,10 +518,11 @@
             // 
             // txtPrecioPromedio
             // 
-            this.txtPrecioPromedio.Enabled = false;
+            this.txtPrecioPromedio.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.txtPrecioPromedio.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPrecioPromedio.Location = new System.Drawing.Point(110, 53);
             this.txtPrecioPromedio.Name = "txtPrecioPromedio";
+            this.txtPrecioPromedio.ReadOnly = true;
             this.txtPrecioPromedio.Size = new System.Drawing.Size(101, 22);
             this.txtPrecioPromedio.TabIndex = 71;
             // 
@@ -512,9 +542,9 @@
             this.label12.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.Location = new System.Drawing.Point(10, 53);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(98, 16);
+            this.label12.Size = new System.Drawing.Size(94, 16);
             this.label12.TabIndex = 70;
-            this.label12.Text = "Precio Promedio:";
+            this.label12.Text = "Precio Promedio";
             // 
             // btnSalir
             // 
@@ -528,10 +558,11 @@
             // 
             // txtImporteBruto
             // 
-            this.txtImporteBruto.Enabled = false;
+            this.txtImporteBruto.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.txtImporteBruto.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtImporteBruto.Location = new System.Drawing.Point(484, 27);
             this.txtImporteBruto.Name = "txtImporteBruto";
+            this.txtImporteBruto.ReadOnly = true;
             this.txtImporteBruto.Size = new System.Drawing.Size(127, 22);
             this.txtImporteBruto.TabIndex = 69;
             // 
@@ -541,16 +572,17 @@
             this.label11.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.Location = new System.Drawing.Point(392, 30);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(86, 16);
+            this.label11.Size = new System.Drawing.Size(82, 16);
             this.label11.TabIndex = 68;
-            this.label11.Text = "Importe Bruto:";
+            this.label11.Text = "Importe Bruto";
             // 
             // txtTotalKilo
             // 
-            this.txtTotalKilo.Enabled = false;
+            this.txtTotalKilo.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.txtTotalKilo.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTotalKilo.Location = new System.Drawing.Point(280, 27);
             this.txtTotalKilo.Name = "txtTotalKilo";
+            this.txtTotalKilo.ReadOnly = true;
             this.txtTotalKilo.Size = new System.Drawing.Size(109, 22);
             this.txtTotalKilo.TabIndex = 67;
             // 
@@ -560,16 +592,17 @@
             this.label10.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.Location = new System.Drawing.Point(211, 30);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(68, 16);
+            this.label10.Size = new System.Drawing.Size(64, 16);
             this.label10.TabIndex = 66;
-            this.label10.Text = "Total Kilos:";
+            this.label10.Text = "Total Kilos";
             // 
             // txtTotalFardo
             // 
-            this.txtTotalFardo.Enabled = false;
+            this.txtTotalFardo.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.txtTotalFardo.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTotalFardo.Location = new System.Drawing.Point(110, 27);
             this.txtTotalFardo.Name = "txtTotalFardo";
+            this.txtTotalFardo.ReadOnly = true;
             this.txtTotalFardo.Size = new System.Drawing.Size(101, 22);
             this.txtTotalFardo.TabIndex = 65;
             // 
@@ -579,15 +612,15 @@
             this.label9.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.Location = new System.Drawing.Point(10, 27);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(78, 16);
+            this.label9.Size = new System.Drawing.Size(74, 16);
             this.label9.TabIndex = 64;
-            this.label9.Text = "Total Fardos:";
+            this.label9.Text = "Total Fardos";
             // 
             // m_serialPort1
             // 
             this.m_serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.m_serialPort1_DataReceived);
             // 
-            // Form_RomaneoPesada2
+            // Form_RomaneoPesada
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -600,7 +633,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.Name = "Form_RomaneoPesada2";
+            this.Name = "Form_RomaneoPesada";
             this.Ribbon = this.ribbon;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Romaneo - Pesada";
@@ -615,6 +648,7 @@
             this.groupControl2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
+            this.groupControl1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).EndInit();
             this.groupControl3.ResumeLayout(false);
             this.groupControl3.PerformLayout();
@@ -624,6 +658,7 @@
             this.groupControl4.ResumeLayout(false);
             this.groupControl4.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -677,5 +712,7 @@
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewPesada;
         public System.Windows.Forms.TextBox txtClase;
         private System.IO.Ports.SerialPort m_serialPort1;
+        private System.Windows.Forms.ComboBox cbTabaco;
+        private System.Windows.Forms.Label label7;
     }
 }

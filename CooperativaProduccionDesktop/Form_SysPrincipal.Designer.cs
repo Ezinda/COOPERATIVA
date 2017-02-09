@@ -41,25 +41,29 @@
             this.btnLiquidacion = new DevExpress.XtraBars.BarButtonItem();
             this.btnOrdenPago = new DevExpress.XtraBars.BarButtonItem();
             this.btnGestionCata = new DevExpress.XtraBars.BarButtonItem();
-            this.btnIngresoCaja = new DevExpress.XtraBars.BarButtonItem();
+            this.btnGestionCaja = new DevExpress.XtraBars.BarButtonItem();
             this.btnOrdenVenta = new DevExpress.XtraBars.BarButtonItem();
             this.btnRemitoElectronico = new DevExpress.XtraBars.BarButtonItem();
             this.btnPesada = new DevExpress.XtraBars.BarButtonItem();
+            this.btnGestionRomaneo = new DevExpress.XtraBars.BarButtonItem();
+            this.btnGestionClasificacion = new DevExpress.XtraBars.BarButtonItem();
+            this.btnConfiguracionImpresion = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPageRomaneo = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupPorteria = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroupBalanza = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroupClasificacion = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.ribbonPage2 = new DevExpress.XtraBars.Ribbon.RibbonPage();
-            this.ribbonPageGroupAdministracion = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.ribbonPageConfiguracion = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageAdministracion = new DevExpress.XtraBars.Ribbon.RibbonPage();
+            this.ribbonPageGroupLiquidacion = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageGroupOrdenVenta = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageListaPrecio = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPage3 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPage4 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupFardos = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.ribbonPage5 = new DevExpress.XtraBars.Ribbon.RibbonPage();
-            this.ribbonPage6 = new DevExpress.XtraBars.Ribbon.RibbonPage();
+            this.ribbonPageConfiguracion = new DevExpress.XtraBars.Ribbon.RibbonPage();
+            this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageSeguridad = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupSeguridad = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.btnGestionRomaneo = new DevExpress.XtraBars.BarButtonItem();
+            this.btnImpresionEtiqueta = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             this.SuspendLayout();
             // 
@@ -79,28 +83,31 @@
             this.btnLiquidacion,
             this.btnOrdenPago,
             this.btnGestionCata,
-            this.btnIngresoCaja,
+            this.btnGestionCaja,
             this.btnOrdenVenta,
             this.btnRemitoElectronico,
             this.btnPesada,
-            this.btnGestionRomaneo});
+            this.btnGestionRomaneo,
+            this.btnGestionClasificacion,
+            this.btnConfiguracionImpresion,
+            this.btnImpresionEtiqueta});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
-            this.ribbon.MaxItemId = 19;
+            this.ribbon.MaxItemId = 22;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPageRomaneo,
-            this.ribbonPage2,
+            this.ribbonPageAdministracion,
             this.ribbonPage3,
             this.ribbonPage4,
-            this.ribbonPage5,
-            this.ribbonPage6});
+            this.ribbonPageConfiguracion,
+            this.ribbonPageSeguridad});
             this.ribbon.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.Office2013;
             this.ribbon.ShowApplicationButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowCategoryInCaption = false;
             this.ribbon.ShowExpandCollapseButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowFullScreenButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Show;
-            this.ribbon.Size = new System.Drawing.Size(1094, 147);
+            this.ribbon.Size = new System.Drawing.Size(1094, 146);
             // 
             // btnPreingreso
             // 
@@ -137,6 +144,7 @@
             this.btnAsignarRoles.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnAsignarRoles.LargeGlyph")));
             this.btnAsignarRoles.Name = "btnAsignarRoles";
             this.btnAsignarRoles.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText;
+            this.btnAsignarRoles.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnAsignarRoles_ItemClick);
             // 
             // btnVerUsuario
             // 
@@ -202,14 +210,14 @@
             this.btnGestionCata.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText;
             this.btnGestionCata.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnGestionCata_ItemClick);
             // 
-            // btnIngresoCaja
+            // btnGestionCaja
             // 
-            this.btnIngresoCaja.Caption = "Gestión de Cajas";
-            this.btnIngresoCaja.Glyph = ((System.Drawing.Image)(resources.GetObject("btnIngresoCaja.Glyph")));
-            this.btnIngresoCaja.Id = 14;
-            this.btnIngresoCaja.Name = "btnIngresoCaja";
-            this.btnIngresoCaja.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText;
-            this.btnIngresoCaja.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnIngresoCaja_ItemClick);
+            this.btnGestionCaja.Caption = "Gestión de Cajas";
+            this.btnGestionCaja.Glyph = ((System.Drawing.Image)(resources.GetObject("btnGestionCaja.Glyph")));
+            this.btnGestionCaja.Id = 14;
+            this.btnGestionCaja.Name = "btnGestionCaja";
+            this.btnGestionCaja.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText;
+            this.btnGestionCaja.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnIngresoCaja_ItemClick);
             // 
             // btnOrdenVenta
             // 
@@ -238,6 +246,33 @@
             this.btnPesada.Name = "btnPesada";
             this.btnPesada.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
             this.btnPesada.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnPesada_ItemClick);
+            // 
+            // btnGestionRomaneo
+            // 
+            this.btnGestionRomaneo.Caption = "Gestión de Romaneo";
+            this.btnGestionRomaneo.Glyph = ((System.Drawing.Image)(resources.GetObject("btnGestionRomaneo.Glyph")));
+            this.btnGestionRomaneo.Id = 18;
+            this.btnGestionRomaneo.Name = "btnGestionRomaneo";
+            this.btnGestionRomaneo.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.btnGestionRomaneo.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnGestionRomaneo_ItemClick);
+            // 
+            // btnGestionClasificacion
+            // 
+            this.btnGestionClasificacion.Caption = "Gestión de Clasificaciones";
+            this.btnGestionClasificacion.Glyph = ((System.Drawing.Image)(resources.GetObject("btnGestionClasificacion.Glyph")));
+            this.btnGestionClasificacion.Id = 19;
+            this.btnGestionClasificacion.Name = "btnGestionClasificacion";
+            this.btnGestionClasificacion.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.btnGestionClasificacion.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnGestionClasificacion_ItemClick);
+            // 
+            // btnConfiguracionImpresion
+            // 
+            this.btnConfiguracionImpresion.Caption = "Configuración Impresión";
+            this.btnConfiguracionImpresion.Glyph = ((System.Drawing.Image)(resources.GetObject("btnConfiguracionImpresion.Glyph")));
+            this.btnConfiguracionImpresion.Id = 20;
+            this.btnConfiguracionImpresion.Name = "btnConfiguracionImpresion";
+            this.btnConfiguracionImpresion.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.btnConfiguracionImpresion.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnConfiguracionImpresion_ItemClick);
             // 
             // ribbonPageRomaneo
             // 
@@ -270,47 +305,48 @@
             // 
             this.ribbonPageGroupClasificacion.AllowTextClipping = false;
             this.ribbonPageGroupClasificacion.ItemLinks.Add(this.btnClasificacion);
+            this.ribbonPageGroupClasificacion.ItemLinks.Add(this.btnGestionClasificacion);
             this.ribbonPageGroupClasificacion.Name = "ribbonPageGroupClasificacion";
             this.ribbonPageGroupClasificacion.ShowCaptionButton = false;
             this.ribbonPageGroupClasificacion.Text = "Clasificación";
             // 
-            // ribbonPage2
+            // ribbonPageAdministracion
             // 
-            this.ribbonPage2.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
-            this.ribbonPageGroupAdministracion,
-            this.ribbonPageGroup1,
-            this.ribbonPageConfiguracion});
-            this.ribbonPage2.Image = ((System.Drawing.Image)(resources.GetObject("ribbonPage2.Image")));
-            this.ribbonPage2.Name = "ribbonPage2";
-            this.ribbonPage2.Text = "Administración";
+            this.ribbonPageAdministracion.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
+            this.ribbonPageGroupLiquidacion,
+            this.ribbonPageGroupOrdenVenta,
+            this.ribbonPageListaPrecio});
+            this.ribbonPageAdministracion.Image = ((System.Drawing.Image)(resources.GetObject("ribbonPageAdministracion.Image")));
+            this.ribbonPageAdministracion.Name = "ribbonPageAdministracion";
+            this.ribbonPageAdministracion.Text = "Administración";
             // 
-            // ribbonPageGroupAdministracion
+            // ribbonPageGroupLiquidacion
             // 
-            this.ribbonPageGroupAdministracion.AllowTextClipping = false;
-            this.ribbonPageGroupAdministracion.ItemLinks.Add(this.btnLiquidacion);
-            this.ribbonPageGroupAdministracion.ItemLinks.Add(this.btnOrdenPago);
-            this.ribbonPageGroupAdministracion.Name = "ribbonPageGroupAdministracion";
-            this.ribbonPageGroupAdministracion.ShowCaptionButton = false;
-            this.ribbonPageGroupAdministracion.Text = "Liquidación";
+            this.ribbonPageGroupLiquidacion.AllowTextClipping = false;
+            this.ribbonPageGroupLiquidacion.ItemLinks.Add(this.btnLiquidacion);
+            this.ribbonPageGroupLiquidacion.ItemLinks.Add(this.btnOrdenPago);
+            this.ribbonPageGroupLiquidacion.Name = "ribbonPageGroupLiquidacion";
+            this.ribbonPageGroupLiquidacion.ShowCaptionButton = false;
+            this.ribbonPageGroupLiquidacion.Text = "Liquidación";
             // 
-            // ribbonPageGroup1
+            // ribbonPageGroupOrdenVenta
             // 
-            this.ribbonPageGroup1.AllowTextClipping = false;
-            this.ribbonPageGroup1.ItemLinks.Add(this.btnGestionCata);
-            this.ribbonPageGroup1.ItemLinks.Add(this.btnIngresoCaja);
-            this.ribbonPageGroup1.ItemLinks.Add(this.btnOrdenVenta);
-            this.ribbonPageGroup1.ItemLinks.Add(this.btnRemitoElectronico);
-            this.ribbonPageGroup1.Name = "ribbonPageGroup1";
-            this.ribbonPageGroup1.ShowCaptionButton = false;
-            this.ribbonPageGroup1.Text = "Ordenes de Venta";
+            this.ribbonPageGroupOrdenVenta.AllowTextClipping = false;
+            this.ribbonPageGroupOrdenVenta.ItemLinks.Add(this.btnGestionCata);
+            this.ribbonPageGroupOrdenVenta.ItemLinks.Add(this.btnGestionCaja);
+            this.ribbonPageGroupOrdenVenta.ItemLinks.Add(this.btnOrdenVenta);
+            this.ribbonPageGroupOrdenVenta.ItemLinks.Add(this.btnRemitoElectronico);
+            this.ribbonPageGroupOrdenVenta.Name = "ribbonPageGroupOrdenVenta";
+            this.ribbonPageGroupOrdenVenta.ShowCaptionButton = false;
+            this.ribbonPageGroupOrdenVenta.Text = "Ordenes de Venta";
             // 
-            // ribbonPageConfiguracion
+            // ribbonPageListaPrecio
             // 
-            this.ribbonPageConfiguracion.AllowTextClipping = false;
-            this.ribbonPageConfiguracion.ItemLinks.Add(this.btnListaPrecio);
-            this.ribbonPageConfiguracion.Name = "ribbonPageConfiguracion";
-            this.ribbonPageConfiguracion.ShowCaptionButton = false;
-            this.ribbonPageConfiguracion.Text = "Configuración";
+            this.ribbonPageListaPrecio.AllowTextClipping = false;
+            this.ribbonPageListaPrecio.ItemLinks.Add(this.btnListaPrecio);
+            this.ribbonPageListaPrecio.Name = "ribbonPageListaPrecio";
+            this.ribbonPageListaPrecio.ShowCaptionButton = false;
+            this.ribbonPageListaPrecio.Text = "Configuración";
             // 
             // ribbonPage3
             // 
@@ -335,19 +371,30 @@
             this.ribbonPageGroupFardos.ShowCaptionButton = false;
             this.ribbonPageGroupFardos.Text = "Materia Prima";
             // 
-            // ribbonPage5
+            // ribbonPageConfiguracion
             // 
-            this.ribbonPage5.Image = ((System.Drawing.Image)(resources.GetObject("ribbonPage5.Image")));
-            this.ribbonPage5.Name = "ribbonPage5";
-            this.ribbonPage5.Text = "Configuración";
+            this.ribbonPageConfiguracion.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
+            this.ribbonPageGroup1});
+            this.ribbonPageConfiguracion.Image = ((System.Drawing.Image)(resources.GetObject("ribbonPageConfiguracion.Image")));
+            this.ribbonPageConfiguracion.Name = "ribbonPageConfiguracion";
+            this.ribbonPageConfiguracion.Text = "Configuración";
             // 
-            // ribbonPage6
+            // ribbonPageGroup1
             // 
-            this.ribbonPage6.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
+            this.ribbonPageGroup1.AllowTextClipping = false;
+            this.ribbonPageGroup1.ItemLinks.Add(this.btnConfiguracionImpresion);
+            this.ribbonPageGroup1.ItemLinks.Add(this.btnImpresionEtiqueta);
+            this.ribbonPageGroup1.Name = "ribbonPageGroup1";
+            this.ribbonPageGroup1.ShowCaptionButton = false;
+            this.ribbonPageGroup1.Text = "Configuración";
+            // 
+            // ribbonPageSeguridad
+            // 
+            this.ribbonPageSeguridad.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
             this.ribbonPageGroupSeguridad});
-            this.ribbonPage6.Image = ((System.Drawing.Image)(resources.GetObject("ribbonPage6.Image")));
-            this.ribbonPage6.Name = "ribbonPage6";
-            this.ribbonPage6.Text = "Seguridad";
+            this.ribbonPageSeguridad.Image = ((System.Drawing.Image)(resources.GetObject("ribbonPageSeguridad.Image")));
+            this.ribbonPageSeguridad.Name = "ribbonPageSeguridad";
+            this.ribbonPageSeguridad.Text = "Seguridad";
             // 
             // ribbonPageGroupSeguridad
             // 
@@ -359,14 +406,14 @@
             this.ribbonPageGroupSeguridad.ShowCaptionButton = false;
             this.ribbonPageGroupSeguridad.Text = "Seguridad";
             // 
-            // btnGestionRomaneo
+            // btnImpresionEtiqueta
             // 
-            this.btnGestionRomaneo.Caption = "Gestión de Romaneo";
-            this.btnGestionRomaneo.Glyph = ((System.Drawing.Image)(resources.GetObject("btnGestionRomaneo.Glyph")));
-            this.btnGestionRomaneo.Id = 18;
-            this.btnGestionRomaneo.Name = "btnGestionRomaneo";
-            this.btnGestionRomaneo.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
-            this.btnGestionRomaneo.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnGestionRomaneo_ItemClick);
+            this.btnImpresionEtiqueta.Caption = "Impresión de Etiquetas";
+            this.btnImpresionEtiqueta.Glyph = ((System.Drawing.Image)(resources.GetObject("btnImpresionEtiqueta.Glyph")));
+            this.btnImpresionEtiqueta.Id = 21;
+            this.btnImpresionEtiqueta.Name = "btnImpresionEtiqueta";
+            this.btnImpresionEtiqueta.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.btnImpresionEtiqueta.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnImpresionEtiqueta_ItemClick);
             // 
             // Form_SysPrincipal
             // 
@@ -383,6 +430,7 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -392,11 +440,11 @@
         private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPageRomaneo;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroupPorteria;
         private DevExpress.XtraBars.BarButtonItem btnPreingreso;
-        private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage2;
+        private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPageAdministracion;
         private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage3;
         private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage4;
-        private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage5;
-        private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage6;
+        private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPageConfiguracion;
+        private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPageSeguridad;
         private DevExpress.XtraBars.BarButtonItem btnClasificacion;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroupBalanza;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroupClasificacion;
@@ -408,16 +456,20 @@
         private DevExpress.XtraBars.BarButtonItem btnFardos;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroupFardos;
         private DevExpress.XtraBars.BarButtonItem btnListaPrecio;
-        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageConfiguracion;
-        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroupAdministracion;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageListaPrecio;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroupLiquidacion;
         private DevExpress.XtraBars.BarButtonItem btnLiquidacion;
         private DevExpress.XtraBars.BarButtonItem btnOrdenPago;
         private DevExpress.XtraBars.BarButtonItem btnGestionCata;
-        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup1;
-        private DevExpress.XtraBars.BarButtonItem btnIngresoCaja;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroupOrdenVenta;
+        private DevExpress.XtraBars.BarButtonItem btnGestionCaja;
         private DevExpress.XtraBars.BarButtonItem btnOrdenVenta;
         private DevExpress.XtraBars.BarButtonItem btnRemitoElectronico;
         private DevExpress.XtraBars.BarButtonItem btnPesada;
         private DevExpress.XtraBars.BarButtonItem btnGestionRomaneo;
+        private DevExpress.XtraBars.BarButtonItem btnGestionClasificacion;
+        private DevExpress.XtraBars.BarButtonItem btnConfiguracionImpresion;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup1;
+        private DevExpress.XtraBars.BarButtonItem btnImpresionEtiqueta;
     }
 }

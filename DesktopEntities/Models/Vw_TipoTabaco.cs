@@ -12,12 +12,10 @@ namespace DesktopEntities.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class sysdiagrams
+    public partial class Vw_TipoTabaco
     {
-        public string name { get; set; }
-        public int principal_id { get; set; }
-        public int diagram_id { get; set; }
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public System.Guid id { get; set; }
+        public string DESCRIPCION { get; set; }
+        public Nullable<System.Guid> RUBRO_ID { get; set; }
     }
 }

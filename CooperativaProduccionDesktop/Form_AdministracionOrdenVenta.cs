@@ -17,7 +17,7 @@ using System.Globalization;
 
 namespace CooperativaProduccion
 {
-    public partial class Form_AdministracionOrdenVenta : DevExpress.XtraBars.Ribbon.RibbonForm, IEnlaceActualizarHistorico,IEnlace
+    public partial class Form_AdministracionOrdenVenta : DevExpress.XtraBars.Ribbon.RibbonForm, IEnlaceActualizar,IEnlace
     {
         public CooperativaProduccionEntities Context { get; set; }
         private Form_AdministracionBuscarCliente _formBuscarCliente;
@@ -324,7 +324,7 @@ namespace CooperativaProduccion
             }
         }
 
-        void IEnlaceActualizarHistorico.Enviar(bool Enviar)
+        void IEnlaceActualizar.Enviar(bool Enviar)
         {
             if (Enviar.Equals(true))
             {

@@ -305,7 +305,7 @@ namespace CooperativaProduccion
                         Context.Entry(orden).State = EntityState.Modified;
                         Context.SaveChanges();
                     }
-                    IEnlaceActualizarHistorico mienlace = this.Owner as Form_AdministracionRemitoElectronico;
+                    IEnlaceActualizar mienlace = this.Owner as Form_AdministracionRemitoElectronico;
                     if (mienlace != null)
                     {
                         mienlace.Enviar(true);

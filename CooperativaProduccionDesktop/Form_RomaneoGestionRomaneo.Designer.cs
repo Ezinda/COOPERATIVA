@@ -42,32 +42,33 @@
             this.txtProductor = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
-            this.checkPeriodo = new System.Windows.Forms.CheckBox();
+            this.btnBuscarRomaneo = new DevExpress.XtraEditors.SimpleButton();
+            this.cbTabaco = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.dpHastaRomaneo = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
             this.dpDesdeRomaneo = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
-            this.groupControl4 = new DevExpress.XtraEditors.GroupControl();
-            this.btnBuscarRomaneo = new DevExpress.XtraEditors.SimpleButton();
             this.groupControl6 = new DevExpress.XtraEditors.GroupControl();
             this.gridControlRomaneo = new DevExpress.XtraGrid.GridControl();
-            this.gridViewLiquidacionDetalle = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gridViewRomaneo = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.gridViewLiquidacionDetalle = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.groupControl7 = new DevExpress.XtraEditors.GroupControl();
-            this.btnPrevisualizar = new DevExpress.XtraEditors.SimpleButton();
-            this.btnSubirAfip = new DevExpress.XtraEditors.SimpleButton();
+            this.btnResumenClasesTrimestre = new DevExpress.XtraEditors.SimpleButton();
+            this.btnResumenClasesMes = new DevExpress.XtraEditors.SimpleButton();
+            this.btnReimpresionRomaneo = new DevExpress.XtraEditors.SimpleButton();
+            this.btnResumenCompra = new DevExpress.XtraEditors.SimpleButton();
+            this.btnResumenRomaneo = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).BeginInit();
             this.groupControl3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
             this.groupControl2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl4)).BeginInit();
-            this.groupControl4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl6)).BeginInit();
             this.groupControl6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlRomaneo)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridViewLiquidacionDetalle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewRomaneo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewLiquidacionDetalle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl7)).BeginInit();
             this.groupControl7.SuspendLayout();
             this.SuspendLayout();
@@ -86,7 +87,7 @@
             this.ribbon.ShowExpandCollapseButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowFullScreenButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Show;
-            this.ribbon.Size = new System.Drawing.Size(1193, 49);
+            this.ribbon.Size = new System.Drawing.Size(1076, 49);
             // 
             // groupControl3
             // 
@@ -102,10 +103,10 @@
             this.groupControl3.Controls.Add(this.label6);
             this.groupControl3.Controls.Add(this.txtProductor);
             this.groupControl3.Controls.Add(this.label7);
-            this.groupControl3.Location = new System.Drawing.Point(1, 102);
+            this.groupControl3.Location = new System.Drawing.Point(1, 108);
             this.groupControl3.Name = "groupControl3";
             this.groupControl3.ShowCaption = false;
-            this.groupControl3.Size = new System.Drawing.Size(1101, 32);
+            this.groupControl3.Size = new System.Drawing.Size(1072, 32);
             this.groupControl3.TabIndex = 75;
             this.groupControl3.Text = "Buscar Romaneo";
             // 
@@ -123,9 +124,9 @@
             this.label5.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(581, 8);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(38, 16);
+            this.label5.Size = new System.Drawing.Size(34, 16);
             this.label5.TabIndex = 71;
-            this.label5.Text = "CUIT:";
+            this.label5.Text = "CUIT";
             // 
             // btnBuscarProductor
             // 
@@ -143,6 +144,7 @@
             this.btnBuscarFet.Name = "btnBuscarFet";
             this.btnBuscarFet.Size = new System.Drawing.Size(28, 22);
             this.btnBuscarFet.TabIndex = 69;
+            this.btnBuscarFet.Click += new System.EventHandler(this.btnBuscarFet_Click);
             // 
             // txtProvincia
             // 
@@ -158,9 +160,9 @@
             this.label4.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(778, 8);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(61, 16);
+            this.label4.Size = new System.Drawing.Size(57, 16);
             this.label4.TabIndex = 67;
-            this.label4.Text = "Provincia:";
+            this.label4.Text = "Provincia";
             // 
             // txtFet
             // 
@@ -176,9 +178,9 @@
             this.label6.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(11, 8);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(32, 16);
+            this.label6.Size = new System.Drawing.Size(28, 16);
             this.label6.TabIndex = 65;
-            this.label6.Text = "FET:";
+            this.label6.Text = "FET";
             // 
             // txtProductor
             // 
@@ -194,89 +196,93 @@
             this.label7.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(189, 8);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(65, 16);
+            this.label7.Size = new System.Drawing.Size(61, 16);
             this.label7.TabIndex = 63;
-            this.label7.Text = "Productor:";
+            this.label7.Text = "Productor";
             // 
             // groupControl2
             // 
             this.groupControl2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupControl2.Controls.Add(this.checkPeriodo);
+            this.groupControl2.Controls.Add(this.btnBuscarRomaneo);
+            this.groupControl2.Controls.Add(this.cbTabaco);
+            this.groupControl2.Controls.Add(this.label1);
             this.groupControl2.Controls.Add(this.dpHastaRomaneo);
             this.groupControl2.Controls.Add(this.label2);
             this.groupControl2.Controls.Add(this.dpDesdeRomaneo);
             this.groupControl2.Controls.Add(this.label3);
-            this.groupControl2.Location = new System.Drawing.Point(2, 52);
+            this.groupControl2.Location = new System.Drawing.Point(2, 57);
             this.groupControl2.Name = "groupControl2";
-            this.groupControl2.Size = new System.Drawing.Size(1100, 49);
+            this.groupControl2.Size = new System.Drawing.Size(1071, 49);
             this.groupControl2.TabIndex = 74;
-            this.groupControl2.Text = "Buscar Órdenes de Pago";
+            this.groupControl2.Text = "Buscar Romaneo";
             // 
-            // checkPeriodo
+            // btnBuscarRomaneo
             // 
-            this.checkPeriodo.AutoSize = true;
-            this.checkPeriodo.Location = new System.Drawing.Point(370, 28);
-            this.checkPeriodo.Name = "checkPeriodo";
-            this.checkPeriodo.Size = new System.Drawing.Size(15, 14);
-            this.checkPeriodo.TabIndex = 62;
-            this.checkPeriodo.UseVisualStyleBackColor = true;
+            this.btnBuscarRomaneo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnBuscarRomaneo.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscarRomaneo.Image")));
+            this.btnBuscarRomaneo.Location = new System.Drawing.Point(981, 22);
+            this.btnBuscarRomaneo.Name = "btnBuscarRomaneo";
+            this.btnBuscarRomaneo.Size = new System.Drawing.Size(81, 22);
+            this.btnBuscarRomaneo.TabIndex = 39;
+            this.btnBuscarRomaneo.Text = "Buscar";
+            this.btnBuscarRomaneo.Click += new System.EventHandler(this.btnBuscarRomaneo_Click);
+            // 
+            // cbTabaco
+            // 
+            this.cbTabaco.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbTabaco.FormattingEnabled = true;
+            this.cbTabaco.Location = new System.Drawing.Point(416, 24);
+            this.cbTabaco.Name = "cbTabaco";
+            this.cbTabaco.Size = new System.Drawing.Size(142, 21);
+            this.cbTabaco.TabIndex = 81;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(365, 26);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(46, 16);
+            this.label1.TabIndex = 80;
+            this.label1.Text = "Tabaco";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // dpHastaRomaneo
             // 
             this.dpHastaRomaneo.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dpHastaRomaneo.Location = new System.Drawing.Point(266, 24);
             this.dpHastaRomaneo.Name = "dpHastaRomaneo";
-            this.dpHastaRomaneo.Size = new System.Drawing.Size(99, 21);
+            this.dpHastaRomaneo.Size = new System.Drawing.Size(93, 21);
             this.dpHastaRomaneo.TabIndex = 60;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(189, 27);
+            this.label2.Location = new System.Drawing.Point(189, 26);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(77, 16);
+            this.label2.Size = new System.Drawing.Size(73, 16);
             this.label2.TabIndex = 59;
-            this.label2.Text = "Fecha Hasta:";
+            this.label2.Text = "Fecha Hasta";
             // 
             // dpDesdeRomaneo
             // 
             this.dpDesdeRomaneo.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dpDesdeRomaneo.Location = new System.Drawing.Point(84, 24);
             this.dpDesdeRomaneo.Name = "dpDesdeRomaneo";
-            this.dpDesdeRomaneo.Size = new System.Drawing.Size(99, 21);
+            this.dpDesdeRomaneo.Size = new System.Drawing.Size(93, 21);
             this.dpDesdeRomaneo.TabIndex = 58;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(7, 27);
+            this.label3.Location = new System.Drawing.Point(7, 26);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(80, 16);
+            this.label3.Size = new System.Drawing.Size(76, 16);
             this.label3.TabIndex = 57;
-            this.label3.Text = "Fecha Desde:";
-            // 
-            // groupControl4
-            // 
-            this.groupControl4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupControl4.Controls.Add(this.btnBuscarRomaneo);
-            this.groupControl4.Location = new System.Drawing.Point(1105, 52);
-            this.groupControl4.Name = "groupControl4";
-            this.groupControl4.Size = new System.Drawing.Size(86, 82);
-            this.groupControl4.TabIndex = 77;
-            this.groupControl4.Text = "Opciones";
-            // 
-            // btnBuscarRomaneo
-            // 
-            this.btnBuscarRomaneo.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscarRomaneo.Image")));
-            this.btnBuscarRomaneo.Location = new System.Drawing.Point(3, 23);
-            this.btnBuscarRomaneo.Name = "btnBuscarRomaneo";
-            this.btnBuscarRomaneo.Size = new System.Drawing.Size(81, 22);
-            this.btnBuscarRomaneo.TabIndex = 39;
-            this.btnBuscarRomaneo.Text = "Buscar";
-            this.btnBuscarRomaneo.Click += new System.EventHandler(this.btnBuscarRomaneo_Click);
+            this.label3.Text = "Fecha Desde";
             // 
             // groupControl6
             // 
@@ -284,24 +290,31 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupControl6.Controls.Add(this.gridControlRomaneo);
-            this.groupControl6.Location = new System.Drawing.Point(1, 136);
+            this.groupControl6.Location = new System.Drawing.Point(1, 143);
             this.groupControl6.Name = "groupControl6";
-            this.groupControl6.Size = new System.Drawing.Size(1189, 352);
+            this.groupControl6.Size = new System.Drawing.Size(1072, 380);
             this.groupControl6.TabIndex = 78;
             this.groupControl6.Text = "Lista de Romaneo";
             // 
             // gridControlRomaneo
             // 
             this.gridControlRomaneo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridControlRomaneo.Location = new System.Drawing.Point(2, 21);
+            this.gridControlRomaneo.Location = new System.Drawing.Point(2, 20);
             this.gridControlRomaneo.MainView = this.gridViewRomaneo;
             this.gridControlRomaneo.MenuManager = this.ribbon;
             this.gridControlRomaneo.Name = "gridControlRomaneo";
-            this.gridControlRomaneo.Size = new System.Drawing.Size(1185, 329);
+            this.gridControlRomaneo.Size = new System.Drawing.Size(1068, 358);
             this.gridControlRomaneo.TabIndex = 68;
             this.gridControlRomaneo.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gridViewLiquidacionDetalle,
-            this.gridViewRomaneo});
+            this.gridViewRomaneo,
+            this.gridViewLiquidacionDetalle});
+            // 
+            // gridViewRomaneo
+            // 
+            this.gridViewRomaneo.GridControl = this.gridControlRomaneo;
+            this.gridViewRomaneo.Name = "gridViewRomaneo";
+            this.gridViewRomaneo.OptionsBehavior.Editable = false;
+            this.gridViewRomaneo.OptionsView.ShowGroupPanel = false;
             // 
             // gridViewLiquidacionDetalle
             // 
@@ -309,53 +322,77 @@
             this.gridViewLiquidacionDetalle.Name = "gridViewLiquidacionDetalle";
             this.gridViewLiquidacionDetalle.OptionsView.ShowGroupPanel = false;
             // 
-            // gridViewRomaneo
-            // 
-            this.gridViewRomaneo.GridControl = this.gridControlRomaneo;
-            this.gridViewRomaneo.Name = "gridViewRomaneo";
-            this.gridViewRomaneo.OptionsBehavior.Editable = false;
-            this.gridViewRomaneo.OptionsSelection.MultiSelect = true;
-            this.gridViewRomaneo.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CheckBoxRowSelect;
-            this.gridViewRomaneo.OptionsView.ShowGroupPanel = false;
-            // 
             // groupControl7
             // 
-            this.groupControl7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupControl7.Controls.Add(this.btnPrevisualizar);
-            this.groupControl7.Controls.Add(this.btnSubirAfip);
-            this.groupControl7.Location = new System.Drawing.Point(2, 490);
+            this.groupControl7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupControl7.Controls.Add(this.btnResumenClasesTrimestre);
+            this.groupControl7.Controls.Add(this.btnResumenClasesMes);
+            this.groupControl7.Controls.Add(this.btnReimpresionRomaneo);
+            this.groupControl7.Controls.Add(this.btnResumenCompra);
+            this.groupControl7.Controls.Add(this.btnResumenRomaneo);
+            this.groupControl7.Location = new System.Drawing.Point(2, 524);
             this.groupControl7.Name = "groupControl7";
             this.groupControl7.ShowCaption = false;
-            this.groupControl7.Size = new System.Drawing.Size(1188, 32);
+            this.groupControl7.Size = new System.Drawing.Size(1071, 33);
             this.groupControl7.TabIndex = 79;
             this.groupControl7.Text = "Buscar Romaneo";
             // 
-            // btnPrevisualizar
+            // btnResumenClasesTrimestre
             // 
-            this.btnPrevisualizar.Image = ((System.Drawing.Image)(resources.GetObject("btnPrevisualizar.Image")));
-            this.btnPrevisualizar.Location = new System.Drawing.Point(92, 5);
-            this.btnPrevisualizar.Name = "btnPrevisualizar";
-            this.btnPrevisualizar.Size = new System.Drawing.Size(90, 22);
-            this.btnPrevisualizar.TabIndex = 41;
-            this.btnPrevisualizar.Text = "Previsualizar";
+            this.btnResumenClasesTrimestre.Image = ((System.Drawing.Image)(resources.GetObject("btnResumenClasesTrimestre.Image")));
+            this.btnResumenClasesTrimestre.Location = new System.Drawing.Point(647, 6);
+            this.btnResumenClasesTrimestre.Name = "btnResumenClasesTrimestre";
+            this.btnResumenClasesTrimestre.Size = new System.Drawing.Size(188, 22);
+            this.btnResumenClasesTrimestre.TabIndex = 49;
+            this.btnResumenClasesTrimestre.Text = "Resumen de Clases por trimestre";
             // 
-            // btnSubirAfip
+            // btnResumenClasesMes
             // 
-            this.btnSubirAfip.Image = ((System.Drawing.Image)(resources.GetObject("btnSubirAfip.Image")));
-            this.btnSubirAfip.Location = new System.Drawing.Point(5, 5);
-            this.btnSubirAfip.Name = "btnSubirAfip";
-            this.btnSubirAfip.Size = new System.Drawing.Size(81, 22);
-            this.btnSubirAfip.TabIndex = 40;
-            this.btnSubirAfip.Text = "Subir Afip";
+            this.btnResumenClasesMes.Image = ((System.Drawing.Image)(resources.GetObject("btnResumenClasesMes.Image")));
+            this.btnResumenClasesMes.Location = new System.Drawing.Point(471, 6);
+            this.btnResumenClasesMes.Name = "btnResumenClasesMes";
+            this.btnResumenClasesMes.Size = new System.Drawing.Size(170, 22);
+            this.btnResumenClasesMes.TabIndex = 48;
+            this.btnResumenClasesMes.Text = "Resumen de Clases por mes";
+            // 
+            // btnReimpresionRomaneo
+            // 
+            this.btnReimpresionRomaneo.Image = ((System.Drawing.Image)(resources.GetObject("btnReimpresionRomaneo.Image")));
+            this.btnReimpresionRomaneo.Location = new System.Drawing.Point(5, 6);
+            this.btnReimpresionRomaneo.Name = "btnReimpresionRomaneo";
+            this.btnReimpresionRomaneo.Size = new System.Drawing.Size(153, 22);
+            this.btnReimpresionRomaneo.TabIndex = 47;
+            this.btnReimpresionRomaneo.Text = "Reimpresión de Romaneo";
+            this.btnReimpresionRomaneo.Click += new System.EventHandler(this.btnReimpresionRomaneo_Click);
+            // 
+            // btnResumenCompra
+            // 
+            this.btnResumenCompra.Image = ((System.Drawing.Image)(resources.GetObject("btnResumenCompra.Image")));
+            this.btnResumenCompra.Location = new System.Drawing.Point(327, 6);
+            this.btnResumenCompra.Name = "btnResumenCompra";
+            this.btnResumenCompra.Size = new System.Drawing.Size(138, 22);
+            this.btnResumenCompra.TabIndex = 46;
+            this.btnResumenCompra.Text = "Resumen de Compra";
+            this.btnResumenCompra.Click += new System.EventHandler(this.btnResumenCompra_Click);
+            // 
+            // btnResumenRomaneo
+            // 
+            this.btnResumenRomaneo.Image = ((System.Drawing.Image)(resources.GetObject("btnResumenRomaneo.Image")));
+            this.btnResumenRomaneo.Location = new System.Drawing.Point(164, 6);
+            this.btnResumenRomaneo.Name = "btnResumenRomaneo";
+            this.btnResumenRomaneo.Size = new System.Drawing.Size(157, 22);
+            this.btnResumenRomaneo.TabIndex = 45;
+            this.btnResumenRomaneo.Text = "Resumen de Romaneo";
+            this.btnResumenRomaneo.Click += new System.EventHandler(this.btnResumenRomaneo_Click);
             // 
             // Form_RomaneoGestionRomaneo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1193, 525);
+            this.ClientSize = new System.Drawing.Size(1076, 587);
             this.Controls.Add(this.groupControl7);
             this.Controls.Add(this.groupControl6);
-            this.Controls.Add(this.groupControl4);
             this.Controls.Add(this.groupControl3);
             this.Controls.Add(this.groupControl2);
             this.Controls.Add(this.ribbon);
@@ -364,6 +401,7 @@
             this.Ribbon = this.ribbon;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Romaneo - Gestión de Romaneo";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).EndInit();
             this.groupControl3.ResumeLayout(false);
@@ -371,16 +409,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
             this.groupControl2.ResumeLayout(false);
             this.groupControl2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl4)).EndInit();
-            this.groupControl4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl6)).EndInit();
             this.groupControl6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridControlRomaneo)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridViewLiquidacionDetalle)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewRomaneo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewLiquidacionDetalle)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl7)).EndInit();
             this.groupControl7.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -399,19 +436,22 @@
         private System.Windows.Forms.TextBox txtProductor;
         private System.Windows.Forms.Label label7;
         private DevExpress.XtraEditors.GroupControl groupControl2;
-        private System.Windows.Forms.CheckBox checkPeriodo;
         private System.Windows.Forms.DateTimePicker dpHastaRomaneo;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DateTimePicker dpDesdeRomaneo;
         private System.Windows.Forms.Label label3;
-        private DevExpress.XtraEditors.GroupControl groupControl4;
         private DevExpress.XtraEditors.SimpleButton btnBuscarRomaneo;
         private DevExpress.XtraEditors.GroupControl groupControl6;
         private DevExpress.XtraGrid.GridControl gridControlRomaneo;
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewRomaneo;
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewLiquidacionDetalle;
         private DevExpress.XtraEditors.GroupControl groupControl7;
-        private DevExpress.XtraEditors.SimpleButton btnPrevisualizar;
-        private DevExpress.XtraEditors.SimpleButton btnSubirAfip;
+        private System.Windows.Forms.ComboBox cbTabaco;
+        private System.Windows.Forms.Label label1;
+        private DevExpress.XtraEditors.SimpleButton btnResumenClasesTrimestre;
+        private DevExpress.XtraEditors.SimpleButton btnResumenClasesMes;
+        private DevExpress.XtraEditors.SimpleButton btnReimpresionRomaneo;
+        private DevExpress.XtraEditors.SimpleButton btnResumenCompra;
+        private DevExpress.XtraEditors.SimpleButton btnResumenRomaneo;
     }
 }

@@ -51,25 +51,22 @@
             this.btnPrevisualizar = new DevExpress.XtraEditors.SimpleButton();
             this.btnSubirAfip = new DevExpress.XtraEditors.SimpleButton();
             this.groupControl6 = new DevExpress.XtraEditors.GroupControl();
-            this.groupControl4 = new DevExpress.XtraEditors.GroupControl();
-            this.btnBuscarLiquidacion = new DevExpress.XtraEditors.SimpleButton();
-            this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
-            this.txtCuit = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.btnBuscarProductor = new DevExpress.XtraEditors.SimpleButton();
-            this.btnBuscarFet = new DevExpress.XtraEditors.SimpleButton();
-            this.txtProvincia = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtFet = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.txtProductor = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
-            this.checkPeriodo = new System.Windows.Forms.CheckBox();
+            this.txtCuit = new System.Windows.Forms.TextBox();
+            this.btnBuscarLiquidacion = new DevExpress.XtraEditors.SimpleButton();
+            this.label5 = new System.Windows.Forms.Label();
             this.dpHastaLiquidacion = new System.Windows.Forms.DateTimePicker();
+            this.btnBuscarProductor = new DevExpress.XtraEditors.SimpleButton();
             this.label2 = new System.Windows.Forms.Label();
+            this.btnBuscarFet = new DevExpress.XtraEditors.SimpleButton();
             this.dpDesdeLiquidacion = new System.Windows.Forms.DateTimePicker();
+            this.txtProvincia = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtFet = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtProductor = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewLiquidacionDetalle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlLiquidacion)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewLiquidacion)).BeginInit();
@@ -88,10 +85,6 @@
             this.groupControl7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl6)).BeginInit();
             this.groupControl6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl4)).BeginInit();
-            this.groupControl4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).BeginInit();
-            this.groupControl3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
             this.groupControl2.SuspendLayout();
             this.SuspendLayout();
@@ -109,11 +102,11 @@
             gridLevelNode1.RelationName = "Level1";
             this.gridControlLiquidacion.LevelTree.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
             gridLevelNode1});
-            this.gridControlLiquidacion.Location = new System.Drawing.Point(2, 21);
+            this.gridControlLiquidacion.Location = new System.Drawing.Point(2, 20);
             this.gridControlLiquidacion.MainView = this.gridViewLiquidacion;
             this.gridControlLiquidacion.MenuManager = this.ribbon;
             this.gridControlLiquidacion.Name = "gridControlLiquidacion";
-            this.gridControlLiquidacion.Size = new System.Drawing.Size(1259, 520);
+            this.gridControlLiquidacion.Size = new System.Drawing.Size(1259, 523);
             this.gridControlLiquidacion.TabIndex = 68;
             this.gridControlLiquidacion.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewLiquidacion,
@@ -186,9 +179,9 @@
             this.label1.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(189, 27);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(77, 16);
+            this.label1.Size = new System.Drawing.Size(73, 16);
             this.label1.TabIndex = 59;
-            this.label1.Text = "Fecha Hasta:";
+            this.label1.Text = "Fecha Hasta";
             // 
             // dpDesdeRomaneo
             // 
@@ -204,9 +197,9 @@
             this.label15.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label15.Location = new System.Drawing.Point(7, 27);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(80, 16);
+            this.label15.Size = new System.Drawing.Size(76, 16);
             this.label15.TabIndex = 57;
-            this.label15.Text = "Fecha Desde:";
+            this.label15.Text = "Fecha Desde";
             // 
             // btnBuscar
             // 
@@ -233,11 +226,11 @@
             // gridControlRomaneo
             // 
             this.gridControlRomaneo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridControlRomaneo.Location = new System.Drawing.Point(2, 21);
+            this.gridControlRomaneo.Location = new System.Drawing.Point(2, 20);
             this.gridControlRomaneo.MainView = this.gridViewRomaneo;
             this.gridControlRomaneo.MenuManager = this.ribbon;
             this.gridControlRomaneo.Name = "gridControlRomaneo";
-            this.gridControlRomaneo.Size = new System.Drawing.Size(1259, 586);
+            this.gridControlRomaneo.Size = new System.Drawing.Size(1259, 587);
             this.gridControlRomaneo.TabIndex = 68;
             this.gridControlRomaneo.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewRomaneo});
@@ -278,8 +271,6 @@
             // 
             this.TabConsultaLiquidacion.Controls.Add(this.groupControl7);
             this.TabConsultaLiquidacion.Controls.Add(this.groupControl6);
-            this.TabConsultaLiquidacion.Controls.Add(this.groupControl4);
-            this.TabConsultaLiquidacion.Controls.Add(this.groupControl3);
             this.TabConsultaLiquidacion.Controls.Add(this.groupControl2);
             this.TabConsultaLiquidacion.Image = ((System.Drawing.Image)(resources.GetObject("TabConsultaLiquidacion.Image")));
             this.TabConsultaLiquidacion.Name = "TabConsultaLiquidacion";
@@ -324,202 +315,172 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupControl6.Controls.Add(this.gridControlLiquidacion);
-            this.groupControl6.Location = new System.Drawing.Point(-1, 84);
+            this.groupControl6.Location = new System.Drawing.Point(-1, 82);
             this.groupControl6.Name = "groupControl6";
-            this.groupControl6.Size = new System.Drawing.Size(1263, 543);
+            this.groupControl6.Size = new System.Drawing.Size(1263, 545);
             this.groupControl6.TabIndex = 75;
             this.groupControl6.Text = "Lista de Romaneo";
             // 
-            // groupControl4
+            // groupControl2
             // 
-            this.groupControl4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupControl4.Controls.Add(this.btnBuscarLiquidacion);
-            this.groupControl4.Location = new System.Drawing.Point(1176, 1);
-            this.groupControl4.Name = "groupControl4";
-            this.groupControl4.Size = new System.Drawing.Size(86, 82);
-            this.groupControl4.TabIndex = 74;
-            this.groupControl4.Text = "Opciones";
+            this.groupControl2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupControl2.Controls.Add(this.txtCuit);
+            this.groupControl2.Controls.Add(this.btnBuscarLiquidacion);
+            this.groupControl2.Controls.Add(this.label5);
+            this.groupControl2.Controls.Add(this.dpHastaLiquidacion);
+            this.groupControl2.Controls.Add(this.btnBuscarProductor);
+            this.groupControl2.Controls.Add(this.label2);
+            this.groupControl2.Controls.Add(this.btnBuscarFet);
+            this.groupControl2.Controls.Add(this.dpDesdeLiquidacion);
+            this.groupControl2.Controls.Add(this.txtProvincia);
+            this.groupControl2.Controls.Add(this.label3);
+            this.groupControl2.Controls.Add(this.label4);
+            this.groupControl2.Controls.Add(this.label6);
+            this.groupControl2.Controls.Add(this.txtFet);
+            this.groupControl2.Controls.Add(this.label7);
+            this.groupControl2.Controls.Add(this.txtProductor);
+            this.groupControl2.Location = new System.Drawing.Point(0, 1);
+            this.groupControl2.Name = "groupControl2";
+            this.groupControl2.Size = new System.Drawing.Size(1262, 75);
+            this.groupControl2.TabIndex = 72;
+            this.groupControl2.Text = "Buscar Romaneo";
+            // 
+            // txtCuit
+            // 
+            this.txtCuit.Enabled = false;
+            this.txtCuit.Location = new System.Drawing.Point(542, 51);
+            this.txtCuit.Name = "txtCuit";
+            this.txtCuit.Size = new System.Drawing.Size(124, 21);
+            this.txtCuit.TabIndex = 72;
             // 
             // btnBuscarLiquidacion
             // 
             this.btnBuscarLiquidacion.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscarLiquidacion.Image")));
-            this.btnBuscarLiquidacion.Location = new System.Drawing.Point(3, 23);
+            this.btnBuscarLiquidacion.Location = new System.Drawing.Point(765, 22);
             this.btnBuscarLiquidacion.Name = "btnBuscarLiquidacion";
             this.btnBuscarLiquidacion.Size = new System.Drawing.Size(81, 22);
             this.btnBuscarLiquidacion.TabIndex = 39;
             this.btnBuscarLiquidacion.Text = "Buscar";
             this.btnBuscarLiquidacion.Click += new System.EventHandler(this.btnBuscarLiquidacion_Click);
             // 
-            // groupControl3
-            // 
-            this.groupControl3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupControl3.Controls.Add(this.txtCuit);
-            this.groupControl3.Controls.Add(this.label5);
-            this.groupControl3.Controls.Add(this.btnBuscarProductor);
-            this.groupControl3.Controls.Add(this.btnBuscarFet);
-            this.groupControl3.Controls.Add(this.txtProvincia);
-            this.groupControl3.Controls.Add(this.label4);
-            this.groupControl3.Controls.Add(this.txtFet);
-            this.groupControl3.Controls.Add(this.label6);
-            this.groupControl3.Controls.Add(this.txtProductor);
-            this.groupControl3.Controls.Add(this.label7);
-            this.groupControl3.Location = new System.Drawing.Point(0, 51);
-            this.groupControl3.Name = "groupControl3";
-            this.groupControl3.ShowCaption = false;
-            this.groupControl3.Size = new System.Drawing.Size(1174, 32);
-            this.groupControl3.TabIndex = 73;
-            this.groupControl3.Text = "Buscar Romaneo";
-            // 
-            // txtCuit
-            // 
-            this.txtCuit.Enabled = false;
-            this.txtCuit.Location = new System.Drawing.Point(616, 7);
-            this.txtCuit.Name = "txtCuit";
-            this.txtCuit.Size = new System.Drawing.Size(153, 21);
-            this.txtCuit.TabIndex = 72;
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(581, 8);
+            this.label5.Location = new System.Drawing.Point(505, 53);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(38, 16);
+            this.label5.Size = new System.Drawing.Size(34, 16);
             this.label5.TabIndex = 71;
-            this.label5.Text = "CUIT:";
-            // 
-            // btnBuscarProductor
-            // 
-            this.btnBuscarProductor.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscarProductor.Image")));
-            this.btnBuscarProductor.Location = new System.Drawing.Point(535, 6);
-            this.btnBuscarProductor.Name = "btnBuscarProductor";
-            this.btnBuscarProductor.Size = new System.Drawing.Size(28, 22);
-            this.btnBuscarProductor.TabIndex = 70;
-            this.btnBuscarProductor.Click += new System.EventHandler(this.btnBuscarProductor_Click);
-            // 
-            // btnBuscarFet
-            // 
-            this.btnBuscarFet.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscarFet.Image")));
-            this.btnBuscarFet.Location = new System.Drawing.Point(155, 7);
-            this.btnBuscarFet.Name = "btnBuscarFet";
-            this.btnBuscarFet.Size = new System.Drawing.Size(28, 22);
-            this.btnBuscarFet.TabIndex = 69;
-            this.btnBuscarFet.Click += new System.EventHandler(this.btnBuscarFet_Click);
-            // 
-            // txtProvincia
-            // 
-            this.txtProvincia.Enabled = false;
-            this.txtProvincia.Location = new System.Drawing.Point(836, 7);
-            this.txtProvincia.Name = "txtProvincia";
-            this.txtProvincia.Size = new System.Drawing.Size(117, 21);
-            this.txtProvincia.TabIndex = 68;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(778, 8);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(61, 16);
-            this.label4.TabIndex = 67;
-            this.label4.Text = "Provincia:";
-            // 
-            // txtFet
-            // 
-            this.txtFet.Location = new System.Drawing.Point(43, 7);
-            this.txtFet.Name = "txtFet";
-            this.txtFet.Size = new System.Drawing.Size(112, 21);
-            this.txtFet.TabIndex = 66;
-            this.txtFet.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFet_KeyPress);
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(11, 8);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(32, 16);
-            this.label6.TabIndex = 65;
-            this.label6.Text = "FET:";
-            // 
-            // txtProductor
-            // 
-            this.txtProductor.Location = new System.Drawing.Point(266, 7);
-            this.txtProductor.Name = "txtProductor";
-            this.txtProductor.Size = new System.Drawing.Size(269, 21);
-            this.txtProductor.TabIndex = 64;
-            this.txtProductor.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtProductor_KeyPress);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(189, 8);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(65, 16);
-            this.label7.TabIndex = 63;
-            this.label7.Text = "Productor:";
-            // 
-            // groupControl2
-            // 
-            this.groupControl2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupControl2.Controls.Add(this.checkPeriodo);
-            this.groupControl2.Controls.Add(this.dpHastaLiquidacion);
-            this.groupControl2.Controls.Add(this.label2);
-            this.groupControl2.Controls.Add(this.dpDesdeLiquidacion);
-            this.groupControl2.Controls.Add(this.label3);
-            this.groupControl2.Location = new System.Drawing.Point(0, 1);
-            this.groupControl2.Name = "groupControl2";
-            this.groupControl2.Size = new System.Drawing.Size(1174, 49);
-            this.groupControl2.TabIndex = 72;
-            this.groupControl2.Text = "Buscar Romaneo";
-            // 
-            // checkPeriodo
-            // 
-            this.checkPeriodo.AutoSize = true;
-            this.checkPeriodo.Location = new System.Drawing.Point(370, 28);
-            this.checkPeriodo.Name = "checkPeriodo";
-            this.checkPeriodo.Size = new System.Drawing.Size(15, 14);
-            this.checkPeriodo.TabIndex = 62;
-            this.checkPeriodo.UseVisualStyleBackColor = true;
+            this.label5.Text = "CUIT";
             // 
             // dpHastaLiquidacion
             // 
             this.dpHastaLiquidacion.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dpHastaLiquidacion.Location = new System.Drawing.Point(266, 24);
+            this.dpHastaLiquidacion.Location = new System.Drawing.Point(168, 23);
             this.dpHastaLiquidacion.Name = "dpHastaLiquidacion";
-            this.dpHastaLiquidacion.Size = new System.Drawing.Size(99, 21);
+            this.dpHastaLiquidacion.Size = new System.Drawing.Size(79, 21);
             this.dpHastaLiquidacion.TabIndex = 60;
+            // 
+            // btnBuscarProductor
+            // 
+            this.btnBuscarProductor.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscarProductor.Image")));
+            this.btnBuscarProductor.Location = new System.Drawing.Point(469, 51);
+            this.btnBuscarProductor.Name = "btnBuscarProductor";
+            this.btnBuscarProductor.Size = new System.Drawing.Size(28, 20);
+            this.btnBuscarProductor.TabIndex = 70;
+            this.btnBuscarProductor.Click += new System.EventHandler(this.btnBuscarProductor_Click);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(189, 27);
+            this.label2.Location = new System.Drawing.Point(129, 26);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(77, 16);
+            this.label2.Size = new System.Drawing.Size(38, 16);
             this.label2.TabIndex = 59;
-            this.label2.Text = "Fecha Hasta:";
+            this.label2.Text = "Hasta";
+            // 
+            // btnBuscarFet
+            // 
+            this.btnBuscarFet.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscarFet.Image")));
+            this.btnBuscarFet.Location = new System.Drawing.Point(128, 50);
+            this.btnBuscarFet.Name = "btnBuscarFet";
+            this.btnBuscarFet.Size = new System.Drawing.Size(28, 21);
+            this.btnBuscarFet.TabIndex = 69;
+            this.btnBuscarFet.Click += new System.EventHandler(this.btnBuscarFet_Click);
             // 
             // dpDesdeLiquidacion
             // 
             this.dpDesdeLiquidacion.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dpDesdeLiquidacion.Location = new System.Drawing.Point(84, 24);
+            this.dpDesdeLiquidacion.Location = new System.Drawing.Point(46, 24);
             this.dpDesdeLiquidacion.Name = "dpDesdeLiquidacion";
-            this.dpDesdeLiquidacion.Size = new System.Drawing.Size(99, 21);
+            this.dpDesdeLiquidacion.Size = new System.Drawing.Size(79, 21);
             this.dpDesdeLiquidacion.TabIndex = 58;
+            // 
+            // txtProvincia
+            // 
+            this.txtProvincia.Enabled = false;
+            this.txtProvincia.Location = new System.Drawing.Point(729, 52);
+            this.txtProvincia.Name = "txtProvincia";
+            this.txtProvincia.Size = new System.Drawing.Size(117, 21);
+            this.txtProvincia.TabIndex = 68;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(7, 27);
+            this.label3.Location = new System.Drawing.Point(5, 26);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(80, 16);
+            this.label3.Size = new System.Drawing.Size(41, 16);
             this.label3.TabIndex = 57;
-            this.label3.Text = "Fecha Desde:";
+            this.label3.Text = "Desde";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(672, 54);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(57, 16);
+            this.label4.TabIndex = 67;
+            this.label4.Text = "Provincia";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(9, 51);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(28, 16);
+            this.label6.TabIndex = 65;
+            this.label6.Text = "FET";
+            // 
+            // txtFet
+            // 
+            this.txtFet.Location = new System.Drawing.Point(41, 50);
+            this.txtFet.Name = "txtFet";
+            this.txtFet.Size = new System.Drawing.Size(87, 21);
+            this.txtFet.TabIndex = 66;
+            this.txtFet.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFet_KeyPress);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(159, 52);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(61, 16);
+            this.label7.TabIndex = 63;
+            this.label7.Text = "Productor";
+            // 
+            // txtProductor
+            // 
+            this.txtProductor.Location = new System.Drawing.Point(220, 51);
+            this.txtProductor.Name = "txtProductor";
+            this.txtProductor.Size = new System.Drawing.Size(247, 21);
+            this.txtProductor.TabIndex = 64;
+            this.txtProductor.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtProductor_KeyPress);
             // 
             // Form_AdministracionLiquidacion
             // 
@@ -553,15 +514,11 @@
             this.groupControl7.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl6)).EndInit();
             this.groupControl6.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl4)).EndInit();
-            this.groupControl4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).EndInit();
-            this.groupControl3.ResumeLayout(false);
-            this.groupControl3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
             this.groupControl2.ResumeLayout(false);
             this.groupControl2.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -587,9 +544,7 @@
         private DevExpress.XtraEditors.GroupControl groupControl6;
         private DevExpress.XtraGrid.GridControl gridControlLiquidacion;
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewLiquidacion;
-        private DevExpress.XtraEditors.GroupControl groupControl4;
         private DevExpress.XtraEditors.SimpleButton btnBuscarLiquidacion;
-        private DevExpress.XtraEditors.GroupControl groupControl3;
         private DevExpress.XtraEditors.SimpleButton btnBuscarProductor;
         private DevExpress.XtraEditors.SimpleButton btnBuscarFet;
         private System.Windows.Forms.TextBox txtProvincia;
@@ -599,7 +554,6 @@
         private System.Windows.Forms.TextBox txtProductor;
         private System.Windows.Forms.Label label7;
         private DevExpress.XtraEditors.GroupControl groupControl2;
-        private System.Windows.Forms.CheckBox checkPeriodo;
         private System.Windows.Forms.DateTimePicker dpHastaLiquidacion;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DateTimePicker dpDesdeLiquidacion;

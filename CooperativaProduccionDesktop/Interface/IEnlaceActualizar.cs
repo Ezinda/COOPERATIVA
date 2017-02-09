@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CooperativaProduccion
 {
-    public interface IEnlaceActualizarHistorico
+    public interface IEnlaceActualizar
     {
         void Enviar(bool Enviar);
     }

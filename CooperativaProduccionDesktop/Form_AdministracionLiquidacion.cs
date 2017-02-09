@@ -26,38 +26,20 @@ namespace CooperativaProduccion
         private Form_AdministracionBuscarProductor _formBuscarProductor;
         private Guid ProductorId;
 
-        public Form_AdministracionLiquidacion()
+        public Form_AdministracionLiquidacion(bool Liquidar, 
+            bool LiquidacionSubirAfip,bool LiquidacionImprimir)
         {
             InitializeComponent();
-
-            //Eventos();
-
             Context = new CooperativaProduccionEntities();
-
-            this.Load += Form_AdministracionLiquidacion_Load;
-        }
-
-        void Form_AdministracionLiquidacion_Load(object sender, EventArgs e)
-        {
             Buscar(false);
+            Iniciar(Liquidar, LiquidacionSubirAfip, LiquidacionImprimir);
         }
 
-        void Eventos()
+        private void Iniciar(bool Liquidar, bool LiquidacionSubirAfip, bool LiquidacionImprimir)
         {
-            this.Liquidacion.SelectedPageChanged += this.Liquidacion_SelectedPageChanged;
-
-            this.btnBuscar.Click += this.btnBuscar_Click;
-            this.btnLiquidar.Click += this.btnLiquidar_Click;
-
-            this.btnBuscarLiquidacion.Click += this.btnBuscarLiquidacion_Click;
-            this.btnSubirAfip.Click += this.btnSubirAfip_Click;
-            this.btnPrevisualizar.Click += this.btnPrevisualizar_Click;
-
-            this.txtFet.KeyPress += this.txtFet_KeyPress;
-            this.txtProductor.KeyPress += this.txtProductor_KeyPress;
-
-            this.btnBuscarFet.Click += this.btnBuscarFet_Click;
-            this.btnBuscarProductor.Click += this.btnBuscarProductor_Click;
+            btnLiquidar.Visible = Liquidar;
+            btnSubirAfip.Visible = LiquidacionSubirAfip;
+            btnPrevisualizar.Visible = LiquidacionImprimir;
         }
 
         #region Modulo de Proceso de Liquidacion
@@ -93,16 +75,13 @@ namespace CooperativaProduccion
 
             pred = buscar.Equals(true) ? pred.And(x => x.FechaRomaneo >= dpDesdeRomaneo.Value.Date
                 && x.FechaRomaneo <= dpHastaRomaneo.Value.Date) : pred;
-            pred = pred.And(x => x.FechaAfipLiquidacion == null);
+            pred = pred.And(x => x.FechaInternaLiquidacion == null);
 
-            var resultset = Context.Vw_Romaneo
-                .Where(pred)
-                .Where(x=>x.OrdenPagoId == null)
-               .OrderByDescending(x => x.FechaRomaneo)
-               .ThenBy(x => x.nrofet)
-               .ToList();
-
-            var result = resultset.Select(a => new
+            var result = (
+               from a in Context.Vw_Romaneo
+                   .Where(pred)
+                   .Where(x=>x.OrdenPagoId == null)
+               select new
                {
                    ID = a.PesadaId,
                    FECHA = a.FechaRomaneo,
@@ -115,7 +94,10 @@ namespace CooperativaProduccion
                    KILOS = a.TotalKg,
                    BRUTOSINIVA = a.ImporteBruto,
                    NUMLIQUIDACION = a.NumInternoLiquidacion
-               }).ToList();
+               })
+               .OrderBy(x => x.NUMROMANEO)
+               .ThenBy(x => x.FET)
+               .ToList();
 
             gridControlRomaneo.DataSource = result;
             gridViewRomaneo.Columns[0].Visible = false;
@@ -172,13 +154,15 @@ namespace CooperativaProduccion
                     {
                         var Id = new Guid(gridViewRomaneo.GetRowCellValue(i, "ID").ToString());
                         var Iva = gridViewRomaneo.GetRowCellValue(i, "LETRA").ToString();
+
                         var romaneo = Context.Pesada.Find(Id);
                         if (romaneo != null)
                         {
+                            romaneo.PuntoVentaLiquidacion = NumeroPuntoVentaLiquidacion();
                             romaneo.NumInternoLiquidacion = ContadorNumeroInternoLiquidacion();
                             romaneo.FechaInternaLiquidacion = DateTime.Now.Date;
                             romaneo.condIva = Iva;
-                            var subtotal = romaneo.ImporteBruto / (1+(romaneo.IvaPorcentaje/100));
+                            var subtotal = romaneo.ImporteBruto; /// (1+(romaneo.IvaPorcentaje/100));
                             var iva = subtotal * (romaneo.IvaPorcentaje / 100);
                             var total = subtotal + iva;
                             if (Iva == "A")
@@ -192,37 +176,62 @@ namespace CooperativaProduccion
                                 romaneo.ImporteNeto = romaneo.ImporteBruto;
                                 romaneo.Total = romaneo.ImporteBruto;
                             }
+
                             Context.Entry(romaneo).State = EntityState.Modified;
                             Context.SaveChanges();
+                            
+                            #region Actualizar contador
+
+                            var contador = Context.Contador
+                                .Where(x => x.Nombre.Equals(DevConstantes.Liquidacion))
+                                .FirstOrDefault();
+
+                            var count = Context.Contador.Find(contador.Id);
+                            if (count != null)
+                            {
+                                count.Valor = count.Valor + 1;
+                                Context.Entry(count).State = EntityState.Modified;
+                                Context.SaveChanges();
+                            }
+                            
+                            #endregion
                         }
                     }
                 }
             }
         }
 
-        private int ContadorNumeroInternoLiquidacion()
+        private long ContadorNumeroInternoLiquidacion()
         {
-            var count = Context.Pesada.Count();
-            if (count != 0)
+            var contador = Context.Contador
+               .Where(x => x.Nombre.Equals(DevConstantes.Liquidacion))
+               .FirstOrDefault();
+            if (contador != null)
             {
-
-                var codigo = Context.Pesada
-                    .Max(x => x.NumInternoLiquidacion)
-                    .ToString();
-                if (codigo != string.Empty)
-                {
-                    return (Int16.Parse(codigo) + 1);
-                }
-                else
-                {
-                    return 1;
-                }
+                return (contador.Valor.Value + 1);
             }
             else
             {
                 return 1;
             }
         }
+
+        private int NumeroPuntoVentaLiquidacion()
+        {
+            var contador = Context.Contador
+                .Where(x => x.Nombre.Equals(DevConstantes.PuntoVentaLiquidacion))
+                .FirstOrDefault();
+
+            if (contador != null)
+            {
+                return int.Parse(contador.Valor.ToString());
+            }
+            else
+            {
+                return 1;
+            }
+        }
+
 
         #endregion
 
@@ -293,7 +302,7 @@ namespace CooperativaProduccion
        
         private void Liquidacion_SelectedPageChanged(object sender, DevExpress.XtraTab.TabPageChangedEventArgs e)
         {
-            //Limpiar();
+            Limpiar();
         }
 
         private void btnSubirAfip_Click(object sender, EventArgs e)
@@ -333,12 +342,9 @@ namespace CooperativaProduccion
             CooperativaProduccionEntities Context = new CooperativaProduccionEntities();
             Expression<Func<Vw_Romaneo, bool>> pred = x => true;
 
-            if (checkPeriodo.Checked.Equals(true))
-            {
-                pred = pred.And(x => x.FechaInternaLiquidacion >= dpDesdeLiquidacion.Value.Date 
-                    && x.FechaInternaLiquidacion <= dpHastaLiquidacion.Value.Date);
-            }
-
+            pred = pred.And(x => x.FechaInternaLiquidacion >= dpDesdeLiquidacion.Value.Date 
+                && x.FechaInternaLiquidacion <= dpHastaLiquidacion.Value.Date);
+           
             if (ProductorId != Guid.Empty)
             {
                 pred = pred.And(x => x.ProductorId == ProductorId);
@@ -635,7 +641,7 @@ namespace CooperativaProduccion
 
         private void ImprimirLiquidacion(Guid Id)
         {
-            var reporte = new LiquidacionAReport();
+            var reporte = new LiquidacionManualReport();
 
             var liquidacion = Context.Vw_Romaneo
                 .Where(x => x.PesadaId == Id)
@@ -645,10 +651,10 @@ namespace CooperativaProduccion
 
             if (liquidacion.Letra != null)
             {
-                reporte.lblLetra.Text = liquidacion.Letra == DevConstantes.A ? 
-                    DevConstantes.A : DevConstantes.B;
-                reporte.lblCodigo.Text = liquidacion.Letra == DevConstantes.A ? 
-                    DevConstantes.Codigo001 : DevConstantes.Codigo006;
+                //reporte.lblLetra.Text = liquidacion.Letra == DevConstantes.A ? 
+                //    DevConstantes.A : DevConstantes.B;
+                //reporte.lblCodigo.Text = liquidacion.Letra == DevConstantes.A ? 
+                //    DevConstantes.Codigo001 : DevConstantes.Codigo006;
             }
 
             #endregion
@@ -661,6 +667,8 @@ namespace CooperativaProduccion
             reporte.Parameters["iibb"].Value = DevConstantes.IIBB;
             reporte.Parameters["ines"].Value = DevConstantes.Ines;
             reporte.Parameters["inicioActividades"].Value = DevConstantes.InicioActividades;
+           reporte.Parameters["fechaEmision"].Value = liquidacion.FechaInternaLiquidacion == null ? string.Empty : liquidacion.FechaInternaLiquidacion.Value.ToShortDateString();
+           
 
             #endregion
 

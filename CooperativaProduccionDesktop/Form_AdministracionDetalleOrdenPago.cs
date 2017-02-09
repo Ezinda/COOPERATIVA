@@ -17,7 +17,7 @@ namespace CooperativaProduccion
     public partial class Form_AdministracionDetalleOrdenPago : DevExpress.XtraBars.Ribbon.RibbonForm
     {
         //private CooperativaProduccionEntities Context { get; set; }
-        private const String[] _columns = new String[]
+        private static String[] _columns = new String[]
         {
             "Id",             //0
             "Fecha",          //1
@@ -170,7 +170,7 @@ namespace CooperativaProduccion
                     
                     dgvPendientes.Rows[e.RowIndex].Cells[13].Value = netoTotal;
 
-                    CalcularValores();
+                    //CalcularValores();
                 }
                 else
                 {
@@ -311,85 +311,85 @@ namespace CooperativaProduccion
 
             #region Grid Conceptos Imputados
 
-            var result = (
-                from a in Context.Vw_Romaneo
-                    .Where(x => x.ProductorId == ordenPago.ProductorId)
-                    .Where(x => x.NumAfipLiquidacion != null)
-                select new
-                {
-                    ID = a.PesadaId,
-                    FECHA = a.FechaAfipLiquidacion,
-                    LETRA = a.Letra,
-                    NUMAFIP = a.NumAfipLiquidacion,
-                    NETO = a.ImporteBruto,
-                    KILOS = a.TotalKg
-                })
-                .OrderBy(x => x.FECHA)
-                .ToList();
+            //var result = (
+            //    from a in Context.Vw_Romaneo
+            //        .Where(x => x.ProductorId == ordenPago.ProductorId)
+            //        .Where(x => x.NumAfipLiquidacion != null)
+            //    select new
+            //    {
+            //        ID = a.PesadaId,
+            //        FECHA = a.FechaAfipLiquidacion,
+            //        LETRA = a.Letra,
+            //        NUMAFIP = a.NumAfipLiquidacion,
+            //        NETO = a.ImporteBruto,
+            //        KILOS = a.TotalKg
+            //    })
+            //    .OrderBy(x => x.FECHA)
+            //    .ToList();
 
-            gridControlConceptosImputados.DataSource = result;
-            gridViewConceptosImputados.Columns[0].Visible = false;
-            gridViewConceptosImputados.Columns[1].Caption = "Fecha";
-            gridViewConceptosImputados.Columns[1].Width = 60;
-            gridViewConceptosImputados.Columns[1].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-            gridViewConceptosImputados.Columns[1].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-            gridViewConceptosImputados.Columns[2].Caption = "Letra";
-            gridViewConceptosImputados.Columns[2].Width = 50;
-            gridViewConceptosImputados.Columns[2].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-            gridViewConceptosImputados.Columns[2].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-            gridViewConceptosImputados.Columns[3].Caption = "Número Comprobante";
-            gridViewConceptosImputados.Columns[3].Width = 70;
-            gridViewConceptosImputados.Columns[3].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-            gridViewConceptosImputados.Columns[3].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-            gridViewConceptosImputados.Columns[4].Caption = "Importe";
-            gridViewConceptosImputados.Columns[4].Width = 70;
-            gridViewConceptosImputados.Columns[4].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-            gridViewConceptosImputados.Columns[4].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-            gridViewConceptosImputados.Columns[5].Caption = "Kilos";
-            gridViewConceptosImputados.Columns[5].Width = 70;
-            gridViewConceptosImputados.Columns[5].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-            gridViewConceptosImputados.Columns[5].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+            //gridControlConceptosImputados.DataSource = result;
+            //gridViewConceptosImputados.Columns[0].Visible = false;
+            //gridViewConceptosImputados.Columns[1].Caption = "Fecha";
+            //gridViewConceptosImputados.Columns[1].Width = 60;
+            //gridViewConceptosImputados.Columns[1].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+            //gridViewConceptosImputados.Columns[1].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+            //gridViewConceptosImputados.Columns[2].Caption = "Letra";
+            //gridViewConceptosImputados.Columns[2].Width = 50;
+            //gridViewConceptosImputados.Columns[2].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+            //gridViewConceptosImputados.Columns[2].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+            //gridViewConceptosImputados.Columns[3].Caption = "Número Comprobante";
+            //gridViewConceptosImputados.Columns[3].Width = 70;
+            //gridViewConceptosImputados.Columns[3].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+            //gridViewConceptosImputados.Columns[3].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+            //gridViewConceptosImputados.Columns[4].Caption = "Importe";
+            //gridViewConceptosImputados.Columns[4].Width = 70;
+            //gridViewConceptosImputados.Columns[4].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+            //gridViewConceptosImputados.Columns[4].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+            //gridViewConceptosImputados.Columns[5].Caption = "Kilos";
+            //gridViewConceptosImputados.Columns[5].Width = 70;
+            //gridViewConceptosImputados.Columns[5].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+            //gridViewConceptosImputados.Columns[5].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
 
             #endregion
 
             #region Grid Pendientes
 
-            var resultPendiente = (
-                from a in Context.Vw_Romaneo
-                    .Where(x => x.ProductorId == ordenPago.ProductorId)
-                    .Where(x => x.NumAfipLiquidacion != null)
-                select new
-                {
-                    ID = a.PesadaId,
-                    FECHA = a.FechaAfipLiquidacion,
-                    LETRA = a.Letra,
-                    NUMAFIP = a.NumAfipLiquidacion,
-                    Saldo = a.ImporteBruto,
-                    Afectar = a.ImporteBruto
+            //var resultPendiente = (
+            //    from a in Context.Vw_Romaneo
+            //        .Where(x => x.ProductorId == ordenPago.ProductorId)
+            //        .Where(x => x.NumAfipLiquidacion != null)
+            //    select new
+            //    {
+            //        ID = a.PesadaId,
+            //        FECHA = a.FechaAfipLiquidacion,
+            //        LETRA = a.Letra,
+            //        NUMAFIP = a.NumAfipLiquidacion,
+            //        Saldo = a.ImporteBruto,
+            //        Afectar = a.ImporteBruto
 
-                })
-                .OrderBy(x => x.FECHA)
-                .ToList();
+            //    })
+            //    .OrderBy(x => x.FECHA)
+            //    .ToList();
 
-            if (dgvPendientes.RowCount > 0)
-            {
-                dgvPendientes.Rows.Clear();
-            }
+            //if (dgvPendientes.RowCount > 0)
+            //{
+            //    dgvPendientes.Rows.Clear();
+            //}
 
-            if (resultPendiente.Count > 0)
-            {
-                foreach (var resultp in resultPendiente)
-                {
-                    this.dgvPendientes.Rows.Add(resultp.ID, resultp.FECHA.Value.ToShortDateString(), resultp.LETRA,
-                        resultp.NUMAFIP, resultp.Saldo, resultp.Saldo, string.Empty, string.Empty, string.Empty,
-                        string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
-                }
-                this.dgvPendientes.Columns[2].DefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomCenter;
-                this.dgvPendientes.Columns[3].DefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomCenter;
-                this.dgvPendientes.Columns[4].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-                this.dgvPendientes.Columns[5].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            //if (resultPendiente.Count > 0)
+            //{
+            //    foreach (var resultp in resultPendiente)
+            //    {
+            //        this.dgvPendientes.Rows.Add(resultp.ID, resultp.FECHA.Value.ToShortDateString(), resultp.LETRA,
+            //            resultp.NUMAFIP, resultp.Saldo, resultp.Saldo, string.Empty, string.Empty, string.Empty,
+            //            string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
+            //    }
+            //    this.dgvPendientes.Columns[2].DefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomCenter;
+            //    this.dgvPendientes.Columns[3].DefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomCenter;
+            //    this.dgvPendientes.Columns[4].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            //    this.dgvPendientes.Columns[5].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
-            }
+            //}
 
             #endregion
         }
@@ -408,169 +408,169 @@ namespace CooperativaProduccion
 
 
 
-        #region Calcular Totales
+        //#region Calcular Totales
 
-        private void CalcularValores()
-        {
-            txtImporteBruto.Text = "0";
-            txtGanancias.Text = "0";
-            txtGADM.Text = "0";
-            txtIIBB.Text = "0";
-            txtSaludPublica.Text = "0";
-            txtEEAOC.Text = "0";
-            txtRiego.Text = "0";
-            txtMonotributo.Text = "0";
-            txtNeto.Text = "0";
-           
-            //CalcularTotalProductores();
-            CalcularTotalAfectar();
-            CalcularTotalGanancias();
-            CalcularTotalIVA();
-            CalcularTotalIIBB();
-            CalcularTotalSaludPublica();
-            CalcularTotalEEAOC();
-            CalcularTotalRIEGO();
-            CalcularTotalMonotributo();
-            CalcularTotalNeto();
-        }
-
-        //private void CalcularTotalProductores()
+        //private void CalcularValores()
         //{
-        //    txtProductores.Text = "0";
-        //    if (gridViewLiquidacion.SelectedRowsCount > 0)
+        //    txtImporteBruto.Text = "0";
+        //    txtGanancias.Text = "0";
+        //    txtGADM.Text = "0";
+        //    txtIIBB.Text = "0";
+        //    txtSaludPublica.Text = "0";
+        //    txtEEAOC.Text = "0";
+        //    txtRiego.Text = "0";
+        //    txtMonotributo.Text = "0";
+        //    txtNeto.Text = "0";
+           
+        //    //CalcularTotalProductores();
+        //    CalcularTotalAfectar();
+        //    CalcularTotalGanancias();
+        //    CalcularTotalIVA();
+        //    CalcularTotalIIBB();
+        //    CalcularTotalSaludPublica();
+        //    CalcularTotalEEAOC();
+        //    CalcularTotalRIEGO();
+        //    CalcularTotalMonotributo();
+        //    CalcularTotalNeto();
+        //}
+
+        ////private void CalcularTotalProductores()
+        ////{
+        ////    txtProductores.Text = "0";
+        ////    if (gridViewLiquidacion.SelectedRowsCount > 0)
+        ////    {
+        ////        for (int i = 0; i < gridViewLiquidacion.DataRowCount; i++)
+        ////        {
+        ////            if (gridViewLiquidacion.IsRowSelected(i))
+        ////            {
+        ////                var ProductorId = new Guid(gridViewLiquidacion.GetRowCellValue(i, "PRODUCTORID").ToString());
+
+        ////                var productores = Context.Vw_Romaneo
+        ////                    .Where(x => x.ProductorId == ProductorId)
+        ////                    .Distinct()
+        ////                    .Count();
+
+        ////                txtProductores.Text = (Int32.Parse(txtProductores.Text) + Int32.Parse(productores.ToString())).ToString();
+        ////            }
+        ////        }
+        ////    }
+        ////    else
+        ////    {
+        ////        txtProductores.Text = "0";
+        ////    }
+        ////}
+
+        //private float CalcularTotalPesos(Guid PesadaId)
+        //{
+        //    float totalPesos = 0;
+        //    var liquidaciones = Context.Vw_Romaneo
+        //        .Where(x => x.PesadaId == PesadaId)
+        //        .ToList();
+        //    if (liquidaciones != null)
         //    {
-        //        for (int i = 0; i < gridViewLiquidacion.DataRowCount; i++)
+        //        foreach (var liquidacion in liquidaciones)
         //        {
-        //            if (gridViewLiquidacion.IsRowSelected(i))
-        //            {
-        //                var ProductorId = new Guid(gridViewLiquidacion.GetRowCellValue(i, "PRODUCTORID").ToString());
-
-        //                var productores = Context.Vw_Romaneo
-        //                    .Where(x => x.ProductorId == ProductorId)
-        //                    .Distinct()
-        //                    .Count();
-
-        //                txtProductores.Text = (Int32.Parse(txtProductores.Text) + Int32.Parse(productores.ToString())).ToString();
-        //            }
+        //            totalPesos = totalPesos + Convert.ToSingle(liquidacion.ImporteBruto.Value);
         //        }
         //    }
         //    else
         //    {
-        //        txtProductores.Text = "0";
+        //        totalPesos = 0;
+        //    }
+
+        //    return totalPesos;
+        //}
+
+        //private void CalcularTotalAfectar()
+        //{
+        //    txtImporteBruto.Text = "0";
+        //    for (int i = 0; i < dgvPendientes.RowCount; i++)
+        //    {
+        //        decimal afectar = decimal.Parse(dgvPendientes.Rows[i].Cells[5].Value.ToString());
+        //        txtImporteBruto.Text = decimal.Round((decimal.Parse(txtImporteBruto.Text) + afectar), 2, MidpointRounding.AwayFromZero).ToString();
         //    }
         //}
 
-        private float CalcularTotalPesos(Guid PesadaId)
-        {
-            float totalPesos = 0;
-            var liquidaciones = Context.Vw_Romaneo
-                .Where(x => x.PesadaId == PesadaId)
-                .ToList();
-            if (liquidaciones != null)
-            {
-                foreach (var liquidacion in liquidaciones)
-                {
-                    totalPesos = totalPesos + Convert.ToSingle(liquidacion.ImporteBruto.Value);
-                }
-            }
-            else
-            {
-                totalPesos = 0;
-            }
+        //private void CalcularTotalGanancias()
+        //{
+        //    txtGanancias.Text = "0";
+        //    for (int i = 0; i < dgvPendientes.RowCount; i++)
+        //    {
+        //        decimal gcias = decimal.Parse(dgvPendientes.Rows[i].Cells[6].Value.ToString());
+        //        txtGanancias.Text = decimal.Round((decimal.Parse(txtGanancias.Text) + gcias), 2, MidpointRounding.AwayFromZero).ToString();
+        //    }
+        //}
 
-            return totalPesos;
-        }
+        //private void CalcularTotalIVA()
+        //{
+        //    txtGADM.Text = "0";
+        //    for (int i = 0; i < dgvPendientes.RowCount; i++)
+        //    {
+        //        decimal iva = decimal.Parse(dgvPendientes.Rows[i].Cells[7].Value.ToString());
+        //        txtGADM.Text = decimal.Round((decimal.Parse(txtGADM.Text) + iva), 2, MidpointRounding.AwayFromZero).ToString();
+        //    }
+        //}
 
-        private void CalcularTotalAfectar()
-        {
-            txtImporteBruto.Text = "0";
-            for (int i = 0; i < dgvPendientes.RowCount; i++)
-            {
-                decimal afectar = decimal.Parse(dgvPendientes.Rows[i].Cells[5].Value.ToString());
-                txtImporteBruto.Text = decimal.Round((decimal.Parse(txtImporteBruto.Text) + afectar), 2, MidpointRounding.AwayFromZero).ToString();
-            }
-        }
+        //private void CalcularTotalIIBB()
+        //{
+        //    txtIIBB.Text = "0";
+        //    for (int i = 0; i < dgvPendientes.RowCount; i++)
+        //    {
+        //        decimal iibb = decimal.Parse(dgvPendientes.Rows[i].Cells[8].Value.ToString());
+        //        txtIIBB.Text = decimal.Round((decimal.Parse(txtIIBB.Text) + iibb), 2, MidpointRounding.AwayFromZero).ToString();
+        //    }
+        //}
 
-        private void CalcularTotalGanancias()
-        {
-            txtGanancias.Text = "0";
-            for (int i = 0; i < dgvPendientes.RowCount; i++)
-            {
-                decimal gcias = decimal.Parse(dgvPendientes.Rows[i].Cells[6].Value.ToString());
-                txtGanancias.Text = decimal.Round((decimal.Parse(txtGanancias.Text) + gcias), 2, MidpointRounding.AwayFromZero).ToString();
-            }
-        }
+        //private void CalcularTotalSaludPublica()
+        //{
+        //    txtSaludPublica.Text = "0";
+        //    for (int i = 0; i < dgvPendientes.RowCount; i++)
+        //    {
+        //        decimal salud = decimal.Parse(dgvPendientes.Rows[i].Cells[9].Value.ToString());
+        //        txtSaludPublica.Text = decimal.Round((decimal.Parse(txtSaludPublica.Text) + salud), 2, MidpointRounding.AwayFromZero).ToString();
+        //    }
+        //}
 
-        private void CalcularTotalIVA()
-        {
-            txtGADM.Text = "0";
-            for (int i = 0; i < dgvPendientes.RowCount; i++)
-            {
-                decimal iva = decimal.Parse(dgvPendientes.Rows[i].Cells[7].Value.ToString());
-                txtGADM.Text = decimal.Round((decimal.Parse(txtGADM.Text) + iva), 2, MidpointRounding.AwayFromZero).ToString();
-            }
-        }
+        //private void CalcularTotalEEAOC()
+        //{
+        //    txtEEAOC.Text = "0";
+        //    for (int i = 0; i < dgvPendientes.RowCount; i++)
+        //    {
+        //        decimal eeaoc = decimal.Parse(dgvPendientes.Rows[i].Cells[10].Value.ToString());
+        //        txtEEAOC.Text = decimal.Round((decimal.Parse(txtEEAOC.Text) + eeaoc), 2, MidpointRounding.AwayFromZero).ToString();
+        //    }
+        //}
 
-        private void CalcularTotalIIBB()
-        {
-            txtIIBB.Text = "0";
-            for (int i = 0; i < dgvPendientes.RowCount; i++)
-            {
-                decimal iibb = decimal.Parse(dgvPendientes.Rows[i].Cells[8].Value.ToString());
-                txtIIBB.Text = decimal.Round((decimal.Parse(txtIIBB.Text) + iibb), 2, MidpointRounding.AwayFromZero).ToString();
-            }
-        }
+        //private void CalcularTotalRIEGO()
+        //{
+        //    txtRiego.Text = "0";
+        //    for (int i = 0; i < dgvPendientes.RowCount; i++)
+        //    {
+        //        decimal riego = decimal.Parse(dgvPendientes.Rows[i].Cells[11].Value.ToString());
+        //        txtRiego.Text = decimal.Round((decimal.Parse(txtRiego.Text) + riego), 2, MidpointRounding.AwayFromZero).ToString();
+        //    }
+        //}
 
-        private void CalcularTotalSaludPublica()
-        {
-            txtSaludPublica.Text = "0";
-            for (int i = 0; i < dgvPendientes.RowCount; i++)
-            {
-                decimal salud = decimal.Parse(dgvPendientes.Rows[i].Cells[9].Value.ToString());
-                txtSaludPublica.Text = decimal.Round((decimal.Parse(txtSaludPublica.Text) + salud), 2, MidpointRounding.AwayFromZero).ToString();
-            }
-        }
+        //private void CalcularTotalMonotributo()
+        //{
+        //    txtMonotributo.Text = "0";
+        //    for (int i = 0; i < dgvPendientes.RowCount; i++)
+        //    {
+        //        decimal monotributo = decimal.Parse(dgvPendientes.Rows[i].Cells[12].Value.ToString());
+        //        txtMonotributo.Text = decimal.Round((decimal.Parse(txtMonotributo.Text) + monotributo), 2, MidpointRounding.AwayFromZero).ToString();
+        //    }
+        //}
 
-        private void CalcularTotalEEAOC()
-        {
-            txtEEAOC.Text = "0";
-            for (int i = 0; i < dgvPendientes.RowCount; i++)
-            {
-                decimal eeaoc = decimal.Parse(dgvPendientes.Rows[i].Cells[10].Value.ToString());
-                txtEEAOC.Text = decimal.Round((decimal.Parse(txtEEAOC.Text) + eeaoc), 2, MidpointRounding.AwayFromZero).ToString();
-            }
-        }
+        //private void CalcularTotalNeto()
+        //{
+        //    txtNeto.Text = "0";
+        //    for (int i = 0; i < dgvPendientes.RowCount; i++)
+        //    {
+        //        decimal neto = decimal.Parse(dgvPendientes.Rows[i].Cells[13].Value.ToString());
+        //        txtNeto.Text = decimal.Round((decimal.Parse(txtNeto.Text) + neto), 2, MidpointRounding.AwayFromZero).ToString();
+        //    }
+        //}
 
-        private void CalcularTotalRIEGO()
-        {
-            txtRiego.Text = "0";
-            for (int i = 0; i < dgvPendientes.RowCount; i++)
-            {
-                decimal riego = decimal.Parse(dgvPendientes.Rows[i].Cells[11].Value.ToString());
-                txtRiego.Text = decimal.Round((decimal.Parse(txtRiego.Text) + riego), 2, MidpointRounding.AwayFromZero).ToString();
-            }
-        }
-
-        private void CalcularTotalMonotributo()
-        {
-            txtMonotributo.Text = "0";
-            for (int i = 0; i < dgvPendientes.RowCount; i++)
-            {
-                decimal monotributo = decimal.Parse(dgvPendientes.Rows[i].Cells[12].Value.ToString());
-                txtMonotributo.Text = decimal.Round((decimal.Parse(txtMonotributo.Text) + monotributo), 2, MidpointRounding.AwayFromZero).ToString();
-            }
-        }
-
-        private void CalcularTotalNeto()
-        {
-            txtNeto.Text = "0";
-            for (int i = 0; i < dgvPendientes.RowCount; i++)
-            {
-                decimal neto = decimal.Parse(dgvPendientes.Rows[i].Cells[13].Value.ToString());
-                txtNeto.Text = decimal.Round((decimal.Parse(txtNeto.Text) + neto), 2, MidpointRounding.AwayFromZero).ToString();
-            }
-        }
-
-        #endregion
+        //#endregion
     }
 }

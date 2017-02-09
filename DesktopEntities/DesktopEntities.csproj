@@ -58,6 +58,9 @@
     <Compile Include="Models\Clase.cs">
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Configuracion.cs">
+      <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Contador.cs">
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>
@@ -106,9 +109,6 @@
     <Compile Include="Models\Remito.cs">
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sysdiagrams.cs">
-      <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Usuario.cs">
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>
@@ -142,10 +142,19 @@
     <Compile Include="Models\Vw_ResumenPesadaPorClase.cs">
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Vw_ResumenRomaneoBurley.cs">
+      <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Vw_ResumenRomaneoPorClase.cs">
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Vw_ResumenRomaneoVirginia.cs">
+      <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Vw_Romaneo.cs">
+      <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Vw_TipoTabaco.cs">
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

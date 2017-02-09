@@ -43,6 +43,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.lblCuit = new System.Windows.Forms.Label();
             this.lblProductor = new System.Windows.Forms.Label();
+            this.lblPorcentaje = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
@@ -78,6 +79,7 @@
             // 
             this.groupControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupControl1.Controls.Add(this.lblPorcentaje);
             this.groupControl1.Controls.Add(this.lblTotalKg);
             this.groupControl1.Controls.Add(this.label8);
             this.groupControl1.Controls.Add(this.lblFardo);
@@ -221,6 +223,16 @@
             this.lblProductor.Size = new System.Drawing.Size(0, 57);
             this.lblProductor.TabIndex = 59;
             // 
+            // lblPorcentaje
+            // 
+            this.lblPorcentaje.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblPorcentaje.AutoSize = true;
+            this.lblPorcentaje.Font = new System.Drawing.Font("Arial Narrow", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPorcentaje.Location = new System.Drawing.Point(768, 274);
+            this.lblPorcentaje.Name = "lblPorcentaje";
+            this.lblPorcentaje.Size = new System.Drawing.Size(0, 57);
+            this.lblPorcentaje.TabIndex = 68;
+            // 
             // Form_RomaneoPesadaMostrador
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -245,6 +257,7 @@
             this.groupControl2.ResumeLayout(false);
             this.groupControl2.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -264,5 +277,6 @@
         private System.Windows.Forms.Label lblProductor;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblPorcentaje;
     }
 }

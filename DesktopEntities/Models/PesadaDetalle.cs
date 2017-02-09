@@ -22,6 +22,5 @@ namespace DesktopEntities.Models
         public Nullable<decimal> ClasePrecio { get; set; }
         public Nullable<double> Kilos { get; set; }
         public Nullable<System.Guid> ReclasificacionId { get; set; }
-        public Nullable<decimal> ReclasificacionPrecio { get; set; }
     }
 }
