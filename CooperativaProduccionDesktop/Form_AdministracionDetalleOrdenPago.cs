@@ -16,13 +16,13 @@ namespace CooperativaProduccion
 {
     public partial class Form_AdministracionDetalleOrdenPago : DevExpress.XtraBars.Ribbon.RibbonForm
     {
-        //private CooperativaProduccionEntities Context { get; set; }
+        private CooperativaProduccionEntities Context { get; set; }
         private static String[] _columns = new String[]
         {
             "Id",             //0
             "Fecha",          //1
             "Letra",          //2
-            "N° Comprobante", //3
+            "N°", //3
             "Saldo",          //4
             "Afectar",        //5
             
@@ -149,27 +149,27 @@ namespace CooperativaProduccion
                 {
                     var afectar = Math.Round(Decimal.Parse(text), 2);
                     var afectarstr = (afectar).ToString("n2");
-
-                    cell.Value = afectarstr;
-
-                    var precioround = Decimal.Round(afectar, 2, MidpointRounding.AwayFromZero);
-                    var gciasTotal = Decimal.Round(afectar * gcias, 2, MidpointRounding.AwayFromZero);
-                    var ivaTotal = Decimal.Round(precioround * iva, 2, MidpointRounding.AwayFromZero);
-                    var iibbTotal = Decimal.Round(precioround * iibb, 2, MidpointRounding.AwayFromZero);
-                    var coeficienteTotal = Decimal.Round(precioround * coeficientegral, 2, MidpointRounding.AwayFromZero);
-
-                    dgvPendientes.Rows[e.RowIndex].Cells[6].Value = gciasTotal;
-                    dgvPendientes.Rows[e.RowIndex].Cells[7].Value = ivaTotal;
-                    dgvPendientes.Rows[e.RowIndex].Cells[8].Value = iibbTotal;
-                    dgvPendientes.Rows[e.RowIndex].Cells[9].Value = coeficienteTotal;
-                    dgvPendientes.Rows[e.RowIndex].Cells[10].Value = coeficienteTotal;
-                    dgvPendientes.Rows[e.RowIndex].Cells[11].Value = coeficienteTotal;
-                    dgvPendientes.Rows[e.RowIndex].Cells[12].Value = coeficienteTotal;
-
-                    var netoTotal = Decimal.Round(precioround + gciasTotal + ivaTotal + iibbTotal + (coeficienteTotal * 4), 2, MidpointRounding.AwayFromZero);
                     
-                    dgvPendientes.Rows[e.RowIndex].Cells[13].Value = netoTotal;
-
+                    cell.Value = afectarstr;
+                    //
+                    //var precioround = Decimal.Round(afectar, 2, MidpointRounding.AwayFromZero);
+                    //var gciasTotal = Decimal.Round(afectar * gcias, 2, MidpointRounding.AwayFromZero);
+                    //var ivaTotal = Decimal.Round(precioround * iva, 2, MidpointRounding.AwayFromZero);
+                    //var iibbTotal = Decimal.Round(precioround * iibb, 2, MidpointRounding.AwayFromZero);
+                    //var coeficienteTotal = Decimal.Round(precioround * coeficientegral, 2, MidpointRounding.AwayFromZero);
+                    //
+                    //dgvPendientes.Rows[e.RowIndex].Cells[6].Value = gciasTotal;
+                    //dgvPendientes.Rows[e.RowIndex].Cells[7].Value = ivaTotal;
+                    //dgvPendientes.Rows[e.RowIndex].Cells[8].Value = iibbTotal;
+                    //dgvPendientes.Rows[e.RowIndex].Cells[9].Value = coeficienteTotal;
+                    //dgvPendientes.Rows[e.RowIndex].Cells[10].Value = coeficienteTotal;
+                    //dgvPendientes.Rows[e.RowIndex].Cells[11].Value = coeficienteTotal;
+                    //dgvPendientes.Rows[e.RowIndex].Cells[12].Value = coeficienteTotal;
+                    //
+                    //var netoTotal = Decimal.Round(precioround + gciasTotal + ivaTotal + iibbTotal + (coeficienteTotal * 4), 2, MidpointRounding.AwayFromZero);
+                    //
+                    //dgvPendientes.Rows[e.RowIndex].Cells[13].Value = netoTotal;
+                    //
                     //CalcularValores();
                 }
                 else
@@ -203,13 +203,13 @@ namespace CooperativaProduccion
             DataGridViewColumn d5 = new DataGridViewTextBoxColumn();
             DataGridViewColumn d6 = new DataGridViewTextBoxColumn();
 
-            DataGridViewColumn d7 = new DataGridViewTextBoxColumn();
-            DataGridViewColumn d8 = new DataGridViewTextBoxColumn();
-            DataGridViewColumn d9 = new DataGridViewTextBoxColumn();
-            DataGridViewColumn d10 = new DataGridViewTextBoxColumn();
-            DataGridViewColumn d11 = new DataGridViewTextBoxColumn();
-            DataGridViewColumn d12 = new DataGridViewTextBoxColumn();
-            DataGridViewColumn d13 = new DataGridViewTextBoxColumn();
+            //DataGridViewColumn d7 = new DataGridViewTextBoxColumn();
+            //DataGridViewColumn d8 = new DataGridViewTextBoxColumn();
+            //DataGridViewColumn d9 = new DataGridViewTextBoxColumn();
+            //DataGridViewColumn d10 = new DataGridViewTextBoxColumn();
+            //DataGridViewColumn d11 = new DataGridViewTextBoxColumn();
+            //DataGridViewColumn d12 = new DataGridViewTextBoxColumn();
+            //DataGridViewColumn d13 = new DataGridViewTextBoxColumn();
 
             //Add Header Texts to be displayed on the Columns
             d1.HeaderText = _columns[0];
@@ -219,13 +219,13 @@ namespace CooperativaProduccion
             d5.HeaderText = _columns[4];
             d6.HeaderText = _columns[5];
 
-            d7.HeaderText =  _columns[6];//RetencionTypes.RetencionGCIAS;
-            d8.HeaderText =  _columns[7];
-            d9.HeaderText =  _columns[8];
-            d10.HeaderText = _columns[9];
-            d11.HeaderText = _columns[10];
-            d12.HeaderText = _columns[11];
-            d13.HeaderText = _columns[12];
+            //d7.HeaderText =  _columns[6];//RetencionTypes.RetencionGCIAS;
+            //d8.HeaderText =  _columns[7];
+            //d9.HeaderText =  _columns[8];
+            //d10.HeaderText = _columns[9];
+            //d11.HeaderText = _columns[10];
+            //d12.HeaderText = _columns[11];
+            //d13.HeaderText = _columns[12];
 
             d1.Visible = false;
             d2.Width = 70;
@@ -234,17 +234,17 @@ namespace CooperativaProduccion
             d5.Width = 94;
             d6.Width = 94;
 
-            d7.Visible = false;
-            d8.Visible = false;
-            d9.Visible = false;
-            d10.Visible = false;
-            d11.Visible = false;
-            d12.Visible = false;
-            d13.Visible = false;
+            //d7.Visible = false;
+            //d8.Visible = false;
+            //d9.Visible = false;
+            //d10.Visible = false;
+            //d11.Visible = false;
+            //d12.Visible = false;
+            //d13.Visible = false;
 
             //Add the Columns to the DataGridView
-            dgvPendientes.Columns.AddRange(d1, d2, d3, d4, d5, d6, d7,
-                d8, d9, d10, d11, d12, d13);
+            dgvPendientes.Columns.AddRange(d1, d2, d3, d4, d5, d6);
+                //d7, d8, d9, d10, d11, d12, d13);
 
             _maskedtextbox = new MaskedTextBox();
             dgvPendientes.Controls.Add(_maskedtextbox);
@@ -258,6 +258,99 @@ namespace CooperativaProduccion
             var ordenvm = ordenesdepagovm.Items[0];
             var productorvm = _productoresManager.GetProductor(ordenvm.ProductorId);
 
+            ActualizarControlesOrdenDePago(ordenvm, productorvm);
+
+            var conceptosvm = _pagosManager.ListarConceptosDeOrdenDePago(ordenvm.Id);
+
+            #region Grid Conceptos Imputados
+
+            var source = conceptosvm.Select(x =>
+                new RowConceptosImputados()
+                {
+                    Fecha = x.Fecha,
+                    Letra = x.TipoDeFactura,
+                    Importe = x.NetoPorPagar,
+                    PuntoDeVenta = x.PuntoDeVenta,
+                    NumeroDeLiquidacion = x.NumeroDeLiquidacion,
+                    Kilos = x.Kilos,
+                });
+
+            gridControlConceptosImputados.DataSource = source;
+
+            var columnaFecha = gridViewConceptosImputados.Columns["Fecha"];
+            columnaFecha.Width = 60;
+            columnaFecha.AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+            columnaFecha.AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+
+            var columnaLetra = gridViewConceptosImputados.Columns["Letra"];
+            columnaLetra.Width = 50;
+            columnaLetra.AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+            columnaLetra.AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+
+            var columnaPuntoDeVenta = gridViewConceptosImputados.Columns["PuntoDeVenta"];
+            columnaPuntoDeVenta.Caption = "Estab.";
+            columnaPuntoDeVenta.Width = 50;
+            columnaPuntoDeVenta.AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+            columnaPuntoDeVenta.AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+
+            var columnaNumeroDeLiquidacion = gridViewConceptosImputados.Columns["NumeroDeLiquidacion"];
+            columnaNumeroDeLiquidacion.Caption = "N°";
+            columnaNumeroDeLiquidacion.Width = 70;
+            columnaNumeroDeLiquidacion.AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+            columnaNumeroDeLiquidacion.AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+
+            var columnaImporte = gridViewConceptosImputados.Columns["Importe"];
+            columnaImporte.Width = 70;
+            columnaImporte.AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+            columnaImporte.AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+
+            var columnaKilos = gridViewConceptosImputados.Columns["Kilos"];
+            columnaKilos.Width = 70;
+            columnaKilos.AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+            columnaKilos.AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+
+            #endregion
+
+            #region Grid Pendientes
+
+            var sourcependientes = conceptosvm.Select(x =>
+                new RowConceptosPendientes()
+                {
+                    Id = x.Id,
+                    Fecha = x.Fecha,
+                    Letra = x.TipoDeFactura,
+                    PuntoDeVenta = x.PuntoDeVenta,
+                    NumeroDeLiquidacion = x.NumeroDeLiquidacion,
+                    Saldo = x.RestaPorPagar,
+                    Afectar = x.RestaPorPagar,
+                })
+                .ToList();
+
+            dgvPendientes.Rows.Clear();
+
+            foreach (var item in sourcependientes)
+            {
+                this.dgvPendientes.Rows.Add(
+                    item.Id,
+                    item.Fecha.ToShortDateString(),
+                    item.Letra,
+                        //item.PuntoDeVenta,
+                    item.NumeroDeLiquidacion,
+                    item.Saldo,
+                    item.Afectar);
+            }
+
+            this.dgvPendientes.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            this.dgvPendientes.Columns[2].DefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomCenter;
+            this.dgvPendientes.Columns[3].DefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomCenter;
+            this.dgvPendientes.Columns[4].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            this.dgvPendientes.Columns[5].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            #endregion
+        }
+
+        private void ActualizarControlesOrdenDePago(OrdenDePagoDetalleViewModel ordenvm, ProductorViewModel productorvm)
+        {
             var fecha = ordenvm.Fecha;
             var numerodeorden = ordenvm.NumeroDeOrden;
             var detalle = ordenvm.Observaciones;
@@ -268,7 +361,7 @@ namespace CooperativaProduccion
             var provincia = productorvm.Provincia;
 
             var importeporpagar = ordenvm.ImportePorPagar.ToString();
-            
+
             var retencioniibb = ordenvm.RetencionesAplicadas.Where(x => x.Nombre == RetencionTypes.RetencionIIBB).Single().Importe.ToString();
             var retencionEEAOC = ordenvm.RetencionesAplicadas.Where(x => x.Nombre == RetencionTypes.RetencionEEAOC).Single().Importe.ToString();
             var retencionSaludPublica = ordenvm.RetencionesAplicadas.Where(x => x.Nombre == RetencionTypes.RetencionSaludPublica).Single().Importe.ToString();
@@ -290,7 +383,7 @@ namespace CooperativaProduccion
             txtProvincia.Text = provincia;
 
             txtImporteBruto.Text = importeporpagar;
-            
+
             //txtCesion.Text = "0.00";
             //txtComision.Text = "0.00";
 
@@ -306,92 +399,6 @@ namespace CooperativaProduccion
             //txtAnticipos.Text = "0.00";
 
             txtNeto.Text = netoporpagar;
-
-            
-
-            #region Grid Conceptos Imputados
-
-            //var result = (
-            //    from a in Context.Vw_Romaneo
-            //        .Where(x => x.ProductorId == ordenPago.ProductorId)
-            //        .Where(x => x.NumAfipLiquidacion != null)
-            //    select new
-            //    {
-            //        ID = a.PesadaId,
-            //        FECHA = a.FechaAfipLiquidacion,
-            //        LETRA = a.Letra,
-            //        NUMAFIP = a.NumAfipLiquidacion,
-            //        NETO = a.ImporteBruto,
-            //        KILOS = a.TotalKg
-            //    })
-            //    .OrderBy(x => x.FECHA)
-            //    .ToList();
-
-            //gridControlConceptosImputados.DataSource = result;
-            //gridViewConceptosImputados.Columns[0].Visible = false;
-            //gridViewConceptosImputados.Columns[1].Caption = "Fecha";
-            //gridViewConceptosImputados.Columns[1].Width = 60;
-            //gridViewConceptosImputados.Columns[1].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-            //gridViewConceptosImputados.Columns[1].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-            //gridViewConceptosImputados.Columns[2].Caption = "Letra";
-            //gridViewConceptosImputados.Columns[2].Width = 50;
-            //gridViewConceptosImputados.Columns[2].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-            //gridViewConceptosImputados.Columns[2].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-            //gridViewConceptosImputados.Columns[3].Caption = "Número Comprobante";
-            //gridViewConceptosImputados.Columns[3].Width = 70;
-            //gridViewConceptosImputados.Columns[3].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-            //gridViewConceptosImputados.Columns[3].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-            //gridViewConceptosImputados.Columns[4].Caption = "Importe";
-            //gridViewConceptosImputados.Columns[4].Width = 70;
-            //gridViewConceptosImputados.Columns[4].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-            //gridViewConceptosImputados.Columns[4].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-            //gridViewConceptosImputados.Columns[5].Caption = "Kilos";
-            //gridViewConceptosImputados.Columns[5].Width = 70;
-            //gridViewConceptosImputados.Columns[5].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-            //gridViewConceptosImputados.Columns[5].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-
-            #endregion
-
-            #region Grid Pendientes
-
-            //var resultPendiente = (
-            //    from a in Context.Vw_Romaneo
-            //        .Where(x => x.ProductorId == ordenPago.ProductorId)
-            //        .Where(x => x.NumAfipLiquidacion != null)
-            //    select new
-            //    {
-            //        ID = a.PesadaId,
-            //        FECHA = a.FechaAfipLiquidacion,
-            //        LETRA = a.Letra,
-            //        NUMAFIP = a.NumAfipLiquidacion,
-            //        Saldo = a.ImporteBruto,
-            //        Afectar = a.ImporteBruto
-
-            //    })
-            //    .OrderBy(x => x.FECHA)
-            //    .ToList();
-
-            //if (dgvPendientes.RowCount > 0)
-            //{
-            //    dgvPendientes.Rows.Clear();
-            //}
-
-            //if (resultPendiente.Count > 0)
-            //{
-            //    foreach (var resultp in resultPendiente)
-            //    {
-            //        this.dgvPendientes.Rows.Add(resultp.ID, resultp.FECHA.Value.ToShortDateString(), resultp.LETRA,
-            //            resultp.NUMAFIP, resultp.Saldo, resultp.Saldo, string.Empty, string.Empty, string.Empty,
-            //            string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
-            //    }
-            //    this.dgvPendientes.Columns[2].DefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomCenter;
-            //    this.dgvPendientes.Columns[3].DefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomCenter;
-            //    this.dgvPendientes.Columns[4].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            //    this.dgvPendientes.Columns[5].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-
-            //}
-
-            #endregion
         }
 
 
@@ -409,7 +416,7 @@ namespace CooperativaProduccion
 
 
         //#region Calcular Totales
-
+        //
         //private void CalcularValores()
         //{
         //    txtImporteBruto.Text = "0";
@@ -421,7 +428,7 @@ namespace CooperativaProduccion
         //    txtRiego.Text = "0";
         //    txtMonotributo.Text = "0";
         //    txtNeto.Text = "0";
-           
+        //   
         //    //CalcularTotalProductores();
         //    CalcularTotalAfectar();
         //    CalcularTotalGanancias();
@@ -433,7 +440,7 @@ namespace CooperativaProduccion
         //    CalcularTotalMonotributo();
         //    CalcularTotalNeto();
         //}
-
+        //
         ////private void CalcularTotalProductores()
         ////{
         ////    txtProductores.Text = "0";
@@ -444,12 +451,12 @@ namespace CooperativaProduccion
         ////            if (gridViewLiquidacion.IsRowSelected(i))
         ////            {
         ////                var ProductorId = new Guid(gridViewLiquidacion.GetRowCellValue(i, "PRODUCTORID").ToString());
-
+        //
         ////                var productores = Context.Vw_Romaneo
         ////                    .Where(x => x.ProductorId == ProductorId)
         ////                    .Distinct()
         ////                    .Count();
-
+        //
         ////                txtProductores.Text = (Int32.Parse(txtProductores.Text) + Int32.Parse(productores.ToString())).ToString();
         ////            }
         ////        }
@@ -459,7 +466,7 @@ namespace CooperativaProduccion
         ////        txtProductores.Text = "0";
         ////    }
         ////}
-
+        //
         //private float CalcularTotalPesos(Guid PesadaId)
         //{
         //    float totalPesos = 0;
@@ -477,10 +484,10 @@ namespace CooperativaProduccion
         //    {
         //        totalPesos = 0;
         //    }
-
+        //
         //    return totalPesos;
         //}
-
+        //
         //private void CalcularTotalAfectar()
         //{
         //    txtImporteBruto.Text = "0";
@@ -490,7 +497,7 @@ namespace CooperativaProduccion
         //        txtImporteBruto.Text = decimal.Round((decimal.Parse(txtImporteBruto.Text) + afectar), 2, MidpointRounding.AwayFromZero).ToString();
         //    }
         //}
-
+        //
         //private void CalcularTotalGanancias()
         //{
         //    txtGanancias.Text = "0";
@@ -500,7 +507,7 @@ namespace CooperativaProduccion
         //        txtGanancias.Text = decimal.Round((decimal.Parse(txtGanancias.Text) + gcias), 2, MidpointRounding.AwayFromZero).ToString();
         //    }
         //}
-
+        //
         //private void CalcularTotalIVA()
         //{
         //    txtGADM.Text = "0";
@@ -510,7 +517,7 @@ namespace CooperativaProduccion
         //        txtGADM.Text = decimal.Round((decimal.Parse(txtGADM.Text) + iva), 2, MidpointRounding.AwayFromZero).ToString();
         //    }
         //}
-
+        //
         //private void CalcularTotalIIBB()
         //{
         //    txtIIBB.Text = "0";
@@ -520,7 +527,7 @@ namespace CooperativaProduccion
         //        txtIIBB.Text = decimal.Round((decimal.Parse(txtIIBB.Text) + iibb), 2, MidpointRounding.AwayFromZero).ToString();
         //    }
         //}
-
+        //
         //private void CalcularTotalSaludPublica()
         //{
         //    txtSaludPublica.Text = "0";
@@ -530,7 +537,7 @@ namespace CooperativaProduccion
         //        txtSaludPublica.Text = decimal.Round((decimal.Parse(txtSaludPublica.Text) + salud), 2, MidpointRounding.AwayFromZero).ToString();
         //    }
         //}
-
+        //
         //private void CalcularTotalEEAOC()
         //{
         //    txtEEAOC.Text = "0";
@@ -540,7 +547,7 @@ namespace CooperativaProduccion
         //        txtEEAOC.Text = decimal.Round((decimal.Parse(txtEEAOC.Text) + eeaoc), 2, MidpointRounding.AwayFromZero).ToString();
         //    }
         //}
-
+        //
         //private void CalcularTotalRIEGO()
         //{
         //    txtRiego.Text = "0";
@@ -550,7 +557,7 @@ namespace CooperativaProduccion
         //        txtRiego.Text = decimal.Round((decimal.Parse(txtRiego.Text) + riego), 2, MidpointRounding.AwayFromZero).ToString();
         //    }
         //}
-
+        //
         //private void CalcularTotalMonotributo()
         //{
         //    txtMonotributo.Text = "0";
@@ -560,7 +567,7 @@ namespace CooperativaProduccion
         //        txtMonotributo.Text = decimal.Round((decimal.Parse(txtMonotributo.Text) + monotributo), 2, MidpointRounding.AwayFromZero).ToString();
         //    }
         //}
-
+        //
         //private void CalcularTotalNeto()
         //{
         //    txtNeto.Text = "0";
@@ -570,7 +577,28 @@ namespace CooperativaProduccion
         //        txtNeto.Text = decimal.Round((decimal.Parse(txtNeto.Text) + neto), 2, MidpointRounding.AwayFromZero).ToString();
         //    }
         //}
-
+        //
         //#endregion
+    }
+
+    class RowConceptosImputados
+    {
+        public DateTime Fecha { get; set; }
+        public string Letra { get; set; }
+        public int PuntoDeVenta { get; set; }
+        public long NumeroDeLiquidacion { get; set; }
+        public Decimal Importe { get; set; }
+        public Decimal Kilos { get; set; }
+    }
+
+    class RowConceptosPendientes
+    {
+        public Guid Id { get; set; }
+        public DateTime Fecha { get; set; }
+        public string Letra { get; set; }
+        public int PuntoDeVenta { get; set; }
+        public long NumeroDeLiquidacion { get; set; }
+        public Decimal Saldo { get; set; }
+        public Decimal Afectar { get; set; }
     }
 }

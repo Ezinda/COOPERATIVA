@@ -28,12 +28,14 @@ namespace DesktopEntities.Models
         public virtual DbSet<Caja> Caja { get; set; }
         public virtual DbSet<Cata> Cata { get; set; }
         public virtual DbSet<Clase> Clase { get; set; }
+        public virtual DbSet<ConceptoDeOrdenDePago> ConceptoDeOrdenDePago { get; set; }
         public virtual DbSet<Configuracion> Configuracion { get; set; }
         public virtual DbSet<Contador> Contador { get; set; }
         public virtual DbSet<Movimiento> Movimiento { get; set; }
         public virtual DbSet<OrdenPago> OrdenPago { get; set; }
         public virtual DbSet<OrdenVenta> OrdenVenta { get; set; }
         public virtual DbSet<Pago> Pago { get; set; }
+        public virtual DbSet<PagoDetalle> PagoDetalle { get; set; }
         public virtual DbSet<ParamPagos> ParamPagos { get; set; }
         public virtual DbSet<Pesada> Pesada { get; set; }
         public virtual DbSet<PesadaDetalle> PesadaDetalle { get; set; }
@@ -43,6 +45,7 @@ namespace DesktopEntities.Models
         public virtual DbSet<Usuario> Usuario { get; set; }
         public virtual DbSet<Vw_Clase> Vw_Clase { get; set; }
         public virtual DbSet<Vw_Cliente> Vw_Cliente { get; set; }
+        public virtual DbSet<Vw_ConceptoDeOrdenDePago> Vw_ConceptoDeOrdenDePago { get; set; }
         public virtual DbSet<Vw_Movimiento> Vw_Movimiento { get; set; }
         public virtual DbSet<Vw_OrdenPago> Vw_OrdenPago { get; set; }
         public virtual DbSet<Vw_Pesada> Vw_Pesada { get; set; }

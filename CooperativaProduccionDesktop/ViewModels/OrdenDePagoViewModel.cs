@@ -169,11 +169,38 @@ namespace CooperativaProduccion.ViewModels
         public Guid PesadaId { get; set; }
         
         public Guid ProductorId { get; set; }
-        
+
+        public decimal KilosAfectados { get; set; }
+
         public decimal ImportePorPagar { get; set; }
         
         public List<RetencionAplicadaViewModel> RetencionesAplicadas { get; set; }
         
         public decimal NetoPorPagar { get; set; }
+    }
+
+    public class ConceptoDescripcionDeOrdenDePagoViewModel
+    {
+        public Guid Id { get; set; }
+
+        public Guid PesadaId { get; set; }
+
+        public Guid ProductorId { get; set; }
+
+        public DateTime Fecha { get; set; }
+
+        public string TipoDeFactura { get; set; }
+
+        public int PuntoDeVenta { get; set; }
+
+        public long NumeroDeLiquidacion { get; set; }
+
+        public decimal Kilos { get; set; }
+
+        public decimal ImportePorPagar { get; set; }
+
+        public decimal NetoPorPagar { get; set; } // Importe
+
+        public decimal RestaPorPagar { get; set; } // Saldo
     }
 }

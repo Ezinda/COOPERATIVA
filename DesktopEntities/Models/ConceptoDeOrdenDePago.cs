@@ -12,19 +12,29 @@ namespace DesktopEntities.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Pago
+    public partial class ConceptoDeOrdenDePago
     {
-        public Pago()
+        public ConceptoDeOrdenDePago()
         {
             this.PagoDetalle = new HashSet<PagoDetalle>();
         }
     
         public System.Guid Id { get; set; }
         public System.Guid OrdenPagoId { get; set; }
-        public System.DateTime Fecha { get; set; }
-        public decimal Importe { get; set; }
+        public System.Guid PesadaId { get; set; }
+        public System.Guid ProductorId { get; set; }
+        public decimal Kilos { get; set; }
+        public decimal Subtotal { get; set; }
+        public decimal Neto { get; set; }
+        public decimal RetencionIIBB { get; set; }
+        public decimal RetencionEEAOC { get; set; }
+        public decimal RetencionSaludPublica { get; set; }
+        public decimal RetencionGADM { get; set; }
+        public decimal RetencionGanancias { get; set; }
+        public decimal RetencionRiego { get; set; }
     
         public virtual OrdenPago OrdenPago { get; set; }
+        public virtual Pesada Pesada { get; set; }
         public virtual ICollection<PagoDetalle> PagoDetalle { get; set; }
     }
 }

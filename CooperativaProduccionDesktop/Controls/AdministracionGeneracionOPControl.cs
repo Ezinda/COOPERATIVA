@@ -493,11 +493,13 @@ namespace CooperativaProduccion.Controls
 	            }
 
                 var neto = (decimal)gridViewLiquidacion.GetRowCellValue(rowhandle, "NetoPorPagar");
+                var kilos = (decimal)gridViewLiquidacion.GetRowCellValue(rowhandle, "Kilos");
 
                 var conceptovm = new ConceptoDeOrdenDePagoViewModel()
                 {
                     PesadaId = row.ID,
                     ProductorId = row.PRODUCTORID,
+                    KilosAfectados = Convert.ToDecimal(row.Kilos),
                     ImportePorPagar = row.ImportePorPagar,
                     RetencionesAplicadas = retencionesdeconceptovm,
                     
