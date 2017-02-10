@@ -53,12 +53,18 @@
             this.gridControlRomaneo = new DevExpress.XtraGrid.GridControl();
             this.gridViewRomaneo = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gridViewLiquidacionDetalle = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.groupControl7 = new DevExpress.XtraEditors.GroupControl();
-            this.btnResumenClasesTrimestre = new DevExpress.XtraEditors.SimpleButton();
-            this.btnResumenClasesMes = new DevExpress.XtraEditors.SimpleButton();
-            this.btnReimpresionRomaneo = new DevExpress.XtraEditors.SimpleButton();
-            this.btnResumenCompra = new DevExpress.XtraEditors.SimpleButton();
-            this.btnResumenRomaneo = new DevExpress.XtraEditors.SimpleButton();
+            this.ribbonControl1 = new DevExpress.XtraBars.Ribbon.RibbonControl();
+            this.btnReimpresionRomaneo = new DevExpress.XtraBars.BarButtonItem();
+            this.barSubItem2 = new DevExpress.XtraBars.BarSubItem();
+            this.btnResumenRomaneo = new DevExpress.XtraBars.BarButtonItem();
+            this.btnResumenCompra = new DevExpress.XtraBars.BarButtonItem();
+            this.btnResumenClasesMes = new DevExpress.XtraBars.BarButtonItem();
+            this.btnResumenClasesTrimestre = new DevExpress.XtraBars.BarButtonItem();
+            this.btnExportarRomaneo = new DevExpress.XtraBars.BarButtonItem();
+            this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
+            this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.barSubItem1 = new DevExpress.XtraBars.BarSubItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).BeginInit();
             this.groupControl3.SuspendLayout();
@@ -69,8 +75,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridControlRomaneo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewRomaneo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewLiquidacionDetalle)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl7)).BeginInit();
-            this.groupControl7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
             this.SuspendLayout();
             // 
             // ribbon
@@ -78,7 +83,7 @@
             this.ribbon.ExpandCollapseItem.Id = 0;
             this.ribbon.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
             this.ribbon.ExpandCollapseItem});
-            this.ribbon.Location = new System.Drawing.Point(0, 0);
+            this.ribbon.Location = new System.Drawing.Point(0, 143);
             this.ribbon.MaxItemId = 1;
             this.ribbon.Name = "ribbon";
             this.ribbon.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.Office2013;
@@ -86,8 +91,9 @@
             this.ribbon.ShowCategoryInCaption = false;
             this.ribbon.ShowExpandCollapseButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowFullScreenButton = DevExpress.Utils.DefaultBoolean.False;
-            this.ribbon.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Show;
-            this.ribbon.Size = new System.Drawing.Size(1076, 49);
+            this.ribbon.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Hide;
+            this.ribbon.Size = new System.Drawing.Size(1076, 25);
+            this.ribbon.ToolbarLocation = DevExpress.XtraBars.Ribbon.RibbonQuickAccessToolbarLocation.Above;
             // 
             // groupControl3
             // 
@@ -103,7 +109,7 @@
             this.groupControl3.Controls.Add(this.label6);
             this.groupControl3.Controls.Add(this.txtProductor);
             this.groupControl3.Controls.Add(this.label7);
-            this.groupControl3.Location = new System.Drawing.Point(1, 108);
+            this.groupControl3.Location = new System.Drawing.Point(2, 193);
             this.groupControl3.Name = "groupControl3";
             this.groupControl3.ShowCaption = false;
             this.groupControl3.Size = new System.Drawing.Size(1072, 32);
@@ -211,9 +217,9 @@
             this.groupControl2.Controls.Add(this.label2);
             this.groupControl2.Controls.Add(this.dpDesdeRomaneo);
             this.groupControl2.Controls.Add(this.label3);
-            this.groupControl2.Location = new System.Drawing.Point(2, 57);
+            this.groupControl2.Location = new System.Drawing.Point(2, 142);
             this.groupControl2.Name = "groupControl2";
-            this.groupControl2.Size = new System.Drawing.Size(1071, 49);
+            this.groupControl2.Size = new System.Drawing.Size(1072, 49);
             this.groupControl2.TabIndex = 74;
             this.groupControl2.Text = "Buscar Romaneo";
             // 
@@ -221,7 +227,7 @@
             // 
             this.btnBuscarRomaneo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBuscarRomaneo.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscarRomaneo.Image")));
-            this.btnBuscarRomaneo.Location = new System.Drawing.Point(981, 22);
+            this.btnBuscarRomaneo.Location = new System.Drawing.Point(982, 22);
             this.btnBuscarRomaneo.Name = "btnBuscarRomaneo";
             this.btnBuscarRomaneo.Size = new System.Drawing.Size(81, 22);
             this.btnBuscarRomaneo.TabIndex = 39;
@@ -290,9 +296,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupControl6.Controls.Add(this.gridControlRomaneo);
-            this.groupControl6.Location = new System.Drawing.Point(1, 143);
+            this.groupControl6.Location = new System.Drawing.Point(1, 228);
             this.groupControl6.Name = "groupControl6";
-            this.groupControl6.Size = new System.Drawing.Size(1072, 380);
+            this.groupControl6.Size = new System.Drawing.Size(1073, 341);
             this.groupControl6.TabIndex = 78;
             this.groupControl6.Text = "Lista de Romaneo";
             // 
@@ -303,7 +309,7 @@
             this.gridControlRomaneo.MainView = this.gridViewRomaneo;
             this.gridControlRomaneo.MenuManager = this.ribbon;
             this.gridControlRomaneo.Name = "gridControlRomaneo";
-            this.gridControlRomaneo.Size = new System.Drawing.Size(1068, 358);
+            this.gridControlRomaneo.Size = new System.Drawing.Size(1069, 319);
             this.gridControlRomaneo.TabIndex = 68;
             this.gridControlRomaneo.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewRomaneo,
@@ -322,83 +328,148 @@
             this.gridViewLiquidacionDetalle.Name = "gridViewLiquidacionDetalle";
             this.gridViewLiquidacionDetalle.OptionsView.ShowGroupPanel = false;
             // 
-            // groupControl7
+            // ribbonControl1
             // 
-            this.groupControl7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupControl7.Controls.Add(this.btnResumenClasesTrimestre);
-            this.groupControl7.Controls.Add(this.btnResumenClasesMes);
-            this.groupControl7.Controls.Add(this.btnReimpresionRomaneo);
-            this.groupControl7.Controls.Add(this.btnResumenCompra);
-            this.groupControl7.Controls.Add(this.btnResumenRomaneo);
-            this.groupControl7.Location = new System.Drawing.Point(2, 524);
-            this.groupControl7.Name = "groupControl7";
-            this.groupControl7.ShowCaption = false;
-            this.groupControl7.Size = new System.Drawing.Size(1071, 33);
-            this.groupControl7.TabIndex = 79;
-            this.groupControl7.Text = "Buscar Romaneo";
-            // 
-            // btnResumenClasesTrimestre
-            // 
-            this.btnResumenClasesTrimestre.Image = ((System.Drawing.Image)(resources.GetObject("btnResumenClasesTrimestre.Image")));
-            this.btnResumenClasesTrimestre.Location = new System.Drawing.Point(647, 6);
-            this.btnResumenClasesTrimestre.Name = "btnResumenClasesTrimestre";
-            this.btnResumenClasesTrimestre.Size = new System.Drawing.Size(188, 22);
-            this.btnResumenClasesTrimestre.TabIndex = 49;
-            this.btnResumenClasesTrimestre.Text = "Resumen de Clases por trimestre";
-            // 
-            // btnResumenClasesMes
-            // 
-            this.btnResumenClasesMes.Image = ((System.Drawing.Image)(resources.GetObject("btnResumenClasesMes.Image")));
-            this.btnResumenClasesMes.Location = new System.Drawing.Point(471, 6);
-            this.btnResumenClasesMes.Name = "btnResumenClasesMes";
-            this.btnResumenClasesMes.Size = new System.Drawing.Size(170, 22);
-            this.btnResumenClasesMes.TabIndex = 48;
-            this.btnResumenClasesMes.Text = "Resumen de Clases por mes";
+            this.ribbonControl1.ExpandCollapseItem.Id = 0;
+            this.ribbonControl1.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
+            this.ribbonControl1.ExpandCollapseItem,
+            this.btnReimpresionRomaneo,
+            this.barSubItem2,
+            this.btnResumenRomaneo,
+            this.btnResumenCompra,
+            this.btnResumenClasesMes,
+            this.btnResumenClasesTrimestre,
+            this.btnExportarRomaneo});
+            this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
+            this.ribbonControl1.MaxItemId = 12;
+            this.ribbonControl1.Name = "ribbonControl1";
+            this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
+            this.ribbonPage1});
+            this.ribbonControl1.RibbonCaptionAlignment = DevExpress.XtraBars.Ribbon.RibbonCaptionAlignment.Center;
+            this.ribbonControl1.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.Office2013;
+            this.ribbonControl1.ShowApplicationButton = DevExpress.Utils.DefaultBoolean.False;
+            this.ribbonControl1.ShowCategoryInCaption = false;
+            this.ribbonControl1.ShowExpandCollapseButton = DevExpress.Utils.DefaultBoolean.False;
+            this.ribbonControl1.ShowFullScreenButton = DevExpress.Utils.DefaultBoolean.False;
+            this.ribbonControl1.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Show;
+            this.ribbonControl1.ShowQatLocationSelector = false;
+            this.ribbonControl1.ShowToolbarCustomizeItem = false;
+            this.ribbonControl1.Size = new System.Drawing.Size(1076, 143);
+            this.ribbonControl1.Toolbar.ShowCustomizeItem = false;
+            this.ribbonControl1.ToolbarLocation = DevExpress.XtraBars.Ribbon.RibbonQuickAccessToolbarLocation.Hidden;
             // 
             // btnReimpresionRomaneo
             // 
-            this.btnReimpresionRomaneo.Image = ((System.Drawing.Image)(resources.GetObject("btnReimpresionRomaneo.Image")));
-            this.btnReimpresionRomaneo.Location = new System.Drawing.Point(5, 6);
+            this.btnReimpresionRomaneo.Caption = "Reimpresión de Romaneo";
+            this.btnReimpresionRomaneo.Glyph = ((System.Drawing.Image)(resources.GetObject("btnReimpresionRomaneo.Glyph")));
+            this.btnReimpresionRomaneo.Id = 4;
             this.btnReimpresionRomaneo.Name = "btnReimpresionRomaneo";
-            this.btnReimpresionRomaneo.Size = new System.Drawing.Size(153, 22);
-            this.btnReimpresionRomaneo.TabIndex = 47;
-            this.btnReimpresionRomaneo.Text = "Reimpresión de Romaneo";
-            this.btnReimpresionRomaneo.Click += new System.EventHandler(this.btnReimpresionRomaneo_Click);
+            this.btnReimpresionRomaneo.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.btnReimpresionRomaneo.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnReimpresionRomaneo_ItemClick);
             // 
-            // btnResumenCompra
+            // barSubItem2
             // 
-            this.btnResumenCompra.Image = ((System.Drawing.Image)(resources.GetObject("btnResumenCompra.Image")));
-            this.btnResumenCompra.Location = new System.Drawing.Point(327, 6);
-            this.btnResumenCompra.Name = "btnResumenCompra";
-            this.btnResumenCompra.Size = new System.Drawing.Size(138, 22);
-            this.btnResumenCompra.TabIndex = 46;
-            this.btnResumenCompra.Text = "Resumen de Compra";
-            this.btnResumenCompra.Click += new System.EventHandler(this.btnResumenCompra_Click);
+            this.barSubItem2.Caption = "Resúmenes";
+            this.barSubItem2.Glyph = ((System.Drawing.Image)(resources.GetObject("barSubItem2.Glyph")));
+            this.barSubItem2.Id = 5;
+            this.barSubItem2.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
+            new DevExpress.XtraBars.LinkPersistInfo(this.btnResumenRomaneo),
+            new DevExpress.XtraBars.LinkPersistInfo(this.btnResumenCompra),
+            new DevExpress.XtraBars.LinkPersistInfo(this.btnResumenClasesMes),
+            new DevExpress.XtraBars.LinkPersistInfo(this.btnResumenClasesTrimestre)});
+            this.barSubItem2.Name = "barSubItem2";
+            this.barSubItem2.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
             // 
             // btnResumenRomaneo
             // 
-            this.btnResumenRomaneo.Image = ((System.Drawing.Image)(resources.GetObject("btnResumenRomaneo.Image")));
-            this.btnResumenRomaneo.Location = new System.Drawing.Point(164, 6);
+            this.btnResumenRomaneo.Caption = "Resumen de Romaneo";
+            this.btnResumenRomaneo.Glyph = ((System.Drawing.Image)(resources.GetObject("btnResumenRomaneo.Glyph")));
+            this.btnResumenRomaneo.Id = 6;
+            this.btnResumenRomaneo.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnResumenRomaneo.LargeGlyph")));
             this.btnResumenRomaneo.Name = "btnResumenRomaneo";
-            this.btnResumenRomaneo.Size = new System.Drawing.Size(157, 22);
-            this.btnResumenRomaneo.TabIndex = 45;
-            this.btnResumenRomaneo.Text = "Resumen de Romaneo";
-            this.btnResumenRomaneo.Click += new System.EventHandler(this.btnResumenRomaneo_Click);
+            this.btnResumenRomaneo.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnResumenRomaneo_ItemClick);
+            // 
+            // btnResumenCompra
+            // 
+            this.btnResumenCompra.Caption = "Resumen de Compra";
+            this.btnResumenCompra.Glyph = ((System.Drawing.Image)(resources.GetObject("btnResumenCompra.Glyph")));
+            this.btnResumenCompra.Id = 7;
+            this.btnResumenCompra.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnResumenCompra.LargeGlyph")));
+            this.btnResumenCompra.Name = "btnResumenCompra";
+            this.btnResumenCompra.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnResumenCompra_ItemClick);
+            // 
+            // btnResumenClasesMes
+            // 
+            this.btnResumenClasesMes.Caption = "Resumen de Clases por mes";
+            this.btnResumenClasesMes.Glyph = ((System.Drawing.Image)(resources.GetObject("btnResumenClasesMes.Glyph")));
+            this.btnResumenClasesMes.Id = 9;
+            this.btnResumenClasesMes.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnResumenClasesMes.LargeGlyph")));
+            this.btnResumenClasesMes.Name = "btnResumenClasesMes";
+            this.btnResumenClasesMes.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnResumenClasesMes_ItemClick);
+            // 
+            // btnResumenClasesTrimestre
+            // 
+            this.btnResumenClasesTrimestre.Caption = "Resumen de Clases por trimestre";
+            this.btnResumenClasesTrimestre.Glyph = ((System.Drawing.Image)(resources.GetObject("btnResumenClasesTrimestre.Glyph")));
+            this.btnResumenClasesTrimestre.Id = 10;
+            this.btnResumenClasesTrimestre.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnResumenClasesTrimestre.LargeGlyph")));
+            this.btnResumenClasesTrimestre.Name = "btnResumenClasesTrimestre";
+            this.btnResumenClasesTrimestre.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnResumenClasesTrimestre_ItemClick);
+            // 
+            // btnExportarRomaneo
+            // 
+            this.btnExportarRomaneo.AccessibleDescription = "";
+            this.btnExportarRomaneo.Caption = "Exportar Romaneo";
+            this.btnExportarRomaneo.Glyph = ((System.Drawing.Image)(resources.GetObject("btnExportarRomaneo.Glyph")));
+            this.btnExportarRomaneo.Id = 11;
+            this.btnExportarRomaneo.Name = "btnExportarRomaneo";
+            this.btnExportarRomaneo.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.btnExportarRomaneo.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnExportarRomaneo_ItemClick);
+            // 
+            // ribbonPage1
+            // 
+            this.ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
+            this.ribbonPageGroup1,
+            this.ribbonPageGroup2});
+            this.ribbonPage1.Name = "ribbonPage1";
+            this.ribbonPage1.Text = "Opciones";
+            // 
+            // ribbonPageGroup1
+            // 
+            this.ribbonPageGroup1.AllowTextClipping = false;
+            this.ribbonPageGroup1.ItemLinks.Add(this.btnReimpresionRomaneo);
+            this.ribbonPageGroup1.ItemLinks.Add(this.barSubItem2);
+            this.ribbonPageGroup1.Name = "ribbonPageGroup1";
+            this.ribbonPageGroup1.ShowCaptionButton = false;
+            this.ribbonPageGroup1.Text = "Reportes";
+            // 
+            // ribbonPageGroup2
+            // 
+            this.ribbonPageGroup2.AllowTextClipping = false;
+            this.ribbonPageGroup2.ItemLinks.Add(this.btnExportarRomaneo);
+            this.ribbonPageGroup2.Name = "ribbonPageGroup2";
+            this.ribbonPageGroup2.ShowCaptionButton = false;
+            this.ribbonPageGroup2.Text = "Exportar";
+            // 
+            // barSubItem1
+            // 
+            this.barSubItem1.Id = -1;
+            this.barSubItem1.Name = "barSubItem1";
             // 
             // Form_RomaneoGestionRomaneo
             // 
+            this.AllowFormGlass = DevExpress.Utils.DefaultBoolean.False;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1076, 587);
-            this.Controls.Add(this.groupControl7);
+            this.ClientSize = new System.Drawing.Size(1076, 568);
             this.Controls.Add(this.groupControl6);
             this.Controls.Add(this.groupControl3);
             this.Controls.Add(this.groupControl2);
             this.Controls.Add(this.ribbon);
+            this.Controls.Add(this.ribbonControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form_RomaneoGestionRomaneo";
-            this.Ribbon = this.ribbon;
+            this.Ribbon = this.ribbonControl1;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Romaneo - Gestión de Romaneo";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -414,8 +485,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridControlRomaneo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewRomaneo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewLiquidacionDetalle)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl7)).EndInit();
-            this.groupControl7.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -445,13 +515,19 @@
         private DevExpress.XtraGrid.GridControl gridControlRomaneo;
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewRomaneo;
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewLiquidacionDetalle;
-        private DevExpress.XtraEditors.GroupControl groupControl7;
         private System.Windows.Forms.ComboBox cbTabaco;
         private System.Windows.Forms.Label label1;
-        private DevExpress.XtraEditors.SimpleButton btnResumenClasesTrimestre;
-        private DevExpress.XtraEditors.SimpleButton btnResumenClasesMes;
-        private DevExpress.XtraEditors.SimpleButton btnReimpresionRomaneo;
-        private DevExpress.XtraEditors.SimpleButton btnResumenCompra;
-        private DevExpress.XtraEditors.SimpleButton btnResumenRomaneo;
+        private DevExpress.XtraBars.Ribbon.RibbonControl ribbonControl1;
+        private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage1;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup1;
+        private DevExpress.XtraBars.BarButtonItem btnReimpresionRomaneo;
+        private DevExpress.XtraBars.BarSubItem barSubItem1;
+        private DevExpress.XtraBars.BarSubItem barSubItem2;
+        private DevExpress.XtraBars.BarButtonItem btnResumenRomaneo;
+        private DevExpress.XtraBars.BarButtonItem btnResumenCompra;
+        private DevExpress.XtraBars.BarButtonItem btnResumenClasesMes;
+        private DevExpress.XtraBars.BarButtonItem btnResumenClasesTrimestre;
+        private DevExpress.XtraBars.BarButtonItem btnExportarRomaneo;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup2;
     }
 }

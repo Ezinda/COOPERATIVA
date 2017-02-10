@@ -42,11 +42,11 @@ namespace CooperativaProduccion
         private void Iniciar(bool ReimpresionRomaneo, bool ResumenRomaneo,
             bool ResumenCompra, bool ResumenClaseMes, bool ResumenClaseTrimestre)
         {
-            btnReimpresionRomaneo.Visible = ReimpresionRomaneo;
-            btnResumenRomaneo.Visible = ResumenRomaneo;
-            btnResumenCompra.Visible = ResumenCompra;
-            btnResumenClasesMes.Visible = ResumenClaseMes;
-            btnResumenClasesTrimestre.Visible = ResumenClaseTrimestre;
+            btnReimpresionRomaneo.Visibility = ReimpresionRomaneo.Equals(true) ? BarItemVisibility.Always : BarItemVisibility.Never;
+            btnResumenRomaneo.Visibility = ResumenRomaneo.Equals(true) ? BarItemVisibility.Always : BarItemVisibility.Never;
+            btnResumenCompra.Visibility = ResumenCompra.Equals(true) ? BarItemVisibility.Always : BarItemVisibility.Never;
+            btnResumenClasesMes.Visibility = ResumenClaseMes.Equals(true) ? BarItemVisibility.Always : BarItemVisibility.Never;
+            btnResumenClasesTrimestre.Visibility = ResumenClaseTrimestre.Equals(true) ? BarItemVisibility.Always : BarItemVisibility.Never;
         }
 
         private void CargarCombo()
@@ -631,5 +631,44 @@ namespace CooperativaProduccion
             }
         }
 
+        private void btnReimpresionRomaneo_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (gridViewRomaneo.SelectedRowsCount > 0)
+            {
+                for (int i = 0; i < gridViewRomaneo.DataRowCount; i++)
+                {
+                    if (gridViewRomaneo.IsRowSelected(i))
+                    {
+                        var Id = new Guid(gridViewRomaneo.GetRowCellValue(i, "ID").ToString());
+                        ImpimirRomaneo(Id);
+                    }
+                }
+            }
+        }
+
+        private void btnResumenRomaneo_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            ResumenRomaneo();
+        }
+
+        private void btnResumenCompra_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            ResumenCompra();
+        }
+
+        private void btnResumenClasesMes_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
+
+        private void btnResumenClasesTrimestre_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
+
+        private void btnExportarRomaneo_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
     }
 }
