@@ -26,6 +26,8 @@ namespace CooperativaProduccion
         public static string Reimpresion = "Reimpresión";
         public static string Liquidacion = "Liquidacion";
 
+        public static string LiquidacionA = "LiquidacionA";
+        public static string LiquidacionB = "LiquidacionB";
         public static string CuitEmpresa = "33-70819460-9";
         public static string IIBB = "33-70819460-9";
         public static string Ines = "24096";

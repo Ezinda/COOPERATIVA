@@ -1086,7 +1086,7 @@ namespace CooperativaProduccion
                 .Where(x => x.NOMBRE.Equals(DevConstantes.C1F))
                 .FirstOrDefault();
 
-            decimal promedio = (decimal.Parse(txtPrecioPromedio.Text) * 100) / clase.PRECIOCOMPRA.Value;
+            float promedio = Convert.ToSingle((decimal.Parse(txtPrecioPromedio.Text) * 100) / clase.PRECIOCOMPRA.Value);
             string porcentaje = promedio.ToString();
             return porcentaje;
         }

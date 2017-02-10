@@ -159,13 +159,14 @@ namespace CooperativaProduccion
                         if (romaneo != null)
                         {
                             romaneo.PuntoVentaLiquidacion = NumeroPuntoVentaLiquidacion();
-                            romaneo.NumInternoLiquidacion = ContadorNumeroInternoLiquidacion();
+                            romaneo.NumInternoLiquidacion = ContadorNumeroInternoLiquidacion(Iva);
                             romaneo.FechaInternaLiquidacion = DateTime.Now.Date;
                             romaneo.condIva = Iva;
-                            var subtotal = romaneo.ImporteBruto; /// (1+(romaneo.IvaPorcentaje/100));
+                            var subtotal = romaneo.ImporteBruto;
                             var iva = subtotal * (romaneo.IvaPorcentaje / 100);
                             var total = subtotal + iva;
-                            if (Iva == "A")
+
+                            if (Iva == DevConstantes.A)
                             {
                                 romaneo.ImporteNeto = decimal.Round(subtotal.Value, 2, MidpointRounding.AwayFromZero);
                                 romaneo.IvaCalculado = decimal.Round(iva.Value, 2, MidpointRounding.AwayFromZero);
@@ -179,21 +180,38 @@ namespace CooperativaProduccion
 
                             Context.Entry(romaneo).State = EntityState.Modified;
                             Context.SaveChanges();
-                            
+
                             #region Actualizar contador
 
-                            var contador = Context.Contador
-                                .Where(x => x.Nombre.Equals(DevConstantes.Liquidacion))
-                                .FirstOrDefault();
-
-                            var count = Context.Contador.Find(contador.Id);
-                            if (count != null)
+                            if (Iva.Equals(DevConstantes.A))
                             {
-                                count.Valor = count.Valor + 1;
-                                Context.Entry(count).State = EntityState.Modified;
-                                Context.SaveChanges();
+                                var contador = Context.Contador
+                                    .Where(x => x.Nombre.Equals(DevConstantes.LiquidacionA))
+                                    .FirstOrDefault();
+
+                                var count = Context.Contador.Find(contador.Id);
+                                if (count != null)
+                                {
+                                    count.Valor = count.Valor + 1;
+                                    Context.Entry(count).State = EntityState.Modified;
+                                    Context.SaveChanges();
+                                }
                             }
-                            
+                            else
+                            {
+                                var contador = Context.Contador
+                                    .Where(x => x.Nombre.Equals(DevConstantes.LiquidacionB))
+                                    .FirstOrDefault();
+
+                                var count = Context.Contador.Find(contador.Id);
+                                if (count != null)
+                                {
+                                    count.Valor = count.Valor + 1;
+                                    Context.Entry(count).State = EntityState.Modified;
+                                    Context.SaveChanges();
+                                }
+                            }
+
                             #endregion
                         }
                     }
@@ -201,20 +219,40 @@ namespace CooperativaProduccion
             }
         }
 
-        private long ContadorNumeroInternoLiquidacion()
+        private long ContadorNumeroInternoLiquidacion(string Iva)
         {
-            var contador = Context.Contador
-               .Where(x => x.Nombre.Equals(DevConstantes.Liquidacion))
-               .FirstOrDefault();
-            if (contador != null)
+            if (Iva.Equals(DevConstantes.A))
             {
-                return (contador.Valor.Value + 1);
+                var contador = Context.Contador
+                   .Where(x => x.Nombre.Equals(DevConstantes.LiquidacionA))
+                   .FirstOrDefault();
+
+                if (contador != null)
+                {
+                    return (contador.Valor.Value + 1);
+                }
+                else
+                {
+                    return 1;
+                }
             }
             else
             {
-                return 1;
+                var contador = Context.Contador
+                   .Where(x => x.Nombre.Equals(DevConstantes.LiquidacionB))
+                   .FirstOrDefault();
+
+                if (contador != null)
+                {
+                    return (contador.Valor.Value + 1);
+                }
+                else
+                {
+                    return 1;
+                }
             }
         }
+
 
         private int NumeroPuntoVentaLiquidacion()
         {

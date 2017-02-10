@@ -261,7 +261,7 @@
             this.xrTableCell74.StylePriority.UseBorders = false;
             this.xrTableCell74.StylePriority.UseTextAlignment = false;
             this.xrTableCell74.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
-            this.xrTableCell74.Weight = 2.0473577296551611D;
+            this.xrTableCell74.Weight = 2.4030553873005904D;
             // 
             // xrTableCell73
             // 
@@ -274,7 +274,7 @@
             this.xrTableCell73.StylePriority.UseBorders = false;
             this.xrTableCell73.StylePriority.UseTextAlignment = false;
             this.xrTableCell73.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
-            this.xrTableCell73.Weight = 2.0171667154602808D;
+            this.xrTableCell73.Weight = 2.0883051007011657D;
             // 
             // xrTableCell64
             // 
@@ -287,7 +287,7 @@
             this.xrTableCell64.StylePriority.UseBorders = false;
             this.xrTableCell64.StylePriority.UseTextAlignment = false;
             this.xrTableCell64.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft;
-            this.xrTableCell64.Weight = 10.774666849041207D;
+            this.xrTableCell64.Weight = 10.347830806154892D;
             // 
             // xrTableCell63
             // 
@@ -1227,7 +1227,7 @@
             this.xrTableCell55.StylePriority.UseTextAlignment = false;
             this.xrTableCell55.Text = "FECHA";
             this.xrTableCell55.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
-            this.xrTableCell55.Weight = 2.0473592875316182D;
+            this.xrTableCell55.Weight = 2.4030561786997273D;
             // 
             // xrTableCell54
             // 
@@ -1241,7 +1241,7 @@
             this.xrTableCell54.StylePriority.UseTextAlignment = false;
             this.xrTableCell54.Text = "REC. N°";
             this.xrTableCell54.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
-            this.xrTableCell54.Weight = 2.0171663252139727D;
+            this.xrTableCell54.Weight = 2.0883056513435641D;
             // 
             // xrTableCell53
             // 
@@ -1255,7 +1255,7 @@
             this.xrTableCell53.StylePriority.UseTextAlignment = false;
             this.xrTableCell53.Text = "APELLIDO Y NOMBRE";
             this.xrTableCell53.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft;
-            this.xrTableCell53.Weight = 10.774670155409003D;
+            this.xrTableCell53.Weight = 10.347833938111302D;
             // 
             // xrTableCell52
             // 

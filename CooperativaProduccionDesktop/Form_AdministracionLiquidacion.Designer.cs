@@ -106,7 +106,7 @@
             this.gridControlLiquidacion.MainView = this.gridViewLiquidacion;
             this.gridControlLiquidacion.MenuManager = this.ribbon;
             this.gridControlLiquidacion.Name = "gridControlLiquidacion";
-            this.gridControlLiquidacion.Size = new System.Drawing.Size(1259, 523);
+            this.gridControlLiquidacion.Size = new System.Drawing.Size(1259, 527);
             this.gridControlLiquidacion.TabIndex = 68;
             this.gridControlLiquidacion.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewLiquidacion,
@@ -315,9 +315,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupControl6.Controls.Add(this.gridControlLiquidacion);
-            this.groupControl6.Location = new System.Drawing.Point(-1, 82);
+            this.groupControl6.Location = new System.Drawing.Point(-1, 78);
             this.groupControl6.Name = "groupControl6";
-            this.groupControl6.Size = new System.Drawing.Size(1263, 545);
+            this.groupControl6.Size = new System.Drawing.Size(1263, 549);
             this.groupControl6.TabIndex = 75;
             this.groupControl6.Text = "Lista de Romaneo";
             // 
