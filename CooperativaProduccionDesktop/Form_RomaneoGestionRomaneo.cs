@@ -380,11 +380,7 @@ namespace CooperativaProduccion
 
                 string fileName = @"C:\SystemDocumentsCooperativa\ResumenRomaneoVirginia\" + Hora + " - ResumenRomaneoVirginia.xls";
 
-                // A path to export a report.
-                string reportPath = fileName;
-
                 // Create a report instance.
-
                 var reporte = new ResumenRomaneoVirginiaReport();
 
                 reporte.Parameters["cabecera"].Value = "RESUMEN DE ROMANEOS - " + cbTabaco.Text
@@ -403,11 +399,99 @@ namespace CooperativaProduccion
                 xlsOptions.TextExportMode = TextExportMode.Value;
 
                 // Export the report to XLS.
-                reporte.ExportToXls(reportPath);
+                reporte.ExportToXls(fileName);
 
                 // Show the result.
-                StartProcess(reportPath);
+                StartProcess(fileName);
+            }
+            else if (cbTabaco.Text == DevConstantes.TabacoBurley)
+            {
+                path = @"C:\SystemDocumentsCooperativa\ResumenRomaneoBurley";
+
+                CreateIfMissing(path);
+
+                var Hora = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff",
+                  CultureInfo.InvariantCulture).Replace(":", "").Replace(".", "")
+                  .Replace("-", "").Replace(" ", "");
+
+                string fileName = @"C:\SystemDocumentsCooperativa\ResumenRomaneoBurley\" + Hora + " - ResumenRomaneoBurley.xls";
+
+                // Create a report instance.
+                var reporte = new ResumenRomaneoBurleyReport();
+
+                reporte.Parameters["cabecera"].Value = "RESUMEN DE ROMANEOS - " + cbTabaco.Text
+                    + " - CAMPAÑA " + dpDesdeRomaneo.Value.Year + " - MES DE "
+                    + MonthName(dpDesdeRomaneo.Value.Month).ToUpper() + " - PROVINCIA DE TUCUMAN.-";
+
+                List<RegistroResumenRomaneoBurley> datasourceBurley;
+                datasourceBurley = GenerarReporteResumenRomaneoBurley();
+                reporte.DataSource = datasourceBurley;
+
+                // Get its XLS export options.
+                XlsExportOptions xlsOptions = reporte.ExportOptions.Xls;
+
+                // Set XLS-specific export options.
+                xlsOptions.ShowGridLines = true;
+                xlsOptions.TextExportMode = TextExportMode.Value;
+
+                // Export the report to XLS.
+                reporte.ExportToXls(fileName);
+
+                // Show the result.
+                StartProcess(fileName);
             }   
+        }
+
+        private List<RegistroResumenRomaneoBurley> GenerarReporteResumenRomaneoBurley()
+        {
+            List<RegistroResumenRomaneoBurley> datasource = new List<RegistroResumenRomaneoBurley>();
+            var resumenBurley = Context.Vw_ResumenRomaneoBurley
+                .Where(x => x.fechaRomaneo.Value >= dpDesdeRomaneo.Value.Date
+                    && x.fechaRomaneo.Value <= dpHastaRomaneo.Value.Date)
+                .OrderBy(x => x.NumRomaneo)
+                .ToList();
+
+            foreach (var resumen in resumenBurley)
+            {
+                RegistroResumenRomaneoBurley registro = new RegistroResumenRomaneoBurley();
+                registro.FechaRomaneo = resumen.fechaRomaneo.Value.ToShortDateString();
+                registro.NumRomaneo = resumen.NumRomaneo.Value.ToString();
+                registro.Productor = resumen.productor;
+                registro.Cuit = resumen.cuit;
+                registro.Fet = resumen.fet;
+                registro.B1F = resumen.B1F.ToString();
+                registro.B1FR = resumen.B1FR.ToString();
+                registro.B2F = resumen.B2F.ToString();
+                registro.B2FR = resumen.B2FR.ToString();
+                registro.B3F = resumen.B3F.ToString();
+                registro.B3FR = resumen.B3FR.ToString();
+                registro.B3K = resumen.B3K.ToString();
+                registro.C1F = resumen.C1F.ToString();
+                registro.C1L = resumen.C1L.ToString();
+                registro.C2F = resumen.C2F.ToString();
+                registro.C2L = resumen.C2L.ToString();
+                registro.C3F = resumen.C3F.ToString();
+                registro.C3K = resumen.C3K.ToString();
+                registro.C3L = resumen.C3L.ToString();
+                registro.NB = resumen.NB.ToString();
+                registro.NG = resumen.NG.ToString();
+                registro.NX = resumen.NX.ToString();
+                registro.T1F = resumen.T1F.ToString();
+                registro.T1FR = resumen.T1FR.ToString();
+                registro.T2F = resumen.T2F.ToString();
+                registro.T2FR = resumen.T2FR.ToString();
+                registro.T3K = resumen.T3K.ToString();
+                registro.X1F = resumen.X1F.ToString();
+                registro.X1L = resumen.X1L.ToString();
+                registro.X2F = resumen.X2F.ToString();
+                registro.X2L = resumen.X2L.ToString();
+                registro.X3K = resumen.X3K.ToString();
+                registro.Totalkg = resumen.Totalkg.Value.ToString();
+                registro.Importebruto = resumen.Importebruto.Value.ToString();
+
+                datasource.Add(registro);
+            }
+            return datasource;
         }
 
         public void StartProcess(string path)
@@ -589,7 +673,17 @@ namespace CooperativaProduccion
 
         public List<GridLiquidacionDetalle> GenerarReporteLiquidacionDetalle()
         {
+            CooperativaProduccionEntities Context = new CooperativaProduccionEntities();
+
+            Expression<Func<Vw_ResumenRomaneoPorClase, bool>> pred = x => true;
+
             List<GridLiquidacionDetalle> datasource = new List<GridLiquidacionDetalle>();
+            
+            //pred = pred.And(x => x.FechaRomaneo >= dpDesdeRomaneo.Value.Date &&
+            //    x.FechaRomaneo <= dpHastaRomaneo.Value.Date);
+
+            //pred = !string.IsNullOrEmpty(txtFet.Text) ? pred.And(x => x.ProductorId == ProductorId) : pred;
+
 
             var liquidacionDetalles = (
                 from a in Context.Vw_ResumenRomaneoPorClase

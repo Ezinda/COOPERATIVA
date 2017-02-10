@@ -234,7 +234,7 @@
             this.gridControlRomaneo.TabIndex = 68;
             this.gridControlRomaneo.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewRomaneo});
-            // 
+             // 
             // gridViewRomaneo
             // 
             this.gridViewRomaneo.GridControl = this.gridControlRomaneo;

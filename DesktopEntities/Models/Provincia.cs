@@ -12,14 +12,10 @@ namespace DesktopEntities.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class PagoDetalle
+    public partial class Provincia
     {
         public System.Guid Id { get; set; }
-        public System.Guid PagoId { get; set; }
-        public System.Guid ConceptoId { get; set; }
-        public decimal Importe { get; set; }
-    
-        public virtual ConceptoDeOrdenDePago ConceptoDeOrdenDePago { get; set; }
-        public virtual Pago Pago { get; set; }
+        public string Descripcion { get; set; }
+        public int Valor { get; set; }
     }
 }

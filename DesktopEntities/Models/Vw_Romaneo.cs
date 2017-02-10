@@ -24,8 +24,10 @@ namespace DesktopEntities.Models
         public string CUIT { get; set; }
         public string nrofet { get; set; }
         public string IVA { get; set; }
+        public Nullable<decimal> IvaCalculado { get; set; }
         public Nullable<double> TotalKg { get; set; }
         public Nullable<decimal> ImporteBruto { get; set; }
+        public Nullable<decimal> ImporteNeto { get; set; }
         public Nullable<double> Importeporpagar { get; set; }
         public Nullable<int> PuntoVentaLiquidacion { get; set; }
         public Nullable<long> NumInternoLiquidacion { get; set; }

@@ -175,6 +175,7 @@ namespace CooperativaProduccion
                             else
                             {
                                 romaneo.ImporteNeto = romaneo.ImporteBruto;
+                                romaneo.IvaCalculado = decimal.Round(0, 2, MidpointRounding.AwayFromZero);
                                 romaneo.Total = romaneo.ImporteBruto;
                             }
 
@@ -252,7 +253,6 @@ namespace CooperativaProduccion
                 }
             }
         }
-
 
         private int NumeroPuntoVentaLiquidacion()
         {
@@ -900,10 +900,11 @@ namespace CooperativaProduccion
 
             return totalKilos;
         }
-   
+
         #endregion
 
         #endregion
-  
-       }
+
+      
+    }
 }

@@ -14,17 +14,8 @@ namespace DesktopEntities.Models
     
     public partial class Pago
     {
-        public Pago()
-        {
-            this.PagoDetalle = new HashSet<PagoDetalle>();
-        }
-    
         public System.Guid Id { get; set; }
-        public System.Guid OrdenPagoId { get; set; }
-        public System.DateTime Fecha { get; set; }
-        public decimal Importe { get; set; }
-    
-        public virtual OrdenPago OrdenPago { get; set; }
-        public virtual ICollection<PagoDetalle> PagoDetalle { get; set; }
+        public Nullable<System.Guid> OrdenPagoId { get; set; }
+        public string Importe { get; set; }
     }
 }

@@ -180,6 +180,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -385,6 +386,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="ReportModels\RegistroFardo.cs" />
+    <Compile Include="ReportModels\RegistroResumenRomaneoBurley.cs" />
     <Compile Include="ReportModels\RegistroResumenRomaneoVirginia.cs" />
     <Compile Include="Reports\ClasesReport.cs">
       <SubType>Component</SubType>
@@ -442,6 +444,12 @@
     </Compile>
     <Compile Include="Reports\ResumenCompraReport.Designer.cs">
       <DependentUpon>ResumenCompraReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\ResumenLiquidacionReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ResumenLiquidacionReport.Designer.cs">
+      <DependentUpon>ResumenLiquidacionReport.cs</DependentUpon>
     </Compile>
     <Compile Include="Reports\ResumenRomaneoBurleyReport.cs">
       <SubType>Component</SubType>
@@ -599,6 +607,9 @@
     <EmbeddedResource Include="Reports\ResumenCompraReport.resx">
       <DependentUpon>ResumenCompraReport.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ResumenLiquidacionReport.resx">
+      <DependentUpon>ResumenLiquidacionReport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\ResumenRomaneoBurleyReport.resx">
       <DependentUpon>ResumenRomaneoBurleyReport.cs</DependentUpon>
     </EmbeddedResource>
@@ -617,6 +628,7 @@
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\CooperativaProduccion.Helpers.GridRecords.GridLiquidacionDetalle.datasource" />
+    <None Include="Properties\DataSources\CooperativaProduccion.ReportModels.RegistroResumenRomaneoBurley.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

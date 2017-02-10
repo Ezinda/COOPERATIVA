@@ -58,9 +58,6 @@
     <Compile Include="Models\Clase.cs">
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ConceptoDeOrdenDePago.cs">
-      <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Configuracion.cs">
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>
@@ -94,9 +91,6 @@
     <Compile Include="Models\Pago.cs">
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\PagoDetalle.cs">
-      <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\ParamPagos.cs">
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>
@@ -112,6 +106,9 @@
     <Compile Include="Models\PreingresoDetalle.cs">
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Provincia.cs">
+      <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Remito.cs">
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>
@@ -122,9 +119,6 @@
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Vw_Cliente.cs">
-      <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Vw_ConceptoDeOrdenDePago.cs">
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Vw_Movimiento.cs">
