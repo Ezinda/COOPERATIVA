@@ -120,11 +120,6 @@ namespace CooperativaProduccion
             BuscarRomaneo();
         }
 
-        private void btnResumenRomaneo_Click(object sender, EventArgs e)
-        {
-            ResumenRomaneo();
-        }
-
         private void BuscarProductor()
         {
             var result = (
@@ -209,6 +204,7 @@ namespace CooperativaProduccion
         private void BuscarRomaneo()
         {
             CooperativaProduccionEntities Context = new CooperativaProduccionEntities();
+       
             Expression<Func<Vw_Romaneo, bool>> pred = x => true;
 
             pred = pred.And(x => x.FechaRomaneo >= dpDesdeRomaneo.Value.Date &&
@@ -234,8 +230,7 @@ namespace CooperativaProduccion
                      BRUTOSINIVA = a.ImporteBruto,
                      TABACO = a.Tabaco
                  })
-                .OrderByDescending(x => x.FECHA)
-                .ThenBy(x => x.FET)
+                .OrderBy(x=>x.NUMROMANEO)
                 .ToList();
 
             gridControlRomaneo.DataSource = result;
@@ -277,11 +272,6 @@ namespace CooperativaProduccion
             {
                 gridViewRomaneo.SelectRow(i);
             }
-        }
-
-        private void ResumenRomaneo()
-        {
-            RomaneoExportToXLS();
         }
 
         private List<RegistroResumenRomaneoVirginia> GenerarReporteResumenRomaneoVirginia()
@@ -643,24 +633,16 @@ namespace CooperativaProduccion
             return debug.Valor;
         }
 
-        private void btnResumenCompra_Click(object sender, EventArgs e)
-        {
-            ResumenCompra();
-        }
-
         private void ResumenCompra()
         {
             var reporte = new ResumenCompraReport();
-            List<GridLiquidacionDetalle> datasourceDetalle;
-            datasourceDetalle = GenerarReporteLiquidacionDetalle();
-            reporte.DataSource = datasourceDetalle;
-           
-            reporte.Parameters["Tabaco"].Value = cbTabaco.Text;
-            var año = dpDesdeRomaneo.Value.Date.Year;
-            var mes = Convert.ToString(dpDesdeRomaneo.Value.Date.ToString("MMMM"));
-            reporte.Parameters["Periodo"].Value = "CAMPAÑA " + año;
-            reporte.Parameters["Mes"].Value = "MES DE " + mes.ToUpper();
-            
+            List<ResumenCompraPorMes> datasourceResumenCompraPorMes;
+            datasourceResumenCompraPorMes = GenerarReporteResumenCompraPorMes();
+            reporte.DataSource = datasourceResumenCompraPorMes;
+
+            reporte.Parameters["cabecera"].Value = "RESUMEN DE COMPRA - " + cbTabaco.Text
+               + " - CAMPAÑA " + dpDesdeRomaneo.Value.Year + " - MES DE "
+               + MonthName(dpDesdeRomaneo.Value.Month).ToUpper() + " - PROVINCIA DE TUCUMAN.-";
           
             using (ReportPrintTool tool = new ReportPrintTool(reporte))
             {
@@ -671,39 +653,39 @@ namespace CooperativaProduccion
 
         }
 
-        public List<GridLiquidacionDetalle> GenerarReporteLiquidacionDetalle()
+        public List<ResumenCompraPorMes> GenerarReporteResumenCompraPorMes()
         {
             CooperativaProduccionEntities Context = new CooperativaProduccionEntities();
 
-            Expression<Func<Vw_ResumenRomaneoPorClase, bool>> pred = x => true;
+            Expression<Func<Vw_ResumenCompraPorClase, bool>> pred = x => true;
 
-            List<GridLiquidacionDetalle> datasource = new List<GridLiquidacionDetalle>();
+            List<ResumenCompraPorMes> datasource = new List<ResumenCompraPorMes>();
             
-            //pred = pred.And(x => x.FechaRomaneo >= dpDesdeRomaneo.Value.Date &&
-            //    x.FechaRomaneo <= dpHastaRomaneo.Value.Date);
+            pred = pred.And(x => x.FechaRomaneo >= dpDesdeRomaneo.Value.Date &&
+                x.FechaRomaneo <= dpHastaRomaneo.Value.Date);
 
-            //pred = !string.IsNullOrEmpty(txtFet.Text) ? pred.And(x => x.ProductorId == ProductorId) : pred;
-
-
+            pred = !string.IsNullOrEmpty(cbTabaco.Text) ? pred.And(x => x.Tabaco == cbTabaco.Text) : pred;
+            
             var liquidacionDetalles = (
-                from a in Context.Vw_ResumenRomaneoPorClase
+                from a in Context.Vw_ResumenCompraPorClase
+                    .Where(pred)
                 select new
                 {
                     Clase = a.Clase,
                     Fardos = a.Fardos,
                     Kilos = a.Kilos,
-                    PrecioClase = a.ClasePrecio,
-                    Total = a.Total
+                    Total = a.Importe
                 })
+                .OrderBy(x=>x.Clase)
                 .ToList();
 
             foreach (var liquidacionDetalle in liquidacionDetalles)
             {
-                GridLiquidacionDetalle detalle = new GridLiquidacionDetalle();
+                ResumenCompraPorMes detalle = new ResumenCompraPorMes();
                 detalle.Clase = liquidacionDetalle.Clase;
-                detalle.Fardos = liquidacionDetalle.Fardos;
-                detalle.Kilos = liquidacionDetalle.Kilos;
-                detalle.Total = liquidacionDetalle.Total;
+                detalle.Fardos = liquidacionDetalle.Fardos.Value.ToString();
+                detalle.Kilos = liquidacionDetalle.Kilos.Value.ToString();
+                detalle.Importe = liquidacionDetalle.Total.Value.ToString();
                 datasource.Add(detalle);
             }
             return datasource;
@@ -742,7 +724,7 @@ namespace CooperativaProduccion
 
         private void btnResumenRomaneo_ItemClick(object sender, ItemClickEventArgs e)
         {
-            ResumenRomaneo();
+            RomaneoExportToXLS();
         }
 
         private void btnResumenCompra_ItemClick(object sender, ItemClickEventArgs e)
@@ -764,5 +746,7 @@ namespace CooperativaProduccion
         {
 
         }
+
+       
     }
 }

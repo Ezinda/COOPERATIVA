@@ -15,7 +15,7 @@ namespace CooperativaProduccion.Reports
 
         private void xrLabel12_SummaryGetResult(object sender, SummaryGetResultEventArgs e)
         {
-            e.Result = Convert.ToDouble(xrLabel9.Summary.GetResult()) / Convert.ToDouble(xrLabel8.Summary.GetResult());
+            e.Result = Convert.ToSingle(xrLabel9.Summary.GetResult()) / Convert.ToSingle(xrLabel8.Summary.GetResult());
             e.Handled = true;
         }
     }

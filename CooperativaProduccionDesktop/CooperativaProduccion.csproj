@@ -386,8 +386,10 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="ReportModels\RegistroFardo.cs" />
+    <Compile Include="ReportModels\RegistroResumenLiquidacion.cs" />
     <Compile Include="ReportModels\RegistroResumenRomaneoBurley.cs" />
     <Compile Include="ReportModels\RegistroResumenRomaneoVirginia.cs" />
+    <Compile Include="ReportModels\ResumenCompraPorMes.cs" />
     <Compile Include="Reports\ClasesReport.cs">
       <SubType>Component</SubType>
     </Compile>

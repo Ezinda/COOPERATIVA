@@ -22,6 +22,11 @@ namespace CooperativaProduccion
         public static string PuntoVentaLiquidacion = "PuntoVentaLiquidacion";
         public static Guid Generico = Guid.Parse("0867DD6B-EFE0-4272-97FD-C57342E47EF4");
         public static string C1F = "C1F";
+        public static string MT = "MT";
+        public static string MonotributoSocial = "Monotributo Social";
+        public static string RI = "RI";
+        public static string ResponsableInscripto = "Responsable Inscripto";
+        public static string LI = "LI";
 
         public static string Reimpresion = "Reimpresión";
         public static string Liquidacion = "Liquidacion";

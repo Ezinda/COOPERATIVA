@@ -17,6 +17,11 @@ using CooperativaProduccion.Reports;
 using DevExpress.XtraReports.UI;
 using DevExpress.DocumentServices.ServiceModel.DataContracts;
 using CooperativaProduccion.Helpers;
+using System.IO;
+using System.Diagnostics;
+using DevExpress.XtraPrinting;
+using System.Globalization;
+using CooperativaProduccion.ReportModels;
 
 namespace CooperativaProduccion
 {
@@ -32,6 +37,7 @@ namespace CooperativaProduccion
             InitializeComponent();
             Context = new CooperativaProduccionEntities();
             Buscar(false);
+            CargarCombo();
             Iniciar(Liquidar, LiquidacionSubirAfip, LiquidacionImprimir);
         }
 
@@ -39,7 +45,19 @@ namespace CooperativaProduccion
         {
             btnLiquidar.Visible = Liquidar;
             btnSubirAfip.Visible = LiquidacionSubirAfip;
-            btnPrevisualizar.Visible = LiquidacionImprimir;
+            btnPrevisualizarLiquidacionManual.Visible = LiquidacionImprimir;
+        }
+
+        private void CargarCombo()
+        {
+
+            var tipotabaco = Context.Vw_TipoTabaco
+                .Where(x => x.RUBRO_ID != null)
+                .ToList();
+
+            cbTabaco.DataSource = tipotabaco;
+            cbTabaco.DisplayMember = "Descripcion";
+            cbTabaco.ValueMember = "Id";
         }
 
         #region Modulo de Proceso de Liquidacion
@@ -75,7 +93,7 @@ namespace CooperativaProduccion
 
             pred = buscar.Equals(true) ? pred.And(x => x.FechaRomaneo >= dpDesdeRomaneo.Value.Date
                 && x.FechaRomaneo <= dpHastaRomaneo.Value.Date) : pred;
-            pred = pred.And(x => x.FechaInternaLiquidacion == null);
+            pred = pred.And(x => x.NumInternoLiquidacion == null);
 
             var result = (
                from a in Context.Vw_Romaneo
@@ -96,7 +114,6 @@ namespace CooperativaProduccion
                    NUMLIQUIDACION = a.NumInternoLiquidacion
                })
                .OrderBy(x => x.NUMROMANEO)
-               .ThenBy(x => x.FET)
                .ToList();
 
             gridControlRomaneo.DataSource = result;
@@ -270,7 +287,6 @@ namespace CooperativaProduccion
             }
         }
 
-
         #endregion
 
         #endregion
@@ -343,34 +359,6 @@ namespace CooperativaProduccion
             Limpiar();
         }
 
-        private void btnSubirAfip_Click(object sender, EventArgs e)
-        {
-            var resultado = MessageBox.Show("¿Desea subir estos registros a afip?",
-                "Confirmación de Datos", MessageBoxButtons.OKCancel);
-
-            if (resultado != DialogResult.OK)
-            {
-                return;
-            }
-            SubirAfip();
-            BuscarLiquidacion();
-        }
-
-        private void btnPrevisualizar_Click(object sender, EventArgs e)
-        {
-            if (gridViewLiquidacion.SelectedRowsCount > 0)
-            {
-                for (int i = 0; i < gridViewLiquidacion.DataRowCount; i++)
-                {
-                    if (gridViewLiquidacion.IsRowSelected(i))
-                    {
-                        var Id = new Guid(gridViewLiquidacion.GetRowCellValue(i, "PesadaId").ToString());
-                        ImprimirLiquidacion(Id);
-                    }
-                }
-            }
-        }
-
         #endregion
 
         #region Method Dev
@@ -378,21 +366,23 @@ namespace CooperativaProduccion
         private void BuscarLiquidacion()
         {
             CooperativaProduccionEntities Context = new CooperativaProduccionEntities();
+          
             Expression<Func<Vw_Romaneo, bool>> pred = x => true;
 
             pred = pred.And(x => x.FechaInternaLiquidacion >= dpDesdeLiquidacion.Value.Date 
                 && x.FechaInternaLiquidacion <= dpHastaLiquidacion.Value.Date);
-           
-            if (ProductorId != Guid.Empty)
-            {
-                pred = pred.And(x => x.ProductorId == ProductorId);
-            }
+
+            pred = !string.IsNullOrEmpty(txtFet.Text) ? pred.And(x => x.ProductorId == ProductorId) : pred;
+
+            pred = !string.IsNullOrEmpty(cbTabaco.Text) ? pred.And(x => x.Tabaco == cbTabaco.Text) : pred;
+
+            pred = pred.And(x => x.NumInternoLiquidacion != null);
 
             List<GridLiquidacion> lista = new List<GridLiquidacion>();
+
             var liquidaciones = (
                from a in Context.Vw_Romaneo
                    .Where(pred)
-                   .Where(x => x.OrdenPagoId == null)
                select new
                {
                    ID = a.PesadaId,
@@ -405,14 +395,15 @@ namespace CooperativaProduccion
                    LETRA = a.Letra,
                    KILOS = a.TotalKg,
                    BRUTOSINIVA = a.ImporteBruto,
+                   TABACO = a.Tabaco,
                    FECHALIQUIDACIONAFIP = a.FechaAfipLiquidacion,
                    NUMEROAFIPLIQUIDACION = a.NumAfipLiquidacion,
                    CAE = a.Cae,
                    FECHAVTOCAE = a.FechaVtoCae
                })
-               .OrderByDescending(x => x.FECHA)
-               .ThenBy(x => x.FET)
+               .OrderBy(x=>x.NUMINTERNO)
                .ToList();
+
             foreach (var liquidacion in liquidaciones)
             {
                 var liquidacionDetalle = ( 
@@ -427,6 +418,7 @@ namespace CooperativaProduccion
                         Total = a.Total
                     })
                     .ToList();
+
                 var rowsDetalle = liquidacionDetalle.Select(x =>
                     new GridLiquidacionDetalle()
                     {
@@ -528,6 +520,7 @@ namespace CooperativaProduccion
                     CUIT = a.CUIT,
                     PROVINCIA = a.Provincia
                 });
+
             if (!string.IsNullOrEmpty(txtFet.Text))
             {
                 var count = result
@@ -904,7 +897,182 @@ namespace CooperativaProduccion
         #endregion
 
         #endregion
+   
+        private void LiquidacionExportToXLS()
+        {
+            string fileName = string.Empty;
 
+            string path = @"C:\SystemDocumentsCooperativa";
+
+            CreateIfMissing(path);
+
+            path = @"C:\SystemDocumentsCooperativa\ResumenLiquidacion";
+
+            CreateIfMissing(path);
+
+            if (cbTabaco.Text == DevConstantes.TabacoVirginia)
+            {
+                path = @"C:\SystemDocumentsCooperativa\ResumenLiquidacion\ResumenLiquidacionVirginia";
+
+                CreateIfMissing(path);
+
+                var Hora = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff",
+                  CultureInfo.InvariantCulture).Replace(":", "").Replace(".", "")
+                  .Replace("-", "").Replace(" ", "");
+
+                fileName = @"C:\SystemDocumentsCooperativa\ResumenLiquidacion\ResumenLiquidacionVirginia"
+                    + Hora + " - ResumenLiquidacionVirginia.xls";
+            }
+            else if (cbTabaco.Text == DevConstantes.TabacoBurley)
+            {
+                path = @"C:\SystemDocumentsCooperativa\ResumenLiquidacion\ResumenLiquidacionBurley";
+
+                CreateIfMissing(path);
+
+                var Hora = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff",
+                  CultureInfo.InvariantCulture).Replace(":", "").Replace(".", "")
+                  .Replace("-", "").Replace(" ", "");
+
+                fileName = @"C:\SystemDocumentsCooperativa\ResumenLiquidacion\ResumenLiquidacionBurley"
+                    + Hora + " - ResumenLiquidacionBurley.xls";
+            }
+
+            // Create a report instance.
+            var reporte = new ResumenLiquidacionReport();
+
+            reporte.Parameters["cabecera"].Value = "RESUMEN DE LIQUIDACIONES - " + cbTabaco.Text
+                + " - CAMPAÑA " + dpDesdeRomaneo.Value.Year + " - MES DE "
+                + MonthName(dpDesdeRomaneo.Value.Month).ToUpper() + " - PROVINCIA DE TUCUMAN.-";
+
+            List<RegistroResumenLiquidacion> datasourceLiquidacion;
+            datasourceLiquidacion = GenerarReporteResumenLiquidacion();
+            reporte.DataSource = datasourceLiquidacion;
+
+            // Get its XLS export options.
+            XlsExportOptions xlsOptions = reporte.ExportOptions.Xls;
+
+            // Set XLS-specific export options.
+            xlsOptions.ShowGridLines = true;
+            xlsOptions.TextExportMode = TextExportMode.Value;
+
+            // Export the report to XLS.
+            reporte.ExportToXls(fileName);
+
+            // Show the result.
+            StartProcess(fileName);
+        }
+
+        private List<RegistroResumenLiquidacion> GenerarReporteResumenLiquidacion()
+        {
+            Expression<Func<Vw_Romaneo, bool>> pred = x => true;
+
+            pred = pred.And(x => x.FechaInternaLiquidacion >= dpDesdeLiquidacion.Value.Date
+                && x.FechaInternaLiquidacion <= dpHastaLiquidacion.Value.Date);
+
+            pred = !string.IsNullOrEmpty(cbTabaco.Text) ? pred.And(x => x.Tabaco == cbTabaco.Text) : pred;
+
+            pred = pred.And(x => x.NumInternoLiquidacion != null);
+ 
+            List<RegistroResumenLiquidacion> datasource = new List<RegistroResumenLiquidacion>();
+            
+            var resumenLiquidacion = Context.Vw_Romaneo
+                .Where(pred)
+                .OrderBy(x => x.NumInternoLiquidacion)
+                .ToList();
+
+            foreach (var resumen in resumenLiquidacion)
+            {
+                RegistroResumenLiquidacion registro = new RegistroResumenLiquidacion();
+                registro.FechaInternaLiquidacion = resumen.FechaInternaLiquidacion.Value.ToShortDateString();
+                registro.nrofet = resumen.nrofet;
+                registro.NOMBRE = resumen.NOMBRE;
+                registro.CUIT = resumen.CUIT;
+                registro.IVA = resumen.IVA.Equals(DevConstantes.MT) ? 
+                    DevConstantes.MonotributoSocial : DevConstantes.ResponsableInscripto;
+                registro.TC = DevConstantes.LI;
+                registro.Letra = resumen.Letra;
+                registro.PuntoVentaLiquidacion = resumen.PuntoVentaLiquidacion.Value.ToString();
+                registro.NumInternoLiquidacion = resumen.NumInternoLiquidacion.Value.ToString();
+                registro.TotalKg = resumen.TotalKg.Value.ToString();
+                registro.ImporteNeto = resumen.ImporteNeto.Value.ToString();
+                registro.IvaCalculado = resumen.IvaCalculado.Value.ToString();
+                registro.ImporteBruto = resumen.ImporteBruto.Value.ToString();
+                          
+                datasource.Add(registro);
+            }
+            return datasource;
+        
+        }
+
+        private void CreateIfMissing(string path)
+        {
+            try
+            {
+                if (!Directory.Exists(path))
+                {
+                    // Try to create the directory.
+                    DirectoryInfo di = Directory.CreateDirectory(path);
+                }
+            }
+            catch (IOException ioex)
+            {
+                Console.WriteLine(ioex.Message);
+            }
+        }
+
+        public void StartProcess(string path)
+        {
+            Process process = new Process();
+            try
+            {
+                process.StartInfo.FileName = path;
+                process.Start();
+                process.WaitForInputIdle();
+            }
+            catch
+            {
+                throw;
+            }
+        }
       
+        public string MonthName(int month)
+        {
+            DateTimeFormatInfo dtinfo = new CultureInfo("es-ES", false).DateTimeFormat;
+            return dtinfo.GetMonthName(month).ToUpper();
+        }
+
+        private void btnSubirAfip_Click(object sender, EventArgs e)
+        {
+            var resultado = MessageBox.Show("¿Desea subir estos registros a afip?",
+               "Confirmación de Datos", MessageBoxButtons.OKCancel);
+
+            if (resultado != DialogResult.OK)
+            {
+                return;
+            }
+            SubirAfip();
+            BuscarLiquidacion();
+        }
+
+        private void ResumenLiquidacion_Click(object sender, EventArgs e)
+        {
+            LiquidacionExportToXLS();
+        }
+
+        private void btnPrevisualizarLiquidacionManual_Click(object sender, EventArgs e)
+        {
+            if (gridViewLiquidacion.SelectedRowsCount > 0)
+            {
+                for (int i = 0; i < gridViewLiquidacion.DataRowCount; i++)
+                {
+                    if (gridViewLiquidacion.IsRowSelected(i))
+                    {
+                        var Id = new Guid(gridViewLiquidacion.GetRowCellValue(i, "PesadaId").ToString());
+                        ImprimirLiquidacion(Id);
+                    }
+                }
+            }
+        }
+
     }
 }

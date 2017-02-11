@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraGrid.GridLevelNode gridLevelNode1 = new DevExpress.XtraGrid.GridLevelNode();
+            DevExpress.XtraGrid.GridLevelNode gridLevelNode2 = new DevExpress.XtraGrid.GridLevelNode();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_AdministracionLiquidacion));
             this.gridViewLiquidacionDetalle = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gridControlLiquidacion = new DevExpress.XtraGrid.GridControl();
@@ -47,11 +47,10 @@
             this.Liquidacion = new DevExpress.XtraTab.XtraTabControl();
             this.TabProcesoLiquidacion = new DevExpress.XtraTab.XtraTabPage();
             this.TabConsultaLiquidacion = new DevExpress.XtraTab.XtraTabPage();
-            this.groupControl7 = new DevExpress.XtraEditors.GroupControl();
-            this.btnPrevisualizar = new DevExpress.XtraEditors.SimpleButton();
-            this.btnSubirAfip = new DevExpress.XtraEditors.SimpleButton();
             this.groupControl6 = new DevExpress.XtraEditors.GroupControl();
             this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
+            this.cbTabaco = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.txtCuit = new System.Windows.Forms.TextBox();
             this.btnBuscarLiquidacion = new DevExpress.XtraEditors.SimpleButton();
             this.label5 = new System.Windows.Forms.Label();
@@ -67,6 +66,11 @@
             this.txtFet = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.txtProductor = new System.Windows.Forms.TextBox();
+            this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
+            this.btnPrevisualizarLiquidacionManual = new DevExpress.XtraEditors.SimpleButton();
+            this.btnSubirAfip = new DevExpress.XtraEditors.SimpleButton();
+            this.btnPrevisualizarLiquidacionElectronica = new DevExpress.XtraEditors.SimpleButton();
+            this.ResumenLiquidacion = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewLiquidacionDetalle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlLiquidacion)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewLiquidacion)).BeginInit();
@@ -81,12 +85,12 @@
             this.Liquidacion.SuspendLayout();
             this.TabProcesoLiquidacion.SuspendLayout();
             this.TabConsultaLiquidacion.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl7)).BeginInit();
-            this.groupControl7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl6)).BeginInit();
             this.groupControl6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
             this.groupControl2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).BeginInit();
+            this.groupControl3.SuspendLayout();
             this.SuspendLayout();
             // 
             // gridViewLiquidacionDetalle
@@ -98,15 +102,15 @@
             // gridControlLiquidacion
             // 
             this.gridControlLiquidacion.Dock = System.Windows.Forms.DockStyle.Fill;
-            gridLevelNode1.LevelTemplate = this.gridViewLiquidacionDetalle;
-            gridLevelNode1.RelationName = "Level1";
+            gridLevelNode2.LevelTemplate = this.gridViewLiquidacionDetalle;
+            gridLevelNode2.RelationName = "Level1";
             this.gridControlLiquidacion.LevelTree.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
-            gridLevelNode1});
+            gridLevelNode2});
             this.gridControlLiquidacion.Location = new System.Drawing.Point(2, 20);
             this.gridControlLiquidacion.MainView = this.gridViewLiquidacion;
             this.gridControlLiquidacion.MenuManager = this.ribbon;
             this.gridControlLiquidacion.Name = "gridControlLiquidacion";
-            this.gridControlLiquidacion.Size = new System.Drawing.Size(1259, 527);
+            this.gridControlLiquidacion.Size = new System.Drawing.Size(1258, 521);
             this.gridControlLiquidacion.TabIndex = 68;
             this.gridControlLiquidacion.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewLiquidacion,
@@ -131,13 +135,9 @@
             this.ribbon.Name = "ribbon";
             this.ribbon.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.Office2013;
             this.ribbon.ShowApplicationButton = DevExpress.Utils.DefaultBoolean.False;
-            this.ribbon.ShowCategoryInCaption = false;
             this.ribbon.ShowExpandCollapseButton = DevExpress.Utils.DefaultBoolean.False;
-            this.ribbon.ShowFullScreenButton = DevExpress.Utils.DefaultBoolean.False;
-            this.ribbon.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Show;
-            this.ribbon.ShowToolbarCustomizeItem = false;
-            this.ribbon.Size = new System.Drawing.Size(1270, 49);
-            this.ribbon.Toolbar.ShowCustomizeItem = false;
+            this.ribbon.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Hide;
+            this.ribbon.Size = new System.Drawing.Size(1269, 27);
             // 
             // groupControl5
             // 
@@ -151,7 +151,7 @@
             this.groupControl5.Controls.Add(this.btnBuscar);
             this.groupControl5.Location = new System.Drawing.Point(1, 1);
             this.groupControl5.Name = "groupControl5";
-            this.groupControl5.Size = new System.Drawing.Size(1263, 50);
+            this.groupControl5.Size = new System.Drawing.Size(1265, 50);
             this.groupControl5.TabIndex = 71;
             this.groupControl5.Text = "Buscar Romaneo";
             // 
@@ -219,7 +219,7 @@
             this.groupControl1.Controls.Add(this.gridControlRomaneo);
             this.groupControl1.Location = new System.Drawing.Point(1, 52);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(1263, 609);
+            this.groupControl1.Size = new System.Drawing.Size(1265, 607);
             this.groupControl1.TabIndex = 72;
             this.groupControl1.Text = "Lista de Romaneo";
             // 
@@ -230,11 +230,11 @@
             this.gridControlRomaneo.MainView = this.gridViewRomaneo;
             this.gridControlRomaneo.MenuManager = this.ribbon;
             this.gridControlRomaneo.Name = "gridControlRomaneo";
-            this.gridControlRomaneo.Size = new System.Drawing.Size(1259, 587);
+            this.gridControlRomaneo.Size = new System.Drawing.Size(1261, 585);
             this.gridControlRomaneo.TabIndex = 68;
             this.gridControlRomaneo.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewRomaneo});
-             // 
+            // 
             // gridViewRomaneo
             // 
             this.gridViewRomaneo.GridControl = this.gridControlRomaneo;
@@ -248,10 +248,10 @@
             // 
             this.Liquidacion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.Liquidacion.Location = new System.Drawing.Point(0, 41);
+            this.Liquidacion.Location = new System.Drawing.Point(0, 33);
             this.Liquidacion.Name = "Liquidacion";
             this.Liquidacion.SelectedTabPage = this.TabProcesoLiquidacion;
-            this.Liquidacion.Size = new System.Drawing.Size(1270, 692);
+            this.Liquidacion.Size = new System.Drawing.Size(1272, 686);
             this.Liquidacion.TabIndex = 73;
             this.Liquidacion.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.TabProcesoLiquidacion,
@@ -264,50 +264,18 @@
             this.TabProcesoLiquidacion.Controls.Add(this.groupControl1);
             this.TabProcesoLiquidacion.Image = ((System.Drawing.Image)(resources.GetObject("TabProcesoLiquidacion.Image")));
             this.TabProcesoLiquidacion.Name = "TabProcesoLiquidacion";
-            this.TabProcesoLiquidacion.Size = new System.Drawing.Size(1264, 661);
+            this.TabProcesoLiquidacion.Size = new System.Drawing.Size(1266, 657);
             this.TabProcesoLiquidacion.Text = "Proceso de Liquidación";
             // 
             // TabConsultaLiquidacion
             // 
-            this.TabConsultaLiquidacion.Controls.Add(this.groupControl7);
+            this.TabConsultaLiquidacion.Controls.Add(this.groupControl3);
             this.TabConsultaLiquidacion.Controls.Add(this.groupControl6);
             this.TabConsultaLiquidacion.Controls.Add(this.groupControl2);
             this.TabConsultaLiquidacion.Image = ((System.Drawing.Image)(resources.GetObject("TabConsultaLiquidacion.Image")));
             this.TabConsultaLiquidacion.Name = "TabConsultaLiquidacion";
-            this.TabConsultaLiquidacion.Size = new System.Drawing.Size(1264, 661);
+            this.TabConsultaLiquidacion.Size = new System.Drawing.Size(1266, 655);
             this.TabConsultaLiquidacion.Text = "Consulta de Liquidación";
-            // 
-            // groupControl7
-            // 
-            this.groupControl7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupControl7.Controls.Add(this.btnPrevisualizar);
-            this.groupControl7.Controls.Add(this.btnSubirAfip);
-            this.groupControl7.Location = new System.Drawing.Point(1, 627);
-            this.groupControl7.Name = "groupControl7";
-            this.groupControl7.ShowCaption = false;
-            this.groupControl7.Size = new System.Drawing.Size(1261, 33);
-            this.groupControl7.TabIndex = 76;
-            this.groupControl7.Text = "Buscar Romaneo";
-            // 
-            // btnPrevisualizar
-            // 
-            this.btnPrevisualizar.Image = ((System.Drawing.Image)(resources.GetObject("btnPrevisualizar.Image")));
-            this.btnPrevisualizar.Location = new System.Drawing.Point(92, 5);
-            this.btnPrevisualizar.Name = "btnPrevisualizar";
-            this.btnPrevisualizar.Size = new System.Drawing.Size(90, 22);
-            this.btnPrevisualizar.TabIndex = 41;
-            this.btnPrevisualizar.Text = "Previsualizar";
-            this.btnPrevisualizar.Click += new System.EventHandler(this.btnPrevisualizar_Click);
-            // 
-            // btnSubirAfip
-            // 
-            this.btnSubirAfip.Image = ((System.Drawing.Image)(resources.GetObject("btnSubirAfip.Image")));
-            this.btnSubirAfip.Location = new System.Drawing.Point(5, 5);
-            this.btnSubirAfip.Name = "btnSubirAfip";
-            this.btnSubirAfip.Size = new System.Drawing.Size(81, 22);
-            this.btnSubirAfip.TabIndex = 40;
-            this.btnSubirAfip.Text = "Subir Afip";
-            this.btnSubirAfip.Click += new System.EventHandler(this.btnSubirAfip_Click);
             // 
             // groupControl6
             // 
@@ -315,9 +283,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupControl6.Controls.Add(this.gridControlLiquidacion);
-            this.groupControl6.Location = new System.Drawing.Point(-1, 78);
+            this.groupControl6.Location = new System.Drawing.Point(3, 78);
             this.groupControl6.Name = "groupControl6";
-            this.groupControl6.Size = new System.Drawing.Size(1263, 549);
+            this.groupControl6.Size = new System.Drawing.Size(1262, 543);
             this.groupControl6.TabIndex = 75;
             this.groupControl6.Text = "Lista de Romaneo";
             // 
@@ -325,6 +293,8 @@
             // 
             this.groupControl2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupControl2.Controls.Add(this.cbTabaco);
+            this.groupControl2.Controls.Add(this.label8);
             this.groupControl2.Controls.Add(this.txtCuit);
             this.groupControl2.Controls.Add(this.btnBuscarLiquidacion);
             this.groupControl2.Controls.Add(this.label5);
@@ -340,11 +310,31 @@
             this.groupControl2.Controls.Add(this.txtFet);
             this.groupControl2.Controls.Add(this.label7);
             this.groupControl2.Controls.Add(this.txtProductor);
-            this.groupControl2.Location = new System.Drawing.Point(0, 1);
+            this.groupControl2.Location = new System.Drawing.Point(3, 1);
             this.groupControl2.Name = "groupControl2";
-            this.groupControl2.Size = new System.Drawing.Size(1262, 75);
+            this.groupControl2.Size = new System.Drawing.Size(1261, 75);
             this.groupControl2.TabIndex = 72;
             this.groupControl2.Text = "Buscar Romaneo";
+            // 
+            // cbTabaco
+            // 
+            this.cbTabaco.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbTabaco.FormattingEnabled = true;
+            this.cbTabaco.Location = new System.Drawing.Point(305, 24);
+            this.cbTabaco.Name = "cbTabaco";
+            this.cbTabaco.Size = new System.Drawing.Size(192, 21);
+            this.cbTabaco.TabIndex = 83;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(253, 26);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(46, 16);
+            this.label8.TabIndex = 82;
+            this.label8.Text = "Tabaco";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // txtCuit
             // 
@@ -357,7 +347,7 @@
             // btnBuscarLiquidacion
             // 
             this.btnBuscarLiquidacion.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscarLiquidacion.Image")));
-            this.btnBuscarLiquidacion.Location = new System.Drawing.Point(765, 22);
+            this.btnBuscarLiquidacion.Location = new System.Drawing.Point(765, 26);
             this.btnBuscarLiquidacion.Name = "btnBuscarLiquidacion";
             this.btnBuscarLiquidacion.Size = new System.Drawing.Size(81, 22);
             this.btnBuscarLiquidacion.TabIndex = 39;
@@ -482,11 +472,66 @@
             this.txtProductor.TabIndex = 64;
             this.txtProductor.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtProductor_KeyPress);
             // 
+            // groupControl3
+            // 
+            this.groupControl3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupControl3.Controls.Add(this.ResumenLiquidacion);
+            this.groupControl3.Controls.Add(this.btnPrevisualizarLiquidacionElectronica);
+            this.groupControl3.Controls.Add(this.btnSubirAfip);
+            this.groupControl3.Controls.Add(this.btnPrevisualizarLiquidacionManual);
+            this.groupControl3.Location = new System.Drawing.Point(3, 623);
+            this.groupControl3.Name = "groupControl3";
+            this.groupControl3.ShowCaption = false;
+            this.groupControl3.Size = new System.Drawing.Size(1261, 31);
+            this.groupControl3.TabIndex = 73;
+            this.groupControl3.Text = "Buscar Romaneo";
+            // 
+            // btnPrevisualizarLiquidacionManual
+            // 
+            this.btnPrevisualizarLiquidacionManual.Image = ((System.Drawing.Image)(resources.GetObject("btnPrevisualizarLiquidacionManual.Image")));
+            this.btnPrevisualizarLiquidacionManual.Location = new System.Drawing.Point(5, 4);
+            this.btnPrevisualizarLiquidacionManual.Name = "btnPrevisualizarLiquidacionManual";
+            this.btnPrevisualizarLiquidacionManual.Size = new System.Drawing.Size(185, 24);
+            this.btnPrevisualizarLiquidacionManual.TabIndex = 0;
+            this.btnPrevisualizarLiquidacionManual.Text = "Previsualizar Liquidación Manual";
+            this.btnPrevisualizarLiquidacionManual.Click += new System.EventHandler(this.btnPrevisualizarLiquidacionManual_Click);
+            // 
+            // btnSubirAfip
+            // 
+            this.btnSubirAfip.Image = ((System.Drawing.Image)(resources.GetObject("btnSubirAfip.Image")));
+            this.btnSubirAfip.Location = new System.Drawing.Point(196, 5);
+            this.btnSubirAfip.Name = "btnSubirAfip";
+            this.btnSubirAfip.Size = new System.Drawing.Size(105, 23);
+            this.btnSubirAfip.TabIndex = 1;
+            this.btnSubirAfip.Text = "Subir Afip";
+            this.btnSubirAfip.Click += new System.EventHandler(this.btnSubirAfip_Click);
+            // 
+            // btnPrevisualizarLiquidacionElectronica
+            // 
+            this.btnPrevisualizarLiquidacionElectronica.Image = ((System.Drawing.Image)(resources.GetObject("btnPrevisualizarLiquidacionElectronica.Image")));
+            this.btnPrevisualizarLiquidacionElectronica.Location = new System.Drawing.Point(307, 5);
+            this.btnPrevisualizarLiquidacionElectronica.Name = "btnPrevisualizarLiquidacionElectronica";
+            this.btnPrevisualizarLiquidacionElectronica.Size = new System.Drawing.Size(208, 23);
+            this.btnPrevisualizarLiquidacionElectronica.TabIndex = 2;
+            this.btnPrevisualizarLiquidacionElectronica.Text = "Previsualizar Liquidación Electrónica";
+            // 
+            // ResumenLiquidacion
+            // 
+            this.ResumenLiquidacion.Image = ((System.Drawing.Image)(resources.GetObject("ResumenLiquidacion.Image")));
+            this.ResumenLiquidacion.Location = new System.Drawing.Point(521, 5);
+            this.ResumenLiquidacion.Name = "ResumenLiquidacion";
+            this.ResumenLiquidacion.Size = new System.Drawing.Size(172, 23);
+            this.ResumenLiquidacion.TabIndex = 3;
+            this.ResumenLiquidacion.Text = "Resumen de Liquidaciones";
+            this.ResumenLiquidacion.Click += new System.EventHandler(this.ResumenLiquidacion_Click);
+            // 
             // Form_AdministracionLiquidacion
             // 
+            this.AllowFormGlass = DevExpress.Utils.DefaultBoolean.False;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1270, 763);
+            this.ClientSize = new System.Drawing.Size(1269, 749);
             this.Controls.Add(this.Liquidacion);
             this.Controls.Add(this.ribbon);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -510,13 +555,13 @@
             this.Liquidacion.ResumeLayout(false);
             this.TabProcesoLiquidacion.ResumeLayout(false);
             this.TabConsultaLiquidacion.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl7)).EndInit();
-            this.groupControl7.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl6)).EndInit();
             this.groupControl6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
             this.groupControl2.ResumeLayout(false);
             this.groupControl2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).EndInit();
+            this.groupControl3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -538,9 +583,6 @@
         private DevExpress.XtraTab.XtraTabControl Liquidacion;
         private DevExpress.XtraTab.XtraTabPage TabProcesoLiquidacion;
         private DevExpress.XtraTab.XtraTabPage TabConsultaLiquidacion;
-        private DevExpress.XtraEditors.GroupControl groupControl7;
-        private DevExpress.XtraEditors.SimpleButton btnPrevisualizar;
-        private DevExpress.XtraEditors.SimpleButton btnSubirAfip;
         private DevExpress.XtraEditors.GroupControl groupControl6;
         private DevExpress.XtraGrid.GridControl gridControlLiquidacion;
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewLiquidacion;
@@ -561,5 +603,12 @@
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewLiquidacionDetalle;
         private System.Windows.Forms.TextBox txtCuit;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox cbTabaco;
+        private System.Windows.Forms.Label label8;
+        private DevExpress.XtraEditors.GroupControl groupControl3;
+        private DevExpress.XtraEditors.SimpleButton ResumenLiquidacion;
+        private DevExpress.XtraEditors.SimpleButton btnPrevisualizarLiquidacionElectronica;
+        private DevExpress.XtraEditors.SimpleButton btnSubirAfip;
+        private DevExpress.XtraEditors.SimpleButton btnPrevisualizarLiquidacionManual;
     }
 }
