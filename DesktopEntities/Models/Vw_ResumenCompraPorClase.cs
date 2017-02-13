@@ -12,19 +12,14 @@ namespace DesktopEntities.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Pago
+    public partial class Vw_ResumenCompraPorClase
     {
-        public Pago()
-        {
-            this.PagoDetalle = new HashSet<PagoDetalle>();
-        }
-    
-        public System.Guid Id { get; set; }
-        public System.Guid OrdenPagoId { get; set; }
-        public System.DateTime Fecha { get; set; }
-        public decimal Importe { get; set; }
-    
-        public virtual OrdenPago OrdenPago { get; set; }
-        public virtual ICollection<PagoDetalle> PagoDetalle { get; set; }
+        public Nullable<System.DateTime> FechaRomaneo { get; set; }
+        public System.Guid TabacoId { get; set; }
+        public string Tabaco { get; set; }
+        public Nullable<int> Fardos { get; set; }
+        public string Clase { get; set; }
+        public Nullable<double> Kilos { get; set; }
+        public Nullable<double> Importe { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿using CooperativaProduccion.ViewModels;
+using CooperativaProduccion.ViewModels;
 using DesktopEntities.Models;
 using Extensions;
 using System;
@@ -249,7 +249,7 @@ namespace CooperativaProduccion.Helpers
                     Kilos = item.Kilos,
                     ImportePorPagar = item.ImportePorPagar,
                     NetoPorPagar = item.NetoPorPagar,
-                    RestaPorPagar = item.NetoPorPagar - Convert.ToDecimal(item.Pagado),
+                    RestaPorPagar = item.ImportePorPagar - Convert.ToDecimal(item.Pagado),
                 };
 
                 list.Add(conceptovm);

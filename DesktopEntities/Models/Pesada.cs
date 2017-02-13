@@ -14,6 +14,11 @@ namespace DesktopEntities.Models
     
     public partial class Pesada
     {
+        public Pesada()
+        {
+            this.ConceptoDeOrdenDePago = new HashSet<ConceptoDeOrdenDePago>();
+        }
+    
         public System.Guid Id { get; set; }
         public Nullable<long> NumPesada { get; set; }
         public Nullable<System.Guid> PreingresoId { get; set; }
@@ -40,5 +45,7 @@ namespace DesktopEntities.Models
         public string Cae { get; set; }
         public Nullable<System.DateTime> FechaVtoCae { get; set; }
         public Nullable<System.Guid> OrdenPagoId { get; set; }
+    
+        public virtual ICollection<ConceptoDeOrdenDePago> ConceptoDeOrdenDePago { get; set; }
     }
 }

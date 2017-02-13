@@ -14,6 +14,12 @@ namespace DesktopEntities.Models
     
     public partial class OrdenPago
     {
+        public OrdenPago()
+        {
+            this.ConceptoDeOrdenDePago = new HashSet<ConceptoDeOrdenDePago>();
+            this.Pago = new HashSet<Pago>();
+        }
+    
         public System.Guid Id { get; set; }
         public long NumOrdenPago { get; set; }
         public long NumIntOrdenPago { get; set; }
@@ -29,5 +35,8 @@ namespace DesktopEntities.Models
         public Nullable<decimal> Riego { get; set; }
         public Nullable<decimal> Neto { get; set; }
         public string Detalle { get; set; }
+    
+        public virtual ICollection<ConceptoDeOrdenDePago> ConceptoDeOrdenDePago { get; set; }
+        public virtual ICollection<Pago> Pago { get; set; }
     }
 }

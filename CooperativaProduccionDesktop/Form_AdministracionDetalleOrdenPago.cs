@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -11,6 +11,7 @@ using DesktopEntities.Models;
 using DevExpress.Utils;
 using CooperativaProduccion.ViewModels;
 using CooperativaProduccion.Helpers;
+using DevExpress.XtraEditors.Repository;
 
 namespace CooperativaProduccion
 {
@@ -65,119 +66,50 @@ namespace CooperativaProduccion
             
             _pagosManager = new PagosManager();
             _productoresManager = new ProductoresManager();
-            
-            this.dgvPendientes.CellBeginEdit += this.dgvPendientes_CellBeginEdit;
-            this.dgvPendientes.CellEndEdit += this.dgvPendientes_CellEndEdit;
-            
+
+            this.gridViewPendientes.CellValueChanged += gridViewPendientes_CellValueChanged;
+
             this.btnPago.Click += this.btnPago_Click;
-            
             this.btnCancelar.Click += this.btnCancelar_Click;
-            
-            ConfigurarGrillaDePagosPendientes();
         }
 
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        private bool _cellvaluerounded = false;
+        void gridViewPendientes_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
         {
-            if (keyData != Keys.Enter)
+            var fieldname = e.Column.FieldName;
+
+            if (fieldname == "Afectar")
             {
-                return base.ProcessCmdKey(ref msg, keyData);
-            }
-
-            if (dgvPendientes.CurrentCell == null)
-            {
-                return base.ProcessCmdKey(ref msg, keyData);
-            }
-
-            var columnafectar = dgvPendientes.Columns[_columns[5]];
-            int columnindex = dgvPendientes.CurrentCell.ColumnIndex;
-            int rowindex = dgvPendientes.CurrentCell.RowIndex;
-
-            if (columnindex != columnafectar.Index)
-            {
-                return base.ProcessCmdKey(ref msg, keyData);
-            }
-
-            if (rowindex + 1 >= dgvPendientes.RowCount)
-            {
-                return base.ProcessCmdKey(ref msg, keyData);
-            }
-
-            var cell = dgvPendientes.Rows[rowindex + 1].Cells[columnafectar.Index];
-
-            dgvPendientes.CurrentCell = cell;
-
-            dgvPendientes.BeginEdit(true);
-            _maskedtextbox.Focus();
-            _maskedtextbox.SelectionStart = 0;
-
-            return true;
-        }
-
-        void dgvPendientes_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
-        {
-            var columnafectar = dgvPendientes.Columns[_columns[5]];
-
-            if (e.ColumnIndex == columnafectar.Index)
-            {
-                var text = dgvPendientes[e.ColumnIndex, e.RowIndex].Value as String ?? String.Empty;
-                var rect = dgvPendientes.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, true);
-
-                _maskedtextbox.Text = text;
-                _maskedtextbox.Location = rect.Location;
-                _maskedtextbox.Size = rect.Size;
-                _maskedtextbox.Focus();
-                _maskedtextbox.SelectionStart = 0;
-                _maskedtextbox.Visible = true;
-            }
-        }
-
-        void dgvPendientes_CellEndEdit(object sender, DataGridViewCellEventArgs e)
-        {
-            if (!_maskedtextbox.Visible)
-            {
-                return;
-            }
-
-            var columnafectar = dgvPendientes.Columns[_columns[5]];
-
-            if (e.ColumnIndex == columnafectar.Index)
-            {
-                var text = _maskedtextbox.Text;
-                var cell = dgvPendientes.Rows[e.RowIndex].Cells[e.ColumnIndex];
-
-                if (text != String.Empty)
+                if (_cellvaluerounded)
                 {
-                    var afectar = Math.Round(Decimal.Parse(text), 2);
-                    var afectarstr = (afectar).ToString("n2");
-                    
-                    cell.Value = afectarstr;
-                    //
-                    //var precioround = Decimal.Round(afectar, 2, MidpointRounding.AwayFromZero);
-                    //var gciasTotal = Decimal.Round(afectar * gcias, 2, MidpointRounding.AwayFromZero);
-                    //var ivaTotal = Decimal.Round(precioround * iva, 2, MidpointRounding.AwayFromZero);
-                    //var iibbTotal = Decimal.Round(precioround * iibb, 2, MidpointRounding.AwayFromZero);
-                    //var coeficienteTotal = Decimal.Round(precioround * coeficientegral, 2, MidpointRounding.AwayFromZero);
-                    //
-                    //dgvPendientes.Rows[e.RowIndex].Cells[6].Value = gciasTotal;
-                    //dgvPendientes.Rows[e.RowIndex].Cells[7].Value = ivaTotal;
-                    //dgvPendientes.Rows[e.RowIndex].Cells[8].Value = iibbTotal;
-                    //dgvPendientes.Rows[e.RowIndex].Cells[9].Value = coeficienteTotal;
-                    //dgvPendientes.Rows[e.RowIndex].Cells[10].Value = coeficienteTotal;
-                    //dgvPendientes.Rows[e.RowIndex].Cells[11].Value = coeficienteTotal;
-                    //dgvPendientes.Rows[e.RowIndex].Cells[12].Value = coeficienteTotal;
-                    //
-                    //var netoTotal = Decimal.Round(precioround + gciasTotal + ivaTotal + iibbTotal + (coeficienteTotal * 4), 2, MidpointRounding.AwayFromZero);
-                    //
-                    //dgvPendientes.Rows[e.RowIndex].Cells[13].Value = netoTotal;
-                    //
-                    //CalcularValores();
+                    //Recalcular();
+                    _cellvaluerounded = false;
+                    return;
+                }
+
+                var value = Math.Round((decimal)e.Value, 2);
+
+                var idcolumn = gridViewPendientes.Columns["Id"];
+                var id = (Guid)gridViewPendientes.GetRowCellValue(e.RowHandle, idcolumn);
+                var resta = Math.Round(_DetalleDeordenDePago.Where(x => x.Id == id).Select(x => x.RestaPorPagar).Single());
+
+                var definitivo = 0.00m;
+
+                if (value < 0)
+                {
+                    definitivo = 0.00m;
+                }
+                else if (value > resta)
+                {
+                    definitivo = resta;
                 }
                 else
                 {
-                    cell.Value = text;
+                    definitivo = value;
                 }
-
-                _maskedtextbox.Visible = false;
+                
+                _cellvaluerounded = true;
+                gridViewPendientes.SetRowCellValue(e.RowHandle, e.Column, definitivo);
             }
         }
 
@@ -194,63 +126,8 @@ namespace CooperativaProduccion
             this.Close();
         }
 
-        private void ConfigurarGrillaDePagosPendientes()
-        {
-            DataGridViewColumn d1 = new DataGridViewTextBoxColumn();
-            DataGridViewColumn d2 = new DataGridViewTextBoxColumn();
-            DataGridViewColumn d3 = new DataGridViewTextBoxColumn();
-            DataGridViewColumn d4 = new DataGridViewTextBoxColumn();
-            DataGridViewColumn d5 = new DataGridViewTextBoxColumn();
-            DataGridViewColumn d6 = new DataGridViewTextBoxColumn();
-
-            //DataGridViewColumn d7 = new DataGridViewTextBoxColumn();
-            //DataGridViewColumn d8 = new DataGridViewTextBoxColumn();
-            //DataGridViewColumn d9 = new DataGridViewTextBoxColumn();
-            //DataGridViewColumn d10 = new DataGridViewTextBoxColumn();
-            //DataGridViewColumn d11 = new DataGridViewTextBoxColumn();
-            //DataGridViewColumn d12 = new DataGridViewTextBoxColumn();
-            //DataGridViewColumn d13 = new DataGridViewTextBoxColumn();
-
-            //Add Header Texts to be displayed on the Columns
-            d1.HeaderText = _columns[0];
-            d2.HeaderText = _columns[1];
-            d3.HeaderText = _columns[2];
-            d4.HeaderText = _columns[3];
-            d5.HeaderText = _columns[4];
-            d6.HeaderText = _columns[5];
-
-            //d7.HeaderText =  _columns[6];//RetencionTypes.RetencionGCIAS;
-            //d8.HeaderText =  _columns[7];
-            //d9.HeaderText =  _columns[8];
-            //d10.HeaderText = _columns[9];
-            //d11.HeaderText = _columns[10];
-            //d12.HeaderText = _columns[11];
-            //d13.HeaderText = _columns[12];
-
-            d1.Visible = false;
-            d2.Width = 70;
-            d3.Width = 50;
-            d4.Width = 138;
-            d5.Width = 94;
-            d6.Width = 94;
-
-            //d7.Visible = false;
-            //d8.Visible = false;
-            //d9.Visible = false;
-            //d10.Visible = false;
-            //d11.Visible = false;
-            //d12.Visible = false;
-            //d13.Visible = false;
-
-            //Add the Columns to the DataGridView
-            dgvPendientes.Columns.AddRange(d1, d2, d3, d4, d5, d6);
-                //d7, d8, d9, d10, d11, d12, d13);
-
-            _maskedtextbox = new MaskedTextBox();
-            dgvPendientes.Controls.Add(_maskedtextbox);
-
-            _maskedtextbox.Visible = false;
-        }
+        private OrdenDePagoDetalleViewModel _OrdenDePago;
+        private List<ConceptoDescripcionDeOrdenDePagoViewModel> _DetalleDeordenDePago;
         
         private void CargarDatos()
         {
@@ -258,9 +135,13 @@ namespace CooperativaProduccion
             var ordenvm = ordenesdepagovm.Items[0];
             var productorvm = _productoresManager.GetProductor(ordenvm.ProductorId);
 
+            _OrdenDePago = ordenvm;
+
             ActualizarControlesOrdenDePago(ordenvm, productorvm);
 
             var conceptosvm = _pagosManager.ListarConceptosDeOrdenDePago(ordenvm.Id);
+
+            _DetalleDeordenDePago = conceptosvm;
 
             #region Grid Conceptos Imputados
 
@@ -269,7 +150,7 @@ namespace CooperativaProduccion
                 {
                     Fecha = x.Fecha,
                     Letra = x.TipoDeFactura,
-                    Importe = x.NetoPorPagar,
+                    Importe = x.ImportePorPagar,
                     PuntoDeVenta = x.PuntoDeVenta,
                     NumeroDeLiquidacion = x.NumeroDeLiquidacion,
                     Kilos = x.Kilos,
@@ -322,29 +203,27 @@ namespace CooperativaProduccion
                     PuntoDeVenta = x.PuntoDeVenta,
                     NumeroDeLiquidacion = x.NumeroDeLiquidacion,
                     Saldo = x.RestaPorPagar,
-                    Afectar = x.RestaPorPagar,
+                    Afectar = Math.Round(x.RestaPorPagar, 2),
                 })
                 .ToList();
 
-            dgvPendientes.Rows.Clear();
+            gridControlPendientes.DataSource = new BindingList<RowConceptosPendientes>(sourcependientes);
 
-            foreach (var item in sourcependientes)
-            {
-                this.dgvPendientes.Rows.Add(
-                    item.Id,
-                    item.Fecha.ToShortDateString(),
-                    item.Letra,
-                        //item.PuntoDeVenta,
-                    item.NumeroDeLiquidacion,
-                    item.Saldo,
-                    item.Afectar);
-            }
+            gridViewPendientes.Columns["Id"].Visible = false;
 
-            this.dgvPendientes.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            this.dgvPendientes.Columns[2].DefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomCenter;
-            this.dgvPendientes.Columns[3].DefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomCenter;
-            this.dgvPendientes.Columns[4].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            this.dgvPendientes.Columns[5].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            gridViewPendientes.Columns["Fecha"].OptionsColumn.AllowEdit = false;
+            gridViewPendientes.Columns["Letra"].OptionsColumn.AllowEdit = false;
+            gridViewPendientes.Columns["PuntoDeVenta"].OptionsColumn.AllowEdit = false;
+            gridViewPendientes.Columns["NumeroDeLiquidacion"].OptionsColumn.AllowEdit = false;
+            gridViewPendientes.Columns["Saldo"].OptionsColumn.AllowEdit = false;
+            gridViewPendientes.Columns["Afectar"].OptionsColumn.AllowEdit = true;
+
+            var repository = new RepositoryItemTextEdit();
+            repository.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.RegEx;
+            repository.Mask.EditMask = @"\d+.\d+";
+            repository.Mask.UseMaskAsDisplayFormat = true;
+            gridControlPendientes.RepositoryItems.Add(repository);
+            gridViewPendientes.Columns["Afectar"].ColumnEdit = repository;
 
             #endregion
         }

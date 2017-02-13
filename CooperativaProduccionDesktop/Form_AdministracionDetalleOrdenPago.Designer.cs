@@ -1,4 +1,4 @@
-﻿namespace CooperativaProduccion
+namespace CooperativaProduccion
 {
     partial class Form_AdministracionDetalleOrdenPago
     {
@@ -47,7 +47,8 @@
             this.txtProductor = new System.Windows.Forms.TextBox();
             this.dpFechaOrden = new System.Windows.Forms.DateTimePicker();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
-            this.dgvPendientes = new System.Windows.Forms.DataGridView();
+            this.gridControlPendientes = new DevExpress.XtraGrid.GridControl();
+            this.gridViewPendientes = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.checkComision = new System.Windows.Forms.CheckBox();
             this.btnPago = new DevExpress.XtraEditors.SimpleButton();
             this.gridControlConceptosImputados = new DevExpress.XtraGrid.GridControl();
@@ -90,7 +91,8 @@
             this.groupControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvPendientes)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControlPendientes)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewPendientes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlConceptosImputados)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewConceptosImputados)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).BeginInit();
@@ -274,7 +276,7 @@
             // 
             this.groupControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupControl1.Controls.Add(this.dgvPendientes);
+            this.groupControl1.Controls.Add(this.gridControlPendientes);
             this.groupControl1.Controls.Add(this.checkComision);
             this.groupControl1.Controls.Add(this.btnPago);
             this.groupControl1.Controls.Add(this.gridControlConceptosImputados);
@@ -313,16 +315,22 @@
             this.groupControl1.TabIndex = 23;
             this.groupControl1.Text = "Detalle de Orden de Pago";
             // 
-            // dgvPendientes
+            // gridControlPendientes
             // 
-            this.dgvPendientes.AllowUserToAddRows = false;
-            this.dgvPendientes.AllowUserToDeleteRows = false;
-            this.dgvPendientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvPendientes.Location = new System.Drawing.Point(220, 203);
-            this.dgvPendientes.Name = "dgvPendientes";
-            this.dgvPendientes.RowHeadersVisible = false;
-            this.dgvPendientes.Size = new System.Drawing.Size(458, 161);
-            this.dgvPendientes.TabIndex = 41;
+            this.gridControlPendientes.Location = new System.Drawing.Point(220, 203);
+            this.gridControlPendientes.MainView = this.gridViewPendientes;
+            this.gridControlPendientes.MenuManager = this.ribbon;
+            this.gridControlPendientes.Name = "gridControlPendientes";
+            this.gridControlPendientes.Size = new System.Drawing.Size(458, 161);
+            this.gridControlPendientes.TabIndex = 41;
+            this.gridControlPendientes.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridViewPendientes});
+            // 
+            // gridViewPendientes
+            // 
+            this.gridViewPendientes.GridControl = this.gridControlPendientes;
+            this.gridViewPendientes.Name = "gridViewPendientes";
+            this.gridViewPendientes.OptionsView.ShowGroupPanel = false;
             // 
             // checkComision
             // 
@@ -686,12 +694,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
             this.groupControl1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvPendientes)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControlPendientes)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewPendientes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlConceptosImputados)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewConceptosImputados)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).EndInit();
             this.groupControl3.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -752,6 +762,7 @@
         private DevExpress.XtraEditors.SimpleButton btnCancelar;
         private DevExpress.XtraEditors.SimpleButton btnGrabar;
         private DevExpress.XtraEditors.SimpleButton btnImprimir;
-        private System.Windows.Forms.DataGridView dgvPendientes;
+        private DevExpress.XtraGrid.GridControl gridControlPendientes;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridViewPendientes;
     }
 }
