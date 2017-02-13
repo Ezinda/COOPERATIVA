@@ -80,6 +80,8 @@
             this.txtTotalFardo = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.m_serialPort1 = new System.IO.Ports.SerialPort(this.components);
+            this.gridControlClases = new DevExpress.XtraGrid.GridControl();
+            this.gridViewClases = new DevExpress.XtraGrid.Views.Grid.GridView();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEdit3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).BeginInit();
@@ -96,6 +98,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridViewPesada)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl4)).BeginInit();
             this.groupControl4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControlClases)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewClases)).BeginInit();
             this.SuspendLayout();
             // 
             // ribbon
@@ -123,7 +127,7 @@
             this.ribbon.ShowFullScreenButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Hide;
             this.ribbon.ShowToolbarCustomizeItem = false;
-            this.ribbon.Size = new System.Drawing.Size(624, 122);
+            this.ribbon.Size = new System.Drawing.Size(625, 122);
             this.ribbon.Toolbar.ShowCustomizeItem = false;
             // 
             // btnPesadaMostrador
@@ -377,6 +381,7 @@
             // 
             // groupControl3
             // 
+            this.groupControl3.Controls.Add(this.gridControlClases);
             this.groupControl3.Controls.Add(this.txtClase);
             this.groupControl3.Controls.Add(this.gridControlPesada);
             this.groupControl3.Controls.Add(this.btnReimprimir);
@@ -398,20 +403,22 @@
             this.txtClase.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtClase.Enabled = false;
             this.txtClase.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtClase.Location = new System.Drawing.Point(71, 6);
+            this.txtClase.Location = new System.Drawing.Point(73, 6);
             this.txtClase.Name = "txtClase";
             this.txtClase.Size = new System.Drawing.Size(92, 22);
             this.txtClase.TabIndex = 4;
-            this.txtClase.TextChanged += new System.EventHandler(this.txtClase_TextChanged);
             this.txtClase.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtClase_KeyPress);
             // 
             // gridControlPesada
             // 
-            this.gridControlPesada.Location = new System.Drawing.Point(5, 35);
+            this.gridControlPesada.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gridControlPesada.Location = new System.Drawing.Point(130, 34);
             this.gridControlPesada.MainView = this.gridViewPesada;
             this.gridControlPesada.MenuManager = this.ribbon;
             this.gridControlPesada.Name = "gridControlPesada";
-            this.gridControlPesada.Size = new System.Drawing.Size(607, 181);
+            this.gridControlPesada.Size = new System.Drawing.Size(482, 181);
             this.gridControlPesada.TabIndex = 67;
             this.gridControlPesada.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewPesada});
@@ -425,8 +432,9 @@
             // 
             // btnReimprimir
             // 
+            this.btnReimprimir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnReimprimir.Image = ((System.Drawing.Image)(resources.GetObject("btnReimprimir.Image")));
-            this.btnReimprimir.Location = new System.Drawing.Point(424, 219);
+            this.btnReimprimir.Location = new System.Drawing.Point(426, 218);
             this.btnReimprimir.Name = "btnReimprimir";
             this.btnReimprimir.Size = new System.Drawing.Size(87, 25);
             this.btnReimprimir.TabIndex = 66;
@@ -435,8 +443,9 @@
             // 
             // btnEliminar
             // 
+            this.btnEliminar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnEliminar.Image = ((System.Drawing.Image)(resources.GetObject("btnEliminar.Image")));
-            this.btnEliminar.Location = new System.Drawing.Point(518, 219);
+            this.btnEliminar.Location = new System.Drawing.Point(519, 218);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(93, 25);
             this.btnEliminar.TabIndex = 65;
@@ -445,9 +454,10 @@
             // 
             // txtKilos
             // 
+            this.txtKilos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtKilos.Enabled = false;
             this.txtKilos.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtKilos.Location = new System.Drawing.Point(360, 6);
+            this.txtKilos.Location = new System.Drawing.Point(421, 6);
             this.txtKilos.Name = "txtKilos";
             this.txtKilos.Size = new System.Drawing.Size(92, 22);
             this.txtKilos.TabIndex = 63;
@@ -455,12 +465,13 @@
             // 
             // checkBalanzaAutomatica
             // 
+            this.checkBalanzaAutomatica.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBalanzaAutomatica.AutoSize = true;
             this.checkBalanzaAutomatica.Checked = true;
             this.checkBalanzaAutomatica.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBalanzaAutomatica.Enabled = false;
             this.checkBalanzaAutomatica.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBalanzaAutomatica.Location = new System.Drawing.Point(169, 7);
+            this.checkBalanzaAutomatica.Location = new System.Drawing.Point(230, 7);
             this.checkBalanzaAutomatica.Name = "checkBalanzaAutomatica";
             this.checkBalanzaAutomatica.Size = new System.Drawing.Size(130, 20);
             this.checkBalanzaAutomatica.TabIndex = 62;
@@ -470,8 +481,9 @@
             // 
             // btnAgregarCaja
             // 
+            this.btnAgregarCaja.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAgregarCaja.Image = ((System.Drawing.Image)(resources.GetObject("btnAgregarCaja.Image")));
-            this.btnAgregarCaja.Location = new System.Drawing.Point(518, 5);
+            this.btnAgregarCaja.Location = new System.Drawing.Point(519, 5);
             this.btnAgregarCaja.Name = "btnAgregarCaja";
             this.btnAgregarCaja.Size = new System.Drawing.Size(93, 26);
             this.btnAgregarCaja.TabIndex = 5;
@@ -480,9 +492,10 @@
             // 
             // label5
             // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(315, 9);
+            this.label5.Location = new System.Drawing.Point(376, 9);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(35, 16);
             this.label5.TabIndex = 57;
@@ -492,7 +505,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(11, 8);
+            this.label6.Location = new System.Drawing.Point(13, 8);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(37, 16);
             this.label6.TabIndex = 55;
@@ -620,11 +633,29 @@
             // 
             this.m_serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.m_serialPort1_DataReceived);
             // 
+            // gridControlClases
+            // 
+            this.gridControlClases.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.gridControlClases.Location = new System.Drawing.Point(5, 34);
+            this.gridControlClases.MainView = this.gridViewClases;
+            this.gridControlClases.MenuManager = this.ribbon;
+            this.gridControlClases.Name = "gridControlClases";
+            this.gridControlClases.Size = new System.Drawing.Size(119, 181);
+            this.gridControlClases.TabIndex = 68;
+            this.gridControlClases.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridViewClases});
+            // 
+            // gridViewClases
+            // 
+            this.gridViewClases.GridControl = this.gridControlClases;
+            this.gridViewClases.Name = "gridViewClases";
+            // 
             // Form_RomaneoPesada
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(624, 575);
+            this.ClientSize = new System.Drawing.Size(625, 575);
             this.Controls.Add(this.groupControl4);
             this.Controls.Add(this.groupControl3);
             this.Controls.Add(this.groupControl1);
@@ -657,6 +688,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.groupControl4)).EndInit();
             this.groupControl4.ResumeLayout(false);
             this.groupControl4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControlClases)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewClases)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -714,5 +747,7 @@
         private System.IO.Ports.SerialPort m_serialPort1;
         private System.Windows.Forms.ComboBox cbTabaco;
         private System.Windows.Forms.Label label7;
+        private DevExpress.XtraGrid.GridControl gridControlClases;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridViewClases;
     }
 }

@@ -50,11 +50,12 @@ namespace CooperativaProduccion
         private static decimal _minimonuevaentrada = 10;
         private static decimal _bajadaynuevaentrada_porcentaje = 10;
         private static System.Timers.Timer _timer;
-        private string previous = String.Empty;
 
         private bool SerialPortPendingClose = false;
         private bool SerialPortClosed = false;
         private bool _DEBUG = false;
+
+        private List<ClaseRow> _bufferdeclases;
 
         #endregion
 
@@ -68,6 +69,7 @@ namespace CooperativaProduccion
 
             _bufferentrada = new List<RegPesada>();
             _buffersalida = new List<RegPesada>();
+            _bufferdeclases = new List<ClaseRow>();
             _registrotemporal = null;
 
             m_serialPort1.BaudRate = 9600;
@@ -335,48 +337,6 @@ namespace CooperativaProduccion
         private void btnRecuperar_Click(object sender, EventArgs e)
         {
 
-        }
-
-        private void txtClase_TextChanged(object sender, EventArgs e)
-        {
-            //if (checkBalanzaAutomatica.Checked)
-            //{
-            //    var current = txtClase.Text;
-            //
-            //    if (current == previous)
-            //    {
-            //        return;
-            //    }
-            //
-            //    LimpiarTxtClase();
-            //    txtClase.SelectionStart = txtClase.Text.ToCharArray().Length;
-            //    txtClase.SelectionLength = 0;
-            //}
-        }
-
-        private void LimpiarTxtClase()
-        {
-            var current = txtClase.Text;
-
-            if (previous != String.Empty)
-            {
-                var index = current.IndexOf(previous);
-
-                if (index == 0)
-                {
-                    try
-                    {
-                        var newvalue = current.Substring(previous.Length);
-                        previous = newvalue;
-                        txtClase.Text = newvalue;
-                        return;
-                    }
-                    catch
-                    {
-                    }
-                }
-            }
-            previous = current;
         }
 
         private void m_serialPort1_DataReceived(object sender, SerialDataReceivedEventArgs e)
@@ -1516,9 +1476,16 @@ namespace CooperativaProduccion
 
         private void txtClase_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == 13)
+            if (e.KeyChar == (int)Keys.Enter)
             {
-                txtKilos.Focus();
+                if (checkBalanzaAutomatica.Checked)
+                {
+                    ---;
+                }
+                else
+                {
+                    txtKilos.Focus();
+                }
             }
         }
 
@@ -1569,5 +1536,11 @@ namespace CooperativaProduccion
         {
             return Hora.ToString("mm\\:ss") + " - " + Valor;
         }
+    }
+
+    public class ClaseRow
+    {
+        public String Clase { get; set; }
+        public int Contador { get; set; }
     }
 }
