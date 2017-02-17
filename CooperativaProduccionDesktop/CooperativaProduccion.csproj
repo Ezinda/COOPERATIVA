@@ -389,6 +389,8 @@
     <Compile Include="ReportModels\RegistroResumenLiquidacion.cs" />
     <Compile Include="ReportModels\RegistroResumenRomaneoBurley.cs" />
     <Compile Include="ReportModels\RegistroResumenRomaneoVirginia.cs" />
+    <Compile Include="ReportModels\ResumenClasePorMes.cs" />
+    <Compile Include="ReportModels\ResumenClasePorTrimestre.cs" />
     <Compile Include="ReportModels\ResumenCompraPorMes.cs" />
     <Compile Include="Reports\ClasesReport.cs">
       <SubType>Component</SubType>
@@ -446,6 +448,18 @@
     </Compile>
     <Compile Include="Reports\ResumenCompraReport.Designer.cs">
       <DependentUpon>ResumenCompraReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\ResumenDeClasePorMesReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ResumenDeClasePorMesReport.Designer.cs">
+      <DependentUpon>ResumenDeClasePorMesReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\ResumenDeClasePorTrimestreReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ResumenDeClasePorTrimestreReport.Designer.cs">
+      <DependentUpon>ResumenDeClasePorTrimestreReport.cs</DependentUpon>
     </Compile>
     <Compile Include="Reports\ResumenLiquidacionReport.cs">
       <SubType>Component</SubType>
@@ -609,6 +623,12 @@
     <EmbeddedResource Include="Reports\ResumenCompraReport.resx">
       <DependentUpon>ResumenCompraReport.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ResumenDeClasePorMesReport.resx">
+      <DependentUpon>ResumenDeClasePorMesReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ResumenDeClasePorTrimestreReport.resx">
+      <DependentUpon>ResumenDeClasePorTrimestreReport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\ResumenLiquidacionReport.resx">
       <DependentUpon>ResumenLiquidacionReport.cs</DependentUpon>
     </EmbeddedResource>
@@ -642,7 +662,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DesktopEntities\DesktopEntities.csproj">

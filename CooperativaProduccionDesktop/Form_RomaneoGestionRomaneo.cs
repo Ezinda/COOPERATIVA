@@ -276,7 +276,8 @@ namespace CooperativaProduccion
 
         private List<RegistroResumenRomaneoVirginia> GenerarReporteResumenRomaneoVirginia()
         {
-            List<RegistroResumenRomaneoVirginia> datasource = new List<RegistroResumenRomaneoVirginia>();
+            var culture = CultureInfo.CreateSpecificCulture("es-ES");
+            var datasource = new List<RegistroResumenRomaneoVirginia>();
             var resumenVirginia = Context.Vw_ResumenRomaneoVirginia
                 .Where(x => x.fechaRomaneo.Value >= dpDesdeRomaneo.Value.Date
                     && x.fechaRomaneo.Value <= dpHastaRomaneo.Value.Date)
@@ -339,8 +340,8 @@ namespace CooperativaProduccion
                 registro.X3L = resumen.X3L.ToString();
                 registro.X4F = resumen.X4F.ToString();
                 registro.X4L = resumen.X4L.ToString();
-                registro.Totalkg = resumen.Totalkg.Value.ToString();
-                registro.Importebruto = resumen.Importebruto.Value.ToString();
+                registro.Totalkg = resumen.Totalkg.Value.ToString("F", culture);
+                registro.Importebruto = resumen.Importebruto.Value.ToString("F", culture);
                 datasource.Add(registro);
             }
             return datasource;
@@ -434,7 +435,8 @@ namespace CooperativaProduccion
 
         private List<RegistroResumenRomaneoBurley> GenerarReporteResumenRomaneoBurley()
         {
-            List<RegistroResumenRomaneoBurley> datasource = new List<RegistroResumenRomaneoBurley>();
+            var culture = CultureInfo.CreateSpecificCulture("es-ES");
+            var datasource = new List<RegistroResumenRomaneoBurley>();
             var resumenBurley = Context.Vw_ResumenRomaneoBurley
                 .Where(x => x.fechaRomaneo.Value >= dpDesdeRomaneo.Value.Date
                     && x.fechaRomaneo.Value <= dpHastaRomaneo.Value.Date)
@@ -476,8 +478,8 @@ namespace CooperativaProduccion
                 registro.X2F = resumen.X2F.ToString();
                 registro.X2L = resumen.X2L.ToString();
                 registro.X3K = resumen.X3K.ToString();
-                registro.Totalkg = resumen.Totalkg.Value.ToString();
-                registro.Importebruto = resumen.Importebruto.Value.ToString();
+                registro.Totalkg = resumen.Totalkg.Value.ToString("F", culture);
+                registro.Importebruto = resumen.Importebruto.Value.ToString("F", culture);
 
                 datasource.Add(registro);
             }
@@ -633,6 +635,269 @@ namespace CooperativaProduccion
             return debug.Valor;
         }
 
+        private void ResumenClasePorMes()
+        {
+            var reporte = new ResumenDeClasePorMesReport();
+            var desde = dpDesdeRomaneo.Value.Date;
+            var hasta = dpHastaRomaneo.Value.Date;
+            var mes = desde.ToString("MMMM", CultureInfo.CreateSpecificCulture("es"));
+            var tipotabaco = cbTabaco.Text;
+
+            if (desde.Month != hasta.Month || desde.Year != hasta.Year)
+            {
+                MessageBox.Show("El rango de fecha seleccionado debe tener el mismo mes y año.",
+                    "Fecha fuera de rango",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+
+                return;
+            }
+
+            if (String.IsNullOrEmpty(tipotabaco))
+            {
+                MessageBox.Show("Se debe seleccionar un tipo de tabaco.",
+                    "Tipo de tabaco no seleccionado",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+
+                return;
+            }
+
+            var datasource = GenerarReporteResumenClasePorMes(desde, hasta, tipotabaco);
+
+            reporte.DataSource = datasource;
+            reporte.Parameters["Empresa"].Value = "Cooperativa de Productores Agropecuarios del Tucuman Ltda.";
+            reporte.Parameters["TipoDeTabaco"].Value = tipotabaco;
+            reporte.Parameters["Provincia"].Value = "Tucumán";
+            reporte.Parameters["Mes"].Value = CultureInfo.CreateSpecificCulture("es").TextInfo.ToTitleCase(mes);
+            reporte.Parameters["Desde"].Value = desde.ToShortDateString();
+            reporte.Parameters["Hasta"].Value = hasta.ToShortDateString();
+
+            using (ReportPrintTool tool = new ReportPrintTool(reporte))
+            {
+                reporte.ShowPreviewMarginLines = false;
+                tool.PreviewForm.Text = "Etiqueta";
+                tool.ShowPreviewDialog();
+            }
+        }
+
+        public List<ResumenClasePorMes> GenerarReporteResumenClasePorMes(DateTime desde, DateTime hasta, string tipotabaco)
+        {
+            var culture = CultureInfo.CreateSpecificCulture("es-ES");
+            var context = new CooperativaProduccionEntities();
+            Expression<Func<Vw_ResumenClasePorFecha, bool>> pred = x => true;
+
+            List<ResumenClasePorMes> result = new List<ResumenClasePorMes>();
+
+            pred = pred.And(x =>
+                x.Tabaco == tipotabaco &&
+                x.FechaRomaneo >= desde &&
+                x.FechaRomaneo <= hasta);
+
+            var resumen = context.Vw_ResumenClasePorFecha
+                .Where(pred)
+                .Select(x => new
+                {
+                    Clase = x.Clase,
+                    Kilos = x.Kilos,
+                    PrecioPorKilo = x.PrecioPorKilo,
+                    Total = x.Importe
+                })
+                .OrderBy(x => x.Clase)
+                .ToList();
+
+            foreach (var item in resumen)
+            {
+                ResumenClasePorMes detalle = result.Where(x => x.Clase == item.Clase).SingleOrDefault();
+
+                if (detalle == null)
+                {
+                    detalle = new ResumenClasePorMes();
+
+                    detalle.Clase = item.Clase;
+                    detalle.Kilos = item.Kilos.Value.ToString();
+                    detalle.PrecioPorKilo = item.PrecioPorKilo.Value.ToString("F", culture);
+                    detalle.Total = item.Total.Value.ToString("F", culture);
+                }
+                else
+                {
+                    var kilos = Convert.ToDecimal(detalle.Kilos) + Convert.ToDecimal(item.Kilos.Value);
+                    var total = Convert.ToDecimal(detalle.Total) + Convert.ToDecimal(item.Total.Value);
+
+                    detalle.Kilos = kilos.ToString("F0");
+                    detalle.Total = total.ToString("F", culture);
+                }
+
+                result.Add(detalle);
+            }
+
+            return result;
+        }
+
+        private void ResumenClasePorTrimestre()
+        {
+            var reporte = new ResumenDeClasePorTrimestreReport();
+            var desde = dpDesdeRomaneo.Value.Date;
+            var hasta = dpHastaRomaneo.Value.Date;
+            var tipotabaco = cbTabaco.Text;
+
+            if (desde.Year != hasta.Year)
+            {
+                MessageBox.Show("El rango de fecha seleccionado debe tener el mismo año.",
+                    "Fecha fuera de rango",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+
+                return;
+            }
+
+            if ((hasta.Month - desde.Month) != 2)
+            {
+                MessageBox.Show("El rango de fecha seleccionado debe ser entre tres meses.",
+                    "Fecha fuera de rango",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+
+                return;
+            }
+
+            if (String.IsNullOrEmpty(tipotabaco))
+            {
+                MessageBox.Show("Se debe seleccionar un tipo de tabaco.",
+                    "Tipo de tabaco no seleccionado",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+
+                return;
+            }
+
+            var anio = desde.Year.ToString();
+            var mes01 = new DateTime(desde.Year, desde.Month, 1).ToString("MMMM", CultureInfo.CreateSpecificCulture("es"));
+            var mes02 = new DateTime(desde.Year, desde.Month + 1, 1).ToString("MMMM", CultureInfo.CreateSpecificCulture("es"));
+            var mes03 = new DateTime(desde.Year, desde.Month + 2, 1).ToString("MMMM", CultureInfo.CreateSpecificCulture("es"));
+            var datasource = GenerarReporteResumenClasePorTrimestre(desde, hasta, tipotabaco);
+
+            reporte.DataSource = datasource;
+            reporte.Parameters["Campaña"].Value = anio + ".-";
+            reporte.Parameters["TipoDeTabaco"].Value = tipotabaco;
+            reporte.Parameters["Provincia"].Value = "TUCUMAN";
+            reporte.Parameters["Mes01"].Value = CultureInfo.CreateSpecificCulture("es").TextInfo.ToUpper(mes01);
+            reporte.Parameters["Mes02"].Value = CultureInfo.CreateSpecificCulture("es").TextInfo.ToUpper(mes02);
+            reporte.Parameters["Mes03"].Value = CultureInfo.CreateSpecificCulture("es").TextInfo.ToUpper(mes03);
+            reporte.Parameters["Desde"].Value = desde.ToShortDateString();
+            reporte.Parameters["Hasta"].Value = hasta.ToShortDateString();
+
+            using (ReportPrintTool tool = new ReportPrintTool(reporte))
+            {
+                reporte.ShowPreviewMarginLines = false;
+                tool.PreviewForm.Text = "Etiqueta";
+                tool.ShowPreviewDialog();
+            }
+        }
+
+        public List<ResumenClasePorTrimestre> GenerarReporteResumenClasePorTrimestre(DateTime desde, DateTime hasta, string tipotabaco)
+        {
+            var mes01 = desde.Month;
+            var mes02 = desde.Month + 1;
+            var mes03 = desde.Month + 1;
+            var culture = CultureInfo.CreateSpecificCulture("es-ES");
+            var context = new CooperativaProduccionEntities();
+            Expression<Func<Vw_ResumenClasePorFecha, bool>> pred = x => true;
+
+            List<ResumenClasePorTrimestre> result = new List<ResumenClasePorTrimestre>();
+
+            pred = pred.And(x =>
+                x.Tabaco == tipotabaco &&
+                x.FechaRomaneo >= desde &&
+                x.FechaRomaneo <= hasta);
+
+            var resumen = context.Vw_ResumenClasePorFecha
+                .Where(pred)
+                .Select(x => new
+                {
+                    Fecha = x.FechaRomaneo,
+                    Clase = x.Clase,
+                    Kilos = x.Kilos,
+                    PrecioPorKilo = x.PrecioPorKilo,
+                    Total = x.Importe
+                })
+                .OrderBy(x => x.Clase)
+                .ToList();
+
+            foreach (var item in resumen)
+            {
+                var mesdeitem = item.Fecha.Value.Month;
+                ResumenClasePorTrimestre detalle = result.Where(x => x.Clase == item.Clase).SingleOrDefault();
+
+                if (detalle == null)
+                {
+                    var kilos01 = 0m;
+                    var kilos02 = 0m;
+                    var kilos03 = 0m;
+                    var totalkilos = 0m;
+
+                    if (mesdeitem == mes01)
+                    {
+                        kilos01 += Convert.ToDecimal(item.Kilos);
+                    }
+                    else if (mesdeitem == mes02)
+                    {
+                        kilos02 += Convert.ToDecimal(item.Kilos);
+                    }
+                    else if (mesdeitem == mes03)
+                    {
+                        kilos03 += Convert.ToDecimal(item.Kilos);
+                    }
+
+                    totalkilos = kilos01 + kilos02 + kilos03;
+
+                    detalle = new ResumenClasePorTrimestre();
+
+                    detalle.Clase = item.Clase;
+                    detalle.Kilos01 = kilos01;
+                    detalle.Kilos02 = kilos02;
+                    detalle.Kilos03 = kilos03;
+                    detalle.TotalKilos = totalkilos;
+                    detalle.PrecioPorKilo = item.PrecioPorKilo.Value;
+                }
+                else
+                {
+                    var kilos01 = Convert.ToDecimal(detalle.Kilos01);
+                    var kilos02 = Convert.ToDecimal(detalle.Kilos02);
+                    var kilos03 = Convert.ToDecimal(detalle.Kilos03);
+                    var totalkilos = 0m;
+
+                    if (mesdeitem == mes01)
+                    {
+                        kilos01 += Convert.ToDecimal(item.Kilos);
+                    }
+                    else if (mesdeitem == mes02)
+                    {
+                        kilos02 += Convert.ToDecimal(item.Kilos);
+                    }
+                    else if (mesdeitem == mes03)
+                    {
+                        kilos03 += Convert.ToDecimal(item.Kilos);
+                    }
+
+                    totalkilos = kilos01 + kilos02 + kilos03;
+
+                    detalle = new ResumenClasePorTrimestre();
+
+                    detalle.Clase = item.Clase;
+                    detalle.Kilos01 = kilos01;
+                    detalle.Kilos02 = kilos02;
+                    detalle.Kilos03 = kilos03;
+                    detalle.TotalKilos = totalkilos;
+                    detalle.PrecioPorKilo = item.PrecioPorKilo.Value;
+                }
+
+                result.Add(detalle);
+            }
+
+            return result;
+        }
+
         private void ResumenCompra()
         {
             var reporte = new ResumenCompraReport();
@@ -655,7 +920,8 @@ namespace CooperativaProduccion
 
         public List<ResumenCompraPorMes> GenerarReporteResumenCompraPorMes()
         {
-            CooperativaProduccionEntities Context = new CooperativaProduccionEntities();
+            var culture = CultureInfo.CreateSpecificCulture("es-ES");
+            var Context = new CooperativaProduccionEntities();
 
             Expression<Func<Vw_ResumenCompraPorClase, bool>> pred = x => true;
 
@@ -685,7 +951,7 @@ namespace CooperativaProduccion
                 detalle.Clase = liquidacionDetalle.Clase;
                 detalle.Fardos = liquidacionDetalle.Fardos.Value.ToString();
                 detalle.Kilos = liquidacionDetalle.Kilos.Value.ToString();
-                detalle.Importe = liquidacionDetalle.Total.Value.ToString();
+                detalle.Importe = liquidacionDetalle.Total.Value.ToString("F", culture);
                 datasource.Add(detalle);
             }
             return datasource;
@@ -734,12 +1000,12 @@ namespace CooperativaProduccion
 
         private void btnResumenClasesMes_ItemClick(object sender, ItemClickEventArgs e)
         {
-
+            ResumenClasePorMes();
         }
 
         private void btnResumenClasesTrimestre_ItemClick(object sender, ItemClickEventArgs e)
         {
-
+            ResumenClasePorTrimestre();
         }
 
         private void btnExportarRomaneo_ItemClick(object sender, ItemClickEventArgs e)

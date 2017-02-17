@@ -34,6 +34,9 @@ namespace CooperativaProduccion
 
         public void CargarFardo()
         {
+            var porcentajem = Convert.ToDecimal(porcentaje);
+            porcentajem = Math.Round(porcentajem, 2);
+
             //lblClase.Text = clase;
             lblClase.Invoke((MethodInvoker)(() => lblClase.Text = clase));
             //lblFardo.Text = numFardo;
@@ -41,7 +44,7 @@ namespace CooperativaProduccion
             //lblTotalKg.Text = totalkg;
             lblTotalKg.Invoke((MethodInvoker)(() => lblTotalKg.Text = totalkg));
 
-            lblPorcentaje.Invoke((MethodInvoker)(() => lblPorcentaje.Text = porcentaje));
+            lblPorcentaje.Invoke((MethodInvoker)(() => lblPorcentaje.Text = porcentajem.ToString()));
         }
         
         #endregion

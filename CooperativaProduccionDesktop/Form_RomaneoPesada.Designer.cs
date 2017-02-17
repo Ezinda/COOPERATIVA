@@ -58,6 +58,8 @@
             this.btnCancelarPesada = new DevExpress.XtraEditors.SimpleButton();
             this.btnIniciarPesada = new DevExpress.XtraEditors.SimpleButton();
             this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
+            this.gridControlClases = new DevExpress.XtraGrid.GridControl();
+            this.gridViewClases = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.txtClase = new System.Windows.Forms.TextBox();
             this.gridControlPesada = new DevExpress.XtraGrid.GridControl();
             this.gridViewPesada = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -80,8 +82,7 @@
             this.txtTotalFardo = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.m_serialPort1 = new System.IO.Ports.SerialPort(this.components);
-            this.gridControlClases = new DevExpress.XtraGrid.GridControl();
-            this.gridViewClases = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEdit3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).BeginInit();
@@ -94,12 +95,12 @@
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).BeginInit();
             this.groupControl3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControlClases)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewClases)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlPesada)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewPesada)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl4)).BeginInit();
             this.groupControl4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridControlClases)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridViewClases)).BeginInit();
             this.SuspendLayout();
             // 
             // ribbon
@@ -398,6 +399,28 @@
             this.groupControl3.TabIndex = 23;
             this.groupControl3.Text = "Parámetros";
             // 
+            // gridControlClases
+            // 
+            this.gridControlClases.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.gridControlClases.Location = new System.Drawing.Point(5, 34);
+            this.gridControlClases.MainView = this.gridViewClases;
+            this.gridControlClases.MenuManager = this.ribbon;
+            this.gridControlClases.Name = "gridControlClases";
+            this.gridControlClases.Size = new System.Drawing.Size(119, 181);
+            this.gridControlClases.TabIndex = 68;
+            this.gridControlClases.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridViewClases});
+            // 
+            // gridViewClases
+            // 
+            this.gridViewClases.GridControl = this.gridControlClases;
+            this.gridViewClases.Name = "gridViewClases";
+            this.gridViewClases.OptionsBehavior.Editable = false;
+            this.gridViewClases.OptionsView.ShowGroupPanel = false;
+            this.gridViewClases.RowClick += new DevExpress.XtraGrid.Views.Grid.RowClickEventHandler(this.gridViewClases_RowClick);
+            this.gridViewClases.KeyUp += new System.Windows.Forms.KeyEventHandler(this.gridViewClases_KeyUp);
+            // 
             // txtClase
             // 
             this.txtClase.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
@@ -633,29 +656,20 @@
             // 
             this.m_serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.m_serialPort1_DataReceived);
             // 
-            // gridControlClases
+            // textBox1
             // 
-            this.gridControlClases.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.gridControlClases.Location = new System.Drawing.Point(5, 34);
-            this.gridControlClases.MainView = this.gridViewClases;
-            this.gridControlClases.MenuManager = this.ribbon;
-            this.gridControlClases.Name = "gridControlClases";
-            this.gridControlClases.Size = new System.Drawing.Size(119, 181);
-            this.gridControlClases.TabIndex = 68;
-            this.gridControlClases.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gridViewClases});
-            // 
-            // gridViewClases
-            // 
-            this.gridViewClases.GridControl = this.gridControlClases;
-            this.gridViewClases.Name = "gridViewClases";
+            this.textBox1.Location = new System.Drawing.Point(335, 78);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 21);
+            this.textBox1.TabIndex = 26;
+            this.textBox1.Visible = false;
             // 
             // Form_RomaneoPesada
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(625, 575);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.groupControl4);
             this.Controls.Add(this.groupControl3);
             this.Controls.Add(this.groupControl1);
@@ -683,13 +697,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).EndInit();
             this.groupControl3.ResumeLayout(false);
             this.groupControl3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControlClases)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewClases)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlPesada)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewPesada)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl4)).EndInit();
             this.groupControl4.ResumeLayout(false);
             this.groupControl4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridControlClases)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridViewClases)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -749,5 +763,6 @@
         private System.Windows.Forms.Label label7;
         private DevExpress.XtraGrid.GridControl gridControlClases;
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewClases;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

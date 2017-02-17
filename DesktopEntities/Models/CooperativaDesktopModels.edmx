@@ -507,6 +507,35 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Productor' does not h
           <Property Name="GANANCIA" Type="decimal" Precision="38" Scale="10" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenClasePorFecha' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Vw_ResumenClasePorFecha">
+          <Key>
+            <PropertyRef Name="TabacoId" />
+          </Key>
+          <Property Name="FechaRomaneo" Type="date" />
+          <Property Name="TabacoId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Tabaco" Type="varchar" MaxLength="150" />
+          <Property Name="Clase" Type="varchar" MaxLength="120" />
+          <Property Name="Kilos" Type="float" />
+          <Property Name="PrecioPorKilo" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Importe" Type="float" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenClasePorMes' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Vw_ResumenClasePorMes">
+          <Key>
+            <PropertyRef Name="TabacoId" />
+          </Key>
+          <Property Name="Anio" Type="int" />
+          <Property Name="Mes" Type="int" />
+          <Property Name="TabacoId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Tabaco" Type="varchar" MaxLength="150" />
+          <Property Name="Clase" Type="varchar" MaxLength="120" />
+          <Property Name="Kilos" Type="float" />
+          <Property Name="PrecioPorKilo" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Importe" Type="float" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenCompraPorClase' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_ResumenCompraPorClase">
           <Key>
@@ -1084,6 +1113,29 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_TipoTabaco' does not 
     [Vw_Productor].[GANANCIA] AS [GANANCIA]
     FROM [dbo].[Vw_Productor] AS [Vw_Productor]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="Vw_ResumenClasePorFecha" EntityType="Self.Vw_ResumenClasePorFecha" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Vw_ResumenClasePorFecha].[FechaRomaneo] AS [FechaRomaneo], 
+    [Vw_ResumenClasePorFecha].[TabacoId] AS [TabacoId], 
+    [Vw_ResumenClasePorFecha].[Tabaco] AS [Tabaco], 
+    [Vw_ResumenClasePorFecha].[Clase] AS [Clase], 
+    [Vw_ResumenClasePorFecha].[Kilos] AS [Kilos], 
+    [Vw_ResumenClasePorFecha].[PrecioPorKilo] AS [PrecioPorKilo], 
+    [Vw_ResumenClasePorFecha].[Importe] AS [Importe]
+    FROM [dbo].[Vw_ResumenClasePorFecha] AS [Vw_ResumenClasePorFecha]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Vw_ResumenClasePorMes" EntityType="Self.Vw_ResumenClasePorMes" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Vw_ResumenClasePorMes].[Anio] AS [Anio], 
+    [Vw_ResumenClasePorMes].[Mes] AS [Mes], 
+    [Vw_ResumenClasePorMes].[TabacoId] AS [TabacoId], 
+    [Vw_ResumenClasePorMes].[Tabaco] AS [Tabaco], 
+    [Vw_ResumenClasePorMes].[Clase] AS [Clase], 
+    [Vw_ResumenClasePorMes].[Kilos] AS [Kilos], 
+    [Vw_ResumenClasePorMes].[PrecioPorKilo] AS [PrecioPorKilo], 
+    [Vw_ResumenClasePorMes].[Importe] AS [Importe]
+    FROM [dbo].[Vw_ResumenClasePorMes] AS [Vw_ResumenClasePorMes]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="Vw_ResumenCompraPorClase" EntityType="Self.Vw_ResumenCompraPorClase" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [Vw_ResumenCompraPorClase].[FechaRomaneo] AS [FechaRomaneo], 
@@ -1329,6 +1381,8 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_TipoTabaco' does not 
           <EntitySet Name="Vw_Preingreso" EntityType="CooperativaProduccionModel.Vw_Preingreso" />
           <EntitySet Name="Vw_Producto" EntityType="CooperativaProduccionModel.Vw_Producto" />
           <EntitySet Name="Vw_Productor" EntityType="CooperativaProduccionModel.Vw_Productor" />
+          <EntitySet Name="Vw_ResumenClasePorFecha" EntityType="CooperativaProduccionModel.Vw_ResumenClasePorFecha" />
+          <EntitySet Name="Vw_ResumenClasePorMes" EntityType="CooperativaProduccionModel.Vw_ResumenClasePorMes" />
           <EntitySet Name="Vw_ResumenCompraPorClase" EntityType="CooperativaProduccionModel.Vw_ResumenCompraPorClase" />
           <EntitySet Name="Vw_ResumenPesada" EntityType="CooperativaProduccionModel.Vw_ResumenPesada" />
           <EntitySet Name="Vw_ResumenPesadaPorClase" EntityType="CooperativaProduccionModel.Vw_ResumenPesadaPorClase" />
@@ -1868,6 +1922,31 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_TipoTabaco' does not 
           <Property Name="GADM" Type="Decimal" Precision="38" Scale="10" />
           <Property Name="RIEGO" Type="Decimal" Precision="38" Scale="10" />
           <Property Name="GANANCIA" Type="Decimal" Precision="38" Scale="10" />
+        </EntityType>
+        <EntityType Name="Vw_ResumenClasePorFecha">
+          <Key>
+            <PropertyRef Name="TabacoId" />
+          </Key>
+          <Property Name="FechaRomaneo" Type="DateTime" Precision="0" />
+          <Property Name="TabacoId" Type="Guid" Nullable="false" />
+          <Property Name="Tabaco" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Clase" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="Kilos" Type="Double" />
+          <Property Name="PrecioPorKilo" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Importe" Type="Double" />
+        </EntityType>
+        <EntityType Name="Vw_ResumenClasePorMes">
+          <Key>
+            <PropertyRef Name="TabacoId" />
+          </Key>
+          <Property Name="Anio" Type="Int32" />
+          <Property Name="Mes" Type="Int32" />
+          <Property Name="TabacoId" Type="Guid" Nullable="false" />
+          <Property Name="Tabaco" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Clase" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="Kilos" Type="Double" />
+          <Property Name="PrecioPorKilo" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Importe" Type="Double" />
         </EntityType>
         <EntityType Name="Vw_ResumenCompraPorClase">
           <Key>
@@ -2721,6 +2800,33 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_TipoTabaco' does not 
                 <ScalarProperty Name="nrofet" ColumnName="nrofet" />
                 <ScalarProperty Name="CUIT" ColumnName="CUIT" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vw_ResumenClasePorFecha">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.Vw_ResumenClasePorFecha">
+              <MappingFragment StoreEntitySet="Vw_ResumenClasePorFecha">
+                <ScalarProperty Name="Importe" ColumnName="Importe" />
+                <ScalarProperty Name="PrecioPorKilo" ColumnName="PrecioPorKilo" />
+                <ScalarProperty Name="Kilos" ColumnName="Kilos" />
+                <ScalarProperty Name="Clase" ColumnName="Clase" />
+                <ScalarProperty Name="Tabaco" ColumnName="Tabaco" />
+                <ScalarProperty Name="TabacoId" ColumnName="TabacoId" />
+                <ScalarProperty Name="FechaRomaneo" ColumnName="FechaRomaneo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vw_ResumenClasePorMes">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.Vw_ResumenClasePorMes">
+              <MappingFragment StoreEntitySet="Vw_ResumenClasePorMes">
+                <ScalarProperty Name="Importe" ColumnName="Importe" />
+                <ScalarProperty Name="PrecioPorKilo" ColumnName="PrecioPorKilo" />
+                <ScalarProperty Name="Kilos" ColumnName="Kilos" />
+                <ScalarProperty Name="Clase" ColumnName="Clase" />
+                <ScalarProperty Name="Tabaco" ColumnName="Tabaco" />
+                <ScalarProperty Name="TabacoId" ColumnName="TabacoId" />
+                <ScalarProperty Name="Mes" ColumnName="Mes" />
+                <ScalarProperty Name="Anio" ColumnName="Anio" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
