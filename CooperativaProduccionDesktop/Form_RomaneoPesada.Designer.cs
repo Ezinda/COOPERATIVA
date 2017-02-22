@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_RomaneoPesada));
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.btnPesadaMostrador = new DevExpress.XtraBars.BarButtonItem();
@@ -81,7 +80,6 @@
             this.label10 = new System.Windows.Forms.Label();
             this.txtTotalFardo = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.m_serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEdit3)).BeginInit();
@@ -378,7 +376,6 @@
             this.btnIniciarPesada.TabIndex = 3;
             this.btnIniciarPesada.Text = "Iniciar";
             this.btnIniciarPesada.Click += new System.EventHandler(this.btnIniciarPesada_Click);
-            this.btnIniciarPesada.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.btnIniciarPesada_KeyPress);
             // 
             // groupControl3
             // 
@@ -652,10 +649,6 @@
             this.label9.TabIndex = 64;
             this.label9.Text = "Total Fardos";
             // 
-            // m_serialPort1
-            // 
-            this.m_serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.m_serialPort1_DataReceived);
-            // 
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(335, 78);
@@ -758,7 +751,6 @@
         private DevExpress.XtraGrid.GridControl gridControlPesada;
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewPesada;
         public System.Windows.Forms.TextBox txtClase;
-        private System.IO.Ports.SerialPort m_serialPort1;
         private System.Windows.Forms.ComboBox cbTabaco;
         private System.Windows.Forms.Label label7;
         private DevExpress.XtraGrid.GridControl gridControlClases;
