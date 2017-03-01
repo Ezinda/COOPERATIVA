@@ -25,20 +25,19 @@ namespace CooperativaProduccion
         public Form_ConfiguracionImpresionEtiqueta()
         {
             InitializeComponent();
-            Context = new CooperativaProduccionEntities();
             Iniciar();
         }
 
         private void Iniciar()
         {
+            Context = new CooperativaProduccionEntities();
             var result = (
-             from a in Context.Vw_Clase.AsEnumerable()
-             .Where(x => x.Vigente == true)
+             from a in Context.Vw_Clase
              select new
              {
                  Clase = a.NOMBRE,
-                 Tabaco = a.DESCRIPCION.Equals(DevConstantes.TabacoReclasificacion) ? 
-                    DevConstantes.TabacoReclasificacion : a.DESCRIPCION
+                 Tabaco = a.DESCRIPCION.Equals(DevConstantes.TabacoReclasificacion) ?
+                     DevConstantes.TabacoReclasificacion : a.DESCRIPCION
              })
              .OrderBy(x => x.Tabaco)
              .ThenBy(x => x.Clase)
@@ -122,7 +121,6 @@ namespace CooperativaProduccion
                         {
                             Console.WriteLine(Ex.ToString());
                         }
-
                     }
                 }
             }
@@ -147,4 +145,13 @@ namespace CooperativaProduccion
         }
 
     }
+    //private class ClaseImpresion
+    //{
+    //    System.Guid ID { get; set; }
+    //    string NOMBRE { get; set; }
+    //    string COD_PRODUCTO { get; set; }
+    //    string DESCRIPCION { get; set; }
+    //    Nullable<decimal> PRECIOCOMPRA { get; set; }
+    //    Nullable<bool> Vigente { get; set; }
+    //}
 }

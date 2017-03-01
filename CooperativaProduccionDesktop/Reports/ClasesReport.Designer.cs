@@ -39,18 +39,20 @@
             // 
             this.Detail.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
             this.BarCodeClase});
-            this.Detail.HeightF = 193.75F;
+            this.Detail.Dpi = 100F;
+            this.Detail.HeightF = 194F;
             this.Detail.Name = "Detail";
             this.Detail.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100F);
             this.Detail.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft;
             // 
             // BarCodeClase
             // 
+            this.BarCodeClase.Dpi = 100F;
             this.BarCodeClase.Font = new System.Drawing.Font("Arial", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BarCodeClase.LocationFloat = new DevExpress.Utils.PointFloat(37F, 22.50001F);
+            this.BarCodeClase.LocationFloat = new DevExpress.Utils.PointFloat(38.66663F, 22.50001F);
             this.BarCodeClase.Name = "BarCodeClase";
             this.BarCodeClase.Padding = new DevExpress.XtraPrinting.PaddingInfo(10, 10, 0, 0, 100F);
-            this.BarCodeClase.SizeF = new System.Drawing.SizeF(203F, 131.3333F);
+            this.BarCodeClase.SizeF = new System.Drawing.SizeF(237.4167F, 131.3333F);
             this.BarCodeClase.StylePriority.UseFont = false;
             this.BarCodeClase.StylePriority.UseTextAlignment = false;
             this.BarCodeClase.Symbology = code128Generator1;
@@ -58,19 +60,21 @@
             // 
             // TopMargin
             // 
-            this.TopMargin.HeightF = 3.791666F;
+            this.TopMargin.Dpi = 100F;
+            this.TopMargin.HeightF = 4F;
             this.TopMargin.Name = "TopMargin";
             this.TopMargin.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100F);
             this.TopMargin.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft;
             // 
             // BottomMargin
             // 
+            this.BottomMargin.Dpi = 100F;
             this.BottomMargin.HeightF = 7F;
             this.BottomMargin.Name = "BottomMargin";
             this.BottomMargin.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100F);
             this.BottomMargin.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft;
             // 
-            // ReportClases
+            // ClasesReport
             // 
             this.Bands.AddRange(new DevExpress.XtraReports.UI.Band[] {
             this.Detail,
@@ -80,7 +84,7 @@
             this.PageHeight = 200;
             this.PageWidth = 294;
             this.PaperKind = System.Drawing.Printing.PaperKind.Custom;
-            this.Version = "15.2";
+            this.Version = "16.1";
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
         }
