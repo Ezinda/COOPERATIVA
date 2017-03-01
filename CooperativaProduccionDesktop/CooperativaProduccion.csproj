@@ -376,6 +376,7 @@
     <Compile Include="Helpers\PagosManager.cs" />
     <Compile Include="Helpers\ProductoresManager.cs" />
     <Compile Include="Helpers\RawPrinterHelper.cs" />
+    <Compile Include="Helpers\RomaneosExportacion.cs" />
     <Compile Include="Interface\IEnlaceActualizar.cs" />
     <Compile Include="Interface\IEnlaceMostradorPesada.cs" />
     <Compile Include="Interface\IEnlace.cs" />

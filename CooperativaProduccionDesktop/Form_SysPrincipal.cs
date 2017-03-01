@@ -35,6 +35,13 @@ namespace CooperativaProduccion
         public Form_SysPrincipal()
         {
             InitializeComponent();
+
+#if DEBUG
+            Helpers.ParserIngresoTabaco.ImprimirArchivoEncabezado(@"C:\Users\administrador\Desktop\INPRODE.TXT");
+            Helpers.ParserIngresoTabaco.ImprimirArchivoRenglones(@"C:\Users\administrador\Desktop\INPRODR.TXT");
+            return;
+#endif
+
             Context = new CooperativaProduccionEntities();
             ShowSplashForm();
             _CurrentUser = CheckCredentials();

@@ -34,8 +34,18 @@ namespace CooperativaProduccion
 
         public void CargarFardo()
         {
-            var porcentajem = Convert.ToDecimal(porcentaje);
-            porcentajem = Math.Round(porcentajem, 2);
+            decimal porcentajem;
+
+            if (porcentaje == null || porcentaje == String.Empty)
+            {
+                porcentajem = Convert.ToDecimal(0m);
+                porcentajem = Math.Round(porcentajem, 2);
+            }
+            else
+            {
+                porcentajem = Convert.ToDecimal(porcentaje);
+                porcentajem = Math.Round(porcentajem, 2);
+            }
 
             //lblClase.Text = clase;
             lblClase.Invoke((MethodInvoker)(() => lblClase.Text = clase));

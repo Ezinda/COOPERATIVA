@@ -37,21 +37,17 @@ namespace CooperativaProduccion
         private Form_AdministracionBuscarProductor _formBuscarProductor;
 
         #region balanza - lectura
-#if DEBUG
-        private static List<RegPesada> _bufferregistrosentrada = new List<RegPesada>();
-        private static List<RegPesada> _bufferregistrossalida = new List<RegPesada>();
-#endif
+
         private static List<RegPesada> _bufferdecoincidencias = new List<RegPesada>();
         private static RegPesada _ultimoregistro;
-        private const int _coincidenciasparaimprimir = 3;
-        private const int _limitecoincidenciaarriba = 1;
-        private const int _limitecoincidenciaabajo = -1;
+        private const int _coincidenciasminimasparaimprimir = 8;
+        private const int _coincidenciasmaximasparaimprimir = 30;
+        private const int _limitecoincidenciaarriba = 0;
+        private const int _limitecoincidenciaabajo = 0;
         private System.IO.Ports.SerialPort _serialport;
 
         private string lectura;
         private static TimeSpan _horaInicio;
-        
-        private static RegPesada _registrotemporal;
         
         
         private static decimal _minimonuevaentrada = 10;
@@ -60,6 +56,7 @@ namespace CooperativaProduccion
         public System.Windows.Forms.TextBox _txtMostradorKilos;
 
         private bool _DEBUG = false;
+        //private long _logcounter = 1;
 
         private List<ClaseRow> _coladeclases;
 
@@ -73,9 +70,8 @@ namespace CooperativaProduccion
             _productorId = Guid.Empty;
 
             _coladeclases = new List<ClaseRow>();
-            _registrotemporal = null;
 
-            _serialport = new System.IO.Ports.SerialPort(this.components);
+            _serialport = new System.IO.Ports.SerialPort();
             _serialport.BaudRate = 9600;
             _serialport.Parity = Parity.None;
             _serialport.StopBits = StopBits.One;
@@ -105,8 +101,6 @@ namespace CooperativaProduccion
             {
                 HideMostradorKilos();
             }
-
-            _serialport.DataReceived += new SerialDataReceivedEventHandler(_serialport_DataReceived);
         }
 
         private void _serialport_DataReceived(object sender, SerialDataReceivedEventArgs e)
@@ -136,8 +130,8 @@ namespace CooperativaProduccion
 
                 if (!this.IsDisposed && _txtMostradorKilos != null)
                 {
-                    textBox1.Invoke((MethodInvoker)(() => textBox1.Text = valor.ToString()));
-                    _txtMostradorKilos.Invoke((MethodInvoker)(() => _txtMostradorKilos.Text = valor.ToString()));
+                    textBox1.BeginInvoke((MethodInvoker)(() => textBox1.Text = valor.ToString()));
+                    _txtMostradorKilos.BeginInvoke((MethodInvoker)(() => _txtMostradorKilos.Text = valor.ToString()));
                 }
 
                 hora = DateTime.Now.TimeOfDay;
@@ -157,29 +151,30 @@ namespace CooperativaProduccion
                     Valor = valor,
                     Variacion = variacion
                 };
-#if DEBUG
-                _bufferregistrosentrada.Add(registro);
-#endif
+
+                //try
+                //{
+                //    Log(valor + ";" + variacion + ";" + (_bufferdecoincidencias.Count == 0 ? "Zero" : "NotZ"));
+                //}
+                //catch
+                //{
+                //}
+
                 _ultimoregistro = registro;
 
                 if (valor == 0)
                 {
                     _bufferdecoincidencias.Clear();
                 }
-                if (_bufferdecoincidencias.Count == 0)
+                else if (variacion == -1000m)
                 {
                     _bufferdecoincidencias.Add(registro);
                 }
-                else if (_limitecoincidenciaabajo < variacion && variacion < _limitecoincidenciaarriba)
+                else if (_limitecoincidenciaabajo <= variacion && variacion <= _limitecoincidenciaarriba)
                 {
                     _bufferdecoincidencias.Add(registro);
                 }
-                else
-                {
-                    _bufferdecoincidencias.Clear();
-                }
-
-                if (_bufferdecoincidencias.Count == _coincidenciasparaimprimir)
+                else if (_bufferdecoincidencias.Count >= _coincidenciasminimasparaimprimir && _bufferdecoincidencias.Count <= _coincidenciasmaximasparaimprimir)
                 {
                     decimal maximoValor = 0;
                     RegPesada maximoRegistro = null;
@@ -195,19 +190,22 @@ namespace CooperativaProduccion
 
                     _ultimoregistro = null;
                     _bufferdecoincidencias.Clear();
-
-                    txtKilos.Invoke((MethodInvoker)(() => txtKilos.Text = _registrotemporal.Valor.ToString()));
+                    
+                    txtKilos.BeginInvoke((MethodInvoker)(() => txtKilos.Text = maximoValor.ToString()));
                     SaveAndPrintKg(_pesadaId);
-#if DEBUG
-                    _bufferregistrossalida.Add(maximoRegistro);
-#endif
+
+                    _bufferdecoincidencias.Clear();
+                }
+                else
+                {
+                    _bufferdecoincidencias.Clear();
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                System.Console.WriteLine("DataReceived -> " + ex);
                 return;
             }
-
         }
 
         #region Method Code
@@ -215,9 +213,16 @@ namespace CooperativaProduccion
         private void btnPesadaMostrador_ItemClick(object sender, ItemClickEventArgs e)
         {
             _pesadaMostrador = new Form_RomaneoPesadaMostrador();
+
             _pesadaMostrador.nombre = txtNombre.Text;
             _pesadaMostrador.cuit = txtCuit.Text;
             _pesadaMostrador.CargarDatos();
+
+            if (Screen.AllScreens.Count() > 1)
+            {
+                _pesadaMostrador.Location = Screen.AllScreens[1].WorkingArea.Location;
+            }
+
             _pesadaMostrador.Show();
         }
 
@@ -249,6 +254,8 @@ namespace CooperativaProduccion
             var isbalanzaautomatica = checkBalanzaAutomatica.Checked;
             var productorId = _productorId;
             var tipotabacoId = cbTabaco.SelectedValue != null ? (Guid)cbTabaco.SelectedValue : Guid.Empty;
+
+            SetAutoFocusClase();
 
             if (productorId == Guid.Empty)
             {
@@ -292,13 +299,62 @@ namespace CooperativaProduccion
                 if (!_DEBUG && isbalanzaautomatica)
                 {
                     _bufferdecoincidencias = new List<RegPesada>();
-                    _serialport.Open();
+
+                    if (!_serialport.IsOpen)
+                    {
+                        var maximosintentos = 5;
+                        var contador = 1;
+
+                        while (!_serialport.IsOpen && contador <= maximosintentos)
+                        {
+                            if (contador != 1)
+                            {
+                                _serialport.DataReceived -= _serialport_DataReceived;
+                                System.Threading.Thread.Sleep(100);
+                            }
+
+                            _serialport.DataReceived += _serialport_DataReceived;
+                            _serialport.Open();
+
+                            contador++;
+                        }
+
+                        if (!_serialport.IsOpen)
+                        {
+                            checkBalanzaAutomatica.Checked = false;
+
+                            MessageBox.Show("No se ha podido conectar a la balanza.",
+                                "Sin conexión",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                        }
+                    }
                 }
 
                 this.btnIniciarPesada.Enabled = false;
             }
 
-            txtClase.Focus();
+            AutoFocusClase();
+        }
+
+        private bool _autofocusclase = false;
+
+        private void SetAutoFocusClase()
+        {
+            _autofocusclase = true;
+        }
+
+        private void UnsetAutoFocusClase()
+        {
+            _autofocusclase = false;
+        }
+
+        private void AutoFocusClase()
+        {
+            if (_autofocusclase)
+            {
+                txtClase.Focus();
+            }
         }
 
         private void btnCancelarPesada_Click(object sender, EventArgs e)
@@ -316,7 +372,11 @@ namespace CooperativaProduccion
             {
                 try
                 {
-                    _serialport.Close();
+                    if (_serialport.IsOpen)
+                    {
+                        _serialport.DataReceived -= _serialport_DataReceived;
+                        _serialport.Close();
+                    }
                 }
                 catch
                 {
@@ -324,6 +384,8 @@ namespace CooperativaProduccion
             }
 
             CancelarPesada();
+
+            UnsetAutoFocusClase();
         }
    
         private void checkBalanzaAutomatica_CheckedChanged(object sender, EventArgs e)
@@ -335,7 +397,36 @@ namespace CooperativaProduccion
                 if (!_DEBUG && iniciado)
                 {
                     _bufferdecoincidencias = new List<RegPesada>();
-                    _serialport.Open();
+
+                    if (!_serialport.IsOpen)
+                    {
+                        var maximosintentos = 5;
+                        var contador = 1;
+
+                        while (!_serialport.IsOpen && contador <= maximosintentos)
+                        {
+                            if (contador != 1)
+                            {
+                                _serialport.DataReceived -= _serialport_DataReceived;
+                                System.Threading.Thread.Sleep(100);
+                            }
+
+                            _serialport.DataReceived += _serialport_DataReceived;
+                            _serialport.Open();
+
+                            contador++;
+                        }
+
+                        if (!_serialport.IsOpen)
+                        {
+                            checkBalanzaAutomatica.Checked = false;
+
+                            MessageBox.Show("No se ha podido conectar a la balanza.",
+                                "Sin conexión",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                        }
+                    }
                 }
 
                 txtKilos.Enabled = false;
@@ -349,7 +440,11 @@ namespace CooperativaProduccion
                 {
                     try
                     {
-                        _serialport.Close();
+                        if (_serialport.IsOpen)
+                        {
+                            _serialport.DataReceived -= _serialport_DataReceived;
+                            _serialport.Close();
+                        }
                     }
                     catch
                     {
@@ -433,6 +528,8 @@ namespace CooperativaProduccion
         private void btnReimprimir_Click(object sender, EventArgs e)
         {
             ImprimirEtiqueta();
+
+            AutoFocusClase();
         }
        
         private void btnEliminar_Click(object sender, EventArgs e)
@@ -448,6 +545,8 @@ namespace CooperativaProduccion
             CargarGrilla();
             CalcularTotales();
             PasarFardoMostrador(true);
+
+            AutoFocusClase();
         }
 
         private void btnFinalizar_Click(object sender, EventArgs e)
@@ -465,6 +564,21 @@ namespace CooperativaProduccion
             PasarFardoMostrador(true);
             //m_serialPort1.Close();//Cerramos puerto
             //m_serialPort1.Dispose();//Liberamos recursos
+
+            if (!_DEBUG)
+            {
+                try
+                {
+                    if (_serialport.IsOpen)
+                    {
+                        _serialport.DataReceived -= _serialport_DataReceived;
+                        _serialport.Close();
+                    }
+                }
+                catch
+                {
+                }
+            }
         }
 
         private void btnSalir_Click(object sender, EventArgs e)
@@ -473,6 +587,7 @@ namespace CooperativaProduccion
             {
                 try
                 {
+                    _serialport.DataReceived -= _serialport_DataReceived;
                     _serialport.Close();
                 }
                 catch
@@ -491,6 +606,19 @@ namespace CooperativaProduccion
         //private void Log(string v)
         //{
         //    File.AppendAllText("Log.txt", v + Environment.NewLine);
+        //}
+
+        //private void Log(string v)
+        //{
+        //    File.AppendAllText("Log.txt", v + ";" + _logcounter.ToString("000000") + Environment.NewLine);
+        //    _logcounter++;
+        //}
+
+        //private long _counter_received = 1;
+        //private void LogReceived(string v)
+        //{
+        //    File.AppendAllText("LogReceived.txt", v + ";" + _counter_received.ToString("000000") + Environment.NewLine);
+        //    _counter_received++;
         //}
 
         private void btnRecuperar_Click(object sender, EventArgs e)
@@ -516,6 +644,12 @@ namespace CooperativaProduccion
         private void Iniciar(Guid? Id)
         {
             _pesadaMostrador = new Form_RomaneoPesadaMostrador();
+
+            if (Screen.AllScreens.Count() > 1)
+            {
+                _pesadaMostrador.Location = Screen.AllScreens[1].WorkingArea.Location;
+            }
+
             _pesadaMostrador.Show();
             Deshabilitar();
             CooperativaProduccionEntities Context = new CooperativaProduccionEntities();
@@ -548,10 +682,13 @@ namespace CooperativaProduccion
                         txtCuit.Text = productor.CUIT;
                         txtNombre.Text = productor.NOMBRE;
                         txtProvincia.Text = productor.Provincia;
+                        cbTabaco.SelectedValue = pesada.TipoTabacoId;
                         txtTotalFardo.Text = pesada.TotalFardo.Value.ToString();
                         txtTotalKilo.Text = pesada.TotalKg.Value.ToString();
                         txtImporteBruto.Text = pesada.ImporteBruto.Value.ToString();
                         txtPrecioPromedio.Text = pesada.PrecioPromedio.Value.ToString();
+
+                        PasarMostrador(productor.NOMBRE, productor.CUIT);
 
                         var result =
                             (from a in Context.Vw_Pesada
@@ -1374,12 +1511,12 @@ namespace CooperativaProduccion
             var contador = _context.Contador
                 .Where(x => x.Nombre == DevConstantes.PuntoVenta)
                 .FirstOrDefault();
-
+            
             var pesada = _context.Pesada
                 .Where(x => x.NumPesada == contador.Valor
                     && x.ProductorId == _productorId)
                 .FirstOrDefault();
-
+            
             if (pesada != null)
             {
                 var romaneo = _context.Pesada.Find(pesada.Id);
@@ -1649,6 +1786,8 @@ namespace CooperativaProduccion
 
                 QuitarClaseColaDeClases(registro.Trick);
             }
+
+            AutoFocusClase();
         }
 
         private void gridViewClases_KeyUp(object sender, KeyEventArgs e)
@@ -1661,6 +1800,8 @@ namespace CooperativaProduccion
 
                 QuitarClaseColaDeClases(registro.Trick);
             }
+
+            AutoFocusClase();
         }
     }
 
