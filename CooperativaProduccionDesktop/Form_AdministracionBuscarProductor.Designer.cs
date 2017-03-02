@@ -55,10 +55,13 @@
             this.ribbon.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.Office2013;
             this.ribbon.ShowApplicationButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowCategoryInCaption = false;
+            this.ribbon.ShowDisplayOptionsMenuButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowExpandCollapseButton = DevExpress.Utils.DefaultBoolean.False;
-            this.ribbon.ShowFullScreenButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Hide;
+            this.ribbon.ShowQatLocationSelector = false;
+            this.ribbon.ShowToolbarCustomizeItem = false;
             this.ribbon.Size = new System.Drawing.Size(704, 27);
+            this.ribbon.Toolbar.ShowCustomizeItem = false;
             // 
             // btnNuevoProductor
             // 
@@ -82,11 +85,11 @@
             // gridControlProductor
             // 
             this.gridControlProductor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridControlProductor.Location = new System.Drawing.Point(2, 21);
+            this.gridControlProductor.Location = new System.Drawing.Point(2, 20);
             this.gridControlProductor.MainView = this.gridViewProductor;
             this.gridControlProductor.MenuManager = this.ribbon;
             this.gridControlProductor.Name = "gridControlProductor";
-            this.gridControlProductor.Size = new System.Drawing.Size(696, 369);
+            this.gridControlProductor.Size = new System.Drawing.Size(696, 370);
             this.gridControlProductor.TabIndex = 1;
             this.gridControlProductor.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewProductor});

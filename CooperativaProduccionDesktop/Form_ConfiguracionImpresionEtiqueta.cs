@@ -31,20 +31,20 @@ namespace CooperativaProduccion
         private void Iniciar()
         {
             Context = new CooperativaProduccionEntities();
-            var result = (
-             from a in Context.Vw_Clase
-             select new
-             {
-                 Clase = a.NOMBRE,
-                 Tabaco = a.DESCRIPCION.Equals(DevConstantes.TabacoReclasificacion) ?
-                     DevConstantes.TabacoReclasificacion : a.DESCRIPCION
-             })
-             .OrderBy(x => x.Tabaco)
-             .ThenBy(x => x.Clase)
-             .ToList();
+            var result = 
+                (from a in Context.Vw_Clase
+                 .Where(x => x.Vigente == true)
+                select new
+                {
+                    Clase = a.NOMBRE,
+                    Tabaco = a.DESCRIPCION.Equals(DevConstantes.TabacoReclasificacion) ?
+                        DevConstantes.Reclasificacion : a.DESCRIPCION
+                })
+                .OrderBy(x => x.Tabaco)
+                .ThenBy(x => x.Clase)
+                .ToList();
 
             gridControlClase.DataSource = result;
-            
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -143,15 +143,5 @@ namespace CooperativaProduccion
                 Console.WriteLine(ioex.Message);
             }
         }
-
     }
-    //private class ClaseImpresion
-    //{
-    //    System.Guid ID { get; set; }
-    //    string NOMBRE { get; set; }
-    //    string COD_PRODUCTO { get; set; }
-    //    string DESCRIPCION { get; set; }
-    //    Nullable<decimal> PRECIOCOMPRA { get; set; }
-    //    Nullable<bool> Vigente { get; set; }
-    //}
 }

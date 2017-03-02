@@ -80,10 +80,12 @@
             this.ribbon.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.Office2013;
             this.ribbon.ShowApplicationButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowCategoryInCaption = false;
+            this.ribbon.ShowDisplayOptionsMenuButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowExpandCollapseButton = DevExpress.Utils.DefaultBoolean.False;
-            this.ribbon.ShowFullScreenButton = DevExpress.Utils.DefaultBoolean.False;
-            this.ribbon.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Show;
+            this.ribbon.ShowQatLocationSelector = false;
+            this.ribbon.ShowToolbarCustomizeItem = false;
             this.ribbon.Size = new System.Drawing.Size(647, 49);
+            this.ribbon.Toolbar.ShowCustomizeItem = false;
             // 
             // groupControl3
             // 
@@ -191,11 +193,11 @@
             // gridControlDetalleOrdenVenta
             // 
             this.gridControlDetalleOrdenVenta.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridControlDetalleOrdenVenta.Location = new System.Drawing.Point(2, 21);
+            this.gridControlDetalleOrdenVenta.Location = new System.Drawing.Point(2, 20);
             this.gridControlDetalleOrdenVenta.MainView = this.gridViewDetalleOrdenVenta;
             this.gridControlDetalleOrdenVenta.MenuManager = this.ribbon;
             this.gridControlDetalleOrdenVenta.Name = "gridControlDetalleOrdenVenta";
-            this.gridControlDetalleOrdenVenta.Size = new System.Drawing.Size(641, 95);
+            this.gridControlDetalleOrdenVenta.Size = new System.Drawing.Size(641, 96);
             this.gridControlDetalleOrdenVenta.TabIndex = 68;
             this.gridControlDetalleOrdenVenta.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewDetalleOrdenVenta,
@@ -380,6 +382,7 @@
             this.groupControl2.ResumeLayout(false);
             this.groupControl2.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

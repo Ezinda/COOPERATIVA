@@ -31,12 +31,12 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_ConfiguracionImpresion));
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.groupControl5 = new DevExpress.XtraEditors.GroupControl();
+            this.checkGestionReclasificacion = new System.Windows.Forms.CheckBox();
             this.btnSalir = new DevExpress.XtraEditors.SimpleButton();
             this.checkDebug = new System.Windows.Forms.CheckBox();
             this.btnModificar = new DevExpress.XtraEditors.SimpleButton();
             this.checkReclasificacion = new System.Windows.Forms.CheckBox();
             this.checkBalanza = new System.Windows.Forms.CheckBox();
-            this.checkGestionReclasificacion = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl5)).BeginInit();
             this.groupControl5.SuspendLayout();
@@ -54,8 +54,8 @@
             this.ribbon.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.Office2013;
             this.ribbon.ShowApplicationButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowCategoryInCaption = false;
+            this.ribbon.ShowDisplayOptionsMenuButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowExpandCollapseButton = DevExpress.Utils.DefaultBoolean.False;
-            this.ribbon.ShowFullScreenButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Show;
             this.ribbon.Size = new System.Drawing.Size(352, 27);
             // 
@@ -74,6 +74,17 @@
             this.groupControl5.Size = new System.Drawing.Size(346, 141);
             this.groupControl5.TabIndex = 72;
             this.groupControl5.Text = "Configuración de Impresión";
+            // 
+            // checkGestionReclasificacion
+            // 
+            this.checkGestionReclasificacion.AutoSize = true;
+            this.checkGestionReclasificacion.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold);
+            this.checkGestionReclasificacion.Location = new System.Drawing.Point(11, 77);
+            this.checkGestionReclasificacion.Name = "checkGestionReclasificacion";
+            this.checkGestionReclasificacion.Size = new System.Drawing.Size(234, 20);
+            this.checkGestionReclasificacion.TabIndex = 67;
+            this.checkGestionReclasificacion.Text = "Impresión en gestión de reclasificación";
+            this.checkGestionReclasificacion.UseVisualStyleBackColor = true;
             // 
             // btnSalir
             // 
@@ -128,17 +139,6 @@
             this.checkBalanza.Text = "Impresión en balanza";
             this.checkBalanza.UseVisualStyleBackColor = true;
             // 
-            // checkGestionReclasificacion
-            // 
-            this.checkGestionReclasificacion.AutoSize = true;
-            this.checkGestionReclasificacion.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold);
-            this.checkGestionReclasificacion.Location = new System.Drawing.Point(11, 77);
-            this.checkGestionReclasificacion.Name = "checkGestionReclasificacion";
-            this.checkGestionReclasificacion.Size = new System.Drawing.Size(234, 20);
-            this.checkGestionReclasificacion.TabIndex = 67;
-            this.checkGestionReclasificacion.Text = "Impresión en gestión de reclasificación";
-            this.checkGestionReclasificacion.UseVisualStyleBackColor = true;
-            // 
             // Form_ConfiguracionImpresion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -147,6 +147,7 @@
             this.Controls.Add(this.groupControl5);
             this.Controls.Add(this.ribbon);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "Form_ConfiguracionImpresion";
             this.Ribbon = this.ribbon;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

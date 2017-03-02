@@ -53,8 +53,8 @@
             this.ribbon.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.Office2013;
             this.ribbon.ShowApplicationButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowCategoryInCaption = false;
+            this.ribbon.ShowDisplayOptionsMenuButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowExpandCollapseButton = DevExpress.Utils.DefaultBoolean.False;
-            this.ribbon.ShowFullScreenButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Hide;
             this.ribbon.ShowToolbarCustomizeItem = false;
             this.ribbon.Size = new System.Drawing.Size(704, 27);
@@ -94,11 +94,11 @@
             // gridControlCliente
             // 
             this.gridControlCliente.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridControlCliente.Location = new System.Drawing.Point(2, 21);
+            this.gridControlCliente.Location = new System.Drawing.Point(2, 20);
             this.gridControlCliente.MainView = this.gridViewCliente;
             this.gridControlCliente.MenuManager = this.ribbon;
             this.gridControlCliente.Name = "gridControlCliente";
-            this.gridControlCliente.Size = new System.Drawing.Size(701, 347);
+            this.gridControlCliente.Size = new System.Drawing.Size(701, 348);
             this.gridControlCliente.TabIndex = 1;
             this.gridControlCliente.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewCliente});
@@ -123,6 +123,7 @@
             this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.groupControl2);
             this.Controls.Add(this.ribbon);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form_AdministracionBuscarCliente";
             this.Ribbon = this.ribbon;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

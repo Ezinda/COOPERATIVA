@@ -600,6 +600,11 @@ namespace CooperativaProduccion
                 _pesadaMostrador.Close();
             }
 
+            if (gridViewPesada.DataRowCount < 1)
+            {
+                CancelarPesada();
+            }
+
             this.Close();
         }
 
@@ -1508,30 +1513,38 @@ namespace CooperativaProduccion
 
         private void CancelarPesada()
         {
-            var contador = _context.Contador
-                .Where(x => x.Nombre == DevConstantes.PuntoVenta)
+            var contadorRomaneo = _context.Contador
+                .Where(x => x.Nombre == DevConstantes.Romaneo)
                 .FirstOrDefault();
             
             var pesada = _context.Pesada
-                .Where(x => x.NumPesada == contador.Valor
+                .Where(x => x.NumPesada == contadorRomaneo.Valor
                     && x.ProductorId == _productorId)
                 .FirstOrDefault();
-            
+
             if (pesada != null)
             {
                 var romaneo = _context.Pesada.Find(pesada.Id);
                 _context.Entry(romaneo).State = EntityState.Deleted;
                 _context.SaveChanges();
 
-                if (contador != null)
+                if (contadorRomaneo != null)
                 {
-                    var conta = _context.Contador.Find(contador.Id);
-                    conta.Valor = conta.Valor - 1;
-                    _context.Entry(conta).State = EntityState.Modified;
+                    var contaRomaneo = _context.Contador.Find(contadorRomaneo.Id);
+                    contaRomaneo.Valor = contaRomaneo.Valor - 1;
+                    _context.Entry(contaRomaneo).State = EntityState.Modified;
+                    _context.SaveChanges();
+
+                    var contadorPesada = _context.Contador
+                        .Where(x => x.Nombre == DevConstantes.Pesada)
+                        .FirstOrDefault();
+
+                    var contaPesada = _context.Contador.Find(contadorPesada.Id);
+                    contaPesada.Valor = contaPesada.Valor - 1;
+                    _context.Entry(contaPesada).State = EntityState.Modified;
                     _context.SaveChanges();
                 }
             }
-
             Deshabilitar();
         }
 

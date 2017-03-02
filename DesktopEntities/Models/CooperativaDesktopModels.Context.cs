@@ -54,7 +54,6 @@ namespace DesktopEntities.Models
         public virtual DbSet<Vw_Producto> Vw_Producto { get; set; }
         public virtual DbSet<Vw_Productor> Vw_Productor { get; set; }
         public virtual DbSet<Vw_ResumenClasePorFecha> Vw_ResumenClasePorFecha { get; set; }
-        public virtual DbSet<Vw_ResumenClasePorMes> Vw_ResumenClasePorMes { get; set; }
         public virtual DbSet<Vw_ResumenCompraPorClase> Vw_ResumenCompraPorClase { get; set; }
         public virtual DbSet<Vw_ResumenPesada> Vw_ResumenPesada { get; set; }
         public virtual DbSet<Vw_ResumenPesadaPorClase> Vw_ResumenPesadaPorClase { get; set; }

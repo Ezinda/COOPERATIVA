@@ -143,12 +143,9 @@ namespace CooperativaProduccion
             {
                 pred = pred.And(x => x.ProductorId == ProductorId);
             }
-
-            if (checkTabaco.Checked)
-            {
-                pred = pred.And(x => x.Tabaco == cbTabaco.Text);
-            }
-
+                        
+            pred = pred.And(x => x.Tabaco == cbTabaco.Text);
+            
             var liquidaciones =
                 (from a in Context.Vw_Romaneo
                      .Where(pred)

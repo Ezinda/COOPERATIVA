@@ -151,9 +151,6 @@
     <Compile Include="Models\Vw_ResumenClasePorFecha.cs">
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Vw_ResumenClasePorMes.cs">
-      <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Vw_ResumenCompraPorClase.cs">
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>

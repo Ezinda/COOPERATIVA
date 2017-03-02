@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraGrid.GridLevelNode gridLevelNode2 = new DevExpress.XtraGrid.GridLevelNode();
+            DevExpress.XtraGrid.GridLevelNode gridLevelNode1 = new DevExpress.XtraGrid.GridLevelNode();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_RomaneoGestionClasificacion));
             this.gridViewRomaneoDetalle = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gridControlRomaneo = new DevExpress.XtraGrid.GridControl();
@@ -49,7 +49,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
             this.btnBuscarRomaneo = new DevExpress.XtraEditors.SimpleButton();
-            this.checkTabaco = new System.Windows.Forms.CheckBox();
             this.cbTabaco = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dpHastaRomaneo = new System.Windows.Forms.DateTimePicker();
@@ -87,10 +86,10 @@
             // gridControlRomaneo
             // 
             this.gridControlRomaneo.Dock = System.Windows.Forms.DockStyle.Fill;
-            gridLevelNode2.LevelTemplate = this.gridViewRomaneoDetalle;
-            gridLevelNode2.RelationName = "Level1";
+            gridLevelNode1.LevelTemplate = this.gridViewRomaneoDetalle;
+            gridLevelNode1.RelationName = "Level1";
             this.gridControlRomaneo.LevelTree.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
-            gridLevelNode2});
+            gridLevelNode1});
             this.gridControlRomaneo.Location = new System.Drawing.Point(2, 20);
             this.gridControlRomaneo.MainView = this.gridViewRomaneo;
             this.gridControlRomaneo.MenuManager = this.ribbon;
@@ -129,8 +128,8 @@
             this.ribbon.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.Office2013;
             this.ribbon.ShowApplicationButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowCategoryInCaption = false;
+            this.ribbon.ShowDisplayOptionsMenuButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowExpandCollapseButton = DevExpress.Utils.DefaultBoolean.False;
-            this.ribbon.ShowFullScreenButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Show;
             this.ribbon.ShowToolbarCustomizeItem = false;
             this.ribbon.Size = new System.Drawing.Size(1136, 49);
@@ -270,7 +269,6 @@
             this.groupControl2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupControl2.Controls.Add(this.btnBuscarRomaneo);
-            this.groupControl2.Controls.Add(this.checkTabaco);
             this.groupControl2.Controls.Add(this.cbTabaco);
             this.groupControl2.Controls.Add(this.label1);
             this.groupControl2.Controls.Add(this.dpHastaRomaneo);
@@ -293,15 +291,6 @@
             this.btnBuscarRomaneo.TabIndex = 39;
             this.btnBuscarRomaneo.Text = "Buscar";
             this.btnBuscarRomaneo.Click += new System.EventHandler(this.btnBuscarRomaneo_Click);
-            // 
-            // checkTabaco
-            // 
-            this.checkTabaco.AutoSize = true;
-            this.checkTabaco.Location = new System.Drawing.Point(564, 28);
-            this.checkTabaco.Name = "checkTabaco";
-            this.checkTabaco.Size = new System.Drawing.Size(15, 14);
-            this.checkTabaco.TabIndex = 82;
-            this.checkTabaco.UseVisualStyleBackColor = true;
             // 
             // cbTabaco
             // 
@@ -411,7 +400,6 @@
         private System.Windows.Forms.TextBox txtProductor;
         private System.Windows.Forms.Label label7;
         private DevExpress.XtraEditors.GroupControl groupControl2;
-        private System.Windows.Forms.CheckBox checkTabaco;
         private System.Windows.Forms.ComboBox cbTabaco;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DateTimePicker dpHastaRomaneo;

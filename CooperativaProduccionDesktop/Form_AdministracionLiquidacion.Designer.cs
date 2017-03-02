@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraGrid.GridLevelNode gridLevelNode2 = new DevExpress.XtraGrid.GridLevelNode();
+            DevExpress.XtraGrid.GridLevelNode gridLevelNode1 = new DevExpress.XtraGrid.GridLevelNode();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_AdministracionLiquidacion));
             this.gridViewLiquidacionDetalle = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gridControlLiquidacion = new DevExpress.XtraGrid.GridControl();
@@ -47,6 +47,11 @@
             this.Liquidacion = new DevExpress.XtraTab.XtraTabControl();
             this.TabProcesoLiquidacion = new DevExpress.XtraTab.XtraTabPage();
             this.TabConsultaLiquidacion = new DevExpress.XtraTab.XtraTabPage();
+            this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
+            this.ResumenLiquidacion = new DevExpress.XtraEditors.SimpleButton();
+            this.btnPrevisualizarLiquidacionElectronica = new DevExpress.XtraEditors.SimpleButton();
+            this.btnSubirAfip = new DevExpress.XtraEditors.SimpleButton();
+            this.btnPrevisualizarLiquidacionManual = new DevExpress.XtraEditors.SimpleButton();
             this.groupControl6 = new DevExpress.XtraEditors.GroupControl();
             this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
             this.cbTabaco = new System.Windows.Forms.ComboBox();
@@ -66,11 +71,6 @@
             this.txtFet = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.txtProductor = new System.Windows.Forms.TextBox();
-            this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
-            this.btnPrevisualizarLiquidacionManual = new DevExpress.XtraEditors.SimpleButton();
-            this.btnSubirAfip = new DevExpress.XtraEditors.SimpleButton();
-            this.btnPrevisualizarLiquidacionElectronica = new DevExpress.XtraEditors.SimpleButton();
-            this.ResumenLiquidacion = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewLiquidacionDetalle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlLiquidacion)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewLiquidacion)).BeginInit();
@@ -85,12 +85,12 @@
             this.Liquidacion.SuspendLayout();
             this.TabProcesoLiquidacion.SuspendLayout();
             this.TabConsultaLiquidacion.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).BeginInit();
+            this.groupControl3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl6)).BeginInit();
             this.groupControl6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
             this.groupControl2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).BeginInit();
-            this.groupControl3.SuspendLayout();
             this.SuspendLayout();
             // 
             // gridViewLiquidacionDetalle
@@ -102,10 +102,10 @@
             // gridControlLiquidacion
             // 
             this.gridControlLiquidacion.Dock = System.Windows.Forms.DockStyle.Fill;
-            gridLevelNode2.LevelTemplate = this.gridViewLiquidacionDetalle;
-            gridLevelNode2.RelationName = "Level1";
+            gridLevelNode1.LevelTemplate = this.gridViewLiquidacionDetalle;
+            gridLevelNode1.RelationName = "Level1";
             this.gridControlLiquidacion.LevelTree.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
-            gridLevelNode2});
+            gridLevelNode1});
             this.gridControlLiquidacion.Location = new System.Drawing.Point(2, 20);
             this.gridControlLiquidacion.MainView = this.gridViewLiquidacion;
             this.gridControlLiquidacion.MenuManager = this.ribbon;
@@ -135,9 +135,15 @@
             this.ribbon.Name = "ribbon";
             this.ribbon.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.Office2013;
             this.ribbon.ShowApplicationButton = DevExpress.Utils.DefaultBoolean.False;
+            this.ribbon.ShowCategoryInCaption = false;
+            this.ribbon.ShowDisplayOptionsMenuButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowExpandCollapseButton = DevExpress.Utils.DefaultBoolean.False;
+            this.ribbon.ShowPageHeadersInFormCaption = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Hide;
+            this.ribbon.ShowQatLocationSelector = false;
+            this.ribbon.ShowToolbarCustomizeItem = false;
             this.ribbon.Size = new System.Drawing.Size(1269, 27);
+            this.ribbon.Toolbar.ShowCustomizeItem = false;
             // 
             // groupControl5
             // 
@@ -264,7 +270,7 @@
             this.TabProcesoLiquidacion.Controls.Add(this.groupControl1);
             this.TabProcesoLiquidacion.Image = ((System.Drawing.Image)(resources.GetObject("TabProcesoLiquidacion.Image")));
             this.TabProcesoLiquidacion.Name = "TabProcesoLiquidacion";
-            this.TabProcesoLiquidacion.Size = new System.Drawing.Size(1266, 657);
+            this.TabProcesoLiquidacion.Size = new System.Drawing.Size(1266, 655);
             this.TabProcesoLiquidacion.Text = "Proceso de Liquidación";
             // 
             // TabConsultaLiquidacion
@@ -276,6 +282,60 @@
             this.TabConsultaLiquidacion.Name = "TabConsultaLiquidacion";
             this.TabConsultaLiquidacion.Size = new System.Drawing.Size(1266, 655);
             this.TabConsultaLiquidacion.Text = "Consulta de Liquidación";
+            // 
+            // groupControl3
+            // 
+            this.groupControl3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupControl3.Controls.Add(this.ResumenLiquidacion);
+            this.groupControl3.Controls.Add(this.btnPrevisualizarLiquidacionElectronica);
+            this.groupControl3.Controls.Add(this.btnSubirAfip);
+            this.groupControl3.Controls.Add(this.btnPrevisualizarLiquidacionManual);
+            this.groupControl3.Location = new System.Drawing.Point(3, 623);
+            this.groupControl3.Name = "groupControl3";
+            this.groupControl3.ShowCaption = false;
+            this.groupControl3.Size = new System.Drawing.Size(1261, 31);
+            this.groupControl3.TabIndex = 73;
+            this.groupControl3.Text = "Buscar Romaneo";
+            // 
+            // ResumenLiquidacion
+            // 
+            this.ResumenLiquidacion.Image = ((System.Drawing.Image)(resources.GetObject("ResumenLiquidacion.Image")));
+            this.ResumenLiquidacion.Location = new System.Drawing.Point(521, 5);
+            this.ResumenLiquidacion.Name = "ResumenLiquidacion";
+            this.ResumenLiquidacion.Size = new System.Drawing.Size(172, 23);
+            this.ResumenLiquidacion.TabIndex = 3;
+            this.ResumenLiquidacion.Text = "Resumen de Liquidaciones";
+            this.ResumenLiquidacion.Click += new System.EventHandler(this.ResumenLiquidacion_Click);
+            // 
+            // btnPrevisualizarLiquidacionElectronica
+            // 
+            this.btnPrevisualizarLiquidacionElectronica.Image = ((System.Drawing.Image)(resources.GetObject("btnPrevisualizarLiquidacionElectronica.Image")));
+            this.btnPrevisualizarLiquidacionElectronica.Location = new System.Drawing.Point(307, 5);
+            this.btnPrevisualizarLiquidacionElectronica.Name = "btnPrevisualizarLiquidacionElectronica";
+            this.btnPrevisualizarLiquidacionElectronica.Size = new System.Drawing.Size(208, 23);
+            this.btnPrevisualizarLiquidacionElectronica.TabIndex = 2;
+            this.btnPrevisualizarLiquidacionElectronica.Text = "Previsualizar Liquidación Electrónica";
+            // 
+            // btnSubirAfip
+            // 
+            this.btnSubirAfip.Image = ((System.Drawing.Image)(resources.GetObject("btnSubirAfip.Image")));
+            this.btnSubirAfip.Location = new System.Drawing.Point(196, 5);
+            this.btnSubirAfip.Name = "btnSubirAfip";
+            this.btnSubirAfip.Size = new System.Drawing.Size(105, 23);
+            this.btnSubirAfip.TabIndex = 1;
+            this.btnSubirAfip.Text = "Subir Afip";
+            this.btnSubirAfip.Click += new System.EventHandler(this.btnSubirAfip_Click);
+            // 
+            // btnPrevisualizarLiquidacionManual
+            // 
+            this.btnPrevisualizarLiquidacionManual.Image = ((System.Drawing.Image)(resources.GetObject("btnPrevisualizarLiquidacionManual.Image")));
+            this.btnPrevisualizarLiquidacionManual.Location = new System.Drawing.Point(5, 4);
+            this.btnPrevisualizarLiquidacionManual.Name = "btnPrevisualizarLiquidacionManual";
+            this.btnPrevisualizarLiquidacionManual.Size = new System.Drawing.Size(185, 24);
+            this.btnPrevisualizarLiquidacionManual.TabIndex = 0;
+            this.btnPrevisualizarLiquidacionManual.Text = "Previsualizar Liquidación Manual";
+            this.btnPrevisualizarLiquidacionManual.Click += new System.EventHandler(this.btnPrevisualizarLiquidacionManual_Click);
             // 
             // groupControl6
             // 
@@ -472,60 +532,6 @@
             this.txtProductor.TabIndex = 64;
             this.txtProductor.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtProductor_KeyPress);
             // 
-            // groupControl3
-            // 
-            this.groupControl3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupControl3.Controls.Add(this.ResumenLiquidacion);
-            this.groupControl3.Controls.Add(this.btnPrevisualizarLiquidacionElectronica);
-            this.groupControl3.Controls.Add(this.btnSubirAfip);
-            this.groupControl3.Controls.Add(this.btnPrevisualizarLiquidacionManual);
-            this.groupControl3.Location = new System.Drawing.Point(3, 623);
-            this.groupControl3.Name = "groupControl3";
-            this.groupControl3.ShowCaption = false;
-            this.groupControl3.Size = new System.Drawing.Size(1261, 31);
-            this.groupControl3.TabIndex = 73;
-            this.groupControl3.Text = "Buscar Romaneo";
-            // 
-            // btnPrevisualizarLiquidacionManual
-            // 
-            this.btnPrevisualizarLiquidacionManual.Image = ((System.Drawing.Image)(resources.GetObject("btnPrevisualizarLiquidacionManual.Image")));
-            this.btnPrevisualizarLiquidacionManual.Location = new System.Drawing.Point(5, 4);
-            this.btnPrevisualizarLiquidacionManual.Name = "btnPrevisualizarLiquidacionManual";
-            this.btnPrevisualizarLiquidacionManual.Size = new System.Drawing.Size(185, 24);
-            this.btnPrevisualizarLiquidacionManual.TabIndex = 0;
-            this.btnPrevisualizarLiquidacionManual.Text = "Previsualizar Liquidación Manual";
-            this.btnPrevisualizarLiquidacionManual.Click += new System.EventHandler(this.btnPrevisualizarLiquidacionManual_Click);
-            // 
-            // btnSubirAfip
-            // 
-            this.btnSubirAfip.Image = ((System.Drawing.Image)(resources.GetObject("btnSubirAfip.Image")));
-            this.btnSubirAfip.Location = new System.Drawing.Point(196, 5);
-            this.btnSubirAfip.Name = "btnSubirAfip";
-            this.btnSubirAfip.Size = new System.Drawing.Size(105, 23);
-            this.btnSubirAfip.TabIndex = 1;
-            this.btnSubirAfip.Text = "Subir Afip";
-            this.btnSubirAfip.Click += new System.EventHandler(this.btnSubirAfip_Click);
-            // 
-            // btnPrevisualizarLiquidacionElectronica
-            // 
-            this.btnPrevisualizarLiquidacionElectronica.Image = ((System.Drawing.Image)(resources.GetObject("btnPrevisualizarLiquidacionElectronica.Image")));
-            this.btnPrevisualizarLiquidacionElectronica.Location = new System.Drawing.Point(307, 5);
-            this.btnPrevisualizarLiquidacionElectronica.Name = "btnPrevisualizarLiquidacionElectronica";
-            this.btnPrevisualizarLiquidacionElectronica.Size = new System.Drawing.Size(208, 23);
-            this.btnPrevisualizarLiquidacionElectronica.TabIndex = 2;
-            this.btnPrevisualizarLiquidacionElectronica.Text = "Previsualizar Liquidación Electrónica";
-            // 
-            // ResumenLiquidacion
-            // 
-            this.ResumenLiquidacion.Image = ((System.Drawing.Image)(resources.GetObject("ResumenLiquidacion.Image")));
-            this.ResumenLiquidacion.Location = new System.Drawing.Point(521, 5);
-            this.ResumenLiquidacion.Name = "ResumenLiquidacion";
-            this.ResumenLiquidacion.Size = new System.Drawing.Size(172, 23);
-            this.ResumenLiquidacion.TabIndex = 3;
-            this.ResumenLiquidacion.Text = "Resumen de Liquidaciones";
-            this.ResumenLiquidacion.Click += new System.EventHandler(this.ResumenLiquidacion_Click);
-            // 
             // Form_AdministracionLiquidacion
             // 
             this.AllowFormGlass = DevExpress.Utils.DefaultBoolean.False;
@@ -555,13 +561,13 @@
             this.Liquidacion.ResumeLayout(false);
             this.TabProcesoLiquidacion.ResumeLayout(false);
             this.TabConsultaLiquidacion.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).EndInit();
+            this.groupControl3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl6)).EndInit();
             this.groupControl6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
             this.groupControl2.ResumeLayout(false);
             this.groupControl2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).EndInit();
-            this.groupControl3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

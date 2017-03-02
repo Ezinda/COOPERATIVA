@@ -102,10 +102,12 @@
             this.ribbon.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.Office2013;
             this.ribbon.ShowApplicationButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowCategoryInCaption = false;
+            this.ribbon.ShowDisplayOptionsMenuButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowExpandCollapseButton = DevExpress.Utils.DefaultBoolean.False;
-            this.ribbon.ShowFullScreenButton = DevExpress.Utils.DefaultBoolean.False;
-            this.ribbon.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Show;
+            this.ribbon.ShowQatLocationSelector = false;
+            this.ribbon.ShowToolbarCustomizeItem = false;
             this.ribbon.Size = new System.Drawing.Size(983, 49);
+            this.ribbon.Toolbar.ShowCustomizeItem = false;
             // 
             // OrdenVenta
             // 
@@ -147,11 +149,11 @@
             // gridControlOrdenVenta
             // 
             this.gridControlOrdenVenta.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridControlOrdenVenta.Location = new System.Drawing.Point(2, 21);
+            this.gridControlOrdenVenta.Location = new System.Drawing.Point(2, 20);
             this.gridControlOrdenVenta.MainView = this.gridViewOrdenVenta;
             this.gridControlOrdenVenta.MenuManager = this.ribbon;
             this.gridControlOrdenVenta.Name = "gridControlOrdenVenta";
-            this.gridControlOrdenVenta.Size = new System.Drawing.Size(972, 383);
+            this.gridControlOrdenVenta.Size = new System.Drawing.Size(972, 384);
             this.gridControlOrdenVenta.TabIndex = 68;
             this.gridControlOrdenVenta.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewOrdenVenta,
@@ -361,11 +363,11 @@
             // gridControlOrdenVentaConsulta
             // 
             this.gridControlOrdenVentaConsulta.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridControlOrdenVentaConsulta.Location = new System.Drawing.Point(2, 21);
+            this.gridControlOrdenVentaConsulta.Location = new System.Drawing.Point(2, 20);
             this.gridControlOrdenVentaConsulta.MainView = this.gridViewOrdenVentaConsulta;
             this.gridControlOrdenVentaConsulta.MenuManager = this.ribbon;
             this.gridControlOrdenVentaConsulta.Name = "gridControlOrdenVentaConsulta";
-            this.gridControlOrdenVentaConsulta.Size = new System.Drawing.Size(974, 347);
+            this.gridControlOrdenVentaConsulta.Size = new System.Drawing.Size(974, 348);
             this.gridControlOrdenVentaConsulta.TabIndex = 68;
             this.gridControlOrdenVentaConsulta.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewOrdenVentaConsulta,
@@ -502,6 +504,7 @@
             this.groupControl2.ResumeLayout(false);
             this.groupControl2.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

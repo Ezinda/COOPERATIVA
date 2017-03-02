@@ -27,7 +27,7 @@ namespace CooperativaProduccion
         public static string RI = "RI";
         public static string ResponsableInscripto = "Responsable Inscripto";
         public static string LI = "LI";
-
+        public static string Reclasificacion = "TABACO RECLASIFICACIÓN";
         public static string Reimpresion = "Reimpresión";
         public static string Liquidacion = "Liquidacion";
 
