@@ -49,6 +49,7 @@ namespace CooperativaProduccion
                     if (existefardo.Any().Equals(true))
                     {
                         var fardo = existefardo.FirstOrDefault();
+
                         txtFardo.Invoke((MethodInvoker)(() => txtFardo.Text = fardo.NumFardo.ToString()));
 
                         var clase = Context.Vw_Clase
@@ -64,7 +65,6 @@ namespace CooperativaProduccion
                         txtReclasificacion.Invoke((MethodInvoker)(() => txtReclasificacion.Focus()));
                         txtReclasificacion.Invoke((MethodInvoker)(() => txtReclasificacion.BackColor = Color.LightSkyBlue));
                     }
-
                 }
             }
             finally
@@ -75,12 +75,25 @@ namespace CooperativaProduccion
 
         private void btnSalir_Click(object sender, EventArgs e)
         {
-            this.Close();
+            aTimer.Dispose();
+            
+            if (InvokeRequired)
+            {
+                Invoke((MethodInvoker)delegate ()
+                {
+                    Close();
+                });
+            }
+            else
+            {
+                Close();
+            }
         }
 
         private void btnActualizar_Click(object sender, EventArgs e)
         {
             ActualizarClasificacion();
+            txtReclasificacion.Focus();
         }
         
         private void checkAutomaticaClase_CheckedChanged(object sender, EventArgs e)
@@ -369,10 +382,19 @@ namespace CooperativaProduccion
         }
 
         #endregion
-
-        private void txtReclasificacion_TextAlignChanged(object sender, EventArgs e)
+        
+        private void txtReclasificacion_KeyPress(object sender, KeyPressEventArgs e)
         {
+            if (e.KeyChar == 13)
+            {
+                ActualizarClasificacion();
+                txtReclasificacion.Focus();
+            }
+        }
 
+        private void Form_RomaneoReclasificacion_Load(object sender, EventArgs e)
+        {
+            CheckForIllegalCrossThreadCalls = false;
         }
     }
 }

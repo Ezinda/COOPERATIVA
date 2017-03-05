@@ -23,7 +23,7 @@ using System.Diagnostics;
 
 namespace CooperativaProduccion
 {
-    public partial class Form_RomaneoGestionRomaneo : DevExpress.XtraBars.Ribbon.RibbonForm
+    public partial class Form_RomaneoGestionRomaneo : DevExpress.XtraBars.Ribbon.RibbonForm, IEnlace
     {
         public CooperativaProduccionEntities Context { get; set; }
         private Form_AdministracionBuscarProductor _formBuscarProductor;
@@ -133,6 +133,7 @@ namespace CooperativaProduccion
                     CUIT = a.CUIT,
                     PROVINCIA = a.Provincia
                 });
+
             if (!string.IsNullOrEmpty(txtFet.Text))
             {
                 var count = result
@@ -142,7 +143,7 @@ namespace CooperativaProduccion
                 {
                     _formBuscarProductor = new Form_AdministracionBuscarProductor();
                     _formBuscarProductor.fet = txtFet.Text;
-                    _formBuscarProductor.target = DevConstantes.Liquidacion;
+                    _formBuscarProductor.target = DevConstantes.Romaneo;
                     _formBuscarProductor.BuscarFet();
                     _formBuscarProductor.ShowDialog(this);
                 }
@@ -174,9 +175,9 @@ namespace CooperativaProduccion
                 if (count > 1)
                 {
                     _formBuscarProductor = new Form_AdministracionBuscarProductor();
-                    _formBuscarProductor.fet = txtProductor.Text;
-                    _formBuscarProductor.target = DevConstantes.Liquidacion;
-                    _formBuscarProductor.BuscarFet();
+                    _formBuscarProductor.nombre = txtProductor.Text;
+                    _formBuscarProductor.target = DevConstantes.Romaneo;
+                    _formBuscarProductor.BuscarNombre();
                     _formBuscarProductor.ShowDialog(this);
                 }
                 else
@@ -559,7 +560,7 @@ namespace CooperativaProduccion
                     reporte.Parameters["totalKilos"].Value = total.TotalKg;
                     reporte.Parameters["ImporteBruto"].Value = total.ImporteBruto;
                 }
-                reporte.Parameters["Reimpresion"].Value = DevConstantes.Reimpresion;
+                reporte.Parameters["Reimpresion"].Value = string.Empty;//DevConstantes.Reimpresion;
                 #endregion
 
                 using (ReportPrintTool tool = new ReportPrintTool(reporte))
@@ -568,11 +569,13 @@ namespace CooperativaProduccion
                     tool.PreviewForm.Text = "Etiqueta";
                     if (ValidarDebug().Equals(true))
                     {
-                        tool.ShowPreviewDialog();
+                       tool.ShowPreviewDialog();
                     }
                     else
                     {
-                        reporte.Print();
+                        //tool.ShowPreviewDialog();
+                       // tool.ShowPageSetup();
+                        //reporte.Print();
                     }
                 }
             }
@@ -1013,6 +1016,18 @@ namespace CooperativaProduccion
 
         }
 
-       
+        void IEnlace.Enviar(Guid Id, string fet, string nombre)
+        {
+            ProductorId = Id;
+            txtFet.Text = fet;
+            txtProductor.Text = nombre;
+            var empleado = Context.Vw_Productor
+                .Where(x => x.ID == ProductorId)
+                .FirstOrDefault();
+            txtCuit.Text = string.IsNullOrEmpty(empleado.CUIT) ?
+                string.Empty : empleado.CUIT;
+            txtProvincia.Text = string.IsNullOrEmpty(empleado.Provincia) ?
+                string.Empty : empleado.Provincia.ToString();
+        }
     }
 }

@@ -113,7 +113,7 @@
             this.groupControl3.Controls.Add(this.label6);
             this.groupControl3.Controls.Add(this.txtProductor);
             this.groupControl3.Controls.Add(this.label7);
-            this.groupControl3.Location = new System.Drawing.Point(2, 198);
+            this.groupControl3.Location = new System.Drawing.Point(2, 204);
             this.groupControl3.Name = "groupControl3";
             this.groupControl3.ShowCaption = false;
             this.groupControl3.Size = new System.Drawing.Size(1072, 32);
@@ -122,6 +122,7 @@
             // 
             // txtCuit
             // 
+            this.txtCuit.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtCuit.Enabled = false;
             this.txtCuit.Location = new System.Drawing.Point(616, 7);
             this.txtCuit.Name = "txtCuit";
@@ -158,6 +159,7 @@
             // 
             // txtProvincia
             // 
+            this.txtProvincia.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtProvincia.Enabled = false;
             this.txtProvincia.Location = new System.Drawing.Point(836, 7);
             this.txtProvincia.Name = "txtProvincia";
@@ -176,6 +178,7 @@
             // 
             // txtFet
             // 
+            this.txtFet.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtFet.Location = new System.Drawing.Point(43, 7);
             this.txtFet.Name = "txtFet";
             this.txtFet.Size = new System.Drawing.Size(112, 21);
@@ -194,6 +197,7 @@
             // 
             // txtProductor
             // 
+            this.txtProductor.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtProductor.Location = new System.Drawing.Point(266, 7);
             this.txtProductor.Name = "txtProductor";
             this.txtProductor.Size = new System.Drawing.Size(269, 21);
@@ -221,7 +225,7 @@
             this.groupControl2.Controls.Add(this.label2);
             this.groupControl2.Controls.Add(this.dpDesdeRomaneo);
             this.groupControl2.Controls.Add(this.label3);
-            this.groupControl2.Location = new System.Drawing.Point(2, 146);
+            this.groupControl2.Location = new System.Drawing.Point(2, 152);
             this.groupControl2.Name = "groupControl2";
             this.groupControl2.Size = new System.Drawing.Size(1072, 49);
             this.groupControl2.TabIndex = 74;
@@ -300,9 +304,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupControl6.Controls.Add(this.gridControlRomaneo);
-            this.groupControl6.Location = new System.Drawing.Point(1, 233);
+            this.groupControl6.Location = new System.Drawing.Point(1, 239);
             this.groupControl6.Name = "groupControl6";
-            this.groupControl6.Size = new System.Drawing.Size(1073, 334);
+            this.groupControl6.Size = new System.Drawing.Size(1073, 328);
             this.groupControl6.TabIndex = 78;
             this.groupControl6.Text = "Lista de Romaneo";
             // 
@@ -313,7 +317,7 @@
             this.gridControlRomaneo.MainView = this.gridViewRomaneo;
             this.gridControlRomaneo.MenuManager = this.ribbon;
             this.gridControlRomaneo.Name = "gridControlRomaneo";
-            this.gridControlRomaneo.Size = new System.Drawing.Size(1069, 312);
+            this.gridControlRomaneo.Size = new System.Drawing.Size(1069, 306);
             this.gridControlRomaneo.TabIndex = 68;
             this.gridControlRomaneo.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewRomaneo,

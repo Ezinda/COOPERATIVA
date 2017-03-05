@@ -240,7 +240,7 @@ namespace CooperativaProduccion
                 txtPreingreso.Text = string.Empty;
                 txtCuit.Text = string.Empty;
                 txtProvincia.Text = string.Empty;
-                PasarMostrador(txtNombre.Text, txtCuit.Text);
+                PasarMostrador(string.Empty, string.Empty);
             }
         }
 
@@ -410,7 +410,7 @@ namespace CooperativaProduccion
                                 _serialport.DataReceived -= _serialport_DataReceived;
                                 System.Threading.Thread.Sleep(100);
                             }
-
+                           
                             _serialport.DataReceived += _serialport_DataReceived;
                             _serialport.Open();
 
@@ -442,8 +442,8 @@ namespace CooperativaProduccion
                     {
                         if (_serialport.IsOpen)
                         {
-                            _serialport.DataReceived -= _serialport_DataReceived;
-                            _serialport.Close();
+                            //_serialport.DataReceived -= _serialport_DataReceived;
+                            //_serialport.Close();
                         }
                     }
                     catch
@@ -633,7 +633,7 @@ namespace CooperativaProduccion
 
 #endregion
 
-#region Method Dev
+        #region Method Dev
         
         private void CargarCombo()
         {
@@ -656,6 +656,7 @@ namespace CooperativaProduccion
             }
 
             _pesadaMostrador.Show();
+            
             Deshabilitar();
             CooperativaProduccionEntities Context = new CooperativaProduccionEntities();
 
@@ -715,6 +716,7 @@ namespace CooperativaProduccion
                             gridControlPesada.DataSource = result;
                         }
                     }
+                    PasarFardoMostrador(false);
                 }
                 else
                 {
@@ -747,9 +749,85 @@ namespace CooperativaProduccion
 
         private void Buscar()
         {
+            var result = (
+              from a in _context.Vw_Productor
+              select new
+              {
+                  full = a.nrofet + a.NOMBRE + a.CUIT,
+                  ID = a.ID,
+                  FET = a.nrofet,
+                  PRODUCTOR = a.NOMBRE,
+                  CUIT = a.CUIT,
+                  PROVINCIA = a.Provincia
+              });
+
             if (!string.IsNullOrEmpty(txtFet.Text))
             {
-                BuscarProductor();
+                var count = result
+                    .Where(r => r.FET.Equals(txtFet.Text))
+                    .Count();
+                if (count > 1)
+                {
+                    _formBuscarProductor = new Form_AdministracionBuscarProductor();
+                    _formBuscarProductor.fet = txtFet.Text;
+                    _formBuscarProductor.target = DevConstantes.Pesada;
+                    _formBuscarProductor.BuscarFet();
+                    _formBuscarProductor.ShowDialog(this);
+                }
+                else
+                {
+                    var busqueda = result
+                        .Where(x => x.FET.Equals(txtFet.Text))
+                        .FirstOrDefault();
+                    if (busqueda != null)
+                    {
+                        _productorId = busqueda.ID.Value;
+                        txtFet.Text = busqueda.FET;
+                        txtNombre.Text = busqueda.PRODUCTOR;
+                        txtProvincia.Text = busqueda.PROVINCIA;
+                        txtCuit.Text = busqueda.CUIT;
+                        PasarMostrador(txtNombre.Text, txtCuit.Text);
+                    }
+                    else
+                    {
+                        MessageBox.Show("N° de Fet no válido.",
+                            "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+            }
+            else if (!string.IsNullOrEmpty(txtNombre.Text))
+            {
+                var count = result
+                    .Where(r => r.PRODUCTOR.Contains(txtNombre.Text))
+                    .Count();
+                if (count > 1)
+                {
+                    _formBuscarProductor = new Form_AdministracionBuscarProductor();
+                    _formBuscarProductor.nombre = txtNombre.Text;
+                    _formBuscarProductor.target = DevConstantes.Pesada;
+                    _formBuscarProductor.BuscarNombre();
+                    _formBuscarProductor.ShowDialog(this);
+                }
+                else
+                {
+                    var busqueda = result
+                      .Where(x => x.PRODUCTOR.Contains(txtNombre.Text))
+                      .FirstOrDefault();
+                    if (busqueda != null)
+                    {
+                        _productorId = busqueda.ID.Value;
+                        txtFet.Text = busqueda.FET.ToString();
+                        txtNombre.Text = busqueda.PRODUCTOR.ToString();
+                        txtProvincia.Text = busqueda.PROVINCIA.ToString();
+                        txtCuit.Text = busqueda.CUIT;
+                        PasarMostrador(txtNombre.Text, txtCuit.Text);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Nombre no válido.",
+                            "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
             }
         }
   
@@ -761,10 +839,11 @@ namespace CooperativaProduccion
             var empleado = _context.Vw_Productor
                 .Where(x => x.ID == _productorId)
                 .FirstOrDefault();
-            txtCuit.Text = string.IsNullOrEmpty(empleado.CUIT) ? 
-                string.Empty : empleado.CUIT;
-            txtProvincia.Text = string.IsNullOrEmpty(empleado.Provincia) ? 
-                string.Empty : empleado.Provincia.ToString();
+            txtCuit.Text = string.IsNullOrEmpty(empleado.CUIT) ?
+                           string.Empty : empleado.CUIT;
+            txtProvincia.Text = string.IsNullOrEmpty(empleado.Provincia) ?
+                string.Empty : empleado.Provincia;
+            PasarMostrador(txtNombre.Text, txtCuit.Text);
         }
 
         void Enviar(Guid Id, string fet, string nombre)
@@ -964,7 +1043,7 @@ namespace CooperativaProduccion
                 pesada.Id = Guid.NewGuid();
                 _pesadaId = pesada.Id;
                 pesada.NumPesada = ContadorNumeroPesada();
-#region Preingreso - Deshabilitado
+                #region Preingreso - Deshabilitado
                 //int numPreingreso = Int32.Parse(txtPreingreso.Text);
                 //var preingreso = Context.Preingreso
                 //    .Where(x => x.NumeroPreingreso == numPreingreso)
@@ -985,7 +1064,7 @@ namespace CooperativaProduccion
                 _context.Pesada.Add(pesada);
                 _context.SaveChanges();
 
-#region Actualizar contador
+                #region Actualizar contador
 
                 var contador = _context.Contador
                     .Where(x=>x.Nombre.Equals(DevConstantes.Pesada))
@@ -1164,7 +1243,7 @@ namespace CooperativaProduccion
                 _context.Entry(pesada).State = EntityState.Modified;
                 _context.SaveChanges();
 
-#region preingreso - deshabilitado
+                #region preingreso - deshabilitado
                 //var preingresoDetalle = Context.PreingresoDetalle
                 //    .Where(x => x.PreingresoId == pesada.PreingresoId
                 //        && x.ProductorId == ProductorId)
@@ -1815,6 +1894,29 @@ namespace CooperativaProduccion
             }
 
             AutoFocusClase();
+        }
+
+        private void btnBuscarProductorNombre_Click(object sender, EventArgs e)
+        {
+            Buscar();
+        }
+
+        private void txtNombre_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                Buscar();
+                cbTabaco.Focus();
+            }
+
+            if (e.KeyChar == 8)
+            {
+                txtFet.Text = string.Empty;
+                txtPreingreso.Text = string.Empty;
+                txtCuit.Text = string.Empty;
+                txtProvincia.Text = string.Empty;
+                PasarMostrador(string.Empty, string.Empty);
+            }
         }
     }
 

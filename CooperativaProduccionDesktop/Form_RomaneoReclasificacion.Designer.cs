@@ -56,8 +56,8 @@
             this.ribbon.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.Office2013;
             this.ribbon.ShowApplicationButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowCategoryInCaption = false;
+            this.ribbon.ShowDisplayOptionsMenuButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowExpandCollapseButton = DevExpress.Utils.DefaultBoolean.False;
-            this.ribbon.ShowFullScreenButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Hide;
             this.ribbon.ShowToolbarCustomizeItem = false;
             this.ribbon.Size = new System.Drawing.Size(473, 27);
@@ -103,6 +103,7 @@
             this.txtReclasificacion.Size = new System.Drawing.Size(221, 29);
             this.txtReclasificacion.TabIndex = 1;
             this.txtReclasificacion.TextChanged += new System.EventHandler(this.txtReclasificacion_TextChanged);
+            this.txtReclasificacion.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtReclasificacion_KeyPress);
             // 
             // btnSalir
             // 
@@ -189,6 +190,7 @@
             this.Ribbon = this.ribbon;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Reclasificación de Fardos";
+            this.Load += new System.EventHandler(this.Form_RomaneoReclasificacion_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
             this.groupControl2.ResumeLayout(false);

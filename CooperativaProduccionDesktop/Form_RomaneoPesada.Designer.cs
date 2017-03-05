@@ -40,6 +40,7 @@
             this.repositoryItemTextEdit2 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
             this.repositoryItemButtonEdit2 = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
+            this.btnBuscarProductorNombre = new DevExpress.XtraEditors.SimpleButton();
             this.txtPreingreso = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.txtProvincia = new System.Windows.Forms.TextBox();
@@ -50,7 +51,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtFet = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.btnBuscarProductor = new DevExpress.XtraEditors.SimpleButton();
+            this.btnBuscarProductorLegajo = new DevExpress.XtraEditors.SimpleButton();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.cbTabaco = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -122,11 +123,11 @@
             this.ribbon.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.Office2013;
             this.ribbon.ShowApplicationButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowCategoryInCaption = false;
+            this.ribbon.ShowDisplayOptionsMenuButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowExpandCollapseButton = DevExpress.Utils.DefaultBoolean.False;
-            this.ribbon.ShowFullScreenButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Hide;
             this.ribbon.ShowToolbarCustomizeItem = false;
-            this.ribbon.Size = new System.Drawing.Size(625, 122);
+            this.ribbon.Size = new System.Drawing.Size(623, 122);
             this.ribbon.Toolbar.ShowCustomizeItem = false;
             // 
             // btnPesadaMostrador
@@ -198,6 +199,7 @@
             // 
             // groupControl2
             // 
+            this.groupControl2.Controls.Add(this.btnBuscarProductorNombre);
             this.groupControl2.Controls.Add(this.txtPreingreso);
             this.groupControl2.Controls.Add(this.label13);
             this.groupControl2.Controls.Add(this.txtProvincia);
@@ -208,12 +210,23 @@
             this.groupControl2.Controls.Add(this.label2);
             this.groupControl2.Controls.Add(this.txtFet);
             this.groupControl2.Controls.Add(this.label3);
-            this.groupControl2.Controls.Add(this.btnBuscarProductor);
+            this.groupControl2.Controls.Add(this.btnBuscarProductorLegajo);
             this.groupControl2.Location = new System.Drawing.Point(4, 123);
             this.groupControl2.Name = "groupControl2";
             this.groupControl2.Size = new System.Drawing.Size(617, 76);
             this.groupControl2.TabIndex = 21;
             this.groupControl2.Text = "Buscar Productor";
+            // 
+            // btnBuscarProductorNombre
+            // 
+            this.btnBuscarProductorNombre.Appearance.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBuscarProductorNombre.Appearance.Options.UseFont = true;
+            this.btnBuscarProductorNombre.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscarProductorNombre.Image")));
+            this.btnBuscarProductorNombre.Location = new System.Drawing.Point(586, 24);
+            this.btnBuscarProductorNombre.Name = "btnBuscarProductorNombre";
+            this.btnBuscarProductorNombre.Size = new System.Drawing.Size(25, 22);
+            this.btnBuscarProductorNombre.TabIndex = 69;
+            this.btnBuscarProductorNombre.Click += new System.EventHandler(this.btnBuscarProductorNombre_Click);
             // 
             // txtPreingreso
             // 
@@ -238,6 +251,7 @@
             // 
             // txtProvincia
             // 
+            this.txtProvincia.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtProvincia.Enabled = false;
             this.txtProvincia.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtProvincia.Location = new System.Drawing.Point(485, 50);
@@ -257,6 +271,7 @@
             // 
             // txtCuit
             // 
+            this.txtCuit.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtCuit.Enabled = false;
             this.txtCuit.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCuit.Location = new System.Drawing.Point(265, 50);
@@ -276,12 +291,13 @@
             // 
             // txtNombre
             // 
-            this.txtNombre.Enabled = false;
+            this.txtNombre.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtNombre.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNombre.Location = new System.Drawing.Point(265, 24);
             this.txtNombre.Name = "txtNombre";
-            this.txtNombre.Size = new System.Drawing.Size(346, 22);
+            this.txtNombre.Size = new System.Drawing.Size(319, 22);
             this.txtNombre.TabIndex = 58;
+            this.txtNombre.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNombre_KeyPress);
             // 
             // label2
             // 
@@ -295,6 +311,7 @@
             // 
             // txtFet
             // 
+            this.txtFet.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtFet.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtFet.Location = new System.Drawing.Point(73, 24);
             this.txtFet.Name = "txtFet";
@@ -312,16 +329,16 @@
             this.label3.TabIndex = 55;
             this.label3.Text = "N° FET";
             // 
-            // btnBuscarProductor
+            // btnBuscarProductorLegajo
             // 
-            this.btnBuscarProductor.Appearance.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBuscarProductor.Appearance.Options.UseFont = true;
-            this.btnBuscarProductor.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscarProductor.Image")));
-            this.btnBuscarProductor.Location = new System.Drawing.Point(169, 24);
-            this.btnBuscarProductor.Name = "btnBuscarProductor";
-            this.btnBuscarProductor.Size = new System.Drawing.Size(25, 22);
-            this.btnBuscarProductor.TabIndex = 39;
-            this.btnBuscarProductor.Click += new System.EventHandler(this.btnBuscarProductor_Click);
+            this.btnBuscarProductorLegajo.Appearance.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBuscarProductorLegajo.Appearance.Options.UseFont = true;
+            this.btnBuscarProductorLegajo.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscarProductorLegajo.Image")));
+            this.btnBuscarProductorLegajo.Location = new System.Drawing.Point(169, 24);
+            this.btnBuscarProductorLegajo.Name = "btnBuscarProductorLegajo";
+            this.btnBuscarProductorLegajo.Size = new System.Drawing.Size(25, 22);
+            this.btnBuscarProductorLegajo.TabIndex = 39;
+            this.btnBuscarProductorLegajo.Click += new System.EventHandler(this.btnBuscarProductor_Click);
             // 
             // groupControl1
             // 
@@ -543,26 +560,26 @@
             this.groupControl4.Controls.Add(this.label10);
             this.groupControl4.Controls.Add(this.txtTotalFardo);
             this.groupControl4.Controls.Add(this.label9);
-            this.groupControl4.Location = new System.Drawing.Point(5, 488);
+            this.groupControl4.Location = new System.Drawing.Point(3, 488);
             this.groupControl4.Name = "groupControl4";
-            this.groupControl4.Size = new System.Drawing.Size(616, 85);
+            this.groupControl4.Size = new System.Drawing.Size(618, 115);
             this.groupControl4.TabIndex = 24;
             this.groupControl4.Text = "Totales";
             // 
             // txtPrecioPromedio
             // 
             this.txtPrecioPromedio.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.txtPrecioPromedio.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPrecioPromedio.Location = new System.Drawing.Point(110, 53);
+            this.txtPrecioPromedio.Font = new System.Drawing.Font("Arial", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPrecioPromedio.Location = new System.Drawing.Point(459, 53);
             this.txtPrecioPromedio.Name = "txtPrecioPromedio";
             this.txtPrecioPromedio.ReadOnly = true;
-            this.txtPrecioPromedio.Size = new System.Drawing.Size(101, 22);
+            this.txtPrecioPromedio.Size = new System.Drawing.Size(153, 27);
             this.txtPrecioPromedio.TabIndex = 71;
             // 
             // btnFinalizar
             // 
             this.btnFinalizar.Image = ((System.Drawing.Image)(resources.GetObject("btnFinalizar.Image")));
-            this.btnFinalizar.Location = new System.Drawing.Point(423, 55);
+            this.btnFinalizar.Location = new System.Drawing.Point(425, 87);
             this.btnFinalizar.Name = "btnFinalizar";
             this.btnFinalizar.Size = new System.Drawing.Size(87, 26);
             this.btnFinalizar.TabIndex = 68;
@@ -572,17 +589,17 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(10, 53);
+            this.label12.Font = new System.Drawing.Font("Arial", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(314, 59);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(94, 16);
+            this.label12.Size = new System.Drawing.Size(139, 19);
             this.label12.TabIndex = 70;
             this.label12.Text = "Precio Promedio";
             // 
             // btnSalir
             // 
             this.btnSalir.Image = ((System.Drawing.Image)(resources.GetObject("btnSalir.Image")));
-            this.btnSalir.Location = new System.Drawing.Point(517, 54);
+            this.btnSalir.Location = new System.Drawing.Point(519, 86);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(93, 26);
             this.btnSalir.TabIndex = 67;
@@ -592,60 +609,60 @@
             // txtImporteBruto
             // 
             this.txtImporteBruto.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.txtImporteBruto.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtImporteBruto.Location = new System.Drawing.Point(484, 27);
+            this.txtImporteBruto.Font = new System.Drawing.Font("Arial", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtImporteBruto.Location = new System.Drawing.Point(128, 56);
             this.txtImporteBruto.Name = "txtImporteBruto";
             this.txtImporteBruto.ReadOnly = true;
-            this.txtImporteBruto.Size = new System.Drawing.Size(127, 22);
+            this.txtImporteBruto.Size = new System.Drawing.Size(165, 27);
             this.txtImporteBruto.TabIndex = 69;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(392, 30);
+            this.label11.Font = new System.Drawing.Font("Arial", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(7, 61);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(82, 16);
+            this.label11.Size = new System.Drawing.Size(119, 19);
             this.label11.TabIndex = 68;
             this.label11.Text = "Importe Bruto";
             // 
             // txtTotalKilo
             // 
             this.txtTotalKilo.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.txtTotalKilo.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTotalKilo.Location = new System.Drawing.Point(280, 27);
+            this.txtTotalKilo.Font = new System.Drawing.Font("Arial", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalKilo.Location = new System.Drawing.Point(459, 24);
             this.txtTotalKilo.Name = "txtTotalKilo";
             this.txtTotalKilo.ReadOnly = true;
-            this.txtTotalKilo.Size = new System.Drawing.Size(109, 22);
+            this.txtTotalKilo.Size = new System.Drawing.Size(153, 27);
             this.txtTotalKilo.TabIndex = 67;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(211, 30);
+            this.label10.Font = new System.Drawing.Font("Arial", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(313, 27);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(64, 16);
+            this.label10.Size = new System.Drawing.Size(91, 19);
             this.label10.TabIndex = 66;
             this.label10.Text = "Total Kilos";
             // 
             // txtTotalFardo
             // 
             this.txtTotalFardo.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.txtTotalFardo.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTotalFardo.Location = new System.Drawing.Point(110, 27);
+            this.txtTotalFardo.Font = new System.Drawing.Font("Arial", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalFardo.Location = new System.Drawing.Point(128, 23);
             this.txtTotalFardo.Name = "txtTotalFardo";
             this.txtTotalFardo.ReadOnly = true;
-            this.txtTotalFardo.Size = new System.Drawing.Size(101, 22);
+            this.txtTotalFardo.Size = new System.Drawing.Size(165, 27);
             this.txtTotalFardo.TabIndex = 65;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(10, 27);
+            this.label9.Font = new System.Drawing.Font("Arial", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(5, 27);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(74, 16);
+            this.label9.Size = new System.Drawing.Size(107, 19);
             this.label9.TabIndex = 64;
             this.label9.Text = "Total Fardos";
             // 
@@ -661,7 +678,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(625, 575);
+            this.ClientSize = new System.Drawing.Size(623, 605);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.groupControl4);
             this.Controls.Add(this.groupControl3);
@@ -717,7 +734,7 @@
         private System.Windows.Forms.Label label2;
         public System.Windows.Forms.TextBox txtFet;
         private System.Windows.Forms.Label label3;
-        private DevExpress.XtraEditors.SimpleButton btnBuscarProductor;
+        private DevExpress.XtraEditors.SimpleButton btnBuscarProductorLegajo;
         private DevExpress.XtraEditors.GroupControl groupControl1;
         private DevExpress.XtraEditors.SimpleButton btnCancelarPesada;
         private DevExpress.XtraEditors.SimpleButton btnIniciarPesada;
@@ -756,5 +773,6 @@
         private DevExpress.XtraGrid.GridControl gridControlClases;
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewClases;
         private System.Windows.Forms.TextBox textBox1;
+        private DevExpress.XtraEditors.SimpleButton btnBuscarProductorNombre;
     }
 }
