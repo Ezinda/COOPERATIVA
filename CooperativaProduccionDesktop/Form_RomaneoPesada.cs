@@ -1302,7 +1302,7 @@ namespace CooperativaProduccion
                 _pesadaMostrador.numFardo = gridViewPesada.GetRowCellValue(0, "CONTADOR_CAJA").ToString();
                 _pesadaMostrador.clase = gridViewPesada.GetRowCellValue(0, "CLASE").ToString();
                 _pesadaMostrador.totalkg = txtTotalKilo.Text;
-                _pesadaMostrador.porcentaje = CalcularPorcentaje();
+                _pesadaMostrador.porcentaje = CalcularPorcentaje(cbTabaco.Text);
                 _pesadaMostrador.CargarFardo();
             }
             else
@@ -1316,10 +1316,11 @@ namespace CooperativaProduccion
             }
         }
 
-        private string CalcularPorcentaje()
+        private string CalcularPorcentaje(string Tabaco)
         {
             var clase = _context.Vw_Clase
-                .Where(x => x.NOMBRE.Equals(DevConstantes.C1F))
+                .Where(x => x.DESCRIPCION.Equals(Tabaco) 
+                    && x.NOMBRE.Equals(DevConstantes.C1F))
                 .FirstOrDefault();
 
             float promedio = Convert.ToSingle((decimal.Parse(txtPrecioPromedio.Text) * 100) / clase.PRECIOCOMPRA.Value);
