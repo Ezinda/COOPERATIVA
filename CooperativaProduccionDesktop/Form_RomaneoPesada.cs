@@ -40,7 +40,7 @@ namespace CooperativaProduccion
 
         private static List<RegPesada> _bufferdecoincidencias = new List<RegPesada>();
         private static RegPesada _ultimoregistro;
-        private const int _coincidenciasminimasparaimprimir = 8;
+        private const int _coincidenciasminimasparaimprimir = 7;
         private const int _coincidenciasmaximasparaimprimir = 30;
         private const int _limitecoincidenciaarriba = 0;
         private const int _limitecoincidenciaabajo = 0;
