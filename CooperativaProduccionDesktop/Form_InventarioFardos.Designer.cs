@@ -38,7 +38,7 @@
             this.checkTabaco = new System.Windows.Forms.CheckBox();
             this.cbClase = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.cbTabaco = new System.Windows.Forms.ComboBox();
+            this.cbProducto = new System.Windows.Forms.ComboBox();
             this.btnBuscar = new DevExpress.XtraEditors.SimpleButton();
             this.dpHasta = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
@@ -48,6 +48,9 @@
             this.groupControl5 = new DevExpress.XtraEditors.GroupControl();
             this.btnReporte = new DevExpress.XtraEditors.SimpleButton();
             this.btnExportarExcel = new DevExpress.XtraEditors.SimpleButton();
+            this.checkDeposito = new System.Windows.Forms.CheckBox();
+            this.cbDeposito = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
             this.groupControl2.SuspendLayout();
@@ -74,7 +77,7 @@
             this.ribbon.ShowExpandCollapseButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Show;
             this.ribbon.ShowToolbarCustomizeItem = false;
-            this.ribbon.Size = new System.Drawing.Size(887, 49);
+            this.ribbon.Size = new System.Drawing.Size(1153, 49);
             this.ribbon.Toolbar.ShowCustomizeItem = false;
             // 
             // groupControl2
@@ -85,7 +88,7 @@
             this.groupControl2.Controls.Add(this.gridControlFardos);
             this.groupControl2.Location = new System.Drawing.Point(3, 103);
             this.groupControl2.Name = "groupControl2";
-            this.groupControl2.Size = new System.Drawing.Size(882, 492);
+            this.groupControl2.Size = new System.Drawing.Size(1148, 492);
             this.groupControl2.TabIndex = 22;
             this.groupControl2.Text = "Lista de Fardos";
             // 
@@ -96,7 +99,7 @@
             this.gridControlFardos.MainView = this.gridViewFardos;
             this.gridControlFardos.MenuManager = this.ribbon;
             this.gridControlFardos.Name = "gridControlFardos";
-            this.gridControlFardos.Size = new System.Drawing.Size(878, 470);
+            this.gridControlFardos.Size = new System.Drawing.Size(1144, 470);
             this.gridControlFardos.TabIndex = 0;
             this.gridControlFardos.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewFardos});
@@ -115,11 +118,14 @@
             // 
             this.groupControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupControl1.Controls.Add(this.checkDeposito);
+            this.groupControl1.Controls.Add(this.cbDeposito);
+            this.groupControl1.Controls.Add(this.label5);
             this.groupControl1.Controls.Add(this.checkClase);
             this.groupControl1.Controls.Add(this.checkTabaco);
             this.groupControl1.Controls.Add(this.cbClase);
             this.groupControl1.Controls.Add(this.label4);
-            this.groupControl1.Controls.Add(this.cbTabaco);
+            this.groupControl1.Controls.Add(this.cbProducto);
             this.groupControl1.Controls.Add(this.btnBuscar);
             this.groupControl1.Controls.Add(this.dpHasta);
             this.groupControl1.Controls.Add(this.label1);
@@ -128,14 +134,14 @@
             this.groupControl1.Controls.Add(this.label3);
             this.groupControl1.Location = new System.Drawing.Point(3, 51);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(882, 49);
+            this.groupControl1.Size = new System.Drawing.Size(1148, 49);
             this.groupControl1.TabIndex = 23;
             this.groupControl1.Text = "Buscar Productor";
             // 
             // checkClase
             // 
             this.checkClase.AutoSize = true;
-            this.checkClase.Location = new System.Drawing.Point(702, 29);
+            this.checkClase.Location = new System.Drawing.Point(865, 29);
             this.checkClase.Name = "checkClase";
             this.checkClase.Size = new System.Drawing.Size(15, 14);
             this.checkClase.TabIndex = 86;
@@ -144,7 +150,7 @@
             // checkTabaco
             // 
             this.checkTabaco.AutoSize = true;
-            this.checkTabaco.Location = new System.Drawing.Point(528, 29);
+            this.checkTabaco.Location = new System.Drawing.Point(1038, 29);
             this.checkTabaco.Name = "checkTabaco";
             this.checkTabaco.Size = new System.Drawing.Size(15, 14);
             this.checkTabaco.TabIndex = 85;
@@ -155,7 +161,7 @@
             // 
             this.cbClase.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbClase.FormattingEnabled = true;
-            this.cbClase.Location = new System.Drawing.Point(582, 24);
+            this.cbClase.Location = new System.Drawing.Point(918, 24);
             this.cbClase.Name = "cbClase";
             this.cbClase.Size = new System.Drawing.Size(114, 21);
             this.cbClase.TabIndex = 84;
@@ -164,28 +170,28 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(546, 27);
+            this.label4.Location = new System.Drawing.Point(882, 27);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(37, 16);
             this.label4.TabIndex = 83;
             this.label4.Text = "Clase";
             // 
-            // cbTabaco
+            // cbProducto
             // 
-            this.cbTabaco.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbTabaco.FormattingEnabled = true;
-            this.cbTabaco.Location = new System.Drawing.Point(382, 24);
-            this.cbTabaco.Name = "cbTabaco";
-            this.cbTabaco.Size = new System.Drawing.Size(142, 21);
-            this.cbTabaco.TabIndex = 82;
-            this.cbTabaco.SelectedIndexChanged += new System.EventHandler(this.cbTabaco_SelectedIndexChanged);
+            this.cbProducto.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbProducto.FormattingEnabled = true;
+            this.cbProducto.Location = new System.Drawing.Point(661, 24);
+            this.cbProducto.Name = "cbProducto";
+            this.cbProducto.Size = new System.Drawing.Size(194, 21);
+            this.cbProducto.TabIndex = 82;
+            this.cbProducto.SelectedIndexChanged += new System.EventHandler(this.cbTabaco_SelectedIndexChanged);
             // 
             // btnBuscar
             // 
             this.btnBuscar.Appearance.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBuscar.Appearance.Options.UseFont = true;
             this.btnBuscar.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscar.Image")));
-            this.btnBuscar.Location = new System.Drawing.Point(774, 24);
+            this.btnBuscar.Location = new System.Drawing.Point(1060, 24);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(82, 20);
             this.btnBuscar.TabIndex = 39;
@@ -222,11 +228,11 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(334, 27);
+            this.label2.Location = new System.Drawing.Point(607, 27);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(46, 16);
+            this.label2.Size = new System.Drawing.Size(57, 16);
             this.label2.TabIndex = 57;
-            this.label2.Text = "Tabaco";
+            this.label2.Text = "Producto";
             // 
             // label3
             // 
@@ -247,7 +253,7 @@
             this.groupControl5.Location = new System.Drawing.Point(3, 599);
             this.groupControl5.Name = "groupControl5";
             this.groupControl5.ShowCaption = false;
-            this.groupControl5.Size = new System.Drawing.Size(882, 32);
+            this.groupControl5.Size = new System.Drawing.Size(1148, 32);
             this.groupControl5.TabIndex = 41;
             this.groupControl5.Text = "Nuevo Preingreso";
             // 
@@ -273,11 +279,39 @@
             this.btnExportarExcel.TabIndex = 42;
             this.btnExportarExcel.Text = "Exportar Excel";
             // 
+            // checkDeposito
+            // 
+            this.checkDeposito.AutoSize = true;
+            this.checkDeposito.Location = new System.Drawing.Point(588, 28);
+            this.checkDeposito.Name = "checkDeposito";
+            this.checkDeposito.Size = new System.Drawing.Size(15, 14);
+            this.checkDeposito.TabIndex = 89;
+            this.checkDeposito.UseVisualStyleBackColor = true;
+            // 
+            // cbDeposito
+            // 
+            this.cbDeposito.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbDeposito.FormattingEnabled = true;
+            this.cbDeposito.Location = new System.Drawing.Point(388, 25);
+            this.cbDeposito.Name = "cbDeposito";
+            this.cbDeposito.Size = new System.Drawing.Size(194, 21);
+            this.cbDeposito.TabIndex = 88;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(334, 28);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(56, 16);
+            this.label5.TabIndex = 87;
+            this.label5.Text = "Deposito";
+            // 
             // Form_InventarioFardos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(887, 633);
+            this.ClientSize = new System.Drawing.Size(1153, 633);
             this.Controls.Add(this.groupControl5);
             this.Controls.Add(this.groupControl1);
             this.Controls.Add(this.groupControl2);
@@ -320,8 +354,11 @@
         private DevExpress.XtraEditors.SimpleButton btnExportarExcel;
         private System.Windows.Forms.ComboBox cbClase;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox cbTabaco;
+        private System.Windows.Forms.ComboBox cbProducto;
         private System.Windows.Forms.CheckBox checkTabaco;
         private System.Windows.Forms.CheckBox checkClase;
+        private System.Windows.Forms.CheckBox checkDeposito;
+        private System.Windows.Forms.ComboBox cbDeposito;
+        private System.Windows.Forms.Label label5;
     }
 }

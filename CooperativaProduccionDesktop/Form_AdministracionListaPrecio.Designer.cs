@@ -49,11 +49,11 @@
             this.ribbon.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.Office2013;
             this.ribbon.ShowApplicationButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowCategoryInCaption = false;
+            this.ribbon.ShowDisplayOptionsMenuButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowExpandCollapseButton = DevExpress.Utils.DefaultBoolean.False;
-            this.ribbon.ShowFullScreenButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Hide;
             this.ribbon.ShowToolbarCustomizeItem = false;
-            this.ribbon.Size = new System.Drawing.Size(307, 27);
+            this.ribbon.Size = new System.Drawing.Size(404, 27);
             this.ribbon.Toolbar.ShowCustomizeItem = false;
             // 
             // groupControl2
@@ -62,7 +62,7 @@
             this.groupControl2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupControl2.Location = new System.Drawing.Point(0, 27);
             this.groupControl2.Name = "groupControl2";
-            this.groupControl2.Size = new System.Drawing.Size(307, 404);
+            this.groupControl2.Size = new System.Drawing.Size(404, 513);
             this.groupControl2.TabIndex = 22;
             this.groupControl2.Text = "Lista de Precio";
             // 
@@ -72,10 +72,10 @@
             this.dgvListaPrecio.AllowUserToDeleteRows = false;
             this.dgvListaPrecio.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvListaPrecio.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvListaPrecio.Location = new System.Drawing.Point(2, 21);
+            this.dgvListaPrecio.Location = new System.Drawing.Point(2, 20);
             this.dgvListaPrecio.Name = "dgvListaPrecio";
             this.dgvListaPrecio.RowHeadersVisible = false;
-            this.dgvListaPrecio.Size = new System.Drawing.Size(303, 381);
+            this.dgvListaPrecio.Size = new System.Drawing.Size(400, 491);
             this.dgvListaPrecio.TabIndex = 0;
             this.dgvListaPrecio.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dgvListaPrecio_CellBeginEdit);
             this.dgvListaPrecio.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvListaPrecio_CellEndEdit);
@@ -86,9 +86,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(307, 431);
+            this.ClientSize = new System.Drawing.Size(404, 540);
             this.Controls.Add(this.groupControl2);
             this.Controls.Add(this.ribbon);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Form_AdministracionListaPrecio";
@@ -100,6 +101,7 @@
             this.groupControl2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvListaPrecio)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

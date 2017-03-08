@@ -43,7 +43,7 @@ namespace CooperativaProduccion
 
         private void dgvListaPrecio_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
-            if (dgvListaPrecio.CurrentCell.ColumnIndex == 2)
+            if (dgvListaPrecio.CurrentCell.ColumnIndex == 2 || dgvListaPrecio.CurrentCell.ColumnIndex == 3)
             {
                 mask.Focus();
                 mask.SelectionStart = 0;
@@ -80,6 +80,51 @@ namespace CooperativaProduccion
                         }
                     }
                     mask.Visible = false;
+                }
+                else if (dgvListaPrecio.CurrentCell.ColumnIndex == 3)
+                {
+                    dgvListaPrecio.CurrentCell.Value = mask.Text;
+                    if (mask.Text != string.Empty)
+                    {
+                        var orden = mask.Text;
+                        dgvListaPrecio.CurrentCell.Value = orden;
+                        if (dgvListaPrecio[0, dgvListaPrecio.CurrentCell.RowIndex].Value != string.Empty)
+                        {
+                            Guid ClaseId = Guid.Parse(dgvListaPrecio[0, dgvListaPrecio.CurrentCell.RowIndex].Value.ToString());
+                            ModificarOrden(ClaseId, orden);
+                        }
+                    }
+                    mask.Visible = false;
+                }
+            }
+        }
+
+        private void ModificarOrden(Guid Id, string orden)
+        {
+            CultureInfo culture = CultureInfo.InvariantCulture;
+            int valor;
+
+            if (Id != null)
+            {
+                var a = int.TryParse(orden, out valor);
+                if (int.TryParse(orden, out valor))
+                {
+                    var clase = Context.Clase
+                        .Where(x => x.ClaseId == Id
+                            && x.Vigente == true)
+                        .FirstOrDefault();
+
+                    if (clase != null)
+                    {
+                        var cl = Context.Clase.Find(clase.Id);
+                        if (cl != null)
+                        {
+                            cl.Orden = int.Parse(orden);
+                            Context.Entry(cl).State = EntityState.Modified;
+                            Context.SaveChanges();
+                            Buscar();
+                        }
+                    }
                 }
             }
         }
@@ -121,6 +166,19 @@ namespace CooperativaProduccion
                             return true;
                         }
                     }
+                    else if (dgvListaPrecio.CurrentCell.ColumnIndex == 3)
+                    {
+                        if (dgvListaPrecio.CurrentCell.RowIndex + 1 < dgvListaPrecio.RowCount)
+                        {
+                            cell = dgvListaPrecio.Rows[dgvListaPrecio.CurrentCell.RowIndex + 1].Cells[3];
+                            dgvListaPrecio.CurrentCell = cell;
+                            dgvListaPrecio.BeginEdit(true);
+                            mask.Focus();
+                            mask.SelectionStart = 0;
+
+                            return true;
+                        }
+                    }
                 }
                 else
                 {
@@ -141,19 +199,20 @@ namespace CooperativaProduccion
             {
                 dgvListaPrecio.Rows.Clear();
             }
-            var results = (
-                from a in Context.Vw_Clase
-                    .Where(x => (x.Vigente == true || x.Vigente == null)
-                        && x.ID_PRODUCTO != DevConstantes.Generico)
+            var results =
+                (from a in Context.Vw_Clase
+                 .Where(x => (x.Vigente == true || x.Vigente == null)
+                    && x.ID_PRODUCTO != DevConstantes.Generico)
                     .OrderBy(x => x.DESCRIPCION)
-                    .ThenBy(x => x.NOMBRE)
-                select new
-                {
-                    ID = a.ID,
-                    CLASE = a.NOMBRE,
-                    PRECIOCOMPRA = a.PRECIOCOMPRA,
-                    PRODUCTO = a.DESCRIPCION
-                })
+                    .ThenBy(x => x.Orden)
+                 select new
+                 {
+                     ID = a.ID,
+                     CLASE = a.NOMBRE,
+                     PRECIOCOMPRA = a.PRECIOCOMPRA,
+                     ORDEN = a.Orden,
+                     PRODUCTO = a.DESCRIPCION
+                 })
                 .ToList();
 
             if (results.Count > 0)
@@ -161,7 +220,7 @@ namespace CooperativaProduccion
                 foreach (var result in results)
                 {
                     this.dgvListaPrecio.Rows.Add(result.ID,result.CLASE,result.PRECIOCOMPRA,
-                        result.PRODUCTO);     
+                        result.ORDEN ,result.PRODUCTO);     
                 }
                 this.dgvListaPrecio.Columns[2].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; 
             }
@@ -247,20 +306,23 @@ namespace CooperativaProduccion
             DataGridViewColumn d2 = new DataGridViewTextBoxColumn();
             DataGridViewColumn d3 = new DataGridViewTextBoxColumn();
             DataGridViewColumn d4 = new DataGridViewTextBoxColumn();
-                     
+            DataGridViewColumn d5 = new DataGridViewTextBoxColumn();
+            
             //Add Header Texts to be displayed on the Columns
             d1.HeaderText = "Id";
             d2.HeaderText = "Clase";
             d3.HeaderText = "Precio Compra";
-            d4.HeaderText = "Producto";
+            d4.HeaderText = "Orden";
+            d5.HeaderText = "Producto";
 
             d1.Visible = false;
             d2.Width = 90;
             d3.Width = 90;
-            d4.Width = 100;
+            d4.Width = 90;
+            d5.Width = 100;
             
             //Add the Columns to the DataGridView
-            dgvListaPrecio.Columns.AddRange(d1, d2, d3, d4);
+            dgvListaPrecio.Columns.AddRange(d1, d2, d3, d4 ,d5);
         }
 
         private void AddNewRow()

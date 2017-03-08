@@ -8,6 +8,8 @@ using System.Linq;
 using System.Windows.Forms;
 using DevExpress.XtraBars;
 using DesktopEntities.Models;
+using System.Linq.Expressions;
+using Extensions;
 
 namespace CooperativaProduccion
 {
@@ -26,56 +28,75 @@ namespace CooperativaProduccion
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
+            Expression<Func<Movimiento, bool>> pred = x => true;
+
+            pred = pred.And(x => x.Fecha >= dpDesde.Value.Date 
+                && x.Fecha <= dpHasta.Value.Date);
+
             var result = (
-                from a in Context.Vw_Movimiento
+                from m in Context.Movimiento.Where(pred)
+                join p in Context.Vw_Pesada 
+                    on m.TransaccionId equals p.PesadaDetalleId
+                join d in Context.Vw_Deposito 
+                    on m.DepositoId equals d.id
+                group new { m, p, d } by new
+                {
+                    m.Fecha,
+                    Deposito = d.nombre,
+                    TipoTabaco = p.DESCRIPCION,
+                    m.Unidad
+                } into g
                 select new
                 {
-                    a.Id,
-                    a.NumFardo,
-                    a.Clase,
-                    a.Kilos,
-                    a.NumRomaneo,
-                    a.Productor,
-                    a.Fet,
-                    a.Cuit,
-                    a.Provincia,
-                    a.Fecha,
-                    a.Unidad,
-                    a.Ingreso,
-                    a.Egreso
+                    g.Key.Fecha,
+                    g.Key.Deposito,
+                    g.Key.TipoTabaco,
+                    g.Key.Unidad,
+                    Ingreso = g.Sum(c=>c.m.Ingreso),
+                    Egreso = g.Sum(c=>c.m.Egreso),
+                    Saldo = g.Sum(c => c.m.Ingreso) - g.Sum(c => c.m.Egreso)
                 })
-                .OrderBy(x => x.Fecha)
                 .ToList();
 
             if (result.Count > 0)
             {
                 gridControlFardos.DataSource = result;
-                gridViewFardos.Columns[0].Visible = false;
             }
         }
 
         #endregion
 
         #region Method Dev
+
         private void CargarCombo()
         {
-            var tipotabaco = Context.Vw_TipoTabaco
-              .Where(x => x.RUBRO_ID != null)
-              .ToList();
-
-            cbTabaco.DataSource = tipotabaco;
-            cbTabaco.DisplayMember = "Descripcion";
-            cbTabaco.ValueMember = "Id";
-
-            var clase = Context.Vw_Clase
-                .Where( x => x.Vigente == true)
+            var deposito = Context.Vw_Deposito
+                .OrderBy(x=>x.nombre)
                 .ToList();
 
-            cbClase.DataSource = clase;
-            cbClase.DisplayMember = "Nombre";
-            cbClase.ValueMember = "Id";
+            cbDeposito.DataSource = deposito;
+            cbDeposito.DisplayMember = "Nombre";
+            cbDeposito.ValueMember = "Id";
+            
+            var producto = (from c in Context.Vw_TipoTabaco
+                            select new
+                            {
+                                Id = c.id ,
+                                Descripcion = c.DESCRIPCION
+                            })
+                            .Union(from p in Context.Vw_Producto
+                                   select new
+                                   {
+                                       Id = p.ID,
+                                       Descripcion = p.DESCRIPCION
+                                   })
+                                   .OrderBy(x=>x.Descripcion)
+                                   .ToList();
+           
+            cbProducto.DataSource = producto;
+            cbProducto.DisplayMember = "Descripcion";
+            cbProducto.ValueMember = "Id";
         }
-
 
         #endregion
 
@@ -83,7 +104,7 @@ namespace CooperativaProduccion
         {
             if (checkTabaco.Checked)
             {
-                Guid Tabaco = Guid.Parse(cbTabaco.SelectedValue.ToString());
+                Guid Tabaco = Guid.Parse(cbProducto.SelectedValue.ToString());
 
                 var clase = Context.Vw_Clase
                 .Where(x => x.ID_PRODUCTO == Tabaco
@@ -100,7 +121,7 @@ namespace CooperativaProduccion
         {
             if (checkTabaco.Checked)
             {
-                Guid Tabaco = Guid.Parse(cbTabaco.SelectedValue.ToString());
+                Guid Tabaco = Guid.Parse(cbProducto.SelectedValue.ToString());
 
                 var clase = Context.Vw_Clase
                 .Where(x => x.ID_PRODUCTO == Tabaco

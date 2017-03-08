@@ -969,6 +969,7 @@ namespace CooperativaProduccion
             movimiento.TransaccionId = detalleid;
             movimiento.Unidad = DevConstantes.Kg;
             movimiento.Ingreso = kilos;
+            movimiento.Egreso = 0;
 
             _context.Movimiento.Add(movimiento);
             _context.SaveChanges();
