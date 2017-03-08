@@ -386,7 +386,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="ReportModels\RegistroEncabezado.cs" />
     <Compile Include="ReportModels\RegistroFardo.cs" />
+    <Compile Include="ReportModels\RegistroRenglon.cs" />
     <Compile Include="ReportModels\RegistroResumenLiquidacion.cs" />
     <Compile Include="ReportModels\RegistroResumenRomaneoBurley.cs" />
     <Compile Include="ReportModels\RegistroResumenRomaneoVirginia.cs" />

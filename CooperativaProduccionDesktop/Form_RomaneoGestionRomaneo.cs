@@ -1013,7 +1013,276 @@ namespace CooperativaProduccion
 
         private void btnExportarRomaneo_ItemClick(object sender, ItemClickEventArgs e)
         {
+            ExportarRomaneo();
+        }
 
+        private void ExportarRomaneo()
+        {
+            string rootdir = @"C:\SystemDocumentsCooperativa";
+
+            CreateIfMissing(rootdir);
+
+            var variedad = cbTabaco.Text;
+            var desde = dpDesdeRomaneo.Value.Date;
+            var hasta = dpHastaRomaneo.Value.Date;
+            var dir = String.Empty;
+
+            if (variedad == DevConstantes.TabacoVirginia)
+            {
+                dir = Path.Combine(rootdir, "ExportacionRomaneoVirginia");
+            }
+            else if (variedad == DevConstantes.TabacoBurley)
+            {
+                dir = Path.Combine(rootdir, "ExportacionRomaneoBurley");
+            }
+
+            CreateIfMissing(dir);
+
+            var datasourceEncabezados = GetEncabezados(variedad, desde, hasta);
+            var datasourceRenglones = GetRenglones(datasourceEncabezados);
+
+            var timespan = DateTime.Now.ToString("yyyyMMddHHmmssfff", CultureInfo.InvariantCulture);
+            var archivor = Path.Combine(dir, timespan + "R.txt");
+            var archivoe = Path.Combine(dir, timespan + "E.txt");
+
+            GenerarArchivoDeEncabezados(datasourceEncabezados, archivoe);
+            GenerarArchivoDeRenglones(datasourceRenglones, archivor);
+
+            StartProcess(archivoe);
+            StartProcess(archivor);
+        }
+
+        private List<RegistroEncabezado> GetEncabezados(string variedad, DateTime desde, DateTime hasta)
+        {
+            var list = new List<RegistroEncabezado>();
+
+            var datosRomaneos = Context.Vw_Romaneo
+                .Where(x =>
+                    x.FechaRomaneo >= desde && x.FechaRomaneo <= hasta &&
+                    x.Tabaco == variedad &&
+                    x.NumInternoLiquidacion != null)
+                .Select(x => new
+                {
+                    x.PesadaId,
+                    x.ProductorId,
+
+                    FechaRomaneo = x.FechaRomaneo.Value,
+                    NumRomaneo = x.NumRomaneo.Value,
+                    x.Tabaco,
+                    PuntoVentaLiquidacion = x.PuntoVentaLiquidacion.Value,
+                    NumInternoLiquidacion = x.NumInternoLiquidacion.Value,
+                    TipoComprobante = x.Letra,
+                    FechaInternaLiquidacion = x.FechaInternaLiquidacion.Value,
+                    ImporteBruto = x.ImporteBruto.Value
+                })
+                .OrderBy(x => x.FechaRomaneo)
+                .ToList();
+
+            var ids = datosRomaneos.Select(x => x.ProductorId).ToList();
+
+            var datosProductor = Context.Vw_Productor
+                .Where(x => ids.Contains(x.ID))
+                .Select(x => new
+                {
+                    x.ID,
+                    x.CUIT,
+                    x.NOMBRE,
+                    x.CALLE,
+                    x.Provincia
+                })
+                .ToList();
+
+            foreach (var item in datosRomaneos)
+            {
+                var productor = datosProductor.Where(x => x.ID == item.ProductorId).Single();
+                var codigoProvincia = String.Empty;
+                var variedadTabaco = String.Empty;
+                var tipocomprobante = String.Empty;
+
+                var provincia = productor.Provincia ?? String.Empty;
+
+                switch (provincia.Trim())
+                {
+                    case "Tucumán":
+                        codigoProvincia = DevConstantes.AFIPCodigoTucuman;
+                        break;
+                    case "Catamarca":
+                        codigoProvincia = DevConstantes.AFIPCodigoCatamarca;
+                        break;
+                    default:
+                        codigoProvincia = DevConstantes.AFIPCodigoTucuman;
+                        break;
+                }
+
+                var tabaco = item.Tabaco ?? String.Empty;
+
+                switch (tabaco.Trim())
+                {
+                    case "TABACO BURLEY":
+                        variedadTabaco = DevConstantes.AFIPCodigoVariedadBurley;
+                        break;
+                    case "TABACO VIRGINIA":
+                        variedadTabaco = DevConstantes.AFIPCodigoVariedadVirginia;
+                        break;
+                    default:
+                        throw new Exception("No se puede determinar el código de la variedad de tabaco encontrada.");
+                }
+
+                var letra = item.TipoComprobante ?? String.Empty;
+
+                switch (letra.Trim())
+                {
+                    case "A":
+                        tipocomprobante = DevConstantes.AFIPCodigoTipoComprobanteA;
+                        break;
+                    case "B":
+                        tipocomprobante = DevConstantes.AFIPCodigoTipoComprobanteB;
+                        break;
+                    default:
+                        throw new Exception("No se puede determinar el código del tipo de comprobante encontrado.");
+                }
+
+                var registro = new RegistroEncabezado()
+                {
+                    _ID = item.PesadaId,
+
+                    CuitProductor = productor.CUIT,
+                    RazonSocialProductor = productor.NOMBRE,
+                    CalleProductor = productor.CALLE,
+                    CodigoProvinciaProductor = codigoProvincia,
+
+                    FechaRomaneo = item.FechaRomaneo,
+                    NumeroRomaneo = item.NumRomaneo,
+                    VariedadTabaco = variedadTabaco,
+
+                    PuntoDeVentaFacturaLiquidacion = item.PuntoVentaLiquidacion,
+                    // Temporal hasta que esté listo factura electronica
+                    NumeroFacturaLiquidacion = item.NumInternoLiquidacion,
+                    CodigoTipoComprobante = tipocomprobante,
+                    // Temporal hasta que esté listo factura electronica
+                    FechaFacturaLiquidacionDI = item.FechaInternaLiquidacion,
+
+                    ImporteNetoGravado = item.ImporteBruto
+                };
+
+                list.Add(registro);
+            }
+
+            return list;
+        }
+
+        private List<RegistroRenglon> GetRenglones(List<RegistroEncabezado> encabezados)
+        {
+            var list = new List<RegistroRenglon>();
+            var idsRomaneos = encabezados.Select(x => x._ID).ToList();
+
+            var datosDetalle = Context.PesadaDetalle
+                .Where(x => idsRomaneos.Contains(x.PesadaId.Value))
+                .Select(x => new
+                {
+                    PesadaId = x.PesadaId.Value,
+
+                    ClaseId = x.ClaseId.Value,
+                    Kilos = x.Kilos.Value,
+                    NumFardo = x.NumFardo.Value
+                })
+                .OrderBy(x => x.PesadaId)
+                .ToList();
+
+            var datosClases = Context.Vw_Clase
+                .Select(x => new
+                {
+                    x.ID,
+                    x.NOMBRE
+                });
+
+            foreach (var romaneoid in idsRomaneos)
+            {
+                var numeroromaneo = encabezados.Where(x => x._ID == romaneoid).Select(x => x.NumeroRomaneo).Single();
+                var detalle = datosDetalle.Where(x => x.PesadaId == romaneoid).ToList();
+
+                foreach (var item in detalle)
+                {
+                    var clase = datosClases.Where(x => x.ID == item.ClaseId).Select(x => x.NOMBRE).Single();
+
+                    var registro = new RegistroRenglon()
+                    {
+                        NumeroRomaneo = numeroromaneo,
+                        Clase = clase,
+                        PesoFardoEnKilos = Convert.ToDecimal(item.Kilos),
+                        CodigoTrazabilidadInterno = item.NumFardo,
+                    };
+
+                    list.Add(registro);
+                }
+            }
+
+            return list;
+        }
+
+        private void GenerarArchivoDeEncabezados(List<RegistroEncabezado> datasource, string archivoe)
+        {
+            var parser = new Helpers.ParserIngresoTabaco();
+            var lista = new List<Helpers.EncabezadoIngresoTabaco>();
+
+            foreach (var item in datasource)
+            {
+                var encabezado = new Helpers.EncabezadoIngresoTabaco();
+
+                encabezado.CodigoDepositoAcopiador.Value = "1";
+                encabezado.CuitAdquirienteTabaco.Value = "33708194609";
+                encabezado.RazonSocialAdquirientetabaco.Value = "COOP. DE PROD. AGROP. DEL TUC.";
+                encabezado.CuitProductor.Value = item.CuitProductor;
+                encabezado.RazonSocialProductor.Value = item.RazonSocialProductor;
+                encabezado.Calle.Value = item.CalleProductor;
+                encabezado.NumeroPuerta.Value = "0000";
+                encabezado.Piso.Value = String.Empty;
+                encabezado.OficinaDptoLocal.Value = String.Empty;
+                encabezado.Sector.Value = String.Empty;
+                encabezado.Torre.Value = String.Empty;
+                encabezado.Manzana.Value = String.Empty;
+                encabezado.CodigoPostal.Value = "4000";
+                encabezado.Localidad.Value = item.CalleProductor;
+                encabezado.CodigoDeProvincia.Value = item.CodigoProvinciaProductor;
+                encabezado.CodigoDeProvinciaTabaco.Value = item.CodigoProvinciaProductor;
+                encabezado.LocalidadTabaco.Value = item.CalleProductor;
+                encabezado.FechaRomaneo.Value = encabezado.FechaRomaneo.Formatter.GetFormattedValue(item.FechaRomaneo);
+                encabezado.NumeroRomaneo.Value = item.NumeroRomaneo.ToString();
+                encabezado.VariedadTabaco.Value = item.VariedadTabaco;
+                encabezado.PuntoDeVentaFacturaLiquidacion.Value = item.PuntoDeVentaFacturaLiquidacion.ToString();
+                encabezado.NumeroFacturaLiquidacion.Value = item.NumeroFacturaLiquidacion.ToString();
+                encabezado.TipoComprobante.Value = item.CodigoTipoComprobante;
+                encabezado.NumeroDespachoImportacion.Value = String.Empty;
+                encabezado.FechaFacturaLiquidacionDI.Value = encabezado.FechaFacturaLiquidacionDI.Formatter.GetFormattedValue(item.FechaFacturaLiquidacionDI);
+                encabezado.EmisorComprobante.Value = "2";
+                encabezado.ImporteNetoGravado.Value = encabezado.ImporteNetoGravado.Formatter.GetFormattedValue(item.ImporteNetoGravado);
+                encabezado.CAI.Value = "0";
+                encabezado.TipoOperacion.Value = "1";
+
+                lista.Add(encabezado);
+            }
+
+            parser.ImprimirArchivoEncabezados(lista, archivoe);
+        }
+
+        private void GenerarArchivoDeRenglones(List<RegistroRenglon> datasource, string archivor)
+        {
+            var parser = new Helpers.ParserIngresoTabaco();
+            var lista = new List<Helpers.RenglonIngresoTabaco>();
+
+            foreach (var item in datasource)
+            {
+                var renglon = new Helpers.RenglonIngresoTabaco();
+
+                renglon.NumeroRomaneo.Value = item.NumeroRomaneo.ToString();
+                renglon.Clase.Value = item.Clase;
+                renglon.PesoFardoEnKilos.Value = renglon.PesoFardoEnKilos.Formatter.GetFormattedValue(item.PesoFardoEnKilos);
+                renglon.CodigoTrazabilidadInterno.Value = item.CodigoTrazabilidadInterno.ToString();
+
+                lista.Add(renglon);
+            }
+
+            parser.ImprimirArchivoRenglones(lista, archivor);
         }
 
         void IEnlace.Enviar(Guid Id, string fet, string nombre)

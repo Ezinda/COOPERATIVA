@@ -28,6 +28,7 @@ namespace CooperativaProduccion
         public static string ResponsableInscripto = "Responsable Inscripto";
         public static string LI = "LI";
         public static string Reclasificacion = "TABACO RECLASIFICACIÓN";
+
         public static string Reimpresion = "Reimpresión";
         public static string Liquidacion = "Liquidacion";
 
@@ -59,6 +60,14 @@ namespace CooperativaProduccion
         public static string OrdenVenta = "OrdenVenta";
         public static string Remito = "Remito";
         public static string Romaneo = "Romaneo";
-        
+
+        public static string AFIPCodigoTucuman = "14";
+        public static string AFIPCodigoCatamarca = "02";
+
+        public static string AFIPCodigoVariedadBurley = "BR";
+        public static string AFIPCodigoVariedadVirginia = "VR";
+
+        public static string AFIPCodigoTipoComprobanteA = "63";
+        public static string AFIPCodigoTipoComprobanteB = "64";
     }
 }
