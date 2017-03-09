@@ -697,35 +697,50 @@ namespace CooperativaProduccion
                 x.FechaRomaneo >= desde &&
                 x.FechaRomaneo <= hasta);
 
-            var resumen = context.Vw_ResumenClasePorFecha
-                .Where(pred)
-                .Select(x => new
-                {
-                    Clase = x.Clase,
-                    Kilos = x.Kilos,
-                    PrecioPorKilo = x.PrecioPorKilo,
-                    Total = x.Importe
-                })
-                .OrderBy(x => x.Clase)
+            var clases = Context.Vw_Clase
+                .Where(x => x.DESCRIPCION == cbTabaco.Text)
                 .ToList();
-
-            foreach (var item in resumen)
+            
+            var resumen = 
+                (from r in context.Vw_ResumenClasePorFecha
+                .Where(pred)
+                group r by new
+                {
+                    Clase = r.Clase,
+                    Orden = r.Orden,
+                    PrecioPorKilo = r.PrecioPorKilo
+                } into g
+                select new
+                {
+                    Clase = g.Key.Clase,
+                    Kilos = g.Sum(x=>x.Kilos),
+                    PrecioPorKilo = g.Key.PrecioPorKilo,
+                    Total = g.Sum(x=>x.Importe)
+                })
+                .ToList();
+            
+                var resumenes = resumen
+                    .FullOuterJoin(clases, a => a.Clase, b => b.NOMBRE, (a, b, Clases) => new { a, b })
+                    .OrderBy(x => x.b.Orden)
+                    .ToList();
+        
+            foreach (var item in resumenes)
             {
-                ResumenClasePorMes detalle = result.Where(x => x.Clase == item.Clase).SingleOrDefault();
+                ResumenClasePorMes detalle = result.Where(x => x.Clase == item.b.NOMBRE).SingleOrDefault();
 
                 if (detalle == null)
                 {
                     detalle = new ResumenClasePorMes();
 
-                    detalle.Clase = item.Clase;
-                    detalle.Kilos = item.Kilos.Value.ToString();
-                    detalle.PrecioPorKilo = item.PrecioPorKilo.Value.ToString("F", culture);
-                    detalle.Total = item.Total.Value.ToString("F", culture);
+                    detalle.Clase = item.a == null ? item.b.NOMBRE : item.a.Clase;
+                    detalle.Kilos = item.a == null ? "0" : item.a.Kilos.Value.ToString();
+                    detalle.PrecioPorKilo = item.a == null ? item.b.PRECIOCOMPRA.Value.ToString() : item.a.PrecioPorKilo.Value.ToString("F", culture);
+                    detalle.Total = item.a == null ? "0" : item.a.Total.Value.ToString("F", culture);
                 }
                 else
                 {
-                    var kilos = Convert.ToDecimal(detalle.Kilos) + Convert.ToDecimal(item.Kilos.Value);
-                    var total = Convert.ToDecimal(detalle.Total) + Convert.ToDecimal(item.Total.Value);
+                    var kilos = item.a == null ? 0 : Convert.ToDecimal(detalle.Kilos) + Convert.ToDecimal(item.a.Kilos.Value);
+                    var total = item.a == null ? 0 : Convert.ToDecimal(detalle.Total) + Convert.ToDecimal(item.a.Total.Value);
 
                     detalle.Kilos = kilos.ToString("F0");
                     detalle.Total = total.ToString("F", culture);
@@ -814,11 +829,16 @@ namespace CooperativaProduccion
                 x.FechaRomaneo >= desde &&
                 x.FechaRomaneo <= hasta);
 
+            var clases = Context.Vw_Clase
+                .Where(x => x.DESCRIPCION == cbTabaco.Text)
+                .ToList();
+         
             var resumen = context.Vw_ResumenClasePorFecha
                 .Where(pred)
                 .Select(x => new
                 {
                     Fecha = x.FechaRomaneo,
+                    Orden = x.Orden,
                     Clase = x.Clase,
                     Kilos = x.Kilos,
                     PrecioPorKilo = x.PrecioPorKilo,
@@ -827,10 +847,17 @@ namespace CooperativaProduccion
                 .OrderBy(x => x.Clase)
                 .ToList();
 
-            foreach (var item in resumen)
+            var resumenes = resumen
+                .FullOuterJoin(clases, a => a.Clase, b => b.NOMBRE, (a, b, Clases) => new { a, b })
+                .OrderBy(x => x.b.Orden)
+                .ToList();
+        
+
+            foreach (var item in resumenes)
             {
-                var mesdeitem = item.Fecha.Value.Month;
-                ResumenClasePorTrimestre detalle = result.Where(x => x.Clase == item.Clase).SingleOrDefault();
+                var mesdeitem = item.a == null ? mes01 : item.a.Fecha.Value.Month;
+                var clase = item.a == null ? item.b.NOMBRE : item.a.Clase;
+                ResumenClasePorTrimestre detalle = result.Where(x => x.Clase == clase && x.Mes == mesdeitem).SingleOrDefault();
 
                 if (detalle == null)
                 {
@@ -841,27 +868,27 @@ namespace CooperativaProduccion
 
                     if (mesdeitem == mes01)
                     {
-                        kilos01 += Convert.ToDecimal(item.Kilos);
+                        kilos01 += item.a == null ? 0 : Convert.ToDecimal(item.a.Kilos);
                     }
                     else if (mesdeitem == mes02)
                     {
-                        kilos02 += Convert.ToDecimal(item.Kilos);
+                        kilos02 += item.a == null ? 0 : Convert.ToDecimal(item.a.Kilos);
                     }
                     else if (mesdeitem == mes03)
                     {
-                        kilos03 += Convert.ToDecimal(item.Kilos);
+                        kilos03 += item.a == null ? 0 : Convert.ToDecimal(item.a.Kilos);
                     }
 
                     totalkilos = kilos01 + kilos02 + kilos03;
 
                     detalle = new ResumenClasePorTrimestre();
 
-                    detalle.Clase = item.Clase;
+                    detalle.Clase = item.b.NOMBRE;
                     detalle.Kilos01 = kilos01;
                     detalle.Kilos02 = kilos02;
                     detalle.Kilos03 = kilos03;
                     detalle.TotalKilos = totalkilos;
-                    detalle.PrecioPorKilo = item.PrecioPorKilo.Value;
+                    detalle.PrecioPorKilo = item.b.PRECIOCOMPRA.Value;
                 }
                 else
                 {
@@ -872,27 +899,27 @@ namespace CooperativaProduccion
 
                     if (mesdeitem == mes01)
                     {
-                        kilos01 += Convert.ToDecimal(item.Kilos);
+                        kilos01 += item.a == null ? 0 : Convert.ToDecimal(item.a.Kilos);
                     }
                     else if (mesdeitem == mes02)
                     {
-                        kilos02 += Convert.ToDecimal(item.Kilos);
+                        kilos02 += item.a == null ? 0 : Convert.ToDecimal(item.a.Kilos);
                     }
                     else if (mesdeitem == mes03)
                     {
-                        kilos03 += Convert.ToDecimal(item.Kilos);
+                        kilos03 += item.a == null ? 0 : Convert.ToDecimal(item.a.Kilos);
                     }
 
                     totalkilos = kilos01 + kilos02 + kilos03;
 
                     detalle = new ResumenClasePorTrimestre();
 
-                    detalle.Clase = item.Clase;
+                    detalle.Clase = item.b.NOMBRE;
                     detalle.Kilos01 = kilos01;
                     detalle.Kilos02 = kilos02;
                     detalle.Kilos03 = kilos03;
                     detalle.TotalKilos = totalkilos;
-                    detalle.PrecioPorKilo = item.PrecioPorKilo.Value;
+                    detalle.PrecioPorKilo = item.b.PRECIOCOMPRA.Value;
                 }
 
                 result.Add(detalle);
@@ -935,26 +962,43 @@ namespace CooperativaProduccion
 
             pred = !string.IsNullOrEmpty(cbTabaco.Text) ? pred.And(x => x.Tabaco == cbTabaco.Text) : pred;
             
-            var liquidacionDetalles = (
-                from a in Context.Vw_ResumenCompraPorClase
-                    .Where(pred)
-                select new
-                {
-                    Clase = a.Clase,
-                    Fardos = a.Fardos,
-                    Kilos = a.Kilos,
-                    Total = a.Importe
-                })
-                .OrderBy(x=>x.Clase)
-                .ToList();
+            var clases = Context.Vw_Clase
+                    .Where(x=>x.DESCRIPCION == cbTabaco.Text)
+                                .ToList();
+            
+            var liquidacionDetalles =
+                (from a in Context.Vw_ResumenCompraPorClase
+                 .Where(pred)
+                 group a by new
+                 {
+                     Clase = a.Clase,
+                     Orden = a.orden
+                 } into g
+                 select new
+                 {
+                     Clase = g.Key.Clase,
+                     Orden = g.Key.Orden,
+                     Fardos = g.Sum(x => x.Fardos),
+                     Kilos = g.Sum(x => x.Kilos),
+                     Total = g.Sum(x => x.Importe)
+                 })
+                 .OrderBy(x => x.Orden)
+                 .ToList();
 
-            foreach (var liquidacionDetalle in liquidacionDetalles)
+
+
+            var liquidaciones = liquidacionDetalles
+                .FullOuterJoin(clases, a => a.Clase, b => b.NOMBRE, (a, b, Clases) => new { a, b })
+                .OrderBy(x => x.b.Orden)
+                .ToList();
+            
+            foreach (var liquidacionDetalle in liquidaciones)
             {
                 ResumenCompraPorMes detalle = new ResumenCompraPorMes();
-                detalle.Clase = liquidacionDetalle.Clase;
-                detalle.Fardos = liquidacionDetalle.Fardos.Value.ToString();
-                detalle.Kilos = liquidacionDetalle.Kilos.Value.ToString();
-                detalle.Importe = liquidacionDetalle.Total.Value.ToString("F", culture);
+                detalle.Clase =  liquidacionDetalle.a == null ? liquidacionDetalle.b.NOMBRE : liquidacionDetalle.a.Clase;
+                detalle.Fardos = liquidacionDetalle.a == null ? "0" : liquidacionDetalle.a.Fardos.Value.ToString();
+                detalle.Kilos = liquidacionDetalle.a == null ? "0" : liquidacionDetalle.a.Kilos.Value.ToString();
+                detalle.Importe = liquidacionDetalle.a == null ? "0" : liquidacionDetalle.a.Total.Value.ToString("F", culture);
                 datasource.Add(detalle);
             }
             return datasource;
