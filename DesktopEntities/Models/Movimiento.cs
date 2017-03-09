@@ -16,6 +16,7 @@ namespace DesktopEntities.Models
     {
         public System.Guid Id { get; set; }
         public Nullable<System.Guid> TransaccionId { get; set; }
+        public Nullable<System.Guid> DepositoId { get; set; }
         public Nullable<System.DateTime> Fecha { get; set; }
         public string Unidad { get; set; }
         public Nullable<double> Ingreso { get; set; }

@@ -42,6 +42,7 @@
           <Property Name="Valor" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="FechaModificacion" Type="datetime" Nullable="false" />
           <Property Name="Vigente" Type="bit" Nullable="false" />
+          <Property Name="Orden" Type="int" />
         </EntityType>
         <EntityType Name="ConceptoDeOrdenDePago">
           <Key>
@@ -85,6 +86,7 @@
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="TransaccionId" Type="uniqueidentifier" />
+          <Property Name="DepositoId" Type="uniqueidentifier" />
           <Property Name="Fecha" Type="date" />
           <Property Name="Unidad" Type="nvarchar" MaxLength="50" />
           <Property Name="Ingreso" Type="float" />
@@ -288,6 +290,7 @@ warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_Clase' do
           <Property Name="DESCRIPCION" Type="varchar" MaxLength="150" />
           <Property Name="PRECIOCOMPRA" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Vigente" Type="bit" />
+          <Property Name="Orden" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_Cliente' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -357,6 +360,15 @@ warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_ConceptoD
           <Property Name="RetencionGADM" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="RetencionGanancias" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="RetencionRiego" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_Deposito' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Vw_Deposito">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="40" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_Movimiento' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -507,12 +519,24 @@ warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_Productor
           <Property Name="GANANCIA" Type="decimal" Precision="38" Scale="10" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_Provincia' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Vw_Provincia">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="NOMBRE" Type="varchar" MaxLength="40" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_ResumenClasePorFecha' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_ResumenClasePorFecha">
           <Key>
+            <PropertyRef Name="provincia" />
             <PropertyRef Name="TabacoId" />
           </Key>
           <Property Name="FechaRomaneo" Type="date" />
+          <Property Name="Orden" Type="int" />
+          <Property Name="provincia" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="TabacoId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Tabaco" Type="varchar" MaxLength="150" />
           <Property Name="Clase" Type="varchar" MaxLength="120" />
@@ -524,9 +548,12 @@ warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_ResumenCl
 warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_ResumenCompraPorClase' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_ResumenCompraPorClase">
           <Key>
+            <PropertyRef Name="provincia" />
             <PropertyRef Name="TabacoId" />
           </Key>
           <Property Name="FechaRomaneo" Type="date" />
+          <Property Name="orden" Type="int" />
+          <Property Name="provincia" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="TabacoId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Tabaco" Type="varchar" MaxLength="150" />
           <Property Name="Fardos" Type="int" />
@@ -924,7 +951,8 @@ warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_TipoTabac
     [Vw_Clase].[COD_PRODUCTO] AS [COD_PRODUCTO], 
     [Vw_Clase].[DESCRIPCION] AS [DESCRIPCION], 
     [Vw_Clase].[PRECIOCOMPRA] AS [PRECIOCOMPRA], 
-    [Vw_Clase].[Vigente] AS [Vigente]
+    [Vw_Clase].[Vigente] AS [Vigente], 
+    [Vw_Clase].[Orden] AS [Orden]
     FROM [dbo].[Vw_Clase] AS [Vw_Clase]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="Vw_Cliente" EntityType="Self.Vw_Cliente" store:Type="Views" store:Schema="dbo">
@@ -976,6 +1004,12 @@ warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_TipoTabac
     [Vw_ConceptoDeOrdenDePago].[RetencionGanancias] AS [RetencionGanancias], 
     [Vw_ConceptoDeOrdenDePago].[RetencionRiego] AS [RetencionRiego]
     FROM [dbo].[Vw_ConceptoDeOrdenDePago] AS [Vw_ConceptoDeOrdenDePago]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Vw_Deposito" EntityType="Self.Vw_Deposito" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Vw_Deposito].[id] AS [id], 
+    [Vw_Deposito].[nombre] AS [nombre]
+    FROM [dbo].[Vw_Deposito] AS [Vw_Deposito]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="Vw_Movimiento" EntityType="Self.Vw_Movimiento" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -1098,9 +1132,17 @@ warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_TipoTabac
     [Vw_Productor].[GANANCIA] AS [GANANCIA]
     FROM [dbo].[Vw_Productor] AS [Vw_Productor]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="Vw_Provincia" EntityType="Self.Vw_Provincia" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Vw_Provincia].[ID] AS [ID], 
+    [Vw_Provincia].[NOMBRE] AS [NOMBRE]
+    FROM [dbo].[Vw_Provincia] AS [Vw_Provincia]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="Vw_ResumenClasePorFecha" EntityType="Self.Vw_ResumenClasePorFecha" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [Vw_ResumenClasePorFecha].[FechaRomaneo] AS [FechaRomaneo], 
+    [Vw_ResumenClasePorFecha].[Orden] AS [Orden], 
+    [Vw_ResumenClasePorFecha].[provincia] AS [provincia], 
     [Vw_ResumenClasePorFecha].[TabacoId] AS [TabacoId], 
     [Vw_ResumenClasePorFecha].[Tabaco] AS [Tabaco], 
     [Vw_ResumenClasePorFecha].[Clase] AS [Clase], 
@@ -1112,6 +1154,8 @@ warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_TipoTabac
           <EntitySet Name="Vw_ResumenCompraPorClase" EntityType="Self.Vw_ResumenCompraPorClase" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [Vw_ResumenCompraPorClase].[FechaRomaneo] AS [FechaRomaneo], 
+    [Vw_ResumenCompraPorClase].[orden] AS [orden], 
+    [Vw_ResumenCompraPorClase].[provincia] AS [provincia], 
     [Vw_ResumenCompraPorClase].[TabacoId] AS [TabacoId], 
     [Vw_ResumenCompraPorClase].[Tabaco] AS [Tabaco], 
     [Vw_ResumenCompraPorClase].[Fardos] AS [Fardos], 
@@ -1348,12 +1392,14 @@ warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_TipoTabac
           <EntitySet Name="Vw_Clase" EntityType="CooperativaProduccionModel.Vw_Clase" />
           <EntitySet Name="Vw_Cliente" EntityType="CooperativaProduccionModel.Vw_Cliente" />
           <EntitySet Name="Vw_ConceptoDeOrdenDePago" EntityType="CooperativaProduccionModel.Vw_ConceptoDeOrdenDePago" />
+          <EntitySet Name="Vw_Deposito" EntityType="CooperativaProduccionModel.Vw_Deposito" />
           <EntitySet Name="Vw_Movimiento" EntityType="CooperativaProduccionModel.Vw_Movimiento" />
           <EntitySet Name="Vw_OrdenPago" EntityType="CooperativaProduccionModel.Vw_OrdenPago" />
           <EntitySet Name="Vw_Pesada" EntityType="CooperativaProduccionModel.Vw_Pesada" />
           <EntitySet Name="Vw_Preingreso" EntityType="CooperativaProduccionModel.Vw_Preingreso" />
           <EntitySet Name="Vw_Producto" EntityType="CooperativaProduccionModel.Vw_Producto" />
           <EntitySet Name="Vw_Productor" EntityType="CooperativaProduccionModel.Vw_Productor" />
+          <EntitySet Name="Vw_Provincia" EntityType="CooperativaProduccionModel.Vw_Provincia" />
           <EntitySet Name="Vw_ResumenClasePorFecha" EntityType="CooperativaProduccionModel.Vw_ResumenClasePorFecha" />
           <EntitySet Name="Vw_ResumenCompraPorClase" EntityType="CooperativaProduccionModel.Vw_ResumenCompraPorClase" />
           <EntitySet Name="Vw_ResumenPesada" EntityType="CooperativaProduccionModel.Vw_ResumenPesada" />
@@ -1435,6 +1481,7 @@ warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_TipoTabac
           <Property Name="Valor" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <Property Name="FechaModificacion" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Vigente" Type="Boolean" Nullable="false" />
+          <Property Name="Orden" Type="Int32" />
         </EntityType>
         <EntityType Name="ConceptoDeOrdenDePago">
           <Key>
@@ -1481,6 +1528,7 @@ warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_TipoTabac
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="TransaccionId" Type="Guid" />
+          <Property Name="DepositoId" Type="Guid" />
           <Property Name="Fecha" Type="DateTime" Precision="0" />
           <Property Name="Unidad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Ingreso" Type="Double" />
@@ -1693,6 +1741,7 @@ warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_TipoTabac
           <Property Name="DESCRIPCION" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="PRECIOCOMPRA" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="Vigente" Type="Boolean" />
+          <Property Name="Orden" Type="Int32" />
         </EntityType>
         <EntityType Name="Vw_Cliente">
           <Key>
@@ -1758,6 +1807,13 @@ warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_TipoTabac
           <Property Name="RetencionGADM" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <Property Name="RetencionGanancias" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <Property Name="RetencionRiego" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="Vw_Deposito">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Guid" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Vw_Movimiento">
           <Key>
@@ -1895,11 +1951,21 @@ warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_TipoTabac
           <Property Name="RIEGO" Type="Decimal" Precision="38" Scale="10" />
           <Property Name="GANANCIA" Type="Decimal" Precision="38" Scale="10" />
         </EntityType>
+        <EntityType Name="Vw_Provincia">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="NOMBRE" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="Vw_ResumenClasePorFecha">
           <Key>
+            <PropertyRef Name="provincia" />
             <PropertyRef Name="TabacoId" />
           </Key>
           <Property Name="FechaRomaneo" Type="DateTime" Precision="0" />
+          <Property Name="Orden" Type="Int32" />
+          <Property Name="provincia" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Name="TabacoId" Type="Guid" Nullable="false" />
           <Property Name="Tabaco" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="Clase" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
@@ -1909,9 +1975,12 @@ warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_TipoTabac
         </EntityType>
         <EntityType Name="Vw_ResumenCompraPorClase">
           <Key>
+            <PropertyRef Name="provincia" />
             <PropertyRef Name="TabacoId" />
           </Key>
           <Property Name="FechaRomaneo" Type="DateTime" Precision="0" />
+          <Property Name="orden" Type="Int32" />
+          <Property Name="provincia" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Name="TabacoId" Type="Guid" Nullable="false" />
           <Property Name="Tabaco" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="Fardos" Type="Int32" />
@@ -2306,6 +2375,7 @@ warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_TipoTabac
           <EntitySetMapping Name="Clase">
             <EntityTypeMapping TypeName="CooperativaProduccionModel.Clase">
               <MappingFragment StoreEntitySet="Clase">
+                <ScalarProperty Name="Orden" ColumnName="Orden" />
                 <ScalarProperty Name="Vigente" ColumnName="Vigente" />
                 <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
                 <ScalarProperty Name="Valor" ColumnName="Valor" />
@@ -2360,6 +2430,7 @@ warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_TipoTabac
                 <ScalarProperty Name="Ingreso" ColumnName="Ingreso" />
                 <ScalarProperty Name="Unidad" ColumnName="Unidad" />
                 <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="DepositoId" ColumnName="DepositoId" />
                 <ScalarProperty Name="TransaccionId" ColumnName="TransaccionId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
@@ -2565,6 +2636,7 @@ warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_TipoTabac
           <EntitySetMapping Name="Vw_Clase">
             <EntityTypeMapping TypeName="CooperativaProduccionModel.Vw_Clase">
               <MappingFragment StoreEntitySet="Vw_Clase">
+                <ScalarProperty Name="Orden" ColumnName="Orden" />
                 <ScalarProperty Name="Vigente" ColumnName="Vigente" />
                 <ScalarProperty Name="PRECIOCOMPRA" ColumnName="PRECIOCOMPRA" />
                 <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
@@ -2626,6 +2698,14 @@ warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_TipoTabac
                 <ScalarProperty Name="PesadaId" ColumnName="PesadaId" />
                 <ScalarProperty Name="OrdenPagoId" ColumnName="OrdenPagoId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vw_Deposito">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.Vw_Deposito">
+              <MappingFragment StoreEntitySet="Vw_Deposito">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2762,6 +2842,14 @@ warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_TipoTabac
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Vw_Provincia">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.Vw_Provincia">
+              <MappingFragment StoreEntitySet="Vw_Provincia">
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Vw_ResumenClasePorFecha">
             <EntityTypeMapping TypeName="CooperativaProduccionModel.Vw_ResumenClasePorFecha">
               <MappingFragment StoreEntitySet="Vw_ResumenClasePorFecha">
@@ -2771,6 +2859,8 @@ warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_TipoTabac
                 <ScalarProperty Name="Clase" ColumnName="Clase" />
                 <ScalarProperty Name="Tabaco" ColumnName="Tabaco" />
                 <ScalarProperty Name="TabacoId" ColumnName="TabacoId" />
+                <ScalarProperty Name="provincia" ColumnName="provincia" />
+                <ScalarProperty Name="Orden" ColumnName="Orden" />
                 <ScalarProperty Name="FechaRomaneo" ColumnName="FechaRomaneo" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -2784,6 +2874,8 @@ warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_TipoTabac
                 <ScalarProperty Name="Fardos" ColumnName="Fardos" />
                 <ScalarProperty Name="Tabaco" ColumnName="Tabaco" />
                 <ScalarProperty Name="TabacoId" ColumnName="TabacoId" />
+                <ScalarProperty Name="provincia" ColumnName="provincia" />
+                <ScalarProperty Name="orden" ColumnName="orden" />
                 <ScalarProperty Name="FechaRomaneo" ColumnName="FechaRomaneo" />
               </MappingFragment>
             </EntityTypeMapping>

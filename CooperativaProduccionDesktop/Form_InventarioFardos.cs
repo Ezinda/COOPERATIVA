@@ -29,33 +29,41 @@ namespace CooperativaProduccion
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             Expression<Func<Movimiento, bool>> pred = x => true;
-
+            
             pred = pred.And(x => x.Fecha >= dpDesde.Value.Date 
                 && x.Fecha <= dpHasta.Value.Date);
 
-            var result = (
-                from m in Context.Movimiento.Where(pred)
-                join p in Context.Vw_Pesada 
-                    on m.TransaccionId equals p.PesadaDetalleId
-                join d in Context.Vw_Deposito 
-                    on m.DepositoId equals d.id
-                group new { m, p, d } by new
-                {
-                    m.Fecha,
-                    Deposito = d.nombre,
-                    TipoTabaco = p.DESCRIPCION,
-                    m.Unidad
-                } into g
-                select new
-                {
-                    g.Key.Fecha,
-                    g.Key.Deposito,
-                    g.Key.TipoTabaco,
-                    g.Key.Unidad,
-                    Ingreso = g.Sum(c=>c.m.Ingreso),
-                    Egreso = g.Sum(c=>c.m.Egreso),
-                    Saldo = g.Sum(c => c.m.Ingreso) - g.Sum(c => c.m.Egreso)
-                })
+            Expression<Func<Vw_Pesada, bool>> pred2 = x => true;
+            
+            pred2 = checkTabaco.Checked ? pred2.And(x => x.DESCRIPCION == cbProducto.Text) : pred2;
+
+            pred2 = checkClase.Checked ? pred2.And(x => x.Clase == cbClase.Text) : pred2;
+
+            Expression<Func<Vw_Deposito, bool>> pred3 = x => true;
+            
+            pred3 = checkDeposito.Checked ? pred3.And(x => x.nombre == cbDeposito.Text) : pred3;
+
+            var result =
+                (from m in Context.Movimiento.Where(pred)
+                 join p in Context.Vw_Pesada.Where(pred2)
+                     on m.TransaccionId equals p.PesadaDetalleId
+                 join d in Context.Vw_Deposito.Where(pred3)
+                     on m.DepositoId equals d.id
+                 group new { m, p, d } by new
+                 {
+                     Deposito = d.nombre,
+                     TipoTabaco = p.DESCRIPCION,
+                     m.Unidad
+                 } into g
+                 select new
+                 {
+                     g.Key.Deposito,
+                     g.Key.TipoTabaco,
+                     g.Key.Unidad,
+                     Ingreso = g.Sum(c => c.m.Ingreso),
+                     Egreso = g.Sum(c => c.m.Egreso),
+                     Saldo = g.Sum(c => c.m.Ingreso) - g.Sum(c => c.m.Egreso)
+                 })
                 .ToList();
 
             if (result.Count > 0)
@@ -133,5 +141,6 @@ namespace CooperativaProduccion
                 cbClase.ValueMember = "Id";
             }
         }
+      
     }
 }

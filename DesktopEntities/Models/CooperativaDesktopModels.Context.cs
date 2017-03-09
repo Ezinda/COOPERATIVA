@@ -47,12 +47,14 @@ namespace DesktopEntities.Models
         public virtual DbSet<Vw_Clase> Vw_Clase { get; set; }
         public virtual DbSet<Vw_Cliente> Vw_Cliente { get; set; }
         public virtual DbSet<Vw_ConceptoDeOrdenDePago> Vw_ConceptoDeOrdenDePago { get; set; }
+        public virtual DbSet<Vw_Deposito> Vw_Deposito { get; set; }
         public virtual DbSet<Vw_Movimiento> Vw_Movimiento { get; set; }
         public virtual DbSet<Vw_OrdenPago> Vw_OrdenPago { get; set; }
         public virtual DbSet<Vw_Pesada> Vw_Pesada { get; set; }
         public virtual DbSet<Vw_Preingreso> Vw_Preingreso { get; set; }
         public virtual DbSet<Vw_Producto> Vw_Producto { get; set; }
         public virtual DbSet<Vw_Productor> Vw_Productor { get; set; }
+        public virtual DbSet<Vw_Provincia> Vw_Provincia { get; set; }
         public virtual DbSet<Vw_ResumenClasePorFecha> Vw_ResumenClasePorFecha { get; set; }
         public virtual DbSet<Vw_ResumenCompraPorClase> Vw_ResumenCompraPorClase { get; set; }
         public virtual DbSet<Vw_ResumenPesada> Vw_ResumenPesada { get; set; }

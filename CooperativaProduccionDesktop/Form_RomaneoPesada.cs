@@ -514,14 +514,6 @@ namespace CooperativaProduccion
             if (txtKilos.Text != string.Empty && txtClase.Text != string.Empty)
             {
                 SaveAndPrintKg(_pesadaId);
-                //TipoTabacoId = Guid.Parse(cbTabaco.SelectedValue.ToString());
-                //GrabarPesadaDetalle(TipoTabacoId);
-                //CargarGrilla();
-                //CalcularTotales();
-                //ActualizarPesada(PesadaId, false);
-                //PasarFardoMostrador(false);
-                //txtKilos.Invoke((MethodInvoker)(() => txtKilos.Text = "0"));
-                //txtClase.Invoke((MethodInvoker)(() => txtClase.Text = string.Empty));
             }
         }
 
@@ -544,7 +536,7 @@ namespace CooperativaProduccion
             EliminarDatos();
             CargarGrilla();
             CalcularTotales();
-            PasarFardoMostrador(true);
+            PasarFardoMostrador(true,string.Empty);
 
             AutoFocusClase();
         }
@@ -561,7 +553,7 @@ namespace CooperativaProduccion
             Deshabilitar();
             ImpimirRomaneo(pesadavieja);
             PasarMostrador(string.Empty, string.Empty);
-            PasarFardoMostrador(true);
+            PasarFardoMostrador(true,string.Empty);
             //m_serialPort1.Close();//Cerramos puerto
             //m_serialPort1.Dispose();//Liberamos recursos
 
@@ -716,7 +708,12 @@ namespace CooperativaProduccion
                             gridControlPesada.DataSource = result;
                         }
                     }
-                    PasarFardoMostrador(false);
+
+                    var tabaco = _context.Vw_TipoTabaco
+                        .Where(x => x.id == pesada.TipoTabacoId)
+                        .FirstOrDefault();
+
+                    PasarFardoMostrador(false,tabaco.DESCRIPCION);
                 }
                 else
                 {
@@ -970,6 +967,15 @@ namespace CooperativaProduccion
             movimiento.Unidad = DevConstantes.Kg;
             movimiento.Ingreso = kilos;
             movimiento.Egreso = 0;
+
+            var deposito = _context.Vw_Deposito
+                .Where(x => x.nombre == DevConstantes.MateriaPrima)
+                .FirstOrDefault();
+
+            if (deposito != null)
+            {
+                movimiento.DepositoId = deposito.id;
+            }
 
             _context.Movimiento.Add(movimiento);
             _context.SaveChanges();
@@ -1296,14 +1302,14 @@ namespace CooperativaProduccion
             _pesadaMostrador.CargarDatos();
         }
 
-        private void PasarFardoMostrador(bool limpiar)
+        private void PasarFardoMostrador(bool limpiar,string Tabaco)
         {
             if (limpiar.Equals(false))
             {
                 _pesadaMostrador.numFardo = gridViewPesada.GetRowCellValue(0, "CONTADOR_CAJA").ToString();
                 _pesadaMostrador.clase = gridViewPesada.GetRowCellValue(0, "CLASE").ToString();
                 _pesadaMostrador.totalkg = txtTotalKilo.Text;
-                _pesadaMostrador.porcentaje = CalcularPorcentaje(cbTabaco.Text);
+                _pesadaMostrador.porcentaje = CalcularPorcentaje(Tabaco);
                 _pesadaMostrador.CargarFardo();
             }
             else
@@ -1671,7 +1677,12 @@ namespace CooperativaProduccion
 
                 CalcularTotales();
                 ActualizarPesada(pesadaId, false);
-                PasarFardoMostrador(false);
+
+                var tabaco = _context.Vw_TipoTabaco
+                         .Where(x => x.id == TipoTabacoId)
+                         .FirstOrDefault();
+
+                PasarFardoMostrador(false,tabaco.DESCRIPCION);
 
                 txtKilos.Invoke((MethodInvoker)(() => txtKilos.Text = "0"));
                 txtClase.Invoke((MethodInvoker)(() => txtClase.Text = String.Empty));
@@ -1852,14 +1863,6 @@ namespace CooperativaProduccion
                 if (txtKilos.Text != string.Empty && txtClase.Text != string.Empty)
                 {
                     SaveAndPrintKg(_pesadaId);
-                    //TipoTabacoId = Guid.Parse(cbTabaco.SelectedValue.ToString());
-                    //GrabarPesadaDetalle(TipoTabacoId);
-                    //CargarGrilla();
-                    //CalcularTotales();
-                    //ActualizarPesada(PesadaId, false);
-                    //PasarFardoMostrador(false);
-                    //txtKilos.Invoke((MethodInvoker)(() => txtKilos.Text = "0"));
-                    //txtClase.Invoke((MethodInvoker)(() => txtClase.Text = string.Empty));
                 }
             }
         }

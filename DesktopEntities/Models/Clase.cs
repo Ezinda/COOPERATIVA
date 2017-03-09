@@ -19,5 +19,6 @@ namespace DesktopEntities.Models
         public decimal Valor { get; set; }
         public System.DateTime FechaModificacion { get; set; }
         public bool Vigente { get; set; }
+        public Nullable<int> Orden { get; set; }
     }
 }

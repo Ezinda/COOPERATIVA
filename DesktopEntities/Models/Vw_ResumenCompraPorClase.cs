@@ -15,6 +15,8 @@ namespace DesktopEntities.Models
     public partial class Vw_ResumenCompraPorClase
     {
         public Nullable<System.DateTime> FechaRomaneo { get; set; }
+        public Nullable<int> orden { get; set; }
+        public string provincia { get; set; }
         public System.Guid TabacoId { get; set; }
         public string Tabaco { get; set; }
         public Nullable<int> Fardos { get; set; }

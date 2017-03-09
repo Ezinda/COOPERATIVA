@@ -28,10 +28,8 @@ namespace CooperativaProduccion
         public static string ResponsableInscripto = "Responsable Inscripto";
         public static string LI = "LI";
         public static string Reclasificacion = "TABACO RECLASIFICACIÓN";
-
         public static string Reimpresion = "Reimpresión";
         public static string Liquidacion = "Liquidacion";
-
         public static string LiquidacionA = "LiquidacionA";
         public static string LiquidacionB = "LiquidacionB";
         public static string CuitEmpresa = "33-70819460-9";
@@ -69,5 +67,12 @@ namespace CooperativaProduccion
 
         public static string AFIPCodigoTipoComprobanteA = "63";
         public static string AFIPCodigoTipoComprobanteB = "64";
+
+        public static string MateriaPrima = "Materia Prima";
+        public static string ResumenRomaneo = "ResumenRomaneo";
+        public static string ResumenCompra = "ResumenCompra";
+        public static string ResumenClasesMes = "ResumenClasesMes";
+        public static string ResumenClasesTrimestre = "ResumenClasesTrimestre";
+
     }
 }

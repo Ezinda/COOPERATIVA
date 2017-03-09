@@ -12,15 +12,9 @@ namespace DesktopEntities.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Vw_Clase
+    public partial class Vw_Provincia
     {
         public System.Guid ID { get; set; }
         public string NOMBRE { get; set; }
-        public Nullable<System.Guid> ID_PRODUCTO { get; set; }
-        public string COD_PRODUCTO { get; set; }
-        public string DESCRIPCION { get; set; }
-        public Nullable<decimal> PRECIOCOMPRA { get; set; }
-        public Nullable<bool> Vigente { get; set; }
-        public Nullable<int> Orden { get; set; }
     }
 }
