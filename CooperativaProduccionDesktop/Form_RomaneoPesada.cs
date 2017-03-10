@@ -1225,6 +1225,17 @@ namespace CooperativaProduccion
                 }
                 else
                 {
+                    var mov = _context.Movimiento
+                        .Where(x => x.TransaccionId == pesadaDetalle.Id)
+                        .FirstOrDefault();
+                    
+                    if (mov != null)
+                    {
+                        var movimiento = _context.Movimiento.Find(mov.Id);
+                        _context.Entry(movimiento).State = EntityState.Deleted;
+                        _context.SaveChanges();
+                    }
+                    
                     _context.Entry(pesadaDetalle).State = EntityState.Deleted;
                     _context.SaveChanges();
                     CargarGrilla();
