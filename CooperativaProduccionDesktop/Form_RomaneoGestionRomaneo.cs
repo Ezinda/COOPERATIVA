@@ -702,7 +702,7 @@ namespace CooperativaProduccion
                 encabezado.RazonSocialAdquirientetabaco.Value = "COOP. DE PROD. AGROP. DEL TUC.";
                 encabezado.CuitProductor.Value = item.CuitProductor;
                 encabezado.RazonSocialProductor.Value = item.RazonSocialProductor;
-                encabezado.Calle.Value = item.CalleProductor;
+                encabezado.Calle.Value = item.CalleProductor ?? "LA COCHA";
                 encabezado.NumeroPuerta.Value = "0000";
                 encabezado.Piso.Value = String.Empty;
                 encabezado.OficinaDptoLocal.Value = String.Empty;
@@ -710,10 +710,10 @@ namespace CooperativaProduccion
                 encabezado.Torre.Value = String.Empty;
                 encabezado.Manzana.Value = String.Empty;
                 encabezado.CodigoPostal.Value = "4000";
-                encabezado.Localidad.Value = item.CalleProductor;
+                encabezado.Localidad.Value = item.CalleProductor ?? "LA COCHA";
                 encabezado.CodigoDeProvincia.Value = item.CodigoProvinciaProductor;
                 encabezado.CodigoDeProvinciaTabaco.Value = item.CodigoProvinciaProductor;
-                encabezado.LocalidadTabaco.Value = item.CalleProductor;
+                encabezado.LocalidadTabaco.Value = item.CalleProductor ?? "LA COCHA";
                 encabezado.FechaRomaneo.Value = encabezado.FechaRomaneo.Formatter.GetFormattedValue(item.FechaRomaneo);
                 encabezado.NumeroRomaneo.Value = item.NumeroRomaneo.ToString();
                 encabezado.VariedadTabaco.Value = item.VariedadTabaco;

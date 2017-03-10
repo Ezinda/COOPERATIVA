@@ -20,7 +20,7 @@ namespace CooperativaProduccion.Helpers
         {
             File.Create(path).Close();
 
-            using (var writer = new System.IO.StreamWriter(path, false, System.Text.UTF8Encoding.UTF8))
+            using (var writer = new System.IO.StreamWriter(path, false, new System.Text.UTF8Encoding(false)))
             {
                 var fieldsandnames = GetFields(typeof(EncabezadoIngresoTabaco));
 
@@ -114,7 +114,7 @@ namespace CooperativaProduccion.Helpers
         {
             File.Create(path).Close();
 
-            using (var writer = new System.IO.StreamWriter(path, false, System.Text.UTF8Encoding.UTF8))
+            using (var writer = new System.IO.StreamWriter(path, false, new System.Text.UTF8Encoding(false)))
             {
                 var fieldsandnames = GetFields(typeof(RenglonIngresoTabaco));
 
