@@ -28,12 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraGrid.GridLevelNode gridLevelNode2 = new DevExpress.XtraGrid.GridLevelNode();
+            DevExpress.XtraGrid.GridLevelNode gridLevelNode1 = new DevExpress.XtraGrid.GridLevelNode();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_InventarioFardos));
+            this.gridViewInventarioDetalle = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.gridControlInventario = new DevExpress.XtraGrid.GridControl();
+            this.gridViewInventario = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
-            this.gridControlFardos = new DevExpress.XtraGrid.GridControl();
-            this.gridViewFardos = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.checkDeposito = new System.Windows.Forms.CheckBox();
             this.cbDeposito = new System.Windows.Forms.ComboBox();
@@ -46,24 +47,65 @@
             this.btnBuscar = new DevExpress.XtraEditors.SimpleButton();
             this.dpHasta = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
-            this.dpDesde = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.groupControl5 = new DevExpress.XtraEditors.GroupControl();
             this.btnReporte = new DevExpress.XtraEditors.SimpleButton();
             this.btnExportarExcel = new DevExpress.XtraEditors.SimpleButton();
-            this.gridViewFardosDetalle = new DevExpress.XtraGrid.Views.Grid.GridView();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewInventarioDetalle)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControlInventario)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewInventario)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
             this.groupControl2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridControlFardos)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridViewFardos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl5)).BeginInit();
             this.groupControl5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridViewFardosDetalle)).BeginInit();
             this.SuspendLayout();
+            // 
+            // gridViewInventarioDetalle
+            // 
+            this.gridViewInventarioDetalle.Appearance.Preview.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.gridViewInventarioDetalle.Appearance.Preview.Options.UseBackColor = true;
+            this.gridViewInventarioDetalle.Appearance.Row.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.gridViewInventarioDetalle.Appearance.Row.Options.UseBackColor = true;
+            this.gridViewInventarioDetalle.AppearancePrint.Row.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.gridViewInventarioDetalle.AppearancePrint.Row.Options.UseBackColor = true;
+            this.gridViewInventarioDetalle.GridControl = this.gridControlInventario;
+            this.gridViewInventarioDetalle.Name = "gridViewInventarioDetalle";
+            this.gridViewInventarioDetalle.OptionsView.ColumnAutoWidth = false;
+            this.gridViewInventarioDetalle.OptionsView.ShowGroupPanel = false;
+            this.gridViewInventarioDetalle.RowStyle += new DevExpress.XtraGrid.Views.Grid.RowStyleEventHandler(this.gridViewInventarioDetalle_RowStyle);
+            this.gridViewInventarioDetalle.CalcRowHeight += new DevExpress.XtraGrid.Views.Grid.RowHeightEventHandler(this.gridViewInventarioDetalle_CalcRowHeight);
+            // 
+            // gridControlInventario
+            // 
+            this.gridControlInventario.Dock = System.Windows.Forms.DockStyle.Fill;
+            gridLevelNode1.LevelTemplate = this.gridViewInventarioDetalle;
+            gridLevelNode1.RelationName = "Level1";
+            this.gridControlInventario.LevelTree.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
+            gridLevelNode1});
+            this.gridControlInventario.Location = new System.Drawing.Point(2, 20);
+            this.gridControlInventario.MainView = this.gridViewInventario;
+            this.gridControlInventario.MenuManager = this.ribbon;
+            this.gridControlInventario.Name = "gridControlInventario";
+            this.gridControlInventario.Size = new System.Drawing.Size(864, 470);
+            this.gridControlInventario.TabIndex = 0;
+            this.gridControlInventario.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridViewInventario,
+            this.gridViewInventarioDetalle});
+            // 
+            // gridViewInventario
+            // 
+            this.gridViewInventario.GridControl = this.gridControlInventario;
+            this.gridViewInventario.Name = "gridViewInventario";
+            this.gridViewInventario.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.False;
+            this.gridViewInventario.OptionsBehavior.AllowDeleteRows = DevExpress.Utils.DefaultBoolean.False;
+            this.gridViewInventario.OptionsBehavior.Editable = false;
+            this.gridViewInventario.OptionsEditForm.ActionOnModifiedRowChange = DevExpress.XtraGrid.Views.Grid.EditFormModifiedAction.Nothing;
+            this.gridViewInventario.OptionsView.ColumnAutoWidth = false;
+            this.gridViewInventario.OptionsView.ShowGroupPanel = false;
+            this.gridViewInventario.RowStyle += new DevExpress.XtraGrid.Views.Grid.RowStyleEventHandler(this.gridViewInventario_RowStyle);
             // 
             // ribbon
             // 
@@ -80,7 +122,7 @@
             this.ribbon.ShowExpandCollapseButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Show;
             this.ribbon.ShowToolbarCustomizeItem = false;
-            this.ribbon.Size = new System.Drawing.Size(1137, 49);
+            this.ribbon.Size = new System.Drawing.Size(873, 49);
             this.ribbon.Toolbar.ShowCustomizeItem = false;
             // 
             // groupControl2
@@ -88,39 +130,12 @@
             this.groupControl2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupControl2.Controls.Add(this.gridControlFardos);
+            this.groupControl2.Controls.Add(this.gridControlInventario);
             this.groupControl2.Location = new System.Drawing.Point(3, 103);
             this.groupControl2.Name = "groupControl2";
-            this.groupControl2.Size = new System.Drawing.Size(1132, 492);
+            this.groupControl2.Size = new System.Drawing.Size(868, 492);
             this.groupControl2.TabIndex = 22;
             this.groupControl2.Text = "Lista de Fardos";
-            // 
-            // gridControlFardos
-            // 
-            this.gridControlFardos.Dock = System.Windows.Forms.DockStyle.Fill;
-            gridLevelNode2.LevelTemplate = this.gridViewFardosDetalle;
-            gridLevelNode2.RelationName = "Level1";
-            this.gridControlFardos.LevelTree.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
-            gridLevelNode2});
-            this.gridControlFardos.Location = new System.Drawing.Point(2, 20);
-            this.gridControlFardos.MainView = this.gridViewFardos;
-            this.gridControlFardos.MenuManager = this.ribbon;
-            this.gridControlFardos.Name = "gridControlFardos";
-            this.gridControlFardos.Size = new System.Drawing.Size(1128, 470);
-            this.gridControlFardos.TabIndex = 0;
-            this.gridControlFardos.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gridViewFardos,
-            this.gridViewFardosDetalle});
-            // 
-            // gridViewFardos
-            // 
-            this.gridViewFardos.GridControl = this.gridControlFardos;
-            this.gridViewFardos.Name = "gridViewFardos";
-            this.gridViewFardos.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.False;
-            this.gridViewFardos.OptionsBehavior.AllowDeleteRows = DevExpress.Utils.DefaultBoolean.False;
-            this.gridViewFardos.OptionsBehavior.Editable = false;
-            this.gridViewFardos.OptionsEditForm.ActionOnModifiedRowChange = DevExpress.XtraGrid.Views.Grid.EditFormModifiedAction.Nothing;
-            this.gridViewFardos.OptionsView.ShowGroupPanel = false;
             // 
             // groupControl1
             // 
@@ -137,19 +152,17 @@
             this.groupControl1.Controls.Add(this.btnBuscar);
             this.groupControl1.Controls.Add(this.dpHasta);
             this.groupControl1.Controls.Add(this.label1);
-            this.groupControl1.Controls.Add(this.dpDesde);
             this.groupControl1.Controls.Add(this.label2);
-            this.groupControl1.Controls.Add(this.label3);
             this.groupControl1.Location = new System.Drawing.Point(3, 51);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(1132, 49);
+            this.groupControl1.Size = new System.Drawing.Size(868, 49);
             this.groupControl1.TabIndex = 23;
             this.groupControl1.Text = "Buscar Productor";
             // 
             // checkDeposito
             // 
             this.checkDeposito.AutoSize = true;
-            this.checkDeposito.Location = new System.Drawing.Point(544, 29);
+            this.checkDeposito.Location = new System.Drawing.Point(358, 28);
             this.checkDeposito.Name = "checkDeposito";
             this.checkDeposito.Size = new System.Drawing.Size(15, 14);
             this.checkDeposito.TabIndex = 89;
@@ -159,16 +172,16 @@
             // 
             this.cbDeposito.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbDeposito.FormattingEnabled = true;
-            this.cbDeposito.Location = new System.Drawing.Point(359, 25);
+            this.cbDeposito.Location = new System.Drawing.Point(210, 23);
             this.cbDeposito.Name = "cbDeposito";
-            this.cbDeposito.Size = new System.Drawing.Size(179, 21);
+            this.cbDeposito.Size = new System.Drawing.Size(145, 21);
             this.cbDeposito.TabIndex = 88;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(305, 28);
+            this.label5.Location = new System.Drawing.Point(156, 26);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(56, 16);
             this.label5.TabIndex = 87;
@@ -177,7 +190,7 @@
             // checkClase
             // 
             this.checkClase.AutoSize = true;
-            this.checkClase.Location = new System.Drawing.Point(1000, 27);
+            this.checkClase.Location = new System.Drawing.Point(750, 28);
             this.checkClase.Name = "checkClase";
             this.checkClase.Size = new System.Drawing.Size(15, 14);
             this.checkClase.TabIndex = 86;
@@ -186,7 +199,7 @@
             // checkTabaco
             // 
             this.checkTabaco.AutoSize = true;
-            this.checkTabaco.Location = new System.Drawing.Point(819, 28);
+            this.checkTabaco.Location = new System.Drawing.Point(604, 28);
             this.checkTabaco.Name = "checkTabaco";
             this.checkTabaco.Size = new System.Drawing.Size(15, 14);
             this.checkTabaco.TabIndex = 85;
@@ -197,16 +210,16 @@
             // 
             this.cbClase.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbClase.FormattingEnabled = true;
-            this.cbClase.Location = new System.Drawing.Point(880, 24);
+            this.cbClase.Location = new System.Drawing.Point(662, 23);
             this.cbClase.Name = "cbClase";
-            this.cbClase.Size = new System.Drawing.Size(114, 21);
+            this.cbClase.Size = new System.Drawing.Size(82, 21);
             this.cbClase.TabIndex = 84;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(843, 27);
+            this.label4.Location = new System.Drawing.Point(625, 26);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(37, 16);
             this.label4.TabIndex = 83;
@@ -216,9 +229,9 @@
             // 
             this.cbProducto.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbProducto.FormattingEnabled = true;
-            this.cbProducto.Location = new System.Drawing.Point(619, 25);
+            this.cbProducto.Location = new System.Drawing.Point(433, 24);
             this.cbProducto.Name = "cbProducto";
-            this.cbProducto.Size = new System.Drawing.Size(194, 21);
+            this.cbProducto.Size = new System.Drawing.Size(165, 21);
             this.cbProducto.TabIndex = 82;
             this.cbProducto.SelectedIndexChanged += new System.EventHandler(this.cbTabaco_SelectedIndexChanged);
             // 
@@ -227,7 +240,7 @@
             this.btnBuscar.Appearance.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBuscar.Appearance.Options.UseFont = true;
             this.btnBuscar.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscar.Image")));
-            this.btnBuscar.Location = new System.Drawing.Point(1046, 25);
+            this.btnBuscar.Location = new System.Drawing.Point(782, 24);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(82, 20);
             this.btnBuscar.TabIndex = 39;
@@ -237,7 +250,7 @@
             // dpHasta
             // 
             this.dpHasta.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dpHasta.Location = new System.Drawing.Point(225, 25);
+            this.dpHasta.Location = new System.Drawing.Point(76, 23);
             this.dpHasta.Name = "dpHasta";
             this.dpHasta.Size = new System.Drawing.Size(76, 21);
             this.dpHasta.TabIndex = 61;
@@ -246,39 +259,21 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(155, 27);
+            this.label1.Location = new System.Drawing.Point(6, 25);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(73, 16);
             this.label1.TabIndex = 60;
             this.label1.Text = "Fecha Hasta";
             // 
-            // dpDesde
-            // 
-            this.dpDesde.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dpDesde.Location = new System.Drawing.Point(77, 25);
-            this.dpDesde.Name = "dpDesde";
-            this.dpDesde.Size = new System.Drawing.Size(76, 21);
-            this.dpDesde.TabIndex = 59;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(565, 27);
+            this.label2.Location = new System.Drawing.Point(379, 26);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(57, 16);
             this.label2.TabIndex = 57;
             this.label2.Text = "Producto";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(4, 27);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(76, 16);
-            this.label3.TabIndex = 55;
-            this.label3.Text = "Fecha Desde";
             // 
             // groupControl5
             // 
@@ -289,7 +284,7 @@
             this.groupControl5.Location = new System.Drawing.Point(3, 599);
             this.groupControl5.Name = "groupControl5";
             this.groupControl5.ShowCaption = false;
-            this.groupControl5.Size = new System.Drawing.Size(1132, 32);
+            this.groupControl5.Size = new System.Drawing.Size(868, 32);
             this.groupControl5.TabIndex = 41;
             this.groupControl5.Text = "Nuevo Preingreso";
             // 
@@ -315,17 +310,11 @@
             this.btnExportarExcel.TabIndex = 42;
             this.btnExportarExcel.Text = "Exportar Excel";
             // 
-            // gridViewFardosDetalle
-            // 
-            this.gridViewFardosDetalle.GridControl = this.gridControlFardos;
-            this.gridViewFardosDetalle.Name = "gridViewFardosDetalle";
-            this.gridViewFardosDetalle.OptionsView.ShowGroupPanel = false;
-            // 
             // Form_InventarioFardos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1137, 633);
+            this.ClientSize = new System.Drawing.Size(873, 633);
             this.Controls.Add(this.groupControl5);
             this.Controls.Add(this.groupControl1);
             this.Controls.Add(this.groupControl2);
@@ -335,17 +324,17 @@
             this.Ribbon = this.ribbon;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Inventario - Administración de Fardos";
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewInventarioDetalle)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControlInventario)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewInventario)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
             this.groupControl2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.gridControlFardos)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridViewFardos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
             this.groupControl1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl5)).EndInit();
             this.groupControl5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.gridViewFardosDetalle)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -355,14 +344,12 @@
 
         private DevExpress.XtraBars.Ribbon.RibbonControl ribbon;
         private DevExpress.XtraEditors.GroupControl groupControl2;
-        private DevExpress.XtraGrid.GridControl gridControlFardos;
-        private DevExpress.XtraGrid.Views.Grid.GridView gridViewFardos;
+        private DevExpress.XtraGrid.GridControl gridControlInventario;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridViewInventario;
         private DevExpress.XtraEditors.GroupControl groupControl1;
         private System.Windows.Forms.DateTimePicker dpHasta;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DateTimePicker dpDesde;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
         private DevExpress.XtraEditors.SimpleButton btnBuscar;
         private DevExpress.XtraEditors.GroupControl groupControl5;
         private DevExpress.XtraEditors.SimpleButton btnReporte;
@@ -375,6 +362,6 @@
         private System.Windows.Forms.CheckBox checkDeposito;
         private System.Windows.Forms.ComboBox cbDeposito;
         private System.Windows.Forms.Label label5;
-        private DevExpress.XtraGrid.Views.Grid.GridView gridViewFardosDetalle;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridViewInventarioDetalle;
     }
 }

@@ -257,7 +257,7 @@ namespace CooperativaProduccion
             gridViewRomaneo.Columns[6].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
             gridViewRomaneo.Columns[6].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
             gridViewRomaneo.Columns[7].Caption = "Kilos";
-            gridViewRomaneo.Columns[7].Width = 40;
+            gridViewRomaneo.Columns[7].Width = 70;
             gridViewRomaneo.Columns[7].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
             gridViewRomaneo.Columns[7].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
             gridViewRomaneo.Columns[8].Caption = "Bruto sin IVA";
@@ -273,6 +273,8 @@ namespace CooperativaProduccion
             {
                 gridViewRomaneo.SelectRow(i);
             }
+            gridViewRomaneo.Columns["KILOS"].Summary.Add(DevExpress.Data.SummaryItemType.Sum, "KILOS", "TOTAL KILOS ={0}");
+
         }
 
         public void StartProcess(string path)
