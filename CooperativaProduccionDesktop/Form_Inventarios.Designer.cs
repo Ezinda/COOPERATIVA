@@ -1,6 +1,6 @@
 ﻿namespace CooperativaProduccion
 {
-    partial class Form_InventarioFardos
+    partial class Form_Inventarios
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             DevExpress.XtraGrid.GridLevelNode gridLevelNode1 = new DevExpress.XtraGrid.GridLevelNode();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_InventarioFardos));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Inventarios));
             this.gridViewInventarioDetalle = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gridControlInventario = new DevExpress.XtraGrid.GridControl();
             this.gridViewInventario = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -65,9 +65,13 @@
             // 
             // gridViewInventarioDetalle
             // 
-            this.gridViewInventarioDetalle.Appearance.Preview.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.gridViewInventarioDetalle.Appearance.FocusedCell.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gridViewInventarioDetalle.Appearance.FocusedCell.Options.UseFont = true;
+            this.gridViewInventarioDetalle.Appearance.FocusedRow.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gridViewInventarioDetalle.Appearance.FocusedRow.Options.UseFont = true;
+            this.gridViewInventarioDetalle.Appearance.Preview.BackColor = System.Drawing.Color.White;
             this.gridViewInventarioDetalle.Appearance.Preview.Options.UseBackColor = true;
-            this.gridViewInventarioDetalle.Appearance.Row.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.gridViewInventarioDetalle.Appearance.Row.BackColor = System.Drawing.Color.White;
             this.gridViewInventarioDetalle.Appearance.Row.Options.UseBackColor = true;
             this.gridViewInventarioDetalle.AppearancePrint.Row.BackColor = System.Drawing.Color.LightSkyBlue;
             this.gridViewInventarioDetalle.AppearancePrint.Row.Options.UseBackColor = true;
@@ -76,7 +80,7 @@
             this.gridViewInventarioDetalle.OptionsView.ColumnAutoWidth = false;
             this.gridViewInventarioDetalle.OptionsView.ShowGroupPanel = false;
             this.gridViewInventarioDetalle.RowStyle += new DevExpress.XtraGrid.Views.Grid.RowStyleEventHandler(this.gridViewInventarioDetalle_RowStyle);
-            this.gridViewInventarioDetalle.CalcRowHeight += new DevExpress.XtraGrid.Views.Grid.RowHeightEventHandler(this.gridViewInventarioDetalle_CalcRowHeight);
+            this.gridViewInventarioDetalle.DoubleClick += new System.EventHandler(this.gridViewInventarioDetalle_DoubleClick);
             // 
             // gridControlInventario
             // 
@@ -97,6 +101,10 @@
             // 
             // gridViewInventario
             // 
+            this.gridViewInventario.Appearance.FocusedCell.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gridViewInventario.Appearance.FocusedCell.Options.UseFont = true;
+            this.gridViewInventario.Appearance.FocusedRow.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gridViewInventario.Appearance.FocusedRow.Options.UseFont = true;
             this.gridViewInventario.GridControl = this.gridControlInventario;
             this.gridViewInventario.Name = "gridViewInventario";
             this.gridViewInventario.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.False;
@@ -105,7 +113,7 @@
             this.gridViewInventario.OptionsEditForm.ActionOnModifiedRowChange = DevExpress.XtraGrid.Views.Grid.EditFormModifiedAction.Nothing;
             this.gridViewInventario.OptionsView.ColumnAutoWidth = false;
             this.gridViewInventario.OptionsView.ShowGroupPanel = false;
-            this.gridViewInventario.RowStyle += new DevExpress.XtraGrid.Views.Grid.RowStyleEventHandler(this.gridViewInventario_RowStyle);
+            this.gridViewInventario.MasterRowExpanded += new DevExpress.XtraGrid.Views.Grid.CustomMasterRowEventHandler(this.gridViewInventario_MasterRowExpanded);
             // 
             // ribbon
             // 
@@ -310,7 +318,7 @@
             this.btnExportarExcel.TabIndex = 42;
             this.btnExportarExcel.Text = "Exportar Excel";
             // 
-            // Form_InventarioFardos
+            // Form_Inventarios
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -320,10 +328,11 @@
             this.Controls.Add(this.groupControl2);
             this.Controls.Add(this.ribbon);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "Form_InventarioFardos";
+            this.Name = "Form_Inventarios";
             this.Ribbon = this.ribbon;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Inventario - Administración de Fardos";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.gridViewInventarioDetalle)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlInventario)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewInventario)).EndInit();

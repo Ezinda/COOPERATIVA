@@ -71,7 +71,7 @@ namespace CooperativaProduccion
 
         private void btnFardos_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var fardos = new Form_InventarioFardos();
+            var fardos = new Form_Inventarios();
             fardos.Show();
         }
 

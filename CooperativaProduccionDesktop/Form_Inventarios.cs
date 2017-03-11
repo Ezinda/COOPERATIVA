@@ -20,13 +20,13 @@ using DevExpress.XtraGrid.Views.Base;
 
 namespace CooperativaProduccion
 {
-    public partial class Form_InventarioFardos : DevExpress.XtraBars.Ribbon.RibbonForm
+    public partial class Form_Inventarios : DevExpress.XtraBars.Ribbon.RibbonForm
     {
         public CooperativaProduccionEntities Context { get; set; }
         private const int GridMinWidth = 200;
         private const int GridMinHeight = 400;
 
-        public Form_InventarioFardos()
+        public Form_Inventarios()
         {
             InitializeComponent();
             Context = new CooperativaProduccionEntities();
@@ -199,39 +199,25 @@ namespace CooperativaProduccion
             }
         }
 
-        private void gridViewInventarioDetalle_CalcRowHeight(object sender, DevExpress.XtraGrid.Views.Grid.RowHeightEventArgs e)
-        {
-
-        }
-
         private void gridViewInventarioDetalle_RowStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowStyleEventArgs e)
         {
-
-            GridView View = sender as GridView;
-            if (e.RowHandle >= 0)
+            if (e.RowHandle % 2 == 0) 
             {
-                    e.Appearance.BackColor = Color.Salmon;
-             
+                e.Appearance.BackColor = Color.LightSkyBlue; 
             }
-
-            //GridView parentView = (sender as GridView).ParentView as GridView;
-            //GridViewInfo vi = parentView.GetViewInfo() as GridViewInfo;
-            //GridRowInfo ri = vi.RowsInfo.FindRow((sender as GridView).SourceRowHandle);
-            //if (ri != null)
-            //{
-            //    if (ri.RowHandle >= 0)
-            //    {
-            //        if (ri.RowHandle % 2 == 0)
-            //            e.Appearance.Assign(parentView.Appearance.GetAppearance("OddRow"));
-            //        else
-            //            e.Appearance.Assign(parentView.Appearance.GetAppearance("EvenRow"));
-            //    }
-            //}
         }
 
-        private void gridViewInventario_RowStyle(object sender, RowStyleEventArgs e)
+        private void gridViewInventario_MasterRowExpanded(object sender, CustomMasterRowEventArgs e)
         {
-           
+            GridView master = sender as GridView;
+            GridView detail = master.GetDetailView(e.RowHandle, e.RelationIndex) as GridView;
+            detail.RowStyle += gridViewInventarioDetalle_RowStyle;
+            detail.DoubleClick += gridViewInventarioDetalle_DoubleClick;
+        }
+
+        private void gridViewInventarioDetalle_DoubleClick(object sender, EventArgs e)
+        {
+
         } 
     }
 }

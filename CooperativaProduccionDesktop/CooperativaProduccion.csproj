@@ -306,11 +306,11 @@
     <Compile Include="Form_AdministracionOrdenVenta.Designer.cs">
       <DependentUpon>Form_AdministracionOrdenVenta.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form_InventarioFardos.cs">
+    <Compile Include="Form_Inventarios.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_InventarioFardos.Designer.cs">
-      <DependentUpon>Form_InventarioFardos.cs</DependentUpon>
+    <Compile Include="Form_Inventarios.Designer.cs">
+      <DependentUpon>Form_Inventarios.cs</DependentUpon>
     </Compile>
     <Compile Include="Form_AdministracionRemitoElectronico.cs">
       <SubType>Form</SubType>
@@ -560,8 +560,8 @@
     <EmbeddedResource Include="Form_ConfiguracionImpresionEtiqueta.resx">
       <DependentUpon>Form_ConfiguracionImpresionEtiqueta.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_InventarioFardos.resx">
-      <DependentUpon>Form_InventarioFardos.cs</DependentUpon>
+    <EmbeddedResource Include="Form_Inventarios.resx">
+      <DependentUpon>Form_Inventarios.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_AdministracionRemitoElectronico.resx">
       <DependentUpon>Form_AdministracionRemitoElectronico.cs</DependentUpon>
