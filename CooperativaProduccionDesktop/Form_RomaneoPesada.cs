@@ -40,6 +40,9 @@ namespace CooperativaProduccion
 
         private static List<RegPesada> _bufferdecoincidencias = new List<RegPesada>();
         private static RegPesada _ultimoregistro;
+        private static bool _printfrombuffer = false;
+        private static bool _clearbuffer = false;
+        private static bool _clearAndAddToBuffer = false;
         private const int _coincidenciasminimasparaimprimir = 7;
         private const int _coincidenciasmaximasparaimprimir = 30;
         private const int _limitecoincidenciaarriba = 0;
@@ -152,29 +155,61 @@ namespace CooperativaProduccion
                     Variacion = variacion
                 };
 
-                //try
-                //{
-                //    Log(valor + ";" + variacion + ";" + (_bufferdecoincidencias.Count == 0 ? "Zero" : "NotZ"));
-                //}
-                //catch
-                //{
-                //}
-
                 _ultimoregistro = registro;
 
                 if (valor == 0)
                 {
-                    _bufferdecoincidencias.Clear();
+                    if (_bufferdecoincidencias.Count >= _coincidenciasminimasparaimprimir &&
+                        _bufferdecoincidencias.Count <= _coincidenciasmaximasparaimprimir)
+                    {
+                        _printfrombuffer = true;
+                    }
+
+                    variacion = -1000m;
+
+                    _clearbuffer = true;
                 }
                 else if (variacion == -1000m)
                 {
-                    _bufferdecoincidencias.Add(registro);
+                    _clearAndAddToBuffer = true;
                 }
                 else if (_limitecoincidenciaabajo <= variacion && variacion <= _limitecoincidenciaarriba)
                 {
                     _bufferdecoincidencias.Add(registro);
+
+                    if (_bufferdecoincidencias.Count == _coincidenciasmaximasparaimprimir)
+                    {
+                        _printfrombuffer = true;
+                    }
                 }
-                else if (_bufferdecoincidencias.Count >= _coincidenciasminimasparaimprimir && _bufferdecoincidencias.Count <= _coincidenciasmaximasparaimprimir)
+                else
+                {
+                    if (_bufferdecoincidencias.Count >= _coincidenciasminimasparaimprimir &&
+                        _bufferdecoincidencias.Count <= _coincidenciasmaximasparaimprimir)
+                    {
+                        _printfrombuffer = true;
+
+                        variacion = -1000m;
+                    }
+
+                    _clearAndAddToBuffer = true;
+                }
+
+                if (_bufferdecoincidencias.Count != 0 && _clearAndAddToBuffer == false && valor != 0)
+                {
+                    try
+                    {
+                        LogReceived(_pesadaId,
+                            valor + ";" +
+                                variacion + ";" +
+                                _bufferdecoincidencias.Count.ToString("000"));
+                    }
+                    catch
+                    {
+                    }
+                }
+
+                if (_printfrombuffer)
                 {
                     decimal maximoValor = 0;
                     RegPesada maximoRegistro = null;
@@ -188,17 +223,71 @@ namespace CooperativaProduccion
                         }
                     }
 
+                    try
+                    {
+                        LogReceived(_pesadaId,
+                            "0000" + ";" +
+                                maximoValor + ";" +
+                                _bufferdecoincidencias.Count.ToString("000"));
+                    }
+                    catch
+                    {
+                    }
+
                     _ultimoregistro = null;
                     _bufferdecoincidencias.Clear();
-                    
+
                     txtKilos.BeginInvoke((MethodInvoker)(() => txtKilos.Text = maximoValor.ToString()));
                     SaveAndPrintKg(_pesadaId);
 
                     _bufferdecoincidencias.Clear();
+
+                    _printfrombuffer = false;
                 }
-                else
+
+                if (_clearbuffer || _clearAndAddToBuffer)
                 {
                     _bufferdecoincidencias.Clear();
+
+                    if (_clearbuffer && valor == 0)
+                    {
+                        try
+                        {
+                            LogReceived(_pesadaId,
+                                valor + ";" +
+                                    variacion + ";" +
+                                    _bufferdecoincidencias.Count.ToString("000"));
+                        }
+                        catch
+                        {
+                        }
+                    }
+
+                    _clearbuffer = false;
+
+                    if (_clearAndAddToBuffer)
+                    {
+                        _bufferdecoincidencias.Add(registro);
+
+                        try
+                        {
+                            LogReceived(_pesadaId,
+                                valor + ";" +
+                                    variacion + ";" +
+                                    _bufferdecoincidencias.Count.ToString("000"));
+                        }
+                        catch
+                        {
+                        }
+
+                        _ultimoregistro = registro;
+
+                        _clearAndAddToBuffer = false;
+                    }
+                    else
+                    {
+                        _ultimoregistro = null;
+                    }
                 }
             }
             catch (Exception ex)
@@ -298,6 +387,9 @@ namespace CooperativaProduccion
 
                 if (!_DEBUG && isbalanzaautomatica)
                 {
+                    CreateLogDirectory();
+                    ClearLogsRomaneos();
+
                     _bufferdecoincidencias = new List<RegPesada>();
 
                     if (!_serialport.IsOpen)
@@ -600,6 +692,47 @@ namespace CooperativaProduccion
             this.Close();
         }
 
+        private void CreateLogDirectory()
+        {
+            var rootdir = DevConstantes.RootDocumentsDirectory;
+            CreateIfMissing(rootdir);
+
+            var logdir = Path.Combine(rootdir, DevConstantes.LogsDirectory);
+            CreateIfMissing(logdir);
+        }
+
+        private void ClearLogsRomaneos()
+        {
+            var logdir = Path.Combine(DevConstantes.RootDocumentsDirectory, DevConstantes.LogsDirectory);
+            var romaneoFiles = DevConstantes.LogsRomaneoFile + "*";
+            var today = DateTime.Now.Date;
+            string[] fileList = Directory.GetFiles(logdir, romaneoFiles);
+            
+            foreach (var file in fileList)
+            {
+                if (File.GetLastWriteTime(file).Date != today)
+                {
+                    File.Delete(file);
+                }
+            }
+        }
+
+        private static void CreateIfMissing(string path)
+        {
+            try
+            {
+                if (!Directory.Exists(path))
+                {
+                    // Try to create the directory.
+                    DirectoryInfo di = Directory.CreateDirectory(path);
+                }
+            }
+            catch (IOException ioex)
+            {
+                Console.WriteLine(ioex.Message);
+            }
+        }
+
         //private void Log(string v)
         //{
         //    File.AppendAllText("Log.txt", v + Environment.NewLine);
@@ -611,12 +744,15 @@ namespace CooperativaProduccion
         //    _logcounter++;
         //}
 
-        //private long _counter_received = 1;
-        //private void LogReceived(string v)
-        //{
-        //    File.AppendAllText("LogReceived.txt", v + ";" + _counter_received.ToString("000000") + Environment.NewLine);
-        //    _counter_received++;
-        //}
+        private static void LogReceived(Guid pesadaId, string line)
+        {
+            var filename = Path.Combine(DevConstantes.RootDocumentsDirectory,
+                DevConstantes.LogsDirectory,
+                DevConstantes.LogsRomaneoFile + "-" + pesadaId + ".txt");
+            
+            File.AppendAllText(filename,
+                line + Environment.NewLine);
+        }
 
         private void btnRecuperar_Click(object sender, EventArgs e)
         {
@@ -1735,22 +1871,6 @@ namespace CooperativaProduccion
             catch (Exception ex)
             {
                 throw new ApplicationException("Error en el módulo de impresión :", ex);
-            }
-        }
-
-        private void CreateIfMissing(string path)
-        {
-            try
-            {
-                if (!Directory.Exists(path))
-                {
-                    // Try to create the directory.
-                    DirectoryInfo di = Directory.CreateDirectory(path);
-                }
-            }
-            catch (IOException ioex)
-            {
-                Console.WriteLine(ioex.Message);
             }
         }
 

@@ -8,6 +8,11 @@ namespace CooperativaProduccion
 {
     public class DevConstantes
     {
+        public static string RootDocumentsDirectory = @"C:\SystemDocumentsCooperativa";
+        
+        public static string LogsDirectory = @".log";
+        public static string LogsRomaneoFile = @"LogReceived";
+
         public static string Preingreso = "Preingreso";
         public static string Pesada = "Pesada";
         public static string Kg = "Kg";
@@ -73,6 +78,5 @@ namespace CooperativaProduccion
         public static string ResumenCompra = "ResumenCompra";
         public static string ResumenClasesMes = "ResumenClasesMes";
         public static string ResumenClasesTrimestre = "ResumenClasesTrimestre";
-
     }
 }

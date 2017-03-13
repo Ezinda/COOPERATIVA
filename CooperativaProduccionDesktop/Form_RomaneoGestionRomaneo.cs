@@ -488,7 +488,7 @@ namespace CooperativaProduccion
 
         private void ExportarRomaneo()
         {
-            string rootdir = @"C:\SystemDocumentsCooperativa";
+            string rootdir = DevConstantes.RootDocumentsDirectory;
 
             CreateIfMissing(rootdir);
 

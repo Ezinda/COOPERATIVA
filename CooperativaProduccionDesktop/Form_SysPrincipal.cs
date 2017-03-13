@@ -37,9 +37,6 @@ namespace CooperativaProduccion
             InitializeComponent();
 
 #if DEBUG
-            //Helpers.ParserIngresoTabaco.ImprimirArchivoEncabezado(@"C:\Users\administrador\Desktop\INPRODE.TXT");
-            //Helpers.ParserIngresoTabaco.ImprimirArchivoRenglones(@"C:\Users\administrador\Desktop\INPRODR.TXT");
-            //return;
 #endif
 
             Context = new CooperativaProduccionEntities();
