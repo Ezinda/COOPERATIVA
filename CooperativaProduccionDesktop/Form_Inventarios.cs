@@ -90,6 +90,10 @@ namespace CooperativaProduccion
 
         private void gridViewInventarioDetalle_DoubleClick(object sender, EventArgs e)
         {
+            string deposito = gridViewInventario
+                   .GetRowCellValue(gridViewInventario.FocusedRowHandle, "Deposito")
+                   .ToString();
+
             string producto = gridViewInventario
                    .GetRowCellValue(gridViewInventario.FocusedRowHandle, "TipoTabaco")
                    .ToString();
@@ -99,7 +103,7 @@ namespace CooperativaProduccion
                    .GetRowCellValue(parcial.FocusedRowHandle, "Clase")
                    .ToString();
 
-            var kardex = new Form_InventarioKardex(producto,item);
+            var kardex = new Form_InventarioKardex(deposito,producto,item);
             kardex.Show();
         }
 
@@ -197,7 +201,7 @@ namespace CooperativaProduccion
                          Egreso = g.Sum(c => c.m.Egreso),
                          Saldo = g.Sum(c => c.m.Ingreso) - g.Sum(c => c.m.Egreso)
                      })
-                .ToList();
+                     .ToList();
 
                 var rowsDetalle = movimientoDetalle.Select(x =>
                    new GridInventarioDetalle()

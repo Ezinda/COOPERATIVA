@@ -177,7 +177,10 @@ namespace CooperativaProduccion
                         {
                             romaneo.PuntoVentaLiquidacion = NumeroPuntoVentaLiquidacion();
                             romaneo.NumInternoLiquidacion = ContadorNumeroInternoLiquidacion(Iva);
-                            romaneo.FechaInternaLiquidacion = DateTime.Now.Date;
+                            var pesada = Context.Pesada
+                                .Where(x => x.Id == Id)
+                                .FirstOrDefault();
+                            romaneo.FechaInternaLiquidacion = pesada.FechaRomaneo;
                             romaneo.condIva = Iva;
                             var subtotal = romaneo.ImporteBruto;
                             var iva = subtotal * (romaneo.IvaPorcentaje / 100);

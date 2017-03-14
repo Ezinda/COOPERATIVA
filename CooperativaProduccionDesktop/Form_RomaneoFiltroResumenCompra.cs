@@ -335,7 +335,9 @@ namespace CooperativaProduccion
 
             reporte.Parameters["cabecera"].Value = "RESUMEN DE COMPRA - " + cbTabaco.Text
                + " - CAMPAÑA " + dpDesdeRomaneo.Value.Year + " - MES DE "
-               + MonthName(dpDesdeRomaneo.Value.Month).ToUpper() + " - PROVINCIA DE TUCUMAN.-";
+               + MonthName(dpDesdeRomaneo.Value.Month).ToUpper() + " - PROVINCIA DE TUCUMAN.- "
+               + " Desde: " + dpDesdeRomaneo.Value.Date.ToShortDateString() 
+               + " Hasta: " + dpDesdeRomaneo.Value.Date.ToShortDateString();
 
             using (ReportPrintTool tool = new ReportPrintTool(reporte))
             {

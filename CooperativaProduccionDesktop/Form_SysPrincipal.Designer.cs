@@ -48,6 +48,7 @@
             this.btnGestionRomaneo = new DevExpress.XtraBars.BarButtonItem();
             this.btnGestionClasificacion = new DevExpress.XtraBars.BarButtonItem();
             this.btnConfiguracionImpresion = new DevExpress.XtraBars.BarButtonItem();
+            this.btnImpresionEtiqueta = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPageRomaneo = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupPorteria = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroupBalanza = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -63,7 +64,6 @@
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageSeguridad = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupSeguridad = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.btnImpresionEtiqueta = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             this.SuspendLayout();
             // 
@@ -104,8 +104,8 @@
             this.ribbon.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.Office2013;
             this.ribbon.ShowApplicationButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowCategoryInCaption = false;
+            this.ribbon.ShowDisplayOptionsMenuButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowExpandCollapseButton = DevExpress.Utils.DefaultBoolean.False;
-            this.ribbon.ShowFullScreenButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Show;
             this.ribbon.Size = new System.Drawing.Size(1094, 146);
             // 
@@ -166,7 +166,7 @@
             // 
             // btnFardos
             // 
-            this.btnFardos.Caption = "Administración de Fardos";
+            this.btnFardos.Caption = "Administración de Inventarios";
             this.btnFardos.Glyph = ((System.Drawing.Image)(resources.GetObject("btnFardos.Glyph")));
             this.btnFardos.Id = 8;
             this.btnFardos.Name = "btnFardos";
@@ -273,6 +273,15 @@
             this.btnConfiguracionImpresion.Name = "btnConfiguracionImpresion";
             this.btnConfiguracionImpresion.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
             this.btnConfiguracionImpresion.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnConfiguracionImpresion_ItemClick);
+            // 
+            // btnImpresionEtiqueta
+            // 
+            this.btnImpresionEtiqueta.Caption = "Impresión de Etiquetas";
+            this.btnImpresionEtiqueta.Glyph = ((System.Drawing.Image)(resources.GetObject("btnImpresionEtiqueta.Glyph")));
+            this.btnImpresionEtiqueta.Id = 21;
+            this.btnImpresionEtiqueta.Name = "btnImpresionEtiqueta";
+            this.btnImpresionEtiqueta.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.btnImpresionEtiqueta.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnImpresionEtiqueta_ItemClick);
             // 
             // ribbonPageRomaneo
             // 
@@ -405,15 +414,6 @@
             this.ribbonPageGroupSeguridad.Name = "ribbonPageGroupSeguridad";
             this.ribbonPageGroupSeguridad.ShowCaptionButton = false;
             this.ribbonPageGroupSeguridad.Text = "Seguridad";
-            // 
-            // btnImpresionEtiqueta
-            // 
-            this.btnImpresionEtiqueta.Caption = "Impresión de Etiquetas";
-            this.btnImpresionEtiqueta.Glyph = ((System.Drawing.Image)(resources.GetObject("btnImpresionEtiqueta.Glyph")));
-            this.btnImpresionEtiqueta.Id = 21;
-            this.btnImpresionEtiqueta.Name = "btnImpresionEtiqueta";
-            this.btnImpresionEtiqueta.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
-            this.btnImpresionEtiqueta.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnImpresionEtiqueta_ItemClick);
             // 
             // Form_SysPrincipal
             // 

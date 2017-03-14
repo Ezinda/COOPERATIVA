@@ -380,6 +380,7 @@
     </Compile>
     <Compile Include="Helpers\GridRecords\GridInventario.cs" />
     <Compile Include="Helpers\GridRecords\GridInventarioDetalle.cs" />
+    <Compile Include="Helpers\GridRecords\GridKardex.cs" />
     <Compile Include="Helpers\GridRecords\GridRomaneo.cs" />
     <Compile Include="Helpers\GridRecords\GridRomaneoDetalle.cs" />
     <Compile Include="Helpers\IniParser.cs" />
