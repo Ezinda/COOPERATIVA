@@ -93,7 +93,7 @@
             this.gridControlInventario.MainView = this.gridViewInventario;
             this.gridControlInventario.MenuManager = this.ribbon;
             this.gridControlInventario.Name = "gridControlInventario";
-            this.gridControlInventario.Size = new System.Drawing.Size(864, 470);
+            this.gridControlInventario.Size = new System.Drawing.Size(864, 464);
             this.gridControlInventario.TabIndex = 0;
             this.gridControlInventario.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewInventario,
@@ -139,11 +139,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupControl2.Controls.Add(this.gridControlInventario);
-            this.groupControl2.Location = new System.Drawing.Point(3, 103);
+            this.groupControl2.Location = new System.Drawing.Point(3, 109);
             this.groupControl2.Name = "groupControl2";
-            this.groupControl2.Size = new System.Drawing.Size(868, 492);
+            this.groupControl2.Size = new System.Drawing.Size(868, 486);
             this.groupControl2.TabIndex = 22;
-            this.groupControl2.Text = "Lista de Fardos";
+            this.groupControl2.Text = "Lista de Productos";
             // 
             // groupControl1
             // 
@@ -161,7 +161,7 @@
             this.groupControl1.Controls.Add(this.dpHasta);
             this.groupControl1.Controls.Add(this.label1);
             this.groupControl1.Controls.Add(this.label2);
-            this.groupControl1.Location = new System.Drawing.Point(3, 51);
+            this.groupControl1.Location = new System.Drawing.Point(3, 58);
             this.groupControl1.Name = "groupControl1";
             this.groupControl1.Size = new System.Drawing.Size(868, 49);
             this.groupControl1.TabIndex = 23;
@@ -331,7 +331,7 @@
             this.Name = "Form_Inventarios";
             this.Ribbon = this.ribbon;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Inventario - Administración de Fardos";
+            this.Text = "Inventario - Administración de Inventarios";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.gridViewInventarioDetalle)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlInventario)).EndInit();

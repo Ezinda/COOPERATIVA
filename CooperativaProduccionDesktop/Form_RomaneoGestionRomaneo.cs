@@ -20,6 +20,8 @@ using CooperativaProduccion.Helpers.GridRecords;
 using System.IO;
 using DevExpress.XtraPrinting;
 using System.Diagnostics;
+using DevExpress.XtraGrid.Columns;
+using DevExpress.XtraGrid;
 
 namespace CooperativaProduccion
 {
@@ -273,6 +275,12 @@ namespace CooperativaProduccion
             {
                 gridViewRomaneo.SelectRow(i);
             }
+            foreach (GridColumn column in gridViewRomaneo.Columns)
+            {
+                GridSummaryItem item = column.SummaryItem;
+                if (item != null)
+                    column.Summary.Remove(item);
+            }
             gridViewRomaneo.Columns["KILOS"].Summary.Add(DevExpress.Data.SummaryItemType.Sum, "KILOS", "TOTAL KILOS ={0}");
 
         }
@@ -488,7 +496,7 @@ namespace CooperativaProduccion
 
         private void ExportarRomaneo()
         {
-            string rootdir = DevConstantes.RootDocumentsDirectory;
+            string rootdir = @"C:\SystemDocumentsCooperativa";
 
             CreateIfMissing(rootdir);
 

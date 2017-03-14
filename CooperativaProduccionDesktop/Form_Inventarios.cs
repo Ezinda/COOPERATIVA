@@ -23,8 +23,6 @@ namespace CooperativaProduccion
     public partial class Form_Inventarios : DevExpress.XtraBars.Ribbon.RibbonForm
     {
         public CooperativaProduccionEntities Context { get; set; }
-        private const int GridMinWidth = 200;
-        private const int GridMinHeight = 400;
 
         public Form_Inventarios()
         {
@@ -36,6 +34,110 @@ namespace CooperativaProduccion
         #region Method Code
 
         private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            Buscar(); 
+        }
+
+        private void cbTabaco_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (checkTabaco.Checked)
+            {
+                Guid Tabaco = Guid.Parse(cbProducto.SelectedValue.ToString());
+
+                var clase = Context.Vw_Clase
+                .Where(x => x.ID_PRODUCTO == Tabaco
+                    && x.Vigente == true)
+                .ToList();
+
+                cbClase.DataSource = clase;
+                cbClase.DisplayMember = "Nombre";
+                cbClase.ValueMember = "Id";
+            }
+        }
+
+        private void checkTabaco_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkTabaco.Checked)
+            {
+                Guid Tabaco = Guid.Parse(cbProducto.SelectedValue.ToString());
+
+                var clase = Context.Vw_Clase
+                .Where(x => x.ID_PRODUCTO == Tabaco
+                    && x.Vigente == true)
+                .ToList();
+
+                cbClase.DataSource = clase;
+                cbClase.DisplayMember = "Nombre";
+                cbClase.ValueMember = "Id";
+            }
+        }
+
+        private void gridViewInventarioDetalle_RowStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowStyleEventArgs e)
+        {
+            if (e.RowHandle % 2 == 0)
+            {
+                e.Appearance.BackColor = Color.LightSkyBlue;
+            }
+        }
+
+        private void gridViewInventario_MasterRowExpanded(object sender, CustomMasterRowEventArgs e)
+        {
+            GridView master = sender as GridView;
+            GridView detail = master.GetDetailView(e.RowHandle, e.RelationIndex) as GridView;
+            detail.RowStyle += gridViewInventarioDetalle_RowStyle;
+            detail.DoubleClick += gridViewInventarioDetalle_DoubleClick;
+        }
+
+        private void gridViewInventarioDetalle_DoubleClick(object sender, EventArgs e)
+        {
+            string producto = gridViewInventario
+                   .GetRowCellValue(gridViewInventario.FocusedRowHandle, "TipoTabaco")
+                   .ToString();
+
+            GridView parcial = sender as GridView;
+            string item = parcial
+                   .GetRowCellValue(parcial.FocusedRowHandle, "Clase")
+                   .ToString();
+
+            var kardex = new Form_InventarioKardex(producto,item);
+            kardex.Show();
+        }
+
+        #endregion
+
+        #region Method Dev
+
+        private void CargarCombo()
+        {
+            var deposito = Context.Vw_Deposito
+                .OrderBy(x => x.nombre)
+                .ToList();
+
+            cbDeposito.DataSource = deposito;
+            cbDeposito.DisplayMember = "Nombre";
+            cbDeposito.ValueMember = "Id";
+
+            var producto = (from c in Context.Vw_TipoTabaco
+                            select new
+                            {
+                                Id = c.id,
+                                Descripcion = c.DESCRIPCION
+                            })
+                            .Union(from p in Context.Vw_Producto
+                                   select new
+                                   {
+                                       Id = p.ID,
+                                       Descripcion = p.DESCRIPCION
+                                   })
+                                   .OrderBy(x => x.Descripcion)
+                                   .ToList();
+
+            cbProducto.DataSource = producto;
+            cbProducto.DisplayMember = "Descripcion";
+            cbProducto.ValueMember = "Id";
+        }
+
+        private void Buscar()
         {
             List<GridInventario> lista = new List<GridInventario>();
 
@@ -131,93 +233,5 @@ namespace CooperativaProduccion
 
         #endregion
 
-        #region Method Dev
-
-        private void CargarCombo()
-        {
-            var deposito = Context.Vw_Deposito
-                .OrderBy(x => x.nombre)
-                .ToList();
-
-            cbDeposito.DataSource = deposito;
-            cbDeposito.DisplayMember = "Nombre";
-            cbDeposito.ValueMember = "Id";
-
-            var producto = (from c in Context.Vw_TipoTabaco
-                            select new
-                            {
-                                Id = c.id,
-                                Descripcion = c.DESCRIPCION
-                            })
-                            .Union(from p in Context.Vw_Producto
-                                   select new
-                                   {
-                                       Id = p.ID,
-                                       Descripcion = p.DESCRIPCION
-                                   })
-                                   .OrderBy(x => x.Descripcion)
-                                   .ToList();
-
-            cbProducto.DataSource = producto;
-            cbProducto.DisplayMember = "Descripcion";
-            cbProducto.ValueMember = "Id";
-        }
-
-        #endregion
-
-        private void cbTabaco_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (checkTabaco.Checked)
-            {
-                Guid Tabaco = Guid.Parse(cbProducto.SelectedValue.ToString());
-
-                var clase = Context.Vw_Clase
-                .Where(x => x.ID_PRODUCTO == Tabaco
-                    && x.Vigente == true)
-                .ToList();
-
-                cbClase.DataSource = clase;
-                cbClase.DisplayMember = "Nombre";
-                cbClase.ValueMember = "Id";
-            }
-        }
-
-        private void checkTabaco_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkTabaco.Checked)
-            {
-                Guid Tabaco = Guid.Parse(cbProducto.SelectedValue.ToString());
-
-                var clase = Context.Vw_Clase
-                .Where(x => x.ID_PRODUCTO == Tabaco
-                    && x.Vigente == true)
-                .ToList();
-
-                cbClase.DataSource = clase;
-                cbClase.DisplayMember = "Nombre";
-                cbClase.ValueMember = "Id";
-            }
-        }
-
-        private void gridViewInventarioDetalle_RowStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowStyleEventArgs e)
-        {
-            if (e.RowHandle % 2 == 0) 
-            {
-                e.Appearance.BackColor = Color.LightSkyBlue; 
-            }
-        }
-
-        private void gridViewInventario_MasterRowExpanded(object sender, CustomMasterRowEventArgs e)
-        {
-            GridView master = sender as GridView;
-            GridView detail = master.GetDetailView(e.RowHandle, e.RelationIndex) as GridView;
-            detail.RowStyle += gridViewInventarioDetalle_RowStyle;
-            detail.DoubleClick += gridViewInventarioDetalle_DoubleClick;
-        }
-
-        private void gridViewInventarioDetalle_DoubleClick(object sender, EventArgs e)
-        {
-
-        } 
     }
 }
