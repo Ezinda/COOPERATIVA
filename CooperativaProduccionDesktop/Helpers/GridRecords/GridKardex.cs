@@ -13,9 +13,9 @@ namespace CooperativaProduccion.Helpers.GridRecords
         public string TipoDocumento { get; set; }
         public string TipoTabaco { get; set; }
         public string Unidad { get; set; }
-        public Nullable<double> Ingreso { get; set; }
-        public Nullable<double> Egreso { get; set; }
-        public Nullable<double> Saldo { get; set; }
+        public string Ingreso { get; set; }
+        public string Egreso { get; set; }
+        public string Saldo { get; set; }
 
     }
 }

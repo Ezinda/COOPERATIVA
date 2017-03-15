@@ -254,7 +254,7 @@
             this.groupControl2.Controls.Add(this.gridControlInventario);
             this.groupControl2.Location = new System.Drawing.Point(2, 112);
             this.groupControl2.Name = "groupControl2";
-            this.groupControl2.Size = new System.Drawing.Size(1053, 435);
+            this.groupControl2.Size = new System.Drawing.Size(1053, 402);
             this.groupControl2.TabIndex = 25;
             this.groupControl2.Text = "Lista de Productos";
             // 
@@ -265,7 +265,7 @@
             this.gridControlInventario.MainView = this.gridViewInventario;
             this.gridControlInventario.MenuManager = this.ribbon;
             this.gridControlInventario.Name = "gridControlInventario";
-            this.gridControlInventario.Size = new System.Drawing.Size(1049, 413);
+            this.gridControlInventario.Size = new System.Drawing.Size(1049, 380);
             this.gridControlInventario.TabIndex = 0;
             this.gridControlInventario.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewInventario,
@@ -286,6 +286,7 @@
             this.gridViewInventario.OptionsView.ColumnAutoWidth = false;
             this.gridViewInventario.OptionsView.ShowGroupPanel = false;
             this.gridViewInventario.RowStyle += new DevExpress.XtraGrid.Views.Grid.RowStyleEventHandler(this.gridViewInventario_RowStyle);
+            this.gridViewInventario.CustomUnboundColumnData += new DevExpress.XtraGrid.Views.Base.CustomColumnDataEventHandler(this.gridViewInventario_CustomUnboundColumnData);
             // 
             // gridViewInventarioDetalle
             // 
@@ -318,6 +319,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Inventario - Kardex";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.Form_InventarioKardex_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);

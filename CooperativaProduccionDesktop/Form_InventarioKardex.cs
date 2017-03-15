@@ -11,6 +11,9 @@ using DesktopEntities.Models;
 using System.Linq.Expressions;
 using Extensions;
 using CooperativaProduccion.Helpers.GridRecords;
+using DevExpress.XtraGrid.Views.Grid;
+using DevExpress.XtraGrid.Views.Base;
+using DevExpress.XtraGrid.Columns;
 
 namespace CooperativaProduccion
 {
@@ -21,15 +24,15 @@ namespace CooperativaProduccion
         public string productokardex;
         public string itemkardex;
 
-        public Form_InventarioKardex(string deposito,string producto,string item)
+        public Form_InventarioKardex(string deposito, string producto, string item)
         {
             InitializeComponent();
             Context = new CooperativaProduccionEntities();
             CargarCombo();
-            Iniciar(deposito,producto,item);
+            Iniciar(deposito, producto, item);
         }
 
-        private void Iniciar(string deposito,string producto,string item)
+        private void Iniciar(string deposito, string producto, string item)
         {
             depositokardex = deposito;
             productokardex = producto;
@@ -169,13 +172,28 @@ namespace CooperativaProduccion
             }
             else if (checkDesde.Checked)
             {
-                List<GridInventario> lista = new List<GridInventario>();
-                
+                List<GridKardex> lista = new List<GridKardex>();
+
+                foreach (var movimiento in movimientos)
+                {
+                    var rowInventario = new GridKardex();
+                    rowInventario.Fecha = movimiento.Fecha.Value.ToShortDateString();
+                    rowInventario.Deposito = movimiento.Deposito;
+                    rowInventario.NumeroDocumento = movimiento.NumeroDocumento.Value.ToString();
+                    rowInventario.TipoDocumento = movimiento.TipoDocumento;
+                    rowInventario.TipoTabaco = movimiento.TipoTabaco;
+                    rowInventario.Unidad = movimiento.Unidad;
+                    rowInventario.Ingreso = movimiento.Ingreso.Value.ToString();
+                    rowInventario.Egreso = movimiento.Egreso.Value.ToString();
+                    rowInventario.Saldo = movimiento.Saldo.Value.ToString();
+                    lista.Add(rowInventario);
+                }
+
                 Expression<Func<Movimiento, bool>> pred4 = x => true;
 
                 pred4 = pred4.And(x => x.Fecha <= dpDesde.Value.Date);
-
-                var saldo =
+                var desde = dpDesde.Value.ToShortDateString();
+                var saldos =
                     (from m in Context.Movimiento.Where(pred4)
                      join p in Context.Vw_Pesada.Where(pred2)
                      on m.TransaccionId equals p.PesadaDetalleId
@@ -183,16 +201,17 @@ namespace CooperativaProduccion
                      on m.DepositoId equals d.id
                      group new { m, p, d } by new
                      {
+                         Fecha = "Saldo al día " + desde,
                          Deposito = d.nombre,
                          TipoTabaco = p.DESCRIPCION,
+
                          TipoDocumento = DevConstantes.Romaneo,
-                         NumeroDocumento = p.NumRomaneo,
                          m.Unidad
                      } into g
                      select new
                      {
+                         g.Key.Fecha,
                          g.Key.Deposito,
-                         g.Key.NumeroDocumento,
                          g.Key.TipoDocumento,
                          g.Key.TipoTabaco,
                          g.Key.Unidad,
@@ -200,42 +219,43 @@ namespace CooperativaProduccion
                          Egreso = g.Sum(c => c.m.Egreso),
                          Saldo = g.Sum(c => c.m.Ingreso) - g.Sum(c => c.m.Egreso)
                      })
-                     .OrderByDescending(x => x.NumeroDocumento)
                      .ToList();
 
-                var saldokardex =
-                    movimientos.Select(x =>
-                     new GridKardex()
-                     {
-                         Fecha = x.Fecha.Value.ToShortDateString(),
-                         Deposito = x.Deposito,
-                         NumeroDocumento = x.NumeroDocumento.Value.ToString(),
-                         TipoDocumento = x.TipoDocumento,
-                         TipoTabaco = x.TipoTabaco,
-                         Unidad = x.Unidad,
-                         Ingreso = x.Ingreso,
-                         Egreso = x.Egreso,
-                         Saldo = x.Saldo
-                     })
-                     .Union(
-                        saldo.Select(y =>
-                        new GridKardex()
-                        {
-                            Fecha = "Saldo",
-                            Deposito = y.Deposito,
-                            NumeroDocumento = y.NumeroDocumento.Value.ToString(),
-                            TipoDocumento = y.TipoDocumento,
-                            TipoTabaco = y.TipoTabaco,
-                            Unidad = y.Unidad,
-                            Ingreso = y.Ingreso,
-                            Egreso = y.Egreso,
-                            Saldo = y.Saldo
-                        }))
-                        .ToList();
-                gridControlInventario.DataSource = saldokardex;
+                foreach (var saldo in saldos)
+                {
+                    var rowInventario = new GridKardex();
+                    rowInventario.Fecha = saldo.Fecha;
+                    rowInventario.Deposito = saldo.Deposito;
+                    rowInventario.NumeroDocumento = string.Empty;
+                    rowInventario.TipoDocumento = saldo.TipoDocumento;
+                    rowInventario.TipoTabaco = saldo.TipoTabaco;
+                    rowInventario.Unidad = saldo.Unidad;
+                    rowInventario.Ingreso = string.Empty;
+                    rowInventario.Egreso = string.Empty;
+                    rowInventario.Saldo = saldo.Saldo.Value.ToString();
+                    lista.Add(rowInventario);
+                }
 
+                lista.Reverse();
+
+                gridControlInventario.DataSource = new BindingList<GridKardex>(lista);
+
+
+                gridViewInventario.Columns[0].Width = 200;
+                gridViewInventario.Columns[8].Visible = false;
+                gridViewInventario.Columns["NumeroDocumento"].SortOrder = DevExpress.Data.ColumnSortOrder.Descending;
             }
-            
+
+        }
+
+        public IEnumerable<double> GetCumulativeSequence(IEnumerable<double> input)
+        {
+            var runningTotal = 0.0;
+            foreach (double current in input)
+            {
+                runningTotal += current;
+                yield return runningTotal;
+            }
         }
 
         private void gridViewInventario_RowStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowStyleEventArgs e)
@@ -249,7 +269,41 @@ namespace CooperativaProduccion
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             Buscar();
+            gridViewInventario.CustomUnboundColumnData += new CustomColumnDataEventHandler(gridViewInventario_CustomUnboundColumnData);
         }
 
+        public class listanumber
+        {
+            public double saldo { get; set; }
+        }
+
+        private void gridViewInventario_CustomUnboundColumnData(object sender, DevExpress.XtraGrid.Views.Base.CustomColumnDataEventArgs e)
+        {
+            GridView view = (GridView)sender;
+            if (e.Column.FieldName == "Total" & e.IsGetData)
+            {
+                decimal total = 0m;
+                for (int i = 0; i <= e.ListSourceRowIndex; i++)
+                {
+                    total += Convert.ToDecimal(view.GetListSourceRowCellValue(i, "Saldo"));
+                }
+                e.Value = total;
+            }
+        }
+
+        private void Form_InventarioKardex_Load(object sender, EventArgs e)
+        {
+            // Create an unbound column.
+            GridColumn unbColumn = gridViewInventario.Columns.AddField("Total");
+            unbColumn.VisibleIndex = gridViewInventario.Columns.Count;
+            unbColumn.UnboundType = DevExpress.Data.UnboundColumnType.Decimal;
+            // Disable editing.
+            unbColumn.OptionsColumn.AllowEdit = false;
+            // Specify format settings.
+            unbColumn.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            //unbColumn.DisplayFormat.FormatString = "c";
+            // Customize the appearance settings.
+            unbColumn.AppearanceCell.BackColor = Color.LemonChiffon;
+        }
     }
 }
