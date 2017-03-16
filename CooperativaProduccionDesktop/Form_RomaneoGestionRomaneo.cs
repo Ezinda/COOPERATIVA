@@ -281,8 +281,10 @@ namespace CooperativaProduccion
                 if (item != null)
                     column.Summary.Remove(item);
             }
-            gridViewRomaneo.Columns["KILOS"].Summary.Add(DevExpress.Data.SummaryItemType.Sum, "KILOS", "TOTAL={0}");
-
+            gridViewRomaneo.Columns["KILOS"].Summary.Add(DevExpress.Data.SummaryItemType.Sum, "KILOS", "{0}");
+            gridViewRomaneo.Columns["BRUTOSINIVA"].Summary.Add(DevExpress.Data.SummaryItemType.Sum, "BRUTOSINIVA", "{0}");
+            gridViewRomaneo.Appearance.FooterPanel.TextOptions.HAlignment = HorzAlignment.Center;
+            gridViewRomaneo.Appearance.FooterPanel.Options.UseTextOptions = true;
         }
 
         public void StartProcess(string path)

@@ -341,9 +341,9 @@
             // ribbonPageGroupOrdenVenta
             // 
             this.ribbonPageGroupOrdenVenta.AllowTextClipping = false;
-            this.ribbonPageGroupOrdenVenta.ItemLinks.Add(this.btnGestionCata);
-            this.ribbonPageGroupOrdenVenta.ItemLinks.Add(this.btnGestionCaja);
             this.ribbonPageGroupOrdenVenta.ItemLinks.Add(this.btnOrdenVenta);
+            this.ribbonPageGroupOrdenVenta.ItemLinks.Add(this.btnGestionCaja);
+            this.ribbonPageGroupOrdenVenta.ItemLinks.Add(this.btnGestionCata);
             this.ribbonPageGroupOrdenVenta.ItemLinks.Add(this.btnRemitoElectronico);
             this.ribbonPageGroupOrdenVenta.Name = "ribbonPageGroupOrdenVenta";
             this.ribbonPageGroupOrdenVenta.ShowCaptionButton = false;

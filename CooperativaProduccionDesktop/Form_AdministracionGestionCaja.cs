@@ -217,6 +217,7 @@ namespace CooperativaProduccion
                       
                         Context.Caja.Add(caja);
                         Context.SaveChanges();
+                        RegistrarMovimiento(caja.Id,Convert.ToDouble(caja.Bruto),caja.Fecha);
                     }
                     catch
                     {
@@ -224,6 +225,33 @@ namespace CooperativaProduccion
                     }
                 }
             }
+        }
+
+        private Guid RegistrarMovimiento(Guid Id, double kilos, DateTime fecha)
+        {
+            Movimiento movimiento;
+
+            movimiento = new Movimiento();
+            movimiento.Id = Guid.NewGuid();
+            movimiento.Fecha = fecha;
+            movimiento.TransaccionId = Id;
+            movimiento.Unidad = DevConstantes.Kg;
+            movimiento.Ingreso = kilos;
+            movimiento.Egreso = 0;
+
+            var deposito = Context.Vw_Deposito
+                .Where(x => x.nombre == DevConstantes.Deposito)
+                .FirstOrDefault();
+
+            if (deposito != null)
+            {
+                movimiento.DepositoId = deposito.id;
+            }
+
+            Context.Movimiento.Add(movimiento);
+            Context.SaveChanges();
+
+            return movimiento.Id;
         }
 
         private bool Validar(bool Consulta)

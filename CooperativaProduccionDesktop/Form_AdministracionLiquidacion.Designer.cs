@@ -71,6 +71,8 @@
             this.txtFet = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.txtProductor = new System.Windows.Forms.TextBox();
+            this.cbTabacoLiquidacion = new System.Windows.Forms.ComboBox();
+            this.label9 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewLiquidacionDetalle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlLiquidacion)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewLiquidacion)).BeginInit();
@@ -149,6 +151,8 @@
             // 
             this.groupControl5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupControl5.Controls.Add(this.cbTabacoLiquidacion);
+            this.groupControl5.Controls.Add(this.label9);
             this.groupControl5.Controls.Add(this.btnLiquidar);
             this.groupControl5.Controls.Add(this.dpHastaRomaneo);
             this.groupControl5.Controls.Add(this.label1);
@@ -164,7 +168,7 @@
             // btnLiquidar
             // 
             this.btnLiquidar.Image = ((System.Drawing.Image)(resources.GetObject("btnLiquidar.Image")));
-            this.btnLiquidar.Location = new System.Drawing.Point(458, 23);
+            this.btnLiquidar.Location = new System.Drawing.Point(717, 23);
             this.btnLiquidar.Name = "btnLiquidar";
             this.btnLiquidar.Size = new System.Drawing.Size(81, 22);
             this.btnLiquidar.TabIndex = 61;
@@ -210,7 +214,7 @@
             // btnBuscar
             // 
             this.btnBuscar.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscar.Image")));
-            this.btnBuscar.Location = new System.Drawing.Point(371, 23);
+            this.btnBuscar.Location = new System.Drawing.Point(630, 23);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(81, 22);
             this.btnBuscar.TabIndex = 39;
@@ -532,6 +536,26 @@
             this.txtProductor.TabIndex = 64;
             this.txtProductor.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtProductor_KeyPress);
             // 
+            // cbTabacoLiquidacion
+            // 
+            this.cbTabacoLiquidacion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbTabacoLiquidacion.FormattingEnabled = true;
+            this.cbTabacoLiquidacion.Location = new System.Drawing.Point(425, 24);
+            this.cbTabacoLiquidacion.Name = "cbTabacoLiquidacion";
+            this.cbTabacoLiquidacion.Size = new System.Drawing.Size(192, 21);
+            this.cbTabacoLiquidacion.TabIndex = 85;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(373, 26);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(46, 16);
+            this.label9.TabIndex = 84;
+            this.label9.Text = "Tabaco";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // Form_AdministracionLiquidacion
             // 
             this.AllowFormGlass = DevExpress.Utils.DefaultBoolean.False;
@@ -616,5 +640,7 @@
         private DevExpress.XtraEditors.SimpleButton btnPrevisualizarLiquidacionElectronica;
         private DevExpress.XtraEditors.SimpleButton btnSubirAfip;
         private DevExpress.XtraEditors.SimpleButton btnPrevisualizarLiquidacionManual;
+        private System.Windows.Forms.ComboBox cbTabacoLiquidacion;
+        private System.Windows.Forms.Label label9;
     }
 }

@@ -55,6 +55,10 @@ namespace CooperativaProduccion
                 .Where(x => x.RUBRO_ID != null)
                 .ToList();
 
+            cbTabacoLiquidacion.DataSource = tipotabaco;
+            cbTabacoLiquidacion.DisplayMember = "Descripcion";
+            cbTabacoLiquidacion.ValueMember = "Id";
+
             cbTabaco.DataSource = tipotabaco;
             cbTabaco.DisplayMember = "Descripcion";
             cbTabaco.ValueMember = "Id";
@@ -93,6 +97,7 @@ namespace CooperativaProduccion
 
             pred = buscar.Equals(true) ? pred.And(x => x.FechaRomaneo >= dpDesdeRomaneo.Value.Date
                 && x.FechaRomaneo <= dpHastaRomaneo.Value.Date) : pred;
+            pred = pred.And(x => x.Tabaco == cbTabacoLiquidacion.Text);
             pred = pred.And(x => x.NumInternoLiquidacion == null);
 
             var result = (

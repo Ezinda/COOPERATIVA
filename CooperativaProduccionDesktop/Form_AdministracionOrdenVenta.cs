@@ -253,15 +253,88 @@ namespace CooperativaProduccion
 
         private void BuscarPendientes()
         {
-            if (cbOperacionCliente.Text != string.Empty)
+            if (OrdenVenta.SelectedTabPage.Equals(TabConsultaOrdenVenta))
             {
-                var operacionCliente = cbOperacionCliente.SelectedItem as dynamic;
+                if (cbOperacionCliente.Text != string.Empty)
+                {
+                    var operacionCliente = cbOperacionCliente.SelectedItem as dynamic;
 
-                Guid cbOpCliente = Guid.Parse(operacionCliente.OrdenVentaId.ToString());
+                    Guid cbOpCliente = Guid.Parse(operacionCliente.OrdenVentaId.ToString());
+
+                    Expression<Func<OrdenVenta, bool>> pred = x => true;
+
+                    pred = cbOperacionCliente.Text != string.Empty ? pred.And(x => x.Id == cbOpCliente) : pred;
+
+                    pred = checkPendienteEmitirRemito.Checked ? pred.And(x => x.Pendiente == true) : pred;
+
+                    var ordenVenta =
+                        (from o in Context.OrdenVenta.Where(pred)
+                         join p in Context.Vw_Producto
+                         on o.ProductoId equals p.ID
+                         join c in Context.Vw_Cliente
+                         on o.ClienteId equals c.ID
+                         select new
+                         {
+                             OrdenVentaId = o.Id,
+                             NumOperacion = o.NumOperacion,
+                             NumOrden = o.NumOrden,
+                             Cliente = c.RAZONSOCIAL,
+                             Producto = p.DESCRIPCION,
+                             CajaDesde = o.DesdeCaja,
+                             CajaHasta = o.HastaCaja,
+                             Fecha = o.Fecha,
+                             Pendiente = o.Pendiente == true ?
+                                DevConstantes.SI : DevConstantes.NO
+                         })
+                         .OrderBy(x => x.NumOrden)
+                         .ToList();
+
+                    gridControlOrdenVentaConsulta.DataSource = ordenVenta;
+                    gridViewOrdenVentaConsulta.Columns[0].Visible = false;
+                    gridViewOrdenVentaConsulta.Columns[1].Caption = "N° Operación";
+                    gridViewOrdenVentaConsulta.Columns[1].Width = 120;
+                    gridViewOrdenVentaConsulta.Columns[1].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+                    gridViewOrdenVentaConsulta.Columns[1].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Far;
+                    gridViewOrdenVentaConsulta.Columns[2].Caption = "N° Orden";
+                    gridViewOrdenVentaConsulta.Columns[2].Width = 120;
+                    gridViewOrdenVentaConsulta.Columns[2].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+                    gridViewOrdenVentaConsulta.Columns[2].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Far;
+                    gridViewOrdenVentaConsulta.Columns[3].Caption = "Cliente";
+                    gridViewOrdenVentaConsulta.Columns[3].Width = 250;
+                    gridViewOrdenVentaConsulta.Columns[3].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+                    gridViewOrdenVentaConsulta.Columns[3].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+                    gridViewOrdenVentaConsulta.Columns[4].Caption = "Producto";
+                    gridViewOrdenVentaConsulta.Columns[4].Width = 120;
+                    gridViewOrdenVentaConsulta.Columns[4].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+                    gridViewOrdenVentaConsulta.Columns[4].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+                    gridViewOrdenVentaConsulta.Columns[5].Caption = "Caja Desde";
+                    gridViewOrdenVentaConsulta.Columns[5].Width = 120;
+                    gridViewOrdenVentaConsulta.Columns[5].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+                    gridViewOrdenVentaConsulta.Columns[5].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+                    gridViewOrdenVentaConsulta.Columns[6].Caption = "Caja Hasta";
+                    gridViewOrdenVentaConsulta.Columns[6].Width = 120;
+                    gridViewOrdenVentaConsulta.Columns[6].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+                    gridViewOrdenVentaConsulta.Columns[6].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+                    gridViewOrdenVentaConsulta.Columns[7].Caption = "Fecha";
+                    gridViewOrdenVentaConsulta.Columns[7].Width = 90;
+                    gridViewOrdenVentaConsulta.Columns[7].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+                    gridViewOrdenVentaConsulta.Columns[7].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+                    gridViewOrdenVentaConsulta.Columns[8].Caption = "Pendiente";
+                    gridViewOrdenVentaConsulta.Columns[8].Width = 120;
+                    gridViewOrdenVentaConsulta.Columns[8].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+                    gridViewOrdenVentaConsulta.Columns[8].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+                }
+            }
+            else
+            {
+                int numeroOperacion = int.Parse(txtNumOperacion.Text);
+                int numeroOrden = int.Parse(txtNumOrdenVenta.Text);
 
                 Expression<Func<OrdenVenta, bool>> pred = x => true;
 
-                pred = cbOperacionCliente.Text != string.Empty ? pred.And(x => x.Id == cbOpCliente) : pred;
+                pred = txtNumOperacion.Text != string.Empty ? pred.And(x => x.NumOperacion == numeroOperacion) : pred;
+
+                pred = txtNumOrdenVenta.Text != string.Empty ? pred.And(x => x.NumOrden == numeroOrden) : pred;
 
                 pred = checkPendienteEmitirRemito.Checked ? pred.And(x => x.Pendiente == true) : pred;
 
@@ -287,40 +360,40 @@ namespace CooperativaProduccion
                      .OrderBy(x => x.NumOrden)
                      .ToList();
 
-                gridControlOrdenVentaConsulta.DataSource = ordenVenta;
-                gridViewOrdenVentaConsulta.Columns[0].Visible = false;
-                gridViewOrdenVentaConsulta.Columns[1].Caption = "N° Operación";
-                gridViewOrdenVentaConsulta.Columns[1].Width = 120;
-                gridViewOrdenVentaConsulta.Columns[1].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                gridViewOrdenVentaConsulta.Columns[1].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Far;
-                gridViewOrdenVentaConsulta.Columns[2].Caption = "N° Orden";
-                gridViewOrdenVentaConsulta.Columns[2].Width = 120;
-                gridViewOrdenVentaConsulta.Columns[2].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                gridViewOrdenVentaConsulta.Columns[2].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Far;
-                gridViewOrdenVentaConsulta.Columns[3].Caption = "Cliente";
-                gridViewOrdenVentaConsulta.Columns[3].Width = 250;
-                gridViewOrdenVentaConsulta.Columns[3].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                gridViewOrdenVentaConsulta.Columns[3].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
-                gridViewOrdenVentaConsulta.Columns[4].Caption = "Producto";
-                gridViewOrdenVentaConsulta.Columns[4].Width = 120;
-                gridViewOrdenVentaConsulta.Columns[4].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                gridViewOrdenVentaConsulta.Columns[4].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-                gridViewOrdenVentaConsulta.Columns[5].Caption = "Caja Desde";
-                gridViewOrdenVentaConsulta.Columns[5].Width = 120;
-                gridViewOrdenVentaConsulta.Columns[5].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                gridViewOrdenVentaConsulta.Columns[5].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-                gridViewOrdenVentaConsulta.Columns[6].Caption = "Caja Hasta";
-                gridViewOrdenVentaConsulta.Columns[6].Width = 120;
-                gridViewOrdenVentaConsulta.Columns[6].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                gridViewOrdenVentaConsulta.Columns[6].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-                gridViewOrdenVentaConsulta.Columns[7].Caption = "Fecha";
-                gridViewOrdenVentaConsulta.Columns[7].Width = 90;
-                gridViewOrdenVentaConsulta.Columns[7].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                gridViewOrdenVentaConsulta.Columns[7].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-                gridViewOrdenVentaConsulta.Columns[8].Caption = "Pendiente";
-                gridViewOrdenVentaConsulta.Columns[8].Width = 120;
-                gridViewOrdenVentaConsulta.Columns[8].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                gridViewOrdenVentaConsulta.Columns[8].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+                gridControlOrdenVenta.DataSource = ordenVenta;
+                gridViewOrdenVenta.Columns[0].Visible = false;
+                gridViewOrdenVenta.Columns[1].Caption = "N° Operación";
+                gridViewOrdenVenta.Columns[1].Width = 120;
+                gridViewOrdenVenta.Columns[1].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+                gridViewOrdenVenta.Columns[1].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Far;
+                gridViewOrdenVenta.Columns[2].Caption = "N° Orden";
+                gridViewOrdenVenta.Columns[2].Width = 120;
+                gridViewOrdenVenta.Columns[2].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+                gridViewOrdenVenta.Columns[2].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Far;
+                gridViewOrdenVenta.Columns[3].Caption = "Cliente";
+                gridViewOrdenVenta.Columns[3].Width = 250;
+                gridViewOrdenVenta.Columns[3].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+                gridViewOrdenVenta.Columns[3].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+                gridViewOrdenVenta.Columns[4].Caption = "Producto";
+                gridViewOrdenVenta.Columns[4].Width = 120;
+                gridViewOrdenVenta.Columns[4].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+                gridViewOrdenVenta.Columns[4].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+                gridViewOrdenVenta.Columns[5].Caption = "Caja Desde";
+                gridViewOrdenVenta.Columns[5].Width = 120;
+                gridViewOrdenVenta.Columns[5].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+                gridViewOrdenVenta.Columns[5].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+                gridViewOrdenVenta.Columns[6].Caption = "Caja Hasta";
+                gridViewOrdenVenta.Columns[6].Width = 120;
+                gridViewOrdenVenta.Columns[6].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+                gridViewOrdenVenta.Columns[6].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+                gridViewOrdenVenta.Columns[7].Caption = "Fecha";
+                gridViewOrdenVenta.Columns[7].Width = 90;
+                gridViewOrdenVenta.Columns[7].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+                gridViewOrdenVenta.Columns[7].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+                gridViewOrdenVenta.Columns[8].Caption = "Pendiente";
+                gridViewOrdenVenta.Columns[8].Width = 120;
+                gridViewOrdenVenta.Columns[8].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+                gridViewOrdenVenta.Columns[8].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
             }
         }
 
