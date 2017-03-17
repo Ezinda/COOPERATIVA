@@ -551,8 +551,8 @@ namespace CooperativaProduccion
                     {
                         ProductorId = busqueda.ID.Value;
                         txtFet.Text = busqueda.FET.ToString();
-                        txtProductor.Text = busqueda.PRODUCTOR.ToString();
-                        txtProvincia.Text = busqueda.PROVINCIA.ToString();
+                        txtProductor.Text = busqueda.PRODUCTOR;
+                        txtProvincia.Text = busqueda.PROVINCIA;
 
                     }
                     else
@@ -584,8 +584,8 @@ namespace CooperativaProduccion
                     {
                         ProductorId = busqueda.ID.Value;
                         txtFet.Text = busqueda.FET.ToString();
-                        txtProductor.Text = busqueda.PRODUCTOR.ToString();
-                        txtProvincia.Text = busqueda.PROVINCIA.ToString();
+                        txtProductor.Text = busqueda.PRODUCTOR;
+                        txtProvincia.Text = busqueda.PROVINCIA;
 
                     }
                     else
@@ -681,7 +681,7 @@ namespace CooperativaProduccion
         private void ImprimirLiquidacion(Guid Id)
         {
             var reporte = new LiquidacionManualReport();
-
+            CooperativaProduccionEntities Context = new CooperativaProduccionEntities();
             var liquidacion = Context.Vw_Romaneo
                 .Where(x => x.PesadaId == Id)
                 .FirstOrDefault();
@@ -714,13 +714,17 @@ namespace CooperativaProduccion
             #region Parametros Datos Productor
 
             reporte.Parameters["productor"].Value = liquidacion.NOMBRE;
+
             var productor = Context.Vw_Productor
                 .Where(x => x.ID == liquidacion.ProductorId)
                 .FirstOrDefault();
 
             reporte.Parameters["domicilio"].Value = productor.DOMICILIO == null ? string.Empty : productor.DOMICILIO;
             reporte.Parameters["provincia"].Value = productor.Provincia == null ? string.Empty : productor.Provincia;
-            reporte.Parameters["iva"].Value = productor.IVA == "MT" ? "Monotributo Social" : "Resp. Inscripto";
+            reporte.Parameters["iva"].Value = 
+                productor.IVA.Equals("MTS") ? "Monotributo Social" :
+                productor.IVA.Equals("MT") ? "Monotributo" : 
+                productor.IVA.Equals("TP") ? " Trabajador Promovido" : "Resp. Inscripto";
             reporte.Parameters["fet"].Value = productor.nrofet == null ? string.Empty : productor.nrofet;
             reporte.Parameters["localidad"].Value = productor.CALLE == null ? string.Empty : productor.CALLE;
             reporte.Parameters["cuitProductor"].Value = productor.CUIT == null ? string.Empty : productor.CUIT;

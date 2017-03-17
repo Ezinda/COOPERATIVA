@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using DevExpress.XtraBars;
 using DesktopEntities.Models;
 using System.Data.Entity;
+using System.Globalization;
 
 namespace CooperativaProduccion
 {
@@ -188,9 +189,9 @@ namespace CooperativaProduccion
                         caja.Fecha = dpIngresoCaja.Value.Date;
                         caja.Hora = DateTime.Now.TimeOfDay;
                         caja.ProductoId = ProductoId;
-                        caja.Bruto = decimal.Parse(txtBruto.Text);
-                        caja.Tara = decimal.Parse(txtTara.Text);
-                        caja.Neto = decimal.Parse(txtNeto.Text);
+                        caja.Bruto = decimal.Parse(txtBruto.Text,CultureInfo.InvariantCulture);
+                        caja.Tara = decimal.Parse(txtTara.Text, CultureInfo.InvariantCulture);
+                        caja.Neto = decimal.Parse(txtNeto.Text, CultureInfo.InvariantCulture);
                         caja.OrdenVentaId = OrdenVentaId;
                         if (checkCata.Checked)
                         {
@@ -217,7 +218,7 @@ namespace CooperativaProduccion
                       
                         Context.Caja.Add(caja);
                         Context.SaveChanges();
-                        RegistrarMovimiento(caja.Id,Convert.ToDouble(caja.Bruto),caja.Fecha);
+                        RegistrarMovimiento(caja.Id,1,caja.Fecha);
                     }
                     catch
                     {
@@ -235,7 +236,7 @@ namespace CooperativaProduccion
             movimiento.Id = Guid.NewGuid();
             movimiento.Fecha = fecha;
             movimiento.TransaccionId = Id;
-            movimiento.Unidad = DevConstantes.Kg;
+            movimiento.Unidad = DevConstantes.Caja;
             movimiento.Ingreso = kilos;
             movimiento.Egreso = 0;
 
@@ -361,6 +362,7 @@ namespace CooperativaProduccion
                 select new
                 {
                     Id = c.Id,
+                    NumLote = c.LoteCaja,
                     NumCaja = c.NumeroCaja,
                     Producto = cp.DESCRIPCION,
                     Bruto = c.Bruto,
@@ -374,19 +376,21 @@ namespace CooperativaProduccion
 
             gridControlCaja.DataSource = result;
             gridViewCaja.Columns[0].Visible = false;
-            gridViewCaja.Columns[1].Caption = "N° Caja";
+            gridViewCaja.Columns[1].Caption = "N° Lote";
             gridViewCaja.Columns[1].Width = 110;
-            gridViewCaja.Columns[2].Caption = "Producto";
-            gridViewCaja.Columns[2].Width = 100;
-            gridViewCaja.Columns[3].Caption = "Bruto";
+            gridViewCaja.Columns[2].Caption = "N° Caja";
+            gridViewCaja.Columns[2].Width = 110;
+            gridViewCaja.Columns[3].Caption = "Producto";
             gridViewCaja.Columns[3].Width = 100;
-            gridViewCaja.Columns[4].Caption = "Tara";
+            gridViewCaja.Columns[4].Caption = "Bruto";
             gridViewCaja.Columns[4].Width = 100;
-            gridViewCaja.Columns[5].Caption = "Neto";
+            gridViewCaja.Columns[5].Caption = "Tara";
             gridViewCaja.Columns[5].Width = 100;
-            gridViewCaja.Columns[6].Caption = "N° Cata";
-            gridViewCaja.Columns[6].Width = 200;
-
+            gridViewCaja.Columns[6].Caption = "Neto";
+            gridViewCaja.Columns[6].Width = 100;
+            gridViewCaja.Columns[7].Caption = "N° Cata";
+            gridViewCaja.Columns[7].Width = 200;
+            gridViewCaja.Columns[8].Visible = false;
         }
 
         private long ContadorNumeroCaja()

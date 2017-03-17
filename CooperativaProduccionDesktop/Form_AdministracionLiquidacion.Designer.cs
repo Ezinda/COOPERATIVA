@@ -35,6 +35,8 @@
             this.gridViewLiquidacion = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.groupControl5 = new DevExpress.XtraEditors.GroupControl();
+            this.cbTabacoLiquidacion = new System.Windows.Forms.ComboBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.btnLiquidar = new DevExpress.XtraEditors.SimpleButton();
             this.dpHastaRomaneo = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
@@ -71,8 +73,6 @@
             this.txtFet = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.txtProductor = new System.Windows.Forms.TextBox();
-            this.cbTabacoLiquidacion = new System.Windows.Forms.ComboBox();
-            this.label9 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewLiquidacionDetalle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlLiquidacion)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewLiquidacion)).BeginInit();
@@ -112,7 +112,7 @@
             this.gridControlLiquidacion.MainView = this.gridViewLiquidacion;
             this.gridControlLiquidacion.MenuManager = this.ribbon;
             this.gridControlLiquidacion.Name = "gridControlLiquidacion";
-            this.gridControlLiquidacion.Size = new System.Drawing.Size(1258, 521);
+            this.gridControlLiquidacion.Size = new System.Drawing.Size(1261, 521);
             this.gridControlLiquidacion.TabIndex = 68;
             this.gridControlLiquidacion.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewLiquidacion,
@@ -164,6 +164,26 @@
             this.groupControl5.Size = new System.Drawing.Size(1265, 50);
             this.groupControl5.TabIndex = 71;
             this.groupControl5.Text = "Buscar Romaneo";
+            // 
+            // cbTabacoLiquidacion
+            // 
+            this.cbTabacoLiquidacion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbTabacoLiquidacion.FormattingEnabled = true;
+            this.cbTabacoLiquidacion.Location = new System.Drawing.Point(425, 24);
+            this.cbTabacoLiquidacion.Name = "cbTabacoLiquidacion";
+            this.cbTabacoLiquidacion.Size = new System.Drawing.Size(192, 21);
+            this.cbTabacoLiquidacion.TabIndex = 85;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(373, 26);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(46, 16);
+            this.label9.TabIndex = 84;
+            this.label9.Text = "Tabaco";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnLiquidar
             // 
@@ -295,10 +315,10 @@
             this.groupControl3.Controls.Add(this.btnPrevisualizarLiquidacionElectronica);
             this.groupControl3.Controls.Add(this.btnSubirAfip);
             this.groupControl3.Controls.Add(this.btnPrevisualizarLiquidacionManual);
-            this.groupControl3.Location = new System.Drawing.Point(3, 623);
+            this.groupControl3.Location = new System.Drawing.Point(2, 622);
             this.groupControl3.Name = "groupControl3";
             this.groupControl3.ShowCaption = false;
-            this.groupControl3.Size = new System.Drawing.Size(1261, 31);
+            this.groupControl3.Size = new System.Drawing.Size(1264, 32);
             this.groupControl3.TabIndex = 73;
             this.groupControl3.Text = "Buscar Romaneo";
             // 
@@ -347,9 +367,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupControl6.Controls.Add(this.gridControlLiquidacion);
-            this.groupControl6.Location = new System.Drawing.Point(3, 78);
+            this.groupControl6.Location = new System.Drawing.Point(0, 78);
             this.groupControl6.Name = "groupControl6";
-            this.groupControl6.Size = new System.Drawing.Size(1262, 543);
+            this.groupControl6.Size = new System.Drawing.Size(1265, 543);
             this.groupControl6.TabIndex = 75;
             this.groupControl6.Text = "Lista de Romaneo";
             // 
@@ -374,9 +394,9 @@
             this.groupControl2.Controls.Add(this.txtFet);
             this.groupControl2.Controls.Add(this.label7);
             this.groupControl2.Controls.Add(this.txtProductor);
-            this.groupControl2.Location = new System.Drawing.Point(3, 1);
+            this.groupControl2.Location = new System.Drawing.Point(1, 1);
             this.groupControl2.Name = "groupControl2";
-            this.groupControl2.Size = new System.Drawing.Size(1261, 75);
+            this.groupControl2.Size = new System.Drawing.Size(1264, 75);
             this.groupControl2.TabIndex = 72;
             this.groupControl2.Text = "Buscar Romaneo";
             // 
@@ -535,26 +555,6 @@
             this.txtProductor.Size = new System.Drawing.Size(247, 21);
             this.txtProductor.TabIndex = 64;
             this.txtProductor.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtProductor_KeyPress);
-            // 
-            // cbTabacoLiquidacion
-            // 
-            this.cbTabacoLiquidacion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbTabacoLiquidacion.FormattingEnabled = true;
-            this.cbTabacoLiquidacion.Location = new System.Drawing.Point(425, 24);
-            this.cbTabacoLiquidacion.Name = "cbTabacoLiquidacion";
-            this.cbTabacoLiquidacion.Size = new System.Drawing.Size(192, 21);
-            this.cbTabacoLiquidacion.TabIndex = 85;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(373, 26);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(46, 16);
-            this.label9.TabIndex = 84;
-            this.label9.Text = "Tabaco";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Form_AdministracionLiquidacion
             // 
