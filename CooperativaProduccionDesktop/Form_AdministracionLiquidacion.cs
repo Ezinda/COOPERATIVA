@@ -22,6 +22,8 @@ using System.Diagnostics;
 using DevExpress.XtraPrinting;
 using System.Globalization;
 using CooperativaProduccion.ReportModels;
+using DevExpress.XtraGrid.Columns;
+using DevExpress.XtraGrid;
 
 namespace CooperativaProduccion
 {
@@ -388,43 +390,43 @@ namespace CooperativaProduccion
 
             List<GridLiquidacion> lista = new List<GridLiquidacion>();
 
-            var liquidaciones = (
-               from a in Context.Vw_Romaneo
-                   .Where(pred)
-               select new
-               {
-                   ID = a.PesadaId,
-                   FECHA = a.FechaInternaLiquidacion,
-                   NUMINTERNO = a.NumInternoLiquidacion,
-                   PRODUCTOR = a.NOMBRE,
-                   CUIT = a.CUIT,
-                   FET = a.nrofet,
-                   PROVINCIA = a.Provincia,
-                   LETRA = a.Letra,
-                   KILOS = a.TotalKg,
-                   BRUTOSINIVA = a.ImporteBruto,
-                   TABACO = a.Tabaco,
-                   FECHALIQUIDACIONAFIP = a.FechaAfipLiquidacion,
-                   NUMEROAFIPLIQUIDACION = a.NumAfipLiquidacion,
-                   CAE = a.Cae,
-                   FECHAVTOCAE = a.FechaVtoCae
-               })
-               .OrderBy(x=>x.NUMINTERNO)
+            var liquidaciones =
+                (from a in Context.Vw_Romaneo
+                 .Where(pred)
+                 select new
+                 {
+                     ID = a.PesadaId,
+                     FECHA = a.FechaInternaLiquidacion,
+                     NUMINTERNO = a.NumInternoLiquidacion,
+                     PRODUCTOR = a.NOMBRE,
+                     CUIT = a.CUIT,
+                     FET = a.nrofet,
+                     PROVINCIA = a.Provincia,
+                     LETRA = a.Letra,
+                     KILOS = a.TotalKg,
+                     BRUTOSINIVA = a.ImporteBruto,
+                     TABACO = a.Tabaco,
+                     FECHALIQUIDACIONAFIP = a.FechaAfipLiquidacion,
+                     NUMEROAFIPLIQUIDACION = a.NumAfipLiquidacion,
+                     CAE = a.Cae,
+                     FECHAVTOCAE = a.FechaVtoCae
+                 })
+               .OrderBy(x => x.NUMINTERNO)
                .ToList();
 
             foreach (var liquidacion in liquidaciones)
             {
-                var liquidacionDetalle = ( 
-                    from a in Context.Vw_ResumenRomaneoPorClase
-                        .Where(x=>x.PesadaId==liquidacion.ID)
-                    select new
-                    {
-                        Clase = a.Clase,
-                        Fardos = a.Fardos,
-                        Kilos = a.Kilos,
-                        ClasePrecio = a.ClasePrecio,
-                        Total = a.Total
-                    })
+                var liquidacionDetalle =
+                    (from a in Context.Vw_ResumenRomaneoPorClase
+                     .Where(x => x.PesadaId == liquidacion.ID)
+                     select new
+                     {
+                         Clase = a.Clase,
+                         Fardos = a.Fardos,
+                         Kilos = a.Kilos,
+                         ClasePrecio = a.ClasePrecio,
+                         Total = a.Total
+                     })
                     .ToList();
 
                 var rowsDetalle = liquidacionDetalle.Select(x =>
@@ -438,6 +440,7 @@ namespace CooperativaProduccion
                     })
                     .OrderBy(x => x.Clase)
                     .ToList();
+
                 var rowLiquidacion = new GridLiquidacion();
                 rowLiquidacion.PesadaId = liquidacion.ID;
                 rowLiquidacion.fechaInternaLiquidacion = liquidacion.FECHA;
@@ -456,6 +459,7 @@ namespace CooperativaProduccion
                 rowLiquidacion.Detalle = rowsDetalle;
                 lista.Add(rowLiquidacion);
             }
+
             gridControlLiquidacion.DataSource = new BindingList<GridLiquidacion>(lista);
             gridViewLiquidacion.Columns[0].Visible = false;
             gridViewLiquidacion.Columns[1].Caption = "Fecha Int. Liquidación";
@@ -513,6 +517,18 @@ namespace CooperativaProduccion
             {
                 gridViewLiquidacion.SelectRow(i);
             }
+
+            foreach (GridColumn column in gridViewLiquidacion.Columns)
+            {
+                GridSummaryItem item = column.SummaryItem;
+                if (item != null)
+                    column.Summary.Remove(item);
+            }
+
+            gridViewLiquidacion.Columns["Totalkg"].Summary.Add(DevExpress.Data.SummaryItemType.Sum, "Totalkg", "{0}");
+            gridViewLiquidacion.Columns["ImporteBruto"].Summary.Add(DevExpress.Data.SummaryItemType.Sum, "ImporteBruto", "{0}");
+            gridViewLiquidacion.Appearance.FooterPanel.TextOptions.HAlignment = HorzAlignment.Center;
+            gridViewLiquidacion.Appearance.FooterPanel.Options.UseTextOptions = true;
         }
 
         private void BuscarProductor()
@@ -570,9 +586,9 @@ namespace CooperativaProduccion
                 if (count > 1)
                 {
                     _formBuscarProductor = new Form_AdministracionBuscarProductor();
-                    _formBuscarProductor.fet = txtProductor.Text;
+                    _formBuscarProductor.nombre = txtProductor.Text;
                     _formBuscarProductor.target = DevConstantes.Liquidacion;
-                    _formBuscarProductor.BuscarFet();
+                    _formBuscarProductor.BuscarNombre();
                     _formBuscarProductor.ShowDialog(this);
                 }
                 else
@@ -721,10 +737,23 @@ namespace CooperativaProduccion
 
             reporte.Parameters["domicilio"].Value = productor.DOMICILIO == null ? string.Empty : productor.DOMICILIO;
             reporte.Parameters["provincia"].Value = productor.Provincia == null ? string.Empty : productor.Provincia;
-            reporte.Parameters["iva"].Value = 
-                productor.IVA.Equals("MTS") ? "Monotributo Social" :
-                productor.IVA.Equals("MT") ? "Monotributo" : 
-                productor.IVA.Equals("TP") ? " Trabajador Promovido" : "Resp. Inscripto";
+         
+            if (productor.IVA == DevConstantes.MTS)
+            {
+                reporte.Parameters["iva"].Value = DevConstantes.MonotributoSocial;
+            }
+            else if (productor.IVA == DevConstantes.MT)
+            {
+                reporte.Parameters["iva"].Value = DevConstantes.Monotributo;
+            }
+            else if (productor.IVA == DevConstantes.RI)
+            {
+                reporte.Parameters["iva"].Value = DevConstantes.ResponsableInscripto;
+            }
+            else if (productor.IVA == DevConstantes.TP)
+            {
+                reporte.Parameters["iva"].Value = DevConstantes.TrabajadorPromovido;
+            }
             reporte.Parameters["fet"].Value = productor.nrofet == null ? string.Empty : productor.nrofet;
             reporte.Parameters["localidad"].Value = productor.CALLE == null ? string.Empty : productor.CALLE;
             reporte.Parameters["cuitProductor"].Value = productor.CUIT == null ? string.Empty : productor.CUIT;
@@ -999,8 +1028,24 @@ namespace CooperativaProduccion
                 registro.nrofet = resumen.nrofet;
                 registro.NOMBRE = resumen.NOMBRE;
                 registro.CUIT = resumen.CUIT;
-                registro.IVA = resumen.IVA.Equals(DevConstantes.MT) ? 
-                    DevConstantes.MonotributoSocial : DevConstantes.ResponsableInscripto;
+
+                if (resumen.IVA == DevConstantes.MTS)
+                {
+                    registro.IVA = DevConstantes.MonotributoSocial;
+                }
+                else if (resumen.IVA == DevConstantes.MT)
+                {
+                    registro.IVA = DevConstantes.Monotributo;
+                }
+                else if (resumen.IVA == DevConstantes.RI)
+                {
+                    registro.IVA = DevConstantes.ResponsableInscripto;
+                }
+                else if (resumen.IVA == DevConstantes.TP)
+                {
+                    registro.IVA = DevConstantes.TrabajadorPromovido;
+                }
+                
                 registro.TC = DevConstantes.LI;
                 registro.Letra = resumen.Letra;
                 registro.PuntoVentaLiquidacion = resumen.PuntoVentaLiquidacion.Value.ToString();
@@ -1039,7 +1084,6 @@ namespace CooperativaProduccion
             {
                 process.StartInfo.FileName = path;
                 process.Start();
-                process.WaitForInputIdle();
             }
             catch
             {

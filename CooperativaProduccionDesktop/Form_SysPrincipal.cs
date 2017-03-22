@@ -68,7 +68,7 @@ namespace CooperativaProduccion
 
         private void btnFardos_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var fardos = new Form_Inventarios();
+            var fardos = new Form_InventarioInventarios();
             fardos.Show();
         }
 
@@ -275,12 +275,12 @@ namespace CooperativaProduccion
             gc.Show();
         }
 
-        private void btnIngresoCaja_ItemClick(object sender, ItemClickEventArgs e)
+        private void btnGestionCaja_ItemClick(object sender, ItemClickEventArgs e)
         {
             var gc = new Form_AdministracionGestionCaja();
             gc.Show();
         }
-
+        
         private void btnOrdenVenta_ItemClick(object sender, ItemClickEventArgs e)
         {
             var ov = new Form_AdministracionOrdenVenta();
@@ -340,6 +340,12 @@ namespace CooperativaProduccion
         {
             var impresion = new Form_ConfiguracionImpresionEtiqueta();
             impresion.Show();
+        }
+
+        private void btnIngresoCajas_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var ingcajas = new Form_InventarioIngresoCaja();
+            ingcajas.Show();
         }
     }
 }

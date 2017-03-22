@@ -94,7 +94,7 @@
             this.gridControlRomaneo.MainView = this.gridViewRomaneo;
             this.gridControlRomaneo.MenuManager = this.ribbon;
             this.gridControlRomaneo.Name = "gridControlRomaneo";
-            this.gridControlRomaneo.Size = new System.Drawing.Size(1128, 363);
+            this.gridControlRomaneo.Size = new System.Drawing.Size(1128, 350);
             this.gridControlRomaneo.TabIndex = 68;
             this.gridControlRomaneo.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewRomaneo,
@@ -147,9 +147,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupControl6.Controls.Add(this.gridControlRomaneo);
-            this.groupControl6.Location = new System.Drawing.Point(2, 136);
+            this.groupControl6.Location = new System.Drawing.Point(2, 149);
             this.groupControl6.Name = "groupControl6";
-            this.groupControl6.Size = new System.Drawing.Size(1132, 385);
+            this.groupControl6.Size = new System.Drawing.Size(1132, 372);
             this.groupControl6.TabIndex = 81;
             this.groupControl6.Text = "Lista de Romaneo";
             // 
@@ -167,7 +167,7 @@
             this.groupControl3.Controls.Add(this.label6);
             this.groupControl3.Controls.Add(this.txtProductor);
             this.groupControl3.Controls.Add(this.label7);
-            this.groupControl3.Location = new System.Drawing.Point(2, 102);
+            this.groupControl3.Location = new System.Drawing.Point(2, 115);
             this.groupControl3.Name = "groupControl3";
             this.groupControl3.ShowCaption = false;
             this.groupControl3.Size = new System.Drawing.Size(1132, 32);
@@ -275,7 +275,7 @@
             this.groupControl2.Controls.Add(this.label2);
             this.groupControl2.Controls.Add(this.dpDesdeRomaneo);
             this.groupControl2.Controls.Add(this.label3);
-            this.groupControl2.Location = new System.Drawing.Point(3, 52);
+            this.groupControl2.Location = new System.Drawing.Point(3, 65);
             this.groupControl2.Name = "groupControl2";
             this.groupControl2.Size = new System.Drawing.Size(1131, 49);
             this.groupControl2.TabIndex = 79;
@@ -285,7 +285,7 @@
             // 
             this.btnBuscarRomaneo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBuscarRomaneo.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscarRomaneo.Image")));
-            this.btnBuscarRomaneo.Location = new System.Drawing.Point(1045, 23);
+            this.btnBuscarRomaneo.Location = new System.Drawing.Point(583, 23);
             this.btnBuscarRomaneo.Name = "btnBuscarRomaneo";
             this.btnBuscarRomaneo.Size = new System.Drawing.Size(81, 22);
             this.btnBuscarRomaneo.TabIndex = 39;

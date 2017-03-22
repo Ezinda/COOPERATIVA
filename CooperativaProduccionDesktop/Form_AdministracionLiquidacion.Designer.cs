@@ -112,7 +112,7 @@
             this.gridControlLiquidacion.MainView = this.gridViewLiquidacion;
             this.gridControlLiquidacion.MenuManager = this.ribbon;
             this.gridControlLiquidacion.Name = "gridControlLiquidacion";
-            this.gridControlLiquidacion.Size = new System.Drawing.Size(1261, 521);
+            this.gridControlLiquidacion.Size = new System.Drawing.Size(1261, 545);
             this.gridControlLiquidacion.TabIndex = 68;
             this.gridControlLiquidacion.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewLiquidacion,
@@ -125,6 +125,7 @@
             this.gridViewLiquidacion.OptionsBehavior.Editable = false;
             this.gridViewLiquidacion.OptionsSelection.MultiSelect = true;
             this.gridViewLiquidacion.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CheckBoxRowSelect;
+            this.gridViewLiquidacion.OptionsView.ShowFooter = true;
             this.gridViewLiquidacion.OptionsView.ShowGroupPanel = false;
             // 
             // ribbon
@@ -249,7 +250,7 @@
             this.groupControl1.Controls.Add(this.gridControlRomaneo);
             this.groupControl1.Location = new System.Drawing.Point(1, 52);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(1265, 607);
+            this.groupControl1.Size = new System.Drawing.Size(1265, 625);
             this.groupControl1.TabIndex = 72;
             this.groupControl1.Text = "Lista de Romaneo";
             // 
@@ -260,7 +261,7 @@
             this.gridControlRomaneo.MainView = this.gridViewRomaneo;
             this.gridControlRomaneo.MenuManager = this.ribbon;
             this.gridControlRomaneo.Name = "gridControlRomaneo";
-            this.gridControlRomaneo.Size = new System.Drawing.Size(1261, 585);
+            this.gridControlRomaneo.Size = new System.Drawing.Size(1261, 603);
             this.gridControlRomaneo.TabIndex = 68;
             this.gridControlRomaneo.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewRomaneo});
@@ -281,7 +282,7 @@
             this.Liquidacion.Location = new System.Drawing.Point(0, 33);
             this.Liquidacion.Name = "Liquidacion";
             this.Liquidacion.SelectedTabPage = this.TabProcesoLiquidacion;
-            this.Liquidacion.Size = new System.Drawing.Size(1272, 686);
+            this.Liquidacion.Size = new System.Drawing.Size(1272, 707);
             this.Liquidacion.TabIndex = 73;
             this.Liquidacion.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.TabProcesoLiquidacion,
@@ -294,7 +295,7 @@
             this.TabProcesoLiquidacion.Controls.Add(this.groupControl1);
             this.TabProcesoLiquidacion.Image = ((System.Drawing.Image)(resources.GetObject("TabProcesoLiquidacion.Image")));
             this.TabProcesoLiquidacion.Name = "TabProcesoLiquidacion";
-            this.TabProcesoLiquidacion.Size = new System.Drawing.Size(1266, 655);
+            this.TabProcesoLiquidacion.Size = new System.Drawing.Size(1266, 676);
             this.TabProcesoLiquidacion.Text = "Proceso de Liquidación";
             // 
             // TabConsultaLiquidacion
@@ -304,7 +305,7 @@
             this.TabConsultaLiquidacion.Controls.Add(this.groupControl2);
             this.TabConsultaLiquidacion.Image = ((System.Drawing.Image)(resources.GetObject("TabConsultaLiquidacion.Image")));
             this.TabConsultaLiquidacion.Name = "TabConsultaLiquidacion";
-            this.TabConsultaLiquidacion.Size = new System.Drawing.Size(1266, 655);
+            this.TabConsultaLiquidacion.Size = new System.Drawing.Size(1266, 676);
             this.TabConsultaLiquidacion.Text = "Consulta de Liquidación";
             // 
             // groupControl3
@@ -315,7 +316,7 @@
             this.groupControl3.Controls.Add(this.btnPrevisualizarLiquidacionElectronica);
             this.groupControl3.Controls.Add(this.btnSubirAfip);
             this.groupControl3.Controls.Add(this.btnPrevisualizarLiquidacionManual);
-            this.groupControl3.Location = new System.Drawing.Point(2, 622);
+            this.groupControl3.Location = new System.Drawing.Point(1, 644);
             this.groupControl3.Name = "groupControl3";
             this.groupControl3.ShowCaption = false;
             this.groupControl3.Size = new System.Drawing.Size(1264, 32);
@@ -367,9 +368,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupControl6.Controls.Add(this.gridControlLiquidacion);
-            this.groupControl6.Location = new System.Drawing.Point(0, 78);
+            this.groupControl6.Location = new System.Drawing.Point(0, 77);
             this.groupControl6.Name = "groupControl6";
-            this.groupControl6.Size = new System.Drawing.Size(1265, 543);
+            this.groupControl6.Size = new System.Drawing.Size(1265, 567);
             this.groupControl6.TabIndex = 75;
             this.groupControl6.Text = "Lista de Romaneo";
             // 
@@ -550,6 +551,7 @@
             // 
             // txtProductor
             // 
+            this.txtProductor.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtProductor.Location = new System.Drawing.Point(220, 51);
             this.txtProductor.Name = "txtProductor";
             this.txtProductor.Size = new System.Drawing.Size(247, 21);

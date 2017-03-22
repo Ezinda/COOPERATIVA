@@ -384,7 +384,7 @@ namespace CooperativaProduccion
                 }
 
                 Habilitar();
-
+                cbTabaco.Enabled = false;
                 if (!_DEBUG && isbalanzaautomatica)
                 {
                     CreateLogDirectory();
@@ -797,6 +797,7 @@ namespace CooperativaProduccion
 
             if (Id != null)
             {
+                cbTabaco.Enabled = false;
                 continuar = true;
                 _pesadaId = Id.Value;
                 var pesada = Context.Pesada
@@ -1103,6 +1104,7 @@ namespace CooperativaProduccion
             movimiento.Unidad = DevConstantes.Kg;
             movimiento.Ingreso = kilos;
             movimiento.Egreso = 0;
+            movimiento.Documento = DevConstantes.Romaneo;
 
             var deposito = _context.Vw_Deposito
                 .Where(x => x.nombre == DevConstantes.MateriaPrima)

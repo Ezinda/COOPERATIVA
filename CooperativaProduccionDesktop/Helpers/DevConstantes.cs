@@ -28,10 +28,14 @@ namespace CooperativaProduccion
         public static string PuntoVentaLiquidacion = "PuntoVentaLiquidacion";
         public static Guid Generico = Guid.Parse("0867DD6B-EFE0-4272-97FD-C57342E47EF4");
         public static string C1F = "C1F";
-        public static string MT = "MT";
+        public static string MTS = "MTS";
         public static string MonotributoSocial = "Monotributo Social";
         public static string RI = "RI";
         public static string ResponsableInscripto = "Responsable Inscripto";
+        public static string MT = "MT";
+        public static string Monotributo = "Monotributo";
+        public static string TP = "TP";
+        public static string TrabajadorPromovido = "Trabajador Promovido";
         public static string LI = "LI";
         public static string Reclasificacion = "TABACO RECLASIFICACIÓN";
         public static string Reimpresion = "Reimpresión";
@@ -64,6 +68,7 @@ namespace CooperativaProduccion
         public static string OrdenVenta = "OrdenVenta";
         public static string Remito = "Remito";
         public static string Romaneo = "Romaneo";
+        public static string Transferencia = "Transferencia";
 
         public static string AFIPCodigoTucuman = "14";
         public static string AFIPCodigoCatamarca = "02";

@@ -24,6 +24,7 @@ namespace CooperativaProduccion
     {
         public CooperativaProduccionEntities Context { get; set; }
         public string Origen;
+
         public Form_RomaneoFiltroResumenCompra(string path)
         {
             InitializeComponent();
@@ -128,7 +129,8 @@ namespace CooperativaProduccion
 
                 reporte.Parameters["cabecera"].Value = "RESUMEN DE ROMANEOS - " + cbTabaco.Text
                     + " - CAMPAÑA " + dpDesdeRomaneo.Value.Year + " - MES DE "
-                    + MonthName(dpDesdeRomaneo.Value.Month).ToUpper() + " - PROVINCIA DE TUCUMAN.-";
+                    + MonthName(dpDesdeRomaneo.Value.Month).ToUpper() 
+                    + " - PROVINCIA DE " + cbProvincia.Text.ToUpper() + ".-";
 
                 List<RegistroResumenRomaneoVirginia> datasourceVirginia;
                 datasourceVirginia = GenerarReporteResumenRomaneoVirginia();
@@ -164,7 +166,8 @@ namespace CooperativaProduccion
 
                 reporte.Parameters["cabecera"].Value = "RESUMEN DE ROMANEOS - " + cbTabaco.Text
                     + " - CAMPAÑA " + dpDesdeRomaneo.Value.Year + " - MES DE "
-                    + MonthName(dpDesdeRomaneo.Value.Month).ToUpper() + " - PROVINCIA DE TUCUMAN.-";
+                    + MonthName(dpDesdeRomaneo.Value.Month).ToUpper() 
+                    + " - PROVINCIA DE " + cbProvincia.Text.ToUpper() + ".-";
 
                 List<RegistroResumenRomaneoBurley> datasourceBurley;
                 datasourceBurley = GenerarReporteResumenRomaneoBurley();
@@ -318,7 +321,6 @@ namespace CooperativaProduccion
             {
                 process.StartInfo.FileName = path;
                 process.Start();
-                process.WaitForInputIdle();
             }
             catch
             {
@@ -335,7 +337,8 @@ namespace CooperativaProduccion
 
             reporte.Parameters["cabecera"].Value = "RESUMEN DE COMPRA - " + cbTabaco.Text
                + " - CAMPAÑA " + dpDesdeRomaneo.Value.Year + " - MES DE "
-               + MonthName(dpDesdeRomaneo.Value.Month).ToUpper() + " - PROVINCIA DE TUCUMAN.- "
+               + MonthName(dpDesdeRomaneo.Value.Month).ToUpper() + " - PROVINCIA DE " 
+               + cbProvincia.Text.ToUpper() + ".- "
                + " Desde: " + dpDesdeRomaneo.Value.Date.ToShortDateString() 
                + " Hasta: " + dpDesdeRomaneo.Value.Date.ToShortDateString();
 
@@ -439,7 +442,7 @@ namespace CooperativaProduccion
             reporte.DataSource = datasource;
             reporte.Parameters["Empresa"].Value = "Cooperativa de Productores Agropecuarios del Tucuman Ltda.";
             reporte.Parameters["TipoDeTabaco"].Value = tipotabaco;
-            reporte.Parameters["Provincia"].Value = "Tucumán";
+            reporte.Parameters["Provincia"].Value = cbProvincia.Text;
             reporte.Parameters["Mes"].Value = CultureInfo.CreateSpecificCulture("es").TextInfo.ToTitleCase(mes);
             reporte.Parameters["Desde"].Value = desde.ToShortDateString();
             reporte.Parameters["Hasta"].Value = hasta.ToShortDateString();
@@ -568,7 +571,7 @@ namespace CooperativaProduccion
             reporte.DataSource = datasource;
             reporte.Parameters["Campaña"].Value = anio + ".-";
             reporte.Parameters["TipoDeTabaco"].Value = tipotabaco;
-            reporte.Parameters["Provincia"].Value = "TUCUMAN";
+            reporte.Parameters["Provincia"].Value = cbProvincia.Text.ToUpper();
             reporte.Parameters["Mes01"].Value = CultureInfo.CreateSpecificCulture("es").TextInfo.ToUpper(mes01);
             reporte.Parameters["Mes02"].Value = CultureInfo.CreateSpecificCulture("es").TextInfo.ToUpper(mes02);
             reporte.Parameters["Mes03"].Value = CultureInfo.CreateSpecificCulture("es").TextInfo.ToUpper(mes03);

@@ -236,9 +236,11 @@ namespace CooperativaProduccion
             movimiento.Id = Guid.NewGuid();
             movimiento.Fecha = fecha;
             movimiento.TransaccionId = Id;
+            movimiento.Documento = DevConstantes.Transferencia;
             movimiento.Unidad = DevConstantes.Caja;
             movimiento.Ingreso = kilos;
             movimiento.Egreso = 0;
+
 
             var deposito = Context.Vw_Deposito
                 .Where(x => x.nombre == DevConstantes.Deposito)
@@ -511,6 +513,7 @@ namespace CooperativaProduccion
                  {
                      Id = c.Id,
                      NumOrden = ov.NumOrden,
+                     NumLote = c.LoteCaja,
                      NumCaja = c.NumeroCaja,
                      Producto = cp.DESCRIPCION,
                      Bruto = c.Bruto,
@@ -522,8 +525,26 @@ namespace CooperativaProduccion
                  .Take(cantidad)
                  .OrderBy(x => x.NumCaja)
                  .ToList();
+
             gridControlCajaConsulta.DataSource = result;
             gridViewCajaConsulta.Columns[0].Visible = false;
+            gridViewCajaConsulta.Columns[1].Caption = "N° Orden";
+            gridViewCajaConsulta.Columns[1].Width = 110;
+            gridViewCajaConsulta.Columns[2].Caption = "N° Lote";
+            gridViewCajaConsulta.Columns[2].Width = 110;
+            gridViewCajaConsulta.Columns[3].Caption = "N° Caja";
+            gridViewCajaConsulta.Columns[3].Width = 110;
+            gridViewCajaConsulta.Columns[4].Caption = "Producto";
+            gridViewCajaConsulta.Columns[4].Width = 100;
+            gridViewCajaConsulta.Columns[5].Caption = "Bruto";
+            gridViewCajaConsulta.Columns[5].Width = 100;
+            gridViewCajaConsulta.Columns[6].Caption = "Tara";
+            gridViewCajaConsulta.Columns[6].Width = 100;
+            gridViewCajaConsulta.Columns[7].Caption = "Neto";
+            gridViewCajaConsulta.Columns[7].Width = 100;
+            gridViewCajaConsulta.Columns[8].Caption = "N° Cata";
+            gridViewCajaConsulta.Columns[8].Width = 200;
+            gridViewCajaConsulta.Columns[9].Visible = false;
         }
 
         private void AsignarCata()

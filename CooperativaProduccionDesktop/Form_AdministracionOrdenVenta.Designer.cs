@@ -140,9 +140,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupControl5.Controls.Add(this.gridControlOrdenVenta);
-            this.groupControl5.Location = new System.Drawing.Point(0, 55);
+            this.groupControl5.Location = new System.Drawing.Point(0, 54);
             this.groupControl5.Name = "groupControl5";
-            this.groupControl5.Size = new System.Drawing.Size(976, 406);
+            this.groupControl5.Size = new System.Drawing.Size(976, 407);
             this.groupControl5.TabIndex = 76;
             this.groupControl5.Text = "Detalle de Orden";
             // 
@@ -153,7 +153,7 @@
             this.gridControlOrdenVenta.MainView = this.gridViewOrdenVenta;
             this.gridControlOrdenVenta.MenuManager = this.ribbon;
             this.gridControlOrdenVenta.Name = "gridControlOrdenVenta";
-            this.gridControlOrdenVenta.Size = new System.Drawing.Size(972, 384);
+            this.gridControlOrdenVenta.Size = new System.Drawing.Size(972, 385);
             this.gridControlOrdenVenta.TabIndex = 68;
             this.gridControlOrdenVenta.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewOrdenVenta,
@@ -187,7 +187,7 @@
             this.groupControl3.Controls.Add(this.txtNumOperacion);
             this.groupControl3.Controls.Add(this.label11);
             this.groupControl3.Controls.Add(this.label1);
-            this.groupControl3.Location = new System.Drawing.Point(1, 2);
+            this.groupControl3.Location = new System.Drawing.Point(1, 1);
             this.groupControl3.Name = "groupControl3";
             this.groupControl3.Size = new System.Drawing.Size(974, 52);
             this.groupControl3.TabIndex = 73;

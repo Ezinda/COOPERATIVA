@@ -157,9 +157,9 @@ namespace CooperativaProduccion
                     if (busqueda != null)
                     {
                         ProductorId = busqueda.ID.Value;
-                        txtFet.Text = busqueda.FET.ToString();
-                        txtProductor.Text = busqueda.PRODUCTOR.ToString();
-                        txtProvincia.Text = busqueda.PROVINCIA.ToString();
+                        txtFet.Text = busqueda.FET;
+                        txtProductor.Text = busqueda.PRODUCTOR;
+                        txtProvincia.Text = busqueda.PROVINCIA;
 
                     }
                     else
@@ -190,9 +190,9 @@ namespace CooperativaProduccion
                     if (busqueda != null)
                     {
                         ProductorId = busqueda.ID.Value;
-                        txtFet.Text = busqueda.FET.ToString();
-                        txtProductor.Text = busqueda.PRODUCTOR.ToString();
-                        txtProvincia.Text = busqueda.PROVINCIA.ToString();
+                        txtFet.Text = busqueda.FET;
+                        txtProductor.Text = busqueda.PRODUCTOR;
+                        txtProvincia.Text = busqueda.PROVINCIA;
 
                     }
                     else
@@ -294,7 +294,6 @@ namespace CooperativaProduccion
             {
                 process.StartInfo.FileName = path;
                 process.Start();
-                process.WaitForInputIdle();
             }
             catch
             {

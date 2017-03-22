@@ -204,6 +204,12 @@
       <DependentUpon>AdministracionVistaOPControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Extensions\ExtensionMethods.OrAnd.cs" />
+    <Compile Include="Form_InventarioIngresoCaja.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_InventarioIngresoCaja.Designer.cs">
+      <DependentUpon>Form_InventarioIngresoCaja.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_InventarioKardex.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -312,11 +318,11 @@
     <Compile Include="Form_AdministracionOrdenVenta.Designer.cs">
       <DependentUpon>Form_AdministracionOrdenVenta.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form_Inventarios.cs">
+    <Compile Include="Form_InventarioInventarios.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_Inventarios.Designer.cs">
-      <DependentUpon>Form_Inventarios.cs</DependentUpon>
+    <Compile Include="Form_InventarioInventarios.Designer.cs">
+      <DependentUpon>Form_InventarioInventarios.cs</DependentUpon>
     </Compile>
     <Compile Include="Form_AdministracionRemitoElectronico.cs">
       <SubType>Form</SubType>
@@ -567,11 +573,14 @@
     <EmbeddedResource Include="Form_ConfiguracionImpresionEtiqueta.resx">
       <DependentUpon>Form_ConfiguracionImpresionEtiqueta.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form_InventarioIngresoCaja.resx">
+      <DependentUpon>Form_InventarioIngresoCaja.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form_InventarioKardex.resx">
       <DependentUpon>Form_InventarioKardex.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_Inventarios.resx">
-      <DependentUpon>Form_Inventarios.cs</DependentUpon>
+    <EmbeddedResource Include="Form_InventarioInventarios.resx">
+      <DependentUpon>Form_InventarioInventarios.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_AdministracionRemitoElectronico.resx">
       <DependentUpon>Form_AdministracionRemitoElectronico.cs</DependentUpon>
