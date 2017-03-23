@@ -38,7 +38,6 @@
             this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.checkCata = new System.Windows.Forms.CheckBox();
-            this.lblProducto = new System.Windows.Forms.Label();
             this.txtCantidadCajaIngreso = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.btnGenerarLote = new DevExpress.XtraEditors.SimpleButton();
@@ -48,7 +47,6 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.cbProductoIngreso = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.dpIngresoCaja = new System.Windows.Forms.DateTimePicker();
@@ -113,7 +111,7 @@
             this.ribbon.ShowExpandCollapseButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Show;
             this.ribbon.ShowToolbarCustomizeItem = false;
-            this.ribbon.Size = new System.Drawing.Size(1002, 49);
+            this.ribbon.Size = new System.Drawing.Size(1039, 49);
             this.ribbon.Toolbar.ShowCustomizeItem = false;
             // 
             // Cata
@@ -124,7 +122,7 @@
             this.Cata.Location = new System.Drawing.Point(3, 53);
             this.Cata.Name = "Cata";
             this.Cata.SelectedTabPage = this.TabIngresoCaja;
-            this.Cata.Size = new System.Drawing.Size(1001, 544);
+            this.Cata.Size = new System.Drawing.Size(1038, 511);
             this.Cata.TabIndex = 75;
             this.Cata.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.TabIngresoCaja,
@@ -136,7 +134,7 @@
             this.TabIngresoCaja.Controls.Add(this.groupControl1);
             this.TabIngresoCaja.Image = ((System.Drawing.Image)(resources.GetObject("TabIngresoCaja.Image")));
             this.TabIngresoCaja.Name = "TabIngresoCaja";
-            this.TabIngresoCaja.Size = new System.Drawing.Size(995, 513);
+            this.TabIngresoCaja.Size = new System.Drawing.Size(1032, 480);
             this.TabIngresoCaja.Text = "Ingreso de Cajas";
             // 
             // groupControl5
@@ -145,9 +143,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupControl5.Controls.Add(this.gridControlCaja);
-            this.groupControl5.Location = new System.Drawing.Point(1, 78);
+            this.groupControl5.Location = new System.Drawing.Point(1, 53);
             this.groupControl5.Name = "groupControl5";
-            this.groupControl5.Size = new System.Drawing.Size(995, 436);
+            this.groupControl5.Size = new System.Drawing.Size(1032, 428);
             this.groupControl5.TabIndex = 76;
             this.groupControl5.Text = "Detalle de Catas";
             // 
@@ -158,7 +156,7 @@
             this.gridControlCaja.MainView = this.gridViewCaja;
             this.gridControlCaja.MenuManager = this.ribbon;
             this.gridControlCaja.Name = "gridControlCaja";
-            this.gridControlCaja.Size = new System.Drawing.Size(991, 414);
+            this.gridControlCaja.Size = new System.Drawing.Size(1028, 406);
             this.gridControlCaja.TabIndex = 68;
             this.gridControlCaja.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewCaja,
@@ -184,7 +182,6 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupControl1.Controls.Add(this.checkCata);
-            this.groupControl1.Controls.Add(this.lblProducto);
             this.groupControl1.Controls.Add(this.txtCantidadCajaIngreso);
             this.groupControl1.Controls.Add(this.label10);
             this.groupControl1.Controls.Add(this.btnGenerarLote);
@@ -194,40 +191,29 @@
             this.groupControl1.Controls.Add(this.label9);
             this.groupControl1.Controls.Add(this.label8);
             this.groupControl1.Controls.Add(this.label7);
-            this.groupControl1.Controls.Add(this.label6);
             this.groupControl1.Controls.Add(this.cbProductoIngreso);
             this.groupControl1.Controls.Add(this.label5);
             this.groupControl1.Controls.Add(this.dpIngresoCaja);
             this.groupControl1.Controls.Add(this.label15);
             this.groupControl1.Location = new System.Drawing.Point(1, 1);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(993, 109);
+            this.groupControl1.Size = new System.Drawing.Size(1030, 51);
             this.groupControl1.TabIndex = 72;
             this.groupControl1.Text = "Ingreso de Cajas";
             // 
             // checkCata
             // 
             this.checkCata.AutoSize = true;
-            this.checkCata.Location = new System.Drawing.Point(810, 54);
+            this.checkCata.Location = new System.Drawing.Point(841, 27);
             this.checkCata.Name = "checkCata";
             this.checkCata.Size = new System.Drawing.Size(87, 17);
             this.checkCata.TabIndex = 90;
             this.checkCata.Text = "Asociar Cata";
             this.checkCata.UseVisualStyleBackColor = true;
             // 
-            // lblProducto
-            // 
-            this.lblProducto.AutoSize = true;
-            this.lblProducto.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblProducto.Location = new System.Drawing.Point(410, 27);
-            this.lblProducto.Name = "lblProducto";
-            this.lblProducto.Size = new System.Drawing.Size(57, 16);
-            this.lblProducto.TabIndex = 89;
-            this.lblProducto.Text = "Producto";
-            // 
             // txtCantidadCajaIngreso
             // 
-            this.txtCantidadCajaIngreso.Location = new System.Drawing.Point(747, 51);
+            this.txtCantidadCajaIngreso.Location = new System.Drawing.Point(775, 25);
             this.txtCantidadCajaIngreso.Name = "txtCantidadCajaIngreso";
             this.txtCantidadCajaIngreso.Size = new System.Drawing.Size(60, 21);
             this.txtCantidadCajaIngreso.TabIndex = 6;
@@ -237,7 +223,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(645, 54);
+            this.label10.Location = new System.Drawing.Point(673, 28);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(104, 16);
             this.label10.TabIndex = 88;
@@ -246,7 +232,7 @@
             // btnGenerarLote
             // 
             this.btnGenerarLote.Image = ((System.Drawing.Image)(resources.GetObject("btnGenerarLote.Image")));
-            this.btnGenerarLote.Location = new System.Drawing.Point(898, 50);
+            this.btnGenerarLote.Location = new System.Drawing.Point(931, 23);
             this.btnGenerarLote.Name = "btnGenerarLote";
             this.btnGenerarLote.Size = new System.Drawing.Size(91, 22);
             this.btnGenerarLote.TabIndex = 7;
@@ -255,7 +241,7 @@
             // 
             // txtNeto
             // 
-            this.txtNeto.Location = new System.Drawing.Point(583, 52);
+            this.txtNeto.Location = new System.Drawing.Point(611, 26);
             this.txtNeto.Name = "txtNeto";
             this.txtNeto.Size = new System.Drawing.Size(61, 21);
             this.txtNeto.TabIndex = 5;
@@ -263,7 +249,7 @@
             // 
             // txtTara
             // 
-            this.txtTara.Location = new System.Drawing.Point(482, 52);
+            this.txtTara.Location = new System.Drawing.Point(510, 26);
             this.txtTara.Name = "txtTara";
             this.txtTara.Size = new System.Drawing.Size(61, 21);
             this.txtTara.TabIndex = 4;
@@ -271,7 +257,7 @@
             // 
             // txtBruto
             // 
-            this.txtBruto.Location = new System.Drawing.Point(385, 52);
+            this.txtBruto.Location = new System.Drawing.Point(413, 26);
             this.txtBruto.Name = "txtBruto";
             this.txtBruto.Size = new System.Drawing.Size(62, 21);
             this.txtBruto.TabIndex = 3;
@@ -281,7 +267,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(549, 54);
+            this.label9.Location = new System.Drawing.Point(577, 28);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(33, 16);
             this.label9.TabIndex = 83;
@@ -291,7 +277,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(450, 54);
+            this.label8.Location = new System.Drawing.Point(478, 28);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(30, 16);
             this.label8.TabIndex = 82;
@@ -301,37 +287,27 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(347, 53);
+            this.label7.Location = new System.Drawing.Point(375, 27);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(38, 16);
             this.label7.TabIndex = 81;
             this.label7.Text = "Bruto";
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(347, 27);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(57, 16);
-            this.label6.TabIndex = 80;
-            this.label6.Text = "Producto";
-            // 
             // cbProductoIngreso
             // 
+            this.cbProductoIngreso.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbProductoIngreso.FormattingEnabled = true;
-            this.cbProductoIngreso.Location = new System.Drawing.Point(67, 50);
+            this.cbProductoIngreso.Location = new System.Drawing.Point(178, 25);
             this.cbProductoIngreso.Name = "cbProductoIngreso";
-            this.cbProductoIngreso.Size = new System.Drawing.Size(275, 21);
+            this.cbProductoIngreso.Size = new System.Drawing.Size(191, 21);
             this.cbProductoIngreso.TabIndex = 2;
-            this.cbProductoIngreso.SelectedIndexChanged += new System.EventHandler(this.cbProducto_SelectedIndexChanged);
             this.cbProductoIngreso.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cbProducto_KeyPress);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(4, 52);
+            this.label5.Location = new System.Drawing.Point(122, 27);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(57, 16);
             this.label5.TabIndex = 78;
@@ -340,9 +316,9 @@
             // dpIngresoCaja
             // 
             this.dpIngresoCaja.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dpIngresoCaja.Location = new System.Drawing.Point(67, 24);
+            this.dpIngresoCaja.Location = new System.Drawing.Point(43, 25);
             this.dpIngresoCaja.Name = "dpIngresoCaja";
-            this.dpIngresoCaja.Size = new System.Drawing.Size(99, 21);
+            this.dpIngresoCaja.Size = new System.Drawing.Size(77, 21);
             this.dpIngresoCaja.TabIndex = 1;
             this.dpIngresoCaja.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dpIngresoCaja_KeyPress);
             // 
@@ -365,7 +341,7 @@
             this.TabConsultaCaja.Controls.Add(this.groupControl2);
             this.TabConsultaCaja.Image = ((System.Drawing.Image)(resources.GetObject("TabConsultaCaja.Image")));
             this.TabConsultaCaja.Name = "TabConsultaCaja";
-            this.TabConsultaCaja.Size = new System.Drawing.Size(995, 513);
+            this.TabConsultaCaja.Size = new System.Drawing.Size(1032, 480);
             this.TabConsultaCaja.Text = "Consulta de Cajas";
             // 
             // groupControl8
@@ -373,10 +349,10 @@
             this.groupControl8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupControl8.Controls.Add(this.btnAsignarCata);
-            this.groupControl8.Location = new System.Drawing.Point(1, 481);
+            this.groupControl8.Location = new System.Drawing.Point(1, 448);
             this.groupControl8.Name = "groupControl8";
             this.groupControl8.ShowCaption = false;
-            this.groupControl8.Size = new System.Drawing.Size(994, 31);
+            this.groupControl8.Size = new System.Drawing.Size(1031, 31);
             this.groupControl8.TabIndex = 73;
             this.groupControl8.Text = "Buscar Cata";
             // 
@@ -395,10 +371,10 @@
             this.groupControl7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.groupControl7.Controls.Add(this.btnPrevisualizar);
             this.groupControl7.Controls.Add(this.btnSubirAfip);
-            this.groupControl7.Location = new System.Drawing.Point(1, 632);
+            this.groupControl7.Location = new System.Drawing.Point(1, 616);
             this.groupControl7.Name = "groupControl7";
             this.groupControl7.ShowCaption = false;
-            this.groupControl7.Size = new System.Drawing.Size(1434, 33);
+            this.groupControl7.Size = new System.Drawing.Size(1471, 33);
             this.groupControl7.TabIndex = 76;
             this.groupControl7.Text = "Buscar Romaneo";
             // 
@@ -428,7 +404,7 @@
             this.groupControl6.Controls.Add(this.gridControlCajaConsulta);
             this.groupControl6.Location = new System.Drawing.Point(-1, 52);
             this.groupControl6.Name = "groupControl6";
-            this.groupControl6.Size = new System.Drawing.Size(996, 430);
+            this.groupControl6.Size = new System.Drawing.Size(1033, 397);
             this.groupControl6.TabIndex = 75;
             this.groupControl6.Text = "Lista de Cajas";
             // 
@@ -439,7 +415,7 @@
             this.gridControlCajaConsulta.MainView = this.gridViewCajaConsulta;
             this.gridControlCajaConsulta.MenuManager = this.ribbon;
             this.gridControlCajaConsulta.Name = "gridControlCajaConsulta";
-            this.gridControlCajaConsulta.Size = new System.Drawing.Size(992, 408);
+            this.gridControlCajaConsulta.Size = new System.Drawing.Size(1029, 375);
             this.gridControlCajaConsulta.TabIndex = 68;
             this.gridControlCajaConsulta.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewCajaConsulta,
@@ -463,7 +439,7 @@
             // 
             this.groupControl4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.groupControl4.Controls.Add(this.btnBuscarLiquidacion);
-            this.groupControl4.Location = new System.Drawing.Point(1349, 1);
+            this.groupControl4.Location = new System.Drawing.Point(1386, 1);
             this.groupControl4.Name = "groupControl4";
             this.groupControl4.Size = new System.Drawing.Size(86, 82);
             this.groupControl4.TabIndex = 74;
@@ -489,7 +465,7 @@
             this.groupControl2.Controls.Add(this.label3);
             this.groupControl2.Location = new System.Drawing.Point(1, 1);
             this.groupControl2.Name = "groupControl2";
-            this.groupControl2.Size = new System.Drawing.Size(994, 50);
+            this.groupControl2.Size = new System.Drawing.Size(1031, 50);
             this.groupControl2.TabIndex = 72;
             this.groupControl2.Text = "Buscar Cata";
             // 
@@ -546,7 +522,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1002, 594);
+            this.ClientSize = new System.Drawing.Size(1039, 594);
             this.Controls.Add(this.Cata);
             this.Controls.Add(this.ribbon);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -619,12 +595,10 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox cbProductoIngreso;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.DateTimePicker dpIngresoCaja;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Label lblProducto;
         private System.Windows.Forms.CheckBox checkCata;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox txtCantidadCajaConsulta;

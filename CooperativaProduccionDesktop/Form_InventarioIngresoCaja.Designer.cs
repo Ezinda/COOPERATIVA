@@ -37,7 +37,6 @@
             this.gridViewCaja = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
-            this.lblProducto = new System.Windows.Forms.Label();
             this.txtCantidadCajaIngreso = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.btnGenerarLote = new DevExpress.XtraEditors.SimpleButton();
@@ -47,7 +46,6 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.cbProductoIngreso = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.dpIngresoCaja = new System.Windows.Forms.DateTimePicker();
@@ -68,9 +66,6 @@
             this.btnBuscarCaja = new DevExpress.XtraEditors.SimpleButton();
             this.cbProductoConsulta = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.checkCata = new System.Windows.Forms.CheckBox();
-            this.btnAsignarCata = new DevExpress.XtraEditors.SimpleButton();
-            this.groupControl8 = new DevExpress.XtraEditors.GroupControl();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Cata)).BeginInit();
             this.Cata.SuspendLayout();
@@ -94,8 +89,6 @@
             this.groupControl4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
             this.groupControl2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl8)).BeginInit();
-            this.groupControl8.SuspendLayout();
             this.SuspendLayout();
             // 
             // ribbon
@@ -114,7 +107,7 @@
             this.ribbon.ShowPageHeadersInFormCaption = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowQatLocationSelector = false;
             this.ribbon.ShowToolbarCustomizeItem = false;
-            this.ribbon.Size = new System.Drawing.Size(1004, 49);
+            this.ribbon.Size = new System.Drawing.Size(986, 49);
             this.ribbon.Toolbar.ShowCustomizeItem = false;
             // 
             // Cata
@@ -125,7 +118,7 @@
             this.Cata.Location = new System.Drawing.Point(2, 60);
             this.Cata.Name = "Cata";
             this.Cata.SelectedTabPage = this.TabIngresoCaja;
-            this.Cata.Size = new System.Drawing.Size(1002, 464);
+            this.Cata.Size = new System.Drawing.Size(984, 464);
             this.Cata.TabIndex = 76;
             this.Cata.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.TabIngresoCaja,
@@ -137,7 +130,7 @@
             this.TabIngresoCaja.Controls.Add(this.groupControl1);
             this.TabIngresoCaja.Image = ((System.Drawing.Image)(resources.GetObject("TabIngresoCaja.Image")));
             this.TabIngresoCaja.Name = "TabIngresoCaja";
-            this.TabIngresoCaja.Size = new System.Drawing.Size(996, 433);
+            this.TabIngresoCaja.Size = new System.Drawing.Size(978, 433);
             this.TabIngresoCaja.Text = "Ingreso de Cajas";
             // 
             // groupControl5
@@ -146,9 +139,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupControl5.Controls.Add(this.gridControlCaja);
-            this.groupControl5.Location = new System.Drawing.Point(1, 78);
+            this.groupControl5.Location = new System.Drawing.Point(1, 51);
             this.groupControl5.Name = "groupControl5";
-            this.groupControl5.Size = new System.Drawing.Size(996, 356);
+            this.groupControl5.Size = new System.Drawing.Size(978, 383);
             this.groupControl5.TabIndex = 76;
             this.groupControl5.Text = "Detalle de Catas";
             // 
@@ -159,7 +152,7 @@
             this.gridControlCaja.MainView = this.gridViewCaja;
             this.gridControlCaja.MenuManager = this.ribbon;
             this.gridControlCaja.Name = "gridControlCaja";
-            this.gridControlCaja.Size = new System.Drawing.Size(992, 334);
+            this.gridControlCaja.Size = new System.Drawing.Size(974, 361);
             this.gridControlCaja.TabIndex = 68;
             this.gridControlCaja.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewCaja,
@@ -184,8 +177,6 @@
             this.groupControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupControl1.Controls.Add(this.checkCata);
-            this.groupControl1.Controls.Add(this.lblProducto);
             this.groupControl1.Controls.Add(this.txtCantidadCajaIngreso);
             this.groupControl1.Controls.Add(this.label10);
             this.groupControl1.Controls.Add(this.btnGenerarLote);
@@ -195,30 +186,19 @@
             this.groupControl1.Controls.Add(this.label9);
             this.groupControl1.Controls.Add(this.label8);
             this.groupControl1.Controls.Add(this.label7);
-            this.groupControl1.Controls.Add(this.label6);
             this.groupControl1.Controls.Add(this.cbProductoIngreso);
             this.groupControl1.Controls.Add(this.label5);
             this.groupControl1.Controls.Add(this.dpIngresoCaja);
             this.groupControl1.Controls.Add(this.label15);
             this.groupControl1.Location = new System.Drawing.Point(1, 1);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(994, 76);
+            this.groupControl1.Size = new System.Drawing.Size(976, 49);
             this.groupControl1.TabIndex = 72;
             this.groupControl1.Text = "Ingreso de Cajas";
             // 
-            // lblProducto
-            // 
-            this.lblProducto.AutoSize = true;
-            this.lblProducto.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblProducto.Location = new System.Drawing.Point(410, 27);
-            this.lblProducto.Name = "lblProducto";
-            this.lblProducto.Size = new System.Drawing.Size(57, 16);
-            this.lblProducto.TabIndex = 89;
-            this.lblProducto.Text = "Producto";
-            // 
             // txtCantidadCajaIngreso
             // 
-            this.txtCantidadCajaIngreso.Location = new System.Drawing.Point(747, 51);
+            this.txtCantidadCajaIngreso.Location = new System.Drawing.Point(766, 24);
             this.txtCantidadCajaIngreso.Name = "txtCantidadCajaIngreso";
             this.txtCantidadCajaIngreso.Size = new System.Drawing.Size(60, 21);
             this.txtCantidadCajaIngreso.TabIndex = 6;
@@ -228,7 +208,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(645, 54);
+            this.label10.Location = new System.Drawing.Point(664, 26);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(104, 16);
             this.label10.TabIndex = 88;
@@ -237,7 +217,7 @@
             // btnGenerarLote
             // 
             this.btnGenerarLote.Image = ((System.Drawing.Image)(resources.GetObject("btnGenerarLote.Image")));
-            this.btnGenerarLote.Location = new System.Drawing.Point(898, 50);
+            this.btnGenerarLote.Location = new System.Drawing.Point(832, 23);
             this.btnGenerarLote.Name = "btnGenerarLote";
             this.btnGenerarLote.Size = new System.Drawing.Size(91, 22);
             this.btnGenerarLote.TabIndex = 7;
@@ -246,7 +226,7 @@
             // 
             // txtNeto
             // 
-            this.txtNeto.Location = new System.Drawing.Point(583, 52);
+            this.txtNeto.Location = new System.Drawing.Point(597, 24);
             this.txtNeto.Name = "txtNeto";
             this.txtNeto.Size = new System.Drawing.Size(61, 21);
             this.txtNeto.TabIndex = 5;
@@ -254,7 +234,7 @@
             // 
             // txtTara
             // 
-            this.txtTara.Location = new System.Drawing.Point(482, 52);
+            this.txtTara.Location = new System.Drawing.Point(501, 24);
             this.txtTara.Name = "txtTara";
             this.txtTara.Size = new System.Drawing.Size(61, 21);
             this.txtTara.TabIndex = 4;
@@ -262,7 +242,7 @@
             // 
             // txtBruto
             // 
-            this.txtBruto.Location = new System.Drawing.Point(385, 52);
+            this.txtBruto.Location = new System.Drawing.Point(401, 24);
             this.txtBruto.Name = "txtBruto";
             this.txtBruto.Size = new System.Drawing.Size(62, 21);
             this.txtBruto.TabIndex = 3;
@@ -272,7 +252,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(549, 54);
+            this.label9.Location = new System.Drawing.Point(568, 26);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(33, 16);
             this.label9.TabIndex = 83;
@@ -282,7 +262,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(450, 54);
+            this.label8.Location = new System.Drawing.Point(469, 26);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(30, 16);
             this.label8.TabIndex = 82;
@@ -292,37 +272,27 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(347, 53);
+            this.label7.Location = new System.Drawing.Point(366, 26);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(38, 16);
             this.label7.TabIndex = 81;
             this.label7.Text = "Bruto";
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(347, 27);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(57, 16);
-            this.label6.TabIndex = 80;
-            this.label6.Text = "Producto";
-            // 
             // cbProductoIngreso
             // 
+            this.cbProductoIngreso.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbProductoIngreso.FormattingEnabled = true;
-            this.cbProductoIngreso.Location = new System.Drawing.Point(67, 50);
+            this.cbProductoIngreso.Location = new System.Drawing.Point(182, 24);
             this.cbProductoIngreso.Name = "cbProductoIngreso";
-            this.cbProductoIngreso.Size = new System.Drawing.Size(275, 21);
+            this.cbProductoIngreso.Size = new System.Drawing.Size(178, 21);
             this.cbProductoIngreso.TabIndex = 2;
-            this.cbProductoIngreso.SelectedIndexChanged += new System.EventHandler(this.cbProductoIngreso_SelectedIndexChanged);
             this.cbProductoIngreso.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cbProductoIngreso_KeyPress);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(4, 52);
+            this.label5.Location = new System.Drawing.Point(124, 27);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(57, 16);
             this.label5.TabIndex = 78;
@@ -331,9 +301,9 @@
             // dpIngresoCaja
             // 
             this.dpIngresoCaja.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dpIngresoCaja.Location = new System.Drawing.Point(67, 24);
+            this.dpIngresoCaja.Location = new System.Drawing.Point(43, 24);
             this.dpIngresoCaja.Name = "dpIngresoCaja";
-            this.dpIngresoCaja.Size = new System.Drawing.Size(99, 21);
+            this.dpIngresoCaja.Size = new System.Drawing.Size(77, 21);
             this.dpIngresoCaja.TabIndex = 1;
             this.dpIngresoCaja.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dpIngresoCaja_KeyPress);
             // 
@@ -349,14 +319,13 @@
             // 
             // TabConsultaCaja
             // 
-            this.TabConsultaCaja.Controls.Add(this.groupControl8);
             this.TabConsultaCaja.Controls.Add(this.groupControl7);
             this.TabConsultaCaja.Controls.Add(this.groupControl6);
             this.TabConsultaCaja.Controls.Add(this.groupControl4);
             this.TabConsultaCaja.Controls.Add(this.groupControl2);
             this.TabConsultaCaja.Image = ((System.Drawing.Image)(resources.GetObject("TabConsultaCaja.Image")));
             this.TabConsultaCaja.Name = "TabConsultaCaja";
-            this.TabConsultaCaja.Size = new System.Drawing.Size(996, 433);
+            this.TabConsultaCaja.Size = new System.Drawing.Size(978, 433);
             this.TabConsultaCaja.Text = "Consulta de Cajas";
             // 
             // groupControl7
@@ -367,7 +336,7 @@
             this.groupControl7.Location = new System.Drawing.Point(1, 592);
             this.groupControl7.Name = "groupControl7";
             this.groupControl7.ShowCaption = false;
-            this.groupControl7.Size = new System.Drawing.Size(1435, 33);
+            this.groupControl7.Size = new System.Drawing.Size(1417, 33);
             this.groupControl7.TabIndex = 76;
             this.groupControl7.Text = "Buscar Romaneo";
             // 
@@ -397,7 +366,7 @@
             this.groupControl6.Controls.Add(this.gridControlCajaConsulta);
             this.groupControl6.Location = new System.Drawing.Point(-1, 52);
             this.groupControl6.Name = "groupControl6";
-            this.groupControl6.Size = new System.Drawing.Size(997, 350);
+            this.groupControl6.Size = new System.Drawing.Size(978, 382);
             this.groupControl6.TabIndex = 75;
             this.groupControl6.Text = "Lista de Cajas";
             // 
@@ -408,7 +377,7 @@
             this.gridControlCajaConsulta.MainView = this.gridViewCajaConsulta;
             this.gridControlCajaConsulta.MenuManager = this.ribbon;
             this.gridControlCajaConsulta.Name = "gridControlCajaConsulta";
-            this.gridControlCajaConsulta.Size = new System.Drawing.Size(993, 328);
+            this.gridControlCajaConsulta.Size = new System.Drawing.Size(974, 360);
             this.gridControlCajaConsulta.TabIndex = 68;
             this.gridControlCajaConsulta.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewCajaConsulta,
@@ -432,7 +401,7 @@
             // 
             this.groupControl4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.groupControl4.Controls.Add(this.btnBuscarLiquidacion);
-            this.groupControl4.Location = new System.Drawing.Point(1350, 1);
+            this.groupControl4.Location = new System.Drawing.Point(1332, 1);
             this.groupControl4.Name = "groupControl4";
             this.groupControl4.Size = new System.Drawing.Size(86, 82);
             this.groupControl4.TabIndex = 74;
@@ -458,13 +427,13 @@
             this.groupControl2.Controls.Add(this.label3);
             this.groupControl2.Location = new System.Drawing.Point(1, 1);
             this.groupControl2.Name = "groupControl2";
-            this.groupControl2.Size = new System.Drawing.Size(995, 50);
+            this.groupControl2.Size = new System.Drawing.Size(976, 50);
             this.groupControl2.TabIndex = 72;
             this.groupControl2.Text = "Buscar Cata";
             // 
             // txtCantidadCajaConsulta
             // 
-            this.txtCantidadCajaConsulta.Location = new System.Drawing.Point(479, 25);
+            this.txtCantidadCajaConsulta.Location = new System.Drawing.Point(360, 25);
             this.txtCantidadCajaConsulta.Name = "txtCantidadCajaConsulta";
             this.txtCantidadCajaConsulta.Size = new System.Drawing.Size(93, 21);
             this.txtCantidadCajaConsulta.TabIndex = 62;
@@ -474,7 +443,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(372, 27);
+            this.label11.Location = new System.Drawing.Point(253, 27);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(104, 16);
             this.label11.TabIndex = 61;
@@ -483,7 +452,7 @@
             // btnBuscarCaja
             // 
             this.btnBuscarCaja.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscarCaja.Image")));
-            this.btnBuscarCaja.Location = new System.Drawing.Point(578, 24);
+            this.btnBuscarCaja.Location = new System.Drawing.Point(459, 24);
             this.btnBuscarCaja.Name = "btnBuscarCaja";
             this.btnBuscarCaja.Size = new System.Drawing.Size(76, 21);
             this.btnBuscarCaja.TabIndex = 60;
@@ -492,11 +461,12 @@
             // 
             // cbProductoConsulta
             // 
+            this.cbProductoConsulta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbProductoConsulta.FormattingEnabled = true;
             this.cbProductoConsulta.Location = new System.Drawing.Point(69, 25);
             this.cbProductoConsulta.Name = "cbProductoConsulta";
             this.cbProductoConsulta.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.cbProductoConsulta.Size = new System.Drawing.Size(290, 21);
+            this.cbProductoConsulta.Size = new System.Drawing.Size(177, 21);
             this.cbProductoConsulta.TabIndex = 58;
             this.cbProductoConsulta.SelectedIndexChanged += new System.EventHandler(this.cbProductoConsulta_SelectedIndexChanged);
             // 
@@ -510,43 +480,11 @@
             this.label3.TabIndex = 57;
             this.label3.Text = "Producto";
             // 
-            // checkCata
-            // 
-            this.checkCata.AutoSize = true;
-            this.checkCata.Location = new System.Drawing.Point(810, 54);
-            this.checkCata.Name = "checkCata";
-            this.checkCata.Size = new System.Drawing.Size(87, 17);
-            this.checkCata.TabIndex = 90;
-            this.checkCata.Text = "Asociar Cata";
-            this.checkCata.UseVisualStyleBackColor = true;
-            // 
-            // btnAsignarCata
-            // 
-            this.btnAsignarCata.Image = ((System.Drawing.Image)(resources.GetObject("btnAsignarCata.Image")));
-            this.btnAsignarCata.Location = new System.Drawing.Point(5, 2);
-            this.btnAsignarCata.Name = "btnAsignarCata";
-            this.btnAsignarCata.Size = new System.Drawing.Size(100, 26);
-            this.btnAsignarCata.TabIndex = 60;
-            this.btnAsignarCata.Text = "Asignar Cata";
-            this.btnAsignarCata.Click += new System.EventHandler(this.btnAsignarCata_Click);
-            // 
-            // groupControl8
-            // 
-            this.groupControl8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupControl8.Controls.Add(this.btnAsignarCata);
-            this.groupControl8.Location = new System.Drawing.Point(1, 401);
-            this.groupControl8.Name = "groupControl8";
-            this.groupControl8.ShowCaption = false;
-            this.groupControl8.Size = new System.Drawing.Size(995, 31);
-            this.groupControl8.TabIndex = 73;
-            this.groupControl8.Text = "Buscar Cata";
-            // 
             // Form_InventarioIngresoCaja
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1004, 536);
+            this.ClientSize = new System.Drawing.Size(986, 536);
             this.Controls.Add(this.Cata);
             this.Controls.Add(this.ribbon);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -580,8 +518,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
             this.groupControl2.ResumeLayout(false);
             this.groupControl2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl8)).EndInit();
-            this.groupControl8.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -597,7 +533,6 @@
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewCaja;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView2;
         private DevExpress.XtraEditors.GroupControl groupControl1;
-        private System.Windows.Forms.Label lblProducto;
         private System.Windows.Forms.TextBox txtCantidadCajaIngreso;
         private System.Windows.Forms.Label label10;
         private DevExpress.XtraEditors.SimpleButton btnGenerarLote;
@@ -607,7 +542,6 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox cbProductoIngreso;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.DateTimePicker dpIngresoCaja;
@@ -628,8 +562,5 @@
         private DevExpress.XtraEditors.SimpleButton btnBuscarCaja;
         private System.Windows.Forms.ComboBox cbProductoConsulta;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.CheckBox checkCata;
-        private DevExpress.XtraEditors.GroupControl groupControl8;
-        private DevExpress.XtraEditors.SimpleButton btnAsignarCata;
     }
 }

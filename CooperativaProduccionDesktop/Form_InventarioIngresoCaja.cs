@@ -24,6 +24,7 @@ namespace CooperativaProduccion
             InitializeComponent();
             Context = new CooperativaProduccionEntities();
             CargarCombo();
+            Habilitar();
         }
 
         private void CargarCombo()
@@ -48,38 +49,11 @@ namespace CooperativaProduccion
             }
         }
 
-        private void cbProductoIngreso_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            txtBruto.Focus();
-
-            var producto = Context.Vw_Producto
-                .Where(x => x.DESCRIPCION == cbProductoIngreso.Text)
-                .FirstOrDefault();
-
-            if (producto != null)
-            {
-                lblProducto.Text = producto.DESCRIPCION;
-                ProductoId = producto.ID;
-                Habilitar();
-            }
-        }
-
         private void cbProductoIngreso_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == 13)
             {
                 txtBruto.Focus();
-
-                var producto = Context.Vw_Producto
-                    .Where(x => x.DESCRIPCION == cbProductoIngreso.Text)
-                    .FirstOrDefault();
-
-                if (producto != null)
-                {
-                    lblProducto.Text = producto.DESCRIPCION;
-                    ProductoId = producto.ID;
-                    Habilitar();
-                }
             }
         }
 
@@ -169,62 +143,25 @@ namespace CooperativaProduccion
 
         private void btnGenerarLote_Click(object sender, EventArgs e)
         {
-            if (Validar(false))
+            var resultado = MessageBox.Show("¿Desea generar el ingreso de cajas?",
+                 "Atención", MessageBoxButtons.OKCancel);
+            if (resultado != DialogResult.OK)
             {
-                var resultado = MessageBox.Show("¿Desea generar el ingreso de cajas?",
-                     "Atención", MessageBoxButtons.OKCancel);
-                if (resultado != DialogResult.OK)
-                {
-                    return;
-                }
-                GenerarLoteCajas();
-                BuscarCaja(LoteCaja);
+                return;
             }
-        }
-
-        private bool Validar(bool Consulta)
-        {
-            if (Consulta.Equals(false))
-            {
-                if (checkCata.Checked)
-                {
-                    var cata = Context.Cata
-                        .Where(x => x.NumCaja == null)
-                        .Count();
-                    if (cata < int.Parse(txtCantidadCajaIngreso.Text))
-                    {
-                        MessageBox.Show("La cantidad de Nro. de CATA disponible es " +
-                            "insuficiente para la cantidad de cajas ingresadas",
-                            "Se requiere", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return false;
-                    }
-                }
-            }
-            else
-            {
-                var cata = Context.Cata
-                    .Where(x => x.NumCaja == null)
-                    .Count();
-                if (cata < int.Parse(txtCantidadCajaConsulta.Text))
-                {
-                    MessageBox.Show("La cantidad de Nro. de CATA disponible es " +
-                        "insuficiente para la cantidad de cajas ingresadas",
-                        "Se requiere", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
-            }
-            return true;
+            GenerarLoteCajas();
+            BuscarCaja(LoteCaja);
         }
 
         private void GenerarLoteCajas()
         {
-            if (lblProducto.Text != string.Empty && txtBruto.Text != string.Empty
-                && txtTara.Text != string.Empty && txtNeto.Text != string.Empty)
+            if (txtBruto.Text != string.Empty && txtTara.Text != string.Empty 
+                && txtNeto.Text != string.Empty)
             {
-                LoteCaja = ContadorNumeroLote();
-                for (int i = 0; i < int.Parse(txtCantidadCajaIngreso.Text); i++)
+                try
                 {
-                    try
+                    LoteCaja = ContadorNumeroLote();
+                    for (int i = 0; i < int.Parse(txtCantidadCajaIngreso.Text); i++)
                     {
                         Caja caja;
                         caja = new Caja();
@@ -233,37 +170,56 @@ namespace CooperativaProduccion
                         caja.NumeroCaja = ContadorNumeroCaja();
                         caja.Fecha = dpIngresoCaja.Value.Date;
                         caja.Hora = DateTime.Now.TimeOfDay;
-                        caja.ProductoId = ProductoId;
+                        var producto = Context.Vw_Producto
+                            .Where(x => x.DESCRIPCION == cbProductoIngreso.Text)
+                            .FirstOrDefault();
+                        caja.ProductoId = producto.ID;
                         caja.Bruto = decimal.Parse(txtBruto.Text, CultureInfo.InvariantCulture);
                         caja.Tara = decimal.Parse(txtTara.Text, CultureInfo.InvariantCulture);
                         caja.Neto = decimal.Parse(txtNeto.Text, CultureInfo.InvariantCulture);
-
-                        if (checkCata.Checked)
-                        {
-                            var cata = Context.Cata
-                                .Where(x => x.NumCaja == null);
-
-                            if (cata != null)
-                            {
-                                caja.CataId = cata.FirstOrDefault().Id;
-                                var NumCata = Context.Cata.Find(caja.CataId);
-                                NumCata.NumCaja = caja.NumeroCaja;
-                                NumCata.CajaId = caja.Id;
-                                
-                                Context.Entry(NumCata).State = EntityState.Modified;
-                                Context.SaveChanges();
-                            }
-                        }
-
                         Context.Caja.Add(caja);
                         Context.SaveChanges();
+                        ActualizarContadorCaja();
                         RegistrarMovimiento(caja.Id, 1, caja.Fecha);
                     }
-                    catch
-                    {
-                        throw;
-                    }
+                    ActualizarContadorLote();
                 }
+                catch
+                {
+                    throw;
+                }
+            }
+        }
+
+        private void ActualizarContadorLote()
+        {
+            var contadorLote = Context.Contador
+                .Where(x => x.Nombre.Equals(DevConstantes.Lote))
+                .FirstOrDefault();
+
+            var countLote = Context.Contador.Find(contadorLote.Id);
+
+            if (countLote != null)
+            {
+                countLote.Valor = countLote.Valor + 1;
+                Context.Entry(countLote).State = EntityState.Modified;
+                Context.SaveChanges();
+            }
+        }
+
+        private void ActualizarContadorCaja()
+        {
+            var contadorCaja = Context.Contador
+                .Where(x => x.Nombre.Equals(DevConstantes.Caja))
+                .FirstOrDefault();
+
+            var countCaja = Context.Contador.Find(contadorCaja.Id);
+
+            if (countCaja != null)
+            {
+                countCaja.Valor = countCaja.Valor + 1;
+                Context.Entry(countCaja).State = EntityState.Modified;
+                Context.SaveChanges();
             }
         }
 
@@ -308,39 +264,38 @@ namespace CooperativaProduccion
             gridViewCaja.Columns[7].Width = 200;
             gridViewCaja.Columns[8].Visible = false;
         }
-
+                
         private long ContadorNumeroCaja()
         {
-            long numCaja = 0;
-            var caja = Context.Caja
-                .OrderByDescending(x => x.NumeroCaja)
+            var contador = Context.Contador
+                .Where(x => x.Nombre.Equals(DevConstantes.Caja))
                 .FirstOrDefault();
-            if (caja != null)
+
+            if (contador != null)
             {
-                numCaja = caja.NumeroCaja + 1;
+                return long.Parse(contador.Valor.ToString());
             }
             else
             {
-                numCaja = 1;
+                return 1;
             }
-            return numCaja;
         }
 
         private long ContadorNumeroLote()
         {
-            long numLote = 0;
-            var caja = Context.Caja
-                .OrderByDescending(x => x.LoteCaja)
+            var contador = 
+                Context.Contador
+                .Where(x => x.Nombre.Equals(DevConstantes.Lote))
                 .FirstOrDefault();
-            if (caja != null)
+
+            if (contador != null)
             {
-                numLote = caja.NumeroCaja + 1;
+                return long.Parse(contador.Valor.ToString());
             }
             else
             {
-                numLote = 1;
+                return 1;
             }
-            return numLote;
         }
 
         private Guid RegistrarMovimiento(Guid Id, double kilos, DateTime fecha)
@@ -378,7 +333,20 @@ namespace CooperativaProduccion
 
         private void txtCantidadCajaConsulta_KeyPress(object sender, KeyPressEventArgs e)
         {
-
+            char ch = e.KeyChar;
+            if (ch == 46 && txtCantidadCajaConsulta.Text.IndexOf('.') != -1)
+            {
+                e.Handled = true;
+                return;
+            }
+            if (!char.IsDigit(ch) && ch != 8 && ch != 46)
+            {
+                e.Handled = true;
+            }
+            if (e.KeyChar == 13)
+            {
+                btnBuscarCaja.Focus();
+            }
         }
 
         private void btnBuscarCaja_Click(object sender, EventArgs e)
@@ -453,60 +421,5 @@ namespace CooperativaProduccion
             gridViewCajaConsulta.Columns[8].Visible = false;
         }
 
-        private void btnAsignarCata_Click(object sender, EventArgs e)
-        {
-            if (Validar(true))
-            {
-                var resultado = MessageBox.Show("¿Desea asignar número de cata a las cajas?",
-                     "Atención", MessageBoxButtons.OKCancel);
-                if (resultado != DialogResult.OK)
-                {
-                    return;
-                }
-                BuscarCajaConsulta();
-            }
-        }
-
-        private void AsignarCata()
-        {
-            for (int i = 0; i < gridViewCajaConsulta.DataRowCount; i++)
-            {
-                Guid CajaId = new Guid(gridViewCajaConsulta
-                    .GetRowCellValue(i, "Id")
-                    .ToString());
-
-                var Caja = Context.Caja.Find(CajaId);
-
-                if (Caja != null)
-                {
-                    var Cata = Context.Cata
-                        .Where(x => x.NumCaja == null);
-
-                    if (Cata != null)
-                    {
-                        Caja.CataId = Cata.FirstOrDefault().Id;
-                        Context.Entry(Caja).State = EntityState.Modified;
-                        Context.SaveChanges();
-
-                        var ActualizarCata = Context.Cata.Find(Caja.CataId);
-                        ActualizarCata.NumCaja = Caja.NumeroCaja;
-                        ActualizarCata.CajaId = Caja.Id;
-
-                        var ordenVenta = Context.OrdenVenta
-                            .Where(x => x.Id == Caja.OrdenVentaId)
-                            .FirstOrDefault();
-
-                        if (ordenVenta != null)
-                        {
-                            ActualizarCata.OrdenVentaId = Caja.OrdenVentaId;
-                            ActualizarCata.NumOrden = ordenVenta.NumOrden;
-                        }
-
-                        Context.Entry(ActualizarCata).State = EntityState.Modified;
-                        Context.SaveChanges();
-                    }
-                }
-            }
-        }
     }
 }

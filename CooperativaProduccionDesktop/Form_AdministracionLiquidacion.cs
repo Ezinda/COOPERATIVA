@@ -533,23 +533,24 @@ namespace CooperativaProduccion
 
         private void BuscarProductor()
         {
-            var result = (
-                from a in Context.Vw_Productor
-                select new
-                {
-                    full = a.nrofet + a.NOMBRE + a.CUIT,
-                    ID = a.ID,
-                    FET = a.nrofet,
-                    PRODUCTOR = a.NOMBRE,
-                    CUIT = a.CUIT,
-                    PROVINCIA = a.Provincia
-                });
+            var result =
+                (from a in Context.Vw_Productor
+                 select new
+                 {
+                     full = a.nrofet + a.NOMBRE + a.CUIT,
+                     ID = a.ID,
+                     FET = a.nrofet,
+                     PRODUCTOR = a.NOMBRE,
+                     CUIT = a.CUIT,
+                     PROVINCIA = a.Provincia
+                 });
 
             if (!string.IsNullOrEmpty(txtFet.Text))
             {
                 var count = result
                     .Where(r => r.FET.Equals(txtFet.Text))
                     .Count();
+
                 if (count > 1)
                 {
                     _formBuscarProductor = new Form_AdministracionBuscarProductor();
@@ -566,10 +567,9 @@ namespace CooperativaProduccion
                     if (busqueda != null)
                     {
                         ProductorId = busqueda.ID.Value;
-                        txtFet.Text = busqueda.FET.ToString();
+                        txtFet.Text = busqueda.FET;
                         txtProductor.Text = busqueda.PRODUCTOR;
                         txtProvincia.Text = busqueda.PROVINCIA;
-
                     }
                     else
                     {
@@ -583,6 +583,7 @@ namespace CooperativaProduccion
                 var count = result
                     .Where(r => r.PRODUCTOR.Contains(txtProductor.Text))
                     .Count();
+
                 if (count > 1)
                 {
                     _formBuscarProductor = new Form_AdministracionBuscarProductor();
@@ -599,10 +600,9 @@ namespace CooperativaProduccion
                     if (busqueda != null)
                     {
                         ProductorId = busqueda.ID.Value;
-                        txtFet.Text = busqueda.FET.ToString();
+                        txtFet.Text = busqueda.FET;
                         txtProductor.Text = busqueda.PRODUCTOR;
                         txtProvincia.Text = busqueda.PROVINCIA;
-
                     }
                     else
                     {
