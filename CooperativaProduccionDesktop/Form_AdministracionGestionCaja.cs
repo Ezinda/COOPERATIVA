@@ -304,15 +304,15 @@ namespace CooperativaProduccion
 
         private void CargarCombo()
         {
-            var ordenVenta = (
-                from o in Context.OrdenVenta
-                join p in Context.Vw_Producto
-                on o.ProductoId equals p.ID
-                select new OrdenVentaProducto
-                {
-                    Id = o.Id,
-                    Descripcion = o.NumOrden + " - " + p.DESCRIPCION,
-                })
+            var ordenVenta =
+                (from o in Context.OrdenVenta
+                 join p in Context.Vw_Producto
+                 on o.ProductoId equals p.ID
+                 select new OrdenVentaProducto
+                 {
+                     Id = o.Id,
+                     Descripcion = o.NumOrden + " - " + p.DESCRIPCION,
+                 })
                 .OrderBy(x => x.Descripcion)
                 .ToList();
 

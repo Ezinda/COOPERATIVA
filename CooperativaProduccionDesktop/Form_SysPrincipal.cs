@@ -20,7 +20,7 @@ namespace CooperativaProduccion
     {
         public CooperativaProduccionEntities Context { get; set; }
         private Usuario _CurrentUser; 
-        #region permisos
+        #region Permisos
         private bool ReimpresionRomaneo;   
         private bool ResumenRomaneo;       
         private bool ResumenCompra;        
@@ -35,10 +35,6 @@ namespace CooperativaProduccion
         public Form_SysPrincipal()
         {
             InitializeComponent();
-
-#if DEBUG
-#endif
-
             Context = new CooperativaProduccionEntities();
             ShowSplashForm();
             _CurrentUser = CheckCredentials();
@@ -84,6 +80,104 @@ namespace CooperativaProduccion
             listaPrecio.Show();
         }
 
+        private void btnLiquidacion_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var liquidacion = new Form_AdministracionLiquidacion(Liquidar,
+                LiquidacionSubirAfip, LiquidacionImprimir);
+            liquidacion.Show();
+        }
+
+        private void btnOrdenPago_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var op = new Form_AdministracionOrdenPago();
+            op.Show();
+        }
+
+        private void btnGestionCata_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var gc = new Form_AdministracionGestionCata();
+            gc.Show();
+        }
+
+        private void btnGestionCaja_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var gc = new Form_AdministracionGestionCaja();
+            gc.Show();
+        }
+
+        private void btnOrdenVenta_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var ov = new Form_AdministracionOrdenVenta();
+            ov.Show();
+        }
+
+        private void btnRemitoElectronico_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var ov = new Form_AdministracionRemitoElectronico();
+            ov.Show();
+        }
+
+        private void btnPesada_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var pendiente = Context.Pesada
+                .Where(x => x.RomaneoPendiente == true)
+                .FirstOrDefault();
+
+            if (pendiente != null)
+            {
+                var atencion = new Form_RomaneoPendiente(pendiente.Id);
+                atencion.Show();
+            }
+            else
+            {
+                var pesada = new Form_RomaneoPesada(null);
+                pesada.Show();
+            }
+        }
+
+        private void btnGestionRomaneo_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var romaneo = new Form_RomaneoGestionRomaneo(ReimpresionRomaneo, ResumenRomaneo,
+                ResumenCompra, ResumenClaseMes, ResumenClaseTrimestre);
+            romaneo.Show();
+        }
+
+        private void btnGestionClasificacion_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var gestionClasificacion = new Form_RomaneoGestionClasificacion(GestionReclasificacion);
+            gestionClasificacion.Show();
+        }
+
+        private void btnAsignarRoles_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var permisos = new Form_SeguridadUsuarioPermiso();
+            permisos.Show();
+        }
+
+        private void btnConfiguracionImpresion_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var configuracion = new Form_ConfiguracionImpresion();
+            configuracion.Show();
+        }
+
+        private void btnImpresionEtiqueta_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var impresion = new Form_ConfiguracionImpresionEtiqueta();
+            impresion.Show();
+        }
+
+        private void btnIngresoCajas_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var ingcajas = new Form_InventarioIngresoCaja();
+            ingcajas.Show();
+        }
+
+        private void btnAsociarCajaOrdenVenta_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var asociarOV = new Form_AdministracionAsociarOrdenVenta();
+            asociarOV.Show();
+        }
+  
         #endregion
 
         #region Method Dev
@@ -256,96 +350,5 @@ namespace CooperativaProduccion
 
         #endregion
 
-        private void btnLiquidacion_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            var liquidacion = new Form_AdministracionLiquidacion( Liquidar, 
-                LiquidacionSubirAfip, LiquidacionImprimir);
-            liquidacion.Show();
-        }
-
-        private void btnOrdenPago_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            var op = new Form_AdministracionOrdenPago();
-            op.Show();
-        }
-
-        private void btnGestionCata_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            var gc = new Form_AdministracionGestionCata();
-            gc.Show();
-        }
-
-        private void btnGestionCaja_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            var gc = new Form_AdministracionGestionCaja();
-            gc.Show();
-        }
-        
-        private void btnOrdenVenta_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            var ov = new Form_AdministracionOrdenVenta();
-            ov.Show();
-        }
-
-        private void btnRemitoElectronico_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            var ov = new Form_AdministracionRemitoElectronico();
-            ov.Show();
-        }
-
-        private void btnPesada_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            var pendiente = Context.Pesada
-                .Where(x => x.RomaneoPendiente == true)
-                .FirstOrDefault();
-
-            if (pendiente != null)
-            {
-                var atencion = new Form_RomaneoPendiente(pendiente.Id);
-                atencion.Show();
-            }
-            else
-            {
-                var pesada = new Form_RomaneoPesada(null);
-                pesada.Show();
-            }
-        }
-
-        private void btnGestionRomaneo_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            var romaneo = new Form_RomaneoGestionRomaneo(ReimpresionRomaneo, ResumenRomaneo,
-                ResumenCompra, ResumenClaseMes, ResumenClaseTrimestre);
-            romaneo.Show();
-        }
-
-        private void btnGestionClasificacion_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            var gestionClasificacion = new Form_RomaneoGestionClasificacion(GestionReclasificacion);
-            gestionClasificacion.Show();
-        }
-
-        private void btnAsignarRoles_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            var permisos = new Form_SeguridadUsuarioPermiso();
-            permisos.Show();
-        }
-
-        private void btnConfiguracionImpresion_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            var configuracion = new Form_ConfiguracionImpresion();
-            configuracion.Show();
-        }
-
-        private void btnImpresionEtiqueta_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            var impresion = new Form_ConfiguracionImpresionEtiqueta();
-            impresion.Show();
-        }
-
-        private void btnIngresoCajas_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            var ingcajas = new Form_InventarioIngresoCaja();
-            ingcajas.Show();
-        }
     }
 }
