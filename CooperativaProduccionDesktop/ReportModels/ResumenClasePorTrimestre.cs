@@ -8,6 +8,7 @@ namespace CooperativaProduccion.ReportModels
     public class ResumenClasePorTrimestre
     {
         public string Clase { get; set; }
+        public string Tabaco { get; set; }
         public decimal Kilos01 { get; set; }
         public decimal Kilos02 { get; set; }
         public decimal Kilos03 { get; set; }

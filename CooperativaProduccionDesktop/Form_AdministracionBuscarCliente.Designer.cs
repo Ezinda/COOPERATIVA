@@ -63,6 +63,7 @@
             // txtBusqueda
             // 
             this.txtBusqueda.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.txtBusqueda.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtBusqueda.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBusqueda.Location = new System.Drawing.Point(202, 36);
             this.txtBusqueda.Name = "txtBusqueda";
@@ -82,7 +83,8 @@
             // 
             // groupControl2
             // 
-            this.groupControl2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.groupControl2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupControl2.Controls.Add(this.gridControlCliente);
             this.groupControl2.Location = new System.Drawing.Point(0, 65);
@@ -106,6 +108,14 @@
             // 
             // gridViewCliente
             // 
+            this.gridViewCliente.Appearance.FocusedRow.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.gridViewCliente.Appearance.FocusedRow.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gridViewCliente.Appearance.FocusedRow.Options.UseBackColor = true;
+            this.gridViewCliente.Appearance.FocusedRow.Options.UseFont = true;
+            this.gridViewCliente.Appearance.FooterPanel.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.gridViewCliente.Appearance.FooterPanel.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gridViewCliente.Appearance.FooterPanel.Options.UseBackColor = true;
+            this.gridViewCliente.Appearance.FooterPanel.Options.UseFont = true;
             this.gridViewCliente.GridControl = this.gridControlCliente;
             this.gridViewCliente.Name = "gridViewCliente";
             this.gridViewCliente.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.False;

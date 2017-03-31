@@ -325,6 +325,14 @@
             // 
             // gridViewRomaneo
             // 
+            this.gridViewRomaneo.Appearance.FocusedCell.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.gridViewRomaneo.Appearance.FocusedCell.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gridViewRomaneo.Appearance.FocusedCell.Options.UseBackColor = true;
+            this.gridViewRomaneo.Appearance.FocusedCell.Options.UseFont = true;
+            this.gridViewRomaneo.Appearance.FocusedRow.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.gridViewRomaneo.Appearance.FocusedRow.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gridViewRomaneo.Appearance.FocusedRow.Options.UseBackColor = true;
+            this.gridViewRomaneo.Appearance.FocusedRow.Options.UseFont = true;
             this.gridViewRomaneo.GridControl = this.gridControlRomaneo;
             this.gridViewRomaneo.Name = "gridViewRomaneo";
             this.gridViewRomaneo.OptionsBehavior.Editable = false;

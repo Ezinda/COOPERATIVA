@@ -279,7 +279,7 @@
           <Property Name="GestionarListaPrecio" Type="bit" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_Clase' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Clase' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_Clase">
           <Key>
             <PropertyRef Name="ID" />
@@ -294,7 +294,7 @@ warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_Clase' do
           <Property Name="Orden" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_Cliente' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Cliente' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_Cliente">
           <Key>
             <PropertyRef Name="ID" />
@@ -324,7 +324,7 @@ warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_Cliente' 
           <Property Name="CUITE" Type="varchar" MaxLength="30" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_ConceptoDeOrdenDePago' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ConceptoDeOrdenDePago' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_ConceptoDeOrdenDePago">
           <Key>
             <PropertyRef Name="Id" />
@@ -363,7 +363,7 @@ warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_ConceptoD
           <Property Name="RetencionRiego" Type="decimal" Precision="18" Scale="2" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_Deposito' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Deposito' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_Deposito">
           <Key>
             <PropertyRef Name="id" />
@@ -372,7 +372,7 @@ warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_Deposito'
           <Property Name="nombre" Type="varchar" MaxLength="40" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_Movimiento' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Movimiento' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_Movimiento">
           <Key>
             <PropertyRef Name="Id" />
@@ -392,7 +392,7 @@ warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_Movimient
           <Property Name="Egreso" Type="float" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_OrdenPago' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_OrdenPago' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_OrdenPago">
           <Key>
             <PropertyRef Name="OrdenPagoId" />
@@ -420,7 +420,7 @@ warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_OrdenPago
           <Property Name="detalle" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_Pesada' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Pesada' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_Pesada">
           <Key>
             <PropertyRef Name="PesadaId" />
@@ -456,7 +456,7 @@ warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_Pesada' d
           <Property Name="DESCRIPCION" Type="varchar" MaxLength="150" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_Preingreso' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Preingreso' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_Preingreso">
           <Key>
             <PropertyRef Name="PreIngresoId" />
@@ -482,7 +482,7 @@ warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_Preingres
           <Property Name="Provincia" Type="varchar" MaxLength="40" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_Producto' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Producto' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_Producto">
           <Key>
             <PropertyRef Name="ID" />
@@ -492,7 +492,7 @@ warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_Producto'
           <Property Name="DESCRIPCION" Type="varchar" MaxLength="150" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_Productor' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Productor' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_Productor">
           <Key>
             <PropertyRef Name="DOMICILIO" />
@@ -520,7 +520,7 @@ warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_Productor
           <Property Name="GANANCIA" Type="decimal" Precision="38" Scale="10" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_Provincia' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Provincia' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_Provincia">
           <Key>
             <PropertyRef Name="ID" />
@@ -529,7 +529,7 @@ warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_Provincia
           <Property Name="NOMBRE" Type="varchar" MaxLength="40" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_ResumenClasePorFecha' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenClasePorFecha' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_ResumenClasePorFecha">
           <Key>
             <PropertyRef Name="provincia" />
@@ -546,7 +546,7 @@ warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_ResumenCl
           <Property Name="Importe" Type="float" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_ResumenCompraPorClase' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenCompraPorClase' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_ResumenCompraPorClase">
           <Key>
             <PropertyRef Name="provincia" />
@@ -563,7 +563,7 @@ warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_ResumenCo
           <Property Name="Importe" Type="float" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_ResumenPesada' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenPesada' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_ResumenPesada">
           <Key>
             <PropertyRef Name="PesadaId" />
@@ -574,7 +574,7 @@ warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_ResumenPe
           <Property Name="Subtotal" Type="decimal" Precision="38" Scale="2" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_ResumenPesadaPorClase' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenPesadaPorClase' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_ResumenPesadaPorClase">
           <Key>
             <PropertyRef Name="PesadaId" />
@@ -584,10 +584,11 @@ warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_ResumenPe
           <Property Name="Kilos" Type="float" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_ResumenRomaneoBurley' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenRomaneoBurley' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_ResumenRomaneoBurley">
           <Key>
             <PropertyRef Name="PesadaId" />
+            <PropertyRef Name="provincia" />
             <PropertyRef Name="B1F" />
             <PropertyRef Name="B1FR" />
             <PropertyRef Name="B2F" />
@@ -620,6 +621,7 @@ warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_ResumenRo
           <Property Name="fechaRomaneo" Type="date" />
           <Property Name="NumRomaneo" Type="bigint" />
           <Property Name="productor" Type="varchar" MaxLength="100" />
+          <Property Name="provincia" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="cuit" Type="varchar" MaxLength="40" />
           <Property Name="fet" Type="varchar" MaxLength="30" />
           <Property Name="B1F" Type="float" Nullable="false" />
@@ -653,7 +655,7 @@ warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_ResumenRo
           <Property Name="Importebruto" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_ResumenRomaneoPorClase' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenRomaneoPorClase' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_ResumenRomaneoPorClase">
           <Key>
             <PropertyRef Name="PesadaId" />
@@ -666,10 +668,11 @@ warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_ResumenRo
           <Property Name="Total" Type="decimal" Precision="12" Scale="2" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_ResumenRomaneoVirginia' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenRomaneoVirginia' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_ResumenRomaneoVirginia">
           <Key>
             <PropertyRef Name="PesadaId" />
+            <PropertyRef Name="provincia" />
             <PropertyRef Name="B1F" />
             <PropertyRef Name="B1L" />
             <PropertyRef Name="B2F" />
@@ -723,6 +726,7 @@ warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_ResumenRo
           <Property Name="fechaRomaneo" Type="date" />
           <Property Name="NumRomaneo" Type="bigint" />
           <Property Name="productor" Type="varchar" MaxLength="100" />
+          <Property Name="provincia" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="cuit" Type="varchar" MaxLength="40" />
           <Property Name="fet" Type="varchar" MaxLength="30" />
           <Property Name="B1F" Type="float" Nullable="false" />
@@ -777,7 +781,7 @@ warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_ResumenRo
           <Property Name="Importebruto" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_Romaneo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_Romaneo">
           <Key>
             <PropertyRef Name="PesadaId" />
@@ -819,7 +823,7 @@ warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_Romaneo' 
           <Property Name="BASEGANANCIA" Type="float" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_TipoTabaco' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_TipoTabaco' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_TipoTabaco">
           <Key>
             <PropertyRef Name="id" />
@@ -1186,6 +1190,7 @@ warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_TipoTabac
     [Vw_ResumenRomaneoBurley].[fechaRomaneo] AS [fechaRomaneo], 
     [Vw_ResumenRomaneoBurley].[NumRomaneo] AS [NumRomaneo], 
     [Vw_ResumenRomaneoBurley].[productor] AS [productor], 
+    [Vw_ResumenRomaneoBurley].[provincia] AS [provincia], 
     [Vw_ResumenRomaneoBurley].[cuit] AS [cuit], 
     [Vw_ResumenRomaneoBurley].[fet] AS [fet], 
     [Vw_ResumenRomaneoBurley].[B1F] AS [B1F], 
@@ -1235,6 +1240,7 @@ warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_TipoTabac
     [Vw_ResumenRomaneoVirginia].[fechaRomaneo] AS [fechaRomaneo], 
     [Vw_ResumenRomaneoVirginia].[NumRomaneo] AS [NumRomaneo], 
     [Vw_ResumenRomaneoVirginia].[productor] AS [productor], 
+    [Vw_ResumenRomaneoVirginia].[provincia] AS [provincia], 
     [Vw_ResumenRomaneoVirginia].[cuit] AS [cuit], 
     [Vw_ResumenRomaneoVirginia].[fet] AS [fet], 
     [Vw_ResumenRomaneoVirginia].[B1F] AS [B1F], 
@@ -2010,6 +2016,7 @@ warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_TipoTabac
         <EntityType Name="Vw_ResumenRomaneoBurley">
           <Key>
             <PropertyRef Name="PesadaId" />
+            <PropertyRef Name="provincia" />
             <PropertyRef Name="B1F" />
             <PropertyRef Name="B1FR" />
             <PropertyRef Name="B2F" />
@@ -2042,6 +2049,7 @@ warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_TipoTabac
           <Property Name="fechaRomaneo" Type="DateTime" Precision="0" />
           <Property Name="NumRomaneo" Type="Int64" />
           <Property Name="productor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="provincia" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Name="cuit" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Name="fet" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="B1F" Type="Double" Nullable="false" />
@@ -2088,6 +2096,7 @@ warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_TipoTabac
         <EntityType Name="Vw_ResumenRomaneoVirginia">
           <Key>
             <PropertyRef Name="PesadaId" />
+            <PropertyRef Name="provincia" />
             <PropertyRef Name="B1F" />
             <PropertyRef Name="B1L" />
             <PropertyRef Name="B2F" />
@@ -2141,6 +2150,7 @@ warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_TipoTabac
           <Property Name="fechaRomaneo" Type="DateTime" Precision="0" />
           <Property Name="NumRomaneo" Type="Int64" />
           <Property Name="productor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="provincia" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Name="cuit" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Name="fet" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="B1F" Type="Double" Nullable="false" />
@@ -2936,6 +2946,7 @@ warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_TipoTabac
                 <ScalarProperty Name="B1F" ColumnName="B1F" />
                 <ScalarProperty Name="fet" ColumnName="fet" />
                 <ScalarProperty Name="cuit" ColumnName="cuit" />
+                <ScalarProperty Name="provincia" ColumnName="provincia" />
                 <ScalarProperty Name="productor" ColumnName="productor" />
                 <ScalarProperty Name="NumRomaneo" ColumnName="NumRomaneo" />
                 <ScalarProperty Name="fechaRomaneo" ColumnName="fechaRomaneo" />
@@ -3010,6 +3021,7 @@ warning 6002: The table/view 'CooperativaProduccion_Test_Planta.dbo.Vw_TipoTabac
                 <ScalarProperty Name="B1F" ColumnName="B1F" />
                 <ScalarProperty Name="fet" ColumnName="fet" />
                 <ScalarProperty Name="cuit" ColumnName="cuit" />
+                <ScalarProperty Name="provincia" ColumnName="provincia" />
                 <ScalarProperty Name="productor" ColumnName="productor" />
                 <ScalarProperty Name="NumRomaneo" ColumnName="NumRomaneo" />
                 <ScalarProperty Name="fechaRomaneo" ColumnName="fechaRomaneo" />

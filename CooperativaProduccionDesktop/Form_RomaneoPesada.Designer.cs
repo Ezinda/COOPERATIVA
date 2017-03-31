@@ -462,6 +462,14 @@
             // 
             // gridViewPesada
             // 
+            this.gridViewPesada.Appearance.FocusedCell.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.gridViewPesada.Appearance.FocusedCell.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gridViewPesada.Appearance.FocusedCell.Options.UseBackColor = true;
+            this.gridViewPesada.Appearance.FocusedCell.Options.UseFont = true;
+            this.gridViewPesada.Appearance.FocusedRow.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.gridViewPesada.Appearance.FocusedRow.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gridViewPesada.Appearance.FocusedRow.Options.UseBackColor = true;
+            this.gridViewPesada.Appearance.FocusedRow.Options.UseFont = true;
             this.gridViewPesada.GridControl = this.gridControlPesada;
             this.gridViewPesada.Name = "gridViewPesada";
             this.gridViewPesada.OptionsBehavior.Editable = false;

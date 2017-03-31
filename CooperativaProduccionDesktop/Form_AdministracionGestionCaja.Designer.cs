@@ -164,6 +164,14 @@
             // 
             // gridViewCaja
             // 
+            this.gridViewCaja.Appearance.FocusedCell.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.gridViewCaja.Appearance.FocusedCell.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gridViewCaja.Appearance.FocusedCell.Options.UseBackColor = true;
+            this.gridViewCaja.Appearance.FocusedCell.Options.UseFont = true;
+            this.gridViewCaja.Appearance.FocusedRow.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.gridViewCaja.Appearance.FocusedRow.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gridViewCaja.Appearance.FocusedRow.Options.UseBackColor = true;
+            this.gridViewCaja.Appearance.FocusedRow.Options.UseFont = true;
             this.gridViewCaja.GridControl = this.gridControlCaja;
             this.gridViewCaja.Name = "gridViewCaja";
             this.gridViewCaja.OptionsBehavior.Editable = false;
@@ -204,7 +212,7 @@
             // checkCata
             // 
             this.checkCata.AutoSize = true;
-            this.checkCata.Location = new System.Drawing.Point(841, 27);
+            this.checkCata.Location = new System.Drawing.Point(840, 27);
             this.checkCata.Name = "checkCata";
             this.checkCata.Size = new System.Drawing.Size(87, 17);
             this.checkCata.TabIndex = 90;
@@ -423,6 +431,14 @@
             // 
             // gridViewCajaConsulta
             // 
+            this.gridViewCajaConsulta.Appearance.FocusedCell.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.gridViewCajaConsulta.Appearance.FocusedCell.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gridViewCajaConsulta.Appearance.FocusedCell.Options.UseBackColor = true;
+            this.gridViewCajaConsulta.Appearance.FocusedCell.Options.UseFont = true;
+            this.gridViewCajaConsulta.Appearance.FocusedRow.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.gridViewCajaConsulta.Appearance.FocusedRow.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gridViewCajaConsulta.Appearance.FocusedRow.Options.UseBackColor = true;
+            this.gridViewCajaConsulta.Appearance.FocusedRow.Options.UseFont = true;
             this.gridViewCajaConsulta.GridControl = this.gridControlCajaConsulta;
             this.gridViewCajaConsulta.Name = "gridViewCajaConsulta";
             this.gridViewCajaConsulta.OptionsBehavior.Editable = false;

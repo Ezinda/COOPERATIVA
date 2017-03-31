@@ -77,15 +77,35 @@ namespace CooperativaProduccion
             }
             else if (Origen.Equals(DevConstantes.ResumenCompra))
             {
-                ResumenCompra();
+                if (!string.IsNullOrEmpty(cbTabaco.Text))
+                {
+                    ResumenCompra();
+                }
+                else
+                {
+                    ResumenCompraTabacos();
+                }
             }
             else if (Origen.Equals(DevConstantes.ResumenClasesMes))
             {
-                ResumenClasePorMes();
+                if (!string.IsNullOrEmpty(cbTabaco.Text))
+                {
+                    ResumenClasePorMes();
+                }else
+                {
+                    ResumenClasePorMesTabacos();
+                }
             }
             else if (Origen.Equals(DevConstantes.ResumenClasesTrimestre))
             {
-                ResumenClasePorTrimestre();
+                if (!string.IsNullOrEmpty(cbTabaco.Text))
+                {
+                    ResumenClasePorTrimestre();
+                }
+                else
+                {
+                    ResumenClasePorTrimestreTabaco();
+                }
             }
             this.Close();
         }
@@ -114,6 +134,8 @@ namespace CooperativaProduccion
 
             if (cbTabaco.Text == DevConstantes.TabacoVirginia)
             {
+                #region Tabaco Virginia
+
                 path = @"C:\SystemDocumentsCooperativa\ResumenRomaneoVirginia";
 
                 CreateIfMissing(path);
@@ -148,9 +170,12 @@ namespace CooperativaProduccion
 
                 // Show the result.
                 StartProcess(fileName);
+                #endregion
             }
             else if (cbTabaco.Text == DevConstantes.TabacoBurley)
             {
+                #region Tabaco Burley
+
                 path = @"C:\SystemDocumentsCooperativa\ResumenRomaneoBurley";
 
                 CreateIfMissing(path);
@@ -185,6 +210,7 @@ namespace CooperativaProduccion
 
                 // Show the result.
                 StartProcess(fileName);
+                #endregion
             }
         }
 
@@ -194,7 +220,8 @@ namespace CooperativaProduccion
             var datasource = new List<RegistroResumenRomaneoVirginia>();
             var resumenVirginia = Context.Vw_ResumenRomaneoVirginia
                 .Where(x => x.fechaRomaneo.Value >= dpDesdeRomaneo.Value.Date
-                    && x.fechaRomaneo.Value <= dpHastaRomaneo.Value.Date)
+                    && x.fechaRomaneo.Value <= dpHastaRomaneo.Value.Date 
+                    && x.provincia == cbProvincia.Text)
                 .OrderBy(x => x.NumRomaneo)
                 .ToList();
 
@@ -267,7 +294,8 @@ namespace CooperativaProduccion
             var datasource = new List<RegistroResumenRomaneoBurley>();
             var resumenBurley = Context.Vw_ResumenRomaneoBurley
                 .Where(x => x.fechaRomaneo.Value >= dpDesdeRomaneo.Value.Date
-                    && x.fechaRomaneo.Value <= dpHastaRomaneo.Value.Date)
+                    && x.fechaRomaneo.Value <= dpHastaRomaneo.Value.Date 
+                    && x.provincia == cbProvincia.Text)
                 .OrderBy(x => x.NumRomaneo)
                 .ToList();
 
@@ -329,18 +357,18 @@ namespace CooperativaProduccion
         }
 
         private void ResumenCompra()
-        {
+        {   
             var reporte = new ResumenCompraReport();
-            List<ResumenCompraPorMes> datasourceResumenCompraPorMes;
-            datasourceResumenCompraPorMes = GenerarReporteResumenCompraPorMes();
-            reporte.DataSource = datasourceResumenCompraPorMes;
-
+            List<ResumenCompra> datasourceResumenCompra;
+            datasourceResumenCompra = GenerarReporteResumenCompra();
+            reporte.DataSource = datasourceResumenCompra;
             reporte.Parameters["cabecera"].Value = "RESUMEN DE COMPRA - " + cbTabaco.Text
-               + " - CAMPAÑA " + dpDesdeRomaneo.Value.Year + " - MES DE "
-               + MonthName(dpDesdeRomaneo.Value.Month).ToUpper() + " - PROVINCIA DE " 
+               + " - CAMPAÑA " + dpDesdeRomaneo.Value.Year 
+               + " - MES DE " + MonthName(dpDesdeRomaneo.Value.Month).ToUpper() 
+               + " - PROVINCIA DE " 
                + cbProvincia.Text.ToUpper() + ".- "
                + " Desde: " + dpDesdeRomaneo.Value.Date.ToShortDateString() 
-               + " Hasta: " + dpDesdeRomaneo.Value.Date.ToShortDateString();
+               + " Hasta: " + dpHastaRomaneo.Value.Date.ToShortDateString();
 
             using (ReportPrintTool tool = new ReportPrintTool(reporte))
             {
@@ -348,20 +376,16 @@ namespace CooperativaProduccion
                 tool.PreviewForm.Text = "Etiqueta";
                 tool.ShowPreviewDialog();
             }
-
         }
 
-        public List<ResumenCompraPorMes> GenerarReporteResumenCompraPorMes()
+        public List<ResumenCompra> GenerarReporteResumenCompra()
         {
             var culture = CultureInfo.CreateSpecificCulture("es-ES");
             var Context = new CooperativaProduccionEntities();
-
+            List<ResumenCompra> datasource = new List<ResumenCompra>();
             Expression<Func<Vw_ResumenCompraPorClase, bool>> pred = x => true;
-
-            List<ResumenCompraPorMes> datasource = new List<ResumenCompraPorMes>();
-
-            pred = pred.And(x => x.FechaRomaneo >= dpDesdeRomaneo.Value.Date &&
-                x.FechaRomaneo <= dpHastaRomaneo.Value.Date);
+            pred = pred.And(x => x.FechaRomaneo >= dpDesdeRomaneo.Value.Date 
+                              && x.FechaRomaneo <= dpHastaRomaneo.Value.Date);
 
             pred = !string.IsNullOrEmpty(cbTabaco.Text) ? pred.And(x => x.Tabaco == cbTabaco.Text) : pred;
 
@@ -369,7 +393,7 @@ namespace CooperativaProduccion
 
             var clases = Context.Vw_Clase
                     .Where(x => x.DESCRIPCION == cbTabaco.Text)
-                                .ToList();
+                    .ToList();
 
             var liquidacionDetalles =
                 (from a in Context.Vw_ResumenCompraPorClase
@@ -389,9 +413,7 @@ namespace CooperativaProduccion
                  })
                  .OrderBy(x => x.Orden)
                  .ToList();
-
-
-
+            
             var liquidaciones = liquidacionDetalles
                 .FullOuterJoin(clases, a => a.Clase, b => b.NOMBRE, (a, b, Clases) => new { a, b })
                 .OrderBy(x => x.b.Orden)
@@ -399,13 +421,144 @@ namespace CooperativaProduccion
 
             foreach (var liquidacionDetalle in liquidaciones)
             {
-                ResumenCompraPorMes detalle = new ResumenCompraPorMes();
+                ResumenCompra detalle = new ResumenCompra();
                 detalle.Clase = liquidacionDetalle.a == null ? liquidacionDetalle.b.NOMBRE : liquidacionDetalle.a.Clase;
                 detalle.Fardos = liquidacionDetalle.a == null ? "0" : liquidacionDetalle.a.Fardos.Value.ToString();
                 detalle.Kilos = liquidacionDetalle.a == null ? "0" : liquidacionDetalle.a.Kilos.Value.ToString();
                 detalle.Importe = liquidacionDetalle.a == null ? "0" : liquidacionDetalle.a.Total.Value.ToString("F", culture);
                 datasource.Add(detalle);
             }
+            return datasource;
+        }
+
+        private void ResumenCompraTabacos()
+        {
+            var reporte = new ResumenCompraTabacosReport();
+            List<ResumenCompra> datasourceResumenCompra;
+            datasourceResumenCompra = GenerarReporteResumenCompraTabacos();
+            reporte.DataSource = datasourceResumenCompra;
+            reporte.Parameters["cabecera"].Value = "RESUMEN DE COMPRA - CAMPAÑA " 
+                + dpDesdeRomaneo.Value.Year + " - PROVINCIA DE "
+                + cbProvincia.Text.ToUpper() + ".- "
+                + " Desde: " + dpDesdeRomaneo.Value.Date.ToShortDateString()
+                + " Hasta: " + dpHastaRomaneo.Value.Date.ToShortDateString();
+
+            using (ReportPrintTool tool = new ReportPrintTool(reporte))
+            {
+                reporte.ShowPreviewMarginLines = false;
+                tool.PreviewForm.Text = "Etiqueta";
+                tool.ShowPreviewDialog();
+            }
+        }
+
+        public List<ResumenCompra> GenerarReporteResumenCompraTabacos()
+        {
+            var culture = CultureInfo.CreateSpecificCulture("es-ES");
+            var Context = new CooperativaProduccionEntities();
+            List<ResumenCompra> datasource = new List<ResumenCompra>();
+          
+            #region Tabaco Burley
+
+            Expression<Func<Vw_ResumenCompraPorClase, bool>> pred = x => true;
+            pred = pred.And(x => x.FechaRomaneo >= dpDesdeRomaneo.Value.Date
+                              && x.FechaRomaneo <= dpHastaRomaneo.Value.Date);
+            pred = pred.And(x => x.Tabaco == DevConstantes.TabacoBurley);
+            pred = !string.IsNullOrEmpty(cbProvincia.Text) ? 
+                pred.And(x => x.provincia == cbProvincia.Text) : pred;
+
+            var clasesBurley = Context.Vw_Clase
+                .Where(x => x.DESCRIPCION == DevConstantes.TabacoBurley)
+                .ToList();
+
+            var detallesBurley =
+                (from a in Context.Vw_ResumenCompraPorClase
+                 .Where(pred)
+                 group a by new
+                 {
+                    Clase = a.Clase,
+                    Tabaco = a.Tabaco,
+                    Orden = a.orden
+                 } into g
+                 select new
+                 {
+                     Clase = g.Key.Clase,
+                     Tabaco = g.Key.Tabaco,
+                     Orden = g.Key.Orden,
+                     Fardos = g.Sum(x => x.Fardos),
+                     Kilos = g.Sum(x => x.Kilos),
+                     Total = g.Sum(x => x.Importe)
+                 })
+                 .OrderBy(x => x.Orden)
+                 .ToList();
+
+            var detallesB = detallesBurley
+                .FullOuterJoin(clasesBurley, a => a.Clase, b => b.NOMBRE, (a, b, Clases) => new { a, b })
+                .OrderBy(x => x.b.Orden)
+                .ToList();
+
+            foreach (var item in detallesB)
+            {
+                ResumenCompra detalle = new ResumenCompra();
+                detalle.Clase = item.a == null ? item.b.NOMBRE : item.a.Clase;
+                detalle.Tabaco = item.a == null ? item.b.DESCRIPCION : item.a.Tabaco;
+                detalle.Fardos = item.a == null ? "0" : item.a.Fardos.Value.ToString();
+                detalle.Kilos = item.a == null ? "0" : item.a.Kilos.Value.ToString();
+                detalle.Importe = item.a == null ? "0" : item.a.Total.Value.ToString("F", culture);
+                datasource.Add(detalle);
+            }
+            #endregion
+
+            #region Tabaco Virginia
+
+            Expression<Func<Vw_ResumenCompraPorClase, bool>> pred2 = x => true;
+            pred2 = pred2.And(x => x.FechaRomaneo >= dpDesdeRomaneo.Value.Date
+                              && x.FechaRomaneo <= dpHastaRomaneo.Value.Date);
+            pred2 = pred2.And(x => x.Tabaco == DevConstantes.TabacoVirginia);
+            pred2 = !string.IsNullOrEmpty(cbProvincia.Text) ?
+                pred2.And(x => x.provincia == cbProvincia.Text) : pred2;
+
+            var clasesVirginia = Context.Vw_Clase
+                .Where(x => x.DESCRIPCION == DevConstantes.TabacoVirginia)
+                .ToList();
+
+            var detallesVirginia =
+                (from a in Context.Vw_ResumenCompraPorClase
+                 .Where(pred2)
+                 group a by new
+                 {
+                     Clase = a.Clase,
+                     Tabaco = a.Tabaco,
+                     Orden = a.orden
+                 } into g
+                 select new
+                 {
+                     Clase = g.Key.Clase,
+                     Tabaco = g.Key.Tabaco,
+                     Orden = g.Key.Orden,
+                     Fardos = g.Sum(x => x.Fardos),
+                     Kilos = g.Sum(x => x.Kilos),
+                     Total = g.Sum(x => x.Importe)
+                 })
+                 .OrderBy(x => x.Orden)
+                 .ToList();
+
+            var detallesV = detallesVirginia
+                .FullOuterJoin(clasesVirginia, a => a.Clase, b => b.NOMBRE, (a, b, Clases) => new { a, b })
+                .OrderBy(x => x.b.Orden.Value)
+                .ToList();
+
+            foreach (var item in detallesV)
+            {
+                ResumenCompra detalle = new ResumenCompra();
+                detalle.Clase = item.a == null ? item.b.NOMBRE : item.a.Clase;
+                detalle.Tabaco = item.a == null ? item.b.DESCRIPCION : item.a.Tabaco;
+                detalle.Fardos = item.a == null ? "0" : item.a.Fardos.Value.ToString();
+                detalle.Kilos = item.a == null ? "0" : item.a.Kilos.Value.ToString();
+                detalle.Importe = item.a == null ? "0" : item.a.Total.Value.ToString("F", culture);
+                datasource.Add(detalle);
+            }
+            #endregion
+
             return datasource;
         }
 
@@ -521,6 +674,191 @@ namespace CooperativaProduccion
 
                 result.Add(detalle);
             }
+
+            return result;
+        }
+
+        private void ResumenClasePorMesTabacos()
+        {
+            var reporte = new ResumenDeClasePorMesTabacosReport();
+            var desde = dpDesdeRomaneo.Value.Date;
+            var hasta = dpHastaRomaneo.Value.Date;
+            var mes = desde.ToString("MMMM", CultureInfo.CreateSpecificCulture("es"));
+            
+            if (desde.Month != hasta.Month || desde.Year != hasta.Year)
+            {
+                MessageBox.Show("El rango de fecha seleccionado debe tener el mismo mes y año.",
+                    "Fecha fuera de rango",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+
+                return;
+            }
+
+            var datasource = GenerarReporteResumenClasePorMesTabacos(desde, hasta);
+
+            reporte.DataSource = datasource;
+            reporte.Parameters["Empresa"].Value = "Cooperativa de Productores Agropecuarios del Tucuman Ltda.";
+            reporte.Parameters["TipoDeTabaco"].Value = DevConstantes.TabacoBurley + " - " + DevConstantes.TabacoVirginia;
+            reporte.Parameters["Provincia"].Value = cbProvincia.Text;
+            reporte.Parameters["Mes"].Value = CultureInfo.CreateSpecificCulture("es").TextInfo.ToTitleCase(mes);
+            reporte.Parameters["Desde"].Value = desde.ToShortDateString();
+            reporte.Parameters["Hasta"].Value = hasta.ToShortDateString();
+
+            using (ReportPrintTool tool = new ReportPrintTool(reporte))
+            {
+                reporte.ShowPreviewMarginLines = false;
+                tool.PreviewForm.Text = "Etiqueta";
+                tool.ShowPreviewDialog();
+            }
+        }
+
+        public List<ResumenClasePorMes> GenerarReporteResumenClasePorMesTabacos(DateTime desde, DateTime hasta)
+        {
+            var culture = CultureInfo.CreateSpecificCulture("es-ES");
+            var context = new CooperativaProduccionEntities();
+            var tabacoBurley = DevConstantes.TabacoBurley;
+            var tabacoVirginia = DevConstantes.TabacoVirginia;
+
+            #region Tabaco Burley
+            List<ResumenClasePorMes> result = new List<ResumenClasePorMes>();
+
+            Expression<Func<Vw_ResumenClasePorFecha, bool>> pred = x => true;
+                        
+            pred = pred.And(x =>
+                x.Tabaco == tabacoBurley &&
+                x.FechaRomaneo >= desde &&
+                x.FechaRomaneo <= hasta);
+
+            pred = !string.IsNullOrEmpty(cbProvincia.Text) ? 
+                pred.And(x => x.provincia == cbProvincia.Text) : pred;
+
+            var clasesBurley = Context.Vw_Clase
+                .Where(x => x.DESCRIPCION == tabacoBurley)
+                .ToList();
+
+            var resumenBurley =
+                (from r in context.Vw_ResumenClasePorFecha
+                .Where(pred)
+                 group r by new
+                 {
+                     Clase = r.Clase,
+                     Tabaco = r.Tabaco,
+                     Orden = r.Orden,
+                     PrecioPorKilo = r.PrecioPorKilo
+                 } into g
+                 select new
+                 {
+                     Clase = g.Key.Clase,
+                     Tabaco = g.Key.Tabaco,
+                     Orden = g.Key.Orden,
+                     Kilos = g.Sum(x => x.Kilos),
+                     PrecioPorKilo = g.Key.PrecioPorKilo,
+                     Total = g.Sum(x => x.Importe)
+                 })
+                .ToList();
+
+            var resumenesBurley = resumenBurley
+                .FullOuterJoin(clasesBurley, a => a.Clase, b => b.NOMBRE, (a, b, Clases) => new { a, b })
+                .OrderBy(x => x.b.Orden)
+                .ToList();
+
+            foreach (var item in resumenesBurley)
+            {
+                ResumenClasePorMes detalle = result.Where(x => x.Clase == item.b.NOMBRE).SingleOrDefault();
+
+                if (detalle == null)
+                {
+                    detalle = new ResumenClasePorMes();
+
+                    detalle.Clase = item.a == null ? item.b.NOMBRE : item.a.Clase;
+                    detalle.Tabaco = item.a == null ? item.b.DESCRIPCION : item.a.Tabaco;
+                    detalle.Kilos = item.a == null ? "0" : item.a.Kilos.Value.ToString();
+                    detalle.PrecioPorKilo = item.a == null ? item.b.PRECIOCOMPRA.Value.ToString() : item.a.PrecioPorKilo.Value.ToString("F", culture);
+                    detalle.Total = item.a == null ? "0" : item.a.Total.Value.ToString("F", culture);
+                }
+                else
+                {
+                    var kilos = item.a == null ? 0 : Convert.ToDecimal(detalle.Kilos) + Convert.ToDecimal(item.a.Kilos.Value);
+                    var total = item.a == null ? 0 : Convert.ToDecimal(detalle.Total) + Convert.ToDecimal(item.a.Total.Value);
+
+                    detalle.Kilos = kilos.ToString("F0");
+                    detalle.Total = total.ToString("F", culture);
+                }
+
+                result.Add(detalle);
+            }
+            #endregion
+
+            #region Tabaco Virginia
+            List<ResumenClasePorMes> resultV = new List<ResumenClasePorMes>();
+
+            Expression<Func<Vw_ResumenClasePorFecha, bool>> pred2 = x => true;
+
+            pred2 = pred2.And(x =>
+                x.Tabaco == tabacoVirginia &&
+                x.FechaRomaneo >= desde &&
+                x.FechaRomaneo <= hasta);
+
+            pred2 = !string.IsNullOrEmpty(cbProvincia.Text) ?
+                pred2.And(x => x.provincia == cbProvincia.Text) : pred2;
+
+            var clasesVirginia = Context.Vw_Clase
+                .Where(x => x.DESCRIPCION == tabacoVirginia)
+                .ToList();
+
+            var resumenVirginia =
+                (from r in context.Vw_ResumenClasePorFecha
+                .Where(pred2)
+                 group r by new
+                 {
+                     Clase = r.Clase,
+                     Tabaco = r.Tabaco,
+                     Orden = r.Orden,
+                     PrecioPorKilo = r.PrecioPorKilo
+                 } into g
+                 select new
+                 {
+                     Clase = g.Key.Clase,
+                     Tabaco = g.Key.Tabaco,
+                     Orden = g.Key.Orden,
+                     Kilos = g.Sum(x => x.Kilos),
+                     PrecioPorKilo = g.Key.PrecioPorKilo,
+                     Total = g.Sum(x => x.Importe)
+                 })
+                .ToList();
+
+            var resumenesVirginia = resumenVirginia
+                .FullOuterJoin(clasesVirginia, a => a.Clase, b => b.NOMBRE, (a, b, Clases) => new { a, b })
+                .OrderBy(x => x.b.Orden.Value)
+                .ToList();
+
+            foreach (var item in resumenesVirginia)
+            {
+                ResumenClasePorMes detalle = resultV.Where(x => x.Clase == item.b.NOMBRE).SingleOrDefault();
+
+                if (detalle == null)
+                {
+                    detalle = new ResumenClasePorMes();
+
+                    detalle.Clase = item.a == null ? item.b.NOMBRE : item.a.Clase;
+                    detalle.Tabaco = item.a == null ? item.b.DESCRIPCION : item.a.Tabaco;
+                    detalle.Kilos = item.a == null ? "0" : item.a.Kilos.Value.ToString();
+                    detalle.PrecioPorKilo = item.a == null ? item.b.PRECIOCOMPRA.Value.ToString() : item.a.PrecioPorKilo.Value.ToString("F", culture);
+                    detalle.Total = item.a == null ? "0" : item.a.Total.Value.ToString("F", culture);
+                }
+                else
+                {
+                    var kilos = item.a == null ? 0 : Convert.ToDecimal(detalle.Kilos) + Convert.ToDecimal(item.a.Kilos.Value);
+                    var total = item.a == null ? 0 : Convert.ToDecimal(detalle.Total) + Convert.ToDecimal(item.a.Total.Value);
+
+                    detalle.Kilos = kilos.ToString("F0");
+                    detalle.Total = total.ToString("F", culture);
+                }
+
+                result.Add(detalle);
+            }
+            #endregion
 
             return result;
         }
@@ -714,6 +1052,302 @@ namespace CooperativaProduccion
                     detalle.PrecioPorKilo = item.b.PRECIOCOMPRA.Value;
                 }
             }
+
+            return result;
+        }
+
+        private void ResumenClasePorTrimestreTabaco()
+        {
+            var reporte = new ResumenDeClasePorTrimestreTabacosReport();
+            var desde = dpDesdeRomaneo.Value.Date;
+            var hasta = dpHastaRomaneo.Value.Date;
+            
+            if (desde.Year != hasta.Year)
+            {
+                MessageBox.Show("El rango de fecha seleccionado debe tener el mismo año.",
+                    "Fecha fuera de rango",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+
+                return;
+            }
+
+            if ((hasta.Month - desde.Month) != 2)
+            {
+                MessageBox.Show("El rango de fecha seleccionado debe ser entre tres meses.",
+                    "Fecha fuera de rango",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+
+                return;
+            }
+
+            var anio = desde.Year.ToString();
+            var mes01 = new DateTime(desde.Year, desde.Month, 1).ToString("MMMM", CultureInfo.CreateSpecificCulture("es"));
+            var mes02 = new DateTime(desde.Year, desde.Month + 1, 1).ToString("MMMM", CultureInfo.CreateSpecificCulture("es"));
+            var mes03 = new DateTime(desde.Year, desde.Month + 2, 1).ToString("MMMM", CultureInfo.CreateSpecificCulture("es"));
+            var datasource = GenerarReporteResumenClasePorTrimestreTabacos(desde, hasta);
+
+            reporte.DataSource = datasource;
+            reporte.Parameters["Campaña"].Value = anio + ".-";
+            reporte.Parameters["TipoDeTabaco"].Value = DevConstantes.TabacoBurley + " - " + DevConstantes.TabacoVirginia;
+            reporte.Parameters["Provincia"].Value = cbProvincia.Text.ToUpper();
+            reporte.Parameters["Mes01"].Value = CultureInfo.CreateSpecificCulture("es").TextInfo.ToUpper(mes01);
+            reporte.Parameters["Mes02"].Value = CultureInfo.CreateSpecificCulture("es").TextInfo.ToUpper(mes02);
+            reporte.Parameters["Mes03"].Value = CultureInfo.CreateSpecificCulture("es").TextInfo.ToUpper(mes03);
+            reporte.Parameters["Desde"].Value = desde.ToShortDateString();
+            reporte.Parameters["Hasta"].Value = hasta.ToShortDateString();
+
+            using (ReportPrintTool tool = new ReportPrintTool(reporte))
+            {
+                reporte.ShowPreviewMarginLines = false;
+                tool.PreviewForm.Text = "Etiqueta";
+                tool.ShowPreviewDialog();
+            }
+        }
+
+        public List<ResumenClasePorTrimestre> GenerarReporteResumenClasePorTrimestreTabacos(DateTime desde, DateTime hasta)
+        {
+            var mes01 = desde.Month;
+            var mes02 = desde.Month + 1;
+            var mes03 = desde.Month + 2;
+            var culture = CultureInfo.CreateSpecificCulture("es-ES");
+            var context = new CooperativaProduccionEntities();
+            var tabacoBurley = DevConstantes.TabacoBurley;
+            var tabacoVirginia = DevConstantes.TabacoVirginia;
+            List<ResumenClasePorTrimestre> result = new List<ResumenClasePorTrimestre>();
+
+            #region Tabaco Burley
+
+            Expression<Func<Vw_ResumenClasePorFecha, bool>> pred = x => true;
+            
+            pred = pred.And(x =>
+                x.Tabaco == tabacoBurley &&
+                x.FechaRomaneo >= desde &&
+                x.FechaRomaneo <= hasta);
+
+            pred = !string.IsNullOrEmpty(cbProvincia.Text) ? 
+                pred.And(x => x.provincia == cbProvincia.Text) : pred;
+
+            var clasesBurley = Context.Vw_Clase
+                .Where(x => x.DESCRIPCION == tabacoBurley)
+                .ToList();
+
+            var resumenBurley = (from r in context.Vw_ResumenClasePorFecha
+                .Where(pred)
+                           group r by new
+                           {
+                               Mes = r.FechaRomaneo.Value.Month,
+                               Clase = r.Clase,
+                               Tabaco = r.Tabaco,
+                               Orden = r.Orden,
+                               PrecioPorKilo = r.PrecioPorKilo
+                           } into g
+                           select new
+                           {
+                               Mes = g.Key.Mes,
+                               Orden = g.Key.Orden,
+                               Clase = g.Key.Clase,
+                               Tabaco = g.Key.Tabaco,
+                               Kilos = g.Sum(x => x.Kilos),
+                               PrecioPorKilo = g.Key.PrecioPorKilo,
+                               Total = g.Sum(x => x.Importe)
+                           })
+                .ToList();
+
+            var resumenesBurley = resumenBurley
+                .FullOuterJoin(clasesBurley, a => a.Clase, b => b.NOMBRE, (a, b, Clases) => new { a, b })
+                .OrderBy(x => x.b.Orden)
+                .ToList();
+
+
+            foreach (var item in resumenesBurley)
+            {
+                var mesdeitem = item.a == null ? mes01 : item.a.Mes;
+                var clase = item.a == null ? item.b.NOMBRE : item.a.Clase;
+                ResumenClasePorTrimestre detalle = result.Where(x => x.Clase == clase).SingleOrDefault();
+
+                if (detalle == null)
+                {
+                    var kilos01 = 0m;
+                    var kilos02 = 0m;
+                    var kilos03 = 0m;
+                    var totalkilos = 0m;
+
+                    if (mesdeitem == mes01)
+                    {
+                        kilos01 += item.a == null ? 0 : Convert.ToDecimal(item.a.Kilos);
+                    }
+                    else if (mesdeitem == mes02)
+                    {
+                        kilos02 += item.a == null ? 0 : Convert.ToDecimal(item.a.Kilos);
+                    }
+                    else if (mesdeitem == mes03)
+                    {
+                        kilos03 += item.a == null ? 0 : Convert.ToDecimal(item.a.Kilos);
+                    }
+
+                    totalkilos = kilos01 + kilos02 + kilos03;
+
+                    detalle = new ResumenClasePorTrimestre();
+
+                    detalle.Clase = item.b.NOMBRE;
+                    detalle.Tabaco = item.b.DESCRIPCION;
+                    detalle.Kilos01 = kilos01;
+                    detalle.Kilos02 = kilos02;
+                    detalle.Kilos03 = kilos03;
+                    detalle.TotalKilos = totalkilos;
+                    detalle.PrecioPorKilo = item.b.PRECIOCOMPRA.Value;
+
+                    result.Add(detalle);
+                }
+                else
+                {
+                    var kilos01 = Convert.ToDecimal(detalle.Kilos01);
+                    var kilos02 = Convert.ToDecimal(detalle.Kilos02);
+                    var kilos03 = Convert.ToDecimal(detalle.Kilos03);
+                    var totalkilos = 0m;
+
+                    if (mesdeitem == mes01)
+                    {
+                        kilos01 += item.a == null ? 0 : Convert.ToDecimal(item.a.Kilos);
+                    }
+                    else if (mesdeitem == mes02)
+                    {
+                        kilos02 += item.a == null ? 0 : Convert.ToDecimal(item.a.Kilos);
+                    }
+                    else if (mesdeitem == mes03)
+                    {
+                        kilos03 += item.a == null ? 0 : Convert.ToDecimal(item.a.Kilos);
+                    }
+
+                    totalkilos = kilos01 + kilos02 + kilos03;
+
+                    detalle.Clase = item.b.NOMBRE;
+                    detalle.Kilos01 = kilos01;
+                    detalle.Kilos02 = kilos02;
+                    detalle.Kilos03 = kilos03;
+                    detalle.TotalKilos = totalkilos;
+                    detalle.PrecioPorKilo = item.b.PRECIOCOMPRA.Value;
+                }
+            }
+            #endregion
+
+            #region Tabaco Virginia
+            List<ResumenClasePorTrimestre> resultV = new List<ResumenClasePorTrimestre>();
+            Expression<Func<Vw_ResumenClasePorFecha, bool>> pred2 = x => true;
+
+            pred2 = pred2.And(x =>
+                x.Tabaco == tabacoVirginia &&
+                x.FechaRomaneo >= desde &&
+                x.FechaRomaneo <= hasta);
+
+            pred2 = !string.IsNullOrEmpty(cbProvincia.Text) ? 
+                pred2.And(x => x.provincia == cbProvincia.Text) : pred2;
+
+            var clasesVirginia = Context.Vw_Clase
+                .Where(x => x.DESCRIPCION == tabacoVirginia)
+                .ToList();
+
+            var resumenVirginia = (from r in context.Vw_ResumenClasePorFecha
+                .Where(pred2)
+                           group r by new
+                           {
+                               Mes = r.FechaRomaneo.Value.Month,
+                               Clase = r.Clase,
+                               Tabaco = r.Tabaco,
+                               Orden = r.Orden,
+                               PrecioPorKilo = r.PrecioPorKilo
+                           } into g
+                           select new
+                           {
+                               Mes = g.Key.Mes,
+                               Orden = g.Key.Orden,
+                               Clase = g.Key.Clase,
+                               Tabaco = g.Key.Tabaco,
+                               Kilos = g.Sum(x => x.Kilos),
+                               PrecioPorKilo = g.Key.PrecioPorKilo,
+                               Total = g.Sum(x => x.Importe)
+                           })
+                .ToList();
+
+            var resumenesVirginia = resumenVirginia
+                .FullOuterJoin(clasesVirginia, a => a.Clase, b => b.NOMBRE, (a, b, Clases) => new { a, b })
+                .OrderBy(x => x.b.Orden)
+                .ToList();
+
+
+            foreach (var item in resumenesVirginia)
+            {
+                var mesdeitem = item.a == null ? mes01 : item.a.Mes;
+                var clase = item.a == null ? item.b.NOMBRE : item.a.Clase;
+                ResumenClasePorTrimestre detalle = resultV.Where(x => x.Clase == clase).SingleOrDefault();
+
+                if (detalle == null)
+                {
+                    var kilos01 = 0m;
+                    var kilos02 = 0m;
+                    var kilos03 = 0m;
+                    var totalkilos = 0m;
+
+                    if (mesdeitem == mes01)
+                    {
+                        kilos01 += item.a == null ? 0 : Convert.ToDecimal(item.a.Kilos);
+                    }
+                    else if (mesdeitem == mes02)
+                    {
+                        kilos02 += item.a == null ? 0 : Convert.ToDecimal(item.a.Kilos);
+                    }
+                    else if (mesdeitem == mes03)
+                    {
+                        kilos03 += item.a == null ? 0 : Convert.ToDecimal(item.a.Kilos);
+                    }
+
+                    totalkilos = kilos01 + kilos02 + kilos03;
+
+                    detalle = new ResumenClasePorTrimestre();
+
+                    detalle.Clase = item.b.NOMBRE;
+                    detalle.Tabaco = item.b.DESCRIPCION;
+                    detalle.Kilos01 = kilos01;
+                    detalle.Kilos02 = kilos02;
+                    detalle.Kilos03 = kilos03;
+                    detalle.TotalKilos = totalkilos;
+                    detalle.PrecioPorKilo = item.b.PRECIOCOMPRA.Value;
+
+                    result.Add(detalle);
+                }
+                else
+                {
+                    var kilos01 = Convert.ToDecimal(detalle.Kilos01);
+                    var kilos02 = Convert.ToDecimal(detalle.Kilos02);
+                    var kilos03 = Convert.ToDecimal(detalle.Kilos03);
+                    var totalkilos = 0m;
+
+                    if (mesdeitem == mes01)
+                    {
+                        kilos01 += item.a == null ? 0 : Convert.ToDecimal(item.a.Kilos);
+                    }
+                    else if (mesdeitem == mes02)
+                    {
+                        kilos02 += item.a == null ? 0 : Convert.ToDecimal(item.a.Kilos);
+                    }
+                    else if (mesdeitem == mes03)
+                    {
+                        kilos03 += item.a == null ? 0 : Convert.ToDecimal(item.a.Kilos);
+                    }
+
+                    totalkilos = kilos01 + kilos02 + kilos03;
+
+                    detalle.Clase = item.b.NOMBRE;
+                    detalle.Kilos01 = kilos01;
+                    detalle.Kilos02 = kilos02;
+                    detalle.Kilos03 = kilos03;
+                    detalle.TotalKilos = totalkilos;
+                    detalle.PrecioPorKilo = item.b.PRECIOCOMPRA.Value;
+                }
+            }
+            #endregion
 
             return result;
         }

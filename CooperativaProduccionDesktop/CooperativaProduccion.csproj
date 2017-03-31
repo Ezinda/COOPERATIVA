@@ -421,7 +421,7 @@
     <Compile Include="ReportModels\RegistroResumenRomaneoVirginia.cs" />
     <Compile Include="ReportModels\ResumenClasePorMes.cs" />
     <Compile Include="ReportModels\ResumenClasePorTrimestre.cs" />
-    <Compile Include="ReportModels\ResumenCompraPorMes.cs" />
+    <Compile Include="ReportModels\ResumenCompra.cs" />
     <Compile Include="Reports\ClasesReport.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -473,17 +473,35 @@
     <Compile Include="Reports\PesadaResumenPorCajaReport.Designer.cs">
       <DependentUpon>PesadaResumenPorCajaReport.cs</DependentUpon>
     </Compile>
+    <Compile Include="Reports\ResumenCompraTabacosReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ResumenCompraTabacosReport.Designer.cs">
+      <DependentUpon>ResumenCompraTabacosReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Reports\ResumenCompraReport.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\ResumenCompraReport.Designer.cs">
       <DependentUpon>ResumenCompraReport.cs</DependentUpon>
     </Compile>
+    <Compile Include="Reports\ResumenDeClasePorMesTabacosReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ResumenDeClasePorMesTabacosReport.Designer.cs">
+      <DependentUpon>ResumenDeClasePorMesTabacosReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Reports\ResumenDeClasePorMesReport.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\ResumenDeClasePorMesReport.Designer.cs">
       <DependentUpon>ResumenDeClasePorMesReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\ResumenDeClasePorTrimestreTabacosReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ResumenDeClasePorTrimestreTabacosReport.Designer.cs">
+      <DependentUpon>ResumenDeClasePorTrimestreTabacosReport.cs</DependentUpon>
     </Compile>
     <Compile Include="Reports\ResumenDeClasePorTrimestreReport.cs">
       <SubType>Component</SubType>
@@ -662,11 +680,20 @@
       <DependentUpon>PesadaResumenPorCajaReport.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ResumenCompraTabacosReport.resx">
+      <DependentUpon>ResumenCompraTabacosReport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\ResumenCompraReport.resx">
       <DependentUpon>ResumenCompraReport.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ResumenDeClasePorMesTabacosReport.resx">
+      <DependentUpon>ResumenDeClasePorMesTabacosReport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\ResumenDeClasePorMesReport.resx">
       <DependentUpon>ResumenDeClasePorMesReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ResumenDeClasePorTrimestreTabacosReport.resx">
+      <DependentUpon>ResumenDeClasePorTrimestreTabacosReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\ResumenDeClasePorTrimestreReport.resx">
       <DependentUpon>ResumenDeClasePorTrimestreReport.cs</DependentUpon>

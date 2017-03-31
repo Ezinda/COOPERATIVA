@@ -97,6 +97,14 @@
             // 
             // gridViewProductor
             // 
+            this.gridViewProductor.Appearance.FocusedCell.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.gridViewProductor.Appearance.FocusedCell.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gridViewProductor.Appearance.FocusedCell.Options.UseBackColor = true;
+            this.gridViewProductor.Appearance.FocusedCell.Options.UseFont = true;
+            this.gridViewProductor.Appearance.FocusedRow.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.gridViewProductor.Appearance.FocusedRow.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gridViewProductor.Appearance.FocusedRow.Options.UseBackColor = true;
+            this.gridViewProductor.Appearance.FocusedRow.Options.UseFont = true;
             this.gridViewProductor.GridControl = this.gridControlProductor;
             this.gridViewProductor.Name = "gridViewProductor";
             this.gridViewProductor.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.False;
@@ -108,6 +116,7 @@
             // txtBusqueda
             // 
             this.txtBusqueda.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.txtBusqueda.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtBusqueda.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBusqueda.Location = new System.Drawing.Point(206, 33);
             this.txtBusqueda.Name = "txtBusqueda";

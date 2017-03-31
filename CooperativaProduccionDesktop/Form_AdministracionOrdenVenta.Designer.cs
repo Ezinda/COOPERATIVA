@@ -161,6 +161,14 @@
             // 
             // gridViewOrdenVenta
             // 
+            this.gridViewOrdenVenta.Appearance.FocusedCell.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.gridViewOrdenVenta.Appearance.FocusedCell.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gridViewOrdenVenta.Appearance.FocusedCell.Options.UseBackColor = true;
+            this.gridViewOrdenVenta.Appearance.FocusedCell.Options.UseFont = true;
+            this.gridViewOrdenVenta.Appearance.FocusedRow.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.gridViewOrdenVenta.Appearance.FocusedRow.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gridViewOrdenVenta.Appearance.FocusedRow.Options.UseBackColor = true;
+            this.gridViewOrdenVenta.Appearance.FocusedRow.Options.UseFont = true;
             this.gridViewOrdenVenta.GridControl = this.gridControlOrdenVenta;
             this.gridViewOrdenVenta.Name = "gridViewOrdenVenta";
             this.gridViewOrdenVenta.OptionsBehavior.Editable = false;
@@ -301,10 +309,10 @@
             this.groupControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupControl1.Controls.Add(this.btnExportarResumen);
-            this.groupControl1.Location = new System.Drawing.Point(2, 427);
+            this.groupControl1.Location = new System.Drawing.Point(1, 426);
             this.groupControl1.Name = "groupControl1";
             this.groupControl1.ShowCaption = false;
-            this.groupControl1.Size = new System.Drawing.Size(975, 32);
+            this.groupControl1.Size = new System.Drawing.Size(974, 33);
             this.groupControl1.TabIndex = 78;
             this.groupControl1.Text = "Buscar Cata";
             // 
@@ -377,9 +385,13 @@
             // gridViewOrdenVentaConsulta
             // 
             this.gridViewOrdenVentaConsulta.Appearance.FocusedCell.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.gridViewOrdenVentaConsulta.Appearance.FocusedCell.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gridViewOrdenVentaConsulta.Appearance.FocusedCell.Options.UseBackColor = true;
+            this.gridViewOrdenVentaConsulta.Appearance.FocusedCell.Options.UseFont = true;
             this.gridViewOrdenVentaConsulta.Appearance.FocusedRow.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.gridViewOrdenVentaConsulta.Appearance.FocusedRow.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gridViewOrdenVentaConsulta.Appearance.FocusedRow.Options.UseBackColor = true;
+            this.gridViewOrdenVentaConsulta.Appearance.FocusedRow.Options.UseFont = true;
             this.gridViewOrdenVentaConsulta.GridControl = this.gridControlOrdenVentaConsulta;
             this.gridViewOrdenVentaConsulta.Name = "gridViewOrdenVentaConsulta";
             this.gridViewOrdenVentaConsulta.OptionsBehavior.Editable = false;

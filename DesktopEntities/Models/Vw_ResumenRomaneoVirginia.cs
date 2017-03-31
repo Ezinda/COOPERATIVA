@@ -18,6 +18,7 @@ namespace DesktopEntities.Models
         public Nullable<System.DateTime> fechaRomaneo { get; set; }
         public Nullable<long> NumRomaneo { get; set; }
         public string productor { get; set; }
+        public string provincia { get; set; }
         public string cuit { get; set; }
         public string fet { get; set; }
         public double B1F { get; set; }

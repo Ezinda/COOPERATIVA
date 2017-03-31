@@ -93,11 +93,11 @@
             // gridControlCata
             // 
             this.gridControlCata.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridControlCata.Location = new System.Drawing.Point(2, 21);
+            this.gridControlCata.Location = new System.Drawing.Point(2, 20);
             this.gridControlCata.MainView = this.gridViewCata;
             this.gridControlCata.MenuManager = this.ribbon;
             this.gridControlCata.Name = "gridControlCata";
-            this.gridControlCata.Size = new System.Drawing.Size(740, 388);
+            this.gridControlCata.Size = new System.Drawing.Size(740, 389);
             this.gridControlCata.TabIndex = 68;
             this.gridControlCata.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewCata,
@@ -105,6 +105,14 @@
             // 
             // gridViewCata
             // 
+            this.gridViewCata.Appearance.FocusedCell.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.gridViewCata.Appearance.FocusedCell.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gridViewCata.Appearance.FocusedCell.Options.UseBackColor = true;
+            this.gridViewCata.Appearance.FocusedCell.Options.UseFont = true;
+            this.gridViewCata.Appearance.FocusedRow.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.gridViewCata.Appearance.FocusedRow.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gridViewCata.Appearance.FocusedRow.Options.UseBackColor = true;
+            this.gridViewCata.Appearance.FocusedRow.Options.UseFont = true;
             this.gridViewCata.GridControl = this.gridControlCata;
             this.gridViewCata.Name = "gridViewCata";
             this.gridViewCata.OptionsBehavior.Editable = false;
@@ -122,8 +130,8 @@
             this.ribbon.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.Office2013;
             this.ribbon.ShowApplicationButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowCategoryInCaption = false;
+            this.ribbon.ShowDisplayOptionsMenuButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowExpandCollapseButton = DevExpress.Utils.DefaultBoolean.False;
-            this.ribbon.ShowFullScreenButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Show;
             this.ribbon.ShowToolbarCustomizeItem = false;
             this.ribbon.Size = new System.Drawing.Size(754, 49);
@@ -224,10 +232,10 @@
             this.groupControl3.Controls.Add(this.label4);
             this.groupControl3.Controls.Add(this.label2);
             this.groupControl3.Controls.Add(this.label1);
-            this.groupControl3.Location = new System.Drawing.Point(1, 468);
+            this.groupControl3.Location = new System.Drawing.Point(1, 467);
             this.groupControl3.Name = "groupControl3";
             this.groupControl3.ShowCaption = false;
-            this.groupControl3.Size = new System.Drawing.Size(742, 32);
+            this.groupControl3.Size = new System.Drawing.Size(742, 34);
             this.groupControl3.TabIndex = 77;
             this.groupControl3.Text = "Buscar Cata";
             // 
@@ -456,6 +464,7 @@
             this.groupControl2.ResumeLayout(false);
             this.groupControl2.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
