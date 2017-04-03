@@ -52,7 +52,6 @@ namespace CooperativaProduccion
 
         private void CargarCombo()
         {
-
             var tipotabaco = Context.Vw_TipoTabaco
                 .Where(x => x.RUBRO_ID != null)
                 .ToList();
@@ -489,11 +488,11 @@ namespace CooperativaProduccion
             gridViewLiquidacion.Columns[7].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
             gridViewLiquidacion.Columns[7].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
             gridViewLiquidacion.Columns[8].Caption = "Kilos";
-            gridViewLiquidacion.Columns[8].Width = 40;
+            gridViewLiquidacion.Columns[8].Width = 60;
             gridViewLiquidacion.Columns[8].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
             gridViewLiquidacion.Columns[8].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
             gridViewLiquidacion.Columns[9].Caption = "Bruto sin IVA";
-            gridViewLiquidacion.Columns[9].Width = 60;
+            gridViewLiquidacion.Columns[9].Width = 90;
             gridViewLiquidacion.Columns[9].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Far;
             gridViewLiquidacion.Columns[9].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
             gridViewLiquidacion.Columns[10].Caption = "Fecha Liquidación";
@@ -527,7 +526,7 @@ namespace CooperativaProduccion
 
             gridViewLiquidacion.Columns["Totalkg"].Summary.Add(DevExpress.Data.SummaryItemType.Sum, "Totalkg", "{0}");
             gridViewLiquidacion.Columns["ImporteBruto"].Summary.Add(DevExpress.Data.SummaryItemType.Sum, "ImporteBruto", "{0}");
-            gridViewLiquidacion.Appearance.FooterPanel.TextOptions.HAlignment = HorzAlignment.Center;
+            gridViewLiquidacion.Appearance.FooterPanel.TextOptions.HAlignment = HorzAlignment.Far;
             gridViewLiquidacion.Appearance.FooterPanel.Options.UseTextOptions = true;
         }
 
@@ -716,15 +715,17 @@ namespace CooperativaProduccion
 
             #region Parametros Cabecera Factura
 
-            reporte.Parameters["nroComprobante"].Value = liquidacion.NumAfipLiquidacion == null ? string.Empty : liquidacion.NumAfipLiquidacion;
-            reporte.Parameters["fechaEmision"].Value = liquidacion.FechaAfipLiquidacion == null ? string.Empty : liquidacion.FechaAfipLiquidacion.Value.ToShortDateString();
+            reporte.Parameters["nroComprobante"].Value = liquidacion.NumAfipLiquidacion == null ? 
+                string.Empty : liquidacion.NumAfipLiquidacion;
+            reporte.Parameters["fechaEmision"].Value = liquidacion.FechaAfipLiquidacion == null ? 
+                string.Empty : liquidacion.FechaAfipLiquidacion.Value.ToShortDateString();
             reporte.Parameters["cuitEmpresa"].Value = DevConstantes.CuitEmpresa;
             reporte.Parameters["iibb"].Value = DevConstantes.IIBB;
             reporte.Parameters["ines"].Value = DevConstantes.Ines;
             reporte.Parameters["inicioActividades"].Value = DevConstantes.InicioActividades;
-           reporte.Parameters["fechaEmision"].Value = liquidacion.FechaInternaLiquidacion == null ? string.Empty : liquidacion.FechaInternaLiquidacion.Value.ToShortDateString();
+            reporte.Parameters["fechaEmision"].Value = liquidacion.FechaInternaLiquidacion == null ? 
+                string.Empty : liquidacion.FechaInternaLiquidacion.Value.ToShortDateString();
            
-
             #endregion
 
             #region Parametros Datos Productor
@@ -735,8 +736,10 @@ namespace CooperativaProduccion
                 .Where(x => x.ID == liquidacion.ProductorId)
                 .FirstOrDefault();
 
-            reporte.Parameters["domicilio"].Value = productor.DOMICILIO == null ? string.Empty : productor.DOMICILIO;
-            reporte.Parameters["provincia"].Value = productor.Provincia == null ? string.Empty : productor.Provincia;
+            reporte.Parameters["domicilio"].Value = productor.DOMICILIO == null ? 
+                string.Empty : productor.DOMICILIO;
+            reporte.Parameters["provincia"].Value = productor.Provincia == null ? 
+                string.Empty : productor.Provincia;
          
             if (productor.IVA == DevConstantes.MTS)
             {
@@ -754,9 +757,12 @@ namespace CooperativaProduccion
             {
                 reporte.Parameters["iva"].Value = DevConstantes.TrabajadorPromovido;
             }
-            reporte.Parameters["fet"].Value = productor.nrofet == null ? string.Empty : productor.nrofet;
-            reporte.Parameters["localidad"].Value = productor.CALLE == null ? string.Empty : productor.CALLE;
-            reporte.Parameters["cuitProductor"].Value = productor.CUIT == null ? string.Empty : productor.CUIT;
+            reporte.Parameters["fet"].Value = productor.nrofet == null ? 
+                string.Empty : productor.nrofet;
+            reporte.Parameters["localidad"].Value = productor.CALLE == null ? 
+                string.Empty : productor.CALLE;
+            reporte.Parameters["cuitProductor"].Value = productor.CUIT == null ? 
+                string.Empty : productor.CUIT;
 
             #endregion
 
@@ -772,7 +778,8 @@ namespace CooperativaProduccion
                     .FirstOrDefault();
                 if (clase != null)
                 {
-                    reporte.Parameters["numRomaneo"].Value = clase.DESCRIPCION + " - ROMANEO N°:" + liquidacion.NumRomaneo;
+                    reporte.Parameters["numRomaneo"].Value = clase.DESCRIPCION 
+                        + " - ROMANEO N°:" + liquidacion.NumRomaneo;
                 }
             }
             #endregion
@@ -939,128 +946,6 @@ namespace CooperativaProduccion
 
         #endregion
    
-        private void LiquidacionExportToXLS()
-        {
-            string fileName = string.Empty;
-
-            string path = @"C:\SystemDocumentsCooperativa";
-
-            CreateIfMissing(path);
-
-            path = @"C:\SystemDocumentsCooperativa\ResumenLiquidacion";
-
-            CreateIfMissing(path);
-
-            if (cbTabaco.Text == DevConstantes.TabacoVirginia)
-            {
-                path = @"C:\SystemDocumentsCooperativa\ResumenLiquidacion\ResumenLiquidacionVirginia";
-
-                CreateIfMissing(path);
-
-                var Hora = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff",
-                  CultureInfo.InvariantCulture).Replace(":", "").Replace(".", "")
-                  .Replace("-", "").Replace(" ", "");
-
-                fileName = @"C:\SystemDocumentsCooperativa\ResumenLiquidacion\ResumenLiquidacionVirginia"
-                    + Hora + " - ResumenLiquidacionVirginia.xls";
-            }
-            else if (cbTabaco.Text == DevConstantes.TabacoBurley)
-            {
-                path = @"C:\SystemDocumentsCooperativa\ResumenLiquidacion\ResumenLiquidacionBurley";
-
-                CreateIfMissing(path);
-
-                var Hora = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff",
-                  CultureInfo.InvariantCulture).Replace(":", "").Replace(".", "")
-                  .Replace("-", "").Replace(" ", "");
-
-                fileName = @"C:\SystemDocumentsCooperativa\ResumenLiquidacion\ResumenLiquidacionBurley"
-                    + Hora + " - ResumenLiquidacionBurley.xls";
-            }
-
-            // Create a report instance.
-            var reporte = new ResumenLiquidacionReport();
-
-            reporte.Parameters["cabecera"].Value = "RESUMEN DE LIQUIDACIONES - " + cbTabaco.Text
-                + " - CAMPAÑA " + dpDesdeRomaneo.Value.Year + " - MES DE "
-                + MonthName(dpDesdeRomaneo.Value.Month).ToUpper() + " - PROVINCIA DE TUCUMAN.-";
-
-            List<RegistroResumenLiquidacion> datasourceLiquidacion;
-            datasourceLiquidacion = GenerarReporteResumenLiquidacion();
-            reporte.DataSource = datasourceLiquidacion;
-
-            // Get its XLS export options.
-            XlsExportOptions xlsOptions = reporte.ExportOptions.Xls;
-
-            // Set XLS-specific export options.
-            xlsOptions.ShowGridLines = true;
-            xlsOptions.TextExportMode = TextExportMode.Value;
-
-            // Export the report to XLS.
-            reporte.ExportToXls(fileName);
-
-            // Show the result.
-            StartProcess(fileName);
-        }
-
-        private List<RegistroResumenLiquidacion> GenerarReporteResumenLiquidacion()
-        {
-            Expression<Func<Vw_Romaneo, bool>> pred = x => true;
-
-            pred = pred.And(x => x.FechaInternaLiquidacion >= dpDesdeLiquidacion.Value.Date
-                && x.FechaInternaLiquidacion <= dpHastaLiquidacion.Value.Date);
-
-            pred = !string.IsNullOrEmpty(cbTabaco.Text) ? pred.And(x => x.Tabaco == cbTabaco.Text) : pred;
-
-            pred = pred.And(x => x.NumInternoLiquidacion != null);
- 
-            List<RegistroResumenLiquidacion> datasource = new List<RegistroResumenLiquidacion>();
-            
-            var resumenLiquidacion = Context.Vw_Romaneo
-                .Where(pred)
-                .OrderBy(x => x.NumInternoLiquidacion)
-                .ToList();
-
-            foreach (var resumen in resumenLiquidacion)
-            {
-                RegistroResumenLiquidacion registro = new RegistroResumenLiquidacion();
-                registro.FechaInternaLiquidacion = resumen.FechaInternaLiquidacion.Value.ToShortDateString();
-                registro.nrofet = resumen.nrofet;
-                registro.NOMBRE = resumen.NOMBRE;
-                registro.CUIT = resumen.CUIT;
-
-                if (resumen.IVA == DevConstantes.MTS)
-                {
-                    registro.IVA = DevConstantes.MonotributoSocial;
-                }
-                else if (resumen.IVA == DevConstantes.MT)
-                {
-                    registro.IVA = DevConstantes.Monotributo;
-                }
-                else if (resumen.IVA == DevConstantes.RI)
-                {
-                    registro.IVA = DevConstantes.ResponsableInscripto;
-                }
-                else if (resumen.IVA == DevConstantes.TP)
-                {
-                    registro.IVA = DevConstantes.TrabajadorPromovido;
-                }
-                
-                registro.TC = DevConstantes.LI;
-                registro.Letra = resumen.Letra;
-                registro.PuntoVentaLiquidacion = resumen.PuntoVentaLiquidacion.Value.ToString();
-                registro.NumInternoLiquidacion = resumen.NumInternoLiquidacion.Value.ToString();
-                registro.TotalKg = resumen.TotalKg.Value.ToString();
-                registro.ImporteNeto = resumen.ImporteNeto.Value.ToString();
-                registro.IvaCalculado = resumen.IvaCalculado.Value.ToString();
-                registro.ImporteBruto = resumen.ImporteBruto.Value.ToString();
-                          
-                datasource.Add(registro);
-            }
-            return datasource;
-        
-        }
-
         private void CreateIfMissing(string path)
         {
             try
@@ -1091,12 +976,6 @@ namespace CooperativaProduccion
             }
         }
       
-        public string MonthName(int month)
-        {
-            DateTimeFormatInfo dtinfo = new CultureInfo("es-ES", false).DateTimeFormat;
-            return dtinfo.GetMonthName(month).ToUpper();
-        }
-
         private void btnSubirAfip_Click(object sender, EventArgs e)
         {
             var resultado = MessageBox.Show("¿Desea subir estos registros a afip?",
@@ -1112,7 +991,8 @@ namespace CooperativaProduccion
 
         private void ResumenLiquidacion_Click(object sender, EventArgs e)
         {
-            LiquidacionExportToXLS();
+            var filtro = new Form_RomaneoFiltroResumen(DevConstantes.Liquidacion);
+            filtro.Show();
         }
 
         private void btnPrevisualizarLiquidacionManual_Click(object sender, EventArgs e)

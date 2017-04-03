@@ -468,25 +468,25 @@ namespace CooperativaProduccion
 
         private void btnResumenRomaneo_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var filtro = new Form_RomaneoFiltroResumenCompra(DevConstantes.ResumenRomaneo);
+            var filtro = new Form_RomaneoFiltroResumen(DevConstantes.ResumenRomaneo);
             filtro.Show();
         }
 
         private void btnResumenCompra_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var filtro = new Form_RomaneoFiltroResumenCompra(DevConstantes.ResumenCompra);
+            var filtro = new Form_RomaneoFiltroResumen(DevConstantes.ResumenCompra);
             filtro.Show();
         }
 
         private void btnResumenClasesMes_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var filtro = new Form_RomaneoFiltroResumenCompra(DevConstantes.ResumenClasesMes);
+            var filtro = new Form_RomaneoFiltroResumen(DevConstantes.ResumenClasesMes);
             filtro.Show();
         }
 
         private void btnResumenClasesTrimestre_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var filtro = new Form_RomaneoFiltroResumenCompra(DevConstantes.ResumenClasesTrimestre);
+            var filtro = new Form_RomaneoFiltroResumen(DevConstantes.ResumenClasesTrimestre);
             filtro.Show();
         }
 

@@ -90,20 +90,21 @@ namespace CooperativaProduccion
 
         private void gridViewInventarioDetalle_DoubleClick(object sender, EventArgs e)
         {
-            string deposito = gridViewInventario
-                   .GetRowCellValue(gridViewInventario.FocusedRowHandle, "Deposito")
-                   .ToString();
+            GridView detailView = sender as GridView;
+            int i = detailView.SourceRowHandle;
+           
+            string deposito = gridViewInventario.GetRowCellValue(i, "Deposito")
+                .ToString();
 
-            string producto = gridViewInventario
-                   .GetRowCellValue(gridViewInventario.FocusedRowHandle, "TipoTabaco")
-                   .ToString();
+            string producto = gridViewInventario.GetRowCellValue(i, "TipoTabaco")
+                .ToString();
 
             GridView parcial = sender as GridView;
             string item = parcial
                    .GetRowCellValue(parcial.FocusedRowHandle, "Clase")
                    .ToString();
 
-            var kardex = new Form_InventarioKardex(deposito,producto,item);
+            var kardex = new Form_InventarioKardex(deposito, producto, item);
             kardex.Show();
         }
 
@@ -186,7 +187,7 @@ namespace CooperativaProduccion
             {
                 var movimientoDetalle =
                     (from m in Context.Movimiento.Where(pred)
-                     join p in Context.Vw_Pesada.Where(pred2)
+                     join p in Context.Vw_Pesada.Where(x=> x.DESCRIPCION == movimiento.TipoTabaco)
                          on m.TransaccionId equals p.PesadaDetalleId
                      join d in Context.Vw_Deposito.Where(pred3)
                          on m.DepositoId equals d.id
