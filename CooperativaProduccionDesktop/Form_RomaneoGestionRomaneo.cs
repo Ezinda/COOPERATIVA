@@ -708,12 +708,20 @@ namespace CooperativaProduccion
             {
                 var encabezado = new Helpers.EncabezadoIngresoTabaco();
 
+                var calle = item.CalleProductor;
+
+                if (calle == null ||
+                    calle.Trim() == String.Empty)
+                {
+                    calle = "LA COCHA";
+                }
+
                 encabezado.CodigoDepositoAcopiador.Value = "1";
                 encabezado.CuitAdquirienteTabaco.Value = "33708194609";
                 encabezado.RazonSocialAdquirientetabaco.Value = "COOP. DE PROD. AGROP. DEL TUC.";
                 encabezado.CuitProductor.Value = item.CuitProductor;
                 encabezado.RazonSocialProductor.Value = item.RazonSocialProductor;
-                encabezado.Calle.Value = item.CalleProductor ?? "LA COCHA";
+                encabezado.Calle.Value = calle;
                 encabezado.NumeroPuerta.Value = "0000";
                 encabezado.Piso.Value = String.Empty;
                 encabezado.OficinaDptoLocal.Value = String.Empty;
@@ -721,10 +729,10 @@ namespace CooperativaProduccion
                 encabezado.Torre.Value = String.Empty;
                 encabezado.Manzana.Value = String.Empty;
                 encabezado.CodigoPostal.Value = "4000";
-                encabezado.Localidad.Value = item.CalleProductor ?? "LA COCHA";
+                encabezado.Localidad.Value = calle;
                 encabezado.CodigoDeProvincia.Value = item.CodigoProvinciaProductor;
                 encabezado.CodigoDeProvinciaTabaco.Value = item.CodigoProvinciaProductor;
-                encabezado.LocalidadTabaco.Value = item.CalleProductor ?? "LA COCHA";
+                encabezado.LocalidadTabaco.Value = calle;
                 encabezado.FechaRomaneo.Value = encabezado.FechaRomaneo.Formatter.GetFormattedValue(item.FechaRomaneo);
                 encabezado.NumeroRomaneo.Value = item.NumeroRomaneo.ToString();
                 encabezado.VariedadTabaco.Value = item.VariedadTabaco;
