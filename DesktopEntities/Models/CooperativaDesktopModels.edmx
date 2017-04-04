@@ -589,33 +589,33 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenRomaneoBurley'
           <Key>
             <PropertyRef Name="PesadaId" />
             <PropertyRef Name="provincia" />
+            <PropertyRef Name="T1F" />
+            <PropertyRef Name="T1FR" />
             <PropertyRef Name="B1F" />
             <PropertyRef Name="B1FR" />
+            <PropertyRef Name="C1L" />
+            <PropertyRef Name="C1F" />
+            <PropertyRef Name="X1L" />
+            <PropertyRef Name="X1F" />
+            <PropertyRef Name="T2F" />
+            <PropertyRef Name="T2FR" />
             <PropertyRef Name="B2F" />
             <PropertyRef Name="B2FR" />
+            <PropertyRef Name="C2L" />
+            <PropertyRef Name="C2F" />
+            <PropertyRef Name="X2L" />
+            <PropertyRef Name="X2F" />
+            <PropertyRef Name="T3K" />
+            <PropertyRef Name="C3L" />
+            <PropertyRef Name="C3F" />
+            <PropertyRef Name="C3K" />
+            <PropertyRef Name="X3K" />
             <PropertyRef Name="B3F" />
             <PropertyRef Name="B3FR" />
             <PropertyRef Name="B3K" />
-            <PropertyRef Name="C1F" />
-            <PropertyRef Name="C1L" />
-            <PropertyRef Name="C2F" />
-            <PropertyRef Name="C2L" />
-            <PropertyRef Name="C3F" />
-            <PropertyRef Name="C3K" />
-            <PropertyRef Name="C3L" />
-            <PropertyRef Name="NB" />
             <PropertyRef Name="NG" />
             <PropertyRef Name="NX" />
-            <PropertyRef Name="T1F" />
-            <PropertyRef Name="T1FR" />
-            <PropertyRef Name="T2F" />
-            <PropertyRef Name="T2FR" />
-            <PropertyRef Name="T3K" />
-            <PropertyRef Name="X1F" />
-            <PropertyRef Name="X1L" />
-            <PropertyRef Name="X2F" />
-            <PropertyRef Name="X2L" />
-            <PropertyRef Name="X3K" />
+            <PropertyRef Name="NB" />
           </Key>
           <Property Name="PesadaId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="fechaRomaneo" Type="date" />
@@ -624,33 +624,33 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenRomaneoBurley'
           <Property Name="provincia" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="cuit" Type="varchar" MaxLength="40" />
           <Property Name="fet" Type="varchar" MaxLength="30" />
+          <Property Name="T1F" Type="float" Nullable="false" />
+          <Property Name="T1FR" Type="float" Nullable="false" />
           <Property Name="B1F" Type="float" Nullable="false" />
           <Property Name="B1FR" Type="float" Nullable="false" />
+          <Property Name="C1L" Type="float" Nullable="false" />
+          <Property Name="C1F" Type="float" Nullable="false" />
+          <Property Name="X1L" Type="float" Nullable="false" />
+          <Property Name="X1F" Type="float" Nullable="false" />
+          <Property Name="T2F" Type="float" Nullable="false" />
+          <Property Name="T2FR" Type="float" Nullable="false" />
           <Property Name="B2F" Type="float" Nullable="false" />
           <Property Name="B2FR" Type="float" Nullable="false" />
+          <Property Name="C2L" Type="float" Nullable="false" />
+          <Property Name="C2F" Type="float" Nullable="false" />
+          <Property Name="X2L" Type="float" Nullable="false" />
+          <Property Name="X2F" Type="float" Nullable="false" />
+          <Property Name="T3K" Type="float" Nullable="false" />
+          <Property Name="C3L" Type="float" Nullable="false" />
+          <Property Name="C3F" Type="float" Nullable="false" />
+          <Property Name="C3K" Type="float" Nullable="false" />
+          <Property Name="X3K" Type="float" Nullable="false" />
           <Property Name="B3F" Type="float" Nullable="false" />
           <Property Name="B3FR" Type="float" Nullable="false" />
           <Property Name="B3K" Type="float" Nullable="false" />
-          <Property Name="C1F" Type="float" Nullable="false" />
-          <Property Name="C1L" Type="float" Nullable="false" />
-          <Property Name="C2F" Type="float" Nullable="false" />
-          <Property Name="C2L" Type="float" Nullable="false" />
-          <Property Name="C3F" Type="float" Nullable="false" />
-          <Property Name="C3K" Type="float" Nullable="false" />
-          <Property Name="C3L" Type="float" Nullable="false" />
-          <Property Name="NB" Type="float" Nullable="false" />
           <Property Name="NG" Type="float" Nullable="false" />
           <Property Name="NX" Type="float" Nullable="false" />
-          <Property Name="T1F" Type="float" Nullable="false" />
-          <Property Name="T1FR" Type="float" Nullable="false" />
-          <Property Name="T2F" Type="float" Nullable="false" />
-          <Property Name="T2FR" Type="float" Nullable="false" />
-          <Property Name="T3K" Type="float" Nullable="false" />
-          <Property Name="X1F" Type="float" Nullable="false" />
-          <Property Name="X1L" Type="float" Nullable="false" />
-          <Property Name="X2F" Type="float" Nullable="false" />
-          <Property Name="X2L" Type="float" Nullable="false" />
-          <Property Name="X3K" Type="float" Nullable="false" />
+          <Property Name="NB" Type="float" Nullable="false" />
           <Property Name="Totalkg" Type="float" />
           <Property Name="Importebruto" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
@@ -673,54 +673,54 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenRomaneoVirgini
           <Key>
             <PropertyRef Name="PesadaId" />
             <PropertyRef Name="provincia" />
+            <PropertyRef Name="T1F" />
+            <PropertyRef Name="T1L" />
             <PropertyRef Name="B1F" />
             <PropertyRef Name="B1L" />
-            <PropertyRef Name="B2F" />
-            <PropertyRef Name="B2KF" />
-            <PropertyRef Name="B2KL" />
-            <PropertyRef Name="B2L" />
-            <PropertyRef Name="B3F" />
-            <PropertyRef Name="B3KF" />
-            <PropertyRef Name="B3KL" />
-            <PropertyRef Name="B3L" />
-            <PropertyRef Name="B4F" />
-            <PropertyRef Name="B4L" />
             <PropertyRef Name="C1F" />
             <PropertyRef Name="C1L" />
+            <PropertyRef Name="X1F" />
+            <PropertyRef Name="X1L" />
+            <PropertyRef Name="T2F" />
+            <PropertyRef Name="T2L" />
+            <PropertyRef Name="T2KL" />
+            <PropertyRef Name="T2KF" />
+            <PropertyRef Name="B2F" />
+            <PropertyRef Name="B2L" />
+            <PropertyRef Name="B2KL" />
+            <PropertyRef Name="B2KF" />
             <PropertyRef Name="C2F" />
-            <PropertyRef Name="C2K" />
             <PropertyRef Name="C2L" />
+            <PropertyRef Name="C2K" />
+            <PropertyRef Name="X2F" />
+            <PropertyRef Name="X2L" />
+            <PropertyRef Name="X2K" />
+            <PropertyRef Name="B3F" />
+            <PropertyRef Name="B3L" />
+            <PropertyRef Name="B3KL" />
+            <PropertyRef Name="B3KF" />
             <PropertyRef Name="C3F" />
-            <PropertyRef Name="C3K" />
             <PropertyRef Name="C3L" />
+            <PropertyRef Name="C3K" />
+            <PropertyRef Name="X3F" />
+            <PropertyRef Name="X3L" />
+            <PropertyRef Name="X3K" />
+            <PropertyRef Name="B4F" />
+            <PropertyRef Name="B4L" />
             <PropertyRef Name="C4F" />
             <PropertyRef Name="C4L" />
+            <PropertyRef Name="X4F" />
+            <PropertyRef Name="X4L" />
+            <PropertyRef Name="NVX" />
+            <PropertyRef Name="NVC" />
+            <PropertyRef Name="NVB" />
+            <PropertyRef Name="N5K" />
+            <PropertyRef Name="N5X" />
+            <PropertyRef Name="N5C" />
+            <PropertyRef Name="N5B" />
             <PropertyRef Name="H1F" />
             <PropertyRef Name="H2F" />
             <PropertyRef Name="H3F" />
-            <PropertyRef Name="N5B" />
-            <PropertyRef Name="N5C" />
-            <PropertyRef Name="N5K" />
-            <PropertyRef Name="N5X" />
-            <PropertyRef Name="NVB" />
-            <PropertyRef Name="NVC" />
-            <PropertyRef Name="NVX" />
-            <PropertyRef Name="T1F" />
-            <PropertyRef Name="T1L" />
-            <PropertyRef Name="T2F" />
-            <PropertyRef Name="T2KF" />
-            <PropertyRef Name="T2KL" />
-            <PropertyRef Name="T2L" />
-            <PropertyRef Name="X1F" />
-            <PropertyRef Name="X1L" />
-            <PropertyRef Name="X2F" />
-            <PropertyRef Name="X2K" />
-            <PropertyRef Name="X2L" />
-            <PropertyRef Name="X3F" />
-            <PropertyRef Name="X3K" />
-            <PropertyRef Name="X3L" />
-            <PropertyRef Name="X4F" />
-            <PropertyRef Name="X4L" />
           </Key>
           <Property Name="PesadaId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="fechaRomaneo" Type="date" />
@@ -729,54 +729,54 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenRomaneoVirgini
           <Property Name="provincia" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="cuit" Type="varchar" MaxLength="40" />
           <Property Name="fet" Type="varchar" MaxLength="30" />
+          <Property Name="T1F" Type="float" Nullable="false" />
+          <Property Name="T1L" Type="float" Nullable="false" />
           <Property Name="B1F" Type="float" Nullable="false" />
           <Property Name="B1L" Type="float" Nullable="false" />
-          <Property Name="B2F" Type="float" Nullable="false" />
-          <Property Name="B2KF" Type="float" Nullable="false" />
-          <Property Name="B2KL" Type="float" Nullable="false" />
-          <Property Name="B2L" Type="float" Nullable="false" />
-          <Property Name="B3F" Type="float" Nullable="false" />
-          <Property Name="B3KF" Type="float" Nullable="false" />
-          <Property Name="B3KL" Type="float" Nullable="false" />
-          <Property Name="B3L" Type="float" Nullable="false" />
-          <Property Name="B4F" Type="float" Nullable="false" />
-          <Property Name="B4L" Type="float" Nullable="false" />
           <Property Name="C1F" Type="float" Nullable="false" />
           <Property Name="C1L" Type="float" Nullable="false" />
+          <Property Name="X1F" Type="float" Nullable="false" />
+          <Property Name="X1L" Type="float" Nullable="false" />
+          <Property Name="T2F" Type="float" Nullable="false" />
+          <Property Name="T2L" Type="float" Nullable="false" />
+          <Property Name="T2KL" Type="float" Nullable="false" />
+          <Property Name="T2KF" Type="float" Nullable="false" />
+          <Property Name="B2F" Type="float" Nullable="false" />
+          <Property Name="B2L" Type="float" Nullable="false" />
+          <Property Name="B2KL" Type="float" Nullable="false" />
+          <Property Name="B2KF" Type="float" Nullable="false" />
           <Property Name="C2F" Type="float" Nullable="false" />
-          <Property Name="C2K" Type="float" Nullable="false" />
           <Property Name="C2L" Type="float" Nullable="false" />
+          <Property Name="C2K" Type="float" Nullable="false" />
+          <Property Name="X2F" Type="float" Nullable="false" />
+          <Property Name="X2L" Type="float" Nullable="false" />
+          <Property Name="X2K" Type="float" Nullable="false" />
+          <Property Name="B3F" Type="float" Nullable="false" />
+          <Property Name="B3L" Type="float" Nullable="false" />
+          <Property Name="B3KL" Type="float" Nullable="false" />
+          <Property Name="B3KF" Type="float" Nullable="false" />
           <Property Name="C3F" Type="float" Nullable="false" />
-          <Property Name="C3K" Type="float" Nullable="false" />
           <Property Name="C3L" Type="float" Nullable="false" />
+          <Property Name="C3K" Type="float" Nullable="false" />
+          <Property Name="X3F" Type="float" Nullable="false" />
+          <Property Name="X3L" Type="float" Nullable="false" />
+          <Property Name="X3K" Type="float" Nullable="false" />
+          <Property Name="B4F" Type="float" Nullable="false" />
+          <Property Name="B4L" Type="float" Nullable="false" />
           <Property Name="C4F" Type="float" Nullable="false" />
           <Property Name="C4L" Type="float" Nullable="false" />
+          <Property Name="X4F" Type="float" Nullable="false" />
+          <Property Name="X4L" Type="float" Nullable="false" />
+          <Property Name="NVX" Type="float" Nullable="false" />
+          <Property Name="NVC" Type="float" Nullable="false" />
+          <Property Name="NVB" Type="float" Nullable="false" />
+          <Property Name="N5K" Type="float" Nullable="false" />
+          <Property Name="N5X" Type="float" Nullable="false" />
+          <Property Name="N5C" Type="float" Nullable="false" />
+          <Property Name="N5B" Type="float" Nullable="false" />
           <Property Name="H1F" Type="float" Nullable="false" />
           <Property Name="H2F" Type="float" Nullable="false" />
           <Property Name="H3F" Type="float" Nullable="false" />
-          <Property Name="N5B" Type="float" Nullable="false" />
-          <Property Name="N5C" Type="float" Nullable="false" />
-          <Property Name="N5K" Type="float" Nullable="false" />
-          <Property Name="N5X" Type="float" Nullable="false" />
-          <Property Name="NVB" Type="float" Nullable="false" />
-          <Property Name="NVC" Type="float" Nullable="false" />
-          <Property Name="NVX" Type="float" Nullable="false" />
-          <Property Name="T1F" Type="float" Nullable="false" />
-          <Property Name="T1L" Type="float" Nullable="false" />
-          <Property Name="T2F" Type="float" Nullable="false" />
-          <Property Name="T2KF" Type="float" Nullable="false" />
-          <Property Name="T2KL" Type="float" Nullable="false" />
-          <Property Name="T2L" Type="float" Nullable="false" />
-          <Property Name="X1F" Type="float" Nullable="false" />
-          <Property Name="X1L" Type="float" Nullable="false" />
-          <Property Name="X2F" Type="float" Nullable="false" />
-          <Property Name="X2K" Type="float" Nullable="false" />
-          <Property Name="X2L" Type="float" Nullable="false" />
-          <Property Name="X3F" Type="float" Nullable="false" />
-          <Property Name="X3K" Type="float" Nullable="false" />
-          <Property Name="X3L" Type="float" Nullable="false" />
-          <Property Name="X4F" Type="float" Nullable="false" />
-          <Property Name="X4L" Type="float" Nullable="false" />
           <Property Name="Totalkg" Type="float" />
           <Property Name="Importebruto" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
@@ -1193,33 +1193,33 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_TipoTabaco' does not 
     [Vw_ResumenRomaneoBurley].[provincia] AS [provincia], 
     [Vw_ResumenRomaneoBurley].[cuit] AS [cuit], 
     [Vw_ResumenRomaneoBurley].[fet] AS [fet], 
+    [Vw_ResumenRomaneoBurley].[T1F] AS [T1F], 
+    [Vw_ResumenRomaneoBurley].[T1FR] AS [T1FR], 
     [Vw_ResumenRomaneoBurley].[B1F] AS [B1F], 
     [Vw_ResumenRomaneoBurley].[B1FR] AS [B1FR], 
+    [Vw_ResumenRomaneoBurley].[C1L] AS [C1L], 
+    [Vw_ResumenRomaneoBurley].[C1F] AS [C1F], 
+    [Vw_ResumenRomaneoBurley].[X1L] AS [X1L], 
+    [Vw_ResumenRomaneoBurley].[X1F] AS [X1F], 
+    [Vw_ResumenRomaneoBurley].[T2F] AS [T2F], 
+    [Vw_ResumenRomaneoBurley].[T2FR] AS [T2FR], 
     [Vw_ResumenRomaneoBurley].[B2F] AS [B2F], 
     [Vw_ResumenRomaneoBurley].[B2FR] AS [B2FR], 
+    [Vw_ResumenRomaneoBurley].[C2L] AS [C2L], 
+    [Vw_ResumenRomaneoBurley].[C2F] AS [C2F], 
+    [Vw_ResumenRomaneoBurley].[X2L] AS [X2L], 
+    [Vw_ResumenRomaneoBurley].[X2F] AS [X2F], 
+    [Vw_ResumenRomaneoBurley].[T3K] AS [T3K], 
+    [Vw_ResumenRomaneoBurley].[C3L] AS [C3L], 
+    [Vw_ResumenRomaneoBurley].[C3F] AS [C3F], 
+    [Vw_ResumenRomaneoBurley].[C3K] AS [C3K], 
+    [Vw_ResumenRomaneoBurley].[X3K] AS [X3K], 
     [Vw_ResumenRomaneoBurley].[B3F] AS [B3F], 
     [Vw_ResumenRomaneoBurley].[B3FR] AS [B3FR], 
     [Vw_ResumenRomaneoBurley].[B3K] AS [B3K], 
-    [Vw_ResumenRomaneoBurley].[C1F] AS [C1F], 
-    [Vw_ResumenRomaneoBurley].[C1L] AS [C1L], 
-    [Vw_ResumenRomaneoBurley].[C2F] AS [C2F], 
-    [Vw_ResumenRomaneoBurley].[C2L] AS [C2L], 
-    [Vw_ResumenRomaneoBurley].[C3F] AS [C3F], 
-    [Vw_ResumenRomaneoBurley].[C3K] AS [C3K], 
-    [Vw_ResumenRomaneoBurley].[C3L] AS [C3L], 
-    [Vw_ResumenRomaneoBurley].[NB] AS [NB], 
     [Vw_ResumenRomaneoBurley].[NG] AS [NG], 
     [Vw_ResumenRomaneoBurley].[NX] AS [NX], 
-    [Vw_ResumenRomaneoBurley].[T1F] AS [T1F], 
-    [Vw_ResumenRomaneoBurley].[T1FR] AS [T1FR], 
-    [Vw_ResumenRomaneoBurley].[T2F] AS [T2F], 
-    [Vw_ResumenRomaneoBurley].[T2FR] AS [T2FR], 
-    [Vw_ResumenRomaneoBurley].[T3K] AS [T3K], 
-    [Vw_ResumenRomaneoBurley].[X1F] AS [X1F], 
-    [Vw_ResumenRomaneoBurley].[X1L] AS [X1L], 
-    [Vw_ResumenRomaneoBurley].[X2F] AS [X2F], 
-    [Vw_ResumenRomaneoBurley].[X2L] AS [X2L], 
-    [Vw_ResumenRomaneoBurley].[X3K] AS [X3K], 
+    [Vw_ResumenRomaneoBurley].[NB] AS [NB], 
     [Vw_ResumenRomaneoBurley].[Totalkg] AS [Totalkg], 
     [Vw_ResumenRomaneoBurley].[Importebruto] AS [Importebruto]
     FROM [dbo].[Vw_ResumenRomaneoBurley] AS [Vw_ResumenRomaneoBurley]</DefiningQuery>
@@ -1243,54 +1243,54 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_TipoTabaco' does not 
     [Vw_ResumenRomaneoVirginia].[provincia] AS [provincia], 
     [Vw_ResumenRomaneoVirginia].[cuit] AS [cuit], 
     [Vw_ResumenRomaneoVirginia].[fet] AS [fet], 
+    [Vw_ResumenRomaneoVirginia].[T1F] AS [T1F], 
+    [Vw_ResumenRomaneoVirginia].[T1L] AS [T1L], 
     [Vw_ResumenRomaneoVirginia].[B1F] AS [B1F], 
     [Vw_ResumenRomaneoVirginia].[B1L] AS [B1L], 
-    [Vw_ResumenRomaneoVirginia].[B2F] AS [B2F], 
-    [Vw_ResumenRomaneoVirginia].[B2KF] AS [B2KF], 
-    [Vw_ResumenRomaneoVirginia].[B2KL] AS [B2KL], 
-    [Vw_ResumenRomaneoVirginia].[B2L] AS [B2L], 
-    [Vw_ResumenRomaneoVirginia].[B3F] AS [B3F], 
-    [Vw_ResumenRomaneoVirginia].[B3KF] AS [B3KF], 
-    [Vw_ResumenRomaneoVirginia].[B3KL] AS [B3KL], 
-    [Vw_ResumenRomaneoVirginia].[B3L] AS [B3L], 
-    [Vw_ResumenRomaneoVirginia].[B4F] AS [B4F], 
-    [Vw_ResumenRomaneoVirginia].[B4L] AS [B4L], 
     [Vw_ResumenRomaneoVirginia].[C1F] AS [C1F], 
     [Vw_ResumenRomaneoVirginia].[C1L] AS [C1L], 
+    [Vw_ResumenRomaneoVirginia].[X1F] AS [X1F], 
+    [Vw_ResumenRomaneoVirginia].[X1L] AS [X1L], 
+    [Vw_ResumenRomaneoVirginia].[T2F] AS [T2F], 
+    [Vw_ResumenRomaneoVirginia].[T2L] AS [T2L], 
+    [Vw_ResumenRomaneoVirginia].[T2KL] AS [T2KL], 
+    [Vw_ResumenRomaneoVirginia].[T2KF] AS [T2KF], 
+    [Vw_ResumenRomaneoVirginia].[B2F] AS [B2F], 
+    [Vw_ResumenRomaneoVirginia].[B2L] AS [B2L], 
+    [Vw_ResumenRomaneoVirginia].[B2KL] AS [B2KL], 
+    [Vw_ResumenRomaneoVirginia].[B2KF] AS [B2KF], 
     [Vw_ResumenRomaneoVirginia].[C2F] AS [C2F], 
-    [Vw_ResumenRomaneoVirginia].[C2K] AS [C2K], 
     [Vw_ResumenRomaneoVirginia].[C2L] AS [C2L], 
+    [Vw_ResumenRomaneoVirginia].[C2K] AS [C2K], 
+    [Vw_ResumenRomaneoVirginia].[X2F] AS [X2F], 
+    [Vw_ResumenRomaneoVirginia].[X2L] AS [X2L], 
+    [Vw_ResumenRomaneoVirginia].[X2K] AS [X2K], 
+    [Vw_ResumenRomaneoVirginia].[B3F] AS [B3F], 
+    [Vw_ResumenRomaneoVirginia].[B3L] AS [B3L], 
+    [Vw_ResumenRomaneoVirginia].[B3KL] AS [B3KL], 
+    [Vw_ResumenRomaneoVirginia].[B3KF] AS [B3KF], 
     [Vw_ResumenRomaneoVirginia].[C3F] AS [C3F], 
-    [Vw_ResumenRomaneoVirginia].[C3K] AS [C3K], 
     [Vw_ResumenRomaneoVirginia].[C3L] AS [C3L], 
+    [Vw_ResumenRomaneoVirginia].[C3K] AS [C3K], 
+    [Vw_ResumenRomaneoVirginia].[X3F] AS [X3F], 
+    [Vw_ResumenRomaneoVirginia].[X3L] AS [X3L], 
+    [Vw_ResumenRomaneoVirginia].[X3K] AS [X3K], 
+    [Vw_ResumenRomaneoVirginia].[B4F] AS [B4F], 
+    [Vw_ResumenRomaneoVirginia].[B4L] AS [B4L], 
     [Vw_ResumenRomaneoVirginia].[C4F] AS [C4F], 
     [Vw_ResumenRomaneoVirginia].[C4L] AS [C4L], 
+    [Vw_ResumenRomaneoVirginia].[X4F] AS [X4F], 
+    [Vw_ResumenRomaneoVirginia].[X4L] AS [X4L], 
+    [Vw_ResumenRomaneoVirginia].[NVX] AS [NVX], 
+    [Vw_ResumenRomaneoVirginia].[NVC] AS [NVC], 
+    [Vw_ResumenRomaneoVirginia].[NVB] AS [NVB], 
+    [Vw_ResumenRomaneoVirginia].[N5K] AS [N5K], 
+    [Vw_ResumenRomaneoVirginia].[N5X] AS [N5X], 
+    [Vw_ResumenRomaneoVirginia].[N5C] AS [N5C], 
+    [Vw_ResumenRomaneoVirginia].[N5B] AS [N5B], 
     [Vw_ResumenRomaneoVirginia].[H1F] AS [H1F], 
     [Vw_ResumenRomaneoVirginia].[H2F] AS [H2F], 
     [Vw_ResumenRomaneoVirginia].[H3F] AS [H3F], 
-    [Vw_ResumenRomaneoVirginia].[N5B] AS [N5B], 
-    [Vw_ResumenRomaneoVirginia].[N5C] AS [N5C], 
-    [Vw_ResumenRomaneoVirginia].[N5K] AS [N5K], 
-    [Vw_ResumenRomaneoVirginia].[N5X] AS [N5X], 
-    [Vw_ResumenRomaneoVirginia].[NVB] AS [NVB], 
-    [Vw_ResumenRomaneoVirginia].[NVC] AS [NVC], 
-    [Vw_ResumenRomaneoVirginia].[NVX] AS [NVX], 
-    [Vw_ResumenRomaneoVirginia].[T1F] AS [T1F], 
-    [Vw_ResumenRomaneoVirginia].[T1L] AS [T1L], 
-    [Vw_ResumenRomaneoVirginia].[T2F] AS [T2F], 
-    [Vw_ResumenRomaneoVirginia].[T2KF] AS [T2KF], 
-    [Vw_ResumenRomaneoVirginia].[T2KL] AS [T2KL], 
-    [Vw_ResumenRomaneoVirginia].[T2L] AS [T2L], 
-    [Vw_ResumenRomaneoVirginia].[X1F] AS [X1F], 
-    [Vw_ResumenRomaneoVirginia].[X1L] AS [X1L], 
-    [Vw_ResumenRomaneoVirginia].[X2F] AS [X2F], 
-    [Vw_ResumenRomaneoVirginia].[X2K] AS [X2K], 
-    [Vw_ResumenRomaneoVirginia].[X2L] AS [X2L], 
-    [Vw_ResumenRomaneoVirginia].[X3F] AS [X3F], 
-    [Vw_ResumenRomaneoVirginia].[X3K] AS [X3K], 
-    [Vw_ResumenRomaneoVirginia].[X3L] AS [X3L], 
-    [Vw_ResumenRomaneoVirginia].[X4F] AS [X4F], 
-    [Vw_ResumenRomaneoVirginia].[X4L] AS [X4L], 
     [Vw_ResumenRomaneoVirginia].[Totalkg] AS [Totalkg], 
     [Vw_ResumenRomaneoVirginia].[Importebruto] AS [Importebruto]
     FROM [dbo].[Vw_ResumenRomaneoVirginia] AS [Vw_ResumenRomaneoVirginia]</DefiningQuery>
@@ -2017,33 +2017,33 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_TipoTabaco' does not 
           <Key>
             <PropertyRef Name="PesadaId" />
             <PropertyRef Name="provincia" />
+            <PropertyRef Name="T1F" />
+            <PropertyRef Name="T1FR" />
             <PropertyRef Name="B1F" />
             <PropertyRef Name="B1FR" />
+            <PropertyRef Name="C1L" />
+            <PropertyRef Name="C1F" />
+            <PropertyRef Name="X1L" />
+            <PropertyRef Name="X1F" />
+            <PropertyRef Name="T2F" />
+            <PropertyRef Name="T2FR" />
             <PropertyRef Name="B2F" />
             <PropertyRef Name="B2FR" />
+            <PropertyRef Name="C2L" />
+            <PropertyRef Name="C2F" />
+            <PropertyRef Name="X2L" />
+            <PropertyRef Name="X2F" />
+            <PropertyRef Name="T3K" />
+            <PropertyRef Name="C3L" />
+            <PropertyRef Name="C3F" />
+            <PropertyRef Name="C3K" />
+            <PropertyRef Name="X3K" />
             <PropertyRef Name="B3F" />
             <PropertyRef Name="B3FR" />
             <PropertyRef Name="B3K" />
-            <PropertyRef Name="C1F" />
-            <PropertyRef Name="C1L" />
-            <PropertyRef Name="C2F" />
-            <PropertyRef Name="C2L" />
-            <PropertyRef Name="C3F" />
-            <PropertyRef Name="C3K" />
-            <PropertyRef Name="C3L" />
-            <PropertyRef Name="NB" />
             <PropertyRef Name="NG" />
             <PropertyRef Name="NX" />
-            <PropertyRef Name="T1F" />
-            <PropertyRef Name="T1FR" />
-            <PropertyRef Name="T2F" />
-            <PropertyRef Name="T2FR" />
-            <PropertyRef Name="T3K" />
-            <PropertyRef Name="X1F" />
-            <PropertyRef Name="X1L" />
-            <PropertyRef Name="X2F" />
-            <PropertyRef Name="X2L" />
-            <PropertyRef Name="X3K" />
+            <PropertyRef Name="NB" />
           </Key>
           <Property Name="PesadaId" Type="Guid" Nullable="false" />
           <Property Name="fechaRomaneo" Type="DateTime" Precision="0" />
@@ -2052,33 +2052,33 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_TipoTabaco' does not 
           <Property Name="provincia" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Name="cuit" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Name="fet" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="T1F" Type="Double" Nullable="false" />
+          <Property Name="T1FR" Type="Double" Nullable="false" />
           <Property Name="B1F" Type="Double" Nullable="false" />
           <Property Name="B1FR" Type="Double" Nullable="false" />
+          <Property Name="C1L" Type="Double" Nullable="false" />
+          <Property Name="C1F" Type="Double" Nullable="false" />
+          <Property Name="X1L" Type="Double" Nullable="false" />
+          <Property Name="X1F" Type="Double" Nullable="false" />
+          <Property Name="T2F" Type="Double" Nullable="false" />
+          <Property Name="T2FR" Type="Double" Nullable="false" />
           <Property Name="B2F" Type="Double" Nullable="false" />
           <Property Name="B2FR" Type="Double" Nullable="false" />
+          <Property Name="C2L" Type="Double" Nullable="false" />
+          <Property Name="C2F" Type="Double" Nullable="false" />
+          <Property Name="X2L" Type="Double" Nullable="false" />
+          <Property Name="X2F" Type="Double" Nullable="false" />
+          <Property Name="T3K" Type="Double" Nullable="false" />
+          <Property Name="C3L" Type="Double" Nullable="false" />
+          <Property Name="C3F" Type="Double" Nullable="false" />
+          <Property Name="C3K" Type="Double" Nullable="false" />
+          <Property Name="X3K" Type="Double" Nullable="false" />
           <Property Name="B3F" Type="Double" Nullable="false" />
           <Property Name="B3FR" Type="Double" Nullable="false" />
           <Property Name="B3K" Type="Double" Nullable="false" />
-          <Property Name="C1F" Type="Double" Nullable="false" />
-          <Property Name="C1L" Type="Double" Nullable="false" />
-          <Property Name="C2F" Type="Double" Nullable="false" />
-          <Property Name="C2L" Type="Double" Nullable="false" />
-          <Property Name="C3F" Type="Double" Nullable="false" />
-          <Property Name="C3K" Type="Double" Nullable="false" />
-          <Property Name="C3L" Type="Double" Nullable="false" />
-          <Property Name="NB" Type="Double" Nullable="false" />
           <Property Name="NG" Type="Double" Nullable="false" />
           <Property Name="NX" Type="Double" Nullable="false" />
-          <Property Name="T1F" Type="Double" Nullable="false" />
-          <Property Name="T1FR" Type="Double" Nullable="false" />
-          <Property Name="T2F" Type="Double" Nullable="false" />
-          <Property Name="T2FR" Type="Double" Nullable="false" />
-          <Property Name="T3K" Type="Double" Nullable="false" />
-          <Property Name="X1F" Type="Double" Nullable="false" />
-          <Property Name="X1L" Type="Double" Nullable="false" />
-          <Property Name="X2F" Type="Double" Nullable="false" />
-          <Property Name="X2L" Type="Double" Nullable="false" />
-          <Property Name="X3K" Type="Double" Nullable="false" />
+          <Property Name="NB" Type="Double" Nullable="false" />
           <Property Name="Totalkg" Type="Double" />
           <Property Name="Importebruto" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
@@ -2097,54 +2097,54 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_TipoTabaco' does not 
           <Key>
             <PropertyRef Name="PesadaId" />
             <PropertyRef Name="provincia" />
+            <PropertyRef Name="T1F" />
+            <PropertyRef Name="T1L" />
             <PropertyRef Name="B1F" />
             <PropertyRef Name="B1L" />
-            <PropertyRef Name="B2F" />
-            <PropertyRef Name="B2KF" />
-            <PropertyRef Name="B2KL" />
-            <PropertyRef Name="B2L" />
-            <PropertyRef Name="B3F" />
-            <PropertyRef Name="B3KF" />
-            <PropertyRef Name="B3KL" />
-            <PropertyRef Name="B3L" />
-            <PropertyRef Name="B4F" />
-            <PropertyRef Name="B4L" />
             <PropertyRef Name="C1F" />
             <PropertyRef Name="C1L" />
+            <PropertyRef Name="X1F" />
+            <PropertyRef Name="X1L" />
+            <PropertyRef Name="T2F" />
+            <PropertyRef Name="T2L" />
+            <PropertyRef Name="T2KL" />
+            <PropertyRef Name="T2KF" />
+            <PropertyRef Name="B2F" />
+            <PropertyRef Name="B2L" />
+            <PropertyRef Name="B2KL" />
+            <PropertyRef Name="B2KF" />
             <PropertyRef Name="C2F" />
-            <PropertyRef Name="C2K" />
             <PropertyRef Name="C2L" />
+            <PropertyRef Name="C2K" />
+            <PropertyRef Name="X2F" />
+            <PropertyRef Name="X2L" />
+            <PropertyRef Name="X2K" />
+            <PropertyRef Name="B3F" />
+            <PropertyRef Name="B3L" />
+            <PropertyRef Name="B3KL" />
+            <PropertyRef Name="B3KF" />
             <PropertyRef Name="C3F" />
-            <PropertyRef Name="C3K" />
             <PropertyRef Name="C3L" />
+            <PropertyRef Name="C3K" />
+            <PropertyRef Name="X3F" />
+            <PropertyRef Name="X3L" />
+            <PropertyRef Name="X3K" />
+            <PropertyRef Name="B4F" />
+            <PropertyRef Name="B4L" />
             <PropertyRef Name="C4F" />
             <PropertyRef Name="C4L" />
+            <PropertyRef Name="X4F" />
+            <PropertyRef Name="X4L" />
+            <PropertyRef Name="NVX" />
+            <PropertyRef Name="NVC" />
+            <PropertyRef Name="NVB" />
+            <PropertyRef Name="N5K" />
+            <PropertyRef Name="N5X" />
+            <PropertyRef Name="N5C" />
+            <PropertyRef Name="N5B" />
             <PropertyRef Name="H1F" />
             <PropertyRef Name="H2F" />
             <PropertyRef Name="H3F" />
-            <PropertyRef Name="N5B" />
-            <PropertyRef Name="N5C" />
-            <PropertyRef Name="N5K" />
-            <PropertyRef Name="N5X" />
-            <PropertyRef Name="NVB" />
-            <PropertyRef Name="NVC" />
-            <PropertyRef Name="NVX" />
-            <PropertyRef Name="T1F" />
-            <PropertyRef Name="T1L" />
-            <PropertyRef Name="T2F" />
-            <PropertyRef Name="T2KF" />
-            <PropertyRef Name="T2KL" />
-            <PropertyRef Name="T2L" />
-            <PropertyRef Name="X1F" />
-            <PropertyRef Name="X1L" />
-            <PropertyRef Name="X2F" />
-            <PropertyRef Name="X2K" />
-            <PropertyRef Name="X2L" />
-            <PropertyRef Name="X3F" />
-            <PropertyRef Name="X3K" />
-            <PropertyRef Name="X3L" />
-            <PropertyRef Name="X4F" />
-            <PropertyRef Name="X4L" />
           </Key>
           <Property Name="PesadaId" Type="Guid" Nullable="false" />
           <Property Name="fechaRomaneo" Type="DateTime" Precision="0" />
@@ -2153,54 +2153,54 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_TipoTabaco' does not 
           <Property Name="provincia" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Name="cuit" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Name="fet" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="T1F" Type="Double" Nullable="false" />
+          <Property Name="T1L" Type="Double" Nullable="false" />
           <Property Name="B1F" Type="Double" Nullable="false" />
           <Property Name="B1L" Type="Double" Nullable="false" />
-          <Property Name="B2F" Type="Double" Nullable="false" />
-          <Property Name="B2KF" Type="Double" Nullable="false" />
-          <Property Name="B2KL" Type="Double" Nullable="false" />
-          <Property Name="B2L" Type="Double" Nullable="false" />
-          <Property Name="B3F" Type="Double" Nullable="false" />
-          <Property Name="B3KF" Type="Double" Nullable="false" />
-          <Property Name="B3KL" Type="Double" Nullable="false" />
-          <Property Name="B3L" Type="Double" Nullable="false" />
-          <Property Name="B4F" Type="Double" Nullable="false" />
-          <Property Name="B4L" Type="Double" Nullable="false" />
           <Property Name="C1F" Type="Double" Nullable="false" />
           <Property Name="C1L" Type="Double" Nullable="false" />
+          <Property Name="X1F" Type="Double" Nullable="false" />
+          <Property Name="X1L" Type="Double" Nullable="false" />
+          <Property Name="T2F" Type="Double" Nullable="false" />
+          <Property Name="T2L" Type="Double" Nullable="false" />
+          <Property Name="T2KL" Type="Double" Nullable="false" />
+          <Property Name="T2KF" Type="Double" Nullable="false" />
+          <Property Name="B2F" Type="Double" Nullable="false" />
+          <Property Name="B2L" Type="Double" Nullable="false" />
+          <Property Name="B2KL" Type="Double" Nullable="false" />
+          <Property Name="B2KF" Type="Double" Nullable="false" />
           <Property Name="C2F" Type="Double" Nullable="false" />
-          <Property Name="C2K" Type="Double" Nullable="false" />
           <Property Name="C2L" Type="Double" Nullable="false" />
+          <Property Name="C2K" Type="Double" Nullable="false" />
+          <Property Name="X2F" Type="Double" Nullable="false" />
+          <Property Name="X2L" Type="Double" Nullable="false" />
+          <Property Name="X2K" Type="Double" Nullable="false" />
+          <Property Name="B3F" Type="Double" Nullable="false" />
+          <Property Name="B3L" Type="Double" Nullable="false" />
+          <Property Name="B3KL" Type="Double" Nullable="false" />
+          <Property Name="B3KF" Type="Double" Nullable="false" />
           <Property Name="C3F" Type="Double" Nullable="false" />
-          <Property Name="C3K" Type="Double" Nullable="false" />
           <Property Name="C3L" Type="Double" Nullable="false" />
+          <Property Name="C3K" Type="Double" Nullable="false" />
+          <Property Name="X3F" Type="Double" Nullable="false" />
+          <Property Name="X3L" Type="Double" Nullable="false" />
+          <Property Name="X3K" Type="Double" Nullable="false" />
+          <Property Name="B4F" Type="Double" Nullable="false" />
+          <Property Name="B4L" Type="Double" Nullable="false" />
           <Property Name="C4F" Type="Double" Nullable="false" />
           <Property Name="C4L" Type="Double" Nullable="false" />
+          <Property Name="X4F" Type="Double" Nullable="false" />
+          <Property Name="X4L" Type="Double" Nullable="false" />
+          <Property Name="NVX" Type="Double" Nullable="false" />
+          <Property Name="NVC" Type="Double" Nullable="false" />
+          <Property Name="NVB" Type="Double" Nullable="false" />
+          <Property Name="N5K" Type="Double" Nullable="false" />
+          <Property Name="N5X" Type="Double" Nullable="false" />
+          <Property Name="N5C" Type="Double" Nullable="false" />
+          <Property Name="N5B" Type="Double" Nullable="false" />
           <Property Name="H1F" Type="Double" Nullable="false" />
           <Property Name="H2F" Type="Double" Nullable="false" />
           <Property Name="H3F" Type="Double" Nullable="false" />
-          <Property Name="N5B" Type="Double" Nullable="false" />
-          <Property Name="N5C" Type="Double" Nullable="false" />
-          <Property Name="N5K" Type="Double" Nullable="false" />
-          <Property Name="N5X" Type="Double" Nullable="false" />
-          <Property Name="NVB" Type="Double" Nullable="false" />
-          <Property Name="NVC" Type="Double" Nullable="false" />
-          <Property Name="NVX" Type="Double" Nullable="false" />
-          <Property Name="T1F" Type="Double" Nullable="false" />
-          <Property Name="T1L" Type="Double" Nullable="false" />
-          <Property Name="T2F" Type="Double" Nullable="false" />
-          <Property Name="T2KF" Type="Double" Nullable="false" />
-          <Property Name="T2KL" Type="Double" Nullable="false" />
-          <Property Name="T2L" Type="Double" Nullable="false" />
-          <Property Name="X1F" Type="Double" Nullable="false" />
-          <Property Name="X1L" Type="Double" Nullable="false" />
-          <Property Name="X2F" Type="Double" Nullable="false" />
-          <Property Name="X2K" Type="Double" Nullable="false" />
-          <Property Name="X2L" Type="Double" Nullable="false" />
-          <Property Name="X3F" Type="Double" Nullable="false" />
-          <Property Name="X3K" Type="Double" Nullable="false" />
-          <Property Name="X3L" Type="Double" Nullable="false" />
-          <Property Name="X4F" Type="Double" Nullable="false" />
-          <Property Name="X4L" Type="Double" Nullable="false" />
           <Property Name="Totalkg" Type="Double" />
           <Property Name="Importebruto" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
@@ -2917,33 +2917,33 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_TipoTabaco' does not 
               <MappingFragment StoreEntitySet="Vw_ResumenRomaneoBurley">
                 <ScalarProperty Name="Importebruto" ColumnName="Importebruto" />
                 <ScalarProperty Name="Totalkg" ColumnName="Totalkg" />
-                <ScalarProperty Name="X3K" ColumnName="X3K" />
-                <ScalarProperty Name="X2L" ColumnName="X2L" />
-                <ScalarProperty Name="X2F" ColumnName="X2F" />
-                <ScalarProperty Name="X1L" ColumnName="X1L" />
-                <ScalarProperty Name="X1F" ColumnName="X1F" />
-                <ScalarProperty Name="T3K" ColumnName="T3K" />
-                <ScalarProperty Name="T2FR" ColumnName="T2FR" />
-                <ScalarProperty Name="T2F" ColumnName="T2F" />
-                <ScalarProperty Name="T1FR" ColumnName="T1FR" />
-                <ScalarProperty Name="T1F" ColumnName="T1F" />
+                <ScalarProperty Name="NB" ColumnName="NB" />
                 <ScalarProperty Name="NX" ColumnName="NX" />
                 <ScalarProperty Name="NG" ColumnName="NG" />
-                <ScalarProperty Name="NB" ColumnName="NB" />
-                <ScalarProperty Name="C3L" ColumnName="C3L" />
-                <ScalarProperty Name="C3K" ColumnName="C3K" />
-                <ScalarProperty Name="C3F" ColumnName="C3F" />
-                <ScalarProperty Name="C2L" ColumnName="C2L" />
-                <ScalarProperty Name="C2F" ColumnName="C2F" />
-                <ScalarProperty Name="C1L" ColumnName="C1L" />
-                <ScalarProperty Name="C1F" ColumnName="C1F" />
                 <ScalarProperty Name="B3K" ColumnName="B3K" />
                 <ScalarProperty Name="B3FR" ColumnName="B3FR" />
                 <ScalarProperty Name="B3F" ColumnName="B3F" />
+                <ScalarProperty Name="X3K" ColumnName="X3K" />
+                <ScalarProperty Name="C3K" ColumnName="C3K" />
+                <ScalarProperty Name="C3F" ColumnName="C3F" />
+                <ScalarProperty Name="C3L" ColumnName="C3L" />
+                <ScalarProperty Name="T3K" ColumnName="T3K" />
+                <ScalarProperty Name="X2F" ColumnName="X2F" />
+                <ScalarProperty Name="X2L" ColumnName="X2L" />
+                <ScalarProperty Name="C2F" ColumnName="C2F" />
+                <ScalarProperty Name="C2L" ColumnName="C2L" />
                 <ScalarProperty Name="B2FR" ColumnName="B2FR" />
                 <ScalarProperty Name="B2F" ColumnName="B2F" />
+                <ScalarProperty Name="T2FR" ColumnName="T2FR" />
+                <ScalarProperty Name="T2F" ColumnName="T2F" />
+                <ScalarProperty Name="X1F" ColumnName="X1F" />
+                <ScalarProperty Name="X1L" ColumnName="X1L" />
+                <ScalarProperty Name="C1F" ColumnName="C1F" />
+                <ScalarProperty Name="C1L" ColumnName="C1L" />
                 <ScalarProperty Name="B1FR" ColumnName="B1FR" />
                 <ScalarProperty Name="B1F" ColumnName="B1F" />
+                <ScalarProperty Name="T1FR" ColumnName="T1FR" />
+                <ScalarProperty Name="T1F" ColumnName="T1F" />
                 <ScalarProperty Name="fet" ColumnName="fet" />
                 <ScalarProperty Name="cuit" ColumnName="cuit" />
                 <ScalarProperty Name="provincia" ColumnName="provincia" />
@@ -2971,54 +2971,54 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_TipoTabaco' does not 
               <MappingFragment StoreEntitySet="Vw_ResumenRomaneoVirginia">
                 <ScalarProperty Name="Importebruto" ColumnName="Importebruto" />
                 <ScalarProperty Name="Totalkg" ColumnName="Totalkg" />
-                <ScalarProperty Name="X4L" ColumnName="X4L" />
-                <ScalarProperty Name="X4F" ColumnName="X4F" />
-                <ScalarProperty Name="X3L" ColumnName="X3L" />
-                <ScalarProperty Name="X3K" ColumnName="X3K" />
-                <ScalarProperty Name="X3F" ColumnName="X3F" />
-                <ScalarProperty Name="X2L" ColumnName="X2L" />
-                <ScalarProperty Name="X2K" ColumnName="X2K" />
-                <ScalarProperty Name="X2F" ColumnName="X2F" />
-                <ScalarProperty Name="X1L" ColumnName="X1L" />
-                <ScalarProperty Name="X1F" ColumnName="X1F" />
-                <ScalarProperty Name="T2L" ColumnName="T2L" />
-                <ScalarProperty Name="T2KL" ColumnName="T2KL" />
-                <ScalarProperty Name="T2KF" ColumnName="T2KF" />
-                <ScalarProperty Name="T2F" ColumnName="T2F" />
-                <ScalarProperty Name="T1L" ColumnName="T1L" />
-                <ScalarProperty Name="T1F" ColumnName="T1F" />
-                <ScalarProperty Name="NVX" ColumnName="NVX" />
-                <ScalarProperty Name="NVC" ColumnName="NVC" />
-                <ScalarProperty Name="NVB" ColumnName="NVB" />
-                <ScalarProperty Name="N5X" ColumnName="N5X" />
-                <ScalarProperty Name="N5K" ColumnName="N5K" />
-                <ScalarProperty Name="N5C" ColumnName="N5C" />
-                <ScalarProperty Name="N5B" ColumnName="N5B" />
                 <ScalarProperty Name="H3F" ColumnName="H3F" />
                 <ScalarProperty Name="H2F" ColumnName="H2F" />
                 <ScalarProperty Name="H1F" ColumnName="H1F" />
+                <ScalarProperty Name="N5B" ColumnName="N5B" />
+                <ScalarProperty Name="N5C" ColumnName="N5C" />
+                <ScalarProperty Name="N5X" ColumnName="N5X" />
+                <ScalarProperty Name="N5K" ColumnName="N5K" />
+                <ScalarProperty Name="NVB" ColumnName="NVB" />
+                <ScalarProperty Name="NVC" ColumnName="NVC" />
+                <ScalarProperty Name="NVX" ColumnName="NVX" />
+                <ScalarProperty Name="X4L" ColumnName="X4L" />
+                <ScalarProperty Name="X4F" ColumnName="X4F" />
                 <ScalarProperty Name="C4L" ColumnName="C4L" />
                 <ScalarProperty Name="C4F" ColumnName="C4F" />
-                <ScalarProperty Name="C3L" ColumnName="C3L" />
-                <ScalarProperty Name="C3K" ColumnName="C3K" />
-                <ScalarProperty Name="C3F" ColumnName="C3F" />
-                <ScalarProperty Name="C2L" ColumnName="C2L" />
-                <ScalarProperty Name="C2K" ColumnName="C2K" />
-                <ScalarProperty Name="C2F" ColumnName="C2F" />
-                <ScalarProperty Name="C1L" ColumnName="C1L" />
-                <ScalarProperty Name="C1F" ColumnName="C1F" />
                 <ScalarProperty Name="B4L" ColumnName="B4L" />
                 <ScalarProperty Name="B4F" ColumnName="B4F" />
-                <ScalarProperty Name="B3L" ColumnName="B3L" />
-                <ScalarProperty Name="B3KL" ColumnName="B3KL" />
+                <ScalarProperty Name="X3K" ColumnName="X3K" />
+                <ScalarProperty Name="X3L" ColumnName="X3L" />
+                <ScalarProperty Name="X3F" ColumnName="X3F" />
+                <ScalarProperty Name="C3K" ColumnName="C3K" />
+                <ScalarProperty Name="C3L" ColumnName="C3L" />
+                <ScalarProperty Name="C3F" ColumnName="C3F" />
                 <ScalarProperty Name="B3KF" ColumnName="B3KF" />
+                <ScalarProperty Name="B3KL" ColumnName="B3KL" />
+                <ScalarProperty Name="B3L" ColumnName="B3L" />
                 <ScalarProperty Name="B3F" ColumnName="B3F" />
-                <ScalarProperty Name="B2L" ColumnName="B2L" />
-                <ScalarProperty Name="B2KL" ColumnName="B2KL" />
+                <ScalarProperty Name="X2K" ColumnName="X2K" />
+                <ScalarProperty Name="X2L" ColumnName="X2L" />
+                <ScalarProperty Name="X2F" ColumnName="X2F" />
+                <ScalarProperty Name="C2K" ColumnName="C2K" />
+                <ScalarProperty Name="C2L" ColumnName="C2L" />
+                <ScalarProperty Name="C2F" ColumnName="C2F" />
                 <ScalarProperty Name="B2KF" ColumnName="B2KF" />
+                <ScalarProperty Name="B2KL" ColumnName="B2KL" />
+                <ScalarProperty Name="B2L" ColumnName="B2L" />
                 <ScalarProperty Name="B2F" ColumnName="B2F" />
+                <ScalarProperty Name="T2KF" ColumnName="T2KF" />
+                <ScalarProperty Name="T2KL" ColumnName="T2KL" />
+                <ScalarProperty Name="T2L" ColumnName="T2L" />
+                <ScalarProperty Name="T2F" ColumnName="T2F" />
+                <ScalarProperty Name="X1L" ColumnName="X1L" />
+                <ScalarProperty Name="X1F" ColumnName="X1F" />
+                <ScalarProperty Name="C1L" ColumnName="C1L" />
+                <ScalarProperty Name="C1F" ColumnName="C1F" />
                 <ScalarProperty Name="B1L" ColumnName="B1L" />
                 <ScalarProperty Name="B1F" ColumnName="B1F" />
+                <ScalarProperty Name="T1L" ColumnName="T1L" />
+                <ScalarProperty Name="T1F" ColumnName="T1F" />
                 <ScalarProperty Name="fet" ColumnName="fet" />
                 <ScalarProperty Name="cuit" ColumnName="cuit" />
                 <ScalarProperty Name="provincia" ColumnName="provincia" />

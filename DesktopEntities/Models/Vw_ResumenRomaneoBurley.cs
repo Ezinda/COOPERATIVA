@@ -21,33 +21,33 @@ namespace DesktopEntities.Models
         public string provincia { get; set; }
         public string cuit { get; set; }
         public string fet { get; set; }
+        public double T1F { get; set; }
+        public double T1FR { get; set; }
         public double B1F { get; set; }
         public double B1FR { get; set; }
+        public double C1L { get; set; }
+        public double C1F { get; set; }
+        public double X1L { get; set; }
+        public double X1F { get; set; }
+        public double T2F { get; set; }
+        public double T2FR { get; set; }
         public double B2F { get; set; }
         public double B2FR { get; set; }
+        public double C2L { get; set; }
+        public double C2F { get; set; }
+        public double X2L { get; set; }
+        public double X2F { get; set; }
+        public double T3K { get; set; }
+        public double C3L { get; set; }
+        public double C3F { get; set; }
+        public double C3K { get; set; }
+        public double X3K { get; set; }
         public double B3F { get; set; }
         public double B3FR { get; set; }
         public double B3K { get; set; }
-        public double C1F { get; set; }
-        public double C1L { get; set; }
-        public double C2F { get; set; }
-        public double C2L { get; set; }
-        public double C3F { get; set; }
-        public double C3K { get; set; }
-        public double C3L { get; set; }
-        public double NB { get; set; }
         public double NG { get; set; }
         public double NX { get; set; }
-        public double T1F { get; set; }
-        public double T1FR { get; set; }
-        public double T2F { get; set; }
-        public double T2FR { get; set; }
-        public double T3K { get; set; }
-        public double X1F { get; set; }
-        public double X1L { get; set; }
-        public double X2F { get; set; }
-        public double X2L { get; set; }
-        public double X3K { get; set; }
+        public double NB { get; set; }
         public Nullable<double> Totalkg { get; set; }
         public Nullable<decimal> Importebruto { get; set; }
     }

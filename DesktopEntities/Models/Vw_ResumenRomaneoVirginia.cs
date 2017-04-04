@@ -21,54 +21,54 @@ namespace DesktopEntities.Models
         public string provincia { get; set; }
         public string cuit { get; set; }
         public string fet { get; set; }
+        public double T1F { get; set; }
+        public double T1L { get; set; }
         public double B1F { get; set; }
         public double B1L { get; set; }
-        public double B2F { get; set; }
-        public double B2KF { get; set; }
-        public double B2KL { get; set; }
-        public double B2L { get; set; }
-        public double B3F { get; set; }
-        public double B3KF { get; set; }
-        public double B3KL { get; set; }
-        public double B3L { get; set; }
-        public double B4F { get; set; }
-        public double B4L { get; set; }
         public double C1F { get; set; }
         public double C1L { get; set; }
+        public double X1F { get; set; }
+        public double X1L { get; set; }
+        public double T2F { get; set; }
+        public double T2L { get; set; }
+        public double T2KL { get; set; }
+        public double T2KF { get; set; }
+        public double B2F { get; set; }
+        public double B2L { get; set; }
+        public double B2KL { get; set; }
+        public double B2KF { get; set; }
         public double C2F { get; set; }
-        public double C2K { get; set; }
         public double C2L { get; set; }
+        public double C2K { get; set; }
+        public double X2F { get; set; }
+        public double X2L { get; set; }
+        public double X2K { get; set; }
+        public double B3F { get; set; }
+        public double B3L { get; set; }
+        public double B3KL { get; set; }
+        public double B3KF { get; set; }
         public double C3F { get; set; }
-        public double C3K { get; set; }
         public double C3L { get; set; }
+        public double C3K { get; set; }
+        public double X3F { get; set; }
+        public double X3L { get; set; }
+        public double X3K { get; set; }
+        public double B4F { get; set; }
+        public double B4L { get; set; }
         public double C4F { get; set; }
         public double C4L { get; set; }
+        public double X4F { get; set; }
+        public double X4L { get; set; }
+        public double NVX { get; set; }
+        public double NVC { get; set; }
+        public double NVB { get; set; }
+        public double N5K { get; set; }
+        public double N5X { get; set; }
+        public double N5C { get; set; }
+        public double N5B { get; set; }
         public double H1F { get; set; }
         public double H2F { get; set; }
         public double H3F { get; set; }
-        public double N5B { get; set; }
-        public double N5C { get; set; }
-        public double N5K { get; set; }
-        public double N5X { get; set; }
-        public double NVB { get; set; }
-        public double NVC { get; set; }
-        public double NVX { get; set; }
-        public double T1F { get; set; }
-        public double T1L { get; set; }
-        public double T2F { get; set; }
-        public double T2KF { get; set; }
-        public double T2KL { get; set; }
-        public double T2L { get; set; }
-        public double X1F { get; set; }
-        public double X1L { get; set; }
-        public double X2F { get; set; }
-        public double X2K { get; set; }
-        public double X2L { get; set; }
-        public double X3F { get; set; }
-        public double X3K { get; set; }
-        public double X3L { get; set; }
-        public double X4F { get; set; }
-        public double X4L { get; set; }
         public Nullable<double> Totalkg { get; set; }
         public Nullable<decimal> Importebruto { get; set; }
     }

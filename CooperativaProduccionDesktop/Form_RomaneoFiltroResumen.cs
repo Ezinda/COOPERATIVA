@@ -17,6 +17,7 @@ using Extensions;
 using DevExpress.XtraPrinting;
 using System.IO;
 using System.Diagnostics;
+using System.Data.Entity.SqlServer;
 
 namespace CooperativaProduccion
 {
@@ -227,80 +228,6 @@ namespace CooperativaProduccion
             }
         }
 
-        private List<RegistroResumenRomaneoVirginia> GenerarReporteResumenRomaneoVirginia()
-        {
-            var culture = CultureInfo.CreateSpecificCulture("es-ES");
-            var datasource = new List<RegistroResumenRomaneoVirginia>();
-            var resumenVirginia = Context.Vw_ResumenRomaneoVirginia
-                .Where(x => x.fechaRomaneo.Value >= dpDesdeRomaneo.Value.Date
-                    && x.fechaRomaneo.Value <= dpHastaRomaneo.Value.Date 
-                    && x.provincia == cbProvincia.Text)
-                .OrderBy(x => x.NumRomaneo)
-                .ToList();
-
-            foreach (var resumen in resumenVirginia)
-            {
-                RegistroResumenRomaneoVirginia registro = new RegistroResumenRomaneoVirginia();
-                registro.FechaRomaneo = resumen.fechaRomaneo.Value.ToShortDateString();
-                registro.NumRomaneo = resumen.NumRomaneo.Value.ToString();
-                registro.Productor = resumen.productor;
-                registro.Cuit = resumen.cuit;
-                registro.Fet = resumen.fet;
-                registro.B1F = resumen.B1F.ToString();
-                registro.B1L = resumen.B1L.ToString();
-                registro.B2F = resumen.B2F.ToString();
-                registro.B2KF = resumen.B2KF.ToString();
-                registro.B2KL = resumen.B2KL.ToString();
-                registro.B2L = resumen.B2L.ToString();
-                registro.B3F = resumen.B3F.ToString();
-                registro.B3KF = resumen.B3KF.ToString();
-                registro.B3KL = resumen.B3KL.ToString();
-                registro.B3L = resumen.B3L.ToString();
-                registro.B4F = resumen.B4F.ToString();
-                registro.B4L = resumen.B4L.ToString();
-                registro.C1F = resumen.C1F.ToString();
-                registro.C1L = resumen.C1L.ToString();
-                registro.C2F = resumen.C2F.ToString();
-                registro.C2K = resumen.C2K.ToString();
-                registro.C2L = resumen.C2L.ToString();
-                registro.C3F = resumen.C3F.ToString();
-                registro.C3K = resumen.C3K.ToString();
-                registro.C3L = resumen.C3L.ToString();
-                registro.C4F = resumen.C4F.ToString();
-                registro.C4L = resumen.C4L.ToString();
-                registro.H1F = resumen.H1F.ToString();
-                registro.H2F = resumen.H2F.ToString();
-                registro.H3F = resumen.H3F.ToString();
-                registro.N5B = resumen.N5B.ToString();
-                registro.N5C = resumen.N5C.ToString();
-                registro.N5K = resumen.N5K.ToString();
-                registro.N5X = resumen.N5X.ToString();
-                registro.NVB = resumen.NVB.ToString();
-                registro.NVC = resumen.NVC.ToString();
-                registro.NVX = resumen.NVX.ToString();
-                registro.T1F = resumen.T1F.ToString();
-                registro.T1L = resumen.T1L.ToString();
-                registro.T2F = resumen.T2F.ToString();
-                registro.T2KF = resumen.T2KF.ToString();
-                registro.T2KL = resumen.T2KL.ToString();
-                registro.T2L = resumen.T2L.ToString();
-                registro.X1F = resumen.X1F.ToString();
-                registro.X1L = resumen.X1L.ToString();
-                registro.X2F = resumen.X2F.ToString();
-                registro.X2K = resumen.X2K.ToString();
-                registro.X2L = resumen.X2L.ToString();
-                registro.X3F = resumen.X3F.ToString();
-                registro.X3K = resumen.X3K.ToString();
-                registro.X3L = resumen.X3L.ToString();
-                registro.X4F = resumen.X4F.ToString();
-                registro.X4L = resumen.X4L.ToString();
-                registro.Totalkg = resumen.Totalkg.Value.ToString("F", culture);
-                registro.Importebruto = resumen.Importebruto.Value.ToString("F", culture);
-                datasource.Add(registro);
-            }
-            return datasource;
-        }
-
         private List<RegistroResumenRomaneoBurley> GenerarReporteResumenRomaneoBurley()
         {
             var culture = CultureInfo.CreateSpecificCulture("es-ES");
@@ -320,36 +247,110 @@ namespace CooperativaProduccion
                 registro.Productor = resumen.productor;
                 registro.Cuit = resumen.cuit;
                 registro.Fet = resumen.fet;
+                registro.T1F = resumen.T1F.ToString();
+                registro.T1FR = resumen.T1FR.ToString();
                 registro.B1F = resumen.B1F.ToString();
                 registro.B1FR = resumen.B1FR.ToString();
+                registro.C1L = resumen.C1L.ToString();
+                registro.C1F = resumen.C1F.ToString();
+                registro.X1L = resumen.X1L.ToString();
+                registro.X1F = resumen.X1F.ToString();
+                registro.T2F = resumen.T2F.ToString();
+                registro.T2FR = resumen.T2FR.ToString();
                 registro.B2F = resumen.B2F.ToString();
                 registro.B2FR = resumen.B2FR.ToString();
+                registro.C2L = resumen.C2L.ToString();
+                registro.C2F = resumen.C2F.ToString();
+                registro.X2L = resumen.X2L.ToString();
+                registro.X2F = resumen.X2F.ToString();
+                registro.T3K = resumen.T3K.ToString();
+                registro.C3L = resumen.C3L.ToString();
+                registro.C3F = resumen.C3F.ToString();
+                registro.C3K = resumen.C3K.ToString();
+                registro.X3K = resumen.X3K.ToString();
                 registro.B3F = resumen.B3F.ToString();
                 registro.B3FR = resumen.B3FR.ToString();
                 registro.B3K = resumen.B3K.ToString();
-                registro.C1F = resumen.C1F.ToString();
-                registro.C1L = resumen.C1L.ToString();
-                registro.C2F = resumen.C2F.ToString();
-                registro.C2L = resumen.C2L.ToString();
-                registro.C3F = resumen.C3F.ToString();
-                registro.C3K = resumen.C3K.ToString();
-                registro.C3L = resumen.C3L.ToString();
-                registro.NB = resumen.NB.ToString();
                 registro.NG = resumen.NG.ToString();
                 registro.NX = resumen.NX.ToString();
-                registro.T1F = resumen.T1F.ToString();
-                registro.T1FR = resumen.T1FR.ToString();
-                registro.T2F = resumen.T2F.ToString();
-                registro.T2FR = resumen.T2FR.ToString();
-                registro.T3K = resumen.T3K.ToString();
-                registro.X1F = resumen.X1F.ToString();
-                registro.X1L = resumen.X1L.ToString();
-                registro.X2F = resumen.X2F.ToString();
-                registro.X2L = resumen.X2L.ToString();
-                registro.X3K = resumen.X3K.ToString();
+                registro.NB = resumen.NB.ToString();
                 registro.Totalkg = resumen.Totalkg.Value.ToString("F", culture);
                 registro.Importebruto = resumen.Importebruto.Value.ToString("F", culture);
 
+                datasource.Add(registro);
+            }
+            return datasource;
+        }
+
+        private List<RegistroResumenRomaneoVirginia> GenerarReporteResumenRomaneoVirginia()
+        {
+            var culture = CultureInfo.CreateSpecificCulture("es-ES");
+            var datasource = new List<RegistroResumenRomaneoVirginia>();
+            var resumenVirginia = Context.Vw_ResumenRomaneoVirginia
+                .Where(x => x.fechaRomaneo.Value >= dpDesdeRomaneo.Value.Date
+                    && x.fechaRomaneo.Value <= dpHastaRomaneo.Value.Date
+                    && x.provincia == cbProvincia.Text)
+                .OrderBy(x => x.NumRomaneo)
+                .ToList();
+
+            foreach (var resumen in resumenVirginia)
+            {
+                RegistroResumenRomaneoVirginia registro = new RegistroResumenRomaneoVirginia();
+                registro.FechaRomaneo = resumen.fechaRomaneo.Value.ToShortDateString();
+                registro.NumRomaneo = resumen.NumRomaneo.Value.ToString();
+                registro.Productor = resumen.productor;
+                registro.Cuit = resumen.cuit;
+                registro.Fet = resumen.fet;
+                registro.T1F = resumen.T1F.ToString();
+                registro.T1L = resumen.T1L.ToString();
+                registro.B1F = resumen.B1F.ToString();
+                registro.B1L = resumen.B1L.ToString();
+                registro.C1F = resumen.C1F.ToString();
+                registro.C1L = resumen.C1L.ToString();
+                registro.X1F = resumen.X1F.ToString();
+                registro.X1L = resumen.X1L.ToString();
+                registro.T2F = resumen.T2F.ToString();
+                registro.T2L = resumen.T2L.ToString();
+                registro.T2KL = resumen.T2KL.ToString();
+                registro.T2KF = resumen.T2KF.ToString();
+                registro.B2F = resumen.B2F.ToString();
+                registro.B2L = resumen.B2L.ToString();
+                registro.B2KL = resumen.B2KL.ToString();
+                registro.B2KF = resumen.B2KF.ToString();
+                registro.C2F = resumen.C2F.ToString();
+                registro.C2L = resumen.C2L.ToString();
+                registro.C2K = resumen.C2K.ToString();
+                registro.X2F = resumen.X2F.ToString();
+                registro.X2L = resumen.X2L.ToString();
+                registro.X2K = resumen.X2K.ToString();
+                registro.B3F = resumen.B3F.ToString();
+                registro.B3L = resumen.B3L.ToString();
+                registro.B3KL = resumen.B3KL.ToString();
+                registro.B3KF = resumen.B3KF.ToString();
+                registro.C3F = resumen.C3F.ToString();
+                registro.C3L = resumen.C3L.ToString();
+                registro.C3K = resumen.C3K.ToString();
+                registro.X3F = resumen.X3F.ToString();
+                registro.X3L = resumen.X3L.ToString();
+                registro.X3K = resumen.X3K.ToString();
+                registro.B4F = resumen.B4F.ToString();
+                registro.B4L = resumen.B4L.ToString();
+                registro.C4F = resumen.C4F.ToString();
+                registro.C4L = resumen.C4L.ToString();
+                registro.X4F = resumen.X4F.ToString();
+                registro.X4L = resumen.X4L.ToString();
+                registro.NVX = resumen.NVX.ToString();
+                registro.NVC = resumen.NVC.ToString();
+                registro.NVB = resumen.NVB.ToString();
+                registro.N5K = resumen.N5K.ToString();
+                registro.N5X = resumen.N5X.ToString();
+                registro.N5C = resumen.N5C.ToString();
+                registro.N5B = resumen.N5B.ToString();
+                registro.H1F = resumen.H1F.ToString();
+                registro.H2F = resumen.H2F.ToString();
+                registro.H3F = resumen.H3F.ToString();
+                registro.Totalkg = resumen.Totalkg.Value.ToString("F", culture);
+                registro.Importebruto = resumen.Importebruto.Value.ToString("F", culture);
                 datasource.Add(registro);
             }
             return datasource;
@@ -393,10 +394,12 @@ namespace CooperativaProduccion
 
         public List<ResumenCompra> GenerarReporteResumenCompra()
         {
+            double s = 0 ;
             var culture = CultureInfo.CreateSpecificCulture("es-ES");
             var Context = new CooperativaProduccionEntities();
             List<ResumenCompra> datasource = new List<ResumenCompra>();
             Expression<Func<Vw_ResumenCompraPorClase, bool>> pred = x => true;
+
             pred = pred.And(x => x.FechaRomaneo >= dpDesdeRomaneo.Value.Date 
                               && x.FechaRomaneo <= dpHastaRomaneo.Value.Date);
 
@@ -422,11 +425,17 @@ namespace CooperativaProduccion
                      Orden = g.Key.Orden,
                      Fardos = g.Sum(x => x.Fardos),
                      Kilos = g.Sum(x => x.Kilos),
-                     Total = g.Sum(x => x.Importe)
+                     Total = g.Sum(x =>x.Importe.Value)
                  })
                  .OrderBy(x => x.Orden)
                  .ToList();
-            
+
+            foreach (var item in liquidacionDetalles)
+            {
+                s = s + item.Total;
+
+            }
+            var d = s;
             var liquidaciones = liquidacionDetalles
                 .FullOuterJoin(clases, a => a.Clase, b => b.NOMBRE, (a, b, Clases) => new { a, b })
                 .OrderBy(x => x.b.Orden)
@@ -438,7 +447,7 @@ namespace CooperativaProduccion
                 detalle.Clase = liquidacionDetalle.a == null ? liquidacionDetalle.b.NOMBRE : liquidacionDetalle.a.Clase;
                 detalle.Fardos = liquidacionDetalle.a == null ? "0" : liquidacionDetalle.a.Fardos.Value.ToString();
                 detalle.Kilos = liquidacionDetalle.a == null ? "0" : liquidacionDetalle.a.Kilos.Value.ToString();
-                detalle.Importe = liquidacionDetalle.a == null ? "0" : liquidacionDetalle.a.Total.Value.ToString("F", culture);
+                detalle.Importe = liquidacionDetalle.a == null ? "0" : liquidacionDetalle.a.Total.ToString("F", culture);
                 datasource.Add(detalle);
             }
             return datasource;
