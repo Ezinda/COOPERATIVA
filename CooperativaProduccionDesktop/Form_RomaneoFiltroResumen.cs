@@ -430,12 +430,6 @@ namespace CooperativaProduccion
                  .OrderBy(x => x.Orden)
                  .ToList();
 
-            foreach (var item in liquidacionDetalles)
-            {
-                s = s + item.Total;
-
-            }
-            var d = s;
             var liquidaciones = liquidacionDetalles
                 .FullOuterJoin(clases, a => a.Clase, b => b.NOMBRE, (a, b, Clases) => new { a, b })
                 .OrderBy(x => x.b.Orden)
