@@ -665,6 +665,7 @@ namespace CooperativaProduccion
                     Kilos = x.Kilos.Value,
                     NumFardo = x.NumFardo.Value
                 })
+                .Distinct()
                 .OrderBy(x => x.PesadaId)
                 .ToList();
 
