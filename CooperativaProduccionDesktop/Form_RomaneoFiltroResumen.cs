@@ -1390,7 +1390,7 @@ namespace CooperativaProduccion
                   CultureInfo.InvariantCulture).Replace(":", "").Replace(".", "")
                   .Replace("-", "").Replace(" ", "");
 
-                fileName = @"C:\SystemDocumentsCooperativa\ResumenLiquidacion\ResumenLiquidacionVirginia"
+                fileName = @"C:\SystemDocumentsCooperativa\ResumenLiquidacion\ResumenLiquidacionVirginia\"
                     + Hora + " - ResumenLiquidacionVirginia.xls";
             }
             else if (cbTabaco.Text == DevConstantes.TabacoBurley)
@@ -1403,7 +1403,7 @@ namespace CooperativaProduccion
                   CultureInfo.InvariantCulture).Replace(":", "").Replace(".", "")
                   .Replace("-", "").Replace(" ", "");
 
-                fileName = @"C:\SystemDocumentsCooperativa\ResumenLiquidacion\ResumenLiquidacionBurley"
+                fileName = @"C:\SystemDocumentsCooperativa\ResumenLiquidacion\ResumenLiquidacionBurley\"
                     + Hora + " - ResumenLiquidacionBurley.xls";
             }
             else if (string.IsNullOrEmpty(cbTabaco.Text))

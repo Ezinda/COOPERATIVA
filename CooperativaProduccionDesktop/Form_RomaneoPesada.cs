@@ -1006,6 +1006,7 @@ namespace CooperativaProduccion
             float totalKilos = 0;
             var pesadas = _context.Vw_Pesada
                 .Where(x => x.PesadaId == PesadaId);
+
             foreach (var pesada in pesadas)
             {
                 totalKilos = totalKilos + Convert.ToSingle(pesada.Subtotal);
@@ -1084,8 +1085,10 @@ namespace CooperativaProduccion
 
                 var detalleid = RegistrarDetallePesada(pesadaId, tipoTabacoId, clase, kilosround);
                 var now = DateTime.Now.Date;
-
-                RegistrarMovimiento(detalleid, kilosround, now);
+                if (!detalleid.Equals(Guid.Empty))
+                {
+                    RegistrarMovimiento(detalleid, kilosround, now);
+                }
             }
             catch
             {
@@ -1253,21 +1256,34 @@ namespace CooperativaProduccion
                 })
                 .Single();
 
-            PesadaDetalle pesadaDetalle;
-            
-            pesadaDetalle = new PesadaDetalle();
-            pesadaDetalle.Id = Guid.NewGuid();
-            pesadaDetalle.PesadaId = _pesadaId;
-            pesadaDetalle.ContadorFardo = ContadorNumeroFardo(pesadaId);
-            pesadaDetalle.NumFardo = NumeradorFardo();
-            pesadaDetalle.ClaseId = vwclase.ID;
-            pesadaDetalle.Kilos = kilos;
-            pesadaDetalle.ClasePrecio = vwclase.PRECIOCOMPRA;
+            long numFardo = NumeradorFardo();
 
-            _context.PesadaDetalle.Add(pesadaDetalle);
-            _context.SaveChanges();
+            var existeFardo = _context.PesadaDetalle
+                .Where(x => x.NumFardo == numFardo)
+                .Any();
 
-            return pesadaDetalle.Id;
+            if (existeFardo.Equals(false))
+            {
+                PesadaDetalle pesadaDetalle;
+
+                pesadaDetalle = new PesadaDetalle();
+                pesadaDetalle.Id = Guid.NewGuid();
+                pesadaDetalle.PesadaId = _pesadaId;
+                pesadaDetalle.ContadorFardo = ContadorNumeroFardo(pesadaId);
+                pesadaDetalle.NumFardo = NumeradorFardo();
+                pesadaDetalle.ClaseId = vwclase.ID;
+                pesadaDetalle.Kilos = kilos;
+                pesadaDetalle.ClasePrecio = vwclase.PRECIOCOMPRA;
+
+                _context.PesadaDetalle.Add(pesadaDetalle);
+                _context.SaveChanges();
+
+                return pesadaDetalle.Id;
+            }
+            else
+            {
+                return Guid.Empty;
+            }
         }
 
         private long ContadorNumeroFardo(Guid PesadaId)

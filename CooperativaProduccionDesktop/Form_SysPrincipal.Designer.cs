@@ -51,6 +51,7 @@
             this.btnImpresionEtiqueta = new DevExpress.XtraBars.BarButtonItem();
             this.btnIngresoCaja = new DevExpress.XtraBars.BarButtonItem();
             this.btnIngresoCajas = new DevExpress.XtraBars.BarButtonItem();
+            this.btnAsociarCajaOrdenVenta = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPageRomaneo = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupPorteria = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroupBalanza = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -67,7 +68,6 @@
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageSeguridad = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupSeguridad = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.btnAsociarCajaOrdenVenta = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             this.SuspendLayout();
             // 
@@ -114,7 +114,11 @@
             this.ribbon.ShowDisplayOptionsMenuButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowExpandCollapseButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Show;
+            this.ribbon.ShowQatLocationSelector = false;
+            this.ribbon.ShowToolbarCustomizeItem = false;
             this.ribbon.Size = new System.Drawing.Size(1094, 146);
+            this.ribbon.Toolbar.ShowCustomizeItem = false;
+            this.ribbon.ToolbarLocation = DevExpress.XtraBars.Ribbon.RibbonQuickAccessToolbarLocation.Hidden;
             // 
             // btnPreingreso
             // 
@@ -307,6 +311,16 @@
             this.btnIngresoCajas.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
             this.btnIngresoCajas.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnIngresoCajas_ItemClick);
             // 
+            // btnAsociarCajaOrdenVenta
+            // 
+            this.btnAsociarCajaOrdenVenta.Caption = "Asociar Cajas - Orden de Venta";
+            this.btnAsociarCajaOrdenVenta.Glyph = ((System.Drawing.Image)(resources.GetObject("btnAsociarCajaOrdenVenta.Glyph")));
+            this.btnAsociarCajaOrdenVenta.Id = 24;
+            this.btnAsociarCajaOrdenVenta.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnAsociarCajaOrdenVenta.LargeGlyph")));
+            this.btnAsociarCajaOrdenVenta.Name = "btnAsociarCajaOrdenVenta";
+            this.btnAsociarCajaOrdenVenta.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText;
+            this.btnAsociarCajaOrdenVenta.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnAsociarCajaOrdenVenta_ItemClick);
+            // 
             // ribbonPageRomaneo
             // 
             this.ribbonPageRomaneo.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -448,16 +462,6 @@
             this.ribbonPageGroupSeguridad.Name = "ribbonPageGroupSeguridad";
             this.ribbonPageGroupSeguridad.ShowCaptionButton = false;
             this.ribbonPageGroupSeguridad.Text = "Seguridad";
-            // 
-            // btnAsociarCajaOrdenVenta
-            // 
-            this.btnAsociarCajaOrdenVenta.Caption = "Asociar Cajas - Orden de Venta";
-            this.btnAsociarCajaOrdenVenta.Glyph = ((System.Drawing.Image)(resources.GetObject("btnAsociarCajaOrdenVenta.Glyph")));
-            this.btnAsociarCajaOrdenVenta.Id = 24;
-            this.btnAsociarCajaOrdenVenta.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnAsociarCajaOrdenVenta.LargeGlyph")));
-            this.btnAsociarCajaOrdenVenta.Name = "btnAsociarCajaOrdenVenta";
-            this.btnAsociarCajaOrdenVenta.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText;
-            this.btnAsociarCajaOrdenVenta.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnAsociarCajaOrdenVenta_ItemClick);
             // 
             // Form_SysPrincipal
             // 
