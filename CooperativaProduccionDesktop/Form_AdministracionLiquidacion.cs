@@ -494,7 +494,7 @@ namespace CooperativaProduccion
             gridViewLiquidacion.Columns[8].Width = 60;
             gridViewLiquidacion.Columns[8].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
             gridViewLiquidacion.Columns[8].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-            gridViewLiquidacion.Columns[9].Caption = "Bruto sin IVA";
+            gridViewLiquidacion.Columns[9].Caption = "Bruto";
             gridViewLiquidacion.Columns[9].Width = 90;
             gridViewLiquidacion.Columns[9].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Far;
             gridViewLiquidacion.Columns[9].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
