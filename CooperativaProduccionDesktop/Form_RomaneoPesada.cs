@@ -759,7 +759,7 @@ namespace CooperativaProduccion
 
         }
 
-#endregion
+        #endregion
 
         #region Method Dev
         
@@ -947,12 +947,13 @@ namespace CooperativaProduccion
                     var busqueda = result
                       .Where(x => x.PRODUCTOR.Contains(txtNombre.Text))
                       .FirstOrDefault();
+
                     if (busqueda != null)
                     {
                         _productorId = busqueda.ID.Value;
-                        txtFet.Text = busqueda.FET.ToString();
-                        txtNombre.Text = busqueda.PRODUCTOR.ToString();
-                        txtProvincia.Text = busqueda.PROVINCIA.ToString();
+                        txtFet.Text = busqueda.FET;
+                        txtNombre.Text = busqueda.PRODUCTOR;
+                        txtProvincia.Text = busqueda.PROVINCIA;
                         txtCuit.Text = busqueda.CUIT;
                         PasarMostrador(txtNombre.Text, txtCuit.Text);
                     }
@@ -994,25 +995,19 @@ namespace CooperativaProduccion
                 string.Empty : empleado.Provincia;
             PasarMostrador(txtNombre.Text, txtCuit.Text);
         }
-
-        public double GetRandomNumber(double minimum, double maximum)
-        {
-            Random random = new Random();
-            return random.NextDouble() * (maximum - minimum) + minimum;
-        }
      
-        private float CalcularTotalImporteBruto(Guid PesadaId)
+        private decimal CalcularTotalImporteBruto(Guid PesadaId)
         {
-            float totalKilos = 0;
+            decimal monto = 0;
             var pesadas = _context.Vw_Pesada
                 .Where(x => x.PesadaId == PesadaId);
 
             foreach (var pesada in pesadas)
             {
-                totalKilos = totalKilos + Convert.ToSingle(pesada.Subtotal);
+                monto = monto + pesada.Subtotal.Value;
             }
 
-            return totalKilos;
+            return monto;
         }
 
         private int CalcularTotalFardo(Guid PesadaId)
@@ -1409,7 +1404,7 @@ namespace CooperativaProduccion
             {
                 pesada.TotalFardo = Int32.Parse(txtTotalFardo.Text);
                 pesada.TotalKg = float.Parse(txtTotalKilo.Text);
-                pesada.ImporteBruto = decimal.Parse(txtImporteBruto.Text);
+                pesada.ImporteBruto = CalcularTotalImporteBruto(pesadaId); //decimal.Parse(txtImporteBruto.Text);
                 pesada.PrecioPromedio = decimal.Parse(txtPrecioPromedio.Text);
                 pesada.RomaneoPendiente = finalizar.Equals(true) ? false : true;
                 _context.Entry(pesada).State = EntityState.Modified;
@@ -1471,11 +1466,14 @@ namespace CooperativaProduccion
         {
             if (limpiar.Equals(false))
             {
-                _pesadaMostrador.numFardo = gridViewPesada.GetRowCellValue(0, "CONTADOR_CAJA").ToString();
-                _pesadaMostrador.clase = gridViewPesada.GetRowCellValue(0, "CLASE").ToString();
-                _pesadaMostrador.totalkg = txtTotalKilo.Text;
-                _pesadaMostrador.porcentaje = CalcularPorcentaje(Tabaco);
-                _pesadaMostrador.CargarFardo();
+                if (gridViewPesada.RowCount < 0)
+                {
+                    _pesadaMostrador.numFardo = gridViewPesada.GetRowCellValue(0, "CONTADOR_CAJA").ToString();
+                    _pesadaMostrador.clase = gridViewPesada.GetRowCellValue(0, "CLASE").ToString();
+                    _pesadaMostrador.totalkg = txtTotalKilo.Text;
+                    _pesadaMostrador.porcentaje = CalcularPorcentaje(Tabaco);
+                    _pesadaMostrador.CargarFardo();
+                }
             }
             else
             {
