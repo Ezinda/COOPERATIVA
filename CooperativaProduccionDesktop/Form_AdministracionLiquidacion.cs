@@ -188,7 +188,10 @@ namespace CooperativaProduccion
                                 .FirstOrDefault();
                             romaneo.FechaInternaLiquidacion = pesada.FechaRomaneo;
                             romaneo.condIva = Iva;
-                            var subtotal = romaneo.ImporteBruto;
+                            var vwromaneo = Context.Vw_Romaneo
+                                .Where(x => x.PesadaId == Id)
+                                .FirstOrDefault();
+                            var subtotal = vwromaneo.ImporteBruto;//romaneo.ImporteBruto;
                             var iva = subtotal * (romaneo.IvaPorcentaje / 100);
                             var total = subtotal + iva;
 
