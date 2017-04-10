@@ -1406,35 +1406,22 @@ namespace CooperativaProduccion
                 fileName = @"C:\SystemDocumentsCooperativa\ResumenLiquidacion\ResumenLiquidacionBurley\"
                     + Hora + " - ResumenLiquidacionBurley.xls";
             }
-            else if (string.IsNullOrEmpty(cbTabaco.Text))
-            {
-                path = @"C:\SystemDocumentsCooperativa\ResumenLiquidacion\ResumenLiquidacionTabacos";
-
-                CreateIfMissing(path);
-
-                var Hora = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff",
-                  CultureInfo.InvariantCulture).Replace(":", "").Replace(".", "")
-                  .Replace("-", "").Replace(" ", "");
-
-                fileName = @"C:\SystemDocumentsCooperativa\ResumenLiquidacion\ResumenLiquidacionTabacos"
-                    + Hora + " - ResumenLiquidacionTabacos.xls";
-            }
 
             // Create a report instance.
             var reporte = new ResumenLiquidacionReport();
 
-            reporte.Parameters["cabecera"].Value = "RESUMEN DE LIQUIDACIONES - " 
+            reporte.Parameters["cabecera"].Value = "RESUMEN DE LIQUIDACIONES - "
                 + cbTabaco.Text.ToUpper()
                 + " - CAMPAÑA " + dpDesdeRomaneo.Value.Year + " - MES DE "
                 + MonthName(dpDesdeRomaneo.Value.Month).ToUpper() + " - PROVINCIA DE "
-                + cbProvincia.Text.ToUpper()+".-";
+                + cbProvincia.Text.ToUpper() + ".-";
 
             List<RegistroResumenLiquidacion> datasourceLiquidacion;
             datasourceLiquidacion = GenerarReporteResumenLiquidacion();
             reporte.DataSource = datasourceLiquidacion;
 
             // Get its XLS export options.
-            XlsExportOptions xlsOptions = reporte.ExportOptions.Xls;
+            XlsxExportOptions xlsOptions = reporte.ExportOptions.Xlsx;
 
             // Set XLS-specific export options.
             xlsOptions.ShowGridLines = true;

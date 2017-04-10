@@ -1466,14 +1466,11 @@ namespace CooperativaProduccion
         {
             if (limpiar.Equals(false))
             {
-                if (gridViewPesada.RowCount < 0)
-                {
-                    _pesadaMostrador.numFardo = gridViewPesada.GetRowCellValue(0, "CONTADOR_CAJA").ToString();
-                    _pesadaMostrador.clase = gridViewPesada.GetRowCellValue(0, "CLASE").ToString();
-                    _pesadaMostrador.totalkg = txtTotalKilo.Text;
-                    _pesadaMostrador.porcentaje = CalcularPorcentaje(Tabaco);
-                    _pesadaMostrador.CargarFardo();
-                }
+                _pesadaMostrador.numFardo = gridViewPesada.GetRowCellValue(0, "CONTADOR_CAJA").ToString();
+                _pesadaMostrador.clase = gridViewPesada.GetRowCellValue(0, "CLASE").ToString();
+                _pesadaMostrador.totalkg = txtTotalKilo.Text;
+                _pesadaMostrador.porcentaje = CalcularPorcentaje(Tabaco);
+                _pesadaMostrador.CargarFardo();
             }
             else
             {
