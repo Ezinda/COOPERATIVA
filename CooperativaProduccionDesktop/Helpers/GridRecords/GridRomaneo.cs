@@ -9,10 +9,17 @@ namespace CooperativaProduccion.Helpers.GridRecords
     {
         public System.Guid PesadaId { get; set; } 
         public Nullable<System.DateTime> FechaRomaneo { get; set; }
-        public string nrofet { get; set; }
+        public string NumRomaneo { get; set; }
         public string NOMBRE { get; set; }
+        public string CUIT { get; set; }
+        public string nrofet { get; set; }
         public string Provincia { get; set; }
+        public string TotalKg { get; set; }
+        public string ImporteBruto { get; set; }
         public string Tabaco { get; set; }
+        
         public List<GridRomaneoDetalle> Detalle { get; set; }
+
+        public List<GridRomaneoResumenCompraDetalle> ResumenCompraDetalle { get; set; }
     }
 }

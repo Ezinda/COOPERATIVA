@@ -61,6 +61,8 @@
             this.btnResumenClasesMes = new DevExpress.XtraBars.BarButtonItem();
             this.btnResumenClasesTrimestre = new DevExpress.XtraBars.BarButtonItem();
             this.btnExportarRomaneo = new DevExpress.XtraBars.BarButtonItem();
+            this.btnExportarListaRomaneo = new DevExpress.XtraBars.BarButtonItem();
+            this.btnExportarListaRomaneoClases = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -233,7 +235,6 @@
             // 
             // btnBuscarRomaneo
             // 
-            this.btnBuscarRomaneo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBuscarRomaneo.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscarRomaneo.Image")));
             this.btnBuscarRomaneo.Location = new System.Drawing.Point(872, 22);
             this.btnBuscarRomaneo.Name = "btnBuscarRomaneo";
@@ -356,9 +357,11 @@
             this.btnResumenCompra,
             this.btnResumenClasesMes,
             this.btnResumenClasesTrimestre,
-            this.btnExportarRomaneo});
+            this.btnExportarRomaneo,
+            this.btnExportarListaRomaneo,
+            this.btnExportarListaRomaneoClases});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.MaxItemId = 12;
+            this.ribbonControl1.MaxItemId = 14;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
@@ -441,6 +444,26 @@
             this.btnExportarRomaneo.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
             this.btnExportarRomaneo.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnExportarRomaneo_ItemClick);
             // 
+            // btnExportarListaRomaneo
+            // 
+            this.btnExportarListaRomaneo.Caption = "Exportar Romaneo";
+            this.btnExportarListaRomaneo.Glyph = ((System.Drawing.Image)(resources.GetObject("btnExportarListaRomaneo.Glyph")));
+            this.btnExportarListaRomaneo.Id = 12;
+            this.btnExportarListaRomaneo.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnExportarListaRomaneo.LargeGlyph")));
+            this.btnExportarListaRomaneo.Name = "btnExportarListaRomaneo";
+            this.btnExportarListaRomaneo.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText;
+            this.btnExportarListaRomaneo.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnExportarListaRomaneo_ItemClick);
+            // 
+            // btnExportarListaRomaneoClases
+            // 
+            this.btnExportarListaRomaneoClases.Caption = "Exportar Romaneo con clases";
+            this.btnExportarListaRomaneoClases.Glyph = ((System.Drawing.Image)(resources.GetObject("btnExportarListaRomaneoClases.Glyph")));
+            this.btnExportarListaRomaneoClases.Id = 13;
+            this.btnExportarListaRomaneoClases.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnExportarListaRomaneoClases.LargeGlyph")));
+            this.btnExportarListaRomaneoClases.Name = "btnExportarListaRomaneoClases";
+            this.btnExportarListaRomaneoClases.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText;
+            this.btnExportarListaRomaneoClases.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnExportarListaRomaneoClases_ItemClick);
+            // 
             // ribbonPage1
             // 
             this.ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -461,6 +484,8 @@
             // ribbonPageGroup2
             // 
             this.ribbonPageGroup2.AllowTextClipping = false;
+            this.ribbonPageGroup2.ItemLinks.Add(this.btnExportarListaRomaneo);
+            this.ribbonPageGroup2.ItemLinks.Add(this.btnExportarListaRomaneoClases);
             this.ribbonPageGroup2.ItemLinks.Add(this.btnExportarRomaneo);
             this.ribbonPageGroup2.Name = "ribbonPageGroup2";
             this.ribbonPageGroup2.ShowCaptionButton = false;
@@ -544,5 +569,7 @@
         private DevExpress.XtraBars.BarButtonItem btnResumenClasesTrimestre;
         private DevExpress.XtraBars.BarButtonItem btnExportarRomaneo;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup2;
+        private DevExpress.XtraBars.BarButtonItem btnExportarListaRomaneo;
+        private DevExpress.XtraBars.BarButtonItem btnExportarListaRomaneoClases;
     }
 }

@@ -262,7 +262,7 @@ namespace CooperativaProduccion
             gridViewRomaneo.Columns[7].Width = 70;
             gridViewRomaneo.Columns[7].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
             gridViewRomaneo.Columns[7].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-            gridViewRomaneo.Columns[8].Caption = "Bruto sin IVA";
+            gridViewRomaneo.Columns[8].Caption = "Bruto";
             gridViewRomaneo.Columns[8].Width = 60;
             gridViewRomaneo.Columns[8].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
             gridViewRomaneo.Columns[8].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
@@ -362,19 +362,10 @@ namespace CooperativaProduccion
                 reporte.Parameters["Reimpresion"].Value = string.Empty;//DevConstantes.Reimpresion;
                 #endregion
 
-                using (ReportPrintTool tool = new ReportPrintTool(reporte))
-                {
-                    reporte.ShowPreviewMarginLines = false;
-                    tool.PreviewForm.Text = "Etiqueta";
-                    if (ValidarDebug().Equals(true))
-                    {
-                       tool.ShowPreviewDialog();
-                    }
-                    else
-                    {
-                        tool.ShowPreviewDialog();
-                    }
-                }
+                Form_AdministracionWinReport wr = new Form_AdministracionWinReport();
+                wr.Text = "Impresión de Romaneo";
+                wr.documentViewerReports.DocumentSource = reporte;
+                wr.Show();
             }
         }
 
@@ -785,6 +776,118 @@ namespace CooperativaProduccion
                 string.Empty : empleado.CUIT;
             txtProvincia.Text = string.IsNullOrEmpty(empleado.Provincia) ?
                 string.Empty : empleado.Provincia.ToString();
+        }
+
+        private void btnExportarListaRomaneo_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            string path = @"C:\SystemDocumentsCooperativa";
+
+            CreateIfMissing(path);
+
+            path = @"C:\SystemDocumentsCooperativa\ExcelRomaneo";
+
+            CreateIfMissing(path);
+
+            var Hora = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff",
+              CultureInfo.InvariantCulture).Replace(":", "").Replace(".", "")
+              .Replace("-", "").Replace(" ", "");
+
+            string fileName = @"C:\SystemDocumentsCooperativa\ExcelRomaneo\" + Hora + " - ExcelRomaneo.xls";
+
+            gridControlRomaneo.ExportToXls(fileName);
+        }
+
+        private void btnExportarListaRomaneoClases_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            ExportarListaRomaneoClases();
+        }
+
+        private void ExportarListaRomaneoClases()
+        { 
+            var reporte = new RomaneoConClasesReport();
+
+            List<GridRomaneo> lista = new List<GridRomaneo>();
+
+            Expression<Func<Vw_Romaneo, bool>> pred = x => true;
+
+            pred = pred.And(x => x.FechaRomaneo >= dpDesdeRomaneo.Value.Date
+                && x.FechaRomaneo <= dpHastaRomaneo.Value.Date);
+
+            if (ProductorId != Guid.Empty)
+            {
+                pred = pred.And(x => x.ProductorId == ProductorId);
+            }
+
+            pred = pred.And(x => x.Tabaco == cbTabaco.Text);
+
+            var liquidaciones =
+                (from a in Context.Vw_Romaneo
+                     .Where(pred)
+                 select new
+                 {
+                     ID = a.PesadaId,
+                     FECHA = a.FechaRomaneo,
+                     FET = a.nrofet,
+                     PRODUCTOR = a.NOMBRE,
+                     PROVINCIA = a.Provincia,
+                     TABACO = a.Tabaco
+                 })
+               .OrderByDescending(x => x.FECHA)
+               .ThenBy(x => x.FET)
+               .ToList();
+
+            foreach (var liquidacion in liquidaciones)
+            {
+                var liquidacionDetalle =
+                    (from pd in Context.PesadaDetalle
+                        .Where(x => x.PesadaId == liquidacion.ID)
+                     join p in Context.Vw_Clase
+                     on pd.ClaseId equals p.ID
+                     group pd by new
+                     {
+                         Clase = p.NOMBRE
+                     } into g
+                     select new
+                     {
+                         Clase = g.Key.Clase,
+                         Fardos = g.Count(),
+                         Kilos = g.Sum(x => x.Kilos)    
+                     })
+                    .ToList();
+
+                var rowsDetalle = liquidacionDetalle.Select(x =>
+                    new GridRomaneoResumenCompraDetalle()
+                    {
+                        Clase = x.Clase,
+                        Fardos = x.Fardos,
+                        Kilos = x.Kilos
+                    })
+                    .OrderBy(x => x.Fardos)
+                    .ToList();
+
+                var rowRomaneo = new GridRomaneo();
+                rowRomaneo.PesadaId = liquidacion.ID;
+                rowRomaneo.FechaRomaneo = liquidacion.FECHA;
+                rowRomaneo.nrofet = liquidacion.FET;
+                rowRomaneo.NOMBRE = liquidacion.PRODUCTOR;
+                rowRomaneo.Provincia = liquidacion.PROVINCIA;
+                rowRomaneo.Tabaco = liquidacion.TABACO;
+                rowRomaneo.ResumenCompraDetalle = rowsDetalle;
+                lista.Add(rowRomaneo);
+            }
+            reporte.DataSource = new BindingList<GridRomaneo>(lista);
+            
+            XlsExportOptions xlsOptions = reporte.ExportOptions.Xls;
+
+            // Set XLS-specific export options.
+            xlsOptions.ShowGridLines = true;
+            xlsOptions.TextExportMode = TextExportMode.Value;
+
+            // Export the report to XLS.
+            //reporte.ExportToXls(fileName);
+
+            //// Show the result.
+            //StartProcess(fileName);
         }
     }
 }

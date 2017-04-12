@@ -10,6 +10,7 @@ using DevExpress.XtraBars;
 using DesktopEntities.Models;
 using System.Data.Entity;
 using System.Globalization;
+using CooperativaProduccion.Helpers;
 
 namespace CooperativaProduccion
 {
@@ -17,6 +18,7 @@ namespace CooperativaProduccion
     {
         public CooperativaProduccionEntities Context { get; set; }
         private long LoteCaja;
+        private string printerTicket;
 
         public Form_AdministracionGestionCaja()
         {
@@ -331,6 +333,13 @@ namespace CooperativaProduccion
         {
             dpIngresoCaja.Focus();
             Habilitar();
+
+            if (IsDebug().Equals(false))
+            {
+                string strFileConfig = @"Config.ini";
+                IniParser parser = new IniParser(strFileConfig);
+                printerTicket = parser.GetSetting("AppSettings", "PrinterTicketCaja");
+            }
         }
 
         private void Deshabilitar()
@@ -490,6 +499,13 @@ namespace CooperativaProduccion
             }
         }
 
+        private void btnImpimirEtiqueta_Click(object sender, EventArgs e)
+        {
+            if (IsDebug().Equals(false))
+            {
+                //PrintTicket();
+            }
+        }
         #endregion
 
         #region Method Dev
@@ -605,9 +621,56 @@ namespace CooperativaProduccion
             return true;
         }
 
+        //private void PrintTicket(string caja, string producto, string peso, string cata)
+        //{
+        //    try
+        //    {
+        //        string s = "^XA";
+        //        s = s + "^FX Top section with company logo, name and address.";
+        //        s = s + "^LH25,50";
+        //        s = s + "^PW900";
+        //        s = s + "^CF0,40";
+        //        s = s + "^FO120,50^FDCOOPERATIVA DE PRODUCTORES^FS";
+        //        s = s + "^CF0,40";
+        //        s = s + "^FO120,100^FDAGROPECUARIOS DEL TUCUMAN^FS";
+        //        s = s + "^FO320,150^FDLTDA.^FS";
+        //        s = s + "^CF0,30";
+        //        s = s + "^FO130,250^FDRUTA 38 KM 699-LA INVERNADA^FS";
+        //        s = s + "^FO310,290^FDDPTO. LA COCHA^FS";
+        //        s = s + "^FX Third section with barcode.";
+        //        s = s + "^CF0,35";
+        //        s = s + "^FO90,400^FDCaja " + caja + "  Producto " + producto + "  Peso Neto " + peso + "^FS";
+        //        s = s + "^BY3,2,270";
+        //        s = s + "^FO160,550^BC^FD" + fardo + "^FS";
+        //        s = s + "^XZ";
+
+        //        if (printerTicket != null)
+        //        {
+        //            //PrintDialog pd = new PrintDialog();
+        //            //pd.PrinterSettings = new PrinterSettings();
+        //            //pd.ShowDialog();
+        //            RawPrinterHelper.SendStringToPrinter(printerTicket, s);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new ApplicationException("Error en el módulo de impresión :", ex);
+        //    }
+        //}
+
+        private bool IsDebug()
+        {
+            var debug = Context.Configuracion
+              .Where(x => x.Nombre == DevConstantes.Debug)
+              .FirstOrDefault();
+
+            return debug.Valor;
+        }
+
         #endregion
 
         #endregion
+
 
     }
 

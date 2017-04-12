@@ -210,6 +210,12 @@
     <Compile Include="Form_AdministracionAsociarOrdenVenta.Designer.cs">
       <DependentUpon>Form_AdministracionAsociarOrdenVenta.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_AdministracionWinReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_AdministracionWinReport.Designer.cs">
+      <DependentUpon>Form_AdministracionWinReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_InventarioIngresoCaja.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -394,6 +400,7 @@
     <Compile Include="Helpers\GridRecords\GridInventarioDetalle.cs" />
     <Compile Include="Helpers\GridRecords\GridKardex.cs" />
     <Compile Include="Helpers\GridRecords\GridRomaneo.cs" />
+    <Compile Include="Helpers\GridRecords\GridRomaneoResumenCompraDetalle.cs" />
     <Compile Include="Helpers\GridRecords\GridRomaneoDetalle.cs" />
     <Compile Include="Helpers\IniParser.cs" />
     <Compile Include="Helpers\Numalet.cs" />
@@ -408,6 +415,11 @@
     <Compile Include="Interface\IEnlaceMostradorPesada.cs" />
     <Compile Include="Interface\IEnlace.cs" />
     <Compile Include="Interface\IEnlaceNovedades.cs" />
+    <Compile Include="PrintRibbonControllerResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PrintRibbonControllerResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -533,6 +545,12 @@
     <Compile Include="Reports\ResumenRomaneoVirginiaReport.Designer.cs">
       <DependentUpon>ResumenRomaneoVirginiaReport.cs</DependentUpon>
     </Compile>
+    <Compile Include="Reports\RomaneoConClasesReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\RomaneoConClasesReport.Designer.cs">
+      <DependentUpon>RomaneoConClasesReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Reports\RomaneoReport.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -600,6 +618,9 @@
     <EmbeddedResource Include="Form_AdministracionOrdenVenta.resx">
       <DependentUpon>Form_AdministracionOrdenVenta.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form_AdministracionWinReport.resx">
+      <DependentUpon>Form_AdministracionWinReport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form_ConfiguracionImpresion.resx">
       <DependentUpon>Form_ConfiguracionImpresion.cs</DependentUpon>
     </EmbeddedResource>
@@ -655,6 +676,10 @@
     <EmbeddedResource Include="Form_SysPrincipal.resx">
       <DependentUpon>Form_SysPrincipal.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PrintRibbonControllerResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>PrintRibbonControllerResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -715,6 +740,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\ResumenRomaneoVirginiaReport.resx">
       <DependentUpon>ResumenRomaneoVirginiaReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\RomaneoConClasesReport.resx">
+      <DependentUpon>RomaneoConClasesReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\RomaneoReport.resx">
       <DependentUpon>RomaneoReport.cs</DependentUpon>

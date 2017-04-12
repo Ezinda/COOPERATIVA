@@ -384,17 +384,14 @@ namespace CooperativaProduccion
                + " Desde: " + dpDesdeRomaneo.Value.Date.ToShortDateString() 
                + " Hasta: " + dpHastaRomaneo.Value.Date.ToShortDateString();
 
-            using (ReportPrintTool tool = new ReportPrintTool(reporte))
-            {
-                reporte.ShowPreviewMarginLines = false;
-                tool.PreviewForm.Text = "Etiqueta";
-                tool.ShowPreviewDialog();
-            }
+            Form_AdministracionWinReport wr = new Form_AdministracionWinReport();
+            wr.Text = "Resumen de compra";
+            wr.documentViewerReports.DocumentSource = reporte;
+            wr.Show();
         }
 
         public List<ResumenCompra> GenerarReporteResumenCompra()
         {
-            double s = 0 ;
             var culture = CultureInfo.CreateSpecificCulture("es-ES");
             var Context = new CooperativaProduccionEntities();
             List<ResumenCompra> datasource = new List<ResumenCompra>();
@@ -459,12 +456,10 @@ namespace CooperativaProduccion
                 + " Desde: " + dpDesdeRomaneo.Value.Date.ToShortDateString()
                 + " Hasta: " + dpHastaRomaneo.Value.Date.ToShortDateString();
 
-            using (ReportPrintTool tool = new ReportPrintTool(reporte))
-            {
-                reporte.ShowPreviewMarginLines = false;
-                tool.PreviewForm.Text = "Etiqueta";
-                tool.ShowPreviewDialog();
-            }
+            Form_AdministracionWinReport wr = new Form_AdministracionWinReport();
+            wr.Text = "Resumen de compra";
+            wr.documentViewerReports.DocumentSource = reporte;
+            wr.Show();
         }
 
         public List<ResumenCompra> GenerarReporteResumenCompraTabacos()
@@ -616,12 +611,10 @@ namespace CooperativaProduccion
             reporte.Parameters["Desde"].Value = desde.ToShortDateString();
             reporte.Parameters["Hasta"].Value = hasta.ToShortDateString();
 
-            using (ReportPrintTool tool = new ReportPrintTool(reporte))
-            {
-                reporte.ShowPreviewMarginLines = false;
-                tool.PreviewForm.Text = "Etiqueta";
-                tool.ShowPreviewDialog();
-            }
+            Form_AdministracionWinReport wr = new Form_AdministracionWinReport();
+            wr.Text = "Resumen por mes";
+            wr.documentViewerReports.DocumentSource = reporte;
+            wr.Show();
         }
 
         public List<ResumenClasePorMes> GenerarReporteResumenClasePorMes(DateTime desde, DateTime hasta, string tipotabaco)
@@ -721,12 +714,10 @@ namespace CooperativaProduccion
             reporte.Parameters["Desde"].Value = desde.ToShortDateString();
             reporte.Parameters["Hasta"].Value = hasta.ToShortDateString();
 
-            using (ReportPrintTool tool = new ReportPrintTool(reporte))
-            {
-                reporte.ShowPreviewMarginLines = false;
-                tool.PreviewForm.Text = "Etiqueta";
-                tool.ShowPreviewDialog();
-            }
+            Form_AdministracionWinReport wr = new Form_AdministracionWinReport();
+            wr.Text = "Resumen por mes";
+            wr.documentViewerReports.DocumentSource = reporte;
+            wr.Show();
         }
 
         public List<ResumenClasePorMes> GenerarReporteResumenClasePorMesTabacos(DateTime desde, DateTime hasta)
@@ -932,12 +923,10 @@ namespace CooperativaProduccion
             reporte.Parameters["Desde"].Value = desde.ToShortDateString();
             reporte.Parameters["Hasta"].Value = hasta.ToShortDateString();
 
-            using (ReportPrintTool tool = new ReportPrintTool(reporte))
-            {
-                reporte.ShowPreviewMarginLines = false;
-                tool.PreviewForm.Text = "Etiqueta";
-                tool.ShowPreviewDialog();
-            }
+            Form_AdministracionWinReport wr = new Form_AdministracionWinReport();
+            wr.Text = "Resumen por trimestre";
+            wr.documentViewerReports.DocumentSource = reporte;
+            wr.Show();
         }
 
         public List<ResumenClasePorTrimestre> GenerarReporteResumenClasePorTrimestre(DateTime desde, DateTime hasta, string tipotabaco)
@@ -1114,12 +1103,10 @@ namespace CooperativaProduccion
             reporte.Parameters["Desde"].Value = desde.ToShortDateString();
             reporte.Parameters["Hasta"].Value = hasta.ToShortDateString();
 
-            using (ReportPrintTool tool = new ReportPrintTool(reporte))
-            {
-                reporte.ShowPreviewMarginLines = false;
-                tool.PreviewForm.Text = "Etiqueta";
-                tool.ShowPreviewDialog();
-            }
+            Form_AdministracionWinReport wr = new Form_AdministracionWinReport();
+            wr.Text = "Resumen por trimestre";
+            wr.documentViewerReports.DocumentSource = reporte;
+            wr.Show();
         }
 
         public List<ResumenClasePorTrimestre> GenerarReporteResumenClasePorTrimestreTabacos(DateTime desde, DateTime hasta)

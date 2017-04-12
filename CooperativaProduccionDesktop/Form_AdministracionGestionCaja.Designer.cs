@@ -69,6 +69,7 @@
             this.btnBuscarCaja = new DevExpress.XtraEditors.SimpleButton();
             this.cbProductoConsulta = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.btnImpimirEtiqueta = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Cata)).BeginInit();
             this.Cata.SuspendLayout();
@@ -356,6 +357,7 @@
             // 
             this.groupControl8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupControl8.Controls.Add(this.btnImpimirEtiqueta);
             this.groupControl8.Controls.Add(this.btnAsignarCata);
             this.groupControl8.Location = new System.Drawing.Point(1, 448);
             this.groupControl8.Name = "groupControl8";
@@ -534,6 +536,16 @@
             this.label3.TabIndex = 57;
             this.label3.Text = "Producto";
             // 
+            // btnImpimirEtiqueta
+            // 
+            this.btnImpimirEtiqueta.Image = ((System.Drawing.Image)(resources.GetObject("btnImpimirEtiqueta.Image")));
+            this.btnImpimirEtiqueta.Location = new System.Drawing.Point(111, 2);
+            this.btnImpimirEtiqueta.Name = "btnImpimirEtiqueta";
+            this.btnImpimirEtiqueta.Size = new System.Drawing.Size(115, 26);
+            this.btnImpimirEtiqueta.TabIndex = 61;
+            this.btnImpimirEtiqueta.Text = "Imprimir Etiqueta";
+            this.btnImpimirEtiqueta.Click += new System.EventHandler(this.btnImpimirEtiqueta_Click);
+            // 
             // Form_AdministracionGestionCaja
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -620,5 +632,6 @@
         private System.Windows.Forms.TextBox txtCantidadCajaConsulta;
         private DevExpress.XtraEditors.GroupControl groupControl8;
         private DevExpress.XtraEditors.SimpleButton btnAsignarCata;
+        private DevExpress.XtraEditors.SimpleButton btnImpimirEtiqueta;
     }
 }
