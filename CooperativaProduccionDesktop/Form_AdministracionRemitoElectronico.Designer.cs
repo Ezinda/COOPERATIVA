@@ -47,15 +47,6 @@
             this.dpDesde = new System.Windows.Forms.DateTimePicker();
             this.label15 = new System.Windows.Forms.Label();
             this.TabConsultaRemito = new DevExpress.XtraTab.XtraTabPage();
-            this.groupControl7 = new DevExpress.XtraEditors.GroupControl();
-            this.btnPrevisualizar = new DevExpress.XtraEditors.SimpleButton();
-            this.btnSubirAfip = new DevExpress.XtraEditors.SimpleButton();
-            this.groupControl6 = new DevExpress.XtraEditors.GroupControl();
-            this.gridControlRemito = new DevExpress.XtraGrid.GridControl();
-            this.gridViewRemito = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.gridViewLiquidacionDetalle = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.groupControl4 = new DevExpress.XtraEditors.GroupControl();
-            this.btnBuscarLiquidacion = new DevExpress.XtraEditors.SimpleButton();
             this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
             this.checkPeriodoRemito = new System.Windows.Forms.CheckBox();
             this.btnBuscarRemito = new DevExpress.XtraEditors.SimpleButton();
@@ -66,6 +57,15 @@
             this.label4 = new System.Windows.Forms.Label();
             this.dpDesdeRemito = new System.Windows.Forms.DateTimePicker();
             this.label5 = new System.Windows.Forms.Label();
+            this.groupControl7 = new DevExpress.XtraEditors.GroupControl();
+            this.btnPrevisualizar = new DevExpress.XtraEditors.SimpleButton();
+            this.btnSubirAfip = new DevExpress.XtraEditors.SimpleButton();
+            this.groupControl6 = new DevExpress.XtraEditors.GroupControl();
+            this.gridControlRemito = new DevExpress.XtraGrid.GridControl();
+            this.gridViewRemito = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.gridViewLiquidacionDetalle = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.groupControl4 = new DevExpress.XtraEditors.GroupControl();
+            this.btnBuscarLiquidacion = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Remito)).BeginInit();
             this.Remito.SuspendLayout();
@@ -78,6 +78,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             this.TabConsultaRemito.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
+            this.groupControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl7)).BeginInit();
             this.groupControl7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl6)).BeginInit();
@@ -87,8 +89,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridViewLiquidacionDetalle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl4)).BeginInit();
             this.groupControl4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
-            this.groupControl2.SuspendLayout();
             this.SuspendLayout();
             // 
             // ribbon
@@ -102,8 +102,8 @@
             this.ribbon.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.Office2013;
             this.ribbon.ShowApplicationButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowCategoryInCaption = false;
+            this.ribbon.ShowDisplayOptionsMenuButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowExpandCollapseButton = DevExpress.Utils.DefaultBoolean.False;
-            this.ribbon.ShowFullScreenButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Show;
             this.ribbon.ShowToolbarCustomizeItem = false;
             this.ribbon.Size = new System.Drawing.Size(907, 49);
@@ -147,11 +147,11 @@
             // gridControlOrdenVentaPendiente
             // 
             this.gridControlOrdenVentaPendiente.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridControlOrdenVentaPendiente.Location = new System.Drawing.Point(2, 21);
+            this.gridControlOrdenVentaPendiente.Location = new System.Drawing.Point(2, 20);
             this.gridControlOrdenVentaPendiente.MainView = this.gridViewOrdenVentaPendiente;
             this.gridControlOrdenVentaPendiente.MenuManager = this.ribbon;
             this.gridControlOrdenVentaPendiente.Name = "gridControlOrdenVentaPendiente";
-            this.gridControlOrdenVentaPendiente.Size = new System.Drawing.Size(906, 374);
+            this.gridControlOrdenVentaPendiente.Size = new System.Drawing.Size(906, 375);
             this.gridControlOrdenVentaPendiente.TabIndex = 68;
             this.gridControlOrdenVentaPendiente.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewOrdenVentaPendiente,
@@ -221,6 +221,7 @@
             // 
             // txtCliente
             // 
+            this.txtCliente.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtCliente.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCliente.Location = new System.Drawing.Point(448, 26);
             this.txtCliente.Name = "txtCliente";
@@ -285,95 +286,6 @@
             this.TabConsultaRemito.Size = new System.Drawing.Size(909, 451);
             this.TabConsultaRemito.Text = "Consulta de Remitos";
             // 
-            // groupControl7
-            // 
-            this.groupControl7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupControl7.Controls.Add(this.btnPrevisualizar);
-            this.groupControl7.Controls.Add(this.btnSubirAfip);
-            this.groupControl7.Location = new System.Drawing.Point(1, 601);
-            this.groupControl7.Name = "groupControl7";
-            this.groupControl7.ShowCaption = false;
-            this.groupControl7.Size = new System.Drawing.Size(1387, 33);
-            this.groupControl7.TabIndex = 76;
-            this.groupControl7.Text = "Buscar Romaneo";
-            // 
-            // btnPrevisualizar
-            // 
-            this.btnPrevisualizar.Image = ((System.Drawing.Image)(resources.GetObject("btnPrevisualizar.Image")));
-            this.btnPrevisualizar.Location = new System.Drawing.Point(92, 5);
-            this.btnPrevisualizar.Name = "btnPrevisualizar";
-            this.btnPrevisualizar.Size = new System.Drawing.Size(90, 22);
-            this.btnPrevisualizar.TabIndex = 41;
-            this.btnPrevisualizar.Text = "Previsualizar";
-            // 
-            // btnSubirAfip
-            // 
-            this.btnSubirAfip.Image = ((System.Drawing.Image)(resources.GetObject("btnSubirAfip.Image")));
-            this.btnSubirAfip.Location = new System.Drawing.Point(5, 5);
-            this.btnSubirAfip.Name = "btnSubirAfip";
-            this.btnSubirAfip.Size = new System.Drawing.Size(81, 22);
-            this.btnSubirAfip.TabIndex = 40;
-            this.btnSubirAfip.Text = "Subir Afip";
-            // 
-            // groupControl6
-            // 
-            this.groupControl6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupControl6.Controls.Add(this.gridControlRemito);
-            this.groupControl6.Location = new System.Drawing.Point(-1, 54);
-            this.groupControl6.Name = "groupControl6";
-            this.groupControl6.Size = new System.Drawing.Size(910, 395);
-            this.groupControl6.TabIndex = 75;
-            this.groupControl6.Text = "Lista de Cajas";
-            // 
-            // gridControlRemito
-            // 
-            this.gridControlRemito.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridControlRemito.Location = new System.Drawing.Point(2, 21);
-            this.gridControlRemito.MainView = this.gridViewRemito;
-            this.gridControlRemito.MenuManager = this.ribbon;
-            this.gridControlRemito.Name = "gridControlRemito";
-            this.gridControlRemito.Size = new System.Drawing.Size(906, 372);
-            this.gridControlRemito.TabIndex = 68;
-            this.gridControlRemito.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gridViewRemito,
-            this.gridViewLiquidacionDetalle});
-            this.gridControlRemito.DoubleClick += new System.EventHandler(this.gridControlRemito_DoubleClick);
-            // 
-            // gridViewRemito
-            // 
-            this.gridViewRemito.GridControl = this.gridControlRemito;
-            this.gridViewRemito.Name = "gridViewRemito";
-            this.gridViewRemito.OptionsBehavior.Editable = false;
-            this.gridViewRemito.OptionsSelection.MultiSelect = true;
-            this.gridViewRemito.OptionsView.ShowGroupPanel = false;
-            // 
-            // gridViewLiquidacionDetalle
-            // 
-            this.gridViewLiquidacionDetalle.GridControl = this.gridControlRemito;
-            this.gridViewLiquidacionDetalle.Name = "gridViewLiquidacionDetalle";
-            this.gridViewLiquidacionDetalle.OptionsView.ShowGroupPanel = false;
-            // 
-            // groupControl4
-            // 
-            this.groupControl4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupControl4.Controls.Add(this.btnBuscarLiquidacion);
-            this.groupControl4.Location = new System.Drawing.Point(1302, 1);
-            this.groupControl4.Name = "groupControl4";
-            this.groupControl4.Size = new System.Drawing.Size(86, 82);
-            this.groupControl4.TabIndex = 74;
-            this.groupControl4.Text = "Opciones";
-            // 
-            // btnBuscarLiquidacion
-            // 
-            this.btnBuscarLiquidacion.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscarLiquidacion.Image")));
-            this.btnBuscarLiquidacion.Location = new System.Drawing.Point(3, 23);
-            this.btnBuscarLiquidacion.Name = "btnBuscarLiquidacion";
-            this.btnBuscarLiquidacion.Size = new System.Drawing.Size(81, 22);
-            this.btnBuscarLiquidacion.TabIndex = 39;
-            this.btnBuscarLiquidacion.Text = "Buscar";
-            // 
             // groupControl2
             // 
             this.groupControl2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -423,6 +335,7 @@
             // 
             // txtClienteRemito
             // 
+            this.txtClienteRemito.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtClienteRemito.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtClienteRemito.Location = new System.Drawing.Point(448, 26);
             this.txtClienteRemito.Name = "txtClienteRemito";
@@ -476,6 +389,95 @@
             this.label5.TabIndex = 76;
             this.label5.Text = "Fecha desde";
             // 
+            // groupControl7
+            // 
+            this.groupControl7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupControl7.Controls.Add(this.btnPrevisualizar);
+            this.groupControl7.Controls.Add(this.btnSubirAfip);
+            this.groupControl7.Location = new System.Drawing.Point(1, 601);
+            this.groupControl7.Name = "groupControl7";
+            this.groupControl7.ShowCaption = false;
+            this.groupControl7.Size = new System.Drawing.Size(1387, 33);
+            this.groupControl7.TabIndex = 76;
+            this.groupControl7.Text = "Buscar Romaneo";
+            // 
+            // btnPrevisualizar
+            // 
+            this.btnPrevisualizar.Image = ((System.Drawing.Image)(resources.GetObject("btnPrevisualizar.Image")));
+            this.btnPrevisualizar.Location = new System.Drawing.Point(92, 5);
+            this.btnPrevisualizar.Name = "btnPrevisualizar";
+            this.btnPrevisualizar.Size = new System.Drawing.Size(90, 22);
+            this.btnPrevisualizar.TabIndex = 41;
+            this.btnPrevisualizar.Text = "Previsualizar";
+            // 
+            // btnSubirAfip
+            // 
+            this.btnSubirAfip.Image = ((System.Drawing.Image)(resources.GetObject("btnSubirAfip.Image")));
+            this.btnSubirAfip.Location = new System.Drawing.Point(5, 5);
+            this.btnSubirAfip.Name = "btnSubirAfip";
+            this.btnSubirAfip.Size = new System.Drawing.Size(81, 22);
+            this.btnSubirAfip.TabIndex = 40;
+            this.btnSubirAfip.Text = "Subir Afip";
+            // 
+            // groupControl6
+            // 
+            this.groupControl6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupControl6.Controls.Add(this.gridControlRemito);
+            this.groupControl6.Location = new System.Drawing.Point(-1, 54);
+            this.groupControl6.Name = "groupControl6";
+            this.groupControl6.Size = new System.Drawing.Size(910, 395);
+            this.groupControl6.TabIndex = 75;
+            this.groupControl6.Text = "Lista de Cajas";
+            // 
+            // gridControlRemito
+            // 
+            this.gridControlRemito.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridControlRemito.Location = new System.Drawing.Point(2, 20);
+            this.gridControlRemito.MainView = this.gridViewRemito;
+            this.gridControlRemito.MenuManager = this.ribbon;
+            this.gridControlRemito.Name = "gridControlRemito";
+            this.gridControlRemito.Size = new System.Drawing.Size(906, 373);
+            this.gridControlRemito.TabIndex = 68;
+            this.gridControlRemito.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridViewRemito,
+            this.gridViewLiquidacionDetalle});
+            this.gridControlRemito.DoubleClick += new System.EventHandler(this.gridControlRemito_DoubleClick);
+            // 
+            // gridViewRemito
+            // 
+            this.gridViewRemito.GridControl = this.gridControlRemito;
+            this.gridViewRemito.Name = "gridViewRemito";
+            this.gridViewRemito.OptionsBehavior.Editable = false;
+            this.gridViewRemito.OptionsSelection.MultiSelect = true;
+            this.gridViewRemito.OptionsView.ShowGroupPanel = false;
+            // 
+            // gridViewLiquidacionDetalle
+            // 
+            this.gridViewLiquidacionDetalle.GridControl = this.gridControlRemito;
+            this.gridViewLiquidacionDetalle.Name = "gridViewLiquidacionDetalle";
+            this.gridViewLiquidacionDetalle.OptionsView.ShowGroupPanel = false;
+            // 
+            // groupControl4
+            // 
+            this.groupControl4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupControl4.Controls.Add(this.btnBuscarLiquidacion);
+            this.groupControl4.Location = new System.Drawing.Point(1302, 1);
+            this.groupControl4.Name = "groupControl4";
+            this.groupControl4.Size = new System.Drawing.Size(86, 82);
+            this.groupControl4.TabIndex = 74;
+            this.groupControl4.Text = "Opciones";
+            // 
+            // btnBuscarLiquidacion
+            // 
+            this.btnBuscarLiquidacion.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscarLiquidacion.Image")));
+            this.btnBuscarLiquidacion.Location = new System.Drawing.Point(3, 23);
+            this.btnBuscarLiquidacion.Name = "btnBuscarLiquidacion";
+            this.btnBuscarLiquidacion.Size = new System.Drawing.Size(81, 22);
+            this.btnBuscarLiquidacion.TabIndex = 39;
+            this.btnBuscarLiquidacion.Text = "Buscar";
+            // 
             // Form_AdministracionRemitoElectronico
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -488,6 +490,7 @@
             this.Ribbon = this.ribbon;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Administración - Remito Electrónico";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Remito)).EndInit();
             this.Remito.ResumeLayout(false);
@@ -501,6 +504,9 @@
             this.groupControl1.ResumeLayout(false);
             this.groupControl1.PerformLayout();
             this.TabConsultaRemito.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
+            this.groupControl2.ResumeLayout(false);
+            this.groupControl2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl7)).EndInit();
             this.groupControl7.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl6)).EndInit();
@@ -510,10 +516,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridViewLiquidacionDetalle)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl4)).EndInit();
             this.groupControl4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
-            this.groupControl2.ResumeLayout(false);
-            this.groupControl2.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

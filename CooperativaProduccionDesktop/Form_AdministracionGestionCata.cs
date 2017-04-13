@@ -381,6 +381,12 @@ namespace CooperativaProduccion
 
         #endregion
 
+        private void Cata_SelectedPageChanged(object sender, DevExpress.XtraTab.TabPageChangedEventArgs e)
+        {
+            Context = new CooperativaProduccionEntities();
+            CargarCombo();
+        }
+
         #endregion
     }
 }

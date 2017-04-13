@@ -68,7 +68,7 @@ namespace CooperativaProduccion
                 {
                     _formBuscarCliente = new Form_AdministracionBuscarCliente();
                     _formBuscarCliente.cuit = txtCliente.Text;
-                    _formBuscarCliente.target = DevConstantes.OrdenVenta;
+                    _formBuscarCliente.target = DevConstantes.Remito;
                     _formBuscarCliente.BuscarCuit();
                     _formBuscarCliente.ShowDialog(this);
                 }
@@ -91,7 +91,7 @@ namespace CooperativaProduccion
                         {
                             _formBuscarCliente = new Form_AdministracionBuscarCliente();
                             _formBuscarCliente.nombre = txtCliente.Text;
-                            _formBuscarCliente.target = DevConstantes.OrdenVenta;
+                            _formBuscarCliente.target = DevConstantes.Remito;
                             _formBuscarCliente.BuscarNombre();
                             _formBuscarCliente.ShowDialog(this);
                         }
