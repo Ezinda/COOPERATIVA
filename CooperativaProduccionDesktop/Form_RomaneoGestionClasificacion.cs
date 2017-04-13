@@ -196,7 +196,7 @@ namespace CooperativaProduccion
 
                 var rowRomaneo = new GridRomaneo();
                 rowRomaneo.PesadaId = liquidacion.ID;
-                rowRomaneo.FechaRomaneo = liquidacion.FECHA;
+                rowRomaneo.FechaRomaneo = liquidacion.FECHA.Value.ToShortDateString();
                 rowRomaneo.nrofet = liquidacion.FET;
                 rowRomaneo.NOMBRE = liquidacion.PRODUCTOR;
                 rowRomaneo.Provincia = liquidacion.PROVINCIA;

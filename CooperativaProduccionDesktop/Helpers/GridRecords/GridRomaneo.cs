@@ -8,7 +8,7 @@ namespace CooperativaProduccion.Helpers.GridRecords
     public class GridRomaneo
     {
         public System.Guid PesadaId { get; set; } 
-        public Nullable<System.DateTime> FechaRomaneo { get; set; }
+        public string FechaRomaneo { get; set; }
         public string NumRomaneo { get; set; }
         public string NOMBRE { get; set; }
         public string CUIT { get; set; }

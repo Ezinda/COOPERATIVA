@@ -795,6 +795,7 @@ namespace CooperativaProduccion
             string fileName = @"C:\SystemDocumentsCooperativa\ExcelRomaneo\" + Hora + " - ExcelRomaneo.xls";
 
             gridControlRomaneo.ExportToXls(fileName);
+            StartProcess(fileName);
         }
 
         private void btnExportarListaRomaneoClases_ItemClick(object sender, ItemClickEventArgs e)
@@ -803,8 +804,22 @@ namespace CooperativaProduccion
         }
 
         private void ExportarListaRomaneoClases()
-        { 
-            var reporte = new RomaneoConClasesReport();
+        {
+            string path = @"C:\SystemDocumentsCooperativa";
+
+            CreateIfMissing(path);
+
+            path = @"C:\SystemDocumentsCooperativa\ExcelRomaneoConClases";
+
+            CreateIfMissing(path);
+
+            var Hora = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff",
+              CultureInfo.InvariantCulture).Replace(":", "").Replace(".", "")
+              .Replace("-", "").Replace(" ", "");
+
+            string fileName = @"C:\SystemDocumentsCooperativa\ExcelRomaneoConClases\" + Hora + " - ExcelRomaneoConClases.xls";
+
+            var reporte = new ListaRomaneoConClasesReport();
 
             List<GridRomaneo> lista = new List<GridRomaneo>();
 
@@ -827,9 +842,13 @@ namespace CooperativaProduccion
                  {
                      ID = a.PesadaId,
                      FECHA = a.FechaRomaneo,
-                     FET = a.nrofet,
+                     NUMROMANEO = a.NumRomaneo,
                      PRODUCTOR = a.NOMBRE,
+                     CUIT = a.CUIT,
+                     FET = a.nrofet,
                      PROVINCIA = a.Provincia,
+                     TOTALKG = a.TotalKg,
+                     IMPORTEBRUTO = a.ImporteBruto,
                      TABACO = a.Tabaco
                  })
                .OrderByDescending(x => x.FECHA)
@@ -867,10 +886,14 @@ namespace CooperativaProduccion
 
                 var rowRomaneo = new GridRomaneo();
                 rowRomaneo.PesadaId = liquidacion.ID;
-                rowRomaneo.FechaRomaneo = liquidacion.FECHA;
-                rowRomaneo.nrofet = liquidacion.FET;
+                rowRomaneo.FechaRomaneo = liquidacion.FECHA.Value.ToShortDateString();
+                rowRomaneo.NumRomaneo = liquidacion.NUMROMANEO.Value.ToString();
                 rowRomaneo.NOMBRE = liquidacion.PRODUCTOR;
+                rowRomaneo.CUIT = liquidacion.CUIT;
+                rowRomaneo.nrofet = liquidacion.FET;
                 rowRomaneo.Provincia = liquidacion.PROVINCIA;
+                rowRomaneo.TotalKg = liquidacion.TOTALKG.Value.ToString();
+                rowRomaneo.ImporteBruto = liquidacion.IMPORTEBRUTO.Value.ToString();
                 rowRomaneo.Tabaco = liquidacion.TABACO;
                 rowRomaneo.ResumenCompraDetalle = rowsDetalle;
                 lista.Add(rowRomaneo);
@@ -883,11 +906,11 @@ namespace CooperativaProduccion
             xlsOptions.ShowGridLines = true;
             xlsOptions.TextExportMode = TextExportMode.Value;
 
-            // Export the report to XLS.
-            //reporte.ExportToXls(fileName);
+           // Export the report to XLS.
+           reporte.ExportToXls(fileName);
 
-            //// Show the result.
-            //StartProcess(fileName);
+            // Show the result.
+            StartProcess(fileName);
         }
     }
 }

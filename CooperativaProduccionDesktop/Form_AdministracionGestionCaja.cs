@@ -501,9 +501,22 @@ namespace CooperativaProduccion
 
         private void btnImpimirEtiqueta_Click(object sender, EventArgs e)
         {
-            if (IsDebug().Equals(false))
-            {
-                //PrintTicket();
+            //if (IsDebug().Equals(false))
+            //{
+                if (gridViewCajaConsulta.SelectedRowsCount > 0)
+                {
+                    for (int i = 0; i < gridViewCajaConsulta.DataRowCount; i++)
+                    {
+                        if (gridViewCajaConsulta.IsRowSelected(i))
+                        {
+                            string Caja = gridViewCajaConsulta.GetRowCellValue(i, "NumCaja").ToString();
+                            string Producto = gridViewCajaConsulta.GetRowCellValue(i, "Producto").ToString();
+                            string Neto = gridViewCajaConsulta.GetRowCellValue(i, "Neto").ToString();
+                            string Cata = gridViewCajaConsulta.GetRowCellValue(i, "Cata").ToString();
+                            PrintTicket(Caja, Producto, Neto, Cata);
+                        }
+                    }
+                //}
             }
         }
         #endregion
@@ -517,8 +530,7 @@ namespace CooperativaProduccion
 
             var result = 
                 (from c in Context.Caja
-                     .Where(x => x.ProductoId == ProductoId 
-                         && x.CataId == null) 
+                     .Where(x => x.ProductoId == ProductoId) 
                  join ov in Context.OrdenVenta 
                  on c.OrdenVentaId equals ov.Id
                  join p in Context.Vw_Producto
@@ -560,6 +572,11 @@ namespace CooperativaProduccion
             gridViewCajaConsulta.Columns[8].Caption = "N° Cata";
             gridViewCajaConsulta.Columns[8].Width = 200;
             gridViewCajaConsulta.Columns[9].Visible = false;
+
+            for (var i = 0; i <= gridViewCajaConsulta.RowCount; i++)
+            {
+                gridViewCajaConsulta.SelectRow(i);
+            }
         }
 
         private void AsignarCata()
@@ -621,42 +638,50 @@ namespace CooperativaProduccion
             return true;
         }
 
-        //private void PrintTicket(string caja, string producto, string peso, string cata)
-        //{
-        //    try
-        //    {
-        //        string s = "^XA";
-        //        s = s + "^FX Top section with company logo, name and address.";
-        //        s = s + "^LH25,50";
-        //        s = s + "^PW900";
-        //        s = s + "^CF0,40";
-        //        s = s + "^FO120,50^FDCOOPERATIVA DE PRODUCTORES^FS";
-        //        s = s + "^CF0,40";
-        //        s = s + "^FO120,100^FDAGROPECUARIOS DEL TUCUMAN^FS";
-        //        s = s + "^FO320,150^FDLTDA.^FS";
-        //        s = s + "^CF0,30";
-        //        s = s + "^FO130,250^FDRUTA 38 KM 699-LA INVERNADA^FS";
-        //        s = s + "^FO310,290^FDDPTO. LA COCHA^FS";
-        //        s = s + "^FX Third section with barcode.";
-        //        s = s + "^CF0,35";
-        //        s = s + "^FO90,400^FDCaja " + caja + "  Producto " + producto + "  Peso Neto " + peso + "^FS";
-        //        s = s + "^BY3,2,270";
-        //        s = s + "^FO160,550^BC^FD" + fardo + "^FS";
-        //        s = s + "^XZ";
+        private void PrintTicket(string caja, string producto, string peso, string cata)
+        {
+            try
+            {
+                string impresionFechaHora = DateTime.Now.ToString();
+                string s = "^XA";
+                s = s + "^FX Top section with company logo, name and address.";
+                s = s + "^LH25,50";
+                s = s + "^PW900";
+                s = s + "^CF0,40";
+                s = s + "^FO120,50^FDCOOPERATIVA DE PRODUCTORES^FS";
+                s = s + "^CF0,40";
+                s = s + "^FO125,85^FDAGROPECUARIOS DEL TUCUMAN^FS";
+                s = s + "^FO310,120^FDLTDA.^FS";
+                s = s + "^CF0,30";
+                s = s + "^FO180,160^FDRUTA 38 KM 699-LA INVERNADA^FS";
+                s = s + "^FO260,190^FDDPTO. LA COCHA^FS";
+                s = s + "^FX Third section with barcode.";
+                s = s + "^CF0,35";
+                s = s + "^FO120,230^FDCaja             Producto            Peso Neto  ^FS";
+                s = s + "^CFA,25";
+                s = s + "^FO120,265^FD" + caja + "   " + producto + "   " + peso + " ^FS";
+                s = s + "^FO150,310^FDC.A.T.A. " + cata + " ^FS";
+                s = s + "^FO150,350^FD" + impresionFechaHora + " ^FS";
+                s = s + "^CF0,40";
+                s = s + "^FO120,450^FDCOOPERATIVA DE PRODUCTORES^FS";
+                s = s + "^CF0,40";
+                s = s + "^FO120,480^FDAGROPECUARIOS DEL TUCUMAN^FS";
+                s = s + "^FO300,515^FDLTDA.^FS";
+                s = s + "^CF0,30";
+                s = s + "^BY3,2,270";
+                s = s + "^FO160,550^BC^FD " + cata + " ^FS";
+                s = s + "^XZ";
 
-        //        if (printerTicket != null)
-        //        {
-        //            //PrintDialog pd = new PrintDialog();
-        //            //pd.PrinterSettings = new PrinterSettings();
-        //            //pd.ShowDialog();
-        //            RawPrinterHelper.SendStringToPrinter(printerTicket, s);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new ApplicationException("Error en el módulo de impresión :", ex);
-        //    }
-        //}
+                if (printerTicket != null)
+                {
+                    RawPrinterHelper.SendStringToPrinter(printerTicket, s);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error en el módulo de impresión :", ex);
+            }
+        }
 
         private bool IsDebug()
         {
@@ -670,7 +695,6 @@ namespace CooperativaProduccion
         #endregion
 
         #endregion
-
 
     }
 

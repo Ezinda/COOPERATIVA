@@ -545,11 +545,11 @@
     <Compile Include="Reports\ResumenRomaneoVirginiaReport.Designer.cs">
       <DependentUpon>ResumenRomaneoVirginiaReport.cs</DependentUpon>
     </Compile>
-    <Compile Include="Reports\RomaneoConClasesReport.cs">
+    <Compile Include="Reports\ListaRomaneoConClasesReport.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Reports\RomaneoConClasesReport.Designer.cs">
-      <DependentUpon>RomaneoConClasesReport.cs</DependentUpon>
+    <Compile Include="Reports\ListaRomaneoConClasesReport.Designer.cs">
+      <DependentUpon>ListaRomaneoConClasesReport.cs</DependentUpon>
     </Compile>
     <Compile Include="Reports\RomaneoReport.cs">
       <SubType>Component</SubType>
@@ -741,8 +741,8 @@
     <EmbeddedResource Include="Reports\ResumenRomaneoVirginiaReport.resx">
       <DependentUpon>ResumenRomaneoVirginiaReport.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports\RomaneoConClasesReport.resx">
-      <DependentUpon>RomaneoConClasesReport.cs</DependentUpon>
+    <EmbeddedResource Include="Reports\ListaRomaneoConClasesReport.resx">
+      <DependentUpon>ListaRomaneoConClasesReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\RomaneoReport.resx">
       <DependentUpon>RomaneoReport.cs</DependentUpon>

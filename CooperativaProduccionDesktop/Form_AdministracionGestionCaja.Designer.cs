@@ -53,6 +53,7 @@
             this.label15 = new System.Windows.Forms.Label();
             this.TabConsultaCaja = new DevExpress.XtraTab.XtraTabPage();
             this.groupControl8 = new DevExpress.XtraEditors.GroupControl();
+            this.btnImpimirEtiqueta = new DevExpress.XtraEditors.SimpleButton();
             this.btnAsignarCata = new DevExpress.XtraEditors.SimpleButton();
             this.groupControl7 = new DevExpress.XtraEditors.GroupControl();
             this.btnPrevisualizar = new DevExpress.XtraEditors.SimpleButton();
@@ -69,7 +70,6 @@
             this.btnBuscarCaja = new DevExpress.XtraEditors.SimpleButton();
             this.cbProductoConsulta = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.btnImpimirEtiqueta = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Cata)).BeginInit();
             this.Cata.SuspendLayout();
@@ -366,6 +366,16 @@
             this.groupControl8.TabIndex = 73;
             this.groupControl8.Text = "Buscar Cata";
             // 
+            // btnImpimirEtiqueta
+            // 
+            this.btnImpimirEtiqueta.Image = ((System.Drawing.Image)(resources.GetObject("btnImpimirEtiqueta.Image")));
+            this.btnImpimirEtiqueta.Location = new System.Drawing.Point(111, 2);
+            this.btnImpimirEtiqueta.Name = "btnImpimirEtiqueta";
+            this.btnImpimirEtiqueta.Size = new System.Drawing.Size(115, 26);
+            this.btnImpimirEtiqueta.TabIndex = 61;
+            this.btnImpimirEtiqueta.Text = "Imprimir Etiqueta";
+            this.btnImpimirEtiqueta.Click += new System.EventHandler(this.btnImpimirEtiqueta_Click);
+            // 
             // btnAsignarCata
             // 
             this.btnAsignarCata.Image = ((System.Drawing.Image)(resources.GetObject("btnAsignarCata.Image")));
@@ -445,6 +455,7 @@
             this.gridViewCajaConsulta.Name = "gridViewCajaConsulta";
             this.gridViewCajaConsulta.OptionsBehavior.Editable = false;
             this.gridViewCajaConsulta.OptionsSelection.MultiSelect = true;
+            this.gridViewCajaConsulta.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CheckBoxRowSelect;
             this.gridViewCajaConsulta.OptionsView.ShowGroupPanel = false;
             // 
             // gridViewLiquidacionDetalle
@@ -535,16 +546,6 @@
             this.label3.Size = new System.Drawing.Size(57, 16);
             this.label3.TabIndex = 57;
             this.label3.Text = "Producto";
-            // 
-            // btnImpimirEtiqueta
-            // 
-            this.btnImpimirEtiqueta.Image = ((System.Drawing.Image)(resources.GetObject("btnImpimirEtiqueta.Image")));
-            this.btnImpimirEtiqueta.Location = new System.Drawing.Point(111, 2);
-            this.btnImpimirEtiqueta.Name = "btnImpimirEtiqueta";
-            this.btnImpimirEtiqueta.Size = new System.Drawing.Size(115, 26);
-            this.btnImpimirEtiqueta.TabIndex = 61;
-            this.btnImpimirEtiqueta.Text = "Imprimir Etiqueta";
-            this.btnImpimirEtiqueta.Click += new System.EventHandler(this.btnImpimirEtiqueta_Click);
             // 
             // Form_AdministracionGestionCaja
             // 
