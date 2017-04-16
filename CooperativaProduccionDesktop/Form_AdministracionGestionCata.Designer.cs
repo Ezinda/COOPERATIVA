@@ -246,6 +246,7 @@
             // 
             // btnExportarVinculacion
             // 
+            this.btnExportarVinculacion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnExportarVinculacion.Image = ((System.Drawing.Image)(resources.GetObject("btnExportarVinculacion.Image")));
             this.btnExportarVinculacion.Location = new System.Drawing.Point(610, 5);
             this.btnExportarVinculacion.Name = "btnExportarVinculacion";

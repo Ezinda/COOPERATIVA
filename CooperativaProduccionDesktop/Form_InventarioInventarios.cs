@@ -108,6 +108,20 @@ namespace CooperativaProduccion
             kardex.Show();
         }
 
+        private void gridViewInventario_DoubleClick(object sender, EventArgs e)
+        {
+            string deposito = gridViewInventario.GetRowCellValue(gridViewInventario.FocusedRowHandle, "Deposito")
+                     .ToString();
+
+            string producto = gridViewInventario.GetRowCellValue(gridViewInventario.FocusedRowHandle, "TipoTabaco")
+                .ToString();
+
+            string item = string.Empty;
+
+            var kardex = new Form_InventarioKardex(deposito, producto, item);
+            kardex.Show();
+        }
+
         #endregion
 
         #region Method Dev
@@ -159,6 +173,10 @@ namespace CooperativaProduccion
             Expression<Func<Vw_Deposito, bool>> pred3 = x => true;
 
             pred3 = checkDeposito.Checked ? pred3.And(x => x.nombre == cbDeposito.Text) : pred3;
+            
+            Expression<Func<Vw_Producto, bool>> pred4 = x => true;
+
+            pred4 = checkTabaco.Checked ? pred4.And(x => x.DESCRIPCION == cbProducto.Text) : pred4;
 
             var movimientos =
                 (from m in Context.Movimiento.Where(pred)
@@ -181,7 +199,29 @@ namespace CooperativaProduccion
                      Egreso = g.Sum(c => c.m.Egreso),
                      Saldo = g.Sum(c => c.m.Ingreso) - g.Sum(c => c.m.Egreso)
                  })
-                .ToList();
+                 .Union(from m2 in Context.Movimiento.Where(pred)
+                        join c in Context.Caja
+                            on m2.TransaccionId equals c.Id
+                        join pr in Context.Vw_Producto.Where(pred4)
+                            on c.ProductoId equals pr.ID
+                        join d2 in Context.Vw_Deposito.Where(pred3)
+                            on m2.DepositoId equals d2.id
+                        group new { m2, c, pr, d2 } by new
+                        {
+                            Deposito = d2.nombre,
+                            TipoTabaco = pr.DESCRIPCION,
+                            m2.Unidad
+                        } into g
+                        select new
+                        {
+                            g.Key.Deposito,
+                            g.Key.TipoTabaco,
+                            g.Key.Unidad,
+                            Ingreso = g.Sum(c => c.m2.Ingreso),
+                            Egreso = g.Sum(c => c.m2.Egreso),
+                            Saldo = g.Sum(c => c.m2.Ingreso) - g.Sum(c => c.m2.Egreso)
+                        })
+                        .ToList();
 
             foreach (var movimiento in movimientos)
             {
@@ -237,6 +277,5 @@ namespace CooperativaProduccion
         }
 
         #endregion
-
     }
 }

@@ -114,6 +114,7 @@
             this.gridViewInventario.OptionsView.ColumnAutoWidth = false;
             this.gridViewInventario.OptionsView.ShowGroupPanel = false;
             this.gridViewInventario.MasterRowExpanded += new DevExpress.XtraGrid.Views.Grid.CustomMasterRowEventHandler(this.gridViewInventario_MasterRowExpanded);
+            this.gridViewInventario.DoubleClick += new System.EventHandler(this.gridViewInventario_DoubleClick);
             // 
             // ribbon
             // 

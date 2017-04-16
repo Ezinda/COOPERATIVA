@@ -254,7 +254,6 @@ namespace CooperativaProduccion
             movimiento.Ingreso = kilos;
             movimiento.Egreso = 0;
 
-
             var deposito = Context.Vw_Deposito
                 .Where(x => x.nombre == DevConstantes.Deposito)
                 .FirstOrDefault();
@@ -272,13 +271,14 @@ namespace CooperativaProduccion
 
         private bool Validar(bool Consulta)
         {
+            var cata = Context.Cata
+                        .Where(x => x.NumCaja == null)
+                        .Count();
+
             if (Consulta.Equals(false))
             {
                 if (checkCata.Checked)
                 {
-                    var cata = Context.Cata
-                        .Where(x => x.NumCaja == null)
-                        .Count();
                     if (cata < int.Parse(txtCantidadCajaIngreso.Text))
                     {
                         MessageBox.Show("La cantidad de Nro. de CATA disponible es " +
@@ -290,10 +290,16 @@ namespace CooperativaProduccion
             }
             else
             {
-                var cata = Context.Cata
-                    .Where(x => x.NumCaja == null)
-                    .Count();
-                if (cata < int.Parse(txtCantidadCajaConsulta.Text))
+                int count = 0;
+                for (int i = 0; i <= gridViewCajaConsulta.RowCount; i++)
+                {
+                    if (gridViewCajaConsulta.GetRowCellValue(i, "Cata") == null)
+                    {
+                        count = count + 1;
+                    }
+                }
+
+                if (cata < count)
                 {
                     MessageBox.Show("La cantidad de Nro. de CATA disponible es " +
                         "insuficiente para la cantidad de cajas ingresadas",
@@ -501,24 +507,29 @@ namespace CooperativaProduccion
 
         private void btnImpimirEtiqueta_Click(object sender, EventArgs e)
         {
-            //if (IsDebug().Equals(false))
-            //{
+            if (IsDebug().Equals(false))
+            {
                 if (gridViewCajaConsulta.SelectedRowsCount > 0)
                 {
                     for (int i = 0; i < gridViewCajaConsulta.DataRowCount; i++)
                     {
                         if (gridViewCajaConsulta.IsRowSelected(i))
                         {
-                            string Caja = gridViewCajaConsulta.GetRowCellValue(i, "NumCaja").ToString();
-                            string Producto = gridViewCajaConsulta.GetRowCellValue(i, "Producto").ToString();
-                            string Neto = gridViewCajaConsulta.GetRowCellValue(i, "Neto").ToString();
-                            string Cata = gridViewCajaConsulta.GetRowCellValue(i, "Cata").ToString();
+                            string Caja = gridViewCajaConsulta.GetRowCellValue(i, "NumCaja") != null ?  
+                                gridViewCajaConsulta.GetRowCellValue(i, "NumCaja").ToString() : string.Empty;
+                            string Producto = gridViewCajaConsulta.GetRowCellValue(i, "Producto") != null ? 
+                                gridViewCajaConsulta.GetRowCellValue(i, "Producto").ToString() : string.Empty;
+                            string Neto = gridViewCajaConsulta.GetRowCellValue(i, "Neto") != null ? 
+                                gridViewCajaConsulta.GetRowCellValue(i, "Neto").ToString() : string.Empty;
+                            string Cata = gridViewCajaConsulta.GetRowCellValue(i, "Cata") != null ? 
+                                gridViewCajaConsulta.GetRowCellValue(i, "Cata").ToString() : string.Empty;
                             PrintTicket(Caja, Producto, Neto, Cata);
                         }
                     }
-                //}
+                }
             }
         }
+     
         #endregion
 
         #region Method Dev
@@ -591,30 +602,33 @@ namespace CooperativaProduccion
 
                 if (Caja != null)
                 {
-                    var Cata = Context.Cata
-                        .Where(x => x.NumCaja == null);
-
-                    if (Cata != null)
+                    if (Caja.CataId == null)
                     {
-                        Caja.CataId = Cata.FirstOrDefault().Id;
-                        Context.Entry(Caja).State = EntityState.Modified;
-                        Context.SaveChanges();
+                        var Cata = Context.Cata
+                            .Where(x => x.NumCaja == null);
 
-                        var ActualizarCata = Context.Cata.Find(Caja.CataId);
-                        ActualizarCata.NumCaja = Caja.NumeroCaja;
-                        ActualizarCata.CajaId = Caja.Id;
-
-                        var ordenVenta = Context.OrdenVenta
-                            .Where(x => x.Id == Caja.OrdenVentaId)
-                            .FirstOrDefault();
-
-                        if (ordenVenta != null)
+                        if (Cata != null)
                         {
-                            ActualizarCata.OrdenVentaId = Caja.OrdenVentaId;
-                            ActualizarCata.NumOrden = ordenVenta.NumOrden;
+                            Caja.CataId = Cata.FirstOrDefault().Id;
+                            Context.Entry(Caja).State = EntityState.Modified;
+                            Context.SaveChanges();
+
+                            var ActualizarCata = Context.Cata.Find(Caja.CataId);
+                            ActualizarCata.NumCaja = Caja.NumeroCaja;
+                            ActualizarCata.CajaId = Caja.Id;
+
+                            var ordenVenta = Context.OrdenVenta
+                                .Where(x => x.Id == Caja.OrdenVentaId)
+                                .FirstOrDefault();
+
+                            if (ordenVenta != null)
+                            {
+                                ActualizarCata.OrdenVentaId = Caja.OrdenVentaId;
+                                ActualizarCata.NumOrden = ordenVenta.NumOrden;
+                            }
+                            Context.Entry(ActualizarCata).State = EntityState.Modified;
+                            Context.SaveChanges();
                         }
-                        Context.Entry(ActualizarCata).State = EntityState.Modified;
-                        Context.SaveChanges();
                     }
                 }
             }
@@ -641,6 +655,7 @@ namespace CooperativaProduccion
         private void PrintTicket(string caja, string producto, string peso, string cata)
         {
             try
+            
             {
                 string impresionFechaHora = DateTime.Now.ToString();
                 string s = "^XA";

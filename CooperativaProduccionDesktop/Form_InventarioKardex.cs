@@ -44,7 +44,17 @@ namespace CooperativaProduccion
             cbProducto.SelectedIndexChanged += cbProducto_SelectedIndexChanged;
             cbClase.Text = item;
             checkClase.Checked = true;
-            Buscar();
+            if (!string.IsNullOrEmpty(item))
+            {
+                BuscarClase();
+            }
+            else
+            {
+                lblClase.Visible = false;
+                cbClase.Visible = false;
+                checkClase.Visible = false;
+                BuscarProbucto();
+            }
         }
 
         private void CargarCombo()
@@ -111,7 +121,7 @@ namespace CooperativaProduccion
             }
         }
 
-        private void Buscar()
+        private void BuscarClase()
         {
             Expression<Func<Movimiento, bool>> pred = x => true;
 
@@ -140,7 +150,7 @@ namespace CooperativaProduccion
                      Fecha = p.FechaRomaneo,
                      Deposito = d.nombre,
                      TipoTabaco = p.DESCRIPCION,
-                     TipoDocumento = DevConstantes.Romaneo,
+                     TipoDocumento = m.Documento,
                      NumeroDocumento = p.NumRomaneo,
                      m.Unidad
                  } into g
@@ -192,7 +202,9 @@ namespace CooperativaProduccion
                 Expression<Func<Movimiento, bool>> pred4 = x => true;
 
                 pred4 = pred4.And(x => x.Fecha <= dpDesde.Value.Date);
+               
                 var desde = dpDesde.Value.ToShortDateString();
+                
                 var saldos =
                     (from m in Context.Movimiento.Where(pred4)
                      join p in Context.Vw_Pesada.Where(pred2)
@@ -204,7 +216,6 @@ namespace CooperativaProduccion
                          Fecha = "Saldo al día " + desde,
                          Deposito = d.nombre,
                          TipoTabaco = p.DESCRIPCION,
-
                          TipoDocumento = DevConstantes.Romaneo,
                          m.Unidad
                      } into g
@@ -239,22 +250,142 @@ namespace CooperativaProduccion
                 lista.Reverse();
 
                 gridControlInventario.DataSource = new BindingList<GridKardex>(lista);
-
-
                 gridViewInventario.Columns[0].Width = 200;
                 gridViewInventario.Columns[8].Visible = false;
                 gridViewInventario.Columns["NumeroDocumento"].SortOrder = DevExpress.Data.ColumnSortOrder.Descending;
             }
-
         }
 
-        public IEnumerable<double> GetCumulativeSequence(IEnumerable<double> input)
+        private void BuscarProbucto()
         {
-            var runningTotal = 0.0;
-            foreach (double current in input)
+            Expression<Func<Vw_Movimiento, bool>> pred = x => true;
+
+            pred = checkDesde.Checked ? pred.And(x => x.Fecha > dpDesde.Value.Date) : pred;
+
+            pred = pred.And(x => x.Fecha <= dpHasta.Value.Date);
+
+            Expression<Func<Vw_Producto, bool>> pred2 = x => true;
+
+            pred2 = checkTabaco.Checked ? pred2.And(x => x.DESCRIPCION == cbProducto.Text) : pred2;
+
+            Expression<Func<Vw_Deposito, bool>> pred3 = x => true;
+
+            pred3 = checkDeposito.Checked ? pred3.And(x => x.nombre == cbDeposito.Text) : pred3;
+
+            var movimientos =
+                (from m in Context.Vw_Movimiento.Where(pred)
+                 join p in Context.Vw_Producto.Where(pred2)
+                    on m.ProductoId equals p.ID
+                 join d in Context.Vw_Deposito.Where(pred3)
+                    on m.DepositoId equals d.id
+                 group new { m, p, d } by new
+                 {
+                     Fecha = m.FechaCaja,
+                     Deposito = d.nombre,
+                     TipoTabaco = p.DESCRIPCION,
+                     TipoDocumento = m.Documento,
+                     NumeroDocumento = "Lote: "+ m.LoteCaja +" - Caja: "+ m.NumeroCaja +" - Orden de Venta: "+m.NumOrden,
+                     m.Unidad
+                 } into g
+                 select new
+                 {
+                     g.Key.Fecha,
+                     g.Key.Deposito,
+                     g.Key.NumeroDocumento,
+                     g.Key.TipoDocumento,
+                     g.Key.TipoTabaco,
+                     g.Key.Unidad,
+                     Ingreso = g.Sum(c => c.m.Ingreso),
+                     Egreso = g.Sum(c => c.m.Egreso),
+                     Saldo = g.Sum(c => c.m.Ingreso) - g.Sum(c => c.m.Egreso)
+                 })
+                .OrderByDescending(x => x.Fecha)
+                .ThenByDescending(x => x.NumeroDocumento)
+                .ToList();
+
+            if (!checkDesde.Checked)
             {
-                runningTotal += current;
-                yield return runningTotal;
+                gridControlInventario.DataSource = movimientos;
+                gridViewInventario.Columns[0].Width = 120;
+                gridViewInventario.Columns[1].Width = 150;
+                gridViewInventario.Columns[2].Width = 300;
+                gridViewInventario.Columns[3].Width = 120;
+                gridViewInventario.Columns[4].Width = 120;
+                gridViewInventario.Columns[5].Width = 120;
+            }
+            else if (checkDesde.Checked)
+            {
+                List<GridKardex> lista = new List<GridKardex>();
+
+                foreach (var movimiento in movimientos)
+                {
+                    var rowInventario = new GridKardex();
+                    rowInventario.Fecha = movimiento.Fecha.ToShortDateString();
+                    rowInventario.Deposito = movimiento.Deposito;
+                    rowInventario.NumeroDocumento = movimiento.NumeroDocumento;
+                    rowInventario.TipoDocumento = movimiento.TipoDocumento;
+                    rowInventario.TipoTabaco = movimiento.TipoTabaco;
+                    rowInventario.Unidad = movimiento.Unidad;
+                    rowInventario.Ingreso = movimiento.Ingreso.Value.ToString();
+                    rowInventario.Egreso = movimiento.Egreso.Value.ToString();
+                    rowInventario.Saldo = movimiento.Saldo.Value.ToString();
+                    lista.Add(rowInventario);
+                }
+
+                Expression<Func<Movimiento, bool>> pred4 = x => true;
+
+                pred4 = pred4.And(x => x.Fecha <= dpDesde.Value.Date);
+
+                var desde = dpDesde.Value.ToShortDateString();
+
+                var saldos =
+                    (from m in Context.Vw_Movimiento.Where(pred)
+                     join p in Context.Vw_Producto.Where(pred2)
+                        on m.ProductoId equals p.ID
+                     join d in Context.Vw_Deposito.Where(pred3)
+                        on m.DepositoId equals d.id
+                     group new { m, p, d } by new
+                     {
+                         Fecha = "Saldo al día " + desde,
+                         Deposito = d.nombre,
+                         TipoTabaco = p.DESCRIPCION,
+                         TipoDocumento = m.Documento,
+                         m.Unidad
+                     } into g
+                     select new
+                     {
+                         g.Key.Fecha,
+                         g.Key.Deposito,
+                         g.Key.TipoDocumento,
+                         g.Key.TipoTabaco,
+                         g.Key.Unidad,
+                         Ingreso = g.Sum(c => c.m.Ingreso),
+                         Egreso = g.Sum(c => c.m.Egreso),
+                         Saldo = g.Sum(c => c.m.Ingreso) - g.Sum(c => c.m.Egreso)
+                     })
+                     .ToList();
+
+                foreach (var saldo in saldos)
+                {
+                    var rowInventario = new GridKardex();
+                    rowInventario.Fecha = saldo.Fecha;
+                    rowInventario.Deposito = saldo.Deposito;
+                    rowInventario.NumeroDocumento = string.Empty;
+                    rowInventario.TipoDocumento = saldo.TipoDocumento;
+                    rowInventario.TipoTabaco = saldo.TipoTabaco;
+                    rowInventario.Unidad = saldo.Unidad;
+                    rowInventario.Ingreso = string.Empty;
+                    rowInventario.Egreso = string.Empty;
+                    rowInventario.Saldo = saldo.Saldo.Value.ToString();
+                    lista.Add(rowInventario);
+                }
+
+                lista.Reverse();
+
+                gridControlInventario.DataSource = new BindingList<GridKardex>(lista);
+                gridViewInventario.Columns[0].Width = 200;
+                gridViewInventario.Columns[8].Visible = false;
+                gridViewInventario.Columns["NumeroDocumento"].SortOrder = DevExpress.Data.ColumnSortOrder.Descending;
             }
         }
 
@@ -268,13 +399,8 @@ namespace CooperativaProduccion
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            Buscar();
+            BuscarClase();
             gridViewInventario.CustomUnboundColumnData += new CustomColumnDataEventHandler(gridViewInventario_CustomUnboundColumnData);
-        }
-
-        public class listanumber
-        {
-            public double saldo { get; set; }
         }
 
         private void gridViewInventario_CustomUnboundColumnData(object sender, DevExpress.XtraGrid.Views.Base.CustomColumnDataEventArgs e)

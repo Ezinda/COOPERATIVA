@@ -40,7 +40,7 @@
             this.checkClase = new System.Windows.Forms.CheckBox();
             this.checkTabaco = new System.Windows.Forms.CheckBox();
             this.cbClase = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
+            this.lblClase = new System.Windows.Forms.Label();
             this.cbProducto = new System.Windows.Forms.ComboBox();
             this.btnBuscar = new DevExpress.XtraEditors.SimpleButton();
             this.dpHasta = new System.Windows.Forms.DateTimePicker();
@@ -91,7 +91,7 @@
             this.groupControl1.Controls.Add(this.checkClase);
             this.groupControl1.Controls.Add(this.checkTabaco);
             this.groupControl1.Controls.Add(this.cbClase);
-            this.groupControl1.Controls.Add(this.label4);
+            this.groupControl1.Controls.Add(this.lblClase);
             this.groupControl1.Controls.Add(this.cbProducto);
             this.groupControl1.Controls.Add(this.btnBuscar);
             this.groupControl1.Controls.Add(this.dpHasta);
@@ -186,15 +186,15 @@
             this.cbClase.Size = new System.Drawing.Size(82, 21);
             this.cbClase.TabIndex = 84;
             // 
-            // label4
+            // lblClase
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(806, 26);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(37, 16);
-            this.label4.TabIndex = 83;
-            this.label4.Text = "Clase";
+            this.lblClase.AutoSize = true;
+            this.lblClase.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblClase.Location = new System.Drawing.Point(806, 26);
+            this.lblClase.Name = "lblClase";
+            this.lblClase.Size = new System.Drawing.Size(37, 16);
+            this.lblClase.TabIndex = 83;
+            this.lblClase.Text = "Clase";
             // 
             // cbProducto
             // 
@@ -346,7 +346,7 @@
         private System.Windows.Forms.CheckBox checkClase;
         private System.Windows.Forms.CheckBox checkTabaco;
         private System.Windows.Forms.ComboBox cbClase;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblClase;
         private System.Windows.Forms.ComboBox cbProducto;
         private DevExpress.XtraEditors.SimpleButton btnBuscar;
         private System.Windows.Forms.DateTimePicker dpHasta;

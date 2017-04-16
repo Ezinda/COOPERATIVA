@@ -103,7 +103,14 @@ namespace CooperativaProduccion
             }
             else
             {
-                ModificarDatos();
+                if (ValidarCampos())
+                {
+                    ModificarDatos();
+                }
+                else
+                {
+                    MessageBox.Show("Debe completar los campos Desde y Hasta.");
+                }
             }      
         }
 
@@ -120,12 +127,22 @@ namespace CooperativaProduccion
             if (orden != null)
             {
                 var ordenVenta = Context.OrdenVenta.Find(orden.Id);
+                
                 if (ordenVenta != null)
                 {
                     ordenVenta.DesdeCaja = long.Parse(txtCajaDesde.Text);
                     ordenVenta.HastaCaja = long.Parse(txtCajaHasta.Text);
                     Context.Entry(ordenVenta).State = EntityState.Modified;
                     Context.SaveChanges();
+
+                    for(long i = ordenVenta.DesdeCaja.Value ; i<= ordenVenta.HastaCaja; i++)
+                    {
+                        var caja = Context.Caja
+                            .Where(x => x.NumeroCaja == i)
+                            .FirstOrDefault();
+
+                        RegistrarMovimiento(caja.Id, 1, ordenVenta.Fecha);   
+                    }
                 }
 
                 IEnlaceActualizar mienlace = this.Owner as Form_AdministracionOrdenVenta;
@@ -137,6 +154,22 @@ namespace CooperativaProduccion
             }
         }
 
+        private bool ValidarCampos()
+        {
+            long valor;
+            
+            bool desde = long.TryParse(txtCajaDesde.Text, out valor);
+            
+            bool hasta = long.TryParse(txtCajaHasta.Text, out valor);
+            
+            if (desde == true && hasta == true)
+            {
+                return true;
+            }
+
+            return false;
+        }
+    
         private void btnSalir_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -221,6 +254,33 @@ namespace CooperativaProduccion
             txtCajaDesde.Enabled = true;
             txtCajaHasta.Enabled = true;
         }
-        
+
+        private Guid RegistrarMovimiento(Guid Id, double kilos, DateTime fecha)
+        {
+            Movimiento movimiento;
+
+            movimiento = new Movimiento();
+            movimiento.Id = Guid.NewGuid();
+            movimiento.Fecha = fecha;
+            movimiento.TransaccionId = Id;
+            movimiento.Documento = DevConstantes.Transferencia;
+            movimiento.Unidad = DevConstantes.Caja;
+            movimiento.Ingreso = 0;
+            movimiento.Egreso = kilos;
+
+            var deposito = Context.Vw_Deposito
+                .Where(x => x.nombre == DevConstantes.Deposito)
+                .FirstOrDefault();
+
+            if (deposito != null)
+            {
+                movimiento.DepositoId = deposito.id;
+            }
+
+            Context.Movimiento.Add(movimiento);
+            Context.SaveChanges();
+
+            return movimiento.Id;
+        }        
     }
 }
