@@ -64,26 +64,28 @@ namespace CooperativaProduccion
                 txtCliente.Text = ordenVenta.FirstOrDefault().Cliente;
             }
 
-            var caja = Context.Cata
+            var caja = Context.Caja
                 .Where(x => x.OrdenVentaId == Id)
-                .OrderBy(x => x.NumCaja)
-                .Count();
+                .Any();
 
-            if (caja != 0)
+            if (caja.Equals(true))
             {
                 txtCajaDesde.Enabled = true;
                 txtCajaHasta.Enabled = true;
-                var cajaDesde = Context.Cata
-                   .Where(x => x.OrdenVentaId == Id)
-                   .OrderBy(x => x.NumCaja)
-                   .FirstOrDefault();
-                txtCajaDesde.Text = cajaDesde.NumCaja.ToString();
 
-                var cajaHasta = Context.Cata
+                var cajaDesde = Context.Caja
+                   .Where(x => x.OrdenVentaId == Id)
+                   .OrderBy(x => x.NumeroCaja)
+                   .FirstOrDefault();
+
+                txtCajaDesde.Text = cajaDesde.NumeroCaja.ToString();
+
+                var cajaHasta = Context.Caja
                     .Where(x => x.OrdenVentaId == Id)
-                    .OrderByDescending(x => x.NumCaja)
+                    .OrderByDescending(x => x.NumeroCaja)
                     .FirstOrDefault();
-                txtCajaHasta.Text = cajaHasta.NumCaja.ToString();
+
+                txtCajaHasta.Text = cajaHasta.NumeroCaja.ToString();
             }
             else
             {
@@ -106,10 +108,6 @@ namespace CooperativaProduccion
                 if (ValidarCampos())
                 {
                     ModificarDatos();
-                }
-                else
-                {
-                    MessageBox.Show("Debe completar los campos Desde y Hasta.");
                 }
             }      
         }
@@ -141,32 +139,67 @@ namespace CooperativaProduccion
                             .Where(x => x.NumeroCaja == i)
                             .FirstOrDefault();
 
+                        AsociarOVaCaja(ordenVenta.Id,caja.Id);
                         RegistrarMovimiento(caja.Id, 1, ordenVenta.Fecha);   
                     }
                 }
 
                 IEnlaceActualizar mienlace = this.Owner as Form_AdministracionOrdenVenta;
+
                 if (mienlace != null)
                 {
                     mienlace.Enviar(true);
                 }
+
                 this.Close();
+            }
+        }
+
+        private void AsociarOVaCaja(Guid OrdenVentaId,Guid CajaId)
+        {
+            var caja = Context.Caja.Find(CajaId);
+            caja.OrdenVentaId = OrdenVentaId;
+            Context.Entry(caja).State = EntityState.Modified;
+            Context.SaveChanges();
+
+            if(caja.CataId != null)
+            {
+                var cata = Context.Cata.Find(caja.CataId);
+                cata.OrdenVentaId = OrdenVentaId;
+                Context.Entry(cata).State = EntityState.Modified;
+                Context.SaveChanges();
             }
         }
 
         private bool ValidarCampos()
         {
-            long valor;
+            long valorDesde = 0;
+
+            long valorHasta = 0;
+
+            bool desde = long.TryParse(txtCajaDesde.Text, out valorDesde);
             
-            bool desde = long.TryParse(txtCajaDesde.Text, out valor);
-            
-            bool hasta = long.TryParse(txtCajaHasta.Text, out valor);
+            bool hasta = long.TryParse(txtCajaHasta.Text, out valorHasta);
             
             if (desde == true && hasta == true)
             {
+                for (long i = valorDesde; i <= valorHasta; i++)
+                {
+                    var caja = Context.Caja
+                        .Where(x => x.NumeroCaja == i)
+                        .Any();
+
+                    if (caja.Equals(false))
+                    {
+                        MessageBox.Show("No existe la caja N°: " + i,
+                            "Se requiere", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                }
                 return true;
             }
-
+            MessageBox.Show("Debe ingresar número de cajas válidas.",
+                         "Se requiere", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return false;
         }
     

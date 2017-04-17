@@ -274,33 +274,32 @@ namespace CooperativaProduccion
 
             var movimientos =
                 (from m in Context.Vw_Movimiento.Where(pred)
+                 .OrderBy(x=>x.NumeroCaja)
                  join p in Context.Vw_Producto.Where(pred2)
                     on m.ProductoId equals p.ID
                  join d in Context.Vw_Deposito.Where(pred3)
                     on m.DepositoId equals d.id
-                 group new { m, p, d } by new
-                 {
-                     Fecha = m.FechaCaja,
-                     Deposito = d.nombre,
-                     TipoTabaco = p.DESCRIPCION,
-                     TipoDocumento = m.Documento,
-                     NumeroDocumento = "Lote: "+ m.LoteCaja +" - Caja: "+ m.NumeroCaja +" - Orden de Venta: "+m.NumOrden,
-                     m.Unidad
-                 } into g
+                 //group new { m, p, d } by new
+                 //{
+                 //    Fecha = m.FechaCaja,
+                 //    Deposito = d.nombre,
+                 //    TipoTabaco = p.DESCRIPCION,
+                 //    TipoDocumento = m.Documento,
+                 //    NumeroDocumento = "Lote: "+ m.LoteCaja +" - Caja: "+ m.NumeroCaja +" - Orden de Venta: "+m.NumOrden,
+                 //    m.Unidad
+                 //} into g
                  select new
                  {
-                     g.Key.Fecha,
-                     g.Key.Deposito,
-                     g.Key.NumeroDocumento,
-                     g.Key.TipoDocumento,
-                     g.Key.TipoTabaco,
-                     g.Key.Unidad,
-                     Ingreso = g.Sum(c => c.m.Ingreso),
-                     Egreso = g.Sum(c => c.m.Egreso),
-                     Saldo = g.Sum(c => c.m.Ingreso) - g.Sum(c => c.m.Egreso)
+                     Fecha = m.Fecha,
+                     Deposito = d.nombre,
+                     NumeroDocumento = m.NumeroDocumento,
+                     TipoDocumento = m.Documento,
+                     TipoTabaco = p.DESCRIPCION,
+                     Unidad = m.Unidad,
+                     Ingreso = m.Ingreso,
+                     Egreso = m.Egreso
                  })
                 .OrderByDescending(x => x.Fecha)
-                .ThenByDescending(x => x.NumeroDocumento)
                 .ToList();
 
             if (!checkDesde.Checked)
@@ -320,7 +319,7 @@ namespace CooperativaProduccion
                 foreach (var movimiento in movimientos)
                 {
                     var rowInventario = new GridKardex();
-                    rowInventario.Fecha = movimiento.Fecha.ToShortDateString();
+                    rowInventario.Fecha = movimiento.Fecha.Value.ToShortDateString();
                     rowInventario.Deposito = movimiento.Deposito;
                     rowInventario.NumeroDocumento = movimiento.NumeroDocumento;
                     rowInventario.TipoDocumento = movimiento.TipoDocumento;
@@ -328,7 +327,7 @@ namespace CooperativaProduccion
                     rowInventario.Unidad = movimiento.Unidad;
                     rowInventario.Ingreso = movimiento.Ingreso.Value.ToString();
                     rowInventario.Egreso = movimiento.Egreso.Value.ToString();
-                    rowInventario.Saldo = movimiento.Saldo.Value.ToString();
+                   // rowInventario.Saldo = movimiento.Saldo.Value.ToString();
                     lista.Add(rowInventario);
                 }
 

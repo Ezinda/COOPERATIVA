@@ -15,17 +15,19 @@ namespace DesktopEntities.Models
     public partial class Vw_Movimiento
     {
         public System.Guid Id { get; set; }
-        public Nullable<long> NumFardo { get; set; }
-        public string Clase { get; set; }
-        public Nullable<double> Kilos { get; set; }
-        public Nullable<long> NumRomaneo { get; set; }
-        public string Productor { get; set; }
-        public string Fet { get; set; }
-        public string Cuit { get; set; }
-        public string Provincia { get; set; }
+        public Nullable<System.Guid> TransaccionId { get; set; }
+        public string Documento { get; set; }
+        public Nullable<System.Guid> DepositoId { get; set; }
         public Nullable<System.DateTime> Fecha { get; set; }
         public string Unidad { get; set; }
         public Nullable<double> Ingreso { get; set; }
         public Nullable<double> Egreso { get; set; }
+        public System.Guid CajaId { get; set; }
+        public long NumeroCaja { get; set; }
+        public Nullable<long> LoteCaja { get; set; }
+        public System.DateTime FechaCaja { get; set; }
+        public Nullable<System.Guid> ProductoId { get; set; }
+        public string Cliente { get; set; }
+        public string NumeroDocumento { get; set; }
     }
 }

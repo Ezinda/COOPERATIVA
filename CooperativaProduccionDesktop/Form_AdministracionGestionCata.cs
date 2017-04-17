@@ -73,9 +73,11 @@ namespace CooperativaProduccion
         
         private void btnCancelarImportacion_Click(object sender, EventArgs e)
         {
+            backgroundWorker1.WorkerSupportsCancellation = true;
+
             if (backgroundWorker1.IsBusy)
             {
-                this.backgroundWorker1.CancelAsync();
+                //  this.backgroundWorker1.CancelAsync();
                 backgroundWorker1.CancelAsync();
                 this.target = "cerrar";
                 this.Enabled = false;

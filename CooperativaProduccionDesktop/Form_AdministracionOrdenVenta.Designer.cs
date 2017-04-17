@@ -213,6 +213,7 @@
             // 
             // txtCliente
             // 
+            this.txtCliente.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtCliente.Location = new System.Drawing.Point(362, 24);
             this.txtCliente.Name = "txtCliente";
             this.txtCliente.Size = new System.Drawing.Size(257, 21);

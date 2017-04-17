@@ -319,6 +319,7 @@
             this.btnAsociarCajaOrdenVenta.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnAsociarCajaOrdenVenta.LargeGlyph")));
             this.btnAsociarCajaOrdenVenta.Name = "btnAsociarCajaOrdenVenta";
             this.btnAsociarCajaOrdenVenta.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText;
+            this.btnAsociarCajaOrdenVenta.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             this.btnAsociarCajaOrdenVenta.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnAsociarCajaOrdenVenta_ItemClick);
             // 
             // ribbonPageRomaneo
