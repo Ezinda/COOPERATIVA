@@ -174,8 +174,7 @@ namespace CooperativaProduccion
 
         private void btnAsociarCajaOrdenVenta_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var asociarOV = new Form_AdministracionAsociarOrdenVenta();
-            asociarOV.Show();
+         
         }
   
         #endregion

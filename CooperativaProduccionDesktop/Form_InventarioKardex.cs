@@ -272,6 +272,8 @@ namespace CooperativaProduccion
 
             pred3 = checkDeposito.Checked ? pred3.And(x => x.nombre == cbDeposito.Text) : pred3;
 
+            List<GridKardex> lista1 = new List<GridKardex>();
+
             var movimientos =
                 (from m in Context.Vw_Movimiento.Where(pred)
                  .OrderBy(x=>x.NumeroCaja)
@@ -279,28 +281,51 @@ namespace CooperativaProduccion
                     on m.ProductoId equals p.ID
                  join d in Context.Vw_Deposito.Where(pred3)
                     on m.DepositoId equals d.id
-                 //group new { m, p, d } by new
-                 //{
-                 //    Fecha = m.FechaCaja,
-                 //    Deposito = d.nombre,
-                 //    TipoTabaco = p.DESCRIPCION,
-                 //    TipoDocumento = m.Documento,
-                 //    NumeroDocumento = "Lote: "+ m.LoteCaja +" - Caja: "+ m.NumeroCaja +" - Orden de Venta: "+m.NumOrden,
-                 //    m.Unidad
-                 //} into g
+                 group new { m, p, d } by new
+                 {
+                     Fecha = m.FechaCaja,
+                     Deposito = d.nombre,
+                     TipoTabaco = p.DESCRIPCION,
+                     TipoDocumento = m.Documento,
+                     NumeroDocumento = m.NumeroDocumento,
+                     m.Unidad
+                 } into g
                  select new
                  {
-                     Fecha = m.Fecha,
-                     Deposito = d.nombre,
-                     NumeroDocumento = m.NumeroDocumento,
-                     TipoDocumento = m.Documento,
-                     TipoTabaco = p.DESCRIPCION,
-                     Unidad = m.Unidad,
-                     Ingreso = m.Ingreso,
-                     Egreso = m.Egreso
+                     g.Key.Fecha,
+                     g.Key.Deposito,
+                     g.Key.TipoDocumento,
+                     g.Key.NumeroDocumento,
+                     g.Key.TipoTabaco,
+                     g.Key.Unidad,
+                     Ingreso = g.Sum(c => c.m.Ingreso),
+                     Egreso = g.Sum(c => c.m.Egreso),
+                     Saldo = g.Sum(c => c.m.Ingreso) - g.Sum(c => c.m.Egreso)
                  })
                 .OrderByDescending(x => x.Fecha)
                 .ToList();
+
+            foreach (var item in movimientos)
+            {
+                var rowInventario = new GridKardex();
+                rowInventario.Fecha = item.Fecha.ToShortDateString();
+                rowInventario.Deposito = item.Deposito;
+                rowInventario.NumeroDocumento = string.Empty;
+                rowInventario.TipoDocumento = item.TipoDocumento;
+                rowInventario.TipoTabaco = item.TipoTabaco;
+                rowInventario.Unidad = item.Unidad;
+                rowInventario.Ingreso = string.Empty;
+                rowInventario.Egreso = string.Empty;
+                rowInventario.Saldo = item.Saldo.Value.ToString();
+                lista1.Add(rowInventario);
+            }
+
+            lista1.Reverse();
+
+            gridControlInventario.DataSource = new BindingList<GridKardex>(lista1);
+            gridViewInventario.Columns[0].Width = 200;
+            gridViewInventario.Columns[8].Visible = false;
+            gridViewInventario.Columns["NumeroDocumento"].SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
 
             if (!checkDesde.Checked)
             {
@@ -311,6 +336,7 @@ namespace CooperativaProduccion
                 gridViewInventario.Columns[3].Width = 120;
                 gridViewInventario.Columns[4].Width = 120;
                 gridViewInventario.Columns[5].Width = 120;
+                gridViewInventario.Columns[8].Visible = false;
             }
             else if (checkDesde.Checked)
             {
@@ -319,7 +345,7 @@ namespace CooperativaProduccion
                 foreach (var movimiento in movimientos)
                 {
                     var rowInventario = new GridKardex();
-                    rowInventario.Fecha = movimiento.Fecha.Value.ToShortDateString();
+                    rowInventario.Fecha = movimiento.Fecha.ToShortDateString();
                     rowInventario.Deposito = movimiento.Deposito;
                     rowInventario.NumeroDocumento = movimiento.NumeroDocumento;
                     rowInventario.TipoDocumento = movimiento.TipoDocumento;
@@ -327,7 +353,7 @@ namespace CooperativaProduccion
                     rowInventario.Unidad = movimiento.Unidad;
                     rowInventario.Ingreso = movimiento.Ingreso.Value.ToString();
                     rowInventario.Egreso = movimiento.Egreso.Value.ToString();
-                   // rowInventario.Saldo = movimiento.Saldo.Value.ToString();
+                    rowInventario.Saldo = movimiento.Saldo.Value.ToString();
                     lista.Add(rowInventario);
                 }
 

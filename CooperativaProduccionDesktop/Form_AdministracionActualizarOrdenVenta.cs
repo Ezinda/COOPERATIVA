@@ -138,7 +138,7 @@ namespace CooperativaProduccion
                             .FirstOrDefault();
 
                         AsociarOVaCaja(ordenVenta.Id,caja.Id);
-                        RegistrarMovimiento(caja.Id, 1, ordenVenta.Fecha);   
+                        //RegistrarMovimiento(caja.Id, 1, ordenVenta.Fecha);   
                     }
                 }
 
@@ -284,32 +284,32 @@ namespace CooperativaProduccion
             txtCajaHasta.Enabled = true;
         }
 
-        private Guid RegistrarMovimiento(Guid Id, double kilos, DateTime fecha)
-        {
-            Movimiento movimiento;
+        //private Guid RegistrarMovimiento(Guid Id, double kilos, DateTime fecha)
+        //{
+        //    Movimiento movimiento;
 
-            movimiento = new Movimiento();
-            movimiento.Id = Guid.NewGuid();
-            movimiento.Fecha = fecha;
-            movimiento.TransaccionId = Id;
-            movimiento.Documento = DevConstantes.Transferencia;
-            movimiento.Unidad = DevConstantes.Caja;
-            movimiento.Ingreso = 0;
-            movimiento.Egreso = kilos;
+        //    movimiento = new Movimiento();
+        //    movimiento.Id = Guid.NewGuid();
+        //    movimiento.Fecha = fecha;
+        //    movimiento.TransaccionId = Id;
+        //    movimiento.Documento = DevConstantes.Transferencia;
+        //    movimiento.Unidad = DevConstantes.Caja;
+        //    movimiento.Ingreso = 0;
+        //    movimiento.Egreso = kilos;
 
-            var deposito = Context.Vw_Deposito
-                .Where(x => x.nombre == DevConstantes.Deposito)
-                .FirstOrDefault();
+        //    var deposito = Context.Vw_Deposito
+        //        .Where(x => x.nombre == DevConstantes.Deposito)
+        //        .FirstOrDefault();
 
-            if (deposito != null)
-            {
-                movimiento.DepositoId = deposito.id;
-            }
+        //    if (deposito != null)
+        //    {
+        //        movimiento.DepositoId = deposito.id;
+        //    }
 
-            Context.Movimiento.Add(movimiento);
-            Context.SaveChanges();
+        //    Context.Movimiento.Add(movimiento);
+        //    Context.SaveChanges();
 
-            return movimiento.Id;
-        }        
+        //    return movimiento.Id;
+        //}        
     }
 }

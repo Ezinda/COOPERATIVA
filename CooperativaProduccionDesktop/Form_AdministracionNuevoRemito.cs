@@ -304,6 +304,15 @@ namespace CooperativaProduccion
                         orden.Pendiente = false;
                         Context.Entry(orden).State = EntityState.Modified;
                         Context.SaveChanges();
+
+                        for (long i = ordenVenta.DesdeCaja.Value; i <= ordenVenta.HastaCaja; i++)
+                        {
+                            var caja = Context.Caja
+                                .Where(x => x.NumeroCaja == i)
+                                .FirstOrDefault();
+                            
+                            RegistrarMovimiento(caja.Id, 1, remito.FechaRemito.Value);
+                        }
                     }
                     IEnlaceActualizar mienlace = this.Owner as Form_AdministracionRemitoElectronico;
                     if (mienlace != null)
@@ -317,6 +326,34 @@ namespace CooperativaProduccion
             {
                 throw;
             }
+        }
+
+        private Guid RegistrarMovimiento(Guid Id, double kilos, DateTime fecha)
+        {
+            Movimiento movimiento;
+
+            movimiento = new Movimiento();
+            movimiento.Id = Guid.NewGuid();
+            movimiento.Fecha = fecha;
+            movimiento.TransaccionId = Id;
+            movimiento.Documento = DevConstantes.Remito;
+            movimiento.Unidad = DevConstantes.Caja;
+            movimiento.Ingreso = 0;
+            movimiento.Egreso = kilos;
+
+            var deposito = Context.Vw_Deposito
+                .Where(x => x.nombre == DevConstantes.Deposito)
+                .FirstOrDefault();
+
+            if (deposito != null)
+            {
+                movimiento.DepositoId = deposito.id;
+            }
+
+            Context.Movimiento.Add(movimiento);
+            Context.SaveChanges();
+
+            return movimiento.Id;
         }
 
         public byte[] FileConvertToByte(string varFilePath)
@@ -376,7 +413,6 @@ namespace CooperativaProduccion
             CreateIfMissing(pathFile);
             pathFile = @"C:\SystemDocumentsCooperativa\RemitosElectronicos";
             CreateIfMissing(pathFile);
-
         }
      
         private void CopyFile()
