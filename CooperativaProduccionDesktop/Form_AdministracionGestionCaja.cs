@@ -542,15 +542,12 @@ namespace CooperativaProduccion
             var result = 
                 (from c in Context.Caja
                      .Where(x => x.ProductoId == ProductoId) 
-                 join ov in Context.OrdenVenta 
-                 on c.OrdenVentaId equals ov.Id
                  join p in Context.Vw_Producto
                  on c.ProductoId equals p.ID into pr
                  from cp in pr.DefaultIfEmpty()
                  select new
                  {
                      Id = c.Id,
-                     NumOrden = ov.NumOrden,
                      NumLote = c.LoteCaja,
                      NumCaja = c.NumeroCaja,
                      Producto = cp.DESCRIPCION,
@@ -566,23 +563,21 @@ namespace CooperativaProduccion
 
             gridControlCajaConsulta.DataSource = result;
             gridViewCajaConsulta.Columns[0].Visible = false;
-            gridViewCajaConsulta.Columns[1].Caption = "N° Orden";
+            gridViewCajaConsulta.Columns[1].Caption = "N° Lote";
             gridViewCajaConsulta.Columns[1].Width = 110;
-            gridViewCajaConsulta.Columns[2].Caption = "N° Lote";
+            gridViewCajaConsulta.Columns[2].Caption = "N° Caja";
             gridViewCajaConsulta.Columns[2].Width = 110;
-            gridViewCajaConsulta.Columns[3].Caption = "N° Caja";
-            gridViewCajaConsulta.Columns[3].Width = 110;
-            gridViewCajaConsulta.Columns[4].Caption = "Producto";
+            gridViewCajaConsulta.Columns[3].Caption = "Producto";
+            gridViewCajaConsulta.Columns[3].Width = 100;
+            gridViewCajaConsulta.Columns[4].Caption = "Bruto";
             gridViewCajaConsulta.Columns[4].Width = 100;
-            gridViewCajaConsulta.Columns[5].Caption = "Bruto";
+            gridViewCajaConsulta.Columns[5].Caption = "Tara";
             gridViewCajaConsulta.Columns[5].Width = 100;
-            gridViewCajaConsulta.Columns[6].Caption = "Tara";
+            gridViewCajaConsulta.Columns[6].Caption = "Neto";
             gridViewCajaConsulta.Columns[6].Width = 100;
-            gridViewCajaConsulta.Columns[7].Caption = "Neto";
-            gridViewCajaConsulta.Columns[7].Width = 100;
-            gridViewCajaConsulta.Columns[8].Caption = "N° Cata";
-            gridViewCajaConsulta.Columns[8].Width = 200;
-            gridViewCajaConsulta.Columns[9].Visible = false;
+            gridViewCajaConsulta.Columns[7].Caption = "N° Cata";
+            gridViewCajaConsulta.Columns[7].Width = 200;
+            gridViewCajaConsulta.Columns[8].Visible = false;
 
             for (var i = 0; i <= gridViewCajaConsulta.RowCount; i++)
             {

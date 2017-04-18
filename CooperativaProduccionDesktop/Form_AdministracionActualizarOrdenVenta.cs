@@ -90,9 +90,7 @@ namespace CooperativaProduccion
             else
             {
                 txtCajaDesde.Text = "0";
-                txtCajaDesde.Enabled = false;
                 txtCajaHasta.Text = "0";
-                txtCajaHasta.Enabled = false;
             }
         }
         
@@ -275,8 +273,6 @@ namespace CooperativaProduccion
             txtOperacion.Enabled = false;
             txtCliente.Enabled = false;
             cbOrden.Enabled = false;
-            txtCajaDesde.Enabled = false;
-            txtCajaHasta.Enabled = false;
         }
 
         private void Habilitar()
