@@ -28,9 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraGrid.GridLevelNode gridLevelNode1 = new DevExpress.XtraGrid.GridLevelNode();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_AdministracionLiquidacion));
-            this.gridViewLiquidacionDetalle = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gridControlLiquidacion = new DevExpress.XtraGrid.GridControl();
             this.gridViewLiquidacion = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
@@ -73,7 +71,6 @@
             this.txtFet = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.txtProductor = new System.Windows.Forms.TextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.gridViewLiquidacionDetalle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlLiquidacion)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewLiquidacion)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
@@ -95,27 +92,9 @@
             this.groupControl2.SuspendLayout();
             this.SuspendLayout();
             // 
-            // gridViewLiquidacionDetalle
-            // 
-            this.gridViewLiquidacionDetalle.Appearance.FocusedCell.BackColor = System.Drawing.Color.LightSkyBlue;
-            this.gridViewLiquidacionDetalle.Appearance.FocusedCell.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gridViewLiquidacionDetalle.Appearance.FocusedCell.Options.UseBackColor = true;
-            this.gridViewLiquidacionDetalle.Appearance.FocusedCell.Options.UseFont = true;
-            this.gridViewLiquidacionDetalle.Appearance.FocusedRow.BackColor = System.Drawing.Color.LightSkyBlue;
-            this.gridViewLiquidacionDetalle.Appearance.FocusedRow.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gridViewLiquidacionDetalle.Appearance.FocusedRow.Options.UseBackColor = true;
-            this.gridViewLiquidacionDetalle.Appearance.FocusedRow.Options.UseFont = true;
-            this.gridViewLiquidacionDetalle.GridControl = this.gridControlLiquidacion;
-            this.gridViewLiquidacionDetalle.Name = "gridViewLiquidacionDetalle";
-            this.gridViewLiquidacionDetalle.OptionsView.ShowGroupPanel = false;
-            // 
             // gridControlLiquidacion
             // 
             this.gridControlLiquidacion.Dock = System.Windows.Forms.DockStyle.Fill;
-            gridLevelNode1.LevelTemplate = this.gridViewLiquidacionDetalle;
-            gridLevelNode1.RelationName = "Level1";
-            this.gridControlLiquidacion.LevelTree.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
-            gridLevelNode1});
             this.gridControlLiquidacion.Location = new System.Drawing.Point(2, 20);
             this.gridControlLiquidacion.MainView = this.gridViewLiquidacion;
             this.gridControlLiquidacion.MenuManager = this.ribbon;
@@ -123,8 +102,7 @@
             this.gridControlLiquidacion.Size = new System.Drawing.Size(1261, 545);
             this.gridControlLiquidacion.TabIndex = 68;
             this.gridControlLiquidacion.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gridViewLiquidacion,
-            this.gridViewLiquidacionDetalle});
+            this.gridViewLiquidacion});
             // 
             // gridViewLiquidacion
             // 
@@ -596,7 +574,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Liquidación a Productores";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            ((System.ComponentModel.ISupportInitialize)(this.gridViewLiquidacionDetalle)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlLiquidacion)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewLiquidacion)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).EndInit();
@@ -656,7 +633,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DateTimePicker dpDesdeLiquidacion;
         private System.Windows.Forms.Label label3;
-        private DevExpress.XtraGrid.Views.Grid.GridView gridViewLiquidacionDetalle;
         private System.Windows.Forms.TextBox txtCuit;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox cbTabaco;

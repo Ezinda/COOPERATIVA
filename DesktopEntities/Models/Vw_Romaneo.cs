@@ -28,7 +28,7 @@ namespace DesktopEntities.Models
         public Nullable<double> TotalKg { get; set; }
         public Nullable<decimal> ImporteBruto { get; set; }
         public Nullable<decimal> ImporteNeto { get; set; }
-        public Nullable<double> Importeporpagar { get; set; }
+        public int Importeporpagar { get; set; }
         public Nullable<int> PuntoVentaLiquidacion { get; set; }
         public Nullable<long> NumInternoLiquidacion { get; set; }
         public Nullable<System.DateTime> FechaInternaLiquidacion { get; set; }
@@ -40,12 +40,12 @@ namespace DesktopEntities.Models
         public Nullable<System.DateTime> FechaVtoCae { get; set; }
         public Nullable<System.Guid> OrdenPagoId { get; set; }
         public Nullable<bool> RomaneoPendiente { get; set; }
-        public Nullable<decimal> IIBB { get; set; }
-        public Nullable<decimal> EEAOC { get; set; }
-        public Nullable<decimal> SP { get; set; }
-        public Nullable<decimal> GADM { get; set; }
-        public Nullable<decimal> RIEGO { get; set; }
-        public Nullable<decimal> GANANCIA { get; set; }
-        public double BASEGANANCIA { get; set; }
+        public int Expr1 { get; set; }
+        public int Expr2 { get; set; }
+        public int Expr3 { get; set; }
+        public int Expr4 { get; set; }
+        public int Expr5 { get; set; }
+        public int Expr6 { get; set; }
+        public int BASEGANANCIA { get; set; }
     }
 }

@@ -13,7 +13,7 @@ namespace CooperativaProduccion.Helpers
     {
         public LiquidacionesParaOPViewModel ListarLiquidacionesParaPagarEnPorcentaje(decimal porcentajeporpagar)
         {
-            Expression<Func<Vw_Romaneo, bool>> pred = x => true;
+            Expression<Func<Vw_RomaneoOrdenPago, bool>> pred = x => true;
             var entities = _GetEntitiesLiquidaciones(pred, porcentajeporpagar, LiquidacionesQueryType.PorPorcentaje);
             var result = _GetLiquidaciones(entities);
 
@@ -22,7 +22,7 @@ namespace CooperativaProduccion.Helpers
 
         public LiquidacionesParaOPViewModel ListarLiquidacionesParaPagarEnPorcentaje(decimal porcentajeporpagar, DateTime desde, DateTime hasta)
         {
-            Expression<Func<Vw_Romaneo, bool>> pred = x =>
+            Expression<Func<Vw_RomaneoOrdenPago, bool>> pred = x =>
                 x.FechaAfipLiquidacion.Value >= desde
                 && x.FechaAfipLiquidacion.Value <= hasta;
 
@@ -34,7 +34,7 @@ namespace CooperativaProduccion.Helpers
 
         public LiquidacionesParaOPViewModel ListarLiquidacionesParaPagarEnKilos(decimal kilos)
         {
-            Expression<Func<Vw_Romaneo, bool>> pred = x => true;
+            Expression<Func<Vw_RomaneoOrdenPago, bool>> pred = x => true;
             var entities = _GetEntitiesLiquidaciones(pred, kilos, LiquidacionesQueryType.PorKilo);
             var result = _GetLiquidaciones(entities);
 
@@ -43,7 +43,7 @@ namespace CooperativaProduccion.Helpers
 
         public LiquidacionesParaOPViewModel ListarLiquidacionesParaPagarEnKilos(decimal kilos, DateTime desde, DateTime hasta)
         {
-            Expression<Func<Vw_Romaneo, bool>> pred = x =>
+            Expression<Func<Vw_RomaneoOrdenPago, bool>> pred = x =>
                 x.FechaAfipLiquidacion.Value >= desde
                 && x.FechaAfipLiquidacion.Value <= hasta;
 
@@ -282,7 +282,7 @@ namespace CooperativaProduccion.Helpers
             }
         }
 
-        private LiquidacionesParaOPViewModel _GetLiquidaciones(List<Vw_Romaneo> entities)
+        private LiquidacionesParaOPViewModel _GetLiquidaciones(List<Vw_RomaneoOrdenPago> entities)
         {
             decimal coeficiente = decimal.Parse("1.21");
 
@@ -440,7 +440,7 @@ namespace CooperativaProduccion.Helpers
             return result;
         }
 
-        private List<Vw_Romaneo> _GetEntitiesLiquidaciones(Expression<Func<Vw_Romaneo, bool>> pred, decimal valor, LiquidacionesQueryType type)
+        private List<Vw_RomaneoOrdenPago> _GetEntitiesLiquidaciones(Expression<Func<Vw_RomaneoOrdenPago, bool>> pred, decimal valor, LiquidacionesQueryType type)
         {
             using (var context = new CooperativaProduccionEntities())
             {
@@ -463,7 +463,7 @@ namespace CooperativaProduccion.Helpers
 
             using (var context = new CooperativaProduccionEntities())
             {
-                var entities = context.Vw_Romaneo
+                var entities = context.Vw_RomaneoOrdenPago
                     .Where(x =>
                         x.OrdenPagoId == null
                         && x.RomaneoPendiente == false)

@@ -209,6 +209,7 @@
             this.btnOrdenPago.Id = 12;
             this.btnOrdenPago.Name = "btnOrdenPago";
             this.btnOrdenPago.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.btnOrdenPago.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             this.btnOrdenPago.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnOrdenPago_ItemClick);
             // 
             // btnGestionCata

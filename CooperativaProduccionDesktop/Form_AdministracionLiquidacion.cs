@@ -418,31 +418,6 @@ namespace CooperativaProduccion
 
             foreach (var liquidacion in liquidaciones)
             {
-                var liquidacionDetalle =
-                    (from a in Context.Vw_ResumenRomaneoPorClase
-                     .Where(x => x.PesadaId == liquidacion.ID)
-                     select new
-                     {
-                         Clase = a.Clase,
-                         Fardos = a.Fardos,
-                         Kilos = a.Kilos,
-                         ClasePrecio = a.ClasePrecio,
-                         Total = a.Total
-                     })
-                    .ToList();
-
-                var rowsDetalle = liquidacionDetalle.Select(x =>
-                    new GridLiquidacionDetalle()
-                    {
-                        Clase = x.Clase,
-                        Fardos = x.Fardos,
-                        Kilos = x.Kilos,
-                        ClasePrecio = x.ClasePrecio,
-                        Total = x.Total
-                    })
-                    .OrderBy(x => x.Clase)
-                    .ToList();
-
                 var rowLiquidacion = new GridLiquidacion();
                 rowLiquidacion.PesadaId = liquidacion.ID;
                 rowLiquidacion.fechaInternaLiquidacion = liquidacion.FECHA;
@@ -450,7 +425,7 @@ namespace CooperativaProduccion
                 rowLiquidacion.NOMBRE = liquidacion.PRODUCTOR;
                 rowLiquidacion.CUIT = liquidacion.CUIT;
                 rowLiquidacion.nrofet = liquidacion.FET;
-                rowLiquidacion.Provincia  = liquidacion.PROVINCIA;
+                rowLiquidacion.Provincia = liquidacion.PROVINCIA;
                 rowLiquidacion.Letra = liquidacion.LETRA;
                 rowLiquidacion.Totalkg = liquidacion.KILOS;
                 rowLiquidacion.ImporteBruto = liquidacion.BRUTOSINIVA;
@@ -458,11 +433,11 @@ namespace CooperativaProduccion
                 rowLiquidacion.numAfipLiquidacion = liquidacion.NUMEROAFIPLIQUIDACION;
                 rowLiquidacion.cae = liquidacion.CAE;
                 rowLiquidacion.fechaVtoCae = liquidacion.FECHAVTOCAE;
-                rowLiquidacion.Detalle = rowsDetalle;
                 lista.Add(rowLiquidacion);
             }
 
             gridControlLiquidacion.DataSource = new BindingList<GridLiquidacion>(lista);
+
             gridViewLiquidacion.Columns[0].Visible = false;
             gridViewLiquidacion.Columns[1].Caption = "Fecha Int. Liquidación";
             gridViewLiquidacion.Columns[1].Width = 60;
@@ -890,9 +865,10 @@ namespace CooperativaProduccion
                 {
                     if (liquidacion.Letra == DevConstantes.A)
                     {
-                        var precioSinIva = liquidacionDetalle.PrecioClase.Value / (1 + (liq.IvaPorcentaje / 100));
-                        detalle.ClasePrecio = decimal.Round(precioSinIva.Value, 2, MidpointRounding.AwayFromZero);
-                        decimal total = decimal.Parse(liquidacionDetalle.Kilos.ToString()) * precioSinIva.Value;
+                        //var precioSinIva = liquidacionDetalle.PrecioClase.Value / (1 + (liq.IvaPorcentaje / 100));
+                        var precioBruto = liquidacionDetalle.PrecioClase.Value;
+                        detalle.ClasePrecio = decimal.Round(precioBruto, 2, MidpointRounding.AwayFromZero);
+                        decimal total = decimal.Parse(liquidacionDetalle.Kilos.ToString()) * precioBruto;
                         detalle.Total = decimal.Round(total, 2, MidpointRounding.AwayFromZero);
                     }
                     else

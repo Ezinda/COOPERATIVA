@@ -51,6 +51,7 @@ namespace DesktopEntities.Models
         public virtual DbSet<Vw_Movimiento> Vw_Movimiento { get; set; }
         public virtual DbSet<Vw_OrdenPago> Vw_OrdenPago { get; set; }
         public virtual DbSet<Vw_Pesada> Vw_Pesada { get; set; }
+        public virtual DbSet<Vw_pesada_liq> Vw_pesada_liq { get; set; }
         public virtual DbSet<Vw_Preingreso> Vw_Preingreso { get; set; }
         public virtual DbSet<Vw_Producto> Vw_Producto { get; set; }
         public virtual DbSet<Vw_Productor> Vw_Productor { get; set; }
@@ -63,6 +64,7 @@ namespace DesktopEntities.Models
         public virtual DbSet<Vw_ResumenRomaneoPorClase> Vw_ResumenRomaneoPorClase { get; set; }
         public virtual DbSet<Vw_ResumenRomaneoVirginia> Vw_ResumenRomaneoVirginia { get; set; }
         public virtual DbSet<Vw_Romaneo> Vw_Romaneo { get; set; }
+        public virtual DbSet<Vw_RomaneoOrdenPago> Vw_RomaneoOrdenPago { get; set; }
         public virtual DbSet<Vw_TipoTabaco> Vw_TipoTabaco { get; set; }
     }
 }
