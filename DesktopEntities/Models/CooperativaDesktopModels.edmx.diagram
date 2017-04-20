@@ -6,7 +6,7 @@
     <edmx:Diagrams>
       <Diagram DiagramId="8c0a263bdce7457da51fd62f656dcf9e" Name="Diagram1" ZoomLevel="21">
         <EntityTypeShape EntityType="CooperativaProduccionModel.Caja" Width="1.5" PointX="8" PointY="11" />
-        <EntityTypeShape EntityType="CooperativaProduccionModel.Cata" Width="1.5" PointX="5.75" PointY="11.375" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.Cata" Width="1.5" PointX="5.75" PointY="11.5" />
         <EntityTypeShape EntityType="CooperativaProduccionModel.Clase" Width="1.5" PointX="10.75" PointY="10.75" />
         <EntityTypeShape EntityType="CooperativaProduccionModel.ConceptoDeOrdenDePago" Width="1.5" PointX="3" PointY="2.625" />
         <EntityTypeShape EntityType="CooperativaProduccionModel.Configuracion" Width="1.5" PointX="2.75" PointY="11.75" />
@@ -26,26 +26,27 @@
         <EntityTypeShape EntityType="CooperativaProduccionModel.Usuario" Width="1.5" PointX="0.75" PointY="14.75" />
         <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_Clase" Width="1.5" PointX="2.75" PointY="14.75" />
         <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_Cliente" Width="1.5" PointX="14.75" PointY="3.75" />
-        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_ConceptoDeOrdenDePago" Width="1.5" PointX="4.75" PointY="14.75" />
-        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_Deposito" Width="1.5" PointX="14.75" PointY="9.75" />
-        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_Movimiento" Width="1.5" PointX="10.75" PointY="14.75" />
-        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_OrdenPago" Width="1.5" PointX="14.75" PointY="12.75" />
-        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_Pesada" Width="1.5" PointX="6.75" PointY="15.75" />
-        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_pesada_liq" Width="1.5" PointX="16.75" PointY="0.75" />
-        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_Preingreso" Width="1.5" PointX="16.75" PointY="3.75" />
-        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_Producto" Width="1.5" PointX="16.75" PointY="8.75" />
-        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_Productor" Width="1.5" PointX="16.75" PointY="11.75" />
-        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_Provincia" Width="1.5" PointX="16.75" PointY="17.75" />
-        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_ResumenClasePorFecha" Width="1.5" PointX="18.75" PointY="0.75" />
-        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_ResumenCompraPorClase" Width="1.5" PointX="18.75" PointY="4.75" />
-        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_ResumenPesada" Width="1.5" PointX="18.75" PointY="8.75" />
-        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_ResumenPesadaPorClase" Width="1.5" PointX="18.75" PointY="11.75" />
-        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_ResumenRomaneoBurley" Width="1.5" PointX="12.75" PointY="18.75" />
-        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_ResumenRomaneoPorClase" Width="1.5" PointX="18.75" PointY="14.75" />
-        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_ResumenRomaneoVirginia" Width="1.5" PointX="18.75" PointY="17.75" />
-        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_Romaneo" Width="1.5" PointX="8.75" PointY="19.75" />
-        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_RomaneoOrdenPago" Width="1.5" PointX="20.75" PointY="0.75" />
-        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_TipoTabaco" Width="1.5" PointX="2.75" PointY="20.75" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_ConceptoDeOrdenDePago" Width="1.5" PointX="14.75" PointY="9.75" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_Deposito" Width="1.5" PointX="10.75" PointY="14.75" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_Movimiento" Width="1.5" PointX="4.75" PointY="15.75" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_OrdenPago" Width="1.5" PointX="6.75" PointY="15.75" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_Pesada" Width="1.5" PointX="12.75" PointY="15.75" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_pesada_liq" Width="1.5" PointX="14.75" PointY="15.75" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_Preingreso" Width="1.5" PointX="16.75" PointY="0.75" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_Producto" Width="1.5" PointX="16.75" PointY="5.75" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_Productor" Width="1.5" PointX="16.75" PointY="8.75" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_Provincia" Width="1.5" PointX="16.75" PointY="14.75" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_ResumenClasePorFecha" Width="1.5" PointX="8.75" PointY="17.75" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_ResumenCompraPorClase" Width="1.5" PointX="16.75" PointY="17.75" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_ResumenPesada" Width="1.5" PointX="18.75" PointY="0.75" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_ResumenPesadaPorClase" Width="1.5" PointX="18.75" PointY="3.75" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_ResumenRomaneoBurley" Width="1.5" PointX="18.75" PointY="6.75" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_ResumenRomaneoPorClase" Width="1.5" PointX="18.75" PointY="15.75" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_ResumenRomaneoVirginia" Width="1.5" PointX="18.75" PointY="18.75" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_Romaneo" Width="1.5" PointX="20.75" PointY="0.75" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_RomaneoOrdenPago" Width="1.5" PointX="2.75" PointY="20.75" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_TipoTabaco" Width="1.5" PointX="20.75" PointY="9.75" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_Transporte" Width="1.5" PointX="20.75" PointY="12.75" />
         <AssociationConnector Association="CooperativaProduccionModel.FK_Caja_Cata" />
         <AssociationConnector Association="CooperativaProduccionModel.FK_ConceptoDeOrdenDePago_OrdenPago" />
         <AssociationConnector Association="CooperativaProduccionModel.FK_ConceptoDeOrdenDePago_Pesada" />

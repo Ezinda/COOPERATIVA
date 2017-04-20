@@ -12,7 +12,8 @@
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="NumeroCaja" Type="bigint" Nullable="false" />
           <Property Name="OrdenVentaId" Type="uniqueidentifier" />
-          <Property Name="LoteCaja" Type="bigint" />
+          <Property Name="Lote" Type="bigint" Nullable="false" />
+          <Property Name="Campaña" Type="int" Nullable="false" />
           <Property Name="Fecha" Type="date" Nullable="false" />
           <Property Name="Hora" Type="time" Precision="7" Nullable="false" />
           <Property Name="ProductoId" Type="uniqueidentifier" Nullable="false" />
@@ -378,6 +379,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Movimiento' does not 
             <PropertyRef Name="Id" />
             <PropertyRef Name="CajaId" />
             <PropertyRef Name="NumeroCaja" />
+            <PropertyRef Name="Lote" />
             <PropertyRef Name="FechaCaja" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
@@ -390,7 +392,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Movimiento' does not 
           <Property Name="Egreso" Type="float" />
           <Property Name="CajaId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="NumeroCaja" Type="bigint" Nullable="false" />
-          <Property Name="LoteCaja" Type="bigint" />
+          <Property Name="Lote" Type="bigint" Nullable="false" />
           <Property Name="FechaCaja" Type="date" Nullable="false" />
           <Property Name="ProductoId" Type="uniqueidentifier" />
           <Property Name="Cliente" Type="varchar" MaxLength="100" />
@@ -895,6 +897,16 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_TipoTabaco' does not 
           <Property Name="DESCRIPCION" Type="varchar" MaxLength="150" />
           <Property Name="RUBRO_ID" Type="uniqueidentifier" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Vw_Transporte">
+          <Key>
+            <PropertyRef Name="ALIAS_0_ID" />
+          </Key>
+          <Property Name="ALIAS_0_ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ALIAS_1_NOMBRE" Type="varchar" MaxLength="100" />
+          <Property Name="CUIT" Type="varchar" MaxLength="40" />
+        </EntityType>
         <Association Name="FK_Caja_Cata">
           <End Role="Cata" Type="Self.Cata" Multiplicity="0..1" />
           <End Role="Caja" Type="Self.Caja" Multiplicity="*" />
@@ -1091,7 +1103,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_TipoTabaco' does not 
     [Vw_Movimiento].[Egreso] AS [Egreso], 
     [Vw_Movimiento].[CajaId] AS [CajaId], 
     [Vw_Movimiento].[NumeroCaja] AS [NumeroCaja], 
-    [Vw_Movimiento].[LoteCaja] AS [LoteCaja], 
+    [Vw_Movimiento].[Lote] AS [Lote], 
     [Vw_Movimiento].[FechaCaja] AS [FechaCaja], 
     [Vw_Movimiento].[ProductoId] AS [ProductoId], 
     [Vw_Movimiento].[Cliente] AS [Cliente], 
@@ -1447,6 +1459,13 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_TipoTabaco' does not 
     [Vw_TipoTabaco].[RUBRO_ID] AS [RUBRO_ID]
     FROM [dbo].[Vw_TipoTabaco] AS [Vw_TipoTabaco]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="Vw_Transporte" EntityType="Self.Vw_Transporte" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Vw_Transporte].[ALIAS_0_ID] AS [ALIAS_0_ID], 
+    [Vw_Transporte].[ALIAS_1_NOMBRE] AS [ALIAS_1_NOMBRE], 
+    [Vw_Transporte].[CUIT] AS [CUIT]
+    FROM [dbo].[Vw_Transporte] AS [Vw_Transporte]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_Caja_Cata" Association="Self.FK_Caja_Cata">
             <End Role="Cata" EntitySet="Cata" />
             <End Role="Caja" EntitySet="Caja" />
@@ -1526,6 +1545,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_TipoTabaco' does not 
           <EntitySet Name="Vw_Romaneo" EntityType="CooperativaProduccionModel.Vw_Romaneo" />
           <EntitySet Name="Vw_RomaneoOrdenPago" EntityType="CooperativaProduccionModel.Vw_RomaneoOrdenPago" />
           <EntitySet Name="Vw_TipoTabaco" EntityType="CooperativaProduccionModel.Vw_TipoTabaco" />
+          <EntitySet Name="Vw_Transporte" EntityType="CooperativaProduccionModel.Vw_Transporte" />
           <AssociationSet Name="FK_Caja_Cata" Association="CooperativaProduccionModel.FK_Caja_Cata">
             <End Role="Cata" EntitySet="Cata" />
             <End Role="Caja" EntitySet="Caja" />
@@ -1566,7 +1586,8 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_TipoTabaco' does not 
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="NumeroCaja" Type="Int64" Nullable="false" />
           <Property Name="OrdenVentaId" Type="Guid" />
-          <Property Name="LoteCaja" Type="Int64" />
+          <Property Name="Lote" Type="Int64" Nullable="false" />
+          <Property Name="Campaña" Type="Int32" Nullable="false" />
           <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Hora" Type="Time" Nullable="false" Precision="7" />
           <Property Name="ProductoId" Type="Guid" Nullable="false" />
@@ -1938,6 +1959,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_TipoTabaco' does not 
             <PropertyRef Name="Id" />
             <PropertyRef Name="CajaId" />
             <PropertyRef Name="NumeroCaja" />
+            <PropertyRef Name="Lote" />
             <PropertyRef Name="FechaCaja" />
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
@@ -1950,7 +1972,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_TipoTabaco' does not 
           <Property Name="Egreso" Type="Double" />
           <Property Name="CajaId" Type="Guid" Nullable="false" />
           <Property Name="NumeroCaja" Type="Int64" Nullable="false" />
-          <Property Name="LoteCaja" Type="Int64" />
+          <Property Name="Lote" Type="Int64" Nullable="false" />
           <Property Name="FechaCaja" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="ProductoId" Type="Guid" />
           <Property Name="Cliente" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
@@ -2421,6 +2443,14 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_TipoTabaco' does not 
           <Property Name="DESCRIPCION" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="RUBRO_ID" Type="Guid" />
         </EntityType>
+        <EntityType Name="Vw_Transporte">
+          <Key>
+            <PropertyRef Name="ALIAS_0_ID" />
+          </Key>
+          <Property Name="ALIAS_0_ID" Type="Guid" Nullable="false" />
+          <Property Name="ALIAS_1_NOMBRE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CUIT" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+        </EntityType>
         <Association Name="FK_Caja_Cata">
           <End Type="CooperativaProduccionModel.Cata" Role="Cata" Multiplicity="0..1" />
           <End Type="CooperativaProduccionModel.Caja" Role="Caja" Multiplicity="*" />
@@ -2533,7 +2563,8 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_TipoTabaco' does not 
                 <ScalarProperty Name="ProductoId" ColumnName="ProductoId" />
                 <ScalarProperty Name="Hora" ColumnName="Hora" />
                 <ScalarProperty Name="Fecha" ColumnName="Fecha" />
-                <ScalarProperty Name="LoteCaja" ColumnName="LoteCaja" />
+                <ScalarProperty Name="Campaña" ColumnName="Campaña" />
+                <ScalarProperty Name="Lote" ColumnName="Lote" />
                 <ScalarProperty Name="OrdenVentaId" ColumnName="OrdenVentaId" />
                 <ScalarProperty Name="NumeroCaja" ColumnName="NumeroCaja" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -2898,7 +2929,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_TipoTabaco' does not 
                 <ScalarProperty Name="Cliente" ColumnName="Cliente" />
                 <ScalarProperty Name="ProductoId" ColumnName="ProductoId" />
                 <ScalarProperty Name="FechaCaja" ColumnName="FechaCaja" />
-                <ScalarProperty Name="LoteCaja" ColumnName="LoteCaja" />
+                <ScalarProperty Name="Lote" ColumnName="Lote" />
                 <ScalarProperty Name="NumeroCaja" ColumnName="NumeroCaja" />
                 <ScalarProperty Name="CajaId" ColumnName="CajaId" />
                 <ScalarProperty Name="Egreso" ColumnName="Egreso" />
@@ -3292,6 +3323,15 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_TipoTabaco' does not 
                 <ScalarProperty Name="RUBRO_ID" ColumnName="RUBRO_ID" />
                 <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vw_Transporte">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.Vw_Transporte">
+              <MappingFragment StoreEntitySet="Vw_Transporte">
+                <ScalarProperty Name="CUIT" ColumnName="CUIT" />
+                <ScalarProperty Name="ALIAS_1_NOMBRE" ColumnName="ALIAS_1_NOMBRE" />
+                <ScalarProperty Name="ALIAS_0_ID" ColumnName="ALIAS_0_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

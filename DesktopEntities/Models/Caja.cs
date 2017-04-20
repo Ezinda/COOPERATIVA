@@ -17,7 +17,8 @@ namespace DesktopEntities.Models
         public System.Guid Id { get; set; }
         public long NumeroCaja { get; set; }
         public Nullable<System.Guid> OrdenVentaId { get; set; }
-        public Nullable<long> LoteCaja { get; set; }
+        public long Lote { get; set; }
+        public int Campaña { get; set; }
         public System.DateTime Fecha { get; set; }
         public System.TimeSpan Hora { get; set; }
         public System.Guid ProductoId { get; set; }
