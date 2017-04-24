@@ -16,6 +16,7 @@ namespace DesktopEntities.Models
     {
         public OrdenVenta()
         {
+            this.OrdenVentaDetalle = new HashSet<OrdenVentaDetalle>();
             this.Remito = new HashSet<Remito>();
         }
     
@@ -28,7 +29,18 @@ namespace DesktopEntities.Models
         public Nullable<long> HastaCaja { get; set; }
         public System.DateTime Fecha { get; set; }
         public Nullable<bool> Pendiente { get; set; }
+        public string Calle { get; set; }
+        public string Numero { get; set; }
+        public string Piso { get; set; }
+        public string Dpto { get; set; }
+        public Nullable<System.Guid> TransporteId { get; set; }
+        public string Dominio { get; set; }
+        public string DominioAcoplado { get; set; }
+        public string ApellidoChofer { get; set; }
+        public string NombreChofer { get; set; }
+        public string CuitChofer { get; set; }
     
+        public virtual ICollection<OrdenVentaDetalle> OrdenVentaDetalle { get; set; }
         public virtual ICollection<Remito> Remito { get; set; }
     }
 }

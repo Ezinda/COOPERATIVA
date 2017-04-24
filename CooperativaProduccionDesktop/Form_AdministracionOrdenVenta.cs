@@ -17,7 +17,7 @@ using System.Globalization;
 
 namespace CooperativaProduccion
 {
-    public partial class Form_AdministracionOrdenVenta : DevExpress.XtraBars.Ribbon.RibbonForm, IEnlaceActualizar,IEnlace
+    public partial class Form_AdministracionOrdenVenta : DevExpress.XtraBars.Ribbon.RibbonForm, IEnlaceActualizar
     {
         public CooperativaProduccionEntities Context { get; set; }
         private Form_AdministracionBuscarCliente _formBuscarCliente;
@@ -28,62 +28,7 @@ namespace CooperativaProduccion
         {
             InitializeComponent();
             Context = new CooperativaProduccionEntities();
-            CargarCombo();
             Iniciar();
-        }
-
-        private void CargarCombo()
-        {
-            var producto = Context.Vw_Producto
-                .OrderBy(x => x.DESCRIPCION)
-                .ToList();
-
-            cbProducto.DataSource = producto;
-            cbProducto.DisplayMember = "DESCRIPCION";
-            cbProducto.ValueMember = "ID";
-
-            var ordenVenta =
-                (from o in Context.OrdenVenta
-                 join p in Context.Vw_Producto
-                 on o.ProductoId equals p.ID
-                 join c in Context.Vw_Cliente
-                 on o.ClienteId equals c.ID
-                 select new
-                 {
-                     OrdenVentaId = o.Id,
-                     NumOperacion = o.NumOperacion,
-                     NumOrden = o.NumOrden,
-                     OperacionCliente = o.NumOperacion + " - " + c.RAZONSOCIAL,
-                     Cliente = c.RAZONSOCIAL,
-                     Producto = p.DESCRIPCION,
-                     Fecha = o.Fecha
-                 })
-                 .OrderBy(x => x.NumOperacion)
-                 .ToList();
-            if (ordenVenta.Count() != 0)
-            {
-                cbOperacionCliente.DataSource = ordenVenta;
-                cbOperacionCliente.DisplayMember = "OperacionCliente";
-                cbOperacionCliente.ValueMember = "OrdenVentaId";
-
-                OrdenVentaId = ordenVenta.FirstOrDefault().OrdenVentaId;
-            }
-        }
-
-        private void btnGenerarOrdenVenta_Click(object sender, EventArgs e)
-        {
-            if (Validar())
-            {
-                var resultado = MessageBox.Show("¿Desea generar orden de venta?",
-                     "Atención", MessageBoxButtons.OKCancel);
-                if (resultado != DialogResult.OK)
-                {
-                    return;
-                }
-                GenerarOrdenVenta();
-                BuscarPendientes();
-                Iniciar();
-            }
         }
 
         private long ContadorNumeroOperacion()
@@ -126,49 +71,29 @@ namespace CooperativaProduccion
             txtNumOperacion.Enabled = false;
             txtNumOrdenVenta.Text = ContadorNumeroOrden().ToString();
             txtNumOrdenVenta.Enabled = false;
-            txtCliente.Text = string.Empty;
-            cbProducto.Text = string.Empty;
         }
 
-        private bool Validar()
-        {
-            if (cbProducto.Text == string.Empty)
-            {
-                MessageBox.Show("Debe seleccionar un producto",
-                          "Se requiere", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-
-            if (txtCliente.Text == string.Empty)
-            {
-                MessageBox.Show("Debe seleccionar un cliente",
-                          "Se requiere", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            return true;
-        }
-
-        private void GenerarOrdenVenta()
-        {
-            try
-            {
-                OrdenVenta ov;
-                ov = new OrdenVenta();
-                ov.Id = Guid.NewGuid();
-                ov.NumOperacion = int.Parse(txtNumOperacion.Text);
-                ov.NumOrden = int.Parse(txtNumOrdenVenta.Text);
-                ov.ClienteId = ClienteId;
-                ov.ProductoId = Guid.Parse(cbProducto.SelectedValue.ToString());
-                ov.Fecha = DateTime.Now.Date;
-                ov.Pendiente = true;
-                Context.OrdenVenta.Add(ov);
-                Context.SaveChanges();
-            }
-            catch
-            {
-                throw;
-            }
-        }
+        //private void GenerarOrdenVenta()
+        //{
+        //    try
+        //    {
+        //        OrdenVenta ov;
+        //        ov = new OrdenVenta();
+        //        ov.Id = Guid.NewGuid();
+        //        ov.NumOperacion = int.Parse(txtNumOperacion.Text);
+        //        ov.NumOrden = int.Parse(txtNumOrdenVenta.Text);
+        //        ov.ClienteId = ClienteId;
+        //        ov.ProductoId = Guid.Parse(cbProducto.SelectedValue.ToString());
+        //        ov.Fecha = DateTime.Now.Date;
+        //        ov.Pendiente = true;
+        //        Context.OrdenVenta.Add(ov);
+        //        Context.SaveChanges();
+        //    }
+        //    catch
+        //    {
+        //        throw;
+        //    }
+        //}
 
         private void BuscarOrdenVenta(Guid OrdenVentaId)
         {
@@ -219,11 +144,6 @@ namespace CooperativaProduccion
             //    gridControlOrdenVentaConsulta.DataSource = result;
             //    gridViewOrdenVentaConsulta.Columns[0].Visible = false;
             //}
-        }
-
-        private void OrdenVenta_SelectedPageChanged(object sender, DevExpress.XtraTab.TabPageChangedEventArgs e)
-        {
-            CargarCombo();
         }
 
         private void gridControlOrdenVentaConsulta_DoubleClick(object sender, EventArgs e)
@@ -497,89 +417,10 @@ namespace CooperativaProduccion
             }
         }
 
-        void IEnlace.Enviar(Guid Id, string fet, string nombre)
+        private void btnNuevaOrdenVenta_Click(object sender, EventArgs e)
         {
-            ClienteId = Id;
-            txtCliente.Text = nombre;
-        }
-
-        private void btnBuscarCliente_Click(object sender, EventArgs e)
-        {
-            BuscarCliente();
-        }
-
-        private void txtCliente_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == 13)
-            {
-                BuscarCliente();
-            }
-        }
-
-        private void BuscarCliente()
-        {
-            var result = 
-                (from a in Context.Vw_Cliente
-                 select new
-                 {
-                     full = a.CUIT + a.RAZONSOCIAL + a.CUITE,
-                     ID = a.ID,
-                     CUIT = a.CUIT.Contains(DevConstantes.XX) ? a.CUITE : a.CUIT,
-                     CLIENTE = a.RAZONSOCIAL,
-                     PROVINCIA = a.Provincia
-                 });
-
-            if (!string.IsNullOrEmpty(txtCliente.Text))
-            {
-                var count = result
-                    .Where(x => x.CUIT.Contains(txtCliente.Text))
-                    .Count();
-                if (count > 1)
-                {
-                    _formBuscarCliente = new Form_AdministracionBuscarCliente();
-                    _formBuscarCliente.cuit = txtCliente.Text;
-                    _formBuscarCliente.target = DevConstantes.OrdenVenta;
-                    _formBuscarCliente.BuscarCuit();
-                    _formBuscarCliente.ShowDialog(this);
-                }
-                else
-                {
-                    var busqueda = result
-                        .Where(x => x.CUIT.Equals(txtCliente.Text))
-                        .FirstOrDefault();
-                    if (busqueda != null)
-                    {
-                        ClienteId = busqueda.ID;
-                        txtCliente.Text = busqueda.CLIENTE;
-                    }
-                    else
-                    {
-                        count = result
-                            .Where(x => x.CLIENTE.Contains(txtCliente.Text))
-                            .Count();
-                        if (count > 1)
-                        {
-                            _formBuscarCliente = new Form_AdministracionBuscarCliente();
-                            _formBuscarCliente.nombre = txtCliente.Text;
-                            _formBuscarCliente.target = DevConstantes.OrdenVenta;
-                            _formBuscarCliente.BuscarNombre();
-                            _formBuscarCliente.ShowDialog(this);
-                        }
-                        else
-                        {
-                            var busquedaNombre = result
-                                .Where(x => x.CLIENTE.Contains(txtCliente.Text))
-                                .FirstOrDefault();
-
-                            if (busquedaNombre != null)
-                            {
-                                ClienteId = busquedaNombre.ID;
-                                txtCliente.Text = busquedaNombre.CLIENTE;
-                            }
-                        }
-                    }
-                }
-            }
+            Form_AdministracionNuevaOrdenVenta nuevaOrden = new Form_AdministracionNuevaOrdenVenta();
+            nuevaOrden.ShowDialog(this);
         }
     }
 }

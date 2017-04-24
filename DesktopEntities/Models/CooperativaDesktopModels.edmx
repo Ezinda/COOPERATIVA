@@ -12,7 +12,7 @@
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="NumeroCaja" Type="bigint" Nullable="false" />
           <Property Name="OrdenVentaId" Type="uniqueidentifier" />
-          <Property Name="Lote" Type="bigint" Nullable="false" />
+          <Property Name="LoteCaja" Type="bigint" Nullable="false" />
           <Property Name="Campaña" Type="int" Nullable="false" />
           <Property Name="Fecha" Type="date" Nullable="false" />
           <Property Name="Hora" Type="time" Precision="7" Nullable="false" />
@@ -127,6 +127,26 @@
           <Property Name="HastaCaja" Type="bigint" />
           <Property Name="Fecha" Type="date" Nullable="false" />
           <Property Name="Pendiente" Type="bit" />
+          <Property Name="Calle" Type="nvarchar" MaxLength="500" />
+          <Property Name="Numero" Type="nvarchar" MaxLength="50" />
+          <Property Name="Piso" Type="nvarchar" MaxLength="50" />
+          <Property Name="Dpto" Type="nvarchar" MaxLength="50" />
+          <Property Name="TransporteId" Type="uniqueidentifier" />
+          <Property Name="Dominio" Type="nvarchar" MaxLength="50" />
+          <Property Name="DominioAcoplado" Type="nvarchar" MaxLength="50" />
+          <Property Name="ApellidoChofer" Type="nvarchar" MaxLength="300" />
+          <Property Name="NombreChofer" Type="nvarchar" MaxLength="300" />
+          <Property Name="CuitChofer" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="OrdenVentaDetalle">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OrdenVentaId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ProductoId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DesdeCaja" Type="bigint" Nullable="false" />
+          <Property Name="HastaCaja" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="Pago">
           <Key>
@@ -249,6 +269,21 @@
           <Property Name="PathSystem" Type="nvarchar(max)" />
           <Property Name="File" Type="varbinary(max)" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'CooperativaProduccion.dbo.temporalStock' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="temporalStock">
+          <Property Name="Id" Type="uniqueidentifier" />
+          <Property Name="Lote" Type="bigint" />
+          <Property Name="Cata" Type="bigint" />
+          <Property Name="Orden" Type="int" />
+          <Property Name="CajaNumero" Type="int" />
+          <Property Name="ProductoId" Type="uniqueidentifier" />
+          <Property Name="Tara" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Neto" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Bruto" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Campaña" Type="int" />
+          <Property Name="Warrant" Type="bit" />
+        </EntityType>-->
         <EntityType Name="Usuario">
           <Key>
             <PropertyRef Name="Id" />
@@ -379,7 +414,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Movimiento' does not 
             <PropertyRef Name="Id" />
             <PropertyRef Name="CajaId" />
             <PropertyRef Name="NumeroCaja" />
-            <PropertyRef Name="Lote" />
+            <PropertyRef Name="LoteCaja" />
             <PropertyRef Name="FechaCaja" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
@@ -392,7 +427,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Movimiento' does not 
           <Property Name="Egreso" Type="float" />
           <Property Name="CajaId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="NumeroCaja" Type="bigint" Nullable="false" />
-          <Property Name="Lote" Type="bigint" Nullable="false" />
+          <Property Name="LoteCaja" Type="bigint" Nullable="false" />
           <Property Name="FechaCaja" Type="date" Nullable="false" />
           <Property Name="ProductoId" Type="uniqueidentifier" />
           <Property Name="Cliente" Type="varchar" MaxLength="100" />
@@ -955,6 +990,18 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_OrdenVentaDetalle_OrdenVenta">
+          <End Role="OrdenVenta" Type="Self.OrdenVenta" Multiplicity="1" />
+          <End Role="OrdenVentaDetalle" Type="Self.OrdenVentaDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrdenVenta">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrdenVentaDetalle">
+              <PropertyRef Name="OrdenVentaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Pago_OrdenPago">
           <End Role="OrdenPago" Type="Self.OrdenPago" Multiplicity="1" />
           <End Role="Pago" Type="Self.Pago" Multiplicity="*" />
@@ -1013,6 +1060,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
           <EntitySet Name="Movimiento" EntityType="Self.Movimiento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrdenPago" EntityType="Self.OrdenPago" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrdenVenta" EntityType="Self.OrdenVenta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrdenVentaDetalle" EntityType="Self.OrdenVentaDetalle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pago" EntityType="Self.Pago" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PagoDetalle" EntityType="Self.PagoDetalle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ParamPagos" EntityType="Self.ParamPagos" Schema="dbo" store:Type="Tables" />
@@ -1103,7 +1151,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
     [Vw_Movimiento].[Egreso] AS [Egreso], 
     [Vw_Movimiento].[CajaId] AS [CajaId], 
     [Vw_Movimiento].[NumeroCaja] AS [NumeroCaja], 
-    [Vw_Movimiento].[Lote] AS [Lote], 
+    [Vw_Movimiento].[LoteCaja] AS [LoteCaja], 
     [Vw_Movimiento].[FechaCaja] AS [FechaCaja], 
     [Vw_Movimiento].[ProductoId] AS [ProductoId], 
     [Vw_Movimiento].[Cliente] AS [Cliente], 
@@ -1482,6 +1530,10 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
             <End Role="Preingreso" EntitySet="Preingreso" />
             <End Role="PreingresoDetalle" EntitySet="PreingresoDetalle" />
           </AssociationSet>
+          <AssociationSet Name="FK_OrdenVentaDetalle_OrdenVenta" Association="Self.FK_OrdenVentaDetalle_OrdenVenta">
+            <End Role="OrdenVenta" EntitySet="OrdenVenta" />
+            <End Role="OrdenVentaDetalle" EntitySet="OrdenVentaDetalle" />
+          </AssociationSet>
           <AssociationSet Name="FK_Pago_OrdenPago" Association="Self.FK_Pago_OrdenPago">
             <End Role="OrdenPago" EntitySet="OrdenPago" />
             <End Role="Pago" EntitySet="Pago" />
@@ -1513,6 +1565,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
           <EntitySet Name="Movimiento" EntityType="CooperativaProduccionModel.Movimiento" />
           <EntitySet Name="OrdenPago" EntityType="CooperativaProduccionModel.OrdenPago" />
           <EntitySet Name="OrdenVenta" EntityType="CooperativaProduccionModel.OrdenVenta" />
+          <EntitySet Name="OrdenVentaDetalle" EntityType="CooperativaProduccionModel.OrdenVentaDetalle" />
           <EntitySet Name="Pago" EntityType="CooperativaProduccionModel.Pago" />
           <EntitySet Name="PagoDetalle" EntityType="CooperativaProduccionModel.PagoDetalle" />
           <EntitySet Name="ParamPagos" EntityType="CooperativaProduccionModel.ParamPagos" />
@@ -1566,6 +1619,10 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
             <End Role="OrdenPago" EntitySet="OrdenPago" />
             <End Role="Pago" EntitySet="Pago" />
           </AssociationSet>
+          <AssociationSet Name="FK_OrdenVentaDetalle_OrdenVenta" Association="CooperativaProduccionModel.FK_OrdenVentaDetalle_OrdenVenta">
+            <End Role="OrdenVenta" EntitySet="OrdenVenta" />
+            <End Role="OrdenVentaDetalle" EntitySet="OrdenVentaDetalle" />
+          </AssociationSet>
           <AssociationSet Name="FK_Remito_OrdenVenta" Association="CooperativaProduccionModel.FK_Remito_OrdenVenta">
             <End Role="OrdenVenta" EntitySet="OrdenVenta" />
             <End Role="Remito" EntitySet="Remito" />
@@ -1586,7 +1643,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="NumeroCaja" Type="Int64" Nullable="false" />
           <Property Name="OrdenVentaId" Type="Guid" />
-          <Property Name="Lote" Type="Int64" Nullable="false" />
+          <Property Name="LoteCaja" Type="Int64" Nullable="false" />
           <Property Name="Campaña" Type="Int32" Nullable="false" />
           <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Hora" Type="Time" Nullable="false" Precision="7" />
@@ -1708,7 +1765,29 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
           <Property Name="HastaCaja" Type="Int64" />
           <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Pendiente" Type="Boolean" />
+          <Property Name="Calle" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Numero" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Piso" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Dpto" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TransporteId" Type="Guid" />
+          <Property Name="Dominio" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DominioAcoplado" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ApellidoChofer" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="NombreChofer" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="CuitChofer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="OrdenVentaDetalle" Relationship="CooperativaProduccionModel.FK_OrdenVentaDetalle_OrdenVenta" FromRole="OrdenVenta" ToRole="OrdenVentaDetalle" />
           <NavigationProperty Name="Remito" Relationship="CooperativaProduccionModel.FK_Remito_OrdenVenta" FromRole="OrdenVenta" ToRole="Remito" />
+        </EntityType>
+        <EntityType Name="OrdenVentaDetalle">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="OrdenVentaId" Type="Guid" Nullable="false" />
+          <Property Name="ProductoId" Type="Guid" Nullable="false" />
+          <Property Name="DesdeCaja" Type="Int64" Nullable="false" />
+          <Property Name="HastaCaja" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="OrdenVenta" Relationship="CooperativaProduccionModel.FK_OrdenVentaDetalle_OrdenVenta" FromRole="OrdenVentaDetalle" ToRole="OrdenVenta" />
         </EntityType>
         <EntityType Name="Pago">
           <Key>
@@ -1959,7 +2038,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
             <PropertyRef Name="Id" />
             <PropertyRef Name="CajaId" />
             <PropertyRef Name="NumeroCaja" />
-            <PropertyRef Name="Lote" />
+            <PropertyRef Name="LoteCaja" />
             <PropertyRef Name="FechaCaja" />
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
@@ -1972,7 +2051,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
           <Property Name="Egreso" Type="Double" />
           <Property Name="CajaId" Type="Guid" Nullable="false" />
           <Property Name="NumeroCaja" Type="Int64" Nullable="false" />
-          <Property Name="Lote" Type="Int64" Nullable="false" />
+          <Property Name="LoteCaja" Type="Int64" Nullable="false" />
           <Property Name="FechaCaja" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="ProductoId" Type="Guid" />
           <Property Name="Cliente" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
@@ -2511,6 +2590,18 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_OrdenVentaDetalle_OrdenVenta">
+          <End Type="CooperativaProduccionModel.OrdenVenta" Role="OrdenVenta" Multiplicity="1" />
+          <End Type="CooperativaProduccionModel.OrdenVentaDetalle" Role="OrdenVentaDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrdenVenta">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrdenVentaDetalle">
+              <PropertyRef Name="OrdenVentaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Remito_OrdenVenta">
           <End Type="CooperativaProduccionModel.OrdenVenta" Role="OrdenVenta" Multiplicity="0..1" />
           <End Type="CooperativaProduccionModel.Remito" Role="Remito" Multiplicity="*" />
@@ -2564,7 +2655,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
                 <ScalarProperty Name="Hora" ColumnName="Hora" />
                 <ScalarProperty Name="Fecha" ColumnName="Fecha" />
                 <ScalarProperty Name="Campaña" ColumnName="Campaña" />
-                <ScalarProperty Name="Lote" ColumnName="Lote" />
+                <ScalarProperty Name="LoteCaja" ColumnName="LoteCaja" />
                 <ScalarProperty Name="OrdenVentaId" ColumnName="OrdenVentaId" />
                 <ScalarProperty Name="NumeroCaja" ColumnName="NumeroCaja" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -2673,6 +2764,16 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
           <EntitySetMapping Name="OrdenVenta">
             <EntityTypeMapping TypeName="CooperativaProduccionModel.OrdenVenta">
               <MappingFragment StoreEntitySet="OrdenVenta">
+                <ScalarProperty Name="CuitChofer" ColumnName="CuitChofer" />
+                <ScalarProperty Name="NombreChofer" ColumnName="NombreChofer" />
+                <ScalarProperty Name="ApellidoChofer" ColumnName="ApellidoChofer" />
+                <ScalarProperty Name="DominioAcoplado" ColumnName="DominioAcoplado" />
+                <ScalarProperty Name="Dominio" ColumnName="Dominio" />
+                <ScalarProperty Name="TransporteId" ColumnName="TransporteId" />
+                <ScalarProperty Name="Dpto" ColumnName="Dpto" />
+                <ScalarProperty Name="Piso" ColumnName="Piso" />
+                <ScalarProperty Name="Numero" ColumnName="Numero" />
+                <ScalarProperty Name="Calle" ColumnName="Calle" />
                 <ScalarProperty Name="Pendiente" ColumnName="Pendiente" />
                 <ScalarProperty Name="Fecha" ColumnName="Fecha" />
                 <ScalarProperty Name="HastaCaja" ColumnName="HastaCaja" />
@@ -2681,6 +2782,17 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
                 <ScalarProperty Name="ClienteId" ColumnName="ClienteId" />
                 <ScalarProperty Name="NumOperacion" ColumnName="NumOperacion" />
                 <ScalarProperty Name="NumOrden" ColumnName="NumOrden" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrdenVentaDetalle">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.OrdenVentaDetalle">
+              <MappingFragment StoreEntitySet="OrdenVentaDetalle">
+                <ScalarProperty Name="HastaCaja" ColumnName="HastaCaja" />
+                <ScalarProperty Name="DesdeCaja" ColumnName="DesdeCaja" />
+                <ScalarProperty Name="ProductoId" ColumnName="ProductoId" />
+                <ScalarProperty Name="OrdenVentaId" ColumnName="OrdenVentaId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -2929,7 +3041,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
                 <ScalarProperty Name="Cliente" ColumnName="Cliente" />
                 <ScalarProperty Name="ProductoId" ColumnName="ProductoId" />
                 <ScalarProperty Name="FechaCaja" ColumnName="FechaCaja" />
-                <ScalarProperty Name="Lote" ColumnName="Lote" />
+                <ScalarProperty Name="LoteCaja" ColumnName="LoteCaja" />
                 <ScalarProperty Name="NumeroCaja" ColumnName="NumeroCaja" />
                 <ScalarProperty Name="CajaId" ColumnName="CajaId" />
                 <ScalarProperty Name="Egreso" ColumnName="Egreso" />

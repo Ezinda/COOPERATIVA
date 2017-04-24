@@ -172,11 +172,6 @@ namespace CooperativaProduccion
             ingcajas.Show();
         }
 
-        private void btnAsociarCajaOrdenVenta_ItemClick(object sender, ItemClickEventArgs e)
-        {
-         
-        }
-  
         #endregion
 
         #region Method Dev

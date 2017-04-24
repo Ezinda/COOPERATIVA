@@ -32,21 +32,18 @@
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.OrdenVenta = new DevExpress.XtraTab.XtraTabControl();
             this.TabNuevaOrdenVenta = new DevExpress.XtraTab.XtraTabPage();
+            this.groupControl8 = new DevExpress.XtraEditors.GroupControl();
+            this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             this.groupControl5 = new DevExpress.XtraEditors.GroupControl();
             this.gridControlOrdenVenta = new DevExpress.XtraGrid.GridControl();
             this.gridViewOrdenVenta = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
-            this.btnBuscarCliente = new DevExpress.XtraEditors.SimpleButton();
-            this.txtCliente = new System.Windows.Forms.TextBox();
             this.txtNumOrdenVenta = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.btnGenerarOrdenVenta = new DevExpress.XtraEditors.SimpleButton();
-            this.cbProducto = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.btnNuevaOrdenVenta = new DevExpress.XtraEditors.SimpleButton();
             this.txtNumOperacion = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.TabConsultaOrdenVenta = new DevExpress.XtraTab.XtraTabPage();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.btnExportarResumen = new DevExpress.XtraEditors.SimpleButton();
@@ -68,6 +65,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.OrdenVenta)).BeginInit();
             this.OrdenVenta.SuspendLayout();
             this.TabNuevaOrdenVenta.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl8)).BeginInit();
+            this.groupControl8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl5)).BeginInit();
             this.groupControl5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlOrdenVenta)).BeginInit();
@@ -123,16 +122,37 @@
             this.OrdenVenta.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.TabNuevaOrdenVenta,
             this.TabConsultaOrdenVenta});
-            this.OrdenVenta.SelectedPageChanged += new DevExpress.XtraTab.TabPageChangedEventHandler(this.OrdenVenta_SelectedPageChanged);
             // 
             // TabNuevaOrdenVenta
             // 
+            this.TabNuevaOrdenVenta.Controls.Add(this.groupControl8);
             this.TabNuevaOrdenVenta.Controls.Add(this.groupControl5);
             this.TabNuevaOrdenVenta.Controls.Add(this.groupControl3);
             this.TabNuevaOrdenVenta.Image = ((System.Drawing.Image)(resources.GetObject("TabNuevaOrdenVenta.Image")));
             this.TabNuevaOrdenVenta.Name = "TabNuevaOrdenVenta";
             this.TabNuevaOrdenVenta.Size = new System.Drawing.Size(976, 460);
             this.TabNuevaOrdenVenta.Text = "Nueva Orden de Venta";
+            // 
+            // groupControl8
+            // 
+            this.groupControl8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupControl8.Controls.Add(this.simpleButton1);
+            this.groupControl8.Location = new System.Drawing.Point(1, 426);
+            this.groupControl8.Name = "groupControl8";
+            this.groupControl8.ShowCaption = false;
+            this.groupControl8.Size = new System.Drawing.Size(974, 33);
+            this.groupControl8.TabIndex = 79;
+            this.groupControl8.Text = "Buscar Cata";
+            // 
+            // simpleButton1
+            // 
+            this.simpleButton1.Image = ((System.Drawing.Image)(resources.GetObject("simpleButton1.Image")));
+            this.simpleButton1.Location = new System.Drawing.Point(5, 5);
+            this.simpleButton1.Name = "simpleButton1";
+            this.simpleButton1.Size = new System.Drawing.Size(127, 22);
+            this.simpleButton1.TabIndex = 61;
+            this.simpleButton1.Text = "Exportar Resumen";
             // 
             // groupControl5
             // 
@@ -142,7 +162,7 @@
             this.groupControl5.Controls.Add(this.gridControlOrdenVenta);
             this.groupControl5.Location = new System.Drawing.Point(0, 54);
             this.groupControl5.Name = "groupControl5";
-            this.groupControl5.Size = new System.Drawing.Size(976, 407);
+            this.groupControl5.Size = new System.Drawing.Size(976, 371);
             this.groupControl5.TabIndex = 76;
             this.groupControl5.Text = "Detalle de Orden";
             // 
@@ -153,7 +173,7 @@
             this.gridControlOrdenVenta.MainView = this.gridViewOrdenVenta;
             this.gridControlOrdenVenta.MenuManager = this.ribbon;
             this.gridControlOrdenVenta.Name = "gridControlOrdenVenta";
-            this.gridControlOrdenVenta.Size = new System.Drawing.Size(972, 385);
+            this.gridControlOrdenVenta.Size = new System.Drawing.Size(972, 349);
             this.gridControlOrdenVenta.TabIndex = 68;
             this.gridControlOrdenVenta.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewOrdenVenta,
@@ -185,40 +205,16 @@
             // 
             this.groupControl3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupControl3.Controls.Add(this.btnBuscarCliente);
-            this.groupControl3.Controls.Add(this.txtCliente);
             this.groupControl3.Controls.Add(this.txtNumOrdenVenta);
             this.groupControl3.Controls.Add(this.label6);
-            this.groupControl3.Controls.Add(this.btnGenerarOrdenVenta);
-            this.groupControl3.Controls.Add(this.cbProducto);
-            this.groupControl3.Controls.Add(this.label2);
+            this.groupControl3.Controls.Add(this.btnNuevaOrdenVenta);
             this.groupControl3.Controls.Add(this.txtNumOperacion);
             this.groupControl3.Controls.Add(this.label11);
-            this.groupControl3.Controls.Add(this.label1);
             this.groupControl3.Location = new System.Drawing.Point(1, 1);
             this.groupControl3.Name = "groupControl3";
             this.groupControl3.Size = new System.Drawing.Size(974, 52);
             this.groupControl3.TabIndex = 73;
             this.groupControl3.Text = "Orden de Venta";
-            // 
-            // btnBuscarCliente
-            // 
-            this.btnBuscarCliente.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnBuscarCliente.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscarCliente.Image")));
-            this.btnBuscarCliente.Location = new System.Drawing.Point(622, 24);
-            this.btnBuscarCliente.Name = "btnBuscarCliente";
-            this.btnBuscarCliente.Size = new System.Drawing.Size(29, 22);
-            this.btnBuscarCliente.TabIndex = 75;
-            this.btnBuscarCliente.Click += new System.EventHandler(this.btnBuscarCliente_Click);
-            // 
-            // txtCliente
-            // 
-            this.txtCliente.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtCliente.Location = new System.Drawing.Point(362, 24);
-            this.txtCliente.Name = "txtCliente";
-            this.txtCliente.Size = new System.Drawing.Size(257, 21);
-            this.txtCliente.TabIndex = 74;
-            this.txtCliente.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCliente_KeyPress);
             // 
             // txtNumOrdenVenta
             // 
@@ -238,32 +234,15 @@
             this.label6.TabIndex = 72;
             this.label6.Text = "N° Orden";
             // 
-            // btnGenerarOrdenVenta
+            // btnNuevaOrdenVenta
             // 
-            this.btnGenerarOrdenVenta.Location = new System.Drawing.Point(897, 24);
-            this.btnGenerarOrdenVenta.Name = "btnGenerarOrdenVenta";
-            this.btnGenerarOrdenVenta.Size = new System.Drawing.Size(75, 21);
-            this.btnGenerarOrdenVenta.TabIndex = 71;
-            this.btnGenerarOrdenVenta.Text = "Generar";
-            this.btnGenerarOrdenVenta.Click += new System.EventHandler(this.btnGenerarOrdenVenta_Click);
-            // 
-            // cbProducto
-            // 
-            this.cbProducto.FormattingEnabled = true;
-            this.cbProducto.Location = new System.Drawing.Point(720, 25);
-            this.cbProducto.Name = "cbProducto";
-            this.cbProducto.Size = new System.Drawing.Size(171, 21);
-            this.cbProducto.TabIndex = 66;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(657, 26);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(57, 16);
-            this.label2.TabIndex = 65;
-            this.label2.Text = "Producto";
+            this.btnNuevaOrdenVenta.Image = ((System.Drawing.Image)(resources.GetObject("btnNuevaOrdenVenta.Image")));
+            this.btnNuevaOrdenVenta.Location = new System.Drawing.Point(317, 24);
+            this.btnNuevaOrdenVenta.Name = "btnNuevaOrdenVenta";
+            this.btnNuevaOrdenVenta.Size = new System.Drawing.Size(99, 21);
+            this.btnNuevaOrdenVenta.TabIndex = 71;
+            this.btnNuevaOrdenVenta.Text = "Nueva Orden";
+            this.btnNuevaOrdenVenta.Click += new System.EventHandler(this.btnNuevaOrdenVenta_Click);
             // 
             // txtNumOperacion
             // 
@@ -282,16 +261,6 @@
             this.label11.Size = new System.Drawing.Size(78, 16);
             this.label11.TabIndex = 63;
             this.label11.Text = "N° Operación";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(317, 26);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(45, 16);
-            this.label1.TabIndex = 57;
-            this.label1.Text = "Cliente";
             // 
             // TabConsultaOrdenVenta
             // 
@@ -493,6 +462,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.OrdenVenta)).EndInit();
             this.OrdenVenta.ResumeLayout(false);
             this.TabNuevaOrdenVenta.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl8)).EndInit();
+            this.groupControl8.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl5)).EndInit();
             this.groupControl5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridControlOrdenVenta)).EndInit();
@@ -542,12 +513,9 @@
         private System.Windows.Forms.Label label3;
         private DevExpress.XtraTab.XtraTabPage TabNuevaOrdenVenta;
         private DevExpress.XtraEditors.GroupControl groupControl3;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtNumOperacion;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.ComboBox cbProducto;
-        private System.Windows.Forms.Label label2;
-        private DevExpress.XtraEditors.SimpleButton btnGenerarOrdenVenta;
+        private DevExpress.XtraEditors.SimpleButton btnNuevaOrdenVenta;
         private DevExpress.XtraEditors.GroupControl groupControl5;
         private DevExpress.XtraGrid.GridControl gridControlOrdenVenta;
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewOrdenVenta;
@@ -556,7 +524,7 @@
         private System.Windows.Forms.Label label6;
         private DevExpress.XtraEditors.GroupControl groupControl1;
         private DevExpress.XtraEditors.SimpleButton btnExportarResumen;
-        private System.Windows.Forms.TextBox txtCliente;
-        private DevExpress.XtraEditors.SimpleButton btnBuscarCliente;
+        private DevExpress.XtraEditors.GroupControl groupControl8;
+        private DevExpress.XtraEditors.SimpleButton simpleButton1;
     }
 }

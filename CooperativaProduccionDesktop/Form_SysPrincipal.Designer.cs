@@ -51,7 +51,6 @@
             this.btnImpresionEtiqueta = new DevExpress.XtraBars.BarButtonItem();
             this.btnIngresoCaja = new DevExpress.XtraBars.BarButtonItem();
             this.btnIngresoCajas = new DevExpress.XtraBars.BarButtonItem();
-            this.btnAsociarCajaOrdenVenta = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPageRomaneo = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupPorteria = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroupBalanza = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -96,8 +95,7 @@
             this.btnConfiguracionImpresion,
             this.btnImpresionEtiqueta,
             this.btnIngresoCaja,
-            this.btnIngresoCajas,
-            this.btnAsociarCajaOrdenVenta});
+            this.btnIngresoCajas});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
             this.ribbon.MaxItemId = 25;
             this.ribbon.Name = "ribbon";
@@ -312,17 +310,6 @@
             this.btnIngresoCajas.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
             this.btnIngresoCajas.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnIngresoCajas_ItemClick);
             // 
-            // btnAsociarCajaOrdenVenta
-            // 
-            this.btnAsociarCajaOrdenVenta.Caption = "Asociar Cajas - Orden de Venta";
-            this.btnAsociarCajaOrdenVenta.Glyph = ((System.Drawing.Image)(resources.GetObject("btnAsociarCajaOrdenVenta.Glyph")));
-            this.btnAsociarCajaOrdenVenta.Id = 24;
-            this.btnAsociarCajaOrdenVenta.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnAsociarCajaOrdenVenta.LargeGlyph")));
-            this.btnAsociarCajaOrdenVenta.Name = "btnAsociarCajaOrdenVenta";
-            this.btnAsociarCajaOrdenVenta.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText;
-            this.btnAsociarCajaOrdenVenta.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
-            this.btnAsociarCajaOrdenVenta.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnAsociarCajaOrdenVenta_ItemClick);
-            // 
             // ribbonPageRomaneo
             // 
             this.ribbonPageRomaneo.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -383,7 +370,6 @@
             this.ribbonPageGroupOrdenVenta.AllowTextClipping = false;
             this.ribbonPageGroupOrdenVenta.ItemLinks.Add(this.btnOrdenVenta);
             this.ribbonPageGroupOrdenVenta.ItemLinks.Add(this.btnGestionCaja);
-            this.ribbonPageGroupOrdenVenta.ItemLinks.Add(this.btnAsociarCajaOrdenVenta);
             this.ribbonPageGroupOrdenVenta.ItemLinks.Add(this.btnGestionCata);
             this.ribbonPageGroupOrdenVenta.ItemLinks.Add(this.btnRemitoElectronico);
             this.ribbonPageGroupOrdenVenta.Name = "ribbonPageGroupOrdenVenta";
@@ -524,6 +510,5 @@
         private DevExpress.XtraBars.BarButtonItem btnIngresoCaja;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup2;
         private DevExpress.XtraBars.BarButtonItem btnIngresoCajas;
-        private DevExpress.XtraBars.BarButtonItem btnAsociarCajaOrdenVenta;
     }
 }

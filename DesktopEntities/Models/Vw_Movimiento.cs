@@ -24,7 +24,7 @@ namespace DesktopEntities.Models
         public Nullable<double> Egreso { get; set; }
         public System.Guid CajaId { get; set; }
         public long NumeroCaja { get; set; }
-        public long Lote { get; set; }
+        public long LoteCaja { get; set; }
         public System.DateTime FechaCaja { get; set; }
         public Nullable<System.Guid> ProductoId { get; set; }
         public string Cliente { get; set; }

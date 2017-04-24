@@ -204,6 +204,12 @@
       <DependentUpon>AdministracionVistaOPControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Extensions\ExtensionMethods.OrAnd.cs" />
+    <Compile Include="Form_AdministracionBuscarTransporte.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_AdministracionBuscarTransporte.Designer.cs">
+      <DependentUpon>Form_AdministracionBuscarTransporte.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_AdministracionNuevaOrdenVenta.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -577,6 +583,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\AdministracionVistaOPControl.resx">
       <DependentUpon>AdministracionVistaOPControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_AdministracionBuscarTransporte.resx">
+      <DependentUpon>Form_AdministracionBuscarTransporte.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_AdministracionNuevaOrdenVenta.resx">
       <DependentUpon>Form_AdministracionNuevaOrdenVenta.cs</DependentUpon>

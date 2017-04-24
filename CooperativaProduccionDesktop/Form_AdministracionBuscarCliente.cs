@@ -55,7 +55,7 @@ namespace CooperativaProduccion
 
         public void BuscarNombre()
         {
-            var dbContext = new DesktopEntities.Models.CooperativaProduccionEntities();
+            var dbContext = new CooperativaProduccionEntities();
             var result =
                 (from a in Context.Vw_Cliente
                  select new
@@ -82,7 +82,7 @@ namespace CooperativaProduccion
 
         public void BuscarCuit()
         {
-            var dbContext = new DesktopEntities.Models.CooperativaProduccionEntities();
+            var dbContext = new CooperativaProduccionEntities();
             var result =
                 (from a in Context.Vw_Cliente
                  select new
@@ -126,7 +126,7 @@ namespace CooperativaProduccion
         {
             if (target.Equals(DevConstantes.OrdenVenta))
             {
-                IEnlace mienlace = this.Owner as Form_AdministracionOrdenVenta;
+                IEnlace mienlace = this.Owner as Form_AdministracionNuevaOrdenVenta;
                 if (mienlace != null)
                 {
                     mienlace.Enviar(
