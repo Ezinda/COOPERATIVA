@@ -20,9 +20,7 @@ namespace CooperativaProduccion
     public partial class Form_AdministracionOrdenVenta : DevExpress.XtraBars.Ribbon.RibbonForm, IEnlaceActualizar
     {
         public CooperativaProduccionEntities Context { get; set; }
-        private Form_AdministracionBuscarCliente _formBuscarCliente;
-        private Guid OrdenVentaId;
-        private Guid ClienteId;
+        public Guid OrdenVentaId;
 
         public Form_AdministracionOrdenVenta()
         {
@@ -31,73 +29,52 @@ namespace CooperativaProduccion
             Iniciar();
         }
 
-        private long ContadorNumeroOperacion()
+        private long ContadorOrdenVenta()
         {
-            long numOperacion = 0;
-            var ov = Context.OrdenVenta
-                .OrderByDescending(x => x.NumOperacion)
+            CooperativaProduccionEntities Context = new CooperativaProduccionEntities();
+
+            var contador = Context.Contador
+                .Where(x => x.Nombre.Equals(DevConstantes.OrdenVenta))
                 .FirstOrDefault();
-            if (ov != null)
+
+            if (contador != null)
             {
-                numOperacion = ov.NumOperacion + 1;
+                return (contador.Valor.Value + 1);
             }
             else
             {
-                numOperacion = 1;
+                return 1;
             }
-            return numOperacion;
         }
 
-        private long ContadorNumeroOrden()
+        private long ContadorNumeroOperacion()
         {
-            long numOrden = 0;
-            var ov = Context.OrdenVenta
-                .OrderByDescending(x => x.NumOrden)
+            CooperativaProduccionEntities Context = new CooperativaProduccionEntities();
+
+            var contador = Context.Contador
+                .Where(x => x.Nombre.Equals(DevConstantes.NumeroOperacion))
                 .FirstOrDefault();
-            if (ov != null)
+
+            if (contador != null)
             {
-                numOrden = ov.NumOrden + 1;
+                return (contador.Valor.Value + 1);
             }
             else
             {
-                numOrden = 1;
+                return 1;
             }
-            return numOrden;
         }
 
         private void Iniciar()
         {
             txtNumOperacion.Text = ContadorNumeroOperacion().ToString();
-            txtNumOperacion.Enabled = false;
-            txtNumOrdenVenta.Text = ContadorNumeroOrden().ToString();
-            txtNumOrdenVenta.Enabled = false;
+            txtNumOrdenVenta.Text = ContadorOrdenVenta().ToString();
+            CargarCombo();
         }
-
-        //private void GenerarOrdenVenta()
-        //{
-        //    try
-        //    {
-        //        OrdenVenta ov;
-        //        ov = new OrdenVenta();
-        //        ov.Id = Guid.NewGuid();
-        //        ov.NumOperacion = int.Parse(txtNumOperacion.Text);
-        //        ov.NumOrden = int.Parse(txtNumOrdenVenta.Text);
-        //        ov.ClienteId = ClienteId;
-        //        ov.ProductoId = Guid.Parse(cbProducto.SelectedValue.ToString());
-        //        ov.Fecha = DateTime.Now.Date;
-        //        ov.Pendiente = true;
-        //        Context.OrdenVenta.Add(ov);
-        //        Context.SaveChanges();
-        //    }
-        //    catch
-        //    {
-        //        throw;
-        //    }
-        //}
 
         private void BuscarOrdenVenta(Guid OrdenVentaId)
         {
-            
+
             //if (OrdenVentaId == Guid.Empty)
             //{
             //    var result = (from o in Context.OrdenVenta
@@ -189,8 +166,6 @@ namespace CooperativaProduccion
 
                     var ordenVenta =
                         (from o in Context.OrdenVenta.Where(pred)
-                         join p in Context.Vw_Producto
-                         on o.ProductoId equals p.ID
                          join c in Context.Vw_Cliente
                          on o.ClienteId equals c.ID
                          select new
@@ -199,9 +174,6 @@ namespace CooperativaProduccion
                              NumOperacion = o.NumOperacion,
                              NumOrden = o.NumOrden,
                              Cliente = c.RAZONSOCIAL,
-                             Producto = p.DESCRIPCION,
-                             CajaDesde = o.DesdeCaja,
-                             CajaHasta = o.HastaCaja,
                              Fecha = o.Fecha,
                              Pendiente = o.Pendiente == true ?
                                 DevConstantes.SI : DevConstantes.NO
@@ -223,32 +195,20 @@ namespace CooperativaProduccion
                     gridViewOrdenVentaConsulta.Columns[3].Width = 250;
                     gridViewOrdenVentaConsulta.Columns[3].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
                     gridViewOrdenVentaConsulta.Columns[3].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
-                    gridViewOrdenVentaConsulta.Columns[4].Caption = "Producto";
-                    gridViewOrdenVentaConsulta.Columns[4].Width = 120;
+                    gridViewOrdenVentaConsulta.Columns[4].Caption = "Fecha";
+                    gridViewOrdenVentaConsulta.Columns[4].Width = 90;
                     gridViewOrdenVentaConsulta.Columns[4].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
                     gridViewOrdenVentaConsulta.Columns[4].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-                    gridViewOrdenVentaConsulta.Columns[5].Caption = "Caja Desde";
+                    gridViewOrdenVentaConsulta.Columns[5].Caption = "Pendiente";
                     gridViewOrdenVentaConsulta.Columns[5].Width = 120;
                     gridViewOrdenVentaConsulta.Columns[5].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
                     gridViewOrdenVentaConsulta.Columns[5].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-                    gridViewOrdenVentaConsulta.Columns[6].Caption = "Caja Hasta";
-                    gridViewOrdenVentaConsulta.Columns[6].Width = 120;
-                    gridViewOrdenVentaConsulta.Columns[6].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                    gridViewOrdenVentaConsulta.Columns[6].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-                    gridViewOrdenVentaConsulta.Columns[7].Caption = "Fecha";
-                    gridViewOrdenVentaConsulta.Columns[7].Width = 90;
-                    gridViewOrdenVentaConsulta.Columns[7].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                    gridViewOrdenVentaConsulta.Columns[7].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-                    gridViewOrdenVentaConsulta.Columns[8].Caption = "Pendiente";
-                    gridViewOrdenVentaConsulta.Columns[8].Width = 120;
-                    gridViewOrdenVentaConsulta.Columns[8].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                    gridViewOrdenVentaConsulta.Columns[8].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
                 }
             }
             else
             {
-                int numeroOperacion = int.Parse(txtNumOperacion.Text);
-                int numeroOrden = int.Parse(txtNumOrdenVenta.Text);
+                long numeroOperacion = long.Parse(txtNumOperacion.Text);
+                long numeroOrden = long.Parse(txtNumOrdenVenta.Text);
 
                 Expression<Func<OrdenVenta, bool>> pred = x => true;
 
@@ -260,8 +220,6 @@ namespace CooperativaProduccion
 
                 var ordenVenta =
                     (from o in Context.OrdenVenta.Where(pred)
-                     join p in Context.Vw_Producto
-                     on o.ProductoId equals p.ID
                      join c in Context.Vw_Cliente
                      on o.ClienteId equals c.ID
                      select new
@@ -270,9 +228,6 @@ namespace CooperativaProduccion
                          NumOperacion = o.NumOperacion,
                          NumOrden = o.NumOrden,
                          Cliente = c.RAZONSOCIAL,
-                         Producto = p.DESCRIPCION,
-                         CajaDesde = o.DesdeCaja,
-                         CajaHasta = o.HastaCaja,
                          Fecha = o.Fecha,
                          Pendiente = o.Pendiente == true ?
                             DevConstantes.SI : DevConstantes.NO
@@ -294,26 +249,14 @@ namespace CooperativaProduccion
                 gridViewOrdenVenta.Columns[3].Width = 250;
                 gridViewOrdenVenta.Columns[3].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
                 gridViewOrdenVenta.Columns[3].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
-                gridViewOrdenVenta.Columns[4].Caption = "Producto";
-                gridViewOrdenVenta.Columns[4].Width = 120;
+                gridViewOrdenVenta.Columns[4].Caption = "Fecha";
+                gridViewOrdenVenta.Columns[4].Width = 90;
                 gridViewOrdenVenta.Columns[4].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
                 gridViewOrdenVenta.Columns[4].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-                gridViewOrdenVenta.Columns[5].Caption = "Caja Desde";
+                gridViewOrdenVenta.Columns[5].Caption = "Pendiente";
                 gridViewOrdenVenta.Columns[5].Width = 120;
                 gridViewOrdenVenta.Columns[5].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
                 gridViewOrdenVenta.Columns[5].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-                gridViewOrdenVenta.Columns[6].Caption = "Caja Hasta";
-                gridViewOrdenVenta.Columns[6].Width = 120;
-                gridViewOrdenVenta.Columns[6].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                gridViewOrdenVenta.Columns[6].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-                gridViewOrdenVenta.Columns[7].Caption = "Fecha";
-                gridViewOrdenVenta.Columns[7].Width = 90;
-                gridViewOrdenVenta.Columns[7].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                gridViewOrdenVenta.Columns[7].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-                gridViewOrdenVenta.Columns[8].Caption = "Pendiente";
-                gridViewOrdenVenta.Columns[8].Width = 120;
-                gridViewOrdenVenta.Columns[8].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                gridViewOrdenVenta.Columns[8].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
             }
         }
 
@@ -322,6 +265,7 @@ namespace CooperativaProduccion
             if (Enviar.Equals(true))
             {
                 BuscarPendientes();
+                Iniciar();
             }
         }
 
@@ -346,7 +290,7 @@ namespace CooperativaProduccion
                   "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
-       
+
         private void CrearTxtVinculacion(Guid OrdenVentaId)
         {
             string path = @"C:\SystemDocumentsCooperativa";
@@ -365,11 +309,11 @@ namespace CooperativaProduccion
                 // Create a new file 
                 using (StreamWriter sw = File.CreateText(fileName))
                 {
-                    string Cuit = DevConstantes.CuitEmpresa.Replace("-","");
+                    string Cuit = DevConstantes.CuitEmpresa.Replace("-", "");
                     string InicioActividades = DateTime.ParseExact(DevConstantes.InicioActividades,
                         "dd-MM-yy", CultureInfo.InvariantCulture)
                         .ToString("dd/MM/yyyy");
-                    var OrdenVenta = Context.OrdenVenta.Where(x=>x.Id == OrdenVentaId).FirstOrDefault();
+                    var OrdenVenta = Context.OrdenVenta.Where(x => x.Id == OrdenVentaId).FirstOrDefault();
                     var Cliente = Context.Vw_Cliente.Where(x => x.ID == OrdenVenta.ClienteId).FirstOrDefault();
                     string CuitCliente = Cliente.CUIT.Contains(DevConstantes.XX) ? Cliente.CUITE : Cliente.CUIT;
                     sw.WriteLine("1;S;S;" + Cuit + ";" + InicioActividades + ";;0003;0046;" + CuitCliente + ";"
@@ -378,7 +322,7 @@ namespace CooperativaProduccion
                         .Where(x => x.OrdenVentaId == OrdenVenta.Id)
                         .ToList();
                     foreach (var cata in catas)
-                    {  
+                    {
                         sw.WriteLine("2;" + cata.NumCata);
                     }
                 }
@@ -421,6 +365,38 @@ namespace CooperativaProduccion
         {
             Form_AdministracionNuevaOrdenVenta nuevaOrden = new Form_AdministracionNuevaOrdenVenta();
             nuevaOrden.ShowDialog(this);
+        }
+
+        private void CargarCombo()
+        {
+            var producto = Context.Vw_Producto
+                .OrderBy(x => x.DESCRIPCION)
+                .ToList();
+
+            var ordenVenta =
+                (from o in Context.OrdenVenta
+                 join c in Context.Vw_Cliente
+                 on o.ClienteId equals c.ID
+                 select new
+                 {
+                     OrdenVentaId = o.Id,
+                     NumOperacion = o.NumOperacion,
+                     NumOrden = o.NumOrden,
+                     OperacionCliente = o.NumOperacion + " - " + c.RAZONSOCIAL,
+                     Cliente = c.RAZONSOCIAL,
+                     Fecha = o.Fecha
+                 })
+                 .OrderBy(x => x.NumOperacion)
+                 .ToList();
+
+            if (ordenVenta.Count() != 0)
+            {
+                cbOperacionCliente.DataSource = ordenVenta;
+                cbOperacionCliente.DisplayMember = "OperacionCliente";
+                cbOperacionCliente.ValueMember = "OrdenVentaId";
+
+                OrdenVentaId = ordenVenta.FirstOrDefault().OrdenVentaId;
+            }
         }
     }
 }

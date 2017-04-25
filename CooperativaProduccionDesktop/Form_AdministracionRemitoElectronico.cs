@@ -131,8 +131,6 @@ namespace CooperativaProduccion
 
             var ordenVenta =
                 (from o in Context.OrdenVenta.Where(pred)
-                 join p in Context.Vw_Producto
-                 on o.ProductoId equals p.ID
                  join c in Context.Vw_Cliente
                  on o.ClienteId equals c.ID
                  select new
@@ -141,9 +139,6 @@ namespace CooperativaProduccion
                      NumOperacion = o.NumOperacion,
                      NumOrden = o.NumOrden,
                      Cliente = c.RAZONSOCIAL,
-                     Producto = p.DESCRIPCION,
-                     CajaDesde = o.DesdeCaja,
-                     CajaHasta = o.HastaCaja,
                      Fecha = o.Fecha,
                      Pendiente = o.Pendiente == true ?
                         DevConstantes.SI : DevConstantes.NO

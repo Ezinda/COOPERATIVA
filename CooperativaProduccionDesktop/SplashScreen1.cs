@@ -87,13 +87,10 @@ namespace CooperativaProduccion
                 {
                     Exitoso = true,
                     Usuario = usuario,
-                    UserName = usuario.Nombre,
-                    // Rol = Rol.Administrador
+                    UserName = usuario.Nombre
                 };
                 
                 return true;
-                //Form_SysPrincipal _principal = new Form_SysPrincipal(usuario.Id);
-                //_principal.Visible = true;
             }
             else
             {

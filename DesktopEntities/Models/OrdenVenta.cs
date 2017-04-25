@@ -21,14 +21,11 @@ namespace DesktopEntities.Models
         }
     
         public System.Guid Id { get; set; }
+        public System.DateTime Fecha { get; set; }
         public long NumOrden { get; set; }
         public long NumOperacion { get; set; }
+        public bool Pendiente { get; set; }
         public System.Guid ClienteId { get; set; }
-        public System.Guid ProductoId { get; set; }
-        public Nullable<long> DesdeCaja { get; set; }
-        public Nullable<long> HastaCaja { get; set; }
-        public System.DateTime Fecha { get; set; }
-        public Nullable<bool> Pendiente { get; set; }
         public string Calle { get; set; }
         public string Numero { get; set; }
         public string Piso { get; set; }

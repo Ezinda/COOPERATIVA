@@ -17,8 +17,8 @@ namespace DesktopEntities.Models
         public System.Guid Id { get; set; }
         public System.Guid OrdenVentaId { get; set; }
         public System.Guid ProductoId { get; set; }
-        public long DesdeCaja { get; set; }
-        public long HastaCaja { get; set; }
+        public Nullable<long> DesdeCaja { get; set; }
+        public Nullable<long> HastaCaja { get; set; }
     
         public virtual OrdenVenta OrdenVenta { get; set; }
     }

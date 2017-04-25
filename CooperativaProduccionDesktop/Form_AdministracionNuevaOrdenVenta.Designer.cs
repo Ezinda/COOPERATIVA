@@ -165,6 +165,7 @@
             this.txtCuitCliente.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtCuitCliente.Location = new System.Drawing.Point(434, 51);
             this.txtCuitCliente.Name = "txtCuitCliente";
+            this.txtCuitCliente.ReadOnly = true;
             this.txtCuitCliente.Size = new System.Drawing.Size(133, 21);
             this.txtCuitCliente.TabIndex = 98;
             // 
@@ -295,6 +296,7 @@
             this.txtCuitTransporte.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtCuitTransporte.Location = new System.Drawing.Point(435, 24);
             this.txtCuitTransporte.Name = "txtCuitTransporte";
+            this.txtCuitTransporte.ReadOnly = true;
             this.txtCuitTransporte.Size = new System.Drawing.Size(133, 21);
             this.txtCuitTransporte.TabIndex = 101;
             // 
@@ -346,7 +348,6 @@
             // 
             // txtDpto
             // 
-            this.txtDpto.Enabled = false;
             this.txtDpto.Location = new System.Drawing.Point(608, 23);
             this.txtDpto.Name = "txtDpto";
             this.txtDpto.Size = new System.Drawing.Size(36, 21);
@@ -366,7 +367,6 @@
             // 
             // txtPiso
             // 
-            this.txtPiso.Enabled = false;
             this.txtPiso.Location = new System.Drawing.Point(531, 24);
             this.txtPiso.Name = "txtPiso";
             this.txtPiso.Size = new System.Drawing.Size(37, 21);
@@ -386,7 +386,6 @@
             // 
             // txtNumero
             // 
-            this.txtNumero.Enabled = false;
             this.txtNumero.Location = new System.Drawing.Point(435, 23);
             this.txtNumero.Name = "txtNumero";
             this.txtNumero.Size = new System.Drawing.Size(58, 21);
@@ -489,7 +488,7 @@
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(1, 24);
+            this.label17.Location = new System.Drawing.Point(5, 25);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(51, 16);
             this.label17.TabIndex = 90;
@@ -515,6 +514,7 @@
             this.btnGuardar.Size = new System.Drawing.Size(84, 21);
             this.btnGuardar.TabIndex = 14;
             this.btnGuardar.Text = "Guardar";
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
             // groupControl5
             // 

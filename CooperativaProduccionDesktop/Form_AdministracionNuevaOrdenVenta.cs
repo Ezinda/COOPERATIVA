@@ -17,14 +17,14 @@ namespace CooperativaProduccion
         public CooperativaProduccionEntities Context { get; set; }
         public Form_AdministracionBuscarCliente _formBuscarCliente = null;
         public Form_AdministracionBuscarTransporte _formBuscarTransporte = null;
-        private Guid OrdenVentaId;
         private Guid ClienteId;
         private Guid TransporteId;
 
         public Form_AdministracionNuevaOrdenVenta()
         {
             InitializeComponent();
-            Context = new CooperativaProduccionEntities();                
+            Context = new CooperativaProduccionEntities();
+            Iniciar();
         }
 
         #region Method Code
@@ -165,6 +165,21 @@ namespace CooperativaProduccion
             BuscarTransporte();
         }
 
+        private void btnGuardar_Click(object sender, EventArgs e)
+        {
+            var resultado = MessageBox.Show("¿Desea crear una nueva orden de venta?",
+               "Atención", MessageBoxButtons.OKCancel);
+            if (resultado != DialogResult.OK)
+            {
+                return;
+            }
+
+            if (ValidarCampos())
+            {
+                GenerarOrdenVenta();
+            }
+        }
+
         #endregion
 
         #region Method Dev
@@ -298,6 +313,7 @@ namespace CooperativaProduccion
                     {
                         TransporteId = busqueda.ID;
                         txtRazonSocial.Text = busqueda.TRANSPORTE;
+                        txtCuitTransporte.Text = busqueda.CUIT;
                     }
                     else
                     {
@@ -323,6 +339,7 @@ namespace CooperativaProduccion
                             {
                                 TransporteId = busquedaNombre.ID;
                                 txtRazonSocial.Text = busquedaNombre.TRANSPORTE;
+                                txtCuitTransporte.Text = busquedaNombre.CUIT;
                             }
                         }
                     }
@@ -330,8 +347,137 @@ namespace CooperativaProduccion
             }
         }
 
+        private long ContadorOrdenVenta()
+        {
+            var contador = Context.Contador
+                .Where(x => x.Nombre.Equals(DevConstantes.OrdenVenta))
+                .FirstOrDefault();
+
+            if (contador != null)
+            {
+                return (contador.Valor.Value + 1);
+            }
+            else
+            {
+                return 1;
+            }       
+        }
+
+        private void ActualizarContadorOrdenVenta()
+        {
+            var contador = Context.Contador
+               .Where(x => x.Nombre.Equals(DevConstantes.OrdenVenta))
+               .FirstOrDefault();
+
+            if (contador != null)
+            {
+                var count = Context.Contador.Find(contador.Id);
+
+                if (count != null)
+                {
+                    count.Valor = count.Valor + 1;
+                    Context.Entry(count).State = EntityState.Modified;
+                    Context.SaveChanges();
+                }
+            }
+        }
+
+        private long ContadorNumeroOperacion()
+        {
+            var contador = Context.Contador
+                .Where(x => x.Nombre.Equals(DevConstantes.NumeroOperacion))
+                .FirstOrDefault();
+
+            if (contador != null)
+            {
+                return (contador.Valor.Value + 1);
+            }
+            else
+            {
+                return 1;
+            }
+        }
+
+        private void ActualizarContadorNumeroOperacion()
+        {
+            var contador = Context.Contador
+               .Where(x => x.Nombre.Equals(DevConstantes.NumeroOperacion))
+               .FirstOrDefault();
+
+            if (contador != null)
+            {
+                var count = Context.Contador.Find(contador.Id);
+
+                if (count != null)
+                {
+                    count.Valor = count.Valor + 1;
+                    Context.Entry(count).State = EntityState.Modified;
+                    Context.SaveChanges();
+                }
+            }
+        }
+
+        private void Iniciar()
+        {
+            txtOperacion.Text = ContadorNumeroOperacion().ToString();
+            txtOrden.Text = ContadorOrdenVenta().ToString();
+        }
+
+        private void GenerarOrdenVenta()
+        {
+            try
+            {
+                OrdenVenta ov;
+                ov = new OrdenVenta();
+                ov.Id = Guid.NewGuid();
+                ov.NumOperacion = ContadorNumeroOperacion();
+                ov.NumOrden = ContadorOrdenVenta();
+                ov.Fecha = DateTime.Now.Date;
+                ov.ClienteId = ClienteId;
+                ov.Calle = txtCalle.Text;
+                ov.Numero = txtNumero.Text;
+                ov.Piso = txtPiso.Text;
+                ov.Dpto = txtDpto.Text;
+                ov.TransporteId = TransporteId;
+                ov.Dominio = txtDominio.Text;
+                ov.DominioAcoplado = txtDominioAcoplado.Text;
+                ov.ApellidoChofer = txtApellido.Text;
+                ov.NombreChofer = txtNombre.Text;
+                ov.CuitChofer = txtCuitChofer.Text;
+                ov.Pendiente = true;
+                Context.OrdenVenta.Add(ov);
+                Context.SaveChanges();
+                ActualizarContadorOrdenVenta();
+                ActualizarContadorNumeroOperacion();
+
+                IEnlaceActualizar mienlace = this.Owner as Form_AdministracionOrdenVenta;
+
+                if (mienlace != null)
+                {
+                    mienlace.Enviar(true);
+                }
+
+                this.Close();
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        private bool ValidarCampos()
+        {
+            if (string.IsNullOrEmpty(txtCliente.Text))
+            {
+                MessageBox.Show("Debe ingresar un cliente.",
+                               "Se requiere", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            return true;
+        }
+
         #endregion
 
-  
     }
 }

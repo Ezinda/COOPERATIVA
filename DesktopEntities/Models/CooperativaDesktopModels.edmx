@@ -119,14 +119,11 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Fecha" Type="date" Nullable="false" />
           <Property Name="NumOrden" Type="bigint" Nullable="false" />
           <Property Name="NumOperacion" Type="bigint" Nullable="false" />
+          <Property Name="Pendiente" Type="bit" Nullable="false" />
           <Property Name="ClienteId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="ProductoId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="DesdeCaja" Type="bigint" />
-          <Property Name="HastaCaja" Type="bigint" />
-          <Property Name="Fecha" Type="date" Nullable="false" />
-          <Property Name="Pendiente" Type="bit" />
           <Property Name="Calle" Type="nvarchar" MaxLength="500" />
           <Property Name="Numero" Type="nvarchar" MaxLength="50" />
           <Property Name="Piso" Type="nvarchar" MaxLength="50" />
@@ -145,8 +142,8 @@
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="OrdenVentaId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ProductoId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="DesdeCaja" Type="bigint" Nullable="false" />
-          <Property Name="HastaCaja" Type="bigint" Nullable="false" />
+          <Property Name="DesdeCaja" Type="bigint" />
+          <Property Name="HastaCaja" Type="bigint" />
         </EntityType>
         <EntityType Name="Pago">
           <Key>
@@ -1757,14 +1754,11 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="NumOrden" Type="Int64" Nullable="false" />
           <Property Name="NumOperacion" Type="Int64" Nullable="false" />
+          <Property Name="Pendiente" Type="Boolean" Nullable="false" />
           <Property Name="ClienteId" Type="Guid" Nullable="false" />
-          <Property Name="ProductoId" Type="Guid" Nullable="false" />
-          <Property Name="DesdeCaja" Type="Int64" />
-          <Property Name="HastaCaja" Type="Int64" />
-          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Pendiente" Type="Boolean" />
           <Property Name="Calle" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Numero" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Piso" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -1785,8 +1779,8 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="OrdenVentaId" Type="Guid" Nullable="false" />
           <Property Name="ProductoId" Type="Guid" Nullable="false" />
-          <Property Name="DesdeCaja" Type="Int64" Nullable="false" />
-          <Property Name="HastaCaja" Type="Int64" Nullable="false" />
+          <Property Name="DesdeCaja" Type="Int64" />
+          <Property Name="HastaCaja" Type="Int64" />
           <NavigationProperty Name="OrdenVenta" Relationship="CooperativaProduccionModel.FK_OrdenVentaDetalle_OrdenVenta" FromRole="OrdenVentaDetalle" ToRole="OrdenVenta" />
         </EntityType>
         <EntityType Name="Pago">
@@ -2774,14 +2768,11 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
                 <ScalarProperty Name="Piso" ColumnName="Piso" />
                 <ScalarProperty Name="Numero" ColumnName="Numero" />
                 <ScalarProperty Name="Calle" ColumnName="Calle" />
-                <ScalarProperty Name="Pendiente" ColumnName="Pendiente" />
-                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
-                <ScalarProperty Name="HastaCaja" ColumnName="HastaCaja" />
-                <ScalarProperty Name="DesdeCaja" ColumnName="DesdeCaja" />
-                <ScalarProperty Name="ProductoId" ColumnName="ProductoId" />
                 <ScalarProperty Name="ClienteId" ColumnName="ClienteId" />
+                <ScalarProperty Name="Pendiente" ColumnName="Pendiente" />
                 <ScalarProperty Name="NumOperacion" ColumnName="NumOperacion" />
                 <ScalarProperty Name="NumOrden" ColumnName="NumOrden" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -58,8 +58,7 @@ namespace CooperativaProduccion
                 var ordenVenta =
                     (from o in Context.OrdenVenta
                          .Where(x => x.Id == Id).AsEnumerable()
-                     join p in Context.Vw_Producto
-                     on o.ProductoId equals p.ID
+                     
                      join c in Context.Vw_Cliente
                      on o.ClienteId equals c.ID
                      select new
@@ -69,9 +68,6 @@ namespace CooperativaProduccion
                          NumOrden = o.NumOrden,
                          Cliente = c.RAZONSOCIAL,
                          Cuit = c.CUIT.Contains(DevConstantes.XX) ? c.CUITE : c.CUIT,
-                         Producto = p.DESCRIPCION,
-                         CajaDesde = o.DesdeCaja,
-                         CajaHasta = o.HastaCaja,
                          Fecha = o.Fecha
                      })
                     .ToList();
@@ -283,11 +279,8 @@ namespace CooperativaProduccion
                     remito.NumOperacion = ordenVenta.NumOperacion;
                     remito.NumOrden = ordenVenta.NumOrden;
                     remito.ClienteId = ordenVenta.ClienteId;
-                    remito.ProductoId = ordenVenta.ProductoId;
                     remito.FechaOrden = ordenVenta.Fecha;
                     remito.FechaRemito = dpRemito.Value;
-                    remito.DesdeCaja = ordenVenta.DesdeCaja;
-                    remito.HastaCaja = ordenVenta.HastaCaja;
                     remito.OrdenVentaId = ordenVenta.Id;
                     remito.PuntoVenta = int.Parse(txtPuntoVenta.Text);
                     remito.NumRemito = int.Parse(txtNumRemito.Text);
@@ -305,14 +298,14 @@ namespace CooperativaProduccion
                         Context.Entry(orden).State = EntityState.Modified;
                         Context.SaveChanges();
 
-                        for (long i = ordenVenta.DesdeCaja.Value; i <= ordenVenta.HastaCaja; i++)
-                        {
-                            var caja = Context.Caja
-                                .Where(x => x.NumeroCaja == i)
-                                .FirstOrDefault();
+                        //for (long i = ordenVenta.DesdeCaja.Value; i <= ordenVenta.HastaCaja; i++)
+                        //{
+                        //    var caja = Context.Caja
+                        //        .Where(x => x.NumeroCaja == i)
+                        //        .FirstOrDefault();
                             
-                            RegistrarMovimiento(caja.Id, 1, remito.FechaRemito.Value);
-                        }
+                        //    RegistrarMovimiento(caja.Id, 1, remito.FechaRemito.Value);
+                        //}
                     }
                     IEnlaceActualizar mienlace = this.Owner as Form_AdministracionRemitoElectronico;
                     if (mienlace != null)

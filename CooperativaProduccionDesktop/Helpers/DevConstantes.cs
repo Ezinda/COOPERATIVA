@@ -61,6 +61,7 @@ namespace CooperativaProduccion
         public static string Modificar = "Modificar";
         public static string XX = "XX";
         public static string OrdenVenta = "OrdenVenta";
+        public static string NumeroOperacion = "NumeroOperacion";
         public static string Remito = "Remito";
         public static string Romaneo = "Romaneo";
         public static string Transferencia = "Transferencia";

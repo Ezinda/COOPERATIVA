@@ -159,11 +159,11 @@ namespace CooperativaProduccion
 
                         Guid OrdenVentaId = Guid.Parse(cbProductoIngreso.SelectedValue.ToString());
                         var ordenVenta = Context.OrdenVenta.Where(x => x.Id == OrdenVentaId).FirstOrDefault();
-                        var producto = Context.Vw_Producto
-                            .Where(x => x.ID == ordenVenta.ProductoId)
-                            .FirstOrDefault();
+                        //var producto = Context.Vw_Producto
+                        //    .Where(x => x.ID == ordenVenta.ProductoId)
+                        //    .FirstOrDefault();
 
-                        caja.ProductoId = producto.ID;
+                       // caja.ProductoId = producto.ID;
                         caja.Bruto = decimal.Parse(txtBruto.Text, CultureInfo.InvariantCulture);
                         caja.Tara = decimal.Parse(txtTara.Text, CultureInfo.InvariantCulture);
                         caja.Neto = decimal.Parse(txtNeto.Text, CultureInfo.InvariantCulture);
@@ -314,12 +314,11 @@ namespace CooperativaProduccion
         {
             var ordenVenta =
                 (from o in Context.OrdenVenta
-                 join p in Context.Vw_Producto
-                 on o.ProductoId equals p.ID
+                 
                  select new OrdenVentaProducto
                  {
                      Id = o.Id,
-                     Descripcion = o.NumOrden + " - " + p.DESCRIPCION,
+                     Descripcion = o.NumOrden + " - ",
                  })
                 .OrderBy(x => x.Descripcion)
                 .ToList();

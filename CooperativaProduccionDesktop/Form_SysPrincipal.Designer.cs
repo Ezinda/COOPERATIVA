@@ -39,7 +39,6 @@
             this.btnFardos = new DevExpress.XtraBars.BarButtonItem();
             this.btnListaPrecio = new DevExpress.XtraBars.BarButtonItem();
             this.btnLiquidacion = new DevExpress.XtraBars.BarButtonItem();
-            this.btnOrdenPago = new DevExpress.XtraBars.BarButtonItem();
             this.btnGestionCata = new DevExpress.XtraBars.BarButtonItem();
             this.btnGestionCaja = new DevExpress.XtraBars.BarButtonItem();
             this.btnOrdenVenta = new DevExpress.XtraBars.BarButtonItem();
@@ -84,7 +83,6 @@
             this.btnFardos,
             this.btnListaPrecio,
             this.btnLiquidacion,
-            this.btnOrdenPago,
             this.btnGestionCata,
             this.btnGestionCaja,
             this.btnOrdenVenta,
@@ -199,16 +197,6 @@
             this.btnLiquidacion.Name = "btnLiquidacion";
             this.btnLiquidacion.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
             this.btnLiquidacion.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnLiquidacion_ItemClick);
-            // 
-            // btnOrdenPago
-            // 
-            this.btnOrdenPago.Caption = "Ordenes de Pago";
-            this.btnOrdenPago.Glyph = ((System.Drawing.Image)(resources.GetObject("btnOrdenPago.Glyph")));
-            this.btnOrdenPago.Id = 12;
-            this.btnOrdenPago.Name = "btnOrdenPago";
-            this.btnOrdenPago.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
-            this.btnOrdenPago.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
-            this.btnOrdenPago.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnOrdenPago_ItemClick);
             // 
             // btnGestionCata
             // 
@@ -360,7 +348,6 @@
             // 
             this.ribbonPageGroupLiquidacion.AllowTextClipping = false;
             this.ribbonPageGroupLiquidacion.ItemLinks.Add(this.btnLiquidacion);
-            this.ribbonPageGroupLiquidacion.ItemLinks.Add(this.btnOrdenPago);
             this.ribbonPageGroupLiquidacion.Name = "ribbonPageGroupLiquidacion";
             this.ribbonPageGroupLiquidacion.ShowCaptionButton = false;
             this.ribbonPageGroupLiquidacion.Text = "Liquidación";
@@ -495,7 +482,6 @@
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageListaPrecio;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroupLiquidacion;
         private DevExpress.XtraBars.BarButtonItem btnLiquidacion;
-        private DevExpress.XtraBars.BarButtonItem btnOrdenPago;
         private DevExpress.XtraBars.BarButtonItem btnGestionCata;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroupOrdenVenta;
         private DevExpress.XtraBars.BarButtonItem btnGestionCaja;

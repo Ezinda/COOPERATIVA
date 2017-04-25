@@ -270,8 +270,6 @@ namespace CooperativaProduccion
                 || permisos.GenerarOrdenPago.Equals(true) ?
                 BarItemVisibility.Always : BarItemVisibility.Never;
 
-                btnOrdenPago.Visibility = permisos.GenerarOrdenPago.Equals(true) ?
-                BarItemVisibility.Always : BarItemVisibility.Never;
             }
 
             if (permisos.GestionCata.Equals(false)

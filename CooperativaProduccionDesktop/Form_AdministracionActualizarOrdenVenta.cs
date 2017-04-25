@@ -22,7 +22,7 @@ namespace CooperativaProduccion
             InitializeComponent();
             Context = new CooperativaProduccionEntities();
             Deshabilitar();
-            CargarDatos(Id);
+            //CargarDatos(Id);
         }
 
         private void Form_AdministracionActualizarOrdenVenta_Load(object sender, EventArgs e)
@@ -30,69 +30,69 @@ namespace CooperativaProduccion
 
         }
 
-        private void CargarDatos(Guid Id)
-        {
-            OrdenVentaId = Id;
+        //private void CargarDatos(Guid Id)
+        //{
+        //    OrdenVentaId = Id;
 
-            var ordenVenta =
-                 (from o in Context.OrdenVenta
-                      .Where(x => x.Id == Id)
-                  join p in Context.Vw_Producto
-                  on o.ProductoId equals p.ID
-                  join c in Context.Vw_Cliente
-                  on o.ClienteId equals c.ID
-                  select new
-                  {
-                      OrdenVentaId = o.Id,
-                      NumOperacion = o.NumOperacion,
-                      NumOrden = o.NumOrden,
-                      OperacionCliente = o.NumOperacion + " - " + c.RAZONSOCIAL,
-                      Cliente = c.RAZONSOCIAL,
-                      Producto = p.DESCRIPCION,
-                      OrdenProducto = o.NumOrden + " - " + p.DESCRIPCION,
-                      Fecha = o.Fecha
-                  })
-                  .ToList();
+        //    var ordenVenta =
+        //         (from o in Context.OrdenVenta
+        //              .Where(x => x.Id == Id)
+        //          join p in Context.Vw_Producto
+        //          on o.ProductoId equals p.ID
+        //          join c in Context.Vw_Cliente
+        //          on o.ClienteId equals c.ID
+        //          select new
+        //          {
+        //              OrdenVentaId = o.Id,
+        //              NumOperacion = o.NumOperacion,
+        //              NumOrden = o.NumOrden,
+        //              OperacionCliente = o.NumOperacion + " - " + c.RAZONSOCIAL,
+        //              Cliente = c.RAZONSOCIAL,
+        //              Producto = p.DESCRIPCION,
+        //              OrdenProducto = o.NumOrden + " - " + p.DESCRIPCION,
+        //              Fecha = o.Fecha
+        //          })
+        //          .ToList();
 
-            cbOrden.DataSource = ordenVenta;
-            cbOrden.DisplayMember = "OrdenProducto";
-            cbOrden.ValueMember = "OrdenVentaId";
+        //    cbOrden.DataSource = ordenVenta;
+        //    cbOrden.DisplayMember = "OrdenProducto";
+        //    cbOrden.ValueMember = "OrdenVentaId";
             
-            if (ordenVenta != null)
-            {
-                txtOperacion.Text = ordenVenta.FirstOrDefault().NumOperacion.ToString();
-                txtCliente.Text = ordenVenta.FirstOrDefault().Cliente;
-            }
+        //    if (ordenVenta != null)
+        //    {
+        //        txtOperacion.Text = ordenVenta.FirstOrDefault().NumOperacion.ToString();
+        //        txtCliente.Text = ordenVenta.FirstOrDefault().Cliente;
+        //    }
 
-            var caja = Context.Caja
-                .Where(x => x.OrdenVentaId == Id)
-                .Any();
+        //    var caja = Context.Caja
+        //        .Where(x => x.OrdenVentaId == Id)
+        //        .Any();
 
-            if (caja.Equals(true))
-            {
-                txtCajaDesde.Enabled = true;
-                txtCajaHasta.Enabled = true;
+        //    if (caja.Equals(true))
+        //    {
+        //        txtCajaDesde.Enabled = true;
+        //        txtCajaHasta.Enabled = true;
 
-                var cajaDesde = Context.Caja
-                   .Where(x => x.OrdenVentaId == Id)
-                   .OrderBy(x => x.NumeroCaja)
-                   .FirstOrDefault();
+        //        var cajaDesde = Context.Caja
+        //           .Where(x => x.OrdenVentaId == Id)
+        //           .OrderBy(x => x.NumeroCaja)
+        //           .FirstOrDefault();
 
-                txtCajaDesde.Text = cajaDesde.NumeroCaja.ToString();
+        //        txtCajaDesde.Text = cajaDesde.NumeroCaja.ToString();
 
-                var cajaHasta = Context.Caja
-                    .Where(x => x.OrdenVentaId == Id)
-                    .OrderByDescending(x => x.NumeroCaja)
-                    .FirstOrDefault();
+        //        var cajaHasta = Context.Caja
+        //            .Where(x => x.OrdenVentaId == Id)
+        //            .OrderByDescending(x => x.NumeroCaja)
+        //            .FirstOrDefault();
 
-                txtCajaHasta.Text = cajaHasta.NumeroCaja.ToString();
-            }
-            else
-            {
-                txtCajaDesde.Text = "0";
-                txtCajaHasta.Text = "0";
-            }
-        }
+        //        txtCajaHasta.Text = cajaHasta.NumeroCaja.ToString();
+        //    }
+        //    else
+        //    {
+        //        txtCajaDesde.Text = "0";
+        //        txtCajaHasta.Text = "0";
+        //    }
+        //}
         
         private void Modificar()
         {
@@ -105,53 +105,53 @@ namespace CooperativaProduccion
             {
                 if (ValidarCampos())
                 {
-                    ModificarDatos();
+                    //ModificarDatos();
                 }
             }      
         }
 
-        private void ModificarDatos()
-        {
-            var ordenProducto = cbOrden.SelectedItem as dynamic;
+        //private void ModificarDatos()
+        //{
+        //    var ordenProducto = cbOrden.SelectedItem as dynamic;
 
-            long cbOrdenProducto = ordenProducto.NumOrden;
+        //    long cbOrdenProducto = ordenProducto.NumOrden;
 
-            var orden = Context.OrdenVenta
-                .Where(x => x.NumOrden == cbOrdenProducto)
-                .FirstOrDefault();
+        //    var orden = Context.OrdenVenta
+        //        .Where(x => x.NumOrden == cbOrdenProducto)
+        //        .FirstOrDefault();
 
-            if (orden != null)
-            {
-                var ordenVenta = Context.OrdenVenta.Find(orden.Id);
+        //    if (orden != null)
+        //    {
+        //        var ordenVenta = Context.OrdenVenta.Find(orden.Id);
                 
-                if (ordenVenta != null)
-                {
-                    ordenVenta.DesdeCaja = long.Parse(txtCajaDesde.Text);
-                    ordenVenta.HastaCaja = long.Parse(txtCajaHasta.Text);
-                    Context.Entry(ordenVenta).State = EntityState.Modified;
-                    Context.SaveChanges();
+        //        if (ordenVenta != null)
+        //        {
+        //            ordenVenta.DesdeCaja = long.Parse(txtCajaDesde.Text);
+        //            ordenVenta.HastaCaja = long.Parse(txtCajaHasta.Text);
+        //            Context.Entry(ordenVenta).State = EntityState.Modified;
+        //            Context.SaveChanges();
 
-                    for(long i = ordenVenta.DesdeCaja.Value ; i<= ordenVenta.HastaCaja; i++)
-                    {
-                        var caja = Context.Caja
-                            .Where(x => x.NumeroCaja == i)
-                            .FirstOrDefault();
+        //            for(long i = ordenVenta.DesdeCaja.Value ; i<= ordenVenta.HastaCaja; i++)
+        //            {
+        //                var caja = Context.Caja
+        //                    .Where(x => x.NumeroCaja == i)
+        //                    .FirstOrDefault();
 
-                        AsociarOVaCaja(ordenVenta.Id,caja.Id);
-                        //RegistrarMovimiento(caja.Id, 1, ordenVenta.Fecha);   
-                    }
-                }
+        //                AsociarOVaCaja(ordenVenta.Id,caja.Id);
+        //                //RegistrarMovimiento(caja.Id, 1, ordenVenta.Fecha);   
+        //            }
+        //        }
 
-                IEnlaceActualizar mienlace = this.Owner as Form_AdministracionOrdenVenta;
+        //        IEnlaceActualizar mienlace = this.Owner as Form_AdministracionOrdenVenta;
 
-                if (mienlace != null)
-                {
-                    mienlace.Enviar(true);
-                }
+        //        if (mienlace != null)
+        //        {
+        //            mienlace.Enviar(true);
+        //        }
 
-                this.Close();
-            }
-        }
+        //        this.Close();
+        //    }
+        //}
 
         private void AsociarOVaCaja(Guid OrdenVentaId,Guid CajaId)
         {
