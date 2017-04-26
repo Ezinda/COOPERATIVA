@@ -70,7 +70,7 @@ namespace CooperativaProduccion
             if (e.KeyChar == 13)
             {
                 BuscarCliente();
-                txtCalle.Focus();
+                txtDomicilio.Focus();
             }
         }
 
@@ -194,6 +194,7 @@ namespace CooperativaProduccion
                      ID = a.ID,
                      CUIT = a.CUIT.Contains(DevConstantes.XX) ? a.CUITE : a.CUIT,
                      CLIENTE = a.RAZONSOCIAL,
+                     DOMICILIO = a.DOMICILIO,
                      PROVINCIA = a.Provincia
                  });
 
@@ -202,6 +203,7 @@ namespace CooperativaProduccion
                 var count = result
                     .Where(x => x.CUIT.Contains(txtCliente.Text))
                     .Count();
+
                 if (count > 1)
                 {
                     _formBuscarCliente = new Form_AdministracionBuscarCliente();
@@ -215,16 +217,20 @@ namespace CooperativaProduccion
                     var busqueda = result
                         .Where(x => x.CUIT.Equals(txtCliente.Text))
                         .FirstOrDefault();
+
                     if (busqueda != null)
                     {
                         ClienteId = busqueda.ID;
                         txtCliente.Text = busqueda.CLIENTE;
+                        txtDomicilio.Text = busqueda.DOMICILIO;
+                        txtCuitCliente.Text = busqueda.CUIT;
                     }
                     else
                     {
                         count = result
                             .Where(x => x.CLIENTE.Contains(txtCliente.Text))
                             .Count();
+
                         if (count > 1)
                         {
                             _formBuscarCliente = new Form_AdministracionBuscarCliente();
@@ -243,6 +249,8 @@ namespace CooperativaProduccion
                             {
                                 ClienteId = busquedaNombre.ID;
                                 txtCliente.Text = busquedaNombre.CLIENTE;
+                                txtDomicilio.Text = busqueda.DOMICILIO;
+                                txtCuitCliente.Text = busqueda.CUIT;
                             }
                         }
                     }
@@ -253,14 +261,14 @@ namespace CooperativaProduccion
         public void Enviar(Guid Id, string fet, string nombre)
         {
             var cliente = Context.Vw_Cliente
-                .Where(x => x.ID == Id)
-                .Any();
+                .Where(x => x.ID == Id);
 
-            if (cliente.Equals(true))
+            if (cliente.Any().Equals(true))
             {
                 ClienteId = Id;
                 txtCuitCliente.Text = fet;
                 txtCliente.Text = nombre;
+                txtDomicilio.Text = cliente.FirstOrDefault().DOMICILIO;
             }
             else
             {
@@ -434,7 +442,7 @@ namespace CooperativaProduccion
                 ov.NumOrden = ContadorOrdenVenta();
                 ov.Fecha = DateTime.Now.Date;
                 ov.ClienteId = ClienteId;
-                ov.Calle = txtCalle.Text;
+                ov.Calle = txtDomicilio.Text;
                 ov.Numero = txtNumero.Text;
                 ov.Piso = txtPiso.Text;
                 ov.Dpto = txtDpto.Text;

@@ -1079,7 +1079,9 @@ namespace CooperativaProduccion
                 var kilosround = Math.Round(kilos, 0);
 
                 var detalleid = RegistrarDetallePesada(pesadaId, tipoTabacoId, clase, kilosround);
+
                 var now = DateTime.Now.Date;
+
                 if (!detalleid.Equals(Guid.Empty))
                 {
                     RegistrarMovimiento(detalleid, kilosround, now);
@@ -1253,7 +1255,9 @@ namespace CooperativaProduccion
 
             long numFardo = NumeradorFardo();
 
-            var existeFardo = _context.PesadaDetalle
+            CooperativaProduccionEntities context = new CooperativaProduccionEntities();
+
+            var existeFardo = context.PesadaDetalle
                 .Where(x => x.NumFardo == numFardo)
                 .Any();
 
@@ -1270,8 +1274,8 @@ namespace CooperativaProduccion
                 pesadaDetalle.Kilos = kilos;
                 pesadaDetalle.ClasePrecio = vwclase.PRECIOCOMPRA;
 
-                _context.PesadaDetalle.Add(pesadaDetalle);
-                _context.SaveChanges();
+                context.PesadaDetalle.Add(pesadaDetalle);
+                context.SaveChanges();
 
                 return pesadaDetalle.Id;
             }
@@ -1301,10 +1305,14 @@ namespace CooperativaProduccion
 
         private long NumeradorFardo()
         {
+            CooperativaProduccionEntities _context = new CooperativaProduccionEntities();
+
             long numFardo = 0;
+
             var pesadaDetalle = _context.PesadaDetalle
                 .OrderByDescending(x => x.NumFardo)
                 .FirstOrDefault();
+
             if (pesadaDetalle != null)
             {
                 numFardo = pesadaDetalle.NumFardo.Value + 1;
@@ -1365,6 +1373,7 @@ namespace CooperativaProduccion
                 Id = new Guid(gridViewPesada
                     .GetRowCellValue(gridViewPesada.FocusedRowHandle, "ID")
                     .ToString());
+
                 var pesadaDetalle = _context.PesadaDetalle.Find(Id);
 
                 if (pesadaDetalle == null)
@@ -1400,6 +1409,7 @@ namespace CooperativaProduccion
         private void ActualizarPesada(Guid pesadaId, bool finalizar)
         {
             var pesada = _context.Pesada.Find(pesadaId);
+
             if (pesada != null)
             {
                 pesada.TotalFardo = Int32.Parse(txtTotalFardo.Text);

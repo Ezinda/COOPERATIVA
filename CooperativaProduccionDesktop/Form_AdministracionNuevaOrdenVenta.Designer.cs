@@ -59,7 +59,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.txtNumero = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.txtCalle = new System.Windows.Forms.TextBox();
+            this.txtDomicilio = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.groupControl4 = new DevExpress.XtraEditors.GroupControl();
             this.txtNombre = new System.Windows.Forms.TextBox();
@@ -338,7 +338,7 @@
             this.groupControl2.Controls.Add(this.label6);
             this.groupControl2.Controls.Add(this.txtNumero);
             this.groupControl2.Controls.Add(this.label2);
-            this.groupControl2.Controls.Add(this.txtCalle);
+            this.groupControl2.Controls.Add(this.txtDomicilio);
             this.groupControl2.Controls.Add(this.label10);
             this.groupControl2.Location = new System.Drawing.Point(0, 126);
             this.groupControl2.Name = "groupControl2";
@@ -403,14 +403,14 @@
             this.label2.Text = "N°";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // txtCalle
+            // txtDomicilio
             // 
-            this.txtCalle.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtCalle.Location = new System.Drawing.Point(74, 23);
-            this.txtCalle.Name = "txtCalle";
-            this.txtCalle.Size = new System.Drawing.Size(320, 21);
-            this.txtCalle.TabIndex = 4;
-            this.txtCalle.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCalle_KeyPress);
+            this.txtDomicilio.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtDomicilio.Location = new System.Drawing.Point(74, 23);
+            this.txtDomicilio.Name = "txtDomicilio";
+            this.txtDomicilio.Size = new System.Drawing.Size(320, 21);
+            this.txtDomicilio.TabIndex = 4;
+            this.txtDomicilio.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCalle_KeyPress);
             // 
             // label10
             // 
@@ -418,9 +418,9 @@
             this.label10.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.Location = new System.Drawing.Point(5, 24);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(34, 16);
+            this.label10.Size = new System.Drawing.Size(57, 16);
             this.label10.TabIndex = 90;
-            this.label10.Text = "Calle";
+            this.label10.Text = "Domicilio";
             // 
             // groupControl4
             // 
@@ -597,7 +597,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtNumero;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtCalle;
+        private System.Windows.Forms.TextBox txtDomicilio;
         private System.Windows.Forms.Label label10;
         private DevExpress.XtraEditors.GroupControl groupControl4;
         private System.Windows.Forms.TextBox txtNombre;

@@ -127,6 +127,7 @@ namespace CooperativaProduccion
             if (target.Equals(DevConstantes.OrdenVenta))
             {
                 IEnlace mienlace = this.Owner as Form_AdministracionNuevaOrdenVenta;
+
                 if (mienlace != null)
                 {
                     mienlace.Enviar(
@@ -134,11 +135,25 @@ namespace CooperativaProduccion
                         gridViewCliente.GetRowCellValue(gridViewCliente.FocusedRowHandle, "CUIT").ToString(),
                         gridViewCliente.GetRowCellValue(gridViewCliente.FocusedRowHandle, "CLIENTE").ToString());
                 }
+                else
+                {
+                    IEnlace mienlace2 = this.Owner as Form_AdministracionOrdenVenta;
+
+                    if (mienlace2 != null)
+                    {
+                        mienlace2.Enviar(
+                            new Guid(gridViewCliente.GetRowCellValue(gridViewCliente.FocusedRowHandle, "ID").ToString()),
+                            gridViewCliente.GetRowCellValue(gridViewCliente.FocusedRowHandle, "CUIT").ToString(),
+                            gridViewCliente.GetRowCellValue(gridViewCliente.FocusedRowHandle, "CLIENTE").ToString());
+                    }
+                }
+
                 this.Dispose();
             }
             else if (target.Equals(DevConstantes.Remito))
             {
                 IEnlace mienlace = this.Owner as Form_AdministracionRemitoElectronico;
+
                 if (mienlace != null)
                 {
                     mienlace.Enviar(
@@ -146,6 +161,7 @@ namespace CooperativaProduccion
                         gridViewCliente.GetRowCellValue(gridViewCliente.FocusedRowHandle, "CUIT").ToString(),
                         gridViewCliente.GetRowCellValue(gridViewCliente.FocusedRowHandle, "CLIENTE").ToString());
                 }
+
                 this.Dispose();
             }
         }

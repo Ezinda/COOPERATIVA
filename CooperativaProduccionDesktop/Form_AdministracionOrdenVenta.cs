@@ -14,13 +14,22 @@ using Extensions;
 using System.Linq.Expressions;
 using System.IO;
 using System.Globalization;
+using CooperativaProduccion.Helpers.GridRecords;
+using DevExpress.XtraGrid.Views.Grid;
+using DevExpress.XtraGrid.Columns;
+using DevExpress.XtraEditors.Repository;
+using DevExpress.XtraEditors;
+using CooperativaProduccion.Properties;
+using DevExpress.XtraEditors.Controls;
 
 namespace CooperativaProduccion
 {
-    public partial class Form_AdministracionOrdenVenta : DevExpress.XtraBars.Ribbon.RibbonForm, IEnlaceActualizar
+    public partial class Form_AdministracionOrdenVenta : DevExpress.XtraBars.Ribbon.RibbonForm, IEnlaceActualizar,IEnlace
     {
         public CooperativaProduccionEntities Context { get; set; }
+        public Form_AdministracionBuscarCliente _formBuscarCliente = null;
         public Guid OrdenVentaId;
+        public Guid ClienteId;
 
         public Form_AdministracionOrdenVenta()
         {
@@ -69,7 +78,7 @@ namespace CooperativaProduccion
         {
             txtNumOperacion.Text = ContadorNumeroOperacion().ToString();
             txtNumOrdenVenta.Text = ContadorOrdenVenta().ToString();
-            CargarCombo();
+            checkPendienteEmitirRemito.Checked = true;
         }
 
         private void BuscarOrdenVenta(Guid OrdenVentaId)
@@ -152,58 +161,108 @@ namespace CooperativaProduccion
         {
             if (OrdenVenta.SelectedTabPage.Equals(TabConsultaOrdenVenta))
             {
-                if (cbOperacionCliente.Text != string.Empty)
+                List<GridOrdenVenta> lista = new List<GridOrdenVenta>();
+    
+                Expression<Func<OrdenVenta, bool>> pred = x => true;
+                
+                pred = pred.And(x => x.Fecha >= dpDesdeOrden.Value.Date
+                    && x.Fecha <= dpHastaOrden.Value.Date);
+
+                pred = !string.IsNullOrEmpty(txtCliente.Text) && ClienteId != Guid.Empty ? 
+                    pred.And(x => x.ClienteId == ClienteId) : pred;
+
+                pred = checkPendienteEmitirRemito.Checked ? 
+                    pred.And(x => x.Pendiente == true) : pred;
+
+                var ordenVenta =
+                    (from o in Context.OrdenVenta.Where(pred)
+                     join c in Context.Vw_Cliente
+                     on o.ClienteId equals c.ID
+                     select new
+                     {
+                         Id = o.Id,
+                         Fecha = o.Fecha,
+                         NumOperacion = o.NumOperacion,
+                         NumOrden = o.NumOrden,
+                         Cliente = c.RAZONSOCIAL,
+                         Pendiente = o.Pendiente == true ?
+                            DevConstantes.SI : DevConstantes.NO
+                     })
+                     .OrderBy(x => x.NumOrden)
+                     .ToList();
+
+                foreach (var item in ordenVenta)
                 {
-                    var operacionCliente = cbOperacionCliente.SelectedItem as dynamic;
-
-                    Guid cbOpCliente = Guid.Parse(operacionCliente.OrdenVentaId.ToString());
-
-                    Expression<Func<OrdenVenta, bool>> pred = x => true;
-
-                    pred = cbOperacionCliente.Text != string.Empty ? pred.And(x => x.Id == cbOpCliente) : pred;
-
-                    pred = checkPendienteEmitirRemito.Checked ? pred.And(x => x.Pendiente == true) : pred;
-
-                    var ordenVenta =
-                        (from o in Context.OrdenVenta.Where(pred)
-                         join c in Context.Vw_Cliente
-                         on o.ClienteId equals c.ID
+                    var detalle =
+                        (from ovd in Context.OrdenVentaDetalle
+                            .Where(x => x.OrdenVentaId == item.Id)
+                         join p in Context.Vw_Producto
+                         on ovd.ProductoId equals p.ID
                          select new
                          {
-                             OrdenVentaId = o.Id,
-                             NumOperacion = o.NumOperacion,
-                             NumOrden = o.NumOrden,
-                             Cliente = c.RAZONSOCIAL,
-                             Fecha = o.Fecha,
-                             Pendiente = o.Pendiente == true ?
-                                DevConstantes.SI : DevConstantes.NO
+                             Id = ovd.Id,
+                             Producto = p.DESCRIPCION,
+                             DesdeCaja = ovd.DesdeCaja,
+                             HastaCaja = ovd.HastaCaja
                          })
-                         .OrderBy(x => x.NumOrden)
-                         .ToList();
+                        .ToList();
 
-                    gridControlOrdenVentaConsulta.DataSource = ordenVenta;
-                    gridViewOrdenVentaConsulta.Columns[0].Visible = false;
-                    gridViewOrdenVentaConsulta.Columns[1].Caption = "N° Operación";
-                    gridViewOrdenVentaConsulta.Columns[1].Width = 120;
-                    gridViewOrdenVentaConsulta.Columns[1].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                    gridViewOrdenVentaConsulta.Columns[1].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Far;
-                    gridViewOrdenVentaConsulta.Columns[2].Caption = "N° Orden";
-                    gridViewOrdenVentaConsulta.Columns[2].Width = 120;
-                    gridViewOrdenVentaConsulta.Columns[2].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                    gridViewOrdenVentaConsulta.Columns[2].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Far;
-                    gridViewOrdenVentaConsulta.Columns[3].Caption = "Cliente";
-                    gridViewOrdenVentaConsulta.Columns[3].Width = 250;
-                    gridViewOrdenVentaConsulta.Columns[3].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                    gridViewOrdenVentaConsulta.Columns[3].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
-                    gridViewOrdenVentaConsulta.Columns[4].Caption = "Fecha";
-                    gridViewOrdenVentaConsulta.Columns[4].Width = 90;
-                    gridViewOrdenVentaConsulta.Columns[4].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                    gridViewOrdenVentaConsulta.Columns[4].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-                    gridViewOrdenVentaConsulta.Columns[5].Caption = "Pendiente";
-                    gridViewOrdenVentaConsulta.Columns[5].Width = 120;
-                    gridViewOrdenVentaConsulta.Columns[5].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                    gridViewOrdenVentaConsulta.Columns[5].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+                    var rowsDetalle = detalle.Select(x =>
+                       new GridOrdenVentaDetalle()
+                       {
+                           Id = x.Id,
+                           Producto = x.Producto,
+                           DesdeCaja = x.DesdeCaja,
+                           HastaCaja = x.HastaCaja
+                       })
+                       .OrderBy(x => x.Producto)
+                       .ToList();
+
+                    var rowOrden = new GridOrdenVenta();
+                    rowOrden.Id = item.Id;
+                    rowOrden.Fecha = item.Fecha;
+                    rowOrden.NumOperacion = item.NumOperacion;
+                    rowOrden.NumOrden = item.NumOrden;
+                    rowOrden.Cliente = item.Cliente;
+                    rowOrden.Pendiente = item.Pendiente;
+                    rowOrden.OrdenVentaDetalle = rowsDetalle;
+                    lista.Add(rowOrden);
                 }
+                
+                gridControlOrdenVentaConsulta.DataSource = new BindingList<GridOrdenVenta>(lista);
+                gridViewOrdenVentaConsulta.Columns[0].Visible = false;
+                gridViewOrdenVentaConsulta.Columns[1].Caption = "Fecha";
+                gridViewOrdenVentaConsulta.Columns[1].Width = 90;
+                gridViewOrdenVentaConsulta.Columns[1].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+                gridViewOrdenVentaConsulta.Columns[1].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+                gridViewOrdenVentaConsulta.Columns[2].Caption = "N° Operación";
+                gridViewOrdenVentaConsulta.Columns[2].Width = 120;
+                gridViewOrdenVentaConsulta.Columns[2].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+                gridViewOrdenVentaConsulta.Columns[2].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Far;
+                gridViewOrdenVentaConsulta.Columns[3].Caption = "N° Orden";
+                gridViewOrdenVentaConsulta.Columns[3].Width = 120;
+                gridViewOrdenVentaConsulta.Columns[3].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+                gridViewOrdenVentaConsulta.Columns[3].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Far;
+                gridViewOrdenVentaConsulta.Columns[4].Caption = "Cliente";
+                gridViewOrdenVentaConsulta.Columns[4].Width = 250;
+                gridViewOrdenVentaConsulta.Columns[4].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+                gridViewOrdenVentaConsulta.Columns[4].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+                gridViewOrdenVentaConsulta.Columns[5].Caption = "Pendiente";
+                gridViewOrdenVentaConsulta.Columns[5].Width = 120;
+                gridViewOrdenVentaConsulta.Columns[5].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+                gridViewOrdenVentaConsulta.Columns[5].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+
+                GridColumn col = gridViewOrdenVentaConsulta.Columns.AddVisible("TradeButton", "");
+                col.UnboundType = DevExpress.Data.UnboundColumnType.Object;
+
+                RepositoryItemButtonEdit repButton = new RepositoryItemButtonEdit();
+                repButton.Name = "rb1";
+                repButton.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+              
+                gridControlOrdenVenta.RepositoryItems.Add(repButton);
+
+                col.ColumnEdit = repButton;
+                col.ShowButtonMode = DevExpress.XtraGrid.Views.Base.ShowButtonModeEnum.ShowAlways;
             }
             else
             {
@@ -294,10 +353,25 @@ namespace CooperativaProduccion
         private void CrearTxtVinculacion(Guid OrdenVentaId)
         {
             string path = @"C:\SystemDocumentsCooperativa";
+
             CreateIfMissing(path);
+
             path = @"C:\SystemDocumentsCooperativa\TxtResumen";
+
             CreateIfMissing(path);
-            string fileName = @"C:\SystemDocumentsCooperativa\TxtResumen\Resumen_" + cbOperacionCliente.Text + ".txt";
+
+            var orden = (from o in Context.OrdenVenta
+                            .Where(x => x.Id == OrdenVentaId)
+                         join c in Context.Vw_Cliente
+                         on o.ClienteId equals c.ID
+                         select
+                         new {
+                             Cliente = c.RAZONSOCIAL
+                         })
+                         .FirstOrDefault();
+
+            string fileName = @"C:\SystemDocumentsCooperativa\TxtResumen\Resumen_" + orden.Cliente + ".txt";
+
             try
             {
                 // Check if file already exists. If yes, delete it. 
@@ -367,36 +441,109 @@ namespace CooperativaProduccion
             nuevaOrden.ShowDialog(this);
         }
 
-        private void CargarCombo()
+        private void BuscarCliente()
         {
-            var producto = Context.Vw_Producto
-                .OrderBy(x => x.DESCRIPCION)
-                .ToList();
-
-            var ordenVenta =
-                (from o in Context.OrdenVenta
-                 join c in Context.Vw_Cliente
-                 on o.ClienteId equals c.ID
+            var result =
+                (from a in Context.Vw_Cliente
                  select new
                  {
-                     OrdenVentaId = o.Id,
-                     NumOperacion = o.NumOperacion,
-                     NumOrden = o.NumOrden,
-                     OperacionCliente = o.NumOperacion + " - " + c.RAZONSOCIAL,
-                     Cliente = c.RAZONSOCIAL,
-                     Fecha = o.Fecha
-                 })
-                 .OrderBy(x => x.NumOperacion)
-                 .ToList();
+                     full = a.CUIT + a.RAZONSOCIAL + a.CUITE,
+                     ID = a.ID,
+                     CUIT = a.CUIT.Contains(DevConstantes.XX) ? a.CUITE : a.CUIT,
+                     CLIENTE = a.RAZONSOCIAL,
+                     PROVINCIA = a.Provincia
+                 });
 
-            if (ordenVenta.Count() != 0)
+            if (!string.IsNullOrEmpty(txtCliente.Text))
             {
-                cbOperacionCliente.DataSource = ordenVenta;
-                cbOperacionCliente.DisplayMember = "OperacionCliente";
-                cbOperacionCliente.ValueMember = "OrdenVentaId";
+                var count = result
+                    .Where(x => x.CUIT.Contains(txtCliente.Text))
+                    .Count();
+                if (count > 1)
+                {
+                    _formBuscarCliente = new Form_AdministracionBuscarCliente();
+                    _formBuscarCliente.cuit = txtCliente.Text;
+                    _formBuscarCliente.target = DevConstantes.OrdenVenta;
+                    _formBuscarCliente.BuscarCuit();
+                    _formBuscarCliente.ShowDialog(this);
+                }
+                else
+                {
+                    var busqueda = result
+                        .Where(x => x.CUIT.Equals(txtCliente.Text))
+                        .FirstOrDefault();
+                    if (busqueda != null)
+                    {
+                        ClienteId = busqueda.ID;
+                        txtCliente.Text = busqueda.CLIENTE;
+                    }
+                    else
+                    {
+                        count = result
+                            .Where(x => x.CLIENTE.Contains(txtCliente.Text))
+                            .Count();
+                        if (count > 1)
+                        {
+                            _formBuscarCliente = new Form_AdministracionBuscarCliente();
+                            _formBuscarCliente.nombre = txtCliente.Text;
+                            _formBuscarCliente.target = DevConstantes.OrdenVenta;
+                            _formBuscarCliente.BuscarNombre();
+                            _formBuscarCliente.ShowDialog(this);
+                        }
+                        else
+                        {
+                            var busquedaNombre = result
+                                .Where(x => x.CLIENTE.Contains(txtCliente.Text))
+                                .FirstOrDefault();
 
-                OrdenVentaId = ordenVenta.FirstOrDefault().OrdenVentaId;
+                            if (busquedaNombre != null)
+                            {
+                                ClienteId = busquedaNombre.ID;
+                                txtCliente.Text = busquedaNombre.CLIENTE;
+                            }
+                        }
+                    }
+                }
             }
         }
+
+        private void txtCliente_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if(e.KeyChar == 13)
+            {
+                BuscarCliente();
+            }
+        }
+
+        private void btnBuscarCliente_Click(object sender, EventArgs e)
+        {
+            BuscarCliente();
+        }
+
+        public void Enviar(Guid Id, string fet, string nombre)
+        {
+            ClienteId = Id;
+            txtCliente.Text = nombre;
+        }
+
+        private void gridViewOrdenVentaConsulta_MasterRowExpanded(object sender, DevExpress.XtraGrid.Views.Grid.CustomMasterRowEventArgs e)
+        {
+            GridView master = sender as GridView;
+            GridView detail = master.GetDetailView(e.RowHandle, e.RelationIndex) as GridView;
+            detail.Columns[0].Visible = false;
+        }
+
+        private void Form_AdministracionOrdenVenta_Load(object sender, EventArgs e)
+        {
+
+        }
+        private void RepositoryItemButtonEdit1ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
+        {
+            DefaultEditorButton editor = sender as DefaultEditorButton;
+            //editor.Image = EditorButton.Kind;
+            //editor.Image = 
+            //SetButtonToRed(editor.Properties);
+        }
+     
     }
 }

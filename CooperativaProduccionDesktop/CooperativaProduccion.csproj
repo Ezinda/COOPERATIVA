@@ -405,6 +405,8 @@
     <Compile Include="Helpers\GridRecords\GridInventario.cs" />
     <Compile Include="Helpers\GridRecords\GridInventarioDetalle.cs" />
     <Compile Include="Helpers\GridRecords\GridKardex.cs" />
+    <Compile Include="Helpers\GridRecords\GridOrdenVenta.cs" />
+    <Compile Include="Helpers\GridRecords\GridOrdenVentaDetalle.cs" />
     <Compile Include="Helpers\GridRecords\GridRomaneo.cs" />
     <Compile Include="Helpers\GridRecords\GridRomaneoResumenCompraDetalle.cs" />
     <Compile Include="Helpers\GridRecords\GridRomaneoDetalle.cs" />
@@ -580,12 +582,15 @@
     <Compile Include="ViewModels\RetencionViewModel.cs" />
     <EmbeddedResource Include="Controls\AdministracionGeneracionOPControl.resx">
       <DependentUpon>AdministracionGeneracionOPControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\AdministracionVistaOPControl.resx">
       <DependentUpon>AdministracionVistaOPControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_AdministracionBuscarTransporte.resx">
       <DependentUpon>Form_AdministracionBuscarTransporte.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_AdministracionNuevaOrdenVenta.resx">
       <DependentUpon>Form_AdministracionNuevaOrdenVenta.cs</DependentUpon>
@@ -597,18 +602,23 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_AdministracionBuscarCliente.resx">
       <DependentUpon>Form_AdministracionBuscarCliente.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_AdministracionBuscarProductor.resx">
       <DependentUpon>Form_AdministracionBuscarProductor.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_AdministracionDetalleOrdenPago.resx">
       <DependentUpon>Form_AdministracionDetalleOrdenPago.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_AdministracionFormaPago.resx">
       <DependentUpon>Form_AdministracionFormaPago.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_AdministracionGestionCaja.resx">
       <DependentUpon>Form_AdministracionGestionCaja.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_AdministracionGestionCata.resx">
       <DependentUpon>Form_AdministracionGestionCata.cs</DependentUpon>
