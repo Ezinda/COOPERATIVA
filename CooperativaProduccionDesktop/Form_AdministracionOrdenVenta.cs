@@ -79,6 +79,52 @@ namespace CooperativaProduccion
             txtNumOperacion.Text = ContadorNumeroOperacion().ToString();
             txtNumOrdenVenta.Text = ContadorOrdenVenta().ToString();
             checkPendienteEmitirRemito.Checked = true;
+
+            gridControlOrdenVentaConsulta.DataSource = new BindingList<GridOrdenVenta>();
+            gridViewOrdenVentaConsulta.Columns[0].Visible = false;
+            gridViewOrdenVentaConsulta.Columns[1].Caption = "N° Operación";
+            gridViewOrdenVentaConsulta.Columns[1].Width = 120;
+            gridViewOrdenVentaConsulta.Columns[1].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+            gridViewOrdenVentaConsulta.Columns[1].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Far;
+            gridViewOrdenVentaConsulta.Columns[2].Caption = "N° Orden";
+            gridViewOrdenVentaConsulta.Columns[2].Width = 120;
+            gridViewOrdenVentaConsulta.Columns[2].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+            gridViewOrdenVentaConsulta.Columns[2].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Far;
+            gridViewOrdenVentaConsulta.Columns[3].Caption = "Cliente";
+            gridViewOrdenVentaConsulta.Columns[3].Width = 250;
+            gridViewOrdenVentaConsulta.Columns[3].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+            gridViewOrdenVentaConsulta.Columns[3].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            gridViewOrdenVentaConsulta.Columns[4].Caption = "Fecha";
+            gridViewOrdenVentaConsulta.Columns[4].Width = 90;
+            gridViewOrdenVentaConsulta.Columns[4].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+            gridViewOrdenVentaConsulta.Columns[4].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+            gridViewOrdenVentaConsulta.Columns[5].Caption = "Pendiente";
+            gridViewOrdenVentaConsulta.Columns[5].Width = 120;
+            gridViewOrdenVentaConsulta.Columns[5].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+            gridViewOrdenVentaConsulta.Columns[5].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+
+            RepositoryItemButtonEdit buttonEdit1 = new RepositoryItemButtonEdit();
+            buttonEdit1.Buttons[0].Kind = ButtonPredefines.Plus;
+            buttonEdit1.TextEditStyle = TextEditStyles.HideTextEditor;
+            buttonEdit1.ButtonClick += new ButtonPressedEventHandler(buttonEdit_ButtonClick);
+
+            GridColumn unbColumn1 = gridViewOrdenVentaConsulta.Columns.AddField("Modificar");
+            unbColumn1.UnboundType = DevExpress.Data.UnboundColumnType.String;
+            unbColumn1.VisibleIndex = gridViewOrdenVentaConsulta.Columns.Count;
+            unbColumn1.ColumnEdit = buttonEdit1;
+
+            RepositoryItemButtonEdit buttonEdit = new RepositoryItemButtonEdit();
+            buttonEdit.Buttons[0].Kind = ButtonPredefines.Delete;
+            buttonEdit.TextEditStyle = TextEditStyles.HideTextEditor;
+            buttonEdit.ButtonClick += new ButtonPressedEventHandler(buttonEdit_ButtonClick);
+
+            GridColumn unbColumn = gridViewOrdenVentaConsulta.Columns.AddField("Eliminar");
+            unbColumn.UnboundType = DevExpress.Data.UnboundColumnType.String;
+            unbColumn.VisibleIndex = gridViewOrdenVentaConsulta.Columns.Count;
+            unbColumn.ColumnEdit = buttonEdit;
+            
+            gridViewOrdenVentaConsulta.ShowButtonMode = DevExpress.XtraGrid.Views.Base.ShowButtonModeEnum.ShowAlways;
+
         }
 
         private void BuscarOrdenVenta(Guid OrdenVentaId)
@@ -134,22 +180,22 @@ namespace CooperativaProduccion
 
         private void gridControlOrdenVentaConsulta_DoubleClick(object sender, EventArgs e)
         {
-            Guid OrdenVentaId = new Guid(gridViewOrdenVentaConsulta
-                .GetRowCellValue(gridViewOrdenVentaConsulta.FocusedRowHandle, "OrdenVentaId")
-                .ToString());
-            var Pendiente = gridViewOrdenVentaConsulta
-                .GetRowCellValue(gridViewOrdenVentaConsulta.FocusedRowHandle, "Pendiente")
-                .ToString();
-            if (Pendiente.Equals(DevConstantes.SI))
-            {
-                var ordenventa = new Form_AdministracionActualizarOrdenVenta(OrdenVentaId);
-                ordenventa.ShowDialog(this);
-            }
-            else
-            {
-                MessageBox.Show("Esta orden de venta está cerrada. No se pueden modificar sus datos.",
-                    "Atención", MessageBoxButtons.OK);
-            }
+            //Guid OrdenVentaId = new Guid(gridViewOrdenVentaConsulta
+            //    .GetRowCellValue(gridViewOrdenVentaConsulta.FocusedRowHandle, "OrdenVentaId")
+            //    .ToString());
+            //var Pendiente = gridViewOrdenVentaConsulta
+            //    .GetRowCellValue(gridViewOrdenVentaConsulta.FocusedRowHandle, "Pendiente")
+            //    .ToString();
+            //if (Pendiente.Equals(DevConstantes.SI))
+            //{
+            //    var ordenventa = new Form_AdministracionActualizarOrdenVenta(OrdenVentaId);
+            //    ordenventa.ShowDialog(this);
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Esta orden de venta está cerrada. No se pueden modificar sus datos.",
+            //        "Atención", MessageBoxButtons.OK);
+            //}
         }
 
         private void btnBuscarPendientes_Click(object sender, EventArgs e)
@@ -251,18 +297,6 @@ namespace CooperativaProduccion
                 gridViewOrdenVentaConsulta.Columns[5].Width = 120;
                 gridViewOrdenVentaConsulta.Columns[5].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
                 gridViewOrdenVentaConsulta.Columns[5].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-
-                GridColumn col = gridViewOrdenVentaConsulta.Columns.AddVisible("TradeButton", "");
-                col.UnboundType = DevExpress.Data.UnboundColumnType.Object;
-
-                RepositoryItemButtonEdit repButton = new RepositoryItemButtonEdit();
-                repButton.Name = "rb1";
-                repButton.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-              
-                gridControlOrdenVenta.RepositoryItems.Add(repButton);
-
-                col.ColumnEdit = repButton;
-                col.ShowButtonMode = DevExpress.XtraGrid.Views.Base.ShowButtonModeEnum.ShowAlways;
             }
             else
             {
@@ -537,13 +571,14 @@ namespace CooperativaProduccion
         {
 
         }
-        private void RepositoryItemButtonEdit1ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
+
+        private void buttonEdit_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
         {
-            DefaultEditorButton editor = sender as DefaultEditorButton;
-            //editor.Image = EditorButton.Kind;
-            //editor.Image = 
-            //SetButtonToRed(editor.Properties);
+            ButtonEdit ed = gridViewOrdenVentaConsulta.ActiveEditor as ButtonEdit;
+            if (ed == null) return;
+            if (e.Button.Kind == DevExpress.XtraEditors.Controls.ButtonPredefines.Delete)
+                gridViewOrdenVentaConsulta.DeleteRow(gridViewOrdenVentaConsulta.FocusedRowHandle);
         }
-     
+
     }
 }

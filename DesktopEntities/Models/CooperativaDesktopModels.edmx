@@ -826,7 +826,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenRomaneoVirgini
           <Property Name="H2F" Type="float" Nullable="false" />
           <Property Name="H3F" Type="float" Nullable="false" />
           <Property Name="Totalkg" Type="float" />
-          <Property Name="Importebruto" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Importebruto" Type="decimal" Precision="38" Scale="2" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -2419,7 +2419,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
           <Property Name="H2F" Type="Double" Nullable="false" />
           <Property Name="H3F" Type="Double" Nullable="false" />
           <Property Name="Totalkg" Type="Double" />
-          <Property Name="Importebruto" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Importebruto" Type="Decimal" Precision="38" Scale="2" />
         </EntityType>
         <EntityType Name="Vw_Romaneo">
           <Key>

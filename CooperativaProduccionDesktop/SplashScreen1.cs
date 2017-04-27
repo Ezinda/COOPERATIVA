@@ -76,6 +76,7 @@ namespace CooperativaProduccion
         {
             Usuario usuario;
             password = Encrypt(txtPass.Text, true);
+
             var acceso = _dbContext.Usuario
                 .Where(x => x.Usuario1.Equals(user)
                     && x.Password.Equals(password));

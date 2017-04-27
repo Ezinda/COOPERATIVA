@@ -18,6 +18,7 @@ namespace DesktopEntities.Models
         public CooperativaProduccionEntities()
             : base("name=CooperativaProduccionEntities")
         {
+            ((IObjectContextAdapter)this).ObjectContext.CommandTimeout = 180;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
