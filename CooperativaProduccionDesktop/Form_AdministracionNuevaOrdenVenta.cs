@@ -20,11 +20,11 @@ namespace CooperativaProduccion
         private Guid ClienteId;
         private Guid TransporteId;
 
-        public Form_AdministracionNuevaOrdenVenta()
+        public Form_AdministracionNuevaOrdenVenta(Guid? Id)
         {
             InitializeComponent();
             Context = new CooperativaProduccionEntities();
-            Iniciar();
+            Iniciar(Id);
         }
 
         #region Method Code
@@ -425,10 +425,17 @@ namespace CooperativaProduccion
             }
         }
 
-        private void Iniciar()
+        private void Iniciar(Guid? Id)
         {
-            txtOperacion.Text = ContadorNumeroOperacion().ToString();
-            txtOrden.Text = ContadorOrdenVenta().ToString();
+            if (Id == null)
+            {
+                txtOperacion.Text = ContadorNumeroOperacion().ToString();
+                txtOrden.Text = ContadorOrdenVenta().ToString();
+            }
+            else
+            {
+                CargarDatos(Id.Value);
+            }
         }
 
         private void GenerarOrdenVenta()
@@ -485,6 +492,51 @@ namespace CooperativaProduccion
             return true;
         }
 
+        private void CargarDatos(Guid Id)
+        {
+            var ov = Context.OrdenVenta
+                .Where(x => x.Id == Id)
+                .FirstOrDefault();
+
+            if (ov != null)
+            {
+                txtOperacion.Text = ov.NumOperacion.ToString();
+                txtOrden.Text = ov.NumOrden.ToString();
+                dpFechaOrden.Value = ov.Fecha;
+                ClienteId = ov.ClienteId;
+
+                var cliente = Context.Vw_Cliente
+                    .Where(x => x.ID == ov.ClienteId)
+                    .FirstOrDefault();
+
+                if (cliente != null)
+                {
+                    txtCliente.Text = cliente.RAZONSOCIAL;
+                    txtCuitCliente.Text = cliente.CUIT.Contains(DevConstantes.XX) ? 
+                        cliente.CUITE : cliente.CUIT;
+                    txtDomicilio.Text = cliente.DOMICILIO;
+                }
+
+                txtNumero.Text = ov.Numero;
+                txtPiso.Text = ov.Piso;
+                txtDpto.Text = ov.Dpto;
+
+                var transporte = Context.Vw_Transporte
+                    .Where(x => x.ALIAS_0_ID == ov.TransporteId)
+                    .FirstOrDefault();
+                if (transporte != null)
+                {
+                    txtRazonSocial.Text = transporte.ALIAS_1_NOMBRE;
+                    txtCuitTransporte.Text = transporte.CUIT;
+                }
+                txtDominio.Text = ov.Dominio;
+                txtDominioAcoplado.Text = ov.DominioAcoplado;
+                txtApellido.Text = ov.ApellidoChofer;
+                txtNombre.Text = ov.NombreChofer;
+                txtCuitChofer.Text = ov.CuitChofer;
+            }
+            
+        }
         #endregion
 
     }

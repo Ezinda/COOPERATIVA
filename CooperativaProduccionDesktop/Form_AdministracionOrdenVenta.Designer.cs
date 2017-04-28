@@ -50,8 +50,6 @@
             this.label11 = new System.Windows.Forms.Label();
             this.TabConsultaOrdenVenta = new DevExpress.XtraTab.XtraTabPage();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
-            this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
-            this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             this.btnExportarResumen = new DevExpress.XtraEditors.SimpleButton();
             this.groupControl7 = new DevExpress.XtraEditors.GroupControl();
             this.btnPrevisualizar = new DevExpress.XtraEditors.SimpleButton();
@@ -138,7 +136,6 @@
             this.gridViewOrdenVentaConsulta.Appearance.FocusedRow.Options.UseFont = true;
             this.gridViewOrdenVentaConsulta.GridControl = this.gridControlOrdenVentaConsulta;
             this.gridViewOrdenVentaConsulta.Name = "gridViewOrdenVentaConsulta";
-            this.gridViewOrdenVentaConsulta.OptionsBehavior.Editable = false;
             this.gridViewOrdenVentaConsulta.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CheckBoxRowSelect;
             this.gridViewOrdenVentaConsulta.OptionsView.ColumnAutoWidth = false;
             this.gridViewOrdenVentaConsulta.OptionsView.ShowGroupPanel = false;
@@ -325,8 +322,6 @@
             // 
             this.groupControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupControl1.Controls.Add(this.simpleButton2);
-            this.groupControl1.Controls.Add(this.simpleButton1);
             this.groupControl1.Controls.Add(this.btnExportarResumen);
             this.groupControl1.Location = new System.Drawing.Point(1, 396);
             this.groupControl1.Name = "groupControl1";
@@ -334,24 +329,6 @@
             this.groupControl1.Size = new System.Drawing.Size(911, 33);
             this.groupControl1.TabIndex = 78;
             this.groupControl1.Text = "Buscar Cata";
-            // 
-            // simpleButton2
-            // 
-            this.simpleButton2.Image = ((System.Drawing.Image)(resources.GetObject("simpleButton2.Image")));
-            this.simpleButton2.Location = new System.Drawing.Point(108, 6);
-            this.simpleButton2.Name = "simpleButton2";
-            this.simpleButton2.Size = new System.Drawing.Size(97, 22);
-            this.simpleButton2.TabIndex = 63;
-            this.simpleButton2.Text = "Eliminar Cajas";
-            // 
-            // simpleButton1
-            // 
-            this.simpleButton1.Image = ((System.Drawing.Image)(resources.GetObject("simpleButton1.Image")));
-            this.simpleButton1.Location = new System.Drawing.Point(5, 6);
-            this.simpleButton1.Name = "simpleButton1";
-            this.simpleButton1.Size = new System.Drawing.Size(97, 22);
-            this.simpleButton1.TabIndex = 62;
-            this.simpleButton1.Text = "Agregar Cajas";
             // 
             // btnExportarResumen
             // 
@@ -614,8 +591,6 @@
         private DevExpress.XtraEditors.SimpleButton btnBuscarCliente;
         private System.Windows.Forms.TextBox txtCliente;
         private System.Windows.Forms.Label label1;
-        private DevExpress.XtraEditors.SimpleButton simpleButton2;
-        private DevExpress.XtraEditors.SimpleButton simpleButton1;
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewOrdenVentaDetalleConsulta;
         private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit repositoryItemButtonEdit1;
     }

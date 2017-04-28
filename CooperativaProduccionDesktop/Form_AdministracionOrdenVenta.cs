@@ -21,6 +21,8 @@ using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraEditors;
 using CooperativaProduccion.Properties;
 using DevExpress.XtraEditors.Controls;
+using DevExpress.XtraGrid.Views.Grid.ViewInfo;
+using DevExpress.Utils.Drawing;
 
 namespace CooperativaProduccion
 {
@@ -79,52 +81,6 @@ namespace CooperativaProduccion
             txtNumOperacion.Text = ContadorNumeroOperacion().ToString();
             txtNumOrdenVenta.Text = ContadorOrdenVenta().ToString();
             checkPendienteEmitirRemito.Checked = true;
-
-            gridControlOrdenVentaConsulta.DataSource = new BindingList<GridOrdenVenta>();
-            gridViewOrdenVentaConsulta.Columns[0].Visible = false;
-            gridViewOrdenVentaConsulta.Columns[1].Caption = "N° Operación";
-            gridViewOrdenVentaConsulta.Columns[1].Width = 120;
-            gridViewOrdenVentaConsulta.Columns[1].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-            gridViewOrdenVentaConsulta.Columns[1].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Far;
-            gridViewOrdenVentaConsulta.Columns[2].Caption = "N° Orden";
-            gridViewOrdenVentaConsulta.Columns[2].Width = 120;
-            gridViewOrdenVentaConsulta.Columns[2].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-            gridViewOrdenVentaConsulta.Columns[2].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Far;
-            gridViewOrdenVentaConsulta.Columns[3].Caption = "Cliente";
-            gridViewOrdenVentaConsulta.Columns[3].Width = 250;
-            gridViewOrdenVentaConsulta.Columns[3].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-            gridViewOrdenVentaConsulta.Columns[3].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
-            gridViewOrdenVentaConsulta.Columns[4].Caption = "Fecha";
-            gridViewOrdenVentaConsulta.Columns[4].Width = 90;
-            gridViewOrdenVentaConsulta.Columns[4].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-            gridViewOrdenVentaConsulta.Columns[4].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-            gridViewOrdenVentaConsulta.Columns[5].Caption = "Pendiente";
-            gridViewOrdenVentaConsulta.Columns[5].Width = 120;
-            gridViewOrdenVentaConsulta.Columns[5].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-            gridViewOrdenVentaConsulta.Columns[5].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-
-            RepositoryItemButtonEdit buttonEdit1 = new RepositoryItemButtonEdit();
-            buttonEdit1.Buttons[0].Kind = ButtonPredefines.Plus;
-            buttonEdit1.TextEditStyle = TextEditStyles.HideTextEditor;
-            buttonEdit1.ButtonClick += new ButtonPressedEventHandler(buttonEdit_ButtonClick);
-
-            GridColumn unbColumn1 = gridViewOrdenVentaConsulta.Columns.AddField("Modificar");
-            unbColumn1.UnboundType = DevExpress.Data.UnboundColumnType.String;
-            unbColumn1.VisibleIndex = gridViewOrdenVentaConsulta.Columns.Count;
-            unbColumn1.ColumnEdit = buttonEdit1;
-
-            RepositoryItemButtonEdit buttonEdit = new RepositoryItemButtonEdit();
-            buttonEdit.Buttons[0].Kind = ButtonPredefines.Delete;
-            buttonEdit.TextEditStyle = TextEditStyles.HideTextEditor;
-            buttonEdit.ButtonClick += new ButtonPressedEventHandler(buttonEdit_ButtonClick);
-
-            GridColumn unbColumn = gridViewOrdenVentaConsulta.Columns.AddField("Eliminar");
-            unbColumn.UnboundType = DevExpress.Data.UnboundColumnType.String;
-            unbColumn.VisibleIndex = gridViewOrdenVentaConsulta.Columns.Count;
-            unbColumn.ColumnEdit = buttonEdit;
-            
-            gridViewOrdenVentaConsulta.ShowButtonMode = DevExpress.XtraGrid.Views.Base.ShowButtonModeEnum.ShowAlways;
-
         }
 
         private void BuscarOrdenVenta(Guid OrdenVentaId)
@@ -471,7 +427,7 @@ namespace CooperativaProduccion
 
         private void btnNuevaOrdenVenta_Click(object sender, EventArgs e)
         {
-            Form_AdministracionNuevaOrdenVenta nuevaOrden = new Form_AdministracionNuevaOrdenVenta();
+            Form_AdministracionNuevaOrdenVenta nuevaOrden = new Form_AdministracionNuevaOrdenVenta(null);
             nuevaOrden.ShowDialog(this);
         }
 
@@ -569,16 +525,102 @@ namespace CooperativaProduccion
 
         private void Form_AdministracionOrdenVenta_Load(object sender, EventArgs e)
         {
+            gridControlOrdenVentaConsulta.DataSource = new BindingList<GridOrdenVenta>();
+            gridViewOrdenVentaConsulta.Columns[0].Visible = false;
+            gridViewOrdenVentaConsulta.Columns[1].Caption = "N° Operación";
+            gridViewOrdenVentaConsulta.Columns[1].Width = 120;
+            gridViewOrdenVentaConsulta.Columns[1].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+            gridViewOrdenVentaConsulta.Columns[1].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Far;
+            gridViewOrdenVentaConsulta.Columns[1].OptionsColumn.AllowEdit = false;
+            gridViewOrdenVentaConsulta.Columns[2].Caption = "N° Orden";
+            gridViewOrdenVentaConsulta.Columns[2].Width = 120;
+            gridViewOrdenVentaConsulta.Columns[2].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+            gridViewOrdenVentaConsulta.Columns[2].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Far;
+            gridViewOrdenVentaConsulta.Columns[2].OptionsColumn.AllowEdit = false;
+            gridViewOrdenVentaConsulta.Columns[3].Caption = "Cliente";
+            gridViewOrdenVentaConsulta.Columns[3].Width = 250;
+            gridViewOrdenVentaConsulta.Columns[3].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+            gridViewOrdenVentaConsulta.Columns[3].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            gridViewOrdenVentaConsulta.Columns[3].OptionsColumn.AllowEdit = false;
+            gridViewOrdenVentaConsulta.Columns[4].Caption = "Fecha";
+            gridViewOrdenVentaConsulta.Columns[4].Width = 90;
+            gridViewOrdenVentaConsulta.Columns[4].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+            gridViewOrdenVentaConsulta.Columns[4].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+            gridViewOrdenVentaConsulta.Columns[4].OptionsColumn.AllowEdit = false;
+            gridViewOrdenVentaConsulta.Columns[5].Caption = "Pendiente";
+            gridViewOrdenVentaConsulta.Columns[5].Width = 120;
+            gridViewOrdenVentaConsulta.Columns[5].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+            gridViewOrdenVentaConsulta.Columns[5].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+            gridViewOrdenVentaConsulta.Columns[5].OptionsColumn.AllowEdit = false;
 
+            RepositoryItemButtonEdit buttonEditModificarOV = new RepositoryItemButtonEdit();
+            buttonEditModificarOV.Buttons[0].Kind = ButtonPredefines.Delete;
+            buttonEditModificarOV.TextEditStyle = TextEditStyles.HideTextEditor;
+            buttonEditModificarOV.ButtonClick += new ButtonPressedEventHandler(buttonEditModificarOV_ButtonClick);
+
+            GridColumn unbColumnModificarOV = gridViewOrdenVentaConsulta.Columns.AddField("Modificar");
+            unbColumnModificarOV.Caption = "Modificar Orden de Venta";
+            unbColumnModificarOV.UnboundType = DevExpress.Data.UnboundColumnType.String;
+            unbColumnModificarOV.VisibleIndex = gridViewOrdenVentaConsulta.Columns.Count;
+            unbColumnModificarOV.ColumnEdit = buttonEditModificarOV;
+            
+            RepositoryItemButtonEdit buttonEditAgregar = new RepositoryItemButtonEdit();
+            buttonEditAgregar.Buttons[0].Kind = ButtonPredefines.Plus;
+            buttonEditAgregar.TextEditStyle = TextEditStyles.HideTextEditor;
+            buttonEditAgregar.ButtonClick += new ButtonPressedEventHandler(buttonEditAgregar_ButtonClick);
+
+            GridColumn unbColumnAgregar = gridViewOrdenVentaConsulta.Columns.AddField("Agregar");
+            unbColumnAgregar.Caption = "Agregar Cajas";
+            unbColumnAgregar.UnboundType = DevExpress.Data.UnboundColumnType.String;
+            unbColumnAgregar.VisibleIndex = gridViewOrdenVentaConsulta.Columns.Count;
+            unbColumnAgregar.ColumnEdit = buttonEditAgregar;
+            
         }
 
-        private void buttonEdit_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
+        private void buttonEditModificarOV_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
         {
             ButtonEdit ed = gridViewOrdenVentaConsulta.ActiveEditor as ButtonEdit;
             if (ed == null) return;
+
             if (e.Button.Kind == DevExpress.XtraEditors.Controls.ButtonPredefines.Delete)
-                gridViewOrdenVentaConsulta.DeleteRow(gridViewOrdenVentaConsulta.FocusedRowHandle);
+            {
+                Guid OrdenVentaId = new Guid(gridViewOrdenVentaConsulta
+                      .GetRowCellValue(gridViewOrdenVentaConsulta.FocusedRowHandle, "Id")
+                      .ToString());
+
+                if (OrdenVentaId != null)
+                {
+                    var ordenventa = new Form_AdministracionNuevaOrdenVenta(OrdenVentaId);
+                    ordenventa.ShowDialog(this);
+                }
+            }
         }
 
+        private void buttonEditAgregar_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
+        {
+            ButtonEdit ed = gridViewOrdenVentaConsulta.ActiveEditor as ButtonEdit;
+            if (ed == null) return;
+            if (e.Button.Kind == DevExpress.XtraEditors.Controls.ButtonPredefines.Plus)
+            {
+                Guid OrdenVentaId = new Guid(gridViewOrdenVentaConsulta
+                    .GetRowCellValue(gridViewOrdenVentaConsulta.FocusedRowHandle, "Id")
+                    .ToString());
+
+                var Pendiente = gridViewOrdenVentaConsulta
+                    .GetRowCellValue(gridViewOrdenVentaConsulta.FocusedRowHandle, "Pendiente")
+                    .ToString();
+
+                if (Pendiente.Equals(DevConstantes.SI))
+                {
+                    var ordenventa = new Form_AdministracionActualizarOrdenVenta(OrdenVentaId);
+                    ordenventa.ShowDialog(this);
+                }
+                else
+                {
+                    MessageBox.Show("Esta orden de venta está cerrada. No se pueden modificar sus datos.",
+                        "Atención", MessageBoxButtons.OK);
+                }
+            }
+        }
     }
 }
