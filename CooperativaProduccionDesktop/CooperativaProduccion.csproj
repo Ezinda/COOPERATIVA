@@ -234,6 +234,12 @@
     <Compile Include="Form_InventarioKardex.Designer.cs">
       <DependentUpon>Form_InventarioKardex.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_InventarioTransferencia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_InventarioTransferencia.Designer.cs">
+      <DependentUpon>Form_InventarioTransferencia.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_RomaneoFiltroResumen.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -658,6 +664,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_AdministracionRemitoElectronico.resx">
       <DependentUpon>Form_AdministracionRemitoElectronico.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_InventarioTransferencia.resx">
+      <DependentUpon>Form_InventarioTransferencia.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_RomaneoBuscarPreingreso.resx">
       <DependentUpon>Form_RomaneoBuscarPreingreso.cs</DependentUpon>

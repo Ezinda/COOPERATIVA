@@ -342,5 +342,10 @@ namespace CooperativaProduccion
 
         #endregion
 
+        private void btnTransferenciaMercaderia_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var transferencia = new Form_InventarioTransferencia();
+            transferencia.Show();
+        }
     }
 }

@@ -66,6 +66,7 @@
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageSeguridad = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupSeguridad = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.btnTransferenciaMercaderia = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             this.SuspendLayout();
             // 
@@ -93,9 +94,10 @@
             this.btnConfiguracionImpresion,
             this.btnImpresionEtiqueta,
             this.btnIngresoCaja,
-            this.btnIngresoCajas});
+            this.btnIngresoCajas,
+            this.btnTransferenciaMercaderia});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
-            this.ribbon.MaxItemId = 25;
+            this.ribbon.MaxItemId = 26;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPageRomaneo,
@@ -399,6 +401,7 @@
             // 
             this.ribbonPageGroup2.AllowTextClipping = false;
             this.ribbonPageGroup2.ItemLinks.Add(this.btnIngresoCajas);
+            this.ribbonPageGroup2.ItemLinks.Add(this.btnTransferenciaMercaderia);
             this.ribbonPageGroup2.Name = "ribbonPageGroup2";
             this.ribbonPageGroup2.ShowCaptionButton = false;
             this.ribbonPageGroup2.Text = "Producto Terminado";
@@ -437,6 +440,15 @@
             this.ribbonPageGroupSeguridad.Name = "ribbonPageGroupSeguridad";
             this.ribbonPageGroupSeguridad.ShowCaptionButton = false;
             this.ribbonPageGroupSeguridad.Text = "Seguridad";
+            // 
+            // btnTransferenciaMercaderia
+            // 
+            this.btnTransferenciaMercaderia.Caption = "Transferencia de Mercadería";
+            this.btnTransferenciaMercaderia.Glyph = ((System.Drawing.Image)(resources.GetObject("btnTransferenciaMercaderia.Glyph")));
+            this.btnTransferenciaMercaderia.Id = 25;
+            this.btnTransferenciaMercaderia.Name = "btnTransferenciaMercaderia";
+            this.btnTransferenciaMercaderia.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.btnTransferenciaMercaderia.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnTransferenciaMercaderia_ItemClick);
             // 
             // Form_SysPrincipal
             // 
@@ -496,5 +508,6 @@
         private DevExpress.XtraBars.BarButtonItem btnIngresoCaja;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup2;
         private DevExpress.XtraBars.BarButtonItem btnIngresoCajas;
+        private DevExpress.XtraBars.BarButtonItem btnTransferenciaMercaderia;
     }
 }

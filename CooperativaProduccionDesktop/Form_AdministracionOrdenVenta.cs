@@ -329,7 +329,7 @@ namespace CooperativaProduccion
                     return;
                 }
                 Guid OrdenVentaId = new Guid(gridViewOrdenVentaConsulta
-                    .GetRowCellValue(gridViewOrdenVentaConsulta.FocusedRowHandle, "OrdenVentaId")
+                    .GetRowCellValue(gridViewOrdenVentaConsulta.FocusedRowHandle, "Id")
                     .ToString());
                 CrearTxtVinculacion(OrdenVentaId);
             }
@@ -380,8 +380,11 @@ namespace CooperativaProduccion
                     var OrdenVenta = Context.OrdenVenta.Where(x => x.Id == OrdenVentaId).FirstOrDefault();
                     var Cliente = Context.Vw_Cliente.Where(x => x.ID == OrdenVenta.ClienteId).FirstOrDefault();
                     string CuitCliente = Cliente.CUIT.Contains(DevConstantes.XX) ? Cliente.CUITE : Cliente.CUIT;
+                    var Transporte = Context.Vw_Transporte.Where(x => x.ALIAS_0_ID == OrdenVenta.TransporteId).FirstOrDefault();
                     sw.WriteLine("1;S;S;" + Cuit + ";" + InicioActividades + ";;0003;0046;" + CuitCliente + ";"
-                        + Cliente.RAZONSOCIAL + ";" + Cliente.DOMICILIO + ";0;;;;;;;;NINGUNA;;MULTICARGAS SRL;;;0;;;");
+                        + Cliente.RAZONSOCIAL + ";" + Cliente.DOMICILIO + ";" 
+                        + OrdenVenta.Numero + ";;;;;;;;NINGUNA;;" + Transporte.ALIAS_1_NOMBRE + ";;;"
+                        + OrdenVenta.CuitChofer + ";;;");
                     var catas = Context.Cata
                         .Where(x => x.OrdenVentaId == OrdenVenta.Id)
                         .ToList();

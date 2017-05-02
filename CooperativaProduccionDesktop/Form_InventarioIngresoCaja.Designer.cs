@@ -118,7 +118,7 @@
             this.Cata.Location = new System.Drawing.Point(2, 60);
             this.Cata.Name = "Cata";
             this.Cata.SelectedTabPage = this.TabIngresoCaja;
-            this.Cata.Size = new System.Drawing.Size(984, 464);
+            this.Cata.Size = new System.Drawing.Size(984, 472);
             this.Cata.TabIndex = 76;
             this.Cata.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.TabIngresoCaja,
@@ -130,7 +130,7 @@
             this.TabIngresoCaja.Controls.Add(this.groupControl1);
             this.TabIngresoCaja.Image = ((System.Drawing.Image)(resources.GetObject("TabIngresoCaja.Image")));
             this.TabIngresoCaja.Name = "TabIngresoCaja";
-            this.TabIngresoCaja.Size = new System.Drawing.Size(978, 433);
+            this.TabIngresoCaja.Size = new System.Drawing.Size(978, 441);
             this.TabIngresoCaja.Text = "Ingreso de Cajas";
             // 
             // groupControl5
@@ -139,9 +139,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupControl5.Controls.Add(this.gridControlCaja);
-            this.groupControl5.Location = new System.Drawing.Point(1, 51);
+            this.groupControl5.Location = new System.Drawing.Point(1, 52);
             this.groupControl5.Name = "groupControl5";
-            this.groupControl5.Size = new System.Drawing.Size(978, 383);
+            this.groupControl5.Size = new System.Drawing.Size(978, 390);
             this.groupControl5.TabIndex = 76;
             this.groupControl5.Text = "Detalle de Catas";
             // 
@@ -152,7 +152,7 @@
             this.gridControlCaja.MainView = this.gridViewCaja;
             this.gridControlCaja.MenuManager = this.ribbon;
             this.gridControlCaja.Name = "gridControlCaja";
-            this.gridControlCaja.Size = new System.Drawing.Size(974, 361);
+            this.gridControlCaja.Size = new System.Drawing.Size(974, 368);
             this.gridControlCaja.TabIndex = 68;
             this.gridControlCaja.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewCaja,
@@ -186,27 +186,27 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupControl1.Controls.Add(this.txtCantidadCajaIngreso);
+            this.groupControl1.Controls.Add(this.txtBruto);
+            this.groupControl1.Controls.Add(this.label7);
             this.groupControl1.Controls.Add(this.label10);
             this.groupControl1.Controls.Add(this.btnGenerarLote);
             this.groupControl1.Controls.Add(this.txtNeto);
             this.groupControl1.Controls.Add(this.txtTara);
-            this.groupControl1.Controls.Add(this.txtBruto);
             this.groupControl1.Controls.Add(this.label9);
             this.groupControl1.Controls.Add(this.label8);
-            this.groupControl1.Controls.Add(this.label7);
             this.groupControl1.Controls.Add(this.cbProductoIngreso);
             this.groupControl1.Controls.Add(this.label5);
             this.groupControl1.Controls.Add(this.dpIngresoCaja);
             this.groupControl1.Controls.Add(this.label15);
             this.groupControl1.Location = new System.Drawing.Point(1, 1);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(976, 49);
+            this.groupControl1.Size = new System.Drawing.Size(976, 58);
             this.groupControl1.TabIndex = 72;
             this.groupControl1.Text = "Ingreso de Cajas";
             // 
             // txtCantidadCajaIngreso
             // 
-            this.txtCantidadCajaIngreso.Location = new System.Drawing.Point(766, 24);
+            this.txtCantidadCajaIngreso.Location = new System.Drawing.Point(769, 25);
             this.txtCantidadCajaIngreso.Name = "txtCantidadCajaIngreso";
             this.txtCantidadCajaIngreso.Size = new System.Drawing.Size(60, 21);
             this.txtCantidadCajaIngreso.TabIndex = 6;
@@ -216,7 +216,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(664, 26);
+            this.label10.Location = new System.Drawing.Point(664, 27);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(104, 16);
             this.label10.TabIndex = 88;
@@ -225,7 +225,7 @@
             // btnGenerarLote
             // 
             this.btnGenerarLote.Image = ((System.Drawing.Image)(resources.GetObject("btnGenerarLote.Image")));
-            this.btnGenerarLote.Location = new System.Drawing.Point(832, 23);
+            this.btnGenerarLote.Location = new System.Drawing.Point(839, 25);
             this.btnGenerarLote.Name = "btnGenerarLote";
             this.btnGenerarLote.Size = new System.Drawing.Size(91, 22);
             this.btnGenerarLote.TabIndex = 7;
@@ -234,7 +234,7 @@
             // 
             // txtNeto
             // 
-            this.txtNeto.Location = new System.Drawing.Point(597, 24);
+            this.txtNeto.Location = new System.Drawing.Point(494, 25);
             this.txtNeto.Name = "txtNeto";
             this.txtNeto.Size = new System.Drawing.Size(61, 21);
             this.txtNeto.TabIndex = 5;
@@ -242,7 +242,7 @@
             // 
             // txtTara
             // 
-            this.txtTara.Location = new System.Drawing.Point(501, 24);
+            this.txtTara.Location = new System.Drawing.Point(398, 25);
             this.txtTara.Name = "txtTara";
             this.txtTara.Size = new System.Drawing.Size(61, 21);
             this.txtTara.TabIndex = 4;
@@ -250,7 +250,7 @@
             // 
             // txtBruto
             // 
-            this.txtBruto.Location = new System.Drawing.Point(401, 24);
+            this.txtBruto.Location = new System.Drawing.Point(596, 25);
             this.txtBruto.Name = "txtBruto";
             this.txtBruto.Size = new System.Drawing.Size(62, 21);
             this.txtBruto.TabIndex = 3;
@@ -260,7 +260,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(568, 26);
+            this.label9.Location = new System.Drawing.Point(465, 27);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(33, 16);
             this.label9.TabIndex = 83;
@@ -270,7 +270,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(469, 26);
+            this.label8.Location = new System.Drawing.Point(366, 27);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(30, 16);
             this.label8.TabIndex = 82;
@@ -280,7 +280,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(366, 26);
+            this.label7.Location = new System.Drawing.Point(561, 27);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(38, 16);
             this.label7.TabIndex = 81;
@@ -333,7 +333,7 @@
             this.TabConsultaCaja.Controls.Add(this.groupControl2);
             this.TabConsultaCaja.Image = ((System.Drawing.Image)(resources.GetObject("TabConsultaCaja.Image")));
             this.TabConsultaCaja.Name = "TabConsultaCaja";
-            this.TabConsultaCaja.Size = new System.Drawing.Size(978, 433);
+            this.TabConsultaCaja.Size = new System.Drawing.Size(978, 441);
             this.TabConsultaCaja.Text = "Consulta de Cajas";
             // 
             // groupControl7
@@ -341,7 +341,7 @@
             this.groupControl7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.groupControl7.Controls.Add(this.btnPrevisualizar);
             this.groupControl7.Controls.Add(this.btnSubirAfip);
-            this.groupControl7.Location = new System.Drawing.Point(1, 592);
+            this.groupControl7.Location = new System.Drawing.Point(1, 596);
             this.groupControl7.Name = "groupControl7";
             this.groupControl7.ShowCaption = false;
             this.groupControl7.Size = new System.Drawing.Size(1417, 33);
@@ -374,7 +374,7 @@
             this.groupControl6.Controls.Add(this.gridControlCajaConsulta);
             this.groupControl6.Location = new System.Drawing.Point(-1, 52);
             this.groupControl6.Name = "groupControl6";
-            this.groupControl6.Size = new System.Drawing.Size(978, 382);
+            this.groupControl6.Size = new System.Drawing.Size(978, 390);
             this.groupControl6.TabIndex = 75;
             this.groupControl6.Text = "Lista de Cajas";
             // 
@@ -385,7 +385,7 @@
             this.gridControlCajaConsulta.MainView = this.gridViewCajaConsulta;
             this.gridControlCajaConsulta.MenuManager = this.ribbon;
             this.gridControlCajaConsulta.Name = "gridControlCajaConsulta";
-            this.gridControlCajaConsulta.Size = new System.Drawing.Size(974, 360);
+            this.gridControlCajaConsulta.Size = new System.Drawing.Size(974, 368);
             this.gridControlCajaConsulta.TabIndex = 68;
             this.gridControlCajaConsulta.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewCajaConsulta,

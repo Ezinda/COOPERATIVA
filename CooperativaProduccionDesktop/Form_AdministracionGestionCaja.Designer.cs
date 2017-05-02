@@ -38,15 +38,15 @@
             this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.checkCata = new System.Windows.Forms.CheckBox();
+            this.txtBruto = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.txtCantidadCajaIngreso = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.btnGenerarLote = new DevExpress.XtraEditors.SimpleButton();
             this.txtNeto = new System.Windows.Forms.TextBox();
             this.txtTara = new System.Windows.Forms.TextBox();
-            this.txtBruto = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.cbProductoIngreso = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.dpIngresoCaja = new System.Windows.Forms.DateTimePicker();
@@ -120,7 +120,7 @@
             this.Cata.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.Cata.Location = new System.Drawing.Point(3, 53);
+            this.Cata.Location = new System.Drawing.Point(3, 60);
             this.Cata.Name = "Cata";
             this.Cata.SelectedTabPage = this.TabIngresoCaja;
             this.Cata.Size = new System.Drawing.Size(1038, 511);
@@ -191,15 +191,15 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupControl1.Controls.Add(this.checkCata);
+            this.groupControl1.Controls.Add(this.txtBruto);
+            this.groupControl1.Controls.Add(this.label7);
             this.groupControl1.Controls.Add(this.txtCantidadCajaIngreso);
             this.groupControl1.Controls.Add(this.label10);
             this.groupControl1.Controls.Add(this.btnGenerarLote);
             this.groupControl1.Controls.Add(this.txtNeto);
             this.groupControl1.Controls.Add(this.txtTara);
-            this.groupControl1.Controls.Add(this.txtBruto);
             this.groupControl1.Controls.Add(this.label9);
             this.groupControl1.Controls.Add(this.label8);
-            this.groupControl1.Controls.Add(this.label7);
             this.groupControl1.Controls.Add(this.cbProductoIngreso);
             this.groupControl1.Controls.Add(this.label5);
             this.groupControl1.Controls.Add(this.dpIngresoCaja);
@@ -219,6 +219,24 @@
             this.checkCata.TabIndex = 90;
             this.checkCata.Text = "Asociar Cata";
             this.checkCata.UseVisualStyleBackColor = true;
+            // 
+            // txtBruto
+            // 
+            this.txtBruto.Location = new System.Drawing.Point(612, 25);
+            this.txtBruto.Name = "txtBruto";
+            this.txtBruto.Size = new System.Drawing.Size(62, 21);
+            this.txtBruto.TabIndex = 3;
+            this.txtBruto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBruto_KeyPress);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(574, 27);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(38, 16);
+            this.label7.TabIndex = 81;
+            this.label7.Text = "Bruto";
             // 
             // txtCantidadCajaIngreso
             // 
@@ -250,7 +268,7 @@
             // 
             // txtNeto
             // 
-            this.txtNeto.Location = new System.Drawing.Point(611, 26);
+            this.txtNeto.Location = new System.Drawing.Point(511, 25);
             this.txtNeto.Name = "txtNeto";
             this.txtNeto.Size = new System.Drawing.Size(61, 21);
             this.txtNeto.TabIndex = 5;
@@ -258,25 +276,17 @@
             // 
             // txtTara
             // 
-            this.txtTara.Location = new System.Drawing.Point(510, 26);
+            this.txtTara.Location = new System.Drawing.Point(410, 25);
             this.txtTara.Name = "txtTara";
             this.txtTara.Size = new System.Drawing.Size(61, 21);
             this.txtTara.TabIndex = 4;
             this.txtTara.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTara_KeyPress);
             // 
-            // txtBruto
-            // 
-            this.txtBruto.Location = new System.Drawing.Point(413, 26);
-            this.txtBruto.Name = "txtBruto";
-            this.txtBruto.Size = new System.Drawing.Size(62, 21);
-            this.txtBruto.TabIndex = 3;
-            this.txtBruto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBruto_KeyPress);
-            // 
             // label9
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(577, 28);
+            this.label9.Location = new System.Drawing.Point(477, 27);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(33, 16);
             this.label9.TabIndex = 83;
@@ -286,21 +296,11 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(478, 28);
+            this.label8.Location = new System.Drawing.Point(378, 27);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(30, 16);
             this.label8.TabIndex = 82;
             this.label8.Text = "Tara";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(375, 27);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(38, 16);
-            this.label7.TabIndex = 81;
-            this.label7.Text = "Bruto";
             // 
             // cbProductoIngreso
             // 

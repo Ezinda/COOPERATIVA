@@ -60,24 +60,30 @@ namespace CooperativaProduccion
                     .FirstOrDefault();
                 txtCliente.Text = cliente.RAZONSOCIAL;
             }
-                        
-            var producto = 
+
+            var deposito = Context.Vw_Deposito
+                .Where(x => x.nombre == DevConstantes.Warrants)
+                .Single();
+
+            var producto =
                 (from c in Context.Caja
-                     .Where(x=>x.Warrant == false)
-                join p in Context.Vw_Producto
-                on c.ProductoId equals p.ID
-                group new { c, p } by new
-                {
-                    ProductoId = p.ID,
-                    Producto = p.DESCRIPCION,
-                    Campaña = c.Campaña
-                } into g
-                select new
-                {
-                    ProductoId = g.Key.ProductoId,
-                    Producto = g.Key.Producto + " - " + g.Key.Campaña,
-                    Campaña = g.Key.Campaña
-                })
+                 join m in Context.Movimiento
+                 .Where(x => x.DepositoId != deposito.id)
+                 on c.Id equals m.TransaccionId
+                 join p in Context.Vw_Producto
+                 on c.ProductoId equals p.ID
+                 group new { c, p } by new
+                 {
+                     ProductoId = p.ID,
+                     Producto = p.DESCRIPCION,
+                     Campaña = c.Campaña
+                 } into g
+                 select new
+                 {
+                     ProductoId = g.Key.ProductoId,
+                     Producto = g.Key.Producto + " - " + g.Key.Campaña,
+                     Campaña = g.Key.Campaña
+                 })
                 .ToList();
 
             cbOrden.DataSource = producto;
@@ -135,12 +141,18 @@ namespace CooperativaProduccion
 
             if (caja)
             {
+                var deposito = Context.Vw_Deposito
+                .Where(x => x.nombre == DevConstantes.Warrants)
+                .Single();
+
                 var cajaDesde =
                     (from c in Context.Caja
-                         .Where(x => x.OrdenVentaId == Id
-                             && x.ProductoId == ProductoId
-                             && x.Campaña == Campaña
-                             && x.Warrant == false)
+                     .Where(x => x.OrdenVentaId == Id
+                         && x.ProductoId == ProductoId
+                         && x.Campaña == Campaña)
+                     join m in Context.Movimiento
+                     .Where(x => x.DepositoId != deposito.id)
+                     on c.Id equals m.TransaccionId
                      select new
                      {
                          NumeroCaja = c.NumeroCaja
@@ -157,8 +169,10 @@ namespace CooperativaProduccion
                     (from c in Context.Caja
                          .Where(x => x.OrdenVentaId == Id
                              && x.ProductoId == ProductoId
-                             && x.Campaña == Campaña
-                             && x.Warrant == false)
+                             && x.Campaña == Campaña)
+                     join m in Context.Movimiento
+                     .Where(x => x.DepositoId != deposito.id)
+                     on c.Id equals m.TransaccionId
                      select new
                      {
                          NumeroCaja = c.NumeroCaja
@@ -430,19 +444,32 @@ namespace CooperativaProduccion
 
         private void CargarCajas(Guid ProductoId, int Campaña)
         {
-            var caja = Context.Caja
-                .Where(x => x.Campaña == Campaña
-                    && x.Warrant == false
-                    && x.ProductoId == ProductoId)
-                    .Any();
+            var deposito = Context.Vw_Deposito
+               .Where(x => x.nombre == DevConstantes.Warrants)
+               .Single();
+
+            var caja =
+                    (from c in Context.Caja
+                     .Where(x=> x.ProductoId == ProductoId
+                         && x.Campaña == Campaña)
+                     join m in Context.Movimiento
+                     .Where(x => x.DepositoId != deposito.id)
+                     on c.Id equals m.TransaccionId
+                     select new
+                     {
+                         NumeroCaja = c.NumeroCaja
+                     })
+                     .Any();
 
             if (caja)
             {
                 var cajaDesde =
                     (from c in Context.Caja
                          .Where(x => x.ProductoId == ProductoId
-                             && x.Warrant == false
                              && x.Campaña == Campaña)
+                     join m in Context.Movimiento
+                        .Where(x => x.DepositoId != deposito.id)
+                        on c.Id equals m.TransaccionId
                      select new
                      {
                          NumeroCaja = c.NumeroCaja
@@ -458,8 +485,10 @@ namespace CooperativaProduccion
                 var cajaHasta =
                     (from c in Context.Caja
                          .Where(x => x.ProductoId == ProductoId
-                             && x.Warrant == false
                              && x.Campaña == Campaña)
+                     join m in Context.Movimiento
+                     .Where(x => x.DepositoId != deposito.id)
+                     on c.Id equals m.TransaccionId
                      select new
                      {
                          NumeroCaja = c.NumeroCaja

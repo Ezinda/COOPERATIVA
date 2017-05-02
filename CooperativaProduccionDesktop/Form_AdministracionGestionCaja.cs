@@ -157,7 +157,7 @@ namespace CooperativaProduccion
                         caja = new Caja();
                         caja.Id = Guid.NewGuid();
                         caja.LoteCaja = LoteCaja;
-                        caja.NumeroCaja = ContadorNumeroCaja(dpIngresoCaja.Value.Year,ProductoId);
+                        caja.NumeroCaja = ContadorNumeroCaja(dpIngresoCaja.Value.Year, ProductoId);
                         caja.Fecha = dpIngresoCaja.Value.Date;
                         caja.Hora = DateTime.Now.TimeOfDay;
                         caja.Campaña = dpIngresoCaja.Value.Year;
@@ -166,7 +166,7 @@ namespace CooperativaProduccion
                         caja.Bruto = decimal.Parse(txtBruto.Text, CultureInfo.InvariantCulture);
                         caja.Tara = decimal.Parse(txtTara.Text, CultureInfo.InvariantCulture);
                         caja.Neto = decimal.Parse(txtNeto.Text, CultureInfo.InvariantCulture);
-                        
+
                         if (checkCata.Checked)
                         {
                             var cata = Context.Cata
@@ -197,7 +197,6 @@ namespace CooperativaProduccion
                         Context.SaveChanges();
                         RegistrarMovimiento(caja.Id, 1, caja.Fecha);
                     }
-                    ActualizarContadorLote();
                 }
                 catch
                 {
@@ -205,23 +204,7 @@ namespace CooperativaProduccion
                 }
             }
         }
-
-        private void ActualizarContadorLote()
-        {
-            var contadorLote = Context.Contador
-                .Where(x => x.Nombre.Equals(DevConstantes.Lote))
-                .FirstOrDefault();
-
-            var countLote = Context.Contador.Find(contadorLote.Id);
-
-            if (countLote != null)
-            {
-                countLote.Valor = countLote.Valor + 1;
-                Context.Entry(countLote).State = EntityState.Modified;
-                Context.SaveChanges();
-            }
-        }
-
+        
         private Guid RegistrarMovimiento(Guid Id, double kilos, DateTime fecha)
         {
             Movimiento movimiento;
@@ -370,9 +353,9 @@ namespace CooperativaProduccion
                     NumLote = c.LoteCaja,
                     NumCaja = c.NumeroCaja,
                     Producto = cp.DESCRIPCION,
-                    Bruto = c.Bruto,
                     Tara = c.Tara,
                     Neto = c.Neto,
+                    Bruto = c.Bruto,
                     Cata = joined.NumCata,
                     Fecha = c.Fecha
                 })
@@ -387,12 +370,12 @@ namespace CooperativaProduccion
             gridViewCaja.Columns[2].Width = 110;
             gridViewCaja.Columns[3].Caption = "Producto";
             gridViewCaja.Columns[3].Width = 100;
-            gridViewCaja.Columns[4].Caption = "Bruto";
+            gridViewCaja.Columns[4].Caption = "Tara";
             gridViewCaja.Columns[4].Width = 100;
-            gridViewCaja.Columns[5].Caption = "Tara";
+            gridViewCaja.Columns[5].Caption = "Neto";
             gridViewCaja.Columns[5].Width = 100;
-            gridViewCaja.Columns[6].Caption = "Neto";
-            gridViewCaja.Columns[6].Width = 100;
+            gridViewCaja.Columns[6].Caption = "Bruto";
+            gridViewCaja.Columns[6].Width = 100
             gridViewCaja.Columns[7].Caption = "N° Cata";
             gridViewCaja.Columns[7].Width = 200;
             gridViewCaja.Columns[8].Visible = false;
@@ -468,7 +451,7 @@ namespace CooperativaProduccion
         {
             if (ValidarConsulta())
             {
-                BuscarCajaConsulta();
+                BuscarCajaConsulta(txtCantidadCajaConsulta.Text);
             }
         }
 
@@ -496,7 +479,7 @@ namespace CooperativaProduccion
                     return;
                 }
                 AsignarCata();
-                BuscarCajaConsulta();
+                BuscarCajaConsulta(txtCantidadCajaConsulta.Text);
             }
         }
 
@@ -529,37 +512,70 @@ namespace CooperativaProduccion
 
         #region Method Dev
 
-        private void BuscarCajaConsulta()
+        private void BuscarCajaConsulta(string cajas)
         {
             var ProductoId = Guid.Parse(cbProductoConsulta.SelectedValue.ToString());
-            var cantidad = int.Parse(txtCantidadCajaConsulta.Text);
 
-            var result = 
-                (from c in Context.Caja
-                     .Where(x => x.ProductoId == ProductoId) 
-                 join p in Context.Vw_Producto
-                 on c.ProductoId equals p.ID into pr
-                 from cp in pr.DefaultIfEmpty()
-                 join ca in Context.Cata
-                on c.CataId equals ca.Id into cat
-                 from joined in cat.DefaultIfEmpty()
-                 select new
-                 {
-                     Id = c.Id,
-                     NumLote = c.LoteCaja,
-                     NumCaja = c.NumeroCaja,
-                     Producto = cp.DESCRIPCION,
-                     Bruto = c.Bruto,
-                     Tara = c.Tara,
-                     Neto = c.Neto,
-                     Cata = joined.NumCata,
-                     Fecha = c.Fecha
-                 })
-                 .Take(cantidad)
-                 .OrderBy(x => x.NumCaja)
-                 .ToList();
+            if (!string.IsNullOrEmpty(cajas))
+            {
+                var cantidad = int.Parse(txtCantidadCajaConsulta.Text);
 
-            gridControlCajaConsulta.DataSource = result;
+                var result =
+                    (from c in Context.Caja
+                         .Where(x => x.ProductoId == ProductoId)
+                     join p in Context.Vw_Producto
+                         on c.ProductoId equals p.ID into pr
+                     from cp in pr.DefaultIfEmpty()
+                     join ca in Context.Cata
+                         on c.CataId equals ca.Id into cat
+                     from joined in cat.DefaultIfEmpty()
+                     select new
+                     {
+                         Id = c.Id,
+                         NumLote = c.LoteCaja,
+                         NumCaja = c.NumeroCaja,
+                         Producto = cp.DESCRIPCION,
+                         Tara = c.Tara,
+                         Neto = c.Neto,
+                         Bruto = c.Bruto,
+                         Cata = joined.NumCata,
+                         Fecha = c.Fecha
+                     })
+                     .Take(cantidad)
+                     .OrderBy(x => x.NumCaja)
+                     .ToList();
+
+                gridControlCajaConsulta.DataSource = result;
+            }
+            else
+            {
+                var result =
+                  (from c in Context.Caja
+                       .Where(x => x.ProductoId == ProductoId)
+                   join p in Context.Vw_Producto
+                        on c.ProductoId equals p.ID into pr
+                   from cp in pr.DefaultIfEmpty()
+                   join ca in Context.Cata
+                        on c.CataId equals ca.Id into cat
+                   from joined in cat.DefaultIfEmpty()
+                   select new
+                   {
+                       Id = c.Id,
+                       NumLote = c.LoteCaja,
+                       NumCaja = c.NumeroCaja,
+                       Producto = cp.DESCRIPCION,
+                       Tara = c.Tara,
+                       Neto = c.Neto,
+                       Bruto = c.Bruto,
+                       Cata = joined.NumCata,
+                       Fecha = c.Fecha
+                   })
+                   .OrderBy(x => x.NumCaja)
+                   .ToList();
+
+                gridControlCajaConsulta.DataSource = result;
+            }
+
             gridViewCajaConsulta.Columns[0].Visible = false;
             gridViewCajaConsulta.Columns[1].Caption = "N° Lote";
             gridViewCajaConsulta.Columns[1].Width = 110;
@@ -567,11 +583,11 @@ namespace CooperativaProduccion
             gridViewCajaConsulta.Columns[2].Width = 110;
             gridViewCajaConsulta.Columns[3].Caption = "Producto";
             gridViewCajaConsulta.Columns[3].Width = 100;
-            gridViewCajaConsulta.Columns[4].Caption = "Bruto";
+            gridViewCajaConsulta.Columns[4].Caption = "Tara";
             gridViewCajaConsulta.Columns[4].Width = 100;
-            gridViewCajaConsulta.Columns[5].Caption = "Tara";
+            gridViewCajaConsulta.Columns[5].Caption = "Neto";
             gridViewCajaConsulta.Columns[5].Width = 100;
-            gridViewCajaConsulta.Columns[6].Caption = "Neto";
+            gridViewCajaConsulta.Columns[6].Caption = "Bruto";
             gridViewCajaConsulta.Columns[6].Width = 100;
             gridViewCajaConsulta.Columns[7].Caption = "N° Cata";
             gridViewCajaConsulta.Columns[7].Width = 200;
