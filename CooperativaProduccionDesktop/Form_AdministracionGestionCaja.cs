@@ -375,7 +375,7 @@ namespace CooperativaProduccion
             gridViewCaja.Columns[5].Caption = "Neto";
             gridViewCaja.Columns[5].Width = 100;
             gridViewCaja.Columns[6].Caption = "Bruto";
-            gridViewCaja.Columns[6].Width = 100
+            gridViewCaja.Columns[6].Width = 100;
             gridViewCaja.Columns[7].Caption = "N° Cata";
             gridViewCaja.Columns[7].Width = 200;
             gridViewCaja.Columns[8].Visible = false;
