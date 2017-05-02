@@ -521,6 +521,11 @@ namespace CooperativaProduccion
             GridView master = sender as GridView;
             GridView detail = master.GetDetailView(e.RowHandle, e.RelationIndex) as GridView;
             detail.Columns[0].Visible = false;
+            detail.Columns[1].Width = 120;
+            detail.Columns[1].OptionsColumn.AllowEdit = false;
+            detail.Columns[2].OptionsColumn.AllowEdit = false;
+            detail.Columns[3].OptionsColumn.AllowEdit = false;
+            detail.DoubleClick += gridViewOrdenVentaDetalleConsulta_DoubleClick;
         }
 
         private void Form_AdministracionOrdenVenta_Load(object sender, EventArgs e)
@@ -553,16 +558,17 @@ namespace CooperativaProduccion
             gridViewOrdenVentaConsulta.Columns[5].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
             gridViewOrdenVentaConsulta.Columns[5].OptionsColumn.AllowEdit = false;
 
-            RepositoryItemButtonEdit buttonEditModificarOV = new RepositoryItemButtonEdit();
-            buttonEditModificarOV.Buttons[0].Kind = ButtonPredefines.Delete;
-            buttonEditModificarOV.TextEditStyle = TextEditStyles.HideTextEditor;
-            buttonEditModificarOV.ButtonClick += new ButtonPressedEventHandler(buttonEditModificarOV_ButtonClick);
+            RepositoryItemButtonEdit buttonEditVerOV = new RepositoryItemButtonEdit();
+            buttonEditVerOV.Buttons[0].Kind = ButtonPredefines.Search;
+            buttonEditVerOV.TextEditStyle = TextEditStyles.HideTextEditor;
+            buttonEditVerOV.ButtonClick += new ButtonPressedEventHandler(buttonEditVerOV_ButtonClick);
 
-            GridColumn unbColumnModificarOV = gridViewOrdenVentaConsulta.Columns.AddField("Modificar");
-            unbColumnModificarOV.Caption = "Modificar Orden de Venta";
+            GridColumn unbColumnModificarOV = gridViewOrdenVentaConsulta.Columns.AddField("Ver");
+            unbColumnModificarOV.Caption = "Orden de Venta";
+            unbColumnModificarOV.Width = 100;
             unbColumnModificarOV.UnboundType = DevExpress.Data.UnboundColumnType.String;
             unbColumnModificarOV.VisibleIndex = gridViewOrdenVentaConsulta.Columns.Count;
-            unbColumnModificarOV.ColumnEdit = buttonEditModificarOV;
+            unbColumnModificarOV.ColumnEdit = buttonEditVerOV;
             
             RepositoryItemButtonEdit buttonEditAgregar = new RepositoryItemButtonEdit();
             buttonEditAgregar.Buttons[0].Kind = ButtonPredefines.Plus;
@@ -571,27 +577,37 @@ namespace CooperativaProduccion
 
             GridColumn unbColumnAgregar = gridViewOrdenVentaConsulta.Columns.AddField("Agregar");
             unbColumnAgregar.Caption = "Agregar Cajas";
+            unbColumnAgregar.Width = 100;
             unbColumnAgregar.UnboundType = DevExpress.Data.UnboundColumnType.String;
             unbColumnAgregar.VisibleIndex = gridViewOrdenVentaConsulta.Columns.Count;
             unbColumnAgregar.ColumnEdit = buttonEditAgregar;
             
         }
 
-        private void buttonEditModificarOV_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
+        private void buttonEditVerOV_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
         {
             ButtonEdit ed = gridViewOrdenVentaConsulta.ActiveEditor as ButtonEdit;
             if (ed == null) return;
 
-            if (e.Button.Kind == DevExpress.XtraEditors.Controls.ButtonPredefines.Delete)
+            if (e.Button.Kind == DevExpress.XtraEditors.Controls.ButtonPredefines.Search)
             {
                 Guid OrdenVentaId = new Guid(gridViewOrdenVentaConsulta
                       .GetRowCellValue(gridViewOrdenVentaConsulta.FocusedRowHandle, "Id")
                       .ToString());
 
-                if (OrdenVentaId != null)
+                var Pendiente = gridViewOrdenVentaConsulta
+                    .GetRowCellValue(gridViewOrdenVentaConsulta.FocusedRowHandle, "Pendiente")
+                    .ToString();
+
+                if (Pendiente.Equals(DevConstantes.SI))
                 {
                     var ordenventa = new Form_AdministracionNuevaOrdenVenta(OrdenVentaId);
                     ordenventa.ShowDialog(this);
+                }
+                else
+                {
+                    MessageBox.Show("Esta orden de venta está cerrada. No se pueden modificar sus datos.",
+                        "Atención", MessageBoxButtons.OK);
                 }
             }
         }
@@ -612,7 +628,7 @@ namespace CooperativaProduccion
 
                 if (Pendiente.Equals(DevConstantes.SI))
                 {
-                    var ordenventa = new Form_AdministracionActualizarOrdenVenta(OrdenVentaId);
+                    var ordenventa = new Form_AdministracionActualizarOrdenVenta(OrdenVentaId,true);
                     ordenventa.ShowDialog(this);
                 }
                 else
@@ -620,6 +636,28 @@ namespace CooperativaProduccion
                     MessageBox.Show("Esta orden de venta está cerrada. No se pueden modificar sus datos.",
                         "Atención", MessageBoxButtons.OK);
                 }
+            }
+        }
+
+        private void gridViewOrdenVentaDetalleConsulta_DoubleClick(object sender, EventArgs e)
+        {
+            Guid OrdenVentaId = new Guid(gridViewOrdenVentaConsulta
+               .GetRowCellValue(gridViewOrdenVentaConsulta.FocusedRowHandle, "Id")
+               .ToString());
+
+            var Pendiente = gridViewOrdenVentaConsulta
+                .GetRowCellValue(gridViewOrdenVentaConsulta.FocusedRowHandle, "Pendiente")
+                .ToString();
+
+            if (Pendiente.Equals(DevConstantes.SI))
+            {
+                var ordenventa = new Form_AdministracionActualizarOrdenVenta(OrdenVentaId, false);
+                ordenventa.ShowDialog(this);
+            }
+            else
+            {
+                MessageBox.Show("Esta orden de venta está cerrada. No se pueden modificar sus datos.",
+                    "Atención", MessageBoxButtons.OK);
             }
         }
     }

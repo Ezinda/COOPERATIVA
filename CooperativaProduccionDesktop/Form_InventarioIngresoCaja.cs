@@ -231,6 +231,9 @@ namespace CooperativaProduccion
                  join p in Context.Vw_Producto
                  on c.ProductoId equals p.ID into pr
                  from cp in pr.DefaultIfEmpty()
+                 join ca in Context.Cata 
+                 on c.CataId equals ca.Id into cat
+                 from joined in cat.DefaultIfEmpty()
                  select new
                  {
                      Id = c.Id,
@@ -240,7 +243,7 @@ namespace CooperativaProduccion
                      Bruto = c.Bruto,
                      Tara = c.Tara,
                      Neto = c.Neto,
-                     Cata = c.Cata.NumCata,
+                     Cata = joined.NumCata,
                      Fecha = c.Fecha
                  })
                 .OrderBy(x => x.NumCaja)
@@ -385,7 +388,10 @@ namespace CooperativaProduccion
                      .Where(x => x.ProductoId == ProductoId
                          && x.CataId == null)
                  join p in Context.Vw_Producto
-                 on c.ProductoId equals p.ID 
+                 on c.ProductoId equals p.ID
+                 join ca in Context.Cata
+                 on c.CataId equals ca.Id into cat
+                 from joined in cat.DefaultIfEmpty()
                  select new
                  {
                      Id = c.Id,
@@ -395,7 +401,7 @@ namespace CooperativaProduccion
                      Bruto = c.Bruto,
                      Tara = c.Tara,
                      Neto = c.Neto,
-                     Cata = c.Cata.NumCata,
+                     Cata = joined.NumCata,
                      Fecha = c.Fecha
                  })
                  .Take(cantidad)

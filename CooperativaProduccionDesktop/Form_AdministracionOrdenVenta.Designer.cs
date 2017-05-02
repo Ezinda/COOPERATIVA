@@ -100,8 +100,10 @@
             // 
             this.gridViewOrdenVentaDetalleConsulta.GridControl = this.gridControlOrdenVentaConsulta;
             this.gridViewOrdenVentaDetalleConsulta.Name = "gridViewOrdenVentaDetalleConsulta";
+            this.gridViewOrdenVentaDetalleConsulta.OptionsBehavior.Editable = false;
             this.gridViewOrdenVentaDetalleConsulta.OptionsView.ColumnAutoWidth = false;
             this.gridViewOrdenVentaDetalleConsulta.OptionsView.ShowGroupPanel = false;
+            this.gridViewOrdenVentaDetalleConsulta.DoubleClick += new System.EventHandler(this.gridViewOrdenVentaDetalleConsulta_DoubleClick);
             // 
             // gridControlOrdenVentaConsulta
             // 

@@ -146,29 +146,27 @@ namespace CooperativaProduccion
             {
                 try
                 {
-                    LoteCaja = ContadorNumeroLote();
+                    var cborden = cbProductoIngreso.SelectedItem as dynamic;
+                    Guid OrdenVentaId = cborden.OrdenVentaId;
+                    Guid ProductoId = cborden.ProductoId;
+                        
+                    LoteCaja = ContadorNumeroLote(dpIngresoCaja.Value.Year,ProductoId);
                     for (int i = 0; i < int.Parse(txtCantidadCajaIngreso.Text); i++)
                     {
                         Caja caja;
                         caja = new Caja();
                         caja.Id = Guid.NewGuid();
                         caja.LoteCaja = LoteCaja;
-                        caja.NumeroCaja = ContadorNumeroCaja();
+                        caja.NumeroCaja = ContadorNumeroCaja(dpIngresoCaja.Value.Year,ProductoId);
                         caja.Fecha = dpIngresoCaja.Value.Date;
                         caja.Hora = DateTime.Now.TimeOfDay;
-
-                        Guid OrdenVentaId = Guid.Parse(cbProductoIngreso.SelectedValue.ToString());
-                        var ordenVenta = Context.OrdenVenta.Where(x => x.Id == OrdenVentaId).FirstOrDefault();
-                        //var producto = Context.Vw_Producto
-                        //    .Where(x => x.ID == ordenVenta.ProductoId)
-                        //    .FirstOrDefault();
-
-                       // caja.ProductoId = producto.ID;
+                        caja.Campaña = dpIngresoCaja.Value.Year;
+                        caja.ProductoId = ProductoId;
+                        caja.OrdenVentaId = OrdenVentaId;
                         caja.Bruto = decimal.Parse(txtBruto.Text, CultureInfo.InvariantCulture);
                         caja.Tara = decimal.Parse(txtTara.Text, CultureInfo.InvariantCulture);
                         caja.Neto = decimal.Parse(txtNeto.Text, CultureInfo.InvariantCulture);
-                        caja.OrdenVentaId = OrdenVentaId;
-
+                        
                         if (checkCata.Checked)
                         {
                             var cata = Context.Cata
@@ -197,7 +195,6 @@ namespace CooperativaProduccion
                         }
                         Context.Caja.Add(caja);
                         Context.SaveChanges();
-                        ActualizarContadorCaja();
                         RegistrarMovimiento(caja.Id, 1, caja.Fecha);
                     }
                     ActualizarContadorLote();
@@ -221,22 +218,6 @@ namespace CooperativaProduccion
             {
                 countLote.Valor = countLote.Valor + 1;
                 Context.Entry(countLote).State = EntityState.Modified;
-                Context.SaveChanges();
-            }
-        }
-
-        private void ActualizarContadorCaja()
-        {
-            var contadorCaja = Context.Contador
-                .Where(x => x.Nombre.Equals(DevConstantes.Caja))
-                .FirstOrDefault();
-
-            var countCaja = Context.Contador.Find(contadorCaja.Id);
-
-            if (countCaja != null)
-            {
-                countCaja.Valor = countCaja.Valor + 1;
-                Context.Entry(countCaja).State = EntityState.Modified;
                 Context.SaveChanges();
             }
         }
@@ -313,19 +294,24 @@ namespace CooperativaProduccion
         private void CargarCombo()
         {
             var ordenVenta =
-                (from o in Context.OrdenVenta
-                 
+                (from o in Context.OrdenVenta 
+                 join d in Context.OrdenVentaDetalle 
+                 on o.Id equals d.OrdenVentaId
+                 join p in Context.Vw_Producto
+                 on d.ProductoId equals p.ID
                  select new OrdenVentaProducto
                  {
-                     Id = o.Id,
-                     Descripcion = o.NumOrden + " - ",
+                     OrdenId = o.Id,
+                     ProductoId = d.ProductoId,
+                     Campaña = d.Campaña.Value,
+                     Descripcion = o.NumOrden + " - " + p.DESCRIPCION + " - " + d.Campaña,
                  })
                 .OrderBy(x => x.Descripcion)
                 .ToList();
 
             cbProductoIngreso.DataSource = ordenVenta;
             cbProductoIngreso.DisplayMember = "Descripcion";
-            cbProductoIngreso.ValueMember = "Id";
+            cbProductoIngreso.ValueMember = "OrdenId";
 
             var producto = Context.Vw_Producto.ToList();
             cbProductoConsulta.DataSource = producto;
@@ -375,6 +361,9 @@ namespace CooperativaProduccion
                 join p in Context.Vw_Producto
                 on c.ProductoId equals p.ID into pr
                 from cp in pr.DefaultIfEmpty()
+                 join ca in Context.Cata
+                 on c.CataId equals ca.Id into cat
+                 from joined in cat.DefaultIfEmpty()
                 select new
                 {
                     Id = c.Id,
@@ -384,7 +373,7 @@ namespace CooperativaProduccion
                     Bruto = c.Bruto,
                     Tara = c.Tara,
                     Neto = c.Neto,
-                    Cata = c.Cata.NumCata,
+                    Cata = joined.NumCata,
                     Fecha = c.Fecha
                 })
                 .OrderBy(x => x.NumCaja)
@@ -409,37 +398,44 @@ namespace CooperativaProduccion
             gridViewCaja.Columns[8].Visible = false;
         }
 
-        private long ContadorNumeroCaja()
+        private long ContadorNumeroCaja(int campaña,Guid ProductoId)
         {
-            var contador = Context.Contador
-                .Where(x => x.Nombre.Equals(DevConstantes.Caja))
+            long numFardo = 0;
+            var caja = Context.Caja
+                .Where(x => x.Campaña == campaña 
+                    && x.ProductoId == ProductoId)
+                .OrderByDescending(x => x.NumeroCaja)
                 .FirstOrDefault();
 
-            if (contador != null)
+            if (caja != null)
             {
-                return long.Parse(contador.Valor.ToString());
+                numFardo = caja.NumeroCaja + 1;
             }
             else
             {
-                return 1;
+                numFardo = 1;
             }
+            return numFardo;
         }
 
-        private long ContadorNumeroLote()
+        private long ContadorNumeroLote(int campaña,Guid ProductoId)
         {
-            var contador =
-                Context.Contador
-                .Where(x => x.Nombre.Equals(DevConstantes.Lote))
+            long numFardo = 0;
+            var caja = Context.Caja
+                .Where(x => x.Campaña == campaña
+                    && x.ProductoId == ProductoId)
+                .OrderByDescending(x => x.NumeroCaja)
                 .FirstOrDefault();
 
-            if (contador != null)
+            if (caja != null)
             {
-                return long.Parse(contador.Valor.ToString());
+                numFardo = caja.LoteCaja + 1;
             }
             else
             {
-                return 1;
+                numFardo = 1;
             }
+            return numFardo;
         }
 
         #endregion
@@ -544,6 +540,9 @@ namespace CooperativaProduccion
                  join p in Context.Vw_Producto
                  on c.ProductoId equals p.ID into pr
                  from cp in pr.DefaultIfEmpty()
+                 join ca in Context.Cata
+                on c.CataId equals ca.Id into cat
+                 from joined in cat.DefaultIfEmpty()
                  select new
                  {
                      Id = c.Id,
@@ -553,7 +552,7 @@ namespace CooperativaProduccion
                      Bruto = c.Bruto,
                      Tara = c.Tara,
                      Neto = c.Neto,
-                     Cata = c.Cata.NumCata,
+                     Cata = joined.NumCata,
                      Fecha = c.Fecha
                  })
                  .Take(cantidad)
@@ -709,7 +708,9 @@ namespace CooperativaProduccion
 
     public class OrdenVentaProducto
     {
-        public Guid Id { get; set; }
+        public Guid OrdenId { get; set; }
+        public Guid ProductoId { get; set; }
+        public int Campaña { get; set; }
         public string Descripcion { get; set; }
     }
 }

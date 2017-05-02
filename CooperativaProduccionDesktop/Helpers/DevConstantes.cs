@@ -59,6 +59,8 @@ namespace CooperativaProduccion
         public static string NO = "NO";
         public static string HabilitarEdicion = "Habilitar Edición";
         public static string Modificar = "Modificar";
+        public static string Eliminar = "Eliminar";
+        public static string Guardar = "Guardar";
         public static string XX = "XX";
         public static string OrdenVenta = "OrdenVenta";
         public static string NumeroOperacion = "NumeroOperacion";
@@ -73,6 +75,7 @@ namespace CooperativaProduccion
         public static string AFIPCodigoTipoComprobanteB = "64";
         public static string MateriaPrima = "Materia Prima";
         public static string Deposito = "Deposito";
+        public static string Warrants = "Warrants";
         public static string ResumenRomaneo = "ResumenRomaneo";
         public static string ResumenCompra = "ResumenCompra";
         public static string ResumenClasesMes = "ResumenClasesMes";

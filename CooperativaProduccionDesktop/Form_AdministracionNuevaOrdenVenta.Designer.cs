@@ -71,6 +71,7 @@
             this.btnCancelar = new DevExpress.XtraEditors.SimpleButton();
             this.btnGuardar = new DevExpress.XtraEditors.SimpleButton();
             this.groupControl5 = new DevExpress.XtraEditors.GroupControl();
+            this.btnEliminar = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
@@ -498,20 +499,20 @@
             // 
             this.btnCancelar.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btnCancelar.Image = ((System.Drawing.Image)(resources.GetObject("btnCancelar.Image")));
-            this.btnCancelar.Location = new System.Drawing.Point(467, 5);
+            this.btnCancelar.Location = new System.Drawing.Point(282, 5);
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(84, 21);
+            this.btnCancelar.Size = new System.Drawing.Size(117, 21);
             this.btnCancelar.TabIndex = 106;
-            this.btnCancelar.Text = "Cancelar";
+            this.btnCancelar.Text = "Salir";
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // btnGuardar
             // 
             this.btnGuardar.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btnGuardar.Image = ((System.Drawing.Image)(resources.GetObject("btnGuardar.Image")));
-            this.btnGuardar.Location = new System.Drawing.Point(557, 5);
+            this.btnGuardar.Location = new System.Drawing.Point(528, 5);
             this.btnGuardar.Name = "btnGuardar";
-            this.btnGuardar.Size = new System.Drawing.Size(84, 21);
+            this.btnGuardar.Size = new System.Drawing.Size(117, 21);
             this.btnGuardar.TabIndex = 14;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
@@ -519,6 +520,7 @@
             // groupControl5
             // 
             this.groupControl5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupControl5.Controls.Add(this.btnEliminar);
             this.groupControl5.Controls.Add(this.btnGuardar);
             this.groupControl5.Controls.Add(this.btnCancelar);
             this.groupControl5.Location = new System.Drawing.Point(1, 316);
@@ -527,6 +529,17 @@
             this.groupControl5.Size = new System.Drawing.Size(650, 30);
             this.groupControl5.TabIndex = 108;
             this.groupControl5.Text = "Domicilio";
+            // 
+            // btnEliminar
+            // 
+            this.btnEliminar.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnEliminar.Image = ((System.Drawing.Image)(resources.GetObject("btnEliminar.Image")));
+            this.btnEliminar.Location = new System.Drawing.Point(405, 5);
+            this.btnEliminar.Name = "btnEliminar";
+            this.btnEliminar.Size = new System.Drawing.Size(117, 21);
+            this.btnEliminar.TabIndex = 107;
+            this.btnEliminar.Text = "Eliminar";
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
             // Form_AdministracionNuevaOrdenVenta
             // 
@@ -610,5 +623,6 @@
         private DevExpress.XtraEditors.SimpleButton btnGuardar;
         private DevExpress.XtraEditors.GroupControl groupControl5;
         private DevExpress.XtraEditors.SimpleButton btnBuscarCliente;
+        private DevExpress.XtraEditors.SimpleButton btnEliminar;
     }
 }

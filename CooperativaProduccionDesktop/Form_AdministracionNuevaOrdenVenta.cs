@@ -19,6 +19,7 @@ namespace CooperativaProduccion
         public Form_AdministracionBuscarTransporte _formBuscarTransporte = null;
         private Guid ClienteId;
         private Guid TransporteId;
+        private Guid OrdenVentaId;
 
         public Form_AdministracionNuevaOrdenVenta(Guid? Id)
         {
@@ -28,18 +29,6 @@ namespace CooperativaProduccion
         }
 
         #region Method Code
-
-        private void btnEliminar_Click(object sender, EventArgs e)
-        {
-
-            var resultado = MessageBox.Show("¿Desea eliminar esta orden de venta?",
-                 "Atención", MessageBoxButtons.OKCancel);
-            if (resultado != DialogResult.OK)
-            {
-                return;
-            }
-
-        }
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
@@ -167,16 +156,37 @@ namespace CooperativaProduccion
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            var resultado = MessageBox.Show("¿Desea crear una nueva orden de venta?",
-               "Atención", MessageBoxButtons.OKCancel);
-            if (resultado != DialogResult.OK)
+            if (btnGuardar.Text == DevConstantes.HabilitarEdicion)
             {
-                return;
+                btnGuardar.Text = DevConstantes.Modificar;
+                Habilitar();
             }
-
-            if (ValidarCampos())
+            else if (btnGuardar.Text == DevConstantes.Modificar)
             {
-                GenerarOrdenVenta();
+                var resultado = MessageBox.Show("¿Desea crear una nueva orden de venta?",
+                      "Atención", MessageBoxButtons.OKCancel);
+                if (resultado != DialogResult.OK)
+                {
+                    return;
+                }
+                if (ValidarCampos())
+                {
+                    Modificar(OrdenVentaId);
+                }
+            }
+            else
+            {
+                var resultado = MessageBox.Show("¿Desea crear una nueva orden de venta?",
+                    "Atención", MessageBoxButtons.OKCancel);
+                if (resultado != DialogResult.OK)
+                {
+                    return;
+                }
+
+                if (ValidarCampos())
+                {
+                    GenerarOrdenVenta();
+                }
             }
         }
 
@@ -431,10 +441,21 @@ namespace CooperativaProduccion
             {
                 txtOperacion.Text = ContadorNumeroOperacion().ToString();
                 txtOrden.Text = ContadorOrdenVenta().ToString();
+                UbicarBotones(true);
             }
             else
             {
+                Deshabilitar();
                 CargarDatos(Id.Value);
+            }
+        }
+
+        private void UbicarBotones(bool Nuevo)
+        {
+            if (Nuevo)
+            {
+                btnCancelar.Location = new Point(405, 5);
+                btnEliminar.Visible = false;
             }
         }
 
@@ -492,6 +513,38 @@ namespace CooperativaProduccion
             return true;
         }
 
+        private void Modificar(Guid Id)
+        {
+            var ov = Context.OrdenVenta.Find(Id);
+            if (ov != null)
+            {
+                ov.Fecha = DateTime.Now.Date;
+                ov.ClienteId = ClienteId;
+                ov.Calle = txtDomicilio.Text;
+                ov.Numero = txtNumero.Text;
+                ov.Piso = txtPiso.Text;
+                ov.Dpto = txtDpto.Text;
+                ov.TransporteId = TransporteId;
+                ov.Dominio = txtDominio.Text;
+                ov.DominioAcoplado = txtDominioAcoplado.Text;
+                ov.ApellidoChofer = txtApellido.Text;
+                ov.NombreChofer = txtNombre.Text;
+                ov.CuitChofer = txtCuitChofer.Text;
+                ov.Pendiente = true;
+                Context.Entry(ov).State = EntityState.Modified;
+                Context.SaveChanges();
+
+                IEnlaceActualizar mienlace = this.Owner as Form_AdministracionOrdenVenta;
+
+                if (mienlace != null)
+                {
+                    mienlace.Enviar(true);
+                }
+
+                this.Close();
+            }
+        }
+
         private void CargarDatos(Guid Id)
         {
             var ov = Context.OrdenVenta
@@ -500,6 +553,7 @@ namespace CooperativaProduccion
 
             if (ov != null)
             {
+                OrdenVentaId = ov.Id;
                 txtOperacion.Text = ov.NumOperacion.ToString();
                 txtOrden.Text = ov.NumOrden.ToString();
                 dpFechaOrden.Value = ov.Fecha;
@@ -534,10 +588,123 @@ namespace CooperativaProduccion
                 txtApellido.Text = ov.ApellidoChofer;
                 txtNombre.Text = ov.NombreChofer;
                 txtCuitChofer.Text = ov.CuitChofer;
+            }  
+        }
+
+        private void Deshabilitar()
+        {
+            dpFechaOrden.Enabled = false;
+            txtCliente.Enabled = false;
+            btnBuscarCliente.Enabled = false;
+            txtDomicilio.Enabled = false;
+            txtNumero.Enabled = false;
+            txtPiso.Enabled = false;
+            txtDpto.Enabled = false;
+            txtRazonSocial.Enabled = false;
+            btnBuscarTransporte.Enabled = false;
+            txtDominio.Enabled = false;
+            txtDominioAcoplado.Enabled = false;
+            txtApellido.Enabled = false;
+            txtNombre.Enabled = false;
+            txtCuitChofer.Enabled = false;
+            btnGuardar.Text = DevConstantes.HabilitarEdicion;
+        }
+
+        private void Habilitar()
+        {
+            dpFechaOrden.Enabled = true;
+            txtCliente.Enabled = true;
+            btnBuscarCliente.Enabled = true;
+            txtDomicilio.Enabled = true;
+            txtNumero.Enabled = true;
+            txtPiso.Enabled = true;
+            txtDpto.Enabled = true;
+            txtRazonSocial.Enabled = true;
+            btnBuscarTransporte.Enabled = true;
+            txtDominio.Enabled = true;
+            txtDominioAcoplado.Enabled = true;
+            txtApellido.Enabled = true;
+            txtNombre.Enabled = true;
+            txtCuitChofer.Enabled = true;
+        }
+
+        #endregion
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            var resultado = MessageBox.Show("¿Desea eliminar esta orden de venta?",
+                "Atención", MessageBoxButtons.OKCancel);
+            if (resultado != DialogResult.OK)
+            {
+                return;
+            }
+            EliminarOV(OrdenVentaId);
+        }
+
+        private void EliminarOV(Guid Id)
+        {
+            var orden = Context.OrdenVenta.Find(Id);
+
+            if (orden != null)
+            {
+                var cajas = Context.Caja
+                    .Where(x => x.OrdenVentaId == orden.Id)
+                    .ToList();
+
+                if (cajas.Any().Equals(true))
+                {
+                    foreach (var item in cajas)
+                    {
+                        var caja = Context.Caja.Find(item.Id);
+                        caja.OrdenVentaId = null;
+                        Context.Entry(caja).State = EntityState.Modified;
+                        Context.SaveChanges();
+                    }
+                }
+
+                var catas = Context.Cata
+                    .Where(x => x.OrdenVentaId == orden.Id)
+                    .ToList();
+
+                if (catas.Any().Equals(true))
+                {
+                    foreach (var item in catas)
+                    {
+                        var cata = Context.Cata.Find(item.Id);
+                        cata.OrdenVentaId = null;
+                        cata.NumOrden = null;
+                        Context.Entry(cata).State = EntityState.Modified;
+                        Context.SaveChanges();
+                    }
+                }
+
+                var detalles = Context.OrdenVentaDetalle
+                    .Where(x => x.OrdenVentaId == orden.Id)
+                    .ToList();
+
+                if (detalles.Any().Equals(true))
+                {
+                    foreach (var item in detalles)
+                    {
+                        var ov = Context.OrdenVentaDetalle.Find(item.Id);
+                        Context.Entry(ov).State = EntityState.Deleted;
+                        Context.SaveChanges();
+                    }
+                }
+
+                Context.Entry(orden).State = EntityState.Deleted;
+                Context.SaveChanges();
+            }
+
+            IEnlaceActualizar mienlace = this.Owner as Form_AdministracionOrdenVenta;
+            
+            if (mienlace != null)
+            {
+                mienlace.Enviar(true);
             }
             
+            this.Close();
         }
-        #endregion
 
     }
 }

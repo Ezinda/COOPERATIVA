@@ -60,25 +60,27 @@
             this.ribbon.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.Office2013;
             this.ribbon.ShowApplicationButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowCategoryInCaption = false;
+            this.ribbon.ShowDisplayOptionsMenuButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowExpandCollapseButton = DevExpress.Utils.DefaultBoolean.False;
-            this.ribbon.ShowFullScreenButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowToolbarCustomizeItem = false;
-            this.ribbon.Size = new System.Drawing.Size(566, 27);
+            this.ribbon.Size = new System.Drawing.Size(588, 27);
             this.ribbon.Toolbar.ShowCustomizeItem = false;
             // 
             // cbOrden
             // 
+            this.cbOrden.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbOrden.FormattingEnabled = true;
-            this.cbOrden.Location = new System.Drawing.Point(88, 48);
+            this.cbOrden.Location = new System.Drawing.Point(83, 53);
             this.cbOrden.Name = "cbOrden";
-            this.cbOrden.Size = new System.Drawing.Size(142, 21);
+            this.cbOrden.Size = new System.Drawing.Size(199, 21);
             this.cbOrden.TabIndex = 79;
+            this.cbOrden.SelectedIndexChanged += new System.EventHandler(this.cbOrden_SelectedIndexChanged);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(5, 49);
+            this.label3.Location = new System.Drawing.Point(5, 54);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(40, 16);
             this.label3.TabIndex = 78;
@@ -89,15 +91,15 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(404, 53);
+            this.label7.Location = new System.Drawing.Point(445, 54);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(64, 16);
+            this.label7.Size = new System.Drawing.Size(38, 16);
             this.label7.TabIndex = 85;
-            this.label7.Text = "Caja Hasta";
+            this.label7.Text = "Hasta";
             // 
             // txtCajaHasta
             // 
-            this.txtCajaHasta.Location = new System.Drawing.Point(477, 51);
+            this.txtCajaHasta.Location = new System.Drawing.Point(498, 53);
             this.txtCajaHasta.Name = "txtCajaHasta";
             this.txtCajaHasta.Size = new System.Drawing.Size(80, 21);
             this.txtCajaHasta.TabIndex = 84;
@@ -106,7 +108,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(245, 53);
+            this.label5.Location = new System.Drawing.Point(288, 54);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(67, 16);
             this.label5.TabIndex = 83;
@@ -114,7 +116,7 @@
             // 
             // txtCajaDesde
             // 
-            this.txtCajaDesde.Location = new System.Drawing.Point(318, 51);
+            this.txtCajaDesde.Location = new System.Drawing.Point(352, 53);
             this.txtCajaDesde.Name = "txtCajaDesde";
             this.txtCajaDesde.Size = new System.Drawing.Size(80, 21);
             this.txtCajaDesde.TabIndex = 82;
@@ -134,7 +136,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(245, 27);
+            this.label1.Location = new System.Drawing.Point(283, 27);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(45, 16);
             this.label1.TabIndex = 86;
@@ -143,24 +145,26 @@
             // 
             // txtOperacion
             // 
-            this.txtOperacion.Location = new System.Drawing.Point(88, 26);
+            this.txtOperacion.Enabled = false;
+            this.txtOperacion.Location = new System.Drawing.Point(83, 26);
             this.txtOperacion.Name = "txtOperacion";
-            this.txtOperacion.Size = new System.Drawing.Size(142, 21);
+            this.txtOperacion.Size = new System.Drawing.Size(199, 21);
             this.txtOperacion.TabIndex = 88;
             // 
             // txtCliente
             // 
-            this.txtCliente.Location = new System.Drawing.Point(318, 26);
+            this.txtCliente.Enabled = false;
+            this.txtCliente.Location = new System.Drawing.Point(326, 26);
             this.txtCliente.Name = "txtCliente";
-            this.txtCliente.Size = new System.Drawing.Size(239, 21);
+            this.txtCliente.Size = new System.Drawing.Size(253, 21);
             this.txtCliente.TabIndex = 89;
             // 
             // btnModificar
             // 
             this.btnModificar.Image = ((System.Drawing.Image)(resources.GetObject("btnModificar.Image")));
-            this.btnModificar.Location = new System.Drawing.Point(318, 83);
+            this.btnModificar.Location = new System.Drawing.Point(338, 82);
             this.btnModificar.Name = "btnModificar";
-            this.btnModificar.Size = new System.Drawing.Size(75, 21);
+            this.btnModificar.Size = new System.Drawing.Size(75, 20);
             this.btnModificar.TabIndex = 90;
             this.btnModificar.Text = "Modificar";
             this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
@@ -168,9 +172,9 @@
             // btnEliminar
             // 
             this.btnEliminar.Image = ((System.Drawing.Image)(resources.GetObject("btnEliminar.Image")));
-            this.btnEliminar.Location = new System.Drawing.Point(401, 83);
+            this.btnEliminar.Location = new System.Drawing.Point(419, 82);
             this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(75, 21);
+            this.btnEliminar.Size = new System.Drawing.Size(75, 20);
             this.btnEliminar.TabIndex = 91;
             this.btnEliminar.Text = "Eliminar";
             this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
@@ -195,16 +199,16 @@
             this.groupControl1.Controls.Add(this.label3);
             this.groupControl1.Location = new System.Drawing.Point(1, 28);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(563, 114);
+            this.groupControl1.Size = new System.Drawing.Size(585, 110);
             this.groupControl1.TabIndex = 93;
             this.groupControl1.Text = "Ingreso de Cajas";
             // 
             // btnSalir
             // 
             this.btnSalir.Image = ((System.Drawing.Image)(resources.GetObject("btnSalir.Image")));
-            this.btnSalir.Location = new System.Drawing.Point(482, 83);
+            this.btnSalir.Location = new System.Drawing.Point(500, 82);
             this.btnSalir.Name = "btnSalir";
-            this.btnSalir.Size = new System.Drawing.Size(75, 21);
+            this.btnSalir.Size = new System.Drawing.Size(75, 20);
             this.btnSalir.TabIndex = 92;
             this.btnSalir.Text = "Salir";
             this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
@@ -213,7 +217,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(566, 144);
+            this.ClientSize = new System.Drawing.Size(588, 139);
             this.Controls.Add(this.groupControl1);
             this.Controls.Add(this.ribbon);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -229,6 +233,7 @@
             this.groupControl1.ResumeLayout(false);
             this.groupControl1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

@@ -387,12 +387,9 @@ namespace CooperativaProduccion
             }
         }
 
-        #endregion
-
-       
+        #endregion   
 
         #endregion
-
-  
+ 
     }
 }
