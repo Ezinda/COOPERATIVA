@@ -652,12 +652,6 @@ namespace CooperativaProduccion
                 return false;
             }
 
-            if (txtCantidadCajaConsulta.Text == string.Empty)
-            {
-                MessageBox.Show("Debe ingresar una cantidad de cajas válidas",
-                          "Se requiere", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
             return true;
         }
 

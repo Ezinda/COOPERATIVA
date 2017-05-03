@@ -67,11 +67,12 @@ namespace CooperativaProduccion
 
             var producto =
                 (from c in Context.Caja
+                    .Where(x => x.OrdenVentaId == null)
                  join m in Context.Movimiento
-                 .Where(x => x.DepositoId != deposito.id)
-                 on c.Id equals m.TransaccionId
+                    .Where(x => x.DepositoId != deposito.id)
+                    on c.Id equals m.TransaccionId
                  join p in Context.Vw_Producto
-                 on c.ProductoId equals p.ID
+                    on c.ProductoId equals p.ID
                  group new { c, p } by new
                  {
                      ProductoId = p.ID,
@@ -223,7 +224,9 @@ namespace CooperativaProduccion
                 for (long i = detalle.DesdeCaja.Value; i <= detalle.HastaCaja; i++)
                 {
                     var caja = Context.Caja
-                        .Where(x => x.NumeroCaja == i)
+                        .Where(x => x.Campaña == detalle.Campaña 
+                            && x.ProductoId == detalle.ProductoId 
+                            && x.NumeroCaja == i)
                         .FirstOrDefault();
 
                     AsociarOVaCaja(detalle.OrdenVentaId, caja.Id);

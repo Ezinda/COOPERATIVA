@@ -56,54 +56,54 @@ namespace CooperativaProduccion
             if (Orden.Equals(true))
             {
                 var ordenVenta =
-                    (from o in Context.OrdenVenta
-                         .Where(x => x.Id == Id).AsEnumerable()
-                     
-                     join c in Context.Vw_Cliente
-                     on o.ClienteId equals c.ID
-                     select new
-                     {
-                         OrdenVentaId = o.Id,
-                         NumOperacion = o.NumOperacion,
-                         NumOrden = o.NumOrden,
-                         Cliente = c.RAZONSOCIAL,
-                         Cuit = c.CUIT.Contains(DevConstantes.XX) ? c.CUITE : c.CUIT,
-                         Fecha = o.Fecha
-                     })
-                    .ToList();
+                 (from o in Context.OrdenVenta
+                      .Where(x => x.Id == Id).AsEnumerable()
 
+                  join c in Context.Vw_Cliente
+                  on o.ClienteId equals c.ID
+                  select new
+                  {
+                      OrdenVentaId = o.Id,
+                      NumOperacion = o.NumOperacion,
+                      NumOrden = o.NumOrden,
+                      Cliente = c.RAZONSOCIAL,
+                      Cuit = c.CUIT.Contains(DevConstantes.XX) ? c.CUITE : c.CUIT,
+                      Fecha = o.Fecha
+                  })
+                 .FirstOrDefault();
+                
                 if (ordenVenta != null)
                 {
-                    txtNumOperacion.Text = ordenVenta.FirstOrDefault().NumOperacion.ToString();
-                    dpOrdenVenta.Value = ordenVenta.FirstOrDefault().Fecha;
-                    txtCliente.Text = ordenVenta.FirstOrDefault().Cliente;
-                    txtCuit.Text = ordenVenta.FirstOrDefault().Cuit;
-                    OrdenVentaId = ordenVenta.FirstOrDefault().OrdenVentaId;
+                    txtNumOperacion.Text = ordenVenta.NumOperacion.ToString();
+                    dpOrdenVenta.Value = ordenVenta.Fecha;
+                    txtCliente.Text = ordenVenta.Cliente;
+                    txtCuit.Text = ordenVenta.Cuit;
+                    OrdenVentaId = ordenVenta.OrdenVentaId;
                 }
 
-                gridControlDetalleOrdenVenta.DataSource = ordenVenta;
-                gridViewDetalleOrdenVenta.Columns[0].Visible = false;
-                gridViewDetalleOrdenVenta.Columns[1].Visible = false;
-                gridViewDetalleOrdenVenta.Columns[2].Caption = "N° Orden";
-                gridViewDetalleOrdenVenta.Columns[2].Width = 120;
-                gridViewDetalleOrdenVenta.Columns[2].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                gridViewDetalleOrdenVenta.Columns[2].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Far;
-                gridViewDetalleOrdenVenta.Columns[3].Visible = false;
-                gridViewDetalleOrdenVenta.Columns[4].Visible = false;
-                gridViewDetalleOrdenVenta.Columns[5].Caption = "Producto";
-                gridViewDetalleOrdenVenta.Columns[5].Width = 120;
-                gridViewDetalleOrdenVenta.Columns[5].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                gridViewDetalleOrdenVenta.Columns[5].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-                gridViewDetalleOrdenVenta.Columns[6].Caption = "Caja Desde";
-                gridViewDetalleOrdenVenta.Columns[6].Width = 120;
-                gridViewDetalleOrdenVenta.Columns[6].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                gridViewDetalleOrdenVenta.Columns[6].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-                gridViewDetalleOrdenVenta.Columns[7].Caption = "Caja Hasta";
-                gridViewDetalleOrdenVenta.Columns[7].Width = 120;
-                gridViewDetalleOrdenVenta.Columns[7].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                gridViewDetalleOrdenVenta.Columns[7].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-                gridViewDetalleOrdenVenta.Columns[8].Visible = false;
-
+                var detalle =
+                    (from o in Context.OrdenVentaDetalle
+                         .Where(x => x.OrdenVentaId == Id).AsEnumerable()
+                     join p in Context.Vw_Producto
+                     on o.ProductoId equals p.ID
+                     select new
+                     {
+                         Producto = p.DESCRIPCION,
+                         Desde = o.DesdeCaja,
+                         Hasta = o.HastaCaja
+                     })
+                    .ToList();
+                
+                if (detalle != null)
+                {
+                    gridControlDetalleOrdenVenta.DataSource = detalle;
+                    gridViewDetalleOrdenVenta.Columns[0].Caption = "Producto";
+                    gridViewDetalleOrdenVenta.Columns[1].Caption = "Caja Desde";
+                    gridViewDetalleOrdenVenta.Columns[2].Caption = "Caja Hasta";
+                    
+                    
+                    
+                }
                 dpRemito.Focus();
             }
             else
@@ -288,6 +288,16 @@ namespace CooperativaProduccion
                     string pathSystem = @"C:\SystemDocumentsCooperativa\RemitosElectronicos\"+txtNombrePdf.Text;
                     remito.PathSystem = pathSystem;
                     remito.File = FileConvertToByte(path);
+                    var detalle = Context.OrdenVentaDetalle
+                           .Where(x => x.OrdenVentaId == ordenVenta.Id)
+                           .FirstOrDefault();
+
+                    if (detalle != null)
+                    {
+                        remito.ProductoId = detalle.ProductoId;
+                        remito.DesdeCaja = detalle.DesdeCaja;
+                        remito.HastaCaja = detalle.HastaCaja;
+                    }
                     Context.Remito.Add(remito);
                     Context.SaveChanges();
 
@@ -295,17 +305,20 @@ namespace CooperativaProduccion
                     if (orden != null)
                     {
                         orden.Pendiente = false;
+                       
                         Context.Entry(orden).State = EntityState.Modified;
                         Context.SaveChanges();
 
-                        //for (long i = ordenVenta.DesdeCaja.Value; i <= ordenVenta.HastaCaja; i++)
-                        //{
-                        //    var caja = Context.Caja
-                        //        .Where(x => x.NumeroCaja == i)
-                        //        .FirstOrDefault();
-                            
-                        //    RegistrarMovimiento(caja.Id, 1, remito.FechaRemito.Value);
-                        //}
+                        for (long i = detalle.DesdeCaja.Value; i <= detalle.HastaCaja; i++)
+                        {
+                            var caja = Context.Caja
+                                .Where(x =>x.Campaña == detalle.Campaña 
+                                    && x.ProductoId == detalle.ProductoId 
+                                    && x.NumeroCaja == i)
+                                .FirstOrDefault();
+
+                            RegistrarMovimiento(caja.Id, 1, remito.FechaRemito.Value);
+                        }
                     }
                     IEnlaceActualizar mienlace = this.Owner as Form_AdministracionRemitoElectronico;
                     if (mienlace != null)

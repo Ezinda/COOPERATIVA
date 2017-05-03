@@ -162,6 +162,10 @@ namespace CooperativaProduccion
                 bool cant = int.TryParse(txtCantidadCajaIngreso.Text, out cantidad);
                 if (cant && cantidad > 0)
                 {
+                    var producto = Context.Vw_Producto
+                                .Where(x => x.DESCRIPCION == cbProductoIngreso.Text)
+                                .FirstOrDefault();
+                    ProductoId = producto.ID;
                     try
                     {
                         LoteCaja = ContadorNumeroLote(dpIngresoCaja.Value.Year, ProductoId);
@@ -175,9 +179,6 @@ namespace CooperativaProduccion
                             caja.Campaña = dpIngresoCaja.Value.Year;
                             caja.Fecha = dpIngresoCaja.Value.Date;
                             caja.Hora = DateTime.Now.TimeOfDay;
-                            var producto = Context.Vw_Producto
-                                .Where(x => x.DESCRIPCION == cbProductoIngreso.Text)
-                                .FirstOrDefault();
                             caja.ProductoId = producto.ID;
                             caja.Bruto = decimal.Parse(txtBruto.Text, CultureInfo.InvariantCulture);
                             caja.Tara = decimal.Parse(txtTara.Text, CultureInfo.InvariantCulture);
@@ -242,6 +243,7 @@ namespace CooperativaProduccion
 
         private long ContadorNumeroCaja(int campaña, Guid ProductoId)
         {
+            CooperativaProduccionEntities Context = new CooperativaProduccionEntities();
             long numCaja = 0;
             var caja = Context.Caja
                 .Where(x => x.Campaña == campaña
@@ -262,6 +264,8 @@ namespace CooperativaProduccion
 
         private long ContadorNumeroLote(int campaña, Guid ProductoId)
         {
+            CooperativaProduccionEntities Context = new CooperativaProduccionEntities();
+            
             long numLote = 0;
             var caja = Context.Caja
                 .Where(x => x.Campaña == campaña

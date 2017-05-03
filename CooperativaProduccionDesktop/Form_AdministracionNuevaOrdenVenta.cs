@@ -580,6 +580,7 @@ namespace CooperativaProduccion
                     .FirstOrDefault();
                 if (transporte != null)
                 {
+                    TransporteId = transporte.ALIAS_0_ID;
                     txtRazonSocial.Text = transporte.ALIAS_1_NOMBRE;
                     txtCuitTransporte.Text = transporte.CUIT;
                 }

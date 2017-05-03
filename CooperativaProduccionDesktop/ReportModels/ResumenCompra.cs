@@ -7,6 +7,7 @@ namespace CooperativaProduccion.ReportModels
 {
     public class ResumenCompra
     {
+        public string Provincia { get; set; }
         public string Tabaco { get; set; }
         public string Fardos { get; set; }
         public string Clase { get; set; }

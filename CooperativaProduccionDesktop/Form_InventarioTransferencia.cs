@@ -165,15 +165,21 @@ namespace CooperativaProduccion
 
         private void Transferencia()
         {
-            for (int i = 0; i <= gridViewCaja.RowCount; i++)
+            for (int i = 0; i <= gridViewCaja.RowCount -1; i++)
             {
                 Guid CajaId = new Guid(gridViewCaja.GetRowCellValue(i, "Id").ToString());
 
-                var caja = Context.Caja.Where(x => x.Id == CajaId).FirstOrDefault();
+                var ingreso = Context.Movimiento.Where(x => x.TransaccionId == CajaId).Sum(x => x.Ingreso == null ? 0 : x.Ingreso).Value;
 
-                RegistrarMovimientoEgreso(caja.Id);
-                RegistrarMovimientoIngreso(caja.Id);
-                BuscarCajaConsulta(txtCantidadCaja.Text);
+                var egreso = Context.Movimiento.Where(x => x.TransaccionId == CajaId).Sum(x => x.Egreso == null ? 0 : x.Egreso).Value;
+
+                if (ingreso - egreso > 0)
+                {
+                    var caja = Context.Caja.Where(x => x.Id == CajaId).FirstOrDefault();
+
+                    RegistrarMovimientoEgreso(caja.Id);
+                    RegistrarMovimientoIngreso(caja.Id);
+                }
             }
         }
 

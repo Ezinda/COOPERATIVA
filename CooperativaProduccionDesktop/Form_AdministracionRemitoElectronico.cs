@@ -112,6 +112,72 @@ namespace CooperativaProduccion
             }
         }
 
+        private void BuscarClienteConsulta()
+        {
+            var result =
+                (from a in Context.Vw_Cliente
+                 select new
+                 {
+                     full = a.CUIT + a.RAZONSOCIAL + a.CUITE,
+                     ID = a.ID,
+                     CUIT = a.CUIT.Contains(DevConstantes.XX) ? a.CUITE : a.CUIT,
+                     CLIENTE = a.RAZONSOCIAL,
+                     PROVINCIA = a.Provincia
+                 });
+
+            if (!string.IsNullOrEmpty(txtClienteRemito.Text))
+            {
+                var count = result
+                    .Where(x => x.CUIT.Contains(txtClienteRemito.Text))
+                    .Count();
+                if (count > 1)
+                {
+                    _formBuscarCliente = new Form_AdministracionBuscarCliente();
+                    _formBuscarCliente.cuit = txtClienteRemito.Text;
+                    _formBuscarCliente.target = DevConstantes.Remito;
+                    _formBuscarCliente.BuscarCuit();
+                    _formBuscarCliente.ShowDialog(this);
+                }
+                else
+                {
+                    var busqueda = result
+                        .Where(x => x.CUIT.Equals(txtClienteRemito.Text))
+                        .FirstOrDefault();
+                    if (busqueda != null)
+                    {
+                        ClienteId = busqueda.ID;
+                        txtClienteRemito.Text = busqueda.CLIENTE;
+                    }
+                    else
+                    {
+                        count = result
+                            .Where(x => x.CLIENTE.Contains(txtClienteRemito.Text))
+                            .Count();
+                        if (count > 1)
+                        {
+                            _formBuscarCliente = new Form_AdministracionBuscarCliente();
+                            _formBuscarCliente.nombre = txtClienteRemito.Text;
+                            _formBuscarCliente.target = DevConstantes.Remito;
+                            _formBuscarCliente.BuscarNombre();
+                            _formBuscarCliente.ShowDialog(this);
+                        }
+                        else
+                        {
+                            var busquedaNombre = result
+                                .Where(x => x.CLIENTE.Contains(txtClienteRemito.Text))
+                                .FirstOrDefault();
+
+                            if (busquedaNombre != null)
+                            {
+                                ClienteId = busquedaNombre.ID;
+                                txtClienteRemito.Text = busquedaNombre.CLIENTE;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         private void btnBuscarOrdenVentaPendiente_Click(object sender, EventArgs e)
         {
             BuscarOrdenVentaPendiente();
@@ -160,26 +226,14 @@ namespace CooperativaProduccion
             gridViewOrdenVentaPendiente.Columns[3].Width = 250;
             gridViewOrdenVentaPendiente.Columns[3].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
             gridViewOrdenVentaPendiente.Columns[3].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
-            gridViewOrdenVentaPendiente.Columns[4].Caption = "Producto";
-            gridViewOrdenVentaPendiente.Columns[4].Width = 120;
+            gridViewOrdenVentaPendiente.Columns[4].Caption = "Fecha";
+            gridViewOrdenVentaPendiente.Columns[4].Width = 90;
             gridViewOrdenVentaPendiente.Columns[4].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
             gridViewOrdenVentaPendiente.Columns[4].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-            gridViewOrdenVentaPendiente.Columns[5].Caption = "Caja Desde";
+            gridViewOrdenVentaPendiente.Columns[5].Caption = "Pendiente";
             gridViewOrdenVentaPendiente.Columns[5].Width = 120;
             gridViewOrdenVentaPendiente.Columns[5].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
             gridViewOrdenVentaPendiente.Columns[5].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-            gridViewOrdenVentaPendiente.Columns[6].Caption = "Caja Hasta";
-            gridViewOrdenVentaPendiente.Columns[6].Width = 120;
-            gridViewOrdenVentaPendiente.Columns[6].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-            gridViewOrdenVentaPendiente.Columns[6].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-            gridViewOrdenVentaPendiente.Columns[7].Caption = "Fecha";
-            gridViewOrdenVentaPendiente.Columns[7].Width = 90;
-            gridViewOrdenVentaPendiente.Columns[7].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-            gridViewOrdenVentaPendiente.Columns[7].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-            gridViewOrdenVentaPendiente.Columns[8].Caption = "Pendiente";
-            gridViewOrdenVentaPendiente.Columns[8].Width = 120;
-            gridViewOrdenVentaPendiente.Columns[8].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-            gridViewOrdenVentaPendiente.Columns[8].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
         }
 
         private void gridControlOrdenVentaPendiente_DoubleClick(object sender, EventArgs e)
@@ -213,13 +267,13 @@ namespace CooperativaProduccion
         {
             if (e.KeyChar == 13)
             {
-                BuscarCliente();
+                BuscarClienteConsulta();
             }
         }
 
         private void btnBuscarClienteRemito_Click(object sender, EventArgs e)
         {
-            BuscarCliente();
+            BuscarClienteConsulta();
         }
 
         private void btnBuscarRemito_Click(object sender, EventArgs e)
@@ -233,9 +287,12 @@ namespace CooperativaProduccion
 
             Expression<Func<Remito, bool>> pred = x => true;
 
-            pred = txtCliente.Text != string.Empty ? pred.And(x => x.ClienteId == ClienteId) : pred;
+            pred = txtClienteRemito.Text != string.Empty ? 
+                pred.And(x => x.ClienteId == ClienteId) : pred;
 
-            pred = checkPeriodo.Checked ? pred.And(x => x.FechaRemito >= dpDesde.Value && x.FechaRemito <= dpHasta.Value) : pred;
+            pred = checkPeriodoRemito.Checked ? 
+                pred.And(x => x.FechaRemito >= dpDesdeRemito.Value 
+                     && x.FechaRemito <= dpHastaRemito.Value) : pred;
 
             var remito =
                 (from r in Context.Remito.Where(pred).AsEnumerable()
