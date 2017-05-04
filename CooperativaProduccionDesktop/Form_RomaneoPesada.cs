@@ -1258,7 +1258,8 @@ namespace CooperativaProduccion
             CooperativaProduccionEntities context = new CooperativaProduccionEntities();
 
             var existeFardo = context.PesadaDetalle
-                .Where(x => x.NumFardo == numFardo)
+                .Where(x => x.PesadaId == pesadaId
+                    && x.NumFardo == numFardo)
                 .Any();
 
             if (existeFardo.Equals(false))

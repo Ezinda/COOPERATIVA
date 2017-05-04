@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using DevExpress.XtraBars;
 using DesktopEntities.Models;
 using System.Data.Entity;
+using DevExpress.Data.Browsing;
 
 namespace CooperativaProduccion
 {
@@ -20,11 +21,13 @@ namespace CooperativaProduccion
         private Guid ClienteId;
         private Guid TransporteId;
         private Guid OrdenVentaId;
+        private DataContext objContext = new DataContext(true);
 
         public Form_AdministracionNuevaOrdenVenta(Guid? Id)
         {
             InitializeComponent();
             Context = new CooperativaProduccionEntities();
+            objContext = new DataContext(true);
             Iniciar(Id);
         }
 
@@ -644,58 +647,83 @@ namespace CooperativaProduccion
 
         private void EliminarOV(Guid Id)
         {
-            var orden = Context.OrdenVenta.Find(Id);
+            //var orden = Context.OrdenVenta.Find(Id);
 
-            if (orden != null)
+            //if (orden != null)
+            //{
+            //var cajas = Context.Caja
+            //    .Where(x => x.OrdenVentaId == Id)
+            //    .ToList();
+
+            //if (cajas.Any())
+            //{
+            //foreach (var item in cajas)
+            //{
+            //    var caja = Context.Caja.Find(item.Id);
+            //    caja.OrdenVentaId = null;
+            //    Context.Entry(caja).State = EntityState.Modified;
+            //    Context.SaveChanges();
+            //}
+
+            //}
+            try
             {
-                var cajas = Context.Caja
-                    .Where(x => x.OrdenVentaId == orden.Id)
+                var caja = Context.Caja
+                    .Where(x => x.OrdenVentaId == Id)
+                   // .Select(x=> new Caja() { OrdenVentaId = x.OrdenVentaId })
                     .ToList();
 
-                if (cajas.Any().Equals(true))
-                {
-                    foreach (var item in cajas)
-                    {
-                        var caja = Context.Caja.Find(item.Id);
-                        caja.OrdenVentaId = null;
-                        Context.Entry(caja).State = EntityState.Modified;
-                        Context.SaveChanges();
-                    }
-                }
-
-                var catas = Context.Cata
-                    .Where(x => x.OrdenVentaId == orden.Id)
+                caja.ForEach(x => x.OrdenVentaId = null);
+         
+                var cata = Context.Cata
+                    .Where(x => x.OrdenVentaId == Id)
                     .ToList();
 
-                if (catas.Any().Equals(true))
-                {
-                    foreach (var item in catas)
-                    {
-                        var cata = Context.Cata.Find(item.Id);
-                        cata.OrdenVentaId = null;
-                        cata.NumOrden = null;
-                        Context.Entry(cata).State = EntityState.Modified;
-                        Context.SaveChanges();
-                    }
-                }
+                cata.ForEach(x => x.OrdenVentaId = null);
 
-                var detalles = Context.OrdenVentaDetalle
-                    .Where(x => x.OrdenVentaId == orden.Id)
-                    .ToList();
+                Context.OrdenVentaDetalle.RemoveRange(Context.OrdenVentaDetalle.Where(x => x.OrdenVentaId == Id));
+                Context.OrdenVenta.RemoveRange(Context.OrdenVenta.Where(x => x.Id == Id));
 
-                if (detalles.Any().Equals(true))
-                {
-                    foreach (var item in detalles)
-                    {
-                        var ov = Context.OrdenVentaDetalle.Find(item.Id);
-                        Context.Entry(ov).State = EntityState.Deleted;
-                        Context.SaveChanges();
-                    }
-                }
-
-                Context.Entry(orden).State = EntityState.Deleted;
                 Context.SaveChanges();
             }
+            catch
+            {
+                throw;
+            }
+            //var catas = Context.Cata
+            //    .Where(x => x.OrdenVentaId == Id)
+            //    .ToList();
+
+            //if (catas.Any())
+            //{
+            //    foreach (var item in catas)
+            //    {
+            //        var cata = Context.Cata.Find(item.Id);
+            //        cata.OrdenVentaId = null;
+            //        cata.NumOrden = null;
+            //        Context.Entry(cata).State = EntityState.Modified;
+            //        Context.SaveChanges();
+            //    }
+            //}
+
+            //var detalles = Context.OrdenVentaDetalle
+            //        .Where(x => x.OrdenVentaId == Id)
+            //        .ToList();
+
+            //    if (detalles.Any())
+            //    {
+            //        foreach (var item in detalles)
+            //        {
+            //            var ov = Context.OrdenVentaDetalle.Find(item.Id);
+            //            Context.Entry(ov).State = EntityState.Deleted;
+            //            Context.SaveChanges();
+            //        }
+            //    }
+
+                //var orden = Context.OrdenVenta.Find(Id);
+                //Context.Entry(orden).State = EntityState.Deleted;
+                //Context.SaveChanges();
+            //}
 
             IEnlaceActualizar mienlace = this.Owner as Form_AdministracionOrdenVenta;
             

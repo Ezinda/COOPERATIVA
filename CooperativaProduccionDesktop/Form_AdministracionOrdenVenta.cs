@@ -83,75 +83,8 @@ namespace CooperativaProduccion
             checkPendienteEmitirRemito.Checked = true;
         }
 
-        private void BuscarOrdenVenta(Guid OrdenVentaId)
-        {
-
-            //if (OrdenVentaId == Guid.Empty)
-            //{
-            //    var result = (from o in Context.OrdenVenta
-            //                  join p in Context.Vw_Producto
-            //                  on o.ProductoId equals p.ID
-            //                  join c in Context.Vw_Cliente
-            //                  on o.ClienteId equals c.ID
-            //                  select new
-            //                  {
-            //                      OrdenVentaId = o.Id,
-            //                      NumOperacion = o.NumOperacion,
-            //                      NumOrden = o.NumOrden,
-            //                      Cliente = c.RAZONSOCIAL,
-            //                      Producto = p.DESCRIPCION,
-            //                      Fecha = o.Fecha
-            //                  })
-            //                  .OrderBy(x => x.NumOrden)
-            //                  .ToList();
-            //    gridControlOrdenVenta.DataSource = result;
-            //    gridViewOrdenVenta.Columns[0].Visible = false;
-            //}
-            //else
-            //{
-            //    var result =
-            //        (from o in Context.OrdenVenta
-            //             .Where(x => x.Id == OrdenVentaId)
-            //         join p in Context.Vw_Producto
-            //         on o.ProductoId equals p.ID
-            //         join c in Context.Vw_Cliente
-            //         on o.ClienteId equals c.ID
-            //         select new
-            //         {
-            //             OrdenVentaId = o.Id,
-            //             NumOperacion = o.NumOperacion,
-            //             NumOrden = o.NumOrden,
-            //             Cliente = c.RAZONSOCIAL,
-            //             Producto = p.DESCRIPCION,
-            //             CajaDesde = o.DesdeCaja,
-            //             CajaHasta = o.HastaCaja,
-            //             Fecha = o.Fecha
-            //         })
-            //         .OrderBy(x => x.NumOrden)
-            //         .ToList();
-            //    gridControlOrdenVentaConsulta.DataSource = result;
-            //    gridViewOrdenVentaConsulta.Columns[0].Visible = false;
-            //}
-        }
-
         private void gridControlOrdenVentaConsulta_DoubleClick(object sender, EventArgs e)
         {
-            //Guid OrdenVentaId = new Guid(gridViewOrdenVentaConsulta
-            //    .GetRowCellValue(gridViewOrdenVentaConsulta.FocusedRowHandle, "OrdenVentaId")
-            //    .ToString());
-            //var Pendiente = gridViewOrdenVentaConsulta
-            //    .GetRowCellValue(gridViewOrdenVentaConsulta.FocusedRowHandle, "Pendiente")
-            //    .ToString();
-            //if (Pendiente.Equals(DevConstantes.SI))
-            //{
-            //    var ordenventa = new Form_AdministracionActualizarOrdenVenta(OrdenVentaId);
-            //    ordenventa.ShowDialog(this);
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Esta orden de venta está cerrada. No se pueden modificar sus datos.",
-            //        "Atención", MessageBoxButtons.OK);
-            //}
         }
 
         private void btnBuscarPendientes_Click(object sender, EventArgs e)
