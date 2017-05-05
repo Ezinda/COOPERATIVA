@@ -262,7 +262,6 @@
             // 
             // txtNumOrdenVenta
             // 
-            this.txtNumOrdenVenta.Enabled = false;
             this.txtNumOrdenVenta.Location = new System.Drawing.Point(231, 24);
             this.txtNumOrdenVenta.Name = "txtNumOrdenVenta";
             this.txtNumOrdenVenta.ReadOnly = true;
@@ -291,7 +290,6 @@
             // 
             // txtNumOperacion
             // 
-            this.txtNumOperacion.Enabled = false;
             this.txtNumOperacion.Location = new System.Drawing.Point(83, 24);
             this.txtNumOperacion.Name = "txtNumOperacion";
             this.txtNumOperacion.ReadOnly = true;

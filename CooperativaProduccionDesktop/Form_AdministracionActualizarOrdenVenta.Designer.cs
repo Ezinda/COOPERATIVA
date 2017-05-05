@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_AdministracionActualizarOrdenVenta));
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
-            this.cbOrden = new System.Windows.Forms.ComboBox();
+            this.cbProducto = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.txtCajaHasta = new System.Windows.Forms.TextBox();
@@ -43,6 +43,8 @@
             this.btnModificar = new DevExpress.XtraEditors.SimpleButton();
             this.btnEliminar = new DevExpress.XtraEditors.SimpleButton();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
+            this.cbCampaña = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.btnSalir = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
@@ -63,35 +65,35 @@
             this.ribbon.ShowDisplayOptionsMenuButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowExpandCollapseButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowToolbarCustomizeItem = false;
-            this.ribbon.Size = new System.Drawing.Size(588, 27);
+            this.ribbon.Size = new System.Drawing.Size(506, 27);
             this.ribbon.Toolbar.ShowCustomizeItem = false;
             // 
-            // cbOrden
+            // cbProducto
             // 
-            this.cbOrden.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbOrden.FormattingEnabled = true;
-            this.cbOrden.Location = new System.Drawing.Point(83, 53);
-            this.cbOrden.Name = "cbOrden";
-            this.cbOrden.Size = new System.Drawing.Size(199, 21);
-            this.cbOrden.TabIndex = 79;
-            this.cbOrden.SelectedIndexChanged += new System.EventHandler(this.cbOrden_SelectedIndexChanged);
+            this.cbProducto.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbProducto.FormattingEnabled = true;
+            this.cbProducto.Location = new System.Drawing.Point(247, 54);
+            this.cbProducto.Name = "cbProducto";
+            this.cbProducto.Size = new System.Drawing.Size(252, 21);
+            this.cbProducto.TabIndex = 79;
+            this.cbProducto.SelectedValueChanged += new System.EventHandler(this.cbProducto_SelectedValueChanged);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(5, 54);
+            this.label3.Location = new System.Drawing.Point(188, 55);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(40, 16);
+            this.label3.Size = new System.Drawing.Size(57, 16);
             this.label3.TabIndex = 78;
-            this.label3.Text = "Orden";
+            this.label3.Text = "Producto";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(445, 54);
+            this.label7.Location = new System.Drawing.Point(194, 82);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(38, 16);
             this.label7.TabIndex = 85;
@@ -99,7 +101,7 @@
             // 
             // txtCajaHasta
             // 
-            this.txtCajaHasta.Location = new System.Drawing.Point(498, 53);
+            this.txtCajaHasta.Location = new System.Drawing.Point(247, 81);
             this.txtCajaHasta.Name = "txtCajaHasta";
             this.txtCajaHasta.Size = new System.Drawing.Size(80, 21);
             this.txtCajaHasta.TabIndex = 84;
@@ -108,7 +110,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(288, 54);
+            this.label5.Location = new System.Drawing.Point(5, 82);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(67, 16);
             this.label5.TabIndex = 83;
@@ -116,9 +118,9 @@
             // 
             // txtCajaDesde
             // 
-            this.txtCajaDesde.Location = new System.Drawing.Point(352, 53);
+            this.txtCajaDesde.Location = new System.Drawing.Point(83, 81);
             this.txtCajaDesde.Name = "txtCajaDesde";
-            this.txtCajaDesde.Size = new System.Drawing.Size(80, 21);
+            this.txtCajaDesde.Size = new System.Drawing.Size(98, 21);
             this.txtCajaDesde.TabIndex = 82;
             // 
             // label4
@@ -136,7 +138,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(283, 27);
+            this.label1.Location = new System.Drawing.Point(191, 28);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(45, 16);
             this.label1.TabIndex = 86;
@@ -148,23 +150,23 @@
             this.txtOperacion.Enabled = false;
             this.txtOperacion.Location = new System.Drawing.Point(83, 26);
             this.txtOperacion.Name = "txtOperacion";
-            this.txtOperacion.Size = new System.Drawing.Size(199, 21);
+            this.txtOperacion.Size = new System.Drawing.Size(99, 21);
             this.txtOperacion.TabIndex = 88;
             // 
             // txtCliente
             // 
             this.txtCliente.Enabled = false;
-            this.txtCliente.Location = new System.Drawing.Point(326, 26);
+            this.txtCliente.Location = new System.Drawing.Point(247, 26);
             this.txtCliente.Name = "txtCliente";
-            this.txtCliente.Size = new System.Drawing.Size(253, 21);
+            this.txtCliente.Size = new System.Drawing.Size(252, 21);
             this.txtCliente.TabIndex = 89;
             // 
             // btnModificar
             // 
             this.btnModificar.Image = ((System.Drawing.Image)(resources.GetObject("btnModificar.Image")));
-            this.btnModificar.Location = new System.Drawing.Point(338, 82);
+            this.btnModificar.Location = new System.Drawing.Point(247, 109);
             this.btnModificar.Name = "btnModificar";
-            this.btnModificar.Size = new System.Drawing.Size(75, 20);
+            this.btnModificar.Size = new System.Drawing.Size(80, 20);
             this.btnModificar.TabIndex = 90;
             this.btnModificar.Text = "Modificar";
             this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
@@ -172,9 +174,9 @@
             // btnEliminar
             // 
             this.btnEliminar.Image = ((System.Drawing.Image)(resources.GetObject("btnEliminar.Image")));
-            this.btnEliminar.Location = new System.Drawing.Point(419, 82);
+            this.btnEliminar.Location = new System.Drawing.Point(333, 109);
             this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(75, 20);
+            this.btnEliminar.Size = new System.Drawing.Size(80, 20);
             this.btnEliminar.TabIndex = 91;
             this.btnEliminar.Text = "Eliminar";
             this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
@@ -184,6 +186,8 @@
             this.groupControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupControl1.Controls.Add(this.cbCampaña);
+            this.groupControl1.Controls.Add(this.label2);
             this.groupControl1.Controls.Add(this.btnSalir);
             this.groupControl1.Controls.Add(this.btnEliminar);
             this.groupControl1.Controls.Add(this.label4);
@@ -195,20 +199,40 @@
             this.groupControl1.Controls.Add(this.txtCajaHasta);
             this.groupControl1.Controls.Add(this.label1);
             this.groupControl1.Controls.Add(this.label7);
-            this.groupControl1.Controls.Add(this.cbOrden);
+            this.groupControl1.Controls.Add(this.cbProducto);
             this.groupControl1.Controls.Add(this.label3);
             this.groupControl1.Location = new System.Drawing.Point(1, 28);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(585, 110);
+            this.groupControl1.Size = new System.Drawing.Size(503, 134);
             this.groupControl1.TabIndex = 93;
             this.groupControl1.Text = "Ingreso de Cajas";
+            // 
+            // cbCampaña
+            // 
+            this.cbCampaña.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbCampaña.FormattingEnabled = true;
+            this.cbCampaña.Location = new System.Drawing.Point(83, 54);
+            this.cbCampaña.Name = "cbCampaña";
+            this.cbCampaña.Size = new System.Drawing.Size(99, 21);
+            this.cbCampaña.TabIndex = 94;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(5, 54);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(57, 16);
+            this.label2.TabIndex = 93;
+            this.label2.Text = "Campaña";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnSalir
             // 
             this.btnSalir.Image = ((System.Drawing.Image)(resources.GetObject("btnSalir.Image")));
-            this.btnSalir.Location = new System.Drawing.Point(500, 82);
+            this.btnSalir.Location = new System.Drawing.Point(419, 109);
             this.btnSalir.Name = "btnSalir";
-            this.btnSalir.Size = new System.Drawing.Size(75, 20);
+            this.btnSalir.Size = new System.Drawing.Size(80, 20);
             this.btnSalir.TabIndex = 92;
             this.btnSalir.Text = "Salir";
             this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
@@ -217,7 +241,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(588, 139);
+            this.ClientSize = new System.Drawing.Size(506, 163);
             this.Controls.Add(this.groupControl1);
             this.Controls.Add(this.ribbon);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -227,7 +251,6 @@
             this.Ribbon = this.ribbon;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Administración - Actualizar Orden de Venta";
-            this.Load += new System.EventHandler(this.Form_AdministracionActualizarOrdenVenta_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
@@ -240,7 +263,7 @@
         #endregion
 
         private DevExpress.XtraBars.Ribbon.RibbonControl ribbon;
-        private System.Windows.Forms.ComboBox cbOrden;
+        private System.Windows.Forms.ComboBox cbProducto;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txtCajaHasta;
@@ -254,5 +277,7 @@
         private DevExpress.XtraEditors.SimpleButton btnEliminar;
         private DevExpress.XtraEditors.GroupControl groupControl1;
         private DevExpress.XtraEditors.SimpleButton btnSalir;
+        private System.Windows.Forms.ComboBox cbCampaña;
+        private System.Windows.Forms.Label label2;
     }
 }

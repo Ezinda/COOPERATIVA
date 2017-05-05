@@ -126,9 +126,9 @@
             // 
             // txtOperacion
             // 
-            this.txtOperacion.Enabled = false;
             this.txtOperacion.Location = new System.Drawing.Point(73, 26);
             this.txtOperacion.Name = "txtOperacion";
+            this.txtOperacion.ReadOnly = true;
             this.txtOperacion.Size = new System.Drawing.Size(154, 21);
             this.txtOperacion.TabIndex = 88;
             // 
@@ -201,9 +201,9 @@
             // 
             // txtOrden
             // 
-            this.txtOrden.Enabled = false;
             this.txtOrden.Location = new System.Drawing.Point(271, 26);
             this.txtOrden.Name = "txtOrden";
+            this.txtOrden.ReadOnly = true;
             this.txtOrden.Size = new System.Drawing.Size(122, 21);
             this.txtOrden.TabIndex = 94;
             // 

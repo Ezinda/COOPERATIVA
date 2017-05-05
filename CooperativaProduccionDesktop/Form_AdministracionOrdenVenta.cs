@@ -136,6 +136,7 @@ namespace CooperativaProduccion
                          select new
                          {
                              Id = ovd.Id,
+                             Campaña = ovd.Campaña,
                              Producto = p.DESCRIPCION,
                              DesdeCaja = ovd.DesdeCaja,
                              HastaCaja = ovd.HastaCaja
@@ -146,11 +147,13 @@ namespace CooperativaProduccion
                        new GridOrdenVentaDetalle()
                        {
                            Id = x.Id,
+                           Campaña = x.Campaña.Value,
                            Producto = x.Producto,
                            DesdeCaja = x.DesdeCaja,
                            HastaCaja = x.HastaCaja
                        })
-                       .OrderBy(x => x.Producto)
+                       .OrderBy(x => x.Campaña)
+                       .ThenBy(x => x.Producto)
                        .ToList();
 
                     var rowOrden = new GridOrdenVenta();
@@ -457,10 +460,11 @@ namespace CooperativaProduccion
             GridView master = sender as GridView;
             GridView detail = master.GetDetailView(e.RowHandle, e.RelationIndex) as GridView;
             detail.Columns[0].Visible = false;
-            detail.Columns[1].Width = 120;
+            detail.Columns[2].Width = 120;
             detail.Columns[1].OptionsColumn.AllowEdit = false;
             detail.Columns[2].OptionsColumn.AllowEdit = false;
             detail.Columns[3].OptionsColumn.AllowEdit = false;
+            detail.Columns[4].OptionsColumn.AllowEdit = false;
             detail.DoubleClick += gridViewOrdenVentaDetalleConsulta_DoubleClick;
         }
 
@@ -564,7 +568,7 @@ namespace CooperativaProduccion
 
                 if (Pendiente.Equals(DevConstantes.SI))
                 {
-                    var ordenventa = new Form_AdministracionActualizarOrdenVenta(OrdenVentaId,true);
+                    var ordenventa = new Form_AdministracionActualizarOrdenVenta(OrdenVentaId,null,true);
                     ordenventa.ShowDialog(this);
                 }
                 else
@@ -581,13 +585,18 @@ namespace CooperativaProduccion
                .GetRowCellValue(gridViewOrdenVentaConsulta.FocusedRowHandle, "Id")
                .ToString());
 
+            GridView parcial = sender as GridView;
+            Guid OrdenVentaDetalleId = new Guid(parcial
+                          .GetRowCellValue(parcial.FocusedRowHandle, "Id")
+                          .ToString());
+
             var Pendiente = gridViewOrdenVentaConsulta
                 .GetRowCellValue(gridViewOrdenVentaConsulta.FocusedRowHandle, "Pendiente")
                 .ToString();
 
             if (Pendiente.Equals(DevConstantes.SI))
             {
-                var ordenventa = new Form_AdministracionActualizarOrdenVenta(OrdenVentaId, false);
+                var ordenventa = new Form_AdministracionActualizarOrdenVenta(OrdenVentaId,OrdenVentaDetalleId, false);
                 ordenventa.ShowDialog(this);
             }
             else

@@ -8,6 +8,7 @@ namespace CooperativaProduccion.Helpers.GridRecords
     public class GridOrdenVentaDetalle
     {
         public System.Guid Id { get; set; }
+        public int Campaña { get; set; }
         public string Producto { get; set; }
         public Nullable<long> DesdeCaja { get; set; }
         public Nullable<long> HastaCaja { get; set; }

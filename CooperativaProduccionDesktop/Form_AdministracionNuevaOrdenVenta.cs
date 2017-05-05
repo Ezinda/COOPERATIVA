@@ -10,6 +10,7 @@ using DevExpress.XtraBars;
 using DesktopEntities.Models;
 using System.Data.Entity;
 using DevExpress.Data.Browsing;
+using EntityFramework.Extensions;
 
 namespace CooperativaProduccion
 {
@@ -64,6 +65,14 @@ namespace CooperativaProduccion
                 BuscarCliente();
                 txtDomicilio.Focus();
             }
+            if (e.KeyChar == 8)
+            {
+                txtCuitCliente.Text = string.Empty;
+                txtDomicilio.Text = string.Empty;
+                txtNumero.Text = string.Empty;
+                txtPiso.Text = string.Empty;
+                txtDpto.Text = string.Empty;
+            }
         }
 
         private void txtCalle_KeyPress(object sender, KeyPressEventArgs e)
@@ -104,6 +113,11 @@ namespace CooperativaProduccion
             {
                 BuscarTransporte();
                 txtDominio.Focus();
+            }
+
+            if (e.KeyChar == 8)
+            {
+                txtCuitTransporte.Text = string.Empty;
             }
         }
 
@@ -191,6 +205,17 @@ namespace CooperativaProduccion
                     GenerarOrdenVenta();
                 }
             }
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            var resultado = MessageBox.Show("¿Desea eliminar esta orden de venta?",
+                "Atención", MessageBoxButtons.OKCancel);
+            if (resultado != DialogResult.OK)
+            {
+                return;
+            }
+            EliminarOV(OrdenVentaId);
         }
 
         #endregion
@@ -598,88 +623,49 @@ namespace CooperativaProduccion
         private void Deshabilitar()
         {
             dpFechaOrden.Enabled = false;
-            txtCliente.Enabled = false;
+            txtCliente.ReadOnly = true;
             btnBuscarCliente.Enabled = false;
-            txtDomicilio.Enabled = false;
-            txtNumero.Enabled = false;
-            txtPiso.Enabled = false;
-            txtDpto.Enabled = false;
-            txtRazonSocial.Enabled = false;
+            txtDomicilio.ReadOnly = true;
+            txtNumero.ReadOnly = true;
+            txtPiso.ReadOnly = true;
+            txtDpto.ReadOnly = true;
+            txtRazonSocial.ReadOnly = true;
             btnBuscarTransporte.Enabled = false;
-            txtDominio.Enabled = false;
-            txtDominioAcoplado.Enabled = false;
-            txtApellido.Enabled = false;
-            txtNombre.Enabled = false;
-            txtCuitChofer.Enabled = false;
+            txtDominio.ReadOnly = true;
+            txtDominioAcoplado.ReadOnly = true;
+            txtApellido.ReadOnly = true;
+            txtNombre.ReadOnly = true;
+            txtCuitChofer.ReadOnly = true;
             btnGuardar.Text = DevConstantes.HabilitarEdicion;
         }
 
         private void Habilitar()
         {
             dpFechaOrden.Enabled = true;
-            txtCliente.Enabled = true;
+            txtCliente.ReadOnly = false;
             btnBuscarCliente.Enabled = true;
-            txtDomicilio.Enabled = true;
-            txtNumero.Enabled = true;
-            txtPiso.Enabled = true;
-            txtDpto.Enabled = true;
-            txtRazonSocial.Enabled = true;
+            txtDomicilio.ReadOnly = false;
+            txtNumero.ReadOnly = false;
+            txtPiso.ReadOnly = false;
+            txtDpto.ReadOnly = false;
+            txtRazonSocial.ReadOnly = false;
             btnBuscarTransporte.Enabled = true;
-            txtDominio.Enabled = true;
-            txtDominioAcoplado.Enabled = true;
-            txtApellido.Enabled = true;
-            txtNombre.Enabled = true;
-            txtCuitChofer.Enabled = true;
-        }
-
-        #endregion
-
-        private void btnEliminar_Click(object sender, EventArgs e)
-        {
-            var resultado = MessageBox.Show("¿Desea eliminar esta orden de venta?",
-                "Atención", MessageBoxButtons.OKCancel);
-            if (resultado != DialogResult.OK)
-            {
-                return;
-            }
-            EliminarOV(OrdenVentaId);
+            txtDominio.ReadOnly = false;
+            txtDominioAcoplado.ReadOnly = false;
+            txtApellido.ReadOnly = false;
+            txtNombre.ReadOnly = false;
+            txtCuitChofer.ReadOnly = false;
         }
 
         private void EliminarOV(Guid Id)
         {
-            //var orden = Context.OrdenVenta.Find(Id);
-
-            //if (orden != null)
-            //{
-            //var cajas = Context.Caja
-            //    .Where(x => x.OrdenVentaId == Id)
-            //    .ToList();
-
-            //if (cajas.Any())
-            //{
-            //foreach (var item in cajas)
-            //{
-            //    var caja = Context.Caja.Find(item.Id);
-            //    caja.OrdenVentaId = null;
-            //    Context.Entry(caja).State = EntityState.Modified;
-            //    Context.SaveChanges();
-            //}
-
-            //}
             try
             {
-                var caja = Context.Caja
-                    .Where(x => x.OrdenVentaId == Id)
-                   // .Select(x=> new Caja() { OrdenVentaId = x.OrdenVentaId })
-                    .ToList();
+                var cajas = Context.Caja.Where(x => x.OrdenVentaId == Id)
+                    .Update(x => new Caja() { OrdenVentaId = null });
 
-                caja.ForEach(x => x.OrdenVentaId = null);
-         
-                var cata = Context.Cata
-                    .Where(x => x.OrdenVentaId == Id)
-                    .ToList();
-
-                cata.ForEach(x => x.OrdenVentaId = null);
+                var catas = Context.Cata.Where(x => x.OrdenVentaId == Id)
+                    .Update(x => new Cata() { OrdenVentaId = null });
 
                 Context.OrdenVentaDetalle.RemoveRange(Context.OrdenVentaDetalle.Where(x => x.OrdenVentaId == Id));
                 Context.OrdenVenta.RemoveRange(Context.OrdenVenta.Where(x => x.Id == Id));
@@ -690,50 +676,18 @@ namespace CooperativaProduccion
             {
                 throw;
             }
-            //var catas = Context.Cata
-            //    .Where(x => x.OrdenVentaId == Id)
-            //    .ToList();
-
-            //if (catas.Any())
-            //{
-            //    foreach (var item in catas)
-            //    {
-            //        var cata = Context.Cata.Find(item.Id);
-            //        cata.OrdenVentaId = null;
-            //        cata.NumOrden = null;
-            //        Context.Entry(cata).State = EntityState.Modified;
-            //        Context.SaveChanges();
-            //    }
-            //}
-
-            //var detalles = Context.OrdenVentaDetalle
-            //        .Where(x => x.OrdenVentaId == Id)
-            //        .ToList();
-
-            //    if (detalles.Any())
-            //    {
-            //        foreach (var item in detalles)
-            //        {
-            //            var ov = Context.OrdenVentaDetalle.Find(item.Id);
-            //            Context.Entry(ov).State = EntityState.Deleted;
-            //            Context.SaveChanges();
-            //        }
-            //    }
-
-                //var orden = Context.OrdenVenta.Find(Id);
-                //Context.Entry(orden).State = EntityState.Deleted;
-                //Context.SaveChanges();
-            //}
 
             IEnlaceActualizar mienlace = this.Owner as Form_AdministracionOrdenVenta;
-            
+
             if (mienlace != null)
             {
                 mienlace.Enviar(true);
             }
-            
+
             this.Close();
         }
+
+        #endregion
 
     }
 }
