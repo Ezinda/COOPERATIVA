@@ -1270,7 +1270,7 @@ namespace CooperativaProduccion
                 pesadaDetalle.Id = Guid.NewGuid();
                 pesadaDetalle.PesadaId = _pesadaId;
                 pesadaDetalle.ContadorFardo = ContadorNumeroFardo(pesadaId);
-                pesadaDetalle.NumFardo = NumeradorFardo();
+                pesadaDetalle.NumFardo = numFardo;
                 pesadaDetalle.ClaseId = vwclase.ID;
                 pesadaDetalle.Kilos = kilos;
                 pesadaDetalle.ClasePrecio = vwclase.PRECIOCOMPRA;
@@ -1288,6 +1288,8 @@ namespace CooperativaProduccion
 
         private long ContadorNumeroFardo(Guid PesadaId)
         {
+            CooperativaProduccionEntities context = new CooperativaProduccionEntities();
+
             long numFardo = 0;
             var pesadaDetalle = _context.PesadaDetalle
                 .Where(x => x.PesadaId == PesadaId)

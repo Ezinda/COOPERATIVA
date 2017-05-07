@@ -62,6 +62,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.opd = new System.Windows.Forms.OpenFileDialog();
+            this.btnExportarExcel = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewLiquidacionDetalle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlCata)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewCata)).BeginInit();
@@ -97,7 +98,7 @@
             this.gridControlCata.MainView = this.gridViewCata;
             this.gridControlCata.MenuManager = this.ribbon;
             this.gridControlCata.Name = "gridControlCata";
-            this.gridControlCata.Size = new System.Drawing.Size(740, 389);
+            this.gridControlCata.Size = new System.Drawing.Size(740, 359);
             this.gridControlCata.TabIndex = 68;
             this.gridControlCata.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewCata,
@@ -145,7 +146,7 @@
             this.Cata.Location = new System.Drawing.Point(4, 55);
             this.Cata.Name = "Cata";
             this.Cata.SelectedTabPage = this.TabImportacionCata;
-            this.Cata.Size = new System.Drawing.Size(750, 533);
+            this.Cata.Size = new System.Drawing.Size(750, 503);
             this.Cata.TabIndex = 74;
             this.Cata.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.TabImportacionCata,
@@ -157,7 +158,7 @@
             this.TabImportacionCata.Controls.Add(this.groupControl1);
             this.TabImportacionCata.Image = ((System.Drawing.Image)(resources.GetObject("TabImportacionCata.Image")));
             this.TabImportacionCata.Name = "TabImportacionCata";
-            this.TabImportacionCata.Size = new System.Drawing.Size(744, 502);
+            this.TabImportacionCata.Size = new System.Drawing.Size(744, 472);
             this.TabImportacionCata.Text = "Importacion de Cata";
             // 
             // groupControl1
@@ -165,18 +166,19 @@
             this.groupControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupControl1.Controls.Add(this.progressCata);
             this.groupControl1.Controls.Add(this.btnCancelarImportacion);
             this.groupControl1.Controls.Add(this.btnImportarCata);
             this.groupControl1.Controls.Add(this.txtDescripcion);
-            this.groupControl1.Controls.Add(this.progressCata);
             this.groupControl1.Location = new System.Drawing.Point(1, 1);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(742, 499);
+            this.groupControl1.Size = new System.Drawing.Size(742, 469);
             this.groupControl1.TabIndex = 72;
             this.groupControl1.Text = "Lista de Cata";
             // 
             // btnCancelarImportacion
             // 
+            this.btnCancelarImportacion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancelarImportacion.Image = ((System.Drawing.Image)(resources.GetObject("btnCancelarImportacion.Image")));
             this.btnCancelarImportacion.Location = new System.Drawing.Point(605, 24);
             this.btnCancelarImportacion.Name = "btnCancelarImportacion";
@@ -187,6 +189,7 @@
             // 
             // btnImportarCata
             // 
+            this.btnImportarCata.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnImportarCata.Image = ((System.Drawing.Image)(resources.GetObject("btnImportarCata.Image")));
             this.btnImportarCata.Location = new System.Drawing.Point(495, 24);
             this.btnImportarCata.Name = "btnImportarCata";
@@ -202,12 +205,14 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDescripcion.Location = new System.Drawing.Point(2, 59);
             this.txtDescripcion.Name = "txtDescripcion";
-            this.txtDescripcion.Size = new System.Drawing.Size(738, 440);
+            this.txtDescripcion.Size = new System.Drawing.Size(738, 410);
             this.txtDescripcion.TabIndex = 74;
             this.txtDescripcion.Text = "";
             // 
             // progressCata
             // 
+            this.progressCata.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.progressCata.Location = new System.Drawing.Point(2, 24);
             this.progressCata.Maximum = 10000000;
             this.progressCata.Name = "progressCata";
@@ -223,13 +228,14 @@
             this.TabConsultaCata.Controls.Add(this.groupControl2);
             this.TabConsultaCata.Image = ((System.Drawing.Image)(resources.GetObject("TabConsultaCata.Image")));
             this.TabConsultaCata.Name = "TabConsultaCata";
-            this.TabConsultaCata.Size = new System.Drawing.Size(744, 502);
+            this.TabConsultaCata.Size = new System.Drawing.Size(744, 472);
             this.TabConsultaCata.Text = "Consulta de Cata";
             // 
             // groupControl3
             // 
             this.groupControl3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupControl3.Controls.Add(this.btnExportarExcel);
             this.groupControl3.Controls.Add(this.btnExportarVinculacion);
             this.groupControl3.Controls.Add(this.txtDisponibles);
             this.groupControl3.Controls.Add(this.txtUtilizados);
@@ -237,7 +243,7 @@
             this.groupControl3.Controls.Add(this.label4);
             this.groupControl3.Controls.Add(this.label2);
             this.groupControl3.Controls.Add(this.label1);
-            this.groupControl3.Location = new System.Drawing.Point(1, 467);
+            this.groupControl3.Location = new System.Drawing.Point(1, 437);
             this.groupControl3.Name = "groupControl3";
             this.groupControl3.ShowCaption = false;
             this.groupControl3.Size = new System.Drawing.Size(742, 34);
@@ -314,7 +320,7 @@
             this.groupControl7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.groupControl7.Controls.Add(this.btnPrevisualizar);
             this.groupControl7.Controls.Add(this.btnSubirAfip);
-            this.groupControl7.Location = new System.Drawing.Point(1, 627);
+            this.groupControl7.Location = new System.Drawing.Point(1, 612);
             this.groupControl7.Name = "groupControl7";
             this.groupControl7.ShowCaption = false;
             this.groupControl7.Size = new System.Drawing.Size(1281, 33);
@@ -347,7 +353,7 @@
             this.groupControl6.Controls.Add(this.gridControlCata);
             this.groupControl6.Location = new System.Drawing.Point(-1, 55);
             this.groupControl6.Name = "groupControl6";
-            this.groupControl6.Size = new System.Drawing.Size(744, 411);
+            this.groupControl6.Size = new System.Drawing.Size(744, 381);
             this.groupControl6.TabIndex = 75;
             this.groupControl6.Text = "Detalle de Catas";
             // 
@@ -403,7 +409,6 @@
             this.checkTodos.TabIndex = 59;
             this.checkTodos.Text = "Todos";
             this.checkTodos.UseVisualStyleBackColor = true;
-            this.checkTodos.CheckedChanged += new System.EventHandler(this.checkTodos_CheckedChanged);
             // 
             // cbLote
             // 
@@ -434,6 +439,17 @@
             // 
             this.opd.Multiselect = true;
             // 
+            // btnExportarExcel
+            // 
+            this.btnExportarExcel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnExportarExcel.Image = ((System.Drawing.Image)(resources.GetObject("btnExportarExcel.Image")));
+            this.btnExportarExcel.Location = new System.Drawing.Point(499, 5);
+            this.btnExportarExcel.Name = "btnExportarExcel";
+            this.btnExportarExcel.Size = new System.Drawing.Size(105, 22);
+            this.btnExportarExcel.TabIndex = 63;
+            this.btnExportarExcel.Text = "Exportar Excel";
+            this.btnExportarExcel.Click += new System.EventHandler(this.btnExportarExcel_Click);
+            // 
             // Form_AdministracionGestionCata
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -446,6 +462,7 @@
             this.Ribbon = this.ribbon;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Administración - Gestión de CATA";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Form_AdministracionGestionCata_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gridViewLiquidacionDetalle)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlCata)).EndInit();
@@ -509,5 +526,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private DevExpress.XtraEditors.SimpleButton btnExportarVinculacion;
+        private DevExpress.XtraEditors.SimpleButton btnExportarExcel;
     }
 }

@@ -9,6 +9,10 @@ using System.Windows.Forms;
 using DevExpress.XtraBars;
 using System.IO;
 using DesktopEntities.Models;
+using System.Linq.Expressions;
+using Extensions;
+using System.Globalization;
+using System.Diagnostics;
 
 namespace CooperativaProduccion
 {
@@ -185,19 +189,7 @@ namespace CooperativaProduccion
         {
             BuscarCata();
         }
-        
-        private void checkTodos_CheckedChanged(object sender, EventArgs e)
-        {
-            var caja = (from c in Context.Cata
-                        group c by c.Lote into g
-                        select new { Lote = g.Key })
-                    .OrderBy(x => x.Lote)
-                    .ToList();
-            cbLote.DataSource = caja;
-            cbLote.DisplayMember = "lote";
-            cbLote.ValueMember = "lote";
-        }
-        
+              
         private void btnExportarVinculacion_Click(object sender, EventArgs e)
         {
             var resultado = MessageBox.Show("¿Desea exportar el archivo de vinculación?",
@@ -213,6 +205,27 @@ namespace CooperativaProduccion
         {
             Context = new CooperativaProduccionEntities();
             CargarCombo();
+            gridControlCata.DataSource = null;
+        }
+
+        private void btnExportarExcel_Click(object sender, EventArgs e)
+        {
+            string path = @"C:\SystemDocumentsCooperativa";
+
+            CreateIfMissing(path);
+
+            path = @"C:\SystemDocumentsCooperativa\ExcelCata";
+
+            CreateIfMissing(path);
+
+            var Hora = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff",
+              CultureInfo.InvariantCulture).Replace(":", "").Replace(".", "")
+              .Replace("-", "").Replace(" ", "");
+
+            string fileName = @"C:\SystemDocumentsCooperativa\ExcelCata\" + Hora + " - ExcelCata.xls";
+
+            gridControlCata.ExportToXls(fileName);
+            StartProcess(fileName);
         }
 
         #endregion
@@ -222,11 +235,11 @@ namespace CooperativaProduccion
         private void CargarCombo()
         {
             var caja = (from c in Context.Cata
-                            .Where(x => x.NumCaja == null)
-                         group c by c.Lote into g
-                         select new { Lote = g.Key })
-                       .OrderBy(x=>x.Lote)
+                        group c by c.Lote into g
+                        select new { Lote = g.Key })
+                       .OrderBy(x => x.Lote)
                        .ToList();
+
             cbLote.DataSource = caja;
             cbLote.DisplayMember = "lote";
             cbLote.ValueMember = "lote";
@@ -234,17 +247,33 @@ namespace CooperativaProduccion
 
         private void BuscarCata()
         {
+            Expression<Func<Cata, bool>> pred = x => true;
+
             var lote = Int64.Parse(cbLote.SelectedValue.ToString());
+
+            pred = !(checkTodos.Checked) ? 
+                pred.And(x => x.Lote == lote) : pred;
+
             var result = (
-                from a in Context.Cata.Where(x=>x.Lote == lote)
+                from a in Context.Cata.Where(pred)
+                join p in Context.Vw_Producto
+                    on a.Caja.ProductoId equals p.ID into cp
+                from joined in cp.DefaultIfEmpty()
                 select new
                 {
                     ID = a.Id,
                     Lote = a.Lote,
-                    Cata = a.NumCata,
-                    NumOrden = a.NumOrden,
-                    NumCaja = a.NumCaja
+                    Cata = (string)a.NumCata.Value.ToString() ?? string.Empty,
+                    NumOrden = a.NumOrden ?? 0,
+                    NumCaja = a.NumCaja ?? 0,
+                    Producto = joined.DESCRIPCION,
+                    Campaña = (int?)a.Caja.Campaña ?? 0,
+                    Neto = (decimal?)a.Caja.Neto ?? 0,
+                    Tara = (decimal?)a.Caja.Tara ?? 0,
+                    Bruto = (decimal?)a.Caja.Bruto ?? 0
                 })
+                .OrderBy(x => x.Lote)
+                .ThenBy(x => x.NumCaja)
                 .ToList();
 
             gridControlCata.DataSource = result;
@@ -257,20 +286,26 @@ namespace CooperativaProduccion
             gridViewCata.Columns[3].Width = 90;
             gridViewCata.Columns[4].Caption = "N° Caja";
             gridViewCata.Columns[4].Width = 90;
-
-            txtTotal.Text = CalcularTotalCata(lote);
-            txtUtilizados.Text = CalcularTotalCataUtilizadas(lote);
-            txtDisponibles.Text = CalcularTotalCataDisponibles(lote);
+            
+            txtTotal.Text = CalcularTotalCata();
+            txtUtilizados.Text = CalcularTotalCataUtilizadas();
+            txtDisponibles.Text = CalcularTotalCataDisponibles();
 
         }
 
-        private string CalcularTotalCata(Int64 Lote)
+        private string CalcularTotalCata()
         {
             string totalcata;
             int cero = 0;
+            var lote = Int64.Parse(cbLote.SelectedValue.ToString());
+            Expression<Func<Cata, bool>> pred = x => true;
+            
+            pred = !(checkTodos.Checked) ? pred.And(x => x.Lote == lote) : pred;
+
             var count = Context.Cata
-                .Where(x => x.Lote == Lote)
+                .Where(pred)
                 .Count();
+
             if (count != 0)
             {
                 totalcata = count.ToString();
@@ -282,13 +317,22 @@ namespace CooperativaProduccion
             return totalcata;
         }
 
-        private string CalcularTotalCataDisponibles(Int64 Lote)
+        private string CalcularTotalCataDisponibles()
         {
             string totalcata;
             int cero = 0;
+            var lote = Int64.Parse(cbLote.SelectedValue.ToString());
+
+            Expression<Func<Cata, bool>> pred = x => true;
+
+            pred = !(checkTodos.Checked) ? pred.And(x => x.Lote == lote) : pred;
+
+            pred = pred.And(x => x.NumCaja == null);
+
             var count = Context.Cata
-                .Where(x => x.Lote == Lote && x.NumCaja == null)
+                .Where(pred)
                 .Count();
+            
             if (count != 0)
             {
                 totalcata = count.ToString();
@@ -300,12 +344,19 @@ namespace CooperativaProduccion
             return totalcata;
         }
 
-        private string CalcularTotalCataUtilizadas(Int64 Lote)
+        private string CalcularTotalCataUtilizadas()
         {
             string totalcata;
             int cero = 0;
+            var lote = Int64.Parse(cbLote.SelectedValue.ToString());
+            Expression<Func<Cata, bool>> pred = x => true;
+
+            pred = !(checkTodos.Checked) ? pred.And(x => x.Lote == lote) : pred;
+
+            pred = pred.And(x => x.NumCaja != null);
+
             var count = Context.Cata
-                .Where(x =>x.Lote == Lote && x.NumCaja != null)
+                .Where(pred)
                 .Count();
             if (count != 0)
             {
@@ -384,6 +435,20 @@ namespace CooperativaProduccion
             catch (IOException ioex)
             {
                 Console.WriteLine(ioex.Message);
+            }
+        }
+
+        public void StartProcess(string path)
+        {
+            Process process = new Process();
+            try
+            {
+                process.StartInfo.FileName = path;
+                process.Start();
+            }
+            catch
+            {
+                throw;
             }
         }
 

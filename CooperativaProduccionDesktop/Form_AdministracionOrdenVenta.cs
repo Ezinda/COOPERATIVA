@@ -23,6 +23,8 @@ using CooperativaProduccion.Properties;
 using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 using DevExpress.Utils.Drawing;
+using CooperativaProduccion.Reports;
+using DevExpress.XtraReports.UI;
 
 namespace CooperativaProduccion
 {
@@ -604,6 +606,104 @@ namespace CooperativaProduccion
                 MessageBox.Show("Esta orden de venta está cerrada. No se pueden modificar sus datos.",
                     "Atención", MessageBoxButtons.OK);
             }
+        }
+
+        private void btnImprimirProforma_Click(object sender, EventArgs e)
+        {
+            Guid OrdenVentaId = new Guid(gridViewOrdenVentaConsulta
+             .GetRowCellValue(gridViewOrdenVentaConsulta.FocusedRowHandle, "Id")
+             .ToString());
+            
+            ImprimirProforma(OrdenVentaId);
+        }
+
+        private void ImprimirProforma(Guid OrdenVentaId)
+        {
+            var reporte = new ProformaReport();
+            CooperativaProduccionEntities Context = new CooperativaProduccionEntities();
+         
+            var ordenVenta = Context.OrdenVenta
+                .Where(x => x.Id == OrdenVentaId)
+                .FirstOrDefault();
+
+            #region Parametros Cabecera Factura - Proforma
+
+            reporte.Parameters["nroComprobante"].Value = ordenVenta.NumOrden == null ?
+                string.Empty : "N°: " + ordenVenta.NumOrden.ToString().PadLeft(6);
+            reporte.Parameters["cuitEmpresa"].Value = DevConstantes.CuitEmpresa;
+            reporte.Parameters["iibb"].Value = DevConstantes.IIBB;
+            reporte.Parameters["ines"].Value = DevConstantes.Ines;
+            reporte.Parameters["fecha"].Value = ordenVenta.Fecha == null ?
+                string.Empty : ordenVenta.Fecha.ToShortDateString();
+
+            #endregion
+
+            #region Parametros Datos Cliente
+
+            var cliente = Context.Vw_Cliente
+                .Where(x => x.ID == ordenVenta.ClienteId)
+                .FirstOrDefault();
+
+            reporte.Parameters["cliente"].Value = cliente.RAZONSOCIAL;
+
+            reporte.Parameters["domicilio"].Value = cliente.DOMICILIO == null ?
+                string.Empty : cliente.DOMICILIO;       
+
+            #endregion
+
+            #region SubReport Detalle Liquidacion
+
+            //List<GridLiquidacionDetalle> datasourceDetalle;
+            //datasourceDetalle = GenerarReporteLiquidacionDetalle(liquidacion.PesadaId);
+            //reporte.SubreportDetalleLiquidacionA.ReportSource.DataSource = datasourceDetalle;
+
+            #endregion
+
+            #region Parametros Pie de Proforma
+
+            reporte.Parameters["precio"].Value = "CONDICIÓN FCA (COOPERATIVA DE PRODUCTORES "
+                + "AGROPECUARIA DEL TUCUMAN) : PUESTO EN PLANTA INDUSTRIAL TUCUMÁN";
+
+            reporte.Parameters["cliente"].Value = cliente.RAZONSOCIAL;
+            
+            var detalle = Context.Caja
+                .Where(x => x.OrdenVentaId == ordenVenta.Id)
+                .AsEnumerable()
+                .Select(x => x.Neto)
+                .Sum();
+
+            reporte.Parameters["totalneto"].Value = detalle.ToString();
+
+            reporte.Parameters["camiones"].Value = "2 camiones";
+
+            reporte.Parameters["payto1"].Value = "STANDARD CHARTERED BANK - NEW YORK";
+            reporte.Parameters["payto2"].Value = "SWIFT SCBLUS33";
+            reporte.Parameters["payto3"].Value = "ABA 026002561";
+
+            reporte.Parameters["credit1"].Value = "BANCO MACRO S.A. - BS.AS. ARGENTINA";
+            reporte.Parameters["credit2"].Value = "CUENTA N° 3544032487001";
+            reporte.Parameters["credit3"].Value = "SWIFT BOSUARBA";
+
+            reporte.Parameters["favour1"].Value = "Denominación: Cooperativa de Productores"
+                + " Agropecuarios de Tucumán Ltda.";
+            reporte.Parameters["favour2"].Value = "N° de Cuenta: 3-140-09405839376";
+            reporte.Parameters["favour3"].Value = "CBU: 2850140230094058393761";
+            reporte.Parameters["favour4"].Value = "CUIT: 33-70819460-9";
+
+            reporte.Parameters["pie1"].Value = "Administración: Maipu 70 - piso 7 ofic. 8 " 
+                + "- S.M. de Tucumán (CP:4000)";           
+            reporte.Parameters["pie2"].Value = "Planta: Ruta 38 - Km 699 - La Invernada - La Cocha";
+            reporte.Parameters["pie3"].Value = "tel: 0381 - 4219868/4977878";
+            
+            #endregion
+
+            using (ReportPrintTool tool = new ReportPrintTool(reporte))
+            {
+                reporte.ShowPreviewMarginLines = false;
+                tool.PreviewForm.Text = "Etiqueta";
+                tool.ShowPreviewDialog();
+            }
+
         }
     }
 }

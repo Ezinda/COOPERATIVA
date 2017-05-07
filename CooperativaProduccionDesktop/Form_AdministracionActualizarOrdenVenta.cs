@@ -282,7 +282,7 @@ namespace CooperativaProduccion
                     .Where(x => x.OrdenVentaId == OrdenVentaId
                         && x.Caja.ProductoId == ProductoId
                         && x.Caja.Campaña == año)
-                        .Update(x => new Cata() { OrdenVentaId = null });
+                        .Update(x => new Cata() { OrdenVentaId = null , NumOrden = null});
 
                 var cajas = Context.Caja
                     .Where(x => x.OrdenVentaId == OrdenVentaId
@@ -383,7 +383,7 @@ namespace CooperativaProduccion
             }
             else
             {
-                btnModificar.Text = DevConstantes.Modificar;
+                btnModificar.Visible = false;
             }
         }
 

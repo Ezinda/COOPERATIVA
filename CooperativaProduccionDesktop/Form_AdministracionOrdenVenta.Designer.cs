@@ -67,6 +67,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.btnBuscarPendientes = new DevExpress.XtraEditors.SimpleButton();
             this.checkPendienteEmitirRemito = new System.Windows.Forms.CheckBox();
+            this.btnImprimirProforma = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewOrdenVentaDetalleConsulta)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlOrdenVentaConsulta)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewOrdenVentaConsulta)).BeginInit();
@@ -118,7 +119,7 @@
             this.gridControlOrdenVentaConsulta.Name = "gridControlOrdenVentaConsulta";
             this.gridControlOrdenVentaConsulta.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemButtonEdit1});
-            this.gridControlOrdenVentaConsulta.Size = new System.Drawing.Size(909, 318);
+            this.gridControlOrdenVentaConsulta.Size = new System.Drawing.Size(909, 321);
             this.gridControlOrdenVentaConsulta.TabIndex = 68;
             this.gridControlOrdenVentaConsulta.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewOrdenVentaConsulta,
@@ -183,7 +184,7 @@
             this.OrdenVenta.Name = "OrdenVenta";
             this.OrdenVenta.SelectedTabPage = this.TabNuevaOrdenVenta;
             this.OrdenVenta.ShowTabHeader = DevExpress.Utils.DefaultBoolean.True;
-            this.OrdenVenta.Size = new System.Drawing.Size(919, 461);
+            this.OrdenVenta.Size = new System.Drawing.Size(919, 464);
             this.OrdenVenta.TabIndex = 75;
             this.OrdenVenta.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.TabNuevaOrdenVenta,
@@ -195,7 +196,7 @@
             this.TabNuevaOrdenVenta.Controls.Add(this.groupControl3);
             this.TabNuevaOrdenVenta.Image = ((System.Drawing.Image)(resources.GetObject("TabNuevaOrdenVenta.Image")));
             this.TabNuevaOrdenVenta.Name = "TabNuevaOrdenVenta";
-            this.TabNuevaOrdenVenta.Size = new System.Drawing.Size(913, 430);
+            this.TabNuevaOrdenVenta.Size = new System.Drawing.Size(913, 455);
             this.TabNuevaOrdenVenta.Text = "Nueva Orden de Venta";
             // 
             // groupControl5
@@ -206,7 +207,7 @@
             this.groupControl5.Controls.Add(this.gridControlOrdenVenta);
             this.groupControl5.Location = new System.Drawing.Point(0, 54);
             this.groupControl5.Name = "groupControl5";
-            this.groupControl5.Size = new System.Drawing.Size(912, 375);
+            this.groupControl5.Size = new System.Drawing.Size(912, 400);
             this.groupControl5.TabIndex = 76;
             this.groupControl5.Text = "Detalle de Orden";
             // 
@@ -217,7 +218,7 @@
             this.gridControlOrdenVenta.MainView = this.gridViewOrdenVenta;
             this.gridControlOrdenVenta.MenuManager = this.ribbon;
             this.gridControlOrdenVenta.Name = "gridControlOrdenVenta";
-            this.gridControlOrdenVenta.Size = new System.Drawing.Size(908, 353);
+            this.gridControlOrdenVenta.Size = new System.Drawing.Size(908, 378);
             this.gridControlOrdenVenta.TabIndex = 68;
             this.gridControlOrdenVenta.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewOrdenVenta,
@@ -315,15 +316,16 @@
             this.TabConsultaOrdenVenta.Controls.Add(this.groupControl2);
             this.TabConsultaOrdenVenta.Image = ((System.Drawing.Image)(resources.GetObject("TabConsultaOrdenVenta.Image")));
             this.TabConsultaOrdenVenta.Name = "TabConsultaOrdenVenta";
-            this.TabConsultaOrdenVenta.Size = new System.Drawing.Size(913, 430);
+            this.TabConsultaOrdenVenta.Size = new System.Drawing.Size(913, 433);
             this.TabConsultaOrdenVenta.Text = "Consulta - Orden de Venta";
             // 
             // groupControl1
             // 
             this.groupControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupControl1.Controls.Add(this.btnImprimirProforma);
             this.groupControl1.Controls.Add(this.btnExportarResumen);
-            this.groupControl1.Location = new System.Drawing.Point(1, 396);
+            this.groupControl1.Location = new System.Drawing.Point(1, 399);
             this.groupControl1.Name = "groupControl1";
             this.groupControl1.ShowCaption = false;
             this.groupControl1.Size = new System.Drawing.Size(911, 33);
@@ -346,7 +348,7 @@
             this.groupControl7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.groupControl7.Controls.Add(this.btnPrevisualizar);
             this.groupControl7.Controls.Add(this.btnSubirAfip);
-            this.groupControl7.Location = new System.Drawing.Point(1, 591);
+            this.groupControl7.Location = new System.Drawing.Point(1, 592);
             this.groupControl7.Name = "groupControl7";
             this.groupControl7.ShowCaption = false;
             this.groupControl7.Size = new System.Drawing.Size(1494, 33);
@@ -379,7 +381,7 @@
             this.groupControl6.Controls.Add(this.gridControlOrdenVentaConsulta);
             this.groupControl6.Location = new System.Drawing.Point(-1, 55);
             this.groupControl6.Name = "groupControl6";
-            this.groupControl6.Size = new System.Drawing.Size(913, 340);
+            this.groupControl6.Size = new System.Drawing.Size(913, 343);
             this.groupControl6.TabIndex = 75;
             this.groupControl6.Text = "Detalle de Orden";
             // 
@@ -506,6 +508,17 @@
             this.checkPendienteEmitirRemito.Text = "Pendientes de emitir remito";
             this.checkPendienteEmitirRemito.UseVisualStyleBackColor = true;
             // 
+            // btnImprimirProforma
+            // 
+            this.btnImprimirProforma.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnImprimirProforma.Image = ((System.Drawing.Image)(resources.GetObject("btnImprimirProforma.Image")));
+            this.btnImprimirProforma.Location = new System.Drawing.Point(644, 5);
+            this.btnImprimirProforma.Name = "btnImprimirProforma";
+            this.btnImprimirProforma.Size = new System.Drawing.Size(127, 22);
+            this.btnImprimirProforma.TabIndex = 62;
+            this.btnImprimirProforma.Text = "Imprimir Proforma";
+            this.btnImprimirProforma.Click += new System.EventHandler(this.btnImprimirProforma_Click);
+            // 
             // Form_AdministracionOrdenVenta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -593,5 +606,6 @@
         private System.Windows.Forms.Label label1;
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewOrdenVentaDetalleConsulta;
         private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit repositoryItemButtonEdit1;
+        private DevExpress.XtraEditors.SimpleButton btnImprimirProforma;
     }
 }

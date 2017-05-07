@@ -94,6 +94,7 @@ namespace CooperativaProduccion
         private void Buscar(bool buscar)
         {
             CooperativaProduccionEntities Context = new CooperativaProduccionEntities();
+        
             Expression<Func<Vw_Romaneo, bool>> pred = x => true;
 
             pred = buscar.Equals(true) ? pred.And(x => x.FechaRomaneo >= dpDesdeRomaneo.Value.Date
@@ -171,7 +172,7 @@ namespace CooperativaProduccion
         {
             if (gridViewRomaneo.SelectedRowsCount > 0)
             {
-                for (int i = 0; i < gridViewRomaneo.DataRowCount; i++)
+                for (int i = 0; i <= gridViewRomaneo.DataRowCount; i++)
                 {
                     if (gridViewRomaneo.IsRowSelected(i))
                     {

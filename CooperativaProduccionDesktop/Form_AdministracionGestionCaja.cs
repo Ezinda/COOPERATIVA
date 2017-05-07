@@ -11,6 +11,11 @@ using DesktopEntities.Models;
 using System.Data.Entity;
 using System.Globalization;
 using CooperativaProduccion.Helpers;
+using System.Linq.Expressions;
+using Extensions;
+using System.Diagnostics;
+using System.IO;
+using EntityFramework.Extensions;
 
 namespace CooperativaProduccion
 {
@@ -149,18 +154,18 @@ namespace CooperativaProduccion
                     var cborden = cbProductoIngreso.SelectedItem as dynamic;
                     Guid OrdenVentaId = cborden.OrdenVentaId;
                     Guid ProductoId = cborden.ProductoId;
-                        
-                    LoteCaja = ContadorNumeroLote(dpIngresoCaja.Value.Year,ProductoId);
+                    int Campaña = dpIngresoCaja.Value.Year;
+                    LoteCaja = ContadorNumeroLote(Campaña,ProductoId);
                     for (int i = 0; i < int.Parse(txtCantidadCajaIngreso.Text); i++)
                     {
                         Caja caja;
                         caja = new Caja();
                         caja.Id = Guid.NewGuid();
                         caja.LoteCaja = LoteCaja;
-                        caja.NumeroCaja = ContadorNumeroCaja(dpIngresoCaja.Value.Year, ProductoId);
+                        caja.NumeroCaja = ContadorNumeroCaja(Campaña, ProductoId);
                         caja.Fecha = dpIngresoCaja.Value.Date;
                         caja.Hora = DateTime.Now.TimeOfDay;
-                        caja.Campaña = dpIngresoCaja.Value.Year;
+                        caja.Campaña = Campaña;
                         caja.ProductoId = ProductoId;
                         caja.OrdenVentaId = OrdenVentaId;
                         caja.Bruto = decimal.Parse(txtBruto.Text, CultureInfo.InvariantCulture);
@@ -197,6 +202,19 @@ namespace CooperativaProduccion
                         Context.SaveChanges();
                         RegistrarMovimiento(caja.Id, 1, caja.Fecha);
                     }
+
+                    #region Detalle
+                    OrdenVentaDetalle detalle;
+                    detalle = new OrdenVentaDetalle();
+                    detalle.Id = Guid.NewGuid();
+                    detalle.ProductoId = ProductoId;
+                    detalle.OrdenVentaId = OrdenVentaId;
+                    detalle.DesdeCaja = CajaDesde(OrdenVentaId, ProductoId, Campaña);
+                    detalle.HastaCaja = CajaHasta(OrdenVentaId, ProductoId, Campaña);
+                    detalle.Campaña = Campaña;
+                    Context.OrdenVentaDetalle.Add(detalle);
+                    Context.SaveChanges();
+                    #endregion
                 }
                 catch
                 {
@@ -278,25 +296,43 @@ namespace CooperativaProduccion
         {
             var ordenVenta =
                 (from o in Context.OrdenVenta 
-                 join d in Context.OrdenVentaDetalle 
-                 on o.Id equals d.OrdenVentaId
-                 join p in Context.Vw_Producto
-                 on d.ProductoId equals p.ID
+                 join c in Context.Vw_Cliente
+                 on o.ClienteId equals c.ID
                  select new OrdenVentaProducto
                  {
                      OrdenId = o.Id,
-                     ProductoId = d.ProductoId,
-                     Campaña = d.Campaña.Value,
-                     Descripcion = o.NumOrden + " - " + p.DESCRIPCION + " - " + d.Campaña,
+                     Descripcion = o.NumOrden + " - " + c.RAZONSOCIAL + " - " + o.Fecha.Year,
                  })
                 .OrderBy(x => x.Descripcion)
                 .ToList();
 
-            cbProductoIngreso.DataSource = ordenVenta;
-            cbProductoIngreso.DisplayMember = "Descripcion";
-            cbProductoIngreso.ValueMember = "OrdenId";
+            cbOrden.DataSource = ordenVenta;
+            cbOrden.DisplayMember = "Descripcion";
+            cbOrden.ValueMember = "OrdenId";
+
+            var campaña =
+               (from c in Context.Caja
+                   .Where(x => x.OrdenVentaId == null)
+                group new { c } by new
+                {
+                    Campaña = c.Campaña
+                } into g
+                select new
+                {
+                    Campaña = g.Key.Campaña
+                })
+                .OrderBy(x => x.Campaña)
+                .ToList();
+
+            cbCampaña.DataSource = campaña;
+            cbCampaña.DisplayMember = "Campaña";
+            cbCampaña.ValueMember = "Campaña";
 
             var producto = Context.Vw_Producto.ToList();
+            cbProductoIngreso.DataSource = producto;
+            cbProductoIngreso.DisplayMember = "DESCRIPCION";
+            cbProductoIngreso.ValueMember = "ID";
+
             cbProductoConsulta.DataSource = producto;
             cbProductoConsulta.DisplayMember = "DESCRIPCION";
             cbProductoConsulta.ValueMember = "ID";
@@ -421,6 +457,54 @@ namespace CooperativaProduccion
             return numFardo;
         }
 
+        private long CajaDesde(Guid OrdenVentaId,Guid ProductoId, int Campaña)
+        {
+            var deposito = Context.Vw_Deposito
+               .Where(x => x.nombre == DevConstantes.Warrants)
+               .Single();
+
+            var cajaDesde =
+                (from c in Context.Caja
+                    .Where(x => x.ProductoId == ProductoId
+                        && x.Campaña == Campaña
+                        && x.OrdenVentaId == OrdenVentaId)
+                 join m in Context.Movimiento
+                    .Where(x => x.DepositoId != deposito.id)
+                    on c.Id equals m.TransaccionId
+                 select new
+                 {
+                     NumeroCaja = c.NumeroCaja
+                 })
+                 .OrderBy(x => x.NumeroCaja)
+                 .FirstOrDefault();
+
+            return cajaDesde.NumeroCaja;
+        }
+
+        private long CajaHasta(Guid OrdenVentaId, Guid ProductoId, int Campaña)
+        {
+            var deposito = Context.Vw_Deposito
+               .Where(x => x.nombre == DevConstantes.Warrants)
+               .Single();
+
+            var cajaDesde =
+                (from c in Context.Caja
+                    .Where(x => x.ProductoId == ProductoId
+                        && x.Campaña == Campaña
+                        && x.OrdenVentaId == OrdenVentaId)
+                 join m in Context.Movimiento
+                    .Where(x => x.DepositoId != deposito.id)
+                    on c.Id equals m.TransaccionId
+                 select new
+                 {
+                     NumeroCaja = c.NumeroCaja
+                 })
+                 .OrderByDescending(x => x.NumeroCaja)
+                 .FirstOrDefault();
+
+            return cajaDesde.NumeroCaja;
+        }
+
         #endregion
 
         #endregion
@@ -508,13 +592,41 @@ namespace CooperativaProduccion
             }
         }
      
+        private void btnExportarExcel_Click(object sender, EventArgs e)
+        {
+            string path = @"C:\SystemDocumentsCooperativa";
+
+            CreateIfMissing(path);
+
+            path = @"C:\SystemDocumentsCooperativa\ExcelCaja";
+
+            CreateIfMissing(path);
+
+            var Hora = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff",
+              CultureInfo.InvariantCulture).Replace(":", "").Replace(".", "")
+              .Replace("-", "").Replace(" ", "");
+
+            string fileName = @"C:\SystemDocumentsCooperativa\ExcelCaja\" + Hora + " - ExcelCaja.xls";
+
+            gridControlCajaConsulta.ExportToXls(fileName);
+            StartProcess(fileName);
+        }
+ 
         #endregion
 
         #region Method Dev
 
         private void BuscarCajaConsulta(string cajas)
         {
+            int Campaña = int.Parse(cbCampaña.Text);
             var ProductoId = Guid.Parse(cbProductoConsulta.SelectedValue.ToString());
+
+            Expression<Func<Caja, bool>> pred = x => true;
+
+            pred = !(checkCampaña.Checked) ?
+                pred.And(x => x.Campaña == Campaña) : pred;
+
+            pred = pred.And(x => x.ProductoId == ProductoId);
 
             if (!string.IsNullOrEmpty(cajas))
             {
@@ -522,7 +634,7 @@ namespace CooperativaProduccion
 
                 var result =
                     (from c in Context.Caja
-                         .Where(x => x.ProductoId == ProductoId)
+                         .Where(pred)
                      join p in Context.Vw_Producto
                          on c.ProductoId equals p.ID into pr
                      from cp in pr.DefaultIfEmpty()
@@ -539,10 +651,11 @@ namespace CooperativaProduccion
                          Neto = c.Neto,
                          Bruto = c.Bruto,
                          Cata = joined.NumCata,
-                         Fecha = c.Fecha
+                         Campaña = c.Campaña
                      })
                      .Take(cantidad)
-                     .OrderBy(x => x.NumCaja)
+                     .OrderBy(x => x.Campaña)
+                     .ThenBy(x => x.NumCaja)
                      .ToList();
 
                 gridControlCajaConsulta.DataSource = result;
@@ -551,7 +664,7 @@ namespace CooperativaProduccion
             {
                 var result =
                   (from c in Context.Caja
-                       .Where(x => x.ProductoId == ProductoId)
+                       .Where(pred)
                    join p in Context.Vw_Producto
                         on c.ProductoId equals p.ID into pr
                    from cp in pr.DefaultIfEmpty()
@@ -568,9 +681,10 @@ namespace CooperativaProduccion
                        Neto = c.Neto,
                        Bruto = c.Bruto,
                        Cata = joined.NumCata,
-                       Fecha = c.Fecha
+                       Campaña = c.Campaña
                    })
-                   .OrderBy(x => x.NumCaja)
+                   .OrderBy(x => x.Campaña)
+                   .ThenBy(x => x.NumCaja)
                    .ToList();
 
                 gridControlCajaConsulta.DataSource = result;
@@ -607,39 +721,32 @@ namespace CooperativaProduccion
                     .GetRowCellValue(i, "Id")
                     .ToString());
 
-                var Caja = Context.Caja.Find(CajaId);
+                CooperativaProduccionEntities Context = new CooperativaProduccionEntities();
 
-                if (Caja != null)
-                {
-                    if (Caja.CataId == null)
-                    {
-                        var Cata = Context.Cata
-                            .Where(x => x.NumCaja == null);
+                var Cata = Context.Cata
+                    .Where(x => x.NumCaja == null)
+                    .FirstOrDefault();
 
-                        if (Cata != null)
-                        {
-                            Caja.CataId = Cata.FirstOrDefault().Id;
-                            Context.Entry(Caja).State = EntityState.Modified;
-                            Context.SaveChanges();
+                var cajaUpdate = Context.Caja
+                    .Where(x => x.Id == CajaId)
+                    .Update(x => new Caja() { CataId = Cata.Id });
 
-                            var ActualizarCata = Context.Cata.Find(Caja.CataId);
-                            ActualizarCata.NumCaja = Caja.NumeroCaja;
-                            ActualizarCata.CajaId = Caja.Id;
+                Context.SaveChanges();
 
-                            var ordenVenta = Context.OrdenVenta
-                                .Where(x => x.Id == Caja.OrdenVentaId)
-                                .FirstOrDefault();
+                var caja = Context.Caja
+                    .Where(x => x.Id == CajaId)
+                    .FirstOrDefault();
+                
+                var CataUpdate = Context.Cata.Where(x => x.Id == Cata.Id)
+                    .Update(x => new Cata() 
+                    { 
+                        CajaId = CajaId, 
+                        NumCaja = caja.NumeroCaja, 
+                        OrdenVentaId = caja.OrdenVentaId, 
+                        NumOrden = caja.OrdenVenta.NumOrden
+                    });
 
-                            if (ordenVenta != null)
-                            {
-                                ActualizarCata.OrdenVentaId = Caja.OrdenVentaId;
-                                ActualizarCata.NumOrden = ordenVenta.NumOrden;
-                            }
-                            Context.Entry(ActualizarCata).State = EntityState.Modified;
-                            Context.SaveChanges();
-                        }
-                    }
-                }
+                Context.SaveChanges();
             }
         }
 
@@ -657,8 +764,7 @@ namespace CooperativaProduccion
 
         private void PrintTicket(string caja, string producto, string peso, string cata)
         {
-            try
-            
+            try         
             {
                 string impresionFechaHora = DateTime.Now.ToString();
                 string s = "^XA";
@@ -708,6 +814,36 @@ namespace CooperativaProduccion
               .FirstOrDefault();
 
             return debug.Valor;
+        }
+
+        private void CreateIfMissing(string path)
+        {
+            try
+            {
+                if (!Directory.Exists(path))
+                {
+                    // Try to create the directory.
+                    DirectoryInfo di = Directory.CreateDirectory(path);
+                }
+            }
+            catch (IOException ioex)
+            {
+                Console.WriteLine(ioex.Message);
+            }
+        }
+
+        public void StartProcess(string path)
+        {
+            Process process = new Process();
+            try
+            {
+                process.StartInfo.FileName = path;
+                process.Start();
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         #endregion

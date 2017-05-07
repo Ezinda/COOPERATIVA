@@ -49,7 +49,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.groupControl5 = new DevExpress.XtraEditors.GroupControl();
-            this.btnReporte = new DevExpress.XtraEditors.SimpleButton();
             this.btnExportarExcel = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewInventarioDetalle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlInventario)).BeginInit();
@@ -288,7 +287,6 @@
             // 
             this.groupControl5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupControl5.Controls.Add(this.btnReporte);
             this.groupControl5.Controls.Add(this.btnExportarExcel);
             this.groupControl5.Location = new System.Drawing.Point(3, 572);
             this.groupControl5.Name = "groupControl5";
@@ -297,27 +295,17 @@
             this.groupControl5.TabIndex = 41;
             this.groupControl5.Text = "Nuevo Preingreso";
             // 
-            // btnReporte
-            // 
-            this.btnReporte.Appearance.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReporte.Appearance.Options.UseFont = true;
-            this.btnReporte.Image = ((System.Drawing.Image)(resources.GetObject("btnReporte.Image")));
-            this.btnReporte.Location = new System.Drawing.Point(5, 5);
-            this.btnReporte.Name = "btnReporte";
-            this.btnReporte.Size = new System.Drawing.Size(106, 22);
-            this.btnReporte.TabIndex = 43;
-            this.btnReporte.Text = "Reporte";
-            // 
             // btnExportarExcel
             // 
             this.btnExportarExcel.Appearance.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExportarExcel.Appearance.Options.UseFont = true;
             this.btnExportarExcel.Image = ((System.Drawing.Image)(resources.GetObject("btnExportarExcel.Image")));
-            this.btnExportarExcel.Location = new System.Drawing.Point(117, 5);
+            this.btnExportarExcel.Location = new System.Drawing.Point(5, 5);
             this.btnExportarExcel.Name = "btnExportarExcel";
             this.btnExportarExcel.Size = new System.Drawing.Size(106, 22);
             this.btnExportarExcel.TabIndex = 42;
             this.btnExportarExcel.Text = "Exportar Excel";
+            this.btnExportarExcel.Click += new System.EventHandler(this.btnExportarExcel_Click);
             // 
             // Form_InventarioInventarios
             // 
@@ -362,7 +350,6 @@
         private System.Windows.Forms.Label label2;
         private DevExpress.XtraEditors.SimpleButton btnBuscar;
         private DevExpress.XtraEditors.GroupControl groupControl5;
-        private DevExpress.XtraEditors.SimpleButton btnReporte;
         private DevExpress.XtraEditors.SimpleButton btnExportarExcel;
         private System.Windows.Forms.ComboBox cbClase;
         private System.Windows.Forms.Label label4;

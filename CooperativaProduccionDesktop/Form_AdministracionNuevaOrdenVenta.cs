@@ -34,17 +34,6 @@ namespace CooperativaProduccion
 
         #region Method Code
 
-        private void btnModificar_Click(object sender, EventArgs e)
-        {
-            var resultado = MessageBox.Show("¿Desea modificar esta orden de venta?",
-                   "Atención", MessageBoxButtons.OKCancel);
-            if (resultado != DialogResult.OK)
-            {
-                return;
-            }
-
-        }
-
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -665,7 +654,7 @@ namespace CooperativaProduccion
                     .Update(x => new Caja() { OrdenVentaId = null });
 
                 var catas = Context.Cata.Where(x => x.OrdenVentaId == Id)
-                    .Update(x => new Cata() { OrdenVentaId = null });
+                    .Update(x => new Cata() { OrdenVentaId = null , NumOrden = null});
 
                 Context.OrdenVentaDetalle.RemoveRange(Context.OrdenVentaDetalle.Where(x => x.OrdenVentaId == Id));
                 Context.OrdenVenta.RemoveRange(Context.OrdenVenta.Where(x => x.Id == Id));

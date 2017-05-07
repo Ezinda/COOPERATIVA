@@ -17,6 +17,7 @@ namespace CooperativaProduccion
         public static string Kg = "Kg";
         public static string Caja = "Caja";
         public static string Lote = "Lote";
+        public static string Cata = "Cata";
         public static string ImpresiónBalanza = "ImpresiónBalanza";
         public static string ImpresiónReclasificacion = "ImpresiónReclasificacion";
         public static string ImpresiónGestionReclasificacion = "ImpresiónGestionReclasificacion";

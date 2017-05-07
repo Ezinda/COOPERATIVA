@@ -17,6 +17,9 @@ using System.Reflection;
 using DevExpress.XtraGrid.Scrolling;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Base;
+using System.Globalization;
+using System.Diagnostics;
+using System.IO;
 
 namespace CooperativaProduccion
 {
@@ -277,5 +280,56 @@ namespace CooperativaProduccion
         }
 
         #endregion
+
+        private void btnExportarExcel_Click(object sender, EventArgs e)
+        {
+            string path = @"C:\SystemDocumentsCooperativa";
+
+            CreateIfMissing(path);
+
+            path = @"C:\SystemDocumentsCooperativa\ExcelInventario";
+
+            CreateIfMissing(path);
+
+            var Hora = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff",
+              CultureInfo.InvariantCulture).Replace(":", "").Replace(".", "")
+              .Replace("-", "").Replace(" ", "");
+
+            string fileName = @"C:\SystemDocumentsCooperativa\ExcelInventario\" + Hora + " - ExcelInventario.xls";
+
+            gridControlInventario.ExportToXls(fileName);
+            StartProcess(fileName);
+        }
+
+        private void CreateIfMissing(string path)
+        {
+            try
+            {
+                if (!Directory.Exists(path))
+                {
+                    // Try to create the directory.
+                    DirectoryInfo di = Directory.CreateDirectory(path);
+                }
+            }
+            catch (IOException ioex)
+            {
+                Console.WriteLine(ioex.Message);
+            }
+        }
+
+        public void StartProcess(string path)
+        {
+            Process process = new Process();
+            try
+            {
+                process.StartInfo.FileName = path;
+                process.Start();
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
     }
 }

@@ -470,6 +470,12 @@
     <Compile Include="Reports\LiquidacionElectronicaReport.Designer.cs">
       <DependentUpon>LiquidacionElectronicaReport.cs</DependentUpon>
     </Compile>
+    <Compile Include="Reports\ProformaReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ProformaReport.Designer.cs">
+      <DependentUpon>ProformaReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Reports\LiquidacionManualReport.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -726,6 +732,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\LiquidacionElectronicaReport.resx">
       <DependentUpon>LiquidacionElectronicaReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ProformaReport.resx">
+      <DependentUpon>ProformaReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\LiquidacionManualReport.resx">
       <DependentUpon>LiquidacionManualReport.cs</DependentUpon>
