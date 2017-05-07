@@ -92,7 +92,7 @@
             this.gridControlInventario.MainView = this.gridViewInventario;
             this.gridControlInventario.MenuManager = this.ribbon;
             this.gridControlInventario.Name = "gridControlInventario";
-            this.gridControlInventario.Size = new System.Drawing.Size(864, 438);
+            this.gridControlInventario.Size = new System.Drawing.Size(864, 411);
             this.gridControlInventario.TabIndex = 0;
             this.gridControlInventario.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewInventario,
@@ -141,7 +141,7 @@
             this.groupControl2.Controls.Add(this.gridControlInventario);
             this.groupControl2.Location = new System.Drawing.Point(3, 109);
             this.groupControl2.Name = "groupControl2";
-            this.groupControl2.Size = new System.Drawing.Size(868, 460);
+            this.groupControl2.Size = new System.Drawing.Size(868, 433);
             this.groupControl2.TabIndex = 22;
             this.groupControl2.Text = "Lista de Productos";
             // 
@@ -288,7 +288,7 @@
             this.groupControl5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupControl5.Controls.Add(this.btnExportarExcel);
-            this.groupControl5.Location = new System.Drawing.Point(3, 572);
+            this.groupControl5.Location = new System.Drawing.Point(3, 543);
             this.groupControl5.Name = "groupControl5";
             this.groupControl5.ShowCaption = false;
             this.groupControl5.Size = new System.Drawing.Size(868, 32);

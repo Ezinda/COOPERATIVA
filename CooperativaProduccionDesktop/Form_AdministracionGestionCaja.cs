@@ -82,7 +82,7 @@ namespace CooperativaProduccion
             }
             if (e.KeyChar == 13)
             {
-                txtTara.Focus();
+                txtCantidadCajaIngreso.Focus();
             }
         }
 
@@ -118,7 +118,7 @@ namespace CooperativaProduccion
             }
             if (e.KeyChar == 13)
             {
-                txtCantidadCajaIngreso.Focus();
+                txtBruto.Focus();
             }
         }
 
@@ -151,9 +151,10 @@ namespace CooperativaProduccion
             {
                 try
                 {
-                    var cborden = cbProductoIngreso.SelectedItem as dynamic;
-                    Guid OrdenVentaId = cborden.OrdenVentaId;
-                    Guid ProductoId = cborden.ProductoId;
+                    var cborden = cbOrden.SelectedItem as dynamic;
+                    Guid OrdenVentaId = cborden.OrdenId;
+                    var cbproducto = cbProductoIngreso.SelectedItem as dynamic;
+                    Guid ProductoId = cbproducto.ID;
                     int Campaña = dpIngresoCaja.Value.Year;
                     LoteCaja = ContadorNumeroLote(Campaña,ProductoId);
                     for (int i = 0; i < int.Parse(txtCantidadCajaIngreso.Text); i++)
@@ -180,6 +181,8 @@ namespace CooperativaProduccion
                             if (cata != null)
                             {
                                 caja.CataId = cata.FirstOrDefault().Id;
+                                Context.Caja.Add(caja);
+                                Context.SaveChanges();
 
                                 var NumCata = Context.Cata.Find(caja.CataId);
                                 NumCata.NumCaja = caja.NumeroCaja;
@@ -198,8 +201,7 @@ namespace CooperativaProduccion
                                 Context.SaveChanges();
                             }
                         }
-                        Context.Caja.Add(caja);
-                        Context.SaveChanges();
+                       
                         RegistrarMovimiento(caja.Id, 1, caja.Fecha);
                     }
 
@@ -298,7 +300,7 @@ namespace CooperativaProduccion
                 (from o in Context.OrdenVenta 
                  join c in Context.Vw_Cliente
                  on o.ClienteId equals c.ID
-                 select new OrdenVentaProducto
+                 select new 
                  {
                      OrdenId = o.Id,
                      Descripcion = o.NumOrden + " - " + c.RAZONSOCIAL + " - " + o.Fecha.Year,
@@ -312,7 +314,6 @@ namespace CooperativaProduccion
 
             var campaña =
                (from c in Context.Caja
-                   .Where(x => x.OrdenVentaId == null)
                 group new { c } by new
                 {
                     Campaña = c.Campaña
