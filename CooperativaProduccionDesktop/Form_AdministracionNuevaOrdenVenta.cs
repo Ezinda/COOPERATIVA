@@ -276,8 +276,8 @@ namespace CooperativaProduccion
                             {
                                 ClienteId = busquedaNombre.ID;
                                 txtCliente.Text = busquedaNombre.CLIENTE;
-                                txtDomicilio.Text = busqueda.DOMICILIO;
-                                txtCuitCliente.Text = busqueda.CUIT;
+                                txtDomicilio.Text = busquedaNombre.DOMICILIO;
+                                txtCuitCliente.Text = busquedaNombre.CUIT;
                             }
                         }
                     }
