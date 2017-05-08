@@ -32,6 +32,7 @@
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
             this.dgvListaPrecio = new System.Windows.Forms.DataGridView();
+            this.btnExportar = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
             this.groupControl2.SuspendLayout();
@@ -59,10 +60,9 @@
             // groupControl2
             // 
             this.groupControl2.Controls.Add(this.dgvListaPrecio);
-            this.groupControl2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupControl2.Location = new System.Drawing.Point(0, 27);
+            this.groupControl2.Location = new System.Drawing.Point(0, 57);
             this.groupControl2.Name = "groupControl2";
-            this.groupControl2.Size = new System.Drawing.Size(404, 513);
+            this.groupControl2.Size = new System.Drawing.Size(404, 482);
             this.groupControl2.TabIndex = 22;
             this.groupControl2.Text = "Lista de Precio";
             // 
@@ -75,18 +75,29 @@
             this.dgvListaPrecio.Location = new System.Drawing.Point(2, 20);
             this.dgvListaPrecio.Name = "dgvListaPrecio";
             this.dgvListaPrecio.RowHeadersVisible = false;
-            this.dgvListaPrecio.Size = new System.Drawing.Size(400, 491);
+            this.dgvListaPrecio.Size = new System.Drawing.Size(400, 460);
             this.dgvListaPrecio.TabIndex = 0;
             this.dgvListaPrecio.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dgvListaPrecio_CellBeginEdit);
             this.dgvListaPrecio.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvListaPrecio_CellEndEdit);
             this.dgvListaPrecio.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvListaPrecio_DataBindingComplete);
             this.dgvListaPrecio.SelectionChanged += new System.EventHandler(this.dgvListaPrecio_SelectionChanged);
             // 
+            // btnExportar
+            // 
+            this.btnExportar.Image = ((System.Drawing.Image)(resources.GetObject("btnExportar.Image")));
+            this.btnExportar.Location = new System.Drawing.Point(2, 31);
+            this.btnExportar.Name = "btnExportar";
+            this.btnExportar.Size = new System.Drawing.Size(107, 22);
+            this.btnExportar.TabIndex = 40;
+            this.btnExportar.Text = "Exportar Excel";
+            this.btnExportar.Click += new System.EventHandler(this.btnExportar_Click);
+            // 
             // Form_AdministracionListaPrecio
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(404, 540);
+            this.Controls.Add(this.btnExportar);
             this.Controls.Add(this.groupControl2);
             this.Controls.Add(this.ribbon);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -110,5 +121,6 @@
         private DevExpress.XtraBars.Ribbon.RibbonControl ribbon;
         private DevExpress.XtraEditors.GroupControl groupControl2;
         private System.Windows.Forms.DataGridView dgvListaPrecio;
+        private DevExpress.XtraEditors.SimpleButton btnExportar;
     }
 }

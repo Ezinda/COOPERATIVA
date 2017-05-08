@@ -24,6 +24,7 @@ using System.Globalization;
 using CooperativaProduccion.ReportModels;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid;
+using EntityFramework.Extensions;
 
 namespace CooperativaProduccion
 {
@@ -105,7 +106,6 @@ namespace CooperativaProduccion
             var result = (
                from a in Context.Vw_Romaneo
                    .Where(pred)
-                   .Where(x=>x.OrdenPagoId == null)
                select new
                {
                    ID = a.PesadaId,
@@ -153,7 +153,7 @@ namespace CooperativaProduccion
             gridViewRomaneo.Columns[8].Width = 40;
             gridViewRomaneo.Columns[8].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
             gridViewRomaneo.Columns[8].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-            gridViewRomaneo.Columns[9].Caption = "Bruto sin IVA";
+            gridViewRomaneo.Columns[9].Caption = "Bruto";
             gridViewRomaneo.Columns[9].Width = 60;
             gridViewRomaneo.Columns[9].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
             gridViewRomaneo.Columns[9].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
@@ -170,9 +170,11 @@ namespace CooperativaProduccion
 
         private void Liquidar()
         {
+            int PuntoVenta = NumeroPuntoVentaLiquidacion();
+
             if (gridViewRomaneo.SelectedRowsCount > 0)
             {
-                for (int i = 0; i <= gridViewRomaneo.DataRowCount; i++)
+                for (int i = 0; i <= gridViewRomaneo.RowCount; i++)
                 {
                     if (gridViewRomaneo.IsRowSelected(i))
                     {
@@ -244,16 +246,92 @@ namespace CooperativaProduccion
                             }
 
                             #endregion
+
+                            #region nueva liquidacion
+                            //Guid Id = new Guid(gridViewRomaneo
+                            //    .GetRowCellValue(i, "ID")
+                            //    .ToString());
+
+                            //var vwromaneo = Context.Vw_Romaneo
+                            //        .Where(x => x.PesadaId == Id)
+                            //        .FirstOrDefault();
+
+                            //var productor = Context.Vw_Productor
+                            //    .Where(x => x.ID == vwromaneo.ProductorId.Value)
+                            //    .FirstOrDefault();
+
+                            //string condIva = productor.IVA == "RI" ? DevConstantes.A : DevConstantes.B;
+
+                            //long NumeroInternoLiquidacion = ContadorNumeroInternoLiquidacion(condIva);
+
+                            //DateTime FechaLiquidacion = DateTime.Parse(gridViewRomaneo
+                            //    .GetRowCellValue(i, "FECHA")
+                            //    .ToString())
+                            //    .Date;
+
+                            //var subtotal = vwromaneo.ImporteBruto;
+
+                            //var romaneo = Context.Pesada
+                            //    .Where(x => x.Id == Id)
+                            //    .FirstOrDefault();
+
+                            //var iva = subtotal * (romaneo.IvaPorcentaje / 100);
+
+                            //var total = subtotal + iva;
+
+                            //decimal ImporteNeto = productor.IVA == "RI" ?
+                            //    decimal.Round(subtotal.Value, 2, MidpointRounding.AwayFromZero) :
+                            //    romaneo.ImporteBruto.Value;
+
+                            //decimal IvaCalculado = productor.IVA == "RI" ?
+                            //    decimal.Round(iva.Value, 2, MidpointRounding.AwayFromZero) :
+                            //    decimal.Round(0, 2, MidpointRounding.AwayFromZero);
+
+                            //decimal Total = productor.IVA == "RI" ?
+                            //    decimal.Round(total.Value, 2, MidpointRounding.AwayFromZero) :
+                            //    romaneo.ImporteBruto.Value;
+
+                            //var Pesada = Context.Pesada.Where(x => x.Id == Id)
+                            //    .Update(x => new Pesada()
+                            //    {
+                            //        PuntoVentaLiquidacion = PuntoVenta,
+                            //        NumInternoLiquidacion = NumeroInternoLiquidacion,
+                            //        FechaInternaLiquidacion = FechaLiquidacion,
+                            //        condIva = condIva,
+                            //        ImporteNeto = ImporteNeto,
+                            //        IvaCalculado = IvaCalculado,
+                            //        Total = Total
+                            //    });
+
+                            //Context.SaveChanges();
+                            //ActualizarContador(condIva, NumeroInternoLiquidacion);
+                            #endregion
                         }
                     }
                 }
             }
         }
 
+        //private void ActualizarContador(string Iva,long Numero)
+        //{
+        //    string Nombre = Iva == DevConstantes.A ? 
+        //        DevConstantes.LiquidacionA : 
+        //        DevConstantes.LiquidacionB;
+
+        //    var Contador = Context.Contador.Where(x => x.Nombre == Nombre)
+        //    .Update(x => new Contador()
+        //    {
+        //        Valor = Numero + 1
+        //    });
+
+        //    Context.SaveChanges();     
+        //}
+
         private long ContadorNumeroInternoLiquidacion(string Iva)
         {
             if (Iva.Equals(DevConstantes.A))
             {
+                CooperativaProduccionEntities Context = new CooperativaProduccionEntities();
                 var contador = Context.Contador
                    .Where(x => x.Nombre.Equals(DevConstantes.LiquidacionA))
                    .FirstOrDefault();
@@ -269,6 +347,7 @@ namespace CooperativaProduccion
             }
             else
             {
+                CooperativaProduccionEntities Context = new CooperativaProduccionEntities();
                 var contador = Context.Contador
                    .Where(x => x.Nombre.Equals(DevConstantes.LiquidacionB))
                    .FirstOrDefault();

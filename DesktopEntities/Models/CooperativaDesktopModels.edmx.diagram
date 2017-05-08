@@ -5,8 +5,8 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="8c0a263bdce7457da51fd62f656dcf9e" Name="Diagram1" ZoomLevel="13">
-        <EntityTypeShape EntityType="CooperativaProduccionModel.Caja" Width="1.5" PointX="3" PointY="4.5" />
-        <EntityTypeShape EntityType="CooperativaProduccionModel.Cata" Width="1.5" PointX="5.25" PointY="5.75" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.Caja" Width="1.5" PointX="3" PointY="1.375" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.Cata" Width="1.5" PointX="5.25" PointY="4.25" />
         <EntityTypeShape EntityType="CooperativaProduccionModel.Clase" Width="1.5" PointX="12.75" PointY="0.75" />
         <EntityTypeShape EntityType="CooperativaProduccionModel.ConceptoDeOrdenDePago" Width="1.5" PointX="10" PointY="2.625" />
         <EntityTypeShape EntityType="CooperativaProduccionModel.Configuracion" Width="1.5" PointX="12.75" PointY="8.75" />
@@ -14,7 +14,7 @@
         <EntityTypeShape EntityType="CooperativaProduccionModel.Movimiento" Width="1.5" PointX="0.75" PointY="14.75" />
         <EntityTypeShape EntityType="CooperativaProduccionModel.OrdenPago" Width="1.5" PointX="7.75" PointY="2.5" />
         <EntityTypeShape EntityType="CooperativaProduccionModel.OrdenVenta" Width="1.5" PointX="0.75" PointY="4.875" />
-        <EntityTypeShape EntityType="CooperativaProduccionModel.OrdenVentaDetalle" Width="1.5" PointX="3" PointY="1.375" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.OrdenVentaDetalle" Width="1.5" PointX="3" PointY="6.125" />
         <EntityTypeShape EntityType="CooperativaProduccionModel.Pago" Width="1.5" PointX="10" PointY="8.5" />
         <EntityTypeShape EntityType="CooperativaProduccionModel.PagoDetalle" Width="1.5" PointX="12.25" PointY="5.5" />
         <EntityTypeShape EntityType="CooperativaProduccionModel.ParamPagos" Width="1.5" PointX="2.75" PointY="14.75" />
