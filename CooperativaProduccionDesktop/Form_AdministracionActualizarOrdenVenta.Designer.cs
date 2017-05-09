@@ -33,7 +33,7 @@
             this.cbProducto = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.txtCantidadCaja = new System.Windows.Forms.TextBox();
+            this.txtCajaDesde = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txtOperacion = new System.Windows.Forms.TextBox();
@@ -41,6 +41,8 @@
             this.btnModificar = new DevExpress.XtraEditors.SimpleButton();
             this.btnEliminar = new DevExpress.XtraEditors.SimpleButton();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
+            this.txtCajaHasta = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.cbCampaña = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.btnSalir = new DevExpress.XtraEditors.SimpleButton();
@@ -63,7 +65,7 @@
             this.ribbon.ShowDisplayOptionsMenuButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowExpandCollapseButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowToolbarCustomizeItem = false;
-            this.ribbon.Size = new System.Drawing.Size(506, 27);
+            this.ribbon.Size = new System.Drawing.Size(515, 27);
             this.ribbon.Toolbar.ShowCustomizeItem = false;
             // 
             // cbProducto
@@ -93,16 +95,16 @@
             this.label5.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(5, 82);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(102, 16);
+            this.label5.Size = new System.Drawing.Size(67, 16);
             this.label5.TabIndex = 83;
-            this.label5.Text = "Cantidad de cajas";
+            this.label5.Text = "Caja Desde";
             // 
-            // txtCantidadCaja
+            // txtCajaDesde
             // 
-            this.txtCantidadCaja.Location = new System.Drawing.Point(103, 81);
-            this.txtCantidadCaja.Name = "txtCantidadCaja";
-            this.txtCantidadCaja.Size = new System.Drawing.Size(79, 21);
-            this.txtCantidadCaja.TabIndex = 82;
+            this.txtCajaDesde.Location = new System.Drawing.Point(103, 81);
+            this.txtCajaDesde.Name = "txtCajaDesde";
+            this.txtCajaDesde.Size = new System.Drawing.Size(79, 21);
+            this.txtCajaDesde.TabIndex = 82;
             // 
             // label4
             // 
@@ -145,7 +147,7 @@
             // btnModificar
             // 
             this.btnModificar.Image = ((System.Drawing.Image)(resources.GetObject("btnModificar.Image")));
-            this.btnModificar.Location = new System.Drawing.Point(247, 84);
+            this.btnModificar.Location = new System.Drawing.Point(247, 113);
             this.btnModificar.Name = "btnModificar";
             this.btnModificar.Size = new System.Drawing.Size(80, 20);
             this.btnModificar.TabIndex = 90;
@@ -155,7 +157,7 @@
             // btnEliminar
             // 
             this.btnEliminar.Image = ((System.Drawing.Image)(resources.GetObject("btnEliminar.Image")));
-            this.btnEliminar.Location = new System.Drawing.Point(333, 84);
+            this.btnEliminar.Location = new System.Drawing.Point(333, 113);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(80, 20);
             this.btnEliminar.TabIndex = 91;
@@ -167,13 +169,15 @@
             this.groupControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupControl1.Controls.Add(this.txtCajaHasta);
+            this.groupControl1.Controls.Add(this.label6);
             this.groupControl1.Controls.Add(this.cbCampaña);
             this.groupControl1.Controls.Add(this.label2);
             this.groupControl1.Controls.Add(this.btnSalir);
             this.groupControl1.Controls.Add(this.btnEliminar);
             this.groupControl1.Controls.Add(this.label4);
             this.groupControl1.Controls.Add(this.btnModificar);
-            this.groupControl1.Controls.Add(this.txtCantidadCaja);
+            this.groupControl1.Controls.Add(this.txtCajaDesde);
             this.groupControl1.Controls.Add(this.txtCliente);
             this.groupControl1.Controls.Add(this.label5);
             this.groupControl1.Controls.Add(this.txtOperacion);
@@ -182,9 +186,26 @@
             this.groupControl1.Controls.Add(this.label3);
             this.groupControl1.Location = new System.Drawing.Point(1, 28);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(503, 109);
+            this.groupControl1.Size = new System.Drawing.Size(512, 144);
             this.groupControl1.TabIndex = 93;
             this.groupControl1.Text = "Ingreso de Cajas";
+            // 
+            // txtCajaHasta
+            // 
+            this.txtCajaHasta.Location = new System.Drawing.Point(247, 81);
+            this.txtCajaHasta.Name = "txtCajaHasta";
+            this.txtCajaHasta.Size = new System.Drawing.Size(79, 21);
+            this.txtCajaHasta.TabIndex = 95;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(188, 86);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(38, 16);
+            this.label6.TabIndex = 96;
+            this.label6.Text = "Hasta";
             // 
             // cbCampaña
             // 
@@ -209,7 +230,7 @@
             // btnSalir
             // 
             this.btnSalir.Image = ((System.Drawing.Image)(resources.GetObject("btnSalir.Image")));
-            this.btnSalir.Location = new System.Drawing.Point(419, 84);
+            this.btnSalir.Location = new System.Drawing.Point(419, 113);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(80, 20);
             this.btnSalir.TabIndex = 92;
@@ -220,7 +241,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(506, 138);
+            this.ClientSize = new System.Drawing.Size(515, 173);
             this.Controls.Add(this.groupControl1);
             this.Controls.Add(this.ribbon);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -245,7 +266,7 @@
         private System.Windows.Forms.ComboBox cbProducto;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox txtCantidadCaja;
+        private System.Windows.Forms.TextBox txtCajaDesde;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtOperacion;
@@ -256,5 +277,7 @@
         private DevExpress.XtraEditors.SimpleButton btnSalir;
         private System.Windows.Forms.ComboBox cbCampaña;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtCajaHasta;
+        private System.Windows.Forms.Label label6;
     }
 }

@@ -52,7 +52,7 @@ namespace CooperativaProduccion
         private void btnModificar_Click(object sender, EventArgs e)
         {
             var resultado = MessageBox.Show("¿Desea modificar esta orden de venta?",
-                   "Atención", MessageBoxButtons.OKCancel);
+               "Atención", MessageBoxButtons.OKCancel);
             if (resultado != DialogResult.OK)
             {
                 return;
@@ -61,17 +61,16 @@ namespace CooperativaProduccion
             Guid ProductoId = Producto.ID;
             var Campaña = cbCampaña.SelectedItem as dynamic;
             int año = Campaña.Campaña;
-            int cantidad = int.Parse(txtCantidadCaja.Text);
-            Modificar(OrdenVentaId, ProductoId, año, cantidad);
+            Modificar(OrdenVentaId, ProductoId, año);
         }
 
         private void cbProducto_SelectedValueChanged(object sender, EventArgs e)
         {
-            //var Producto = cbProducto.SelectedItem as dynamic;
-            //Guid ProductoId = Producto.ID;
-            //var Campaña = cbCampaña.SelectedItem as dynamic;
-            //int año = Campaña.Campaña;
-            //CargarCajas(ProductoId, año);
+            var Producto = cbProducto.SelectedItem as dynamic;
+            Guid ProductoId = Producto.ID;
+            var Campaña = cbCampaña.SelectedItem as dynamic;
+            int año = Campaña.Campaña;
+            CargarCajas(ProductoId, año);
         }
 
         #endregion
@@ -141,7 +140,7 @@ namespace CooperativaProduccion
                  (from o in Context.OrdenVenta
                     .Where(x => x.Id == Id)
                   join ovd in Context.OrdenVentaDetalle
-                    .Where(x=>x.Id == OrdenVentaDetalleId)
+                    .Where(x => x.Id == OrdenVentaDetalleId)
                     on o.Id equals ovd.OrdenVentaId
                   join p in Context.Vw_Producto
                     on ovd.ProductoId equals p.ID
@@ -180,16 +179,17 @@ namespace CooperativaProduccion
                 txtCliente.Text = ordenVenta.FirstOrDefault().Cliente;
             }
             var detalle = Context.OrdenVentaDetalle.Where(x => x.Id == OrdenVentaDetalleId).FirstOrDefault();
-          //  txtCantidadCaja.Text = detalle.DesdeCaja.Value.ToString();
-            
-            
+            txtCajaDesde.Text = detalle.DesdeCaja.Value.ToString();
+            txtCajaHasta.Text = detalle.HastaCaja.Value.ToString();
+
+
         }
 
-        private void Modificar(Guid OrdenVentaId, Guid ProductoId, int año, int cantidad)
+        private void Modificar(Guid OrdenVentaId, Guid ProductoId, int año)
         {
             if (btnModificar.Text == DevConstantes.Guardar)
             {
-                GuardarDatos(OrdenVentaId, ProductoId, año,cantidad,true);
+                GuardarDatos(OrdenVentaId, ProductoId, año,true);
             }
             //else if (btnModificar.Text == DevConstantes.Modificar)
             //{
@@ -197,23 +197,24 @@ namespace CooperativaProduccion
             //}
         }
 
-        private void GuardarDatos(Guid OrdenVentaId, Guid ProductoId, int año, int cantidad,bool nuevoDetalle)
+        private void GuardarDatos(Guid OrdenVentaId, Guid ProductoId, int año, bool nuevoDetalle)
         {
             try
             {
+
                 OrdenVentaDetalle detalle;
                 detalle = new OrdenVentaDetalle();
                 detalle.Id = Guid.NewGuid();
                 detalle.OrdenVentaId = OrdenVentaId;
                 detalle.Campaña = año;
                 detalle.ProductoId = ProductoId;
+                detalle.DesdeCaja = long.Parse(txtCajaDesde.Text);
+                detalle.HastaCaja = long.Parse(txtCajaHasta.Text);
                 Context.OrdenVentaDetalle.Add(detalle);
                 Context.SaveChanges();
 
-                AsociarOVaCaja(OrdenVentaId, ProductoId, año, cantidad);
+                AsociarOVaCaja(OrdenVentaId, ProductoId, año, detalle.DesdeCaja.Value, detalle.HastaCaja.Value);
 
-                ActualizarDesdeHasta(OrdenVentaId, ProductoId, año);
-           
             }
             catch
             {
@@ -233,48 +234,6 @@ namespace CooperativaProduccion
             }
         }
 
-        private void ActualizarDesdeHasta(Guid OrdenVentaId, Guid ProductoId, int año)
-        {
-            long desde;
-            long hasta;
-
-            var cajaDesde =
-                (from c in Context.Caja
-                     .Where(x => x.ProductoId == ProductoId
-                         && x.Campaña == año
-                         && x.OrdenVentaId == OrdenVentaId)
-                 select new
-                 {
-                     NumeroCaja = c.NumeroCaja
-                 })
-                 .OrderBy(x => x.NumeroCaja)
-                 .FirstOrDefault();
-                         
-            desde = cajaDesde.NumeroCaja;
-            
-            var cajaHasta =
-                (from c in Context.Caja
-                     .Where(x => x.ProductoId == ProductoId
-                         && x.Campaña == año
-                         && x.OrdenVentaId == OrdenVentaId)
-                select new
-                 {
-                     NumeroCaja = c.NumeroCaja
-                 })
-                .OrderByDescending(x => x.NumeroCaja)
-                .FirstOrDefault();
-
-            hasta = cajaHasta.NumeroCaja;
-            
-            var OrdenDetalle = Context.OrdenVentaDetalle
-            .Where(x => x.ProductoId == ProductoId
-                && x.Campaña == año
-                && x.OrdenVentaId == OrdenVentaId)
-            .Update(x => new OrdenVentaDetalle() { DesdeCaja = desde, HastaCaja = hasta });
-
-            Context.SaveChanges();
-        }
-
         private void ModificarDatos(Guid OrdenVentaId, Guid ProductoId, int año)
         {
             //Eliminar(OrdenVentaId, ProductoId, año, false);
@@ -291,43 +250,27 @@ namespace CooperativaProduccion
             //this.Close();
         }
 
-        private void AsociarOVaCaja(Guid OrdenVentaId, Guid ProductoId, int año, int cantidad)
+        private void AsociarOVaCaja(Guid OrdenVentaId, Guid ProductoId, int año, long desde, long hasta)
         {
             var cajas = Context.Caja
                    .Where(x => x.ProductoId == ProductoId
-                       && x.Campaña == año)
-                       .OrderBy(x => x.NumeroCaja)
-                       .Take(cantidad)
+                       && x.Campaña == año
+                       && x.NumeroCaja >= desde
+                       && x.NumeroCaja <= hasta)
                        .Update(x => new Caja() { OrdenVentaId = OrdenVentaId });
-
-            Context.SaveChanges();
 
             var orden = Context.OrdenVenta
                 .Where(x => x.Id == OrdenVentaId)
                 .FirstOrDefault();
 
-            CooperativaProduccionEntities _context = new CooperativaProduccionEntities();
+            var catas = Context.Cata
+                   .Where(x => x.Caja.ProductoId == ProductoId
+                       && x.Caja.Campaña == año
+                       && x.Caja.NumeroCaja >= desde
+                       && x.Caja.NumeroCaja <= hasta)
+                       .Update(x => new Cata() { OrdenVentaId = OrdenVentaId, NumOrden = orden.NumOrden });
 
-            var caja = _context.Caja
-                .Where(x => x.ProductoId == ProductoId
-                && x.Campaña == año
-                && x.OrdenVentaId == OrdenVentaId).ToList();
-
-            foreach (var item in caja)
-            {
-                var cata = Context.Cata.Find(item.CataId);
-                cata.OrdenVentaId = OrdenVentaId;
-                cata.NumOrden = orden.NumOrden;
-                Context.Entry(cata).State = EntityState.Modified;
-                Context.SaveChanges();
-            }
-            //var catas = Context.Cata
-            //       .Where(x => x.Caja.ProductoId == ProductoId
-            //           && x.Caja.Campaña == año)
-            //           .Take(cantidad)
-            //           .Update(x => new Cata() { OrdenVentaId = OrdenVentaId, NumOrden = orden.NumOrden });
-
-            //Context.SaveChanges();
+            Context.SaveChanges();
         }
 
         private void Eliminar(Guid OrdenVentaId,Guid OrdenVentaDetalleId, Guid ProductoId, int año, bool eliminarDetalle)
@@ -368,16 +311,78 @@ namespace CooperativaProduccion
         }
 
         private void CargarCajas(Guid ProductoId, int Campaña)
-        {          
-           
+        {
+            var deposito = Context.Vw_Deposito
+               .Where(x => x.nombre == DevConstantes.Warrants)
+               .Single();
+
+            var caja =
+                    (from c in Context.Caja
+                     .Where(x => x.ProductoId == ProductoId
+                         && x.Campaña == Campaña)
+                     join m in Context.Movimiento
+                     .Where(x => x.DepositoId != deposito.id)
+                     on c.Id equals m.TransaccionId
+                     select new
+                     {
+                         NumeroCaja = c.NumeroCaja
+                     })
+                     .Any();
+
+            if (caja)
+            {
+                var cajaDesde =
+                    (from c in Context.Caja
+                         .Where(x => x.ProductoId == ProductoId
+                             && x.Campaña == Campaña)
+                     join m in Context.Movimiento
+                        .Where(x => x.DepositoId != deposito.id)
+                        on c.Id equals m.TransaccionId
+                     select new
+                     {
+                         NumeroCaja = c.NumeroCaja
+                     })
+                     .OrderBy(x => x.NumeroCaja)
+                     .FirstOrDefault();
+
+                if (cajaDesde != null)
+                {
+                    txtCajaDesde.Text = cajaDesde.NumeroCaja.ToString();
+                }
+
+                var cajaHasta =
+                    (from c in Context.Caja
+                         .Where(x => x.ProductoId == ProductoId
+                             && x.Campaña == Campaña)
+                     join m in Context.Movimiento
+                     .Where(x => x.DepositoId != deposito.id)
+                     on c.Id equals m.TransaccionId
+                     select new
+                     {
+                         NumeroCaja = c.NumeroCaja
+                     })
+                    .OrderByDescending(x => x.NumeroCaja)
+                    .FirstOrDefault();
+
+                if (cajaHasta != null)
+                {
+                    txtCajaHasta.Text = cajaHasta.NumeroCaja.ToString();
+                }
+            }
+            else
+            {
+                txtCajaDesde.Text = string.Empty;
+                txtCajaHasta.Text = string.Empty;
+            }
         }
+
 
         private void UbicarBotones(Guid? OrdenVentaDetalleId)
         {
             if (OrdenVentaDetalleId == null)
             {
                 btnModificar.Text = DevConstantes.Guardar;
-                btnModificar.Location = new Point(333, 84);
+                btnModificar.Location = new Point(333, 113);
                 btnEliminar.Visible = false;
             }
             else
