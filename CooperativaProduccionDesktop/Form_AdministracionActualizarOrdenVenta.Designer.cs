@@ -32,10 +32,8 @@
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.cbProducto = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.txtCajaHasta = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.txtCajaDesde = new System.Windows.Forms.TextBox();
+            this.txtCantidadCaja = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txtOperacion = new System.Windows.Forms.TextBox();
@@ -89,39 +87,22 @@
             this.label3.Text = "Producto";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(194, 82);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(38, 16);
-            this.label7.TabIndex = 85;
-            this.label7.Text = "Hasta";
-            // 
-            // txtCajaHasta
-            // 
-            this.txtCajaHasta.Location = new System.Drawing.Point(247, 81);
-            this.txtCajaHasta.Name = "txtCajaHasta";
-            this.txtCajaHasta.Size = new System.Drawing.Size(80, 21);
-            this.txtCajaHasta.TabIndex = 84;
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(5, 82);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(67, 16);
+            this.label5.Size = new System.Drawing.Size(102, 16);
             this.label5.TabIndex = 83;
-            this.label5.Text = "Caja Desde";
+            this.label5.Text = "Cantidad de cajas";
             // 
-            // txtCajaDesde
+            // txtCantidadCaja
             // 
-            this.txtCajaDesde.Location = new System.Drawing.Point(83, 81);
-            this.txtCajaDesde.Name = "txtCajaDesde";
-            this.txtCajaDesde.Size = new System.Drawing.Size(98, 21);
-            this.txtCajaDesde.TabIndex = 82;
+            this.txtCantidadCaja.Location = new System.Drawing.Point(103, 81);
+            this.txtCantidadCaja.Name = "txtCantidadCaja";
+            this.txtCantidadCaja.Size = new System.Drawing.Size(79, 21);
+            this.txtCantidadCaja.TabIndex = 82;
             // 
             // label4
             // 
@@ -164,7 +145,7 @@
             // btnModificar
             // 
             this.btnModificar.Image = ((System.Drawing.Image)(resources.GetObject("btnModificar.Image")));
-            this.btnModificar.Location = new System.Drawing.Point(247, 109);
+            this.btnModificar.Location = new System.Drawing.Point(247, 84);
             this.btnModificar.Name = "btnModificar";
             this.btnModificar.Size = new System.Drawing.Size(80, 20);
             this.btnModificar.TabIndex = 90;
@@ -174,7 +155,7 @@
             // btnEliminar
             // 
             this.btnEliminar.Image = ((System.Drawing.Image)(resources.GetObject("btnEliminar.Image")));
-            this.btnEliminar.Location = new System.Drawing.Point(333, 109);
+            this.btnEliminar.Location = new System.Drawing.Point(333, 84);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(80, 20);
             this.btnEliminar.TabIndex = 91;
@@ -192,18 +173,16 @@
             this.groupControl1.Controls.Add(this.btnEliminar);
             this.groupControl1.Controls.Add(this.label4);
             this.groupControl1.Controls.Add(this.btnModificar);
-            this.groupControl1.Controls.Add(this.txtCajaDesde);
+            this.groupControl1.Controls.Add(this.txtCantidadCaja);
             this.groupControl1.Controls.Add(this.txtCliente);
             this.groupControl1.Controls.Add(this.label5);
             this.groupControl1.Controls.Add(this.txtOperacion);
-            this.groupControl1.Controls.Add(this.txtCajaHasta);
             this.groupControl1.Controls.Add(this.label1);
-            this.groupControl1.Controls.Add(this.label7);
             this.groupControl1.Controls.Add(this.cbProducto);
             this.groupControl1.Controls.Add(this.label3);
             this.groupControl1.Location = new System.Drawing.Point(1, 28);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(503, 134);
+            this.groupControl1.Size = new System.Drawing.Size(503, 109);
             this.groupControl1.TabIndex = 93;
             this.groupControl1.Text = "Ingreso de Cajas";
             // 
@@ -230,7 +209,7 @@
             // btnSalir
             // 
             this.btnSalir.Image = ((System.Drawing.Image)(resources.GetObject("btnSalir.Image")));
-            this.btnSalir.Location = new System.Drawing.Point(419, 109);
+            this.btnSalir.Location = new System.Drawing.Point(419, 84);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(80, 20);
             this.btnSalir.TabIndex = 92;
@@ -241,7 +220,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(506, 163);
+            this.ClientSize = new System.Drawing.Size(506, 138);
             this.Controls.Add(this.groupControl1);
             this.Controls.Add(this.ribbon);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -265,10 +244,8 @@
         private DevExpress.XtraBars.Ribbon.RibbonControl ribbon;
         private System.Windows.Forms.ComboBox cbProducto;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox txtCajaHasta;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox txtCajaDesde;
+        private System.Windows.Forms.TextBox txtCantidadCaja;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtOperacion;

@@ -941,6 +941,8 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
           <Property Name="ALIAS_0_ID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ALIAS_1_NOMBRE" Type="varchar" MaxLength="100" />
           <Property Name="CUIT" Type="varchar" MaxLength="40" />
+          <Property Name="CODIGO" Type="varchar" MaxLength="10" />
+          <Property Name="NOMBRE" Type="varchar" MaxLength="40" />
         </EntityType>
         <Association Name="FK_Caja_OrdenVenta">
           <End Role="OrdenVenta" Type="Self.OrdenVenta" Multiplicity="0..1" />
@@ -1535,7 +1537,9 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
             <DefiningQuery>SELECT 
     [Vw_Transporte].[ALIAS_0_ID] AS [ALIAS_0_ID], 
     [Vw_Transporte].[ALIAS_1_NOMBRE] AS [ALIAS_1_NOMBRE], 
-    [Vw_Transporte].[CUIT] AS [CUIT]
+    [Vw_Transporte].[CUIT] AS [CUIT], 
+    [Vw_Transporte].[CODIGO] AS [CODIGO], 
+    [Vw_Transporte].[NOMBRE] AS [NOMBRE]
     FROM [dbo].[Vw_Transporte] AS [Vw_Transporte]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_Caja_OrdenVenta" Association="Self.FK_Caja_OrdenVenta">
@@ -2573,6 +2577,8 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
           <Property Name="ALIAS_0_ID" Type="Guid" Nullable="false" />
           <Property Name="ALIAS_1_NOMBRE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="CUIT" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="CODIGO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="NOMBRE" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_Caja_OrdenVenta">
           <End Type="CooperativaProduccionModel.OrdenVenta" Role="OrdenVenta" Multiplicity="0..1" />
@@ -3508,6 +3514,8 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
           <EntitySetMapping Name="Vw_Transporte">
             <EntityTypeMapping TypeName="CooperativaProduccionModel.Vw_Transporte">
               <MappingFragment StoreEntitySet="Vw_Transporte">
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
                 <ScalarProperty Name="CUIT" ColumnName="CUIT" />
                 <ScalarProperty Name="ALIAS_1_NOMBRE" ColumnName="ALIAS_1_NOMBRE" />
                 <ScalarProperty Name="ALIAS_0_ID" ColumnName="ALIAS_0_ID" />

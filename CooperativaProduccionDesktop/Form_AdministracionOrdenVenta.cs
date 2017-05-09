@@ -288,15 +288,17 @@ namespace CooperativaProduccion
 
             CreateIfMissing(path);
 
-            var orden = (from o in Context.OrdenVenta
-                            .Where(x => x.Id == OrdenVentaId)
-                         join c in Context.Vw_Cliente
-                         on o.ClienteId equals c.ID
-                         select
-                         new {
-                             Cliente = c.RAZONSOCIAL
-                         })
-                         .FirstOrDefault();
+            var orden =
+                (from o in Context.OrdenVenta
+                    .Where(x => x.Id == OrdenVentaId)
+                 join c in Context.Vw_Cliente
+                 on o.ClienteId equals c.ID
+                 select
+                 new
+                 {
+                     Cliente = c.RAZONSOCIAL
+                 })
+                .FirstOrDefault();
 
             string fileName = @"C:\SystemDocumentsCooperativa\TxtResumen\Resumen_" + orden.Cliente + ".txt";
 
@@ -311,21 +313,95 @@ namespace CooperativaProduccion
                 // Create a new file 
                 using (StreamWriter sw = File.CreateText(fileName))
                 {
-                    string Cuit = DevConstantes.CuitEmpresa.Replace("-", "");
-                    string InicioActividades = DateTime.ParseExact(DevConstantes.InicioActividades,
-                        "dd-MM-yy", CultureInfo.InvariantCulture)
-                        .ToString("dd/MM/yyyy");
-                    var OrdenVenta = Context.OrdenVenta.Where(x => x.Id == OrdenVentaId).FirstOrDefault();
-                    var Cliente = Context.Vw_Cliente.Where(x => x.ID == OrdenVenta.ClienteId).FirstOrDefault();
-                    string CuitCliente = Cliente.CUIT.Contains(DevConstantes.XX) ? Cliente.CUITE : Cliente.CUIT;
-                    var Transporte = Context.Vw_Transporte.Where(x => x.ALIAS_0_ID == OrdenVenta.TransporteId).FirstOrDefault();
-                    sw.WriteLine("1;S;S;" + Cuit + ";" + InicioActividades + ";;0003;0046;" + CuitCliente + ";"
-                        + Cliente.RAZONSOCIAL + ";" + Cliente.DOMICILIO + ";" 
-                        + OrdenVenta.Numero + ";;;;;;;;NINGUNA;;" + Transporte.ALIAS_1_NOMBRE + ";;;"
-                        + OrdenVenta.CuitChofer + ";;;");
+                    var OrdenVenta = Context.OrdenVenta
+                        .Where(x => x.Id == OrdenVentaId)
+                        .FirstOrDefault();
+
+                    var Cliente = Context.Vw_Cliente
+                        .Where(x => x.ID == OrdenVenta.ClienteId)
+                        .FirstOrDefault();
+                    
+                    var transporte = Context.Vw_Transporte
+                        .Where(x => x.ALIAS_0_ID == OrdenVenta.TransporteId)
+                        .FirstOrDefault();
+                    
+                    var ProvinciaCliente = RemoverSignosAcentos(Cliente.Provincia).ToUpper();
+
+                    var ProvinciaAfip = Context.Provincia
+                        .Where(x => x.Descripcion.Contains(ProvinciaCliente))
+                        .FirstOrDefault();
+                    
+                    string TipoRegistro = "1";
+                    string VersionArchivo = "2";
+                    string ParaExportacion = Cliente.CUIT.Contains(DevConstantes.XX) ? DevConstantes.S : DevConstantes.N;
+                    string ConsolidaEnPlanta = DevConstantes.S;
+                    string IIBB = DevConstantes.CuitEmpresa.Replace("-", "");
+                    string InicioActividades = DateTime.ParseExact(DevConstantes.InicioActividades,"dd-MM-yy", CultureInfo.InvariantCulture).ToString("dd/MM/yyyy");
+                    string CuitTitular = string.Empty;
+                    string PuntoVenta = "3".PadLeft(4, '0');
+                    string Planta = "46".PadLeft(4, '0');
+                    string CuitDestino = Cliente.CUIT.Contains(DevConstantes.XX) ? Cliente.CUITE : Cliente.CUIT;
+                    string DenominacionDestino = Cliente.RAZONSOCIAL;
+                    string DomicilioDestinoCalle = Cliente.DOMICILIO;
+                    string DomicilioDestinoNro = !string.IsNullOrEmpty(OrdenVenta.Numero) ? OrdenVenta.Numero : "0";
+                    string DomicilioDestinoPiso = !string.IsNullOrEmpty(OrdenVenta.Piso) ? OrdenVenta.Piso : string.Empty;
+                    string DomicilioDestinoDpto = !string.IsNullOrEmpty(OrdenVenta.Dpto) ? OrdenVenta.Dpto : string.Empty;
+                    string DomicilioDestinoSector = string.Empty;
+                    string DomicilioDestinoTorre = string.Empty;
+                    string DomicilioDestinoManzana = string.Empty;
+                    string CodigoProvincia = Cliente.CUIT.Contains(DevConstantes.XX) ? string.Empty : ProvinciaAfip.Descripcion;
+                    string CodigoPostal = Cliente.CUIT.Contains(DevConstantes.XX) ? string.Empty : "4000";
+                    string CodigoLocalidad = !string.IsNullOrEmpty(Cliente.Ciudad) ? Cliente.Ciudad : string.Empty;
+                    string RequiereTransporte = Cliente.CUIT.Contains(DevConstantes.XX) ? DevConstantes.S : DevConstantes.N;
+                    string PaisTransporte = Cliente.CUIT.Contains(DevConstantes.XX) ? transporte.CODIGO : string.Empty;
+                    string CuitTransportista = Cliente.CUIT.Contains(DevConstantes.XX) ? transporte.CUIT : string.Empty;
+                    string DenominacionTransportista = transporte.ALIAS_1_NOMBRE;
+                    string DominioVehiculo = !string.IsNullOrEmpty(OrdenVenta.Dominio) ? OrdenVenta.Dominio : string.Empty;
+                    string DominioAcoplado = !string.IsNullOrEmpty(OrdenVenta.DominioAcoplado) ? OrdenVenta.DominioAcoplado : string.Empty;
+                    string PaisChofer = Cliente.CUIT.Contains(DevConstantes.XX) ? transporte.CODIGO : string.Empty;
+                    string CuitChofer = !string.IsNullOrEmpty(OrdenVenta.CuitChofer) ? OrdenVenta.CuitChofer : string.Empty;
+                    string ApellidoChofer = !string.IsNullOrEmpty(OrdenVenta.ApellidoChofer) ? OrdenVenta.ApellidoChofer : string.Empty;
+                    string NombreChofer = !string.IsNullOrEmpty(OrdenVenta.NombreChofer) ? OrdenVenta.NombreChofer : string.Empty;
+                    string KilosBrutos = string.Empty;
+
+                    sw.WriteLine(
+                        TipoRegistro + ";" +
+                        VersionArchivo + ";" +
+                        ParaExportacion + ";" +
+                        ConsolidaEnPlanta + ";" +
+                        IIBB + ";" +
+                        InicioActividades + ";" +
+                        CuitTitular + ";" +
+                        PuntoVenta + ";" +
+                        Planta + ";" +
+                        CuitDestino + ";" +
+                        DenominacionDestino + ";" +
+                        DomicilioDestinoCalle + ";" +
+                        DomicilioDestinoNro + ";" +
+                        DomicilioDestinoPiso + ";" +
+                        DomicilioDestinoDpto + ";" +
+                        DomicilioDestinoSector + ";" +
+                        DomicilioDestinoTorre + ";" +
+                        DomicilioDestinoManzana + ";" +
+                        CodigoProvincia + ";" +
+                        CodigoPostal + ";" +
+                        CodigoLocalidad + ";" +
+                        RequiereTransporte + ";" +
+                        PaisTransporte + ";" +
+                        CuitTransportista + ";" +
+                        DenominacionTransportista + ";" +
+                        DominioVehiculo + ";" +
+                        DominioAcoplado + ";" +
+                        PaisChofer + ";" +
+                        CuitChofer + ";" +
+                        ApellidoChofer + ";" +
+                        NombreChofer + ";" +
+                        KilosBrutos);
+
                     var catas = Context.Cata
-                        .Where(x => x.OrdenVentaId == OrdenVenta.Id)
+                        .Where(x => x.OrdenVentaId == OrdenVentaId)
                         .ToList();
+
                     foreach (var cata in catas)
                     {
                         sw.WriteLine("2;" + cata.NumCata);
@@ -348,6 +424,24 @@ namespace CooperativaProduccion
             {
                 Console.WriteLine(Ex.ToString());
             }
+        }
+
+        public static string RemoverSignosAcentos(string texto)
+        {
+            string ConSignos = "áàäéèëíìïóòöúùuÁÀÄÉÈËÍÌÏÓÒÖÚÙÜçÇ";
+            string SinSignos = "aaaeeeiiiooouuuAAAEEEIIIOOOUUUcC";
+
+            var textoSinAcentos = string.Empty;
+
+            foreach (var caracter in texto)
+            {
+                var indexConAcento = ConSignos.IndexOf(caracter);
+                if (indexConAcento > -1)
+                    textoSinAcentos = textoSinAcentos + (SinSignos.Substring(indexConAcento, 1));
+                else
+                    textoSinAcentos = textoSinAcentos + (caracter);
+            }
+            return textoSinAcentos;
         }
 
         private void CreateIfMissing(string path)

@@ -58,6 +58,8 @@ namespace CooperativaProduccion
         public static string Cerrado = "CERRADO";
         public static string SI = "SI";
         public static string NO = "NO";
+        public static string S = "S";
+        public static string N = "N";
         public static string HabilitarEdicion = "Habilitar Edición";
         public static string Modificar = "Modificar";
         public static string Eliminar = "Eliminar";

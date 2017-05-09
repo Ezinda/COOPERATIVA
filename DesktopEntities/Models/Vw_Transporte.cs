@@ -17,5 +17,7 @@ namespace DesktopEntities.Models
         public System.Guid ALIAS_0_ID { get; set; }
         public string ALIAS_1_NOMBRE { get; set; }
         public string CUIT { get; set; }
+        public string CODIGO { get; set; }
+        public string NOMBRE { get; set; }
     }
 }
