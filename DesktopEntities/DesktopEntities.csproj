@@ -100,6 +100,9 @@
     <Compile Include="Models\PagoDetalle.cs">
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Pais.cs">
+      <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ParamPagos.cs">
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>

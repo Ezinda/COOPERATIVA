@@ -310,8 +310,10 @@ namespace CooperativaProduccion
                     File.Delete(fileName);
                 }
 
+                File.Create(fileName).Close();
+                
                 // Create a new file 
-                using (StreamWriter sw = File.CreateText(fileName))
+                using (StreamWriter sw = new System.IO.StreamWriter(fileName,false,Encoding.ASCII))
                 {
                     var OrdenVenta = Context.OrdenVenta
                         .Where(x => x.Id == OrdenVentaId)
@@ -342,7 +344,7 @@ namespace CooperativaProduccion
                     string Planta = "46".PadLeft(4, '0');
                     string CuitDestino = Cliente.CUIT.Contains(DevConstantes.XX) ? Cliente.CUITE : Cliente.CUIT;
                     string DenominacionDestino = Cliente.RAZONSOCIAL;
-                    string DomicilioDestinoCalle = Cliente.DOMICILIO;
+                    string DomicilioDestinoCalle = Cliente.CALLE;
                     string DomicilioDestinoNro = !string.IsNullOrEmpty(OrdenVenta.Numero) ? OrdenVenta.Numero : "0";
                     string DomicilioDestinoPiso = !string.IsNullOrEmpty(OrdenVenta.Piso) ? OrdenVenta.Piso : string.Empty;
                     string DomicilioDestinoDpto = !string.IsNullOrEmpty(OrdenVenta.Dpto) ? OrdenVenta.Dpto : string.Empty;

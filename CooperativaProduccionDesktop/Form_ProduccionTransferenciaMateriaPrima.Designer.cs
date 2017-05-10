@@ -31,12 +31,15 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_ProduccionTransferenciaMateriaPrima));
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
+            this.txtKilos = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.btnSalir = new DevExpress.XtraEditors.SimpleButton();
             this.txtClase = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnActualizar = new DevExpress.XtraEditors.SimpleButton();
+            this.btnTransferir = new DevExpress.XtraEditors.SimpleButton();
             this.txtFardo = new System.Windows.Forms.TextBox();
+            this.btnBuscarFardo = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
             this.groupControl2.SuspendLayout();
@@ -57,29 +60,51 @@
             this.ribbon.ShowExpandCollapseButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Hide;
             this.ribbon.ShowToolbarCustomizeItem = false;
-            this.ribbon.Size = new System.Drawing.Size(355, 27);
+            this.ribbon.Size = new System.Drawing.Size(333, 27);
             this.ribbon.Toolbar.ShowCustomizeItem = false;
             // 
             // groupControl2
             // 
+            this.groupControl2.Controls.Add(this.btnBuscarFardo);
+            this.groupControl2.Controls.Add(this.txtKilos);
+            this.groupControl2.Controls.Add(this.label2);
             this.groupControl2.Controls.Add(this.btnSalir);
             this.groupControl2.Controls.Add(this.txtClase);
             this.groupControl2.Controls.Add(this.label3);
             this.groupControl2.Controls.Add(this.label1);
-            this.groupControl2.Controls.Add(this.btnActualizar);
+            this.groupControl2.Controls.Add(this.btnTransferir);
             this.groupControl2.Controls.Add(this.txtFardo);
-            this.groupControl2.Location = new System.Drawing.Point(3, 30);
+            this.groupControl2.Location = new System.Drawing.Point(2, 28);
             this.groupControl2.Name = "groupControl2";
-            this.groupControl2.Size = new System.Drawing.Size(367, 173);
+            this.groupControl2.Size = new System.Drawing.Size(329, 159);
             this.groupControl2.TabIndex = 21;
             this.groupControl2.Text = "Fardo";
+            // 
+            // txtKilos
+            // 
+            this.txtKilos.Enabled = false;
+            this.txtKilos.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtKilos.Location = new System.Drawing.Point(103, 94);
+            this.txtKilos.Name = "txtKilos";
+            this.txtKilos.Size = new System.Drawing.Size(221, 29);
+            this.txtKilos.TabIndex = 63;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(10, 95);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(55, 24);
+            this.label2.TabIndex = 62;
+            this.label2.Text = "Kilos";
             // 
             // btnSalir
             // 
             this.btnSalir.Appearance.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSalir.Appearance.Options.UseFont = true;
             this.btnSalir.Image = ((System.Drawing.Image)(resources.GetObject("btnSalir.Image")));
-            this.btnSalir.Location = new System.Drawing.Point(256, 98);
+            this.btnSalir.Location = new System.Drawing.Point(232, 126);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(92, 26);
             this.btnSalir.TabIndex = 61;
@@ -90,7 +115,7 @@
             // 
             this.txtClase.Enabled = false;
             this.txtClase.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtClase.Location = new System.Drawing.Point(127, 63);
+            this.txtClase.Location = new System.Drawing.Point(103, 59);
             this.txtClase.Name = "txtClase";
             this.txtClase.Size = new System.Drawing.Size(221, 29);
             this.txtClase.TabIndex = 56;
@@ -99,7 +124,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(4, 66);
+            this.label3.Location = new System.Drawing.Point(10, 57);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(62, 24);
             this.label3.TabIndex = 55;
@@ -109,37 +134,49 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(4, 23);
+            this.label1.Location = new System.Drawing.Point(10, 25);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(93, 24);
             this.label1.TabIndex = 54;
             this.label1.Text = "N° Fardo";
             // 
-            // btnActualizar
+            // btnTransferir
             // 
-            this.btnActualizar.Appearance.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnActualizar.Appearance.Options.UseFont = true;
-            this.btnActualizar.Image = ((System.Drawing.Image)(resources.GetObject("btnActualizar.Image")));
-            this.btnActualizar.Location = new System.Drawing.Point(158, 98);
-            this.btnActualizar.Name = "btnActualizar";
-            this.btnActualizar.Size = new System.Drawing.Size(92, 26);
-            this.btnActualizar.TabIndex = 53;
-            this.btnActualizar.Text = "Actualizar";
-            this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
+            this.btnTransferir.Appearance.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTransferir.Appearance.Options.UseFont = true;
+            this.btnTransferir.Image = ((System.Drawing.Image)(resources.GetObject("btnTransferir.Image")));
+            this.btnTransferir.Location = new System.Drawing.Point(134, 126);
+            this.btnTransferir.Name = "btnTransferir";
+            this.btnTransferir.Size = new System.Drawing.Size(92, 26);
+            this.btnTransferir.TabIndex = 53;
+            this.btnTransferir.Text = "Transferir";
+            this.btnTransferir.Click += new System.EventHandler(this.btnTransferir_Click);
             // 
             // txtFardo
             // 
             this.txtFardo.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFardo.Location = new System.Drawing.Point(127, 22);
+            this.txtFardo.Location = new System.Drawing.Point(103, 24);
             this.txtFardo.Name = "txtFardo";
-            this.txtFardo.Size = new System.Drawing.Size(221, 29);
+            this.txtFardo.Size = new System.Drawing.Size(193, 29);
             this.txtFardo.TabIndex = 2;
+            this.txtFardo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFardo_KeyPress);
+            // 
+            // btnBuscarFardo
+            // 
+            this.btnBuscarFardo.Appearance.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBuscarFardo.Appearance.Options.UseFont = true;
+            this.btnBuscarFardo.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscarFardo.Image")));
+            this.btnBuscarFardo.Location = new System.Drawing.Point(296, 24);
+            this.btnBuscarFardo.Name = "btnBuscarFardo";
+            this.btnBuscarFardo.Size = new System.Drawing.Size(28, 29);
+            this.btnBuscarFardo.TabIndex = 64;
+            this.btnBuscarFardo.Click += new System.EventHandler(this.btnBuscarFardo_Click);
             // 
             // Form_ProduccionTransferenciaMateriaPrima
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(355, 160);
+            this.ClientSize = new System.Drawing.Size(333, 188);
             this.Controls.Add(this.groupControl2);
             this.Controls.Add(this.ribbon);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -148,8 +185,7 @@
             this.Name = "Form_ProduccionTransferenciaMateriaPrima";
             this.Ribbon = this.ribbon;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Reclasificación de Fardos";
-            this.Load += new System.EventHandler(this.Form_RomaneoReclasificacion_Load);
+            this.Text = "Transferencia de Mercadería";
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
             this.groupControl2.ResumeLayout(false);
@@ -167,7 +203,10 @@
         public System.Windows.Forms.TextBox txtClase;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
-        private DevExpress.XtraEditors.SimpleButton btnActualizar;
+        private DevExpress.XtraEditors.SimpleButton btnTransferir;
         public System.Windows.Forms.TextBox txtFardo;
+        public System.Windows.Forms.TextBox txtKilos;
+        private System.Windows.Forms.Label label2;
+        private DevExpress.XtraEditors.SimpleButton btnBuscarFardo;
     }
 }

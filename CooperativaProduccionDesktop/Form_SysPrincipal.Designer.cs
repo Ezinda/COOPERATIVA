@@ -51,6 +51,7 @@
             this.btnIngresoCaja = new DevExpress.XtraBars.BarButtonItem();
             this.btnIngresoCajas = new DevExpress.XtraBars.BarButtonItem();
             this.btnTransferenciaMercaderia = new DevExpress.XtraBars.BarButtonItem();
+            this.btnTransferenciaMateriaPrima = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPageRomaneo = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupPorteria = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroupBalanza = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -60,6 +61,7 @@
             this.ribbonPageGroupOrdenVenta = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageListaPrecio = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPage3 = new DevExpress.XtraBars.Ribbon.RibbonPage();
+            this.ribbonPageGroup3 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPage4 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupFardos = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -67,8 +69,6 @@
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageSeguridad = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupSeguridad = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.ribbonPageGroup3 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.btnTransferenciaMateriaPrima = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             this.SuspendLayout();
             // 
@@ -312,6 +312,15 @@
             this.btnTransferenciaMercaderia.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
             this.btnTransferenciaMercaderia.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnTransferenciaMercaderia_ItemClick);
             // 
+            // btnTransferenciaMateriaPrima
+            // 
+            this.btnTransferenciaMateriaPrima.Caption = "Transferencia de Materia Prima";
+            this.btnTransferenciaMateriaPrima.Glyph = ((System.Drawing.Image)(resources.GetObject("btnTransferenciaMateriaPrima.Glyph")));
+            this.btnTransferenciaMateriaPrima.Id = 26;
+            this.btnTransferenciaMateriaPrima.Name = "btnTransferenciaMateriaPrima";
+            this.btnTransferenciaMateriaPrima.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.btnTransferenciaMateriaPrima.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnTransferenciaMateriaPrima_ItemClick);
+            // 
             // ribbonPageRomaneo
             // 
             this.ribbonPageRomaneo.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -393,6 +402,14 @@
             this.ribbonPage3.Name = "ribbonPage3";
             this.ribbonPage3.Text = "Producción";
             // 
+            // ribbonPageGroup3
+            // 
+            this.ribbonPageGroup3.AllowTextClipping = false;
+            this.ribbonPageGroup3.ItemLinks.Add(this.btnTransferenciaMateriaPrima);
+            this.ribbonPageGroup3.Name = "ribbonPageGroup3";
+            this.ribbonPageGroup3.ShowCaptionButton = false;
+            this.ribbonPageGroup3.Text = "Transferencia";
+            // 
             // ribbonPage4
             // 
             this.ribbonPage4.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -454,22 +471,6 @@
             this.ribbonPageGroupSeguridad.Name = "ribbonPageGroupSeguridad";
             this.ribbonPageGroupSeguridad.ShowCaptionButton = false;
             this.ribbonPageGroupSeguridad.Text = "Seguridad";
-            // 
-            // ribbonPageGroup3
-            // 
-            this.ribbonPageGroup3.AllowTextClipping = false;
-            this.ribbonPageGroup3.ItemLinks.Add(this.btnTransferenciaMateriaPrima);
-            this.ribbonPageGroup3.Name = "ribbonPageGroup3";
-            this.ribbonPageGroup3.ShowCaptionButton = false;
-            this.ribbonPageGroup3.Text = "Transferencia";
-            // 
-            // btnTransferenciaMateriaPrima
-            // 
-            this.btnTransferenciaMateriaPrima.Caption = "Transferencia de Materia Prima";
-            this.btnTransferenciaMateriaPrima.Glyph = ((System.Drawing.Image)(resources.GetObject("btnTransferenciaMateriaPrima.Glyph")));
-            this.btnTransferenciaMateriaPrima.Id = 26;
-            this.btnTransferenciaMateriaPrima.Name = "btnTransferenciaMateriaPrima";
-            this.btnTransferenciaMateriaPrima.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
             // 
             // Form_SysPrincipal
             // 

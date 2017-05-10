@@ -347,5 +347,11 @@ namespace CooperativaProduccion
             var transferencia = new Form_InventarioTransferencia();
             transferencia.Show();
         }
+
+        private void btnTransferenciaMateriaPrima_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var transferencia = new Form_ProduccionTransferenciaMateriaPrima();
+            transferencia.Show();
+        }
     }
 }

@@ -165,6 +165,14 @@
           <Property Name="ConceptoId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Importe" Type="decimal" Precision="18" Scale="2" Nullable="false" />
         </EntityType>
+        <EntityType Name="Pais">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Codigo" Type="nvarchar" MaxLength="50" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="100" />
+        </EntityType>
         <EntityType Name="ParamPagos">
           <Key>
             <PropertyRef Name="id" />
@@ -1089,6 +1097,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
           <EntitySet Name="OrdenVentaDetalle" EntityType="Self.OrdenVentaDetalle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pago" EntityType="Self.Pago" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PagoDetalle" EntityType="Self.PagoDetalle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pais" EntityType="Self.Pais" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ParamPagos" EntityType="Self.ParamPagos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pesada" EntityType="Self.Pesada" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PesadaDetalle" EntityType="Self.PesadaDetalle" Schema="dbo" store:Type="Tables" />
@@ -1604,6 +1613,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
           <EntitySet Name="OrdenVentaDetalle" EntityType="CooperativaProduccionModel.OrdenVentaDetalle" />
           <EntitySet Name="Pago" EntityType="CooperativaProduccionModel.Pago" />
           <EntitySet Name="PagoDetalle" EntityType="CooperativaProduccionModel.PagoDetalle" />
+          <EntitySet Name="Pais" EntityType="CooperativaProduccionModel.Pais" />
           <EntitySet Name="ParamPagos" EntityType="CooperativaProduccionModel.ParamPagos" />
           <EntitySet Name="Pesada" EntityType="CooperativaProduccionModel.Pesada" />
           <EntitySet Name="PesadaDetalle" EntityType="CooperativaProduccionModel.PesadaDetalle" />
@@ -1857,6 +1867,14 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
           <Property Name="Importe" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <NavigationProperty Name="ConceptoDeOrdenDePago" Relationship="CooperativaProduccionModel.FK_PagoDetalle_ConceptoDeOrdenDePago" FromRole="PagoDetalle" ToRole="ConceptoDeOrdenDePago" />
           <NavigationProperty Name="Pago" Relationship="CooperativaProduccionModel.FK_PagoDetalle_Pago" FromRole="PagoDetalle" ToRole="Pago" />
+        </EntityType>
+        <EntityType Name="Pais">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Codigo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ParamPagos">
           <Key>
@@ -2886,6 +2904,15 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
                 <ScalarProperty Name="Importe" ColumnName="Importe" />
                 <ScalarProperty Name="ConceptoId" ColumnName="ConceptoId" />
                 <ScalarProperty Name="PagoId" ColumnName="PagoId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pais">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.Pais">
+              <MappingFragment StoreEntitySet="Pais">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

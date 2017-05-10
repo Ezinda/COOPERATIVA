@@ -28,6 +28,7 @@ namespace CooperativaProduccion
         public static string PuntoVentaRomaneo = "PuntoVentaRomaneo";
         public static string PuntoVentaLiquidacion = "PuntoVentaLiquidacion";
         public static Guid Generico = Guid.Parse("0867DD6B-EFE0-4272-97FD-C57342E47EF4");
+        public static Guid ProduccionEnProceso = Guid.Parse("584301CD-11C2-4B6E-9346-85BE09B6EF16");
         public static string C1F = "C1F";
         public static string MTS = "MTS";
         public static string MonotributoSocial = "Monotributo Social";
