@@ -22,6 +22,7 @@ namespace CooperativaProduccion
         {
             InitializeComponent();
             Context = new CooperativaProduccionEntities();
+            Iniciar();
         }
 
         #region Method Code
@@ -30,19 +31,57 @@ namespace CooperativaProduccion
         {
             Close();
         }
-                
+
+        private void btnTransferir_Click(object sender, EventArgs e)
+        {
+            if (ValidarTransferencia())
+            {
+                long fardo = long.Parse(txtFardo.Text);
+                Transferir(fardo);
+            }
+        }
+
+        private void txtFardo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                if (!string.IsNullOrEmpty(txtFardo.Text))
+                {
+                    long fardo = long.Parse(txtFardo.Text);
+                    MostrarFardo(fardo);
+                    btnTransferir.Focus();
+                }
+            }
+
+            if (e.KeyChar == 8)
+            {
+                txtClase.Text = string.Empty;
+                txtKilos.Text = string.Empty;
+            }
+        }
+
+        private void btnBuscarFardo_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtFardo.Text))
+            {
+                long fardo = long.Parse(txtFardo.Text);
+                MostrarFardo(fardo);
+            }
+        }
+
         #endregion
 
         #region Method Dev
 
-        private void ActualizarClasificacion()
+        private void Iniciar()
         {
-
+            txtFardo.BackColor = Color.LightSkyBlue;
         }
 
         private bool ValidarTransferencia()
         {
-            if (string.IsNullOrEmpty(txtFardo.Text) && string.IsNullOrEmpty(txtClase.Text))
+            if (string.IsNullOrEmpty(txtFardo.Text) && 
+                string.IsNullOrEmpty(txtClase.Text))
             {
                 MessageBox.Show("No se ha seleccionado un fardo.",
                     "Se requiere", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -86,6 +125,7 @@ namespace CooperativaProduccion
                              Deposito = dep.nombre
                          })
                         .Any();
+
                     if (enproceso)
                     {
                         MessageBox.Show("El fardo ya esta en proceso.",
@@ -99,55 +139,20 @@ namespace CooperativaProduccion
 
         private void Limpiar()
         {
+            txtFardo.Focus();
+            txtFardo.BackColor = Color.LightSkyBlue;
             txtFardo.Text = string.Empty;
             txtClase.Text = string.Empty;
-        }
-
-        #endregion
-
-        private void txtReclasificacion_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == 13)
-            {
-                ActualizarClasificacion();
-            }
-        }
-
-        private void btnTransferir_Click(object sender, EventArgs e)
-        {
-            if (ValidarTransferencia())
-            {
-                long fardo = long.Parse(txtFardo.Text);
-                Transferir(fardo);
-            }
-        }
-
-        private void txtFardo_KeyPress(object sender, KeyPressEventArgs e)
-       {
-            if (e.KeyChar == 13)
-            {
-                if (!string.IsNullOrEmpty(txtFardo.Text))
-                {
-                    long fardo = long.Parse(txtFardo.Text);
-                    MostrarFardo(fardo);
-                    btnTransferir.Focus();
-                }
-            }
-
-            if(e.KeyChar == 8)
-            {
-                txtClase.Text = string.Empty;
-                txtKilos.Text = string.Empty;
-            }
+            txtKilos.Text = string.Empty;
         }
 
         private void MostrarFardo(long fardo)
         {
-            var Pesada = 
+            var Pesada =
                 (from d in Context.PesadaDetalle
                     .Where(x => x.NumFardo == fardo)
-                join c in Context.Vw_Clase
-                    on d.ClaseId equals c.ID
+                 join c in Context.Vw_Clase
+                     on d.ClaseId equals c.ID
                  select new
                  {
                      Fardo = d.NumFardo,
@@ -164,18 +169,71 @@ namespace CooperativaProduccion
             }
         }
 
-        private void btnBuscarFardo_Click(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrEmpty(txtFardo.Text))
-            {
-                long fardo = long.Parse(txtFardo.Text);
-                MostrarFardo(fardo);
-            }
-        }
-
         private void Transferir(long Fardo)
         {
+            var detalle = Context.PesadaDetalle
+                .Where(x => x.NumFardo == Fardo)
+                .FirstOrDefault();
 
+            if ( detalle != null)
+            {
+                RegistrarMovimientoEgreso(detalle.Id, detalle.Kilos.Value);
+                RegistrarMovimientoIngreso(detalle.Id, detalle.Kilos.Value);
+            }
+            Limpiar();
         }
+
+        private Guid RegistrarMovimientoEgreso(Guid Id,double kilos)
+        {
+            Movimiento movimiento;
+
+            movimiento = new Movimiento();
+            movimiento.Id = Guid.NewGuid();
+            movimiento.Fecha = DateTime.Now;
+            movimiento.TransaccionId = Id;
+            movimiento.Documento = DevConstantes.Transferencia;
+            movimiento.Unidad = DevConstantes.Kg;
+            movimiento.Ingreso = 0;
+            movimiento.Egreso = kilos;
+
+            var deposito = Context.Vw_Deposito
+                .Where(x => x.id == DevConstantes.DepositoMateriaPrima)
+                .FirstOrDefault();
+            
+            movimiento.DepositoId = deposito.id;
+
+            Context.Movimiento.Add(movimiento);
+            Context.SaveChanges();
+
+            return movimiento.Id;
+        }
+
+        private Guid RegistrarMovimientoIngreso(Guid Id,double kilos)
+        {
+            Movimiento movimiento;
+
+            movimiento = new Movimiento();
+            movimiento.Id = Guid.NewGuid();
+            movimiento.Fecha = DateTime.Now;
+            movimiento.TransaccionId = Id;
+            movimiento.Documento = DevConstantes.Transferencia;
+            movimiento.Unidad = DevConstantes.Kg;
+            movimiento.Ingreso = kilos;
+            movimiento.Egreso = 0;
+            
+            var deposito = Context.Vw_Deposito
+                .Where(x => x.id == DevConstantes.ProduccionEnProceso)
+                .FirstOrDefault();
+
+            movimiento.DepositoId = deposito.id;
+
+            Context.Movimiento.Add(movimiento);
+            Context.SaveChanges();
+
+            return movimiento.Id;
+        }
+
+        #endregion
+
     }
 }

@@ -12,6 +12,8 @@ using DevExpress.Utils;
 using System.IO;
 using System.Data.Entity;
 using System.Linq.Expressions;
+using System.Runtime.InteropServices;
+using System.Security.Principal;
 
 namespace CooperativaProduccion
 {
@@ -29,6 +31,80 @@ namespace CooperativaProduccion
             CargarDatos(OrdenVentaId,Orden);
         }
 
+        #region Method Code
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void dpRemito_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                txtPuntoVenta.Focus();
+            }
+        }
+
+        private void txtPuntoVenta_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                txtNumRemito.Focus();
+            }
+        }
+
+        private void txtNumRemito_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                btnSeleccionarPdf.Focus();
+            }
+        }
+
+        private void btnSeleccionarPdf_Click(object sender, EventArgs e)
+        {
+            this.ofd.Filter = "Pdf Files|*.pdf";
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                path = ofd.FileName;
+                txtNombrePdf.Text = Path.GetFileName(ofd.FileName);
+
+            }
+        }
+
+        private void btnBorrarPdf_Click(object sender, EventArgs e)
+        {
+            txtNombrePdf.Text = string.Empty;
+            path = string.Empty;
+        }
+
+        private void btnPrevisualizarPdf_Click(object sender, EventArgs e)
+        {
+            PrevisualizarPdf();
+        }
+
+        private void btnGrabarRemito_Click(object sender, EventArgs e)
+        {
+            if (Validar())
+            {
+                var resultado = MessageBox.Show("¿Desea grabar el remito?",
+                     "Atención", MessageBoxButtons.OKCancel);
+                if (resultado != DialogResult.OK)
+                {
+                    return;
+                }
+                GrabarRemito();
+                MessageBox.Show("Remito Grabado",
+                    "Confirmación", MessageBoxButtons.OKCancel);
+                this.Close();
+            }
+        }
+
+        #endregion
+
+        #region Dev
+
         private void Iniciar(bool Orden)
         {
             if (Orden.Equals(true))
@@ -44,21 +120,21 @@ namespace CooperativaProduccion
             {
                 dpRemito.Enabled = false;
                 txtPuntoVenta.Enabled = false;
-                txtNumRemito.Enabled =  false;
+                txtNumRemito.Enabled = false;
                 btnSeleccionarPdf.Enabled = false;
                 btnBorrarPdf.Enabled = false;
                 btnGrabarRemito.Enabled = false;
             }
         }
 
-        private void CargarDatos(Guid Id,bool Orden)
+        private void CargarDatos(Guid Id, bool Orden)
         {
             if (Orden.Equals(true))
             {
                 var ordenVenta =
                  (from o in Context.OrdenVenta
-                      .Where(x => x.Id == Id).AsEnumerable()
-
+                      .Where(x => x.Id == Id)
+                      .AsEnumerable()
                   join c in Context.Vw_Cliente
                   on o.ClienteId equals c.ID
                   select new
@@ -71,7 +147,7 @@ namespace CooperativaProduccion
                       Fecha = o.Fecha
                   })
                  .FirstOrDefault();
-                
+
                 if (ordenVenta != null)
                 {
                     txtNumOperacion.Text = ordenVenta.NumOperacion.ToString();
@@ -93,16 +169,16 @@ namespace CooperativaProduccion
                          Hasta = o.HastaCaja
                      })
                     .ToList();
-                
+
                 if (detalle != null)
                 {
                     gridControlDetalleOrdenVenta.DataSource = detalle;
                     gridViewDetalleOrdenVenta.Columns[0].Caption = "Producto";
                     gridViewDetalleOrdenVenta.Columns[1].Caption = "Caja Desde";
                     gridViewDetalleOrdenVenta.Columns[2].Caption = "Caja Hasta";
-                    
-                    
-                    
+
+
+
                 }
                 dpRemito.Focus();
             }
@@ -110,7 +186,8 @@ namespace CooperativaProduccion
             {
                 var remito =
                     (from r in Context.Remito
-                         .Where(x => x.Id == Id).AsEnumerable()
+                         .Where(x => x.Id == Id)
+                         .AsEnumerable()
                      join p in Context.Vw_Producto
                      on r.ProductoId equals p.ID
                      join c in Context.Vw_Cliente
@@ -169,92 +246,61 @@ namespace CooperativaProduccion
                     dpRemito.Value = remito.FirstOrDefault().FechaRemito.Value;
                     txtPuntoVenta.Text = remito.FirstOrDefault().PuntoVenta.ToString().PadLeft(4, '0');
                     txtNumRemito.Text = remito.FirstOrDefault().NumRemito.ToString();
-                    path = System.IO.File.Exists(remito.FirstOrDefault().PathSystem) ? 
-                        remito.FirstOrDefault().PathSystem : 
+                    path = File.Exists(remito.FirstOrDefault().PathSystem) ?
+                        remito.FirstOrDefault().PathSystem :
                         remito.FirstOrDefault().PathOrigin;
                     txtNombrePdf.Text = Path.GetFileName(path);
                 }
             }
         }
 
-        private void btnCancelar_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void dpRemito_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == 13)
-            {
-                txtPuntoVenta.Focus();
-            }
-        }
-
-        private void txtPuntoVenta_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == 13)
-            {
-                txtNumRemito.Focus();
-            }
-        }
-
-        private void txtNumRemito_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == 13)
-            {
-                btnSeleccionarPdf.Focus();
-            }
-        }
-
-        private void btnSeleccionarPdf_Click(object sender, EventArgs e)
-        {
-            this.ofd.Filter = "Pdf Files|*.pdf";
-            if (ofd.ShowDialog() == DialogResult.OK)
-            {
-                path = ofd.FileName;
-                txtNombrePdf.Text = Path.GetFileName(ofd.FileName);
-                
-            }
-        }
-
-        private void btnBorrarPdf_Click(object sender, EventArgs e)
-        {
-            txtNombrePdf.Text = string.Empty;
-            path = string.Empty;
-        }
-
-        private void btnPrevisualizarPdf_Click(object sender, EventArgs e)
-        {
-            PrevisualizarPdf();
-        }
-
         private void PrevisualizarPdf()
         {
             if (path != string.Empty)
             {
-                System.Diagnostics.Process.Start(path);
+                RemoteCredentialsClass rcADM =
+                    new RemoteCredentialsClass(@"\\SERVER-ADM\SystemDocumentsCooperativa\RemitosElectronicos\", "Administrador", "Coopat123");
+                try
+                {
+                    var pathAdm = @"\\SERVER-ADM\SystemDocumentsCooperativa\RemitosElectronicos\" + txtNombrePdf.Text;
+
+                    if (File.Exists(pathAdm))
+                    {
+                        System.Diagnostics.Process.Start(@"\\SERVER-ADM\SystemDocumentsCooperativa\RemitosElectronicos\" + txtNombrePdf.Text);
+                    }
+                    else
+                    {
+                        RemoteCredentialsClass rcPlanta =
+                            new RemoteCredentialsClass(@"\\SERVER-PLANTA\SystemDocumentsCooperativa\RemitosElectronicos\", "Administrador", "Coopat123");
+                        try
+                        {
+                            var pathPlanta = @"\\SERVER-PLANTA\SystemDocumentsCooperativa\RemitosElectronicos\" + txtNombrePdf.Text;
+
+                            if (File.Exists(pathPlanta))
+                            {
+                                System.Diagnostics.Process.Start(@"\\SERVER-PLANTA\SystemDocumentsCooperativa\RemitosElectronicos\" + txtNombrePdf.Text);
+                            }
+                            else
+                            {
+                                MessageBox.Show("Archivo no encontrado.",
+                                    "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
+                        finally
+                        {
+                            rcPlanta.CloseUNC();
+                        }
+                    }
+                }
+                finally
+                {
+                    rcADM.CloseUNC();
+                }
             }
             else
             {
                 MessageBox.Show("Se debe adjuntar el remito electronico (Archivo pdf)",
                            "Se requiere", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void btnGrabarRemito_Click(object sender, EventArgs e)
-        {
-            if (Validar())
-            {
-                var resultado = MessageBox.Show("¿Desea grabar el remito?",
-                     "Atención", MessageBoxButtons.OKCancel);
-                if (resultado != DialogResult.OK)
-                {
-                    return;
-                }
-                GrabarRemito();
-                MessageBox.Show("Remito Grabado",
-                    "Confirmación", MessageBoxButtons.OKCancel);
-                this.Close();
             }
         }
 
@@ -268,7 +314,7 @@ namespace CooperativaProduccion
                 CopyFile();
 
                 var ordenVenta = Context.OrdenVenta
-                    .Where(x=>x.Id == OrdenVentaId)
+                    .Where(x => x.Id == OrdenVentaId)
                     .FirstOrDefault();
 
                 if (ordenVenta != null)
@@ -285,7 +331,7 @@ namespace CooperativaProduccion
                     remito.PuntoVenta = int.Parse(txtPuntoVenta.Text);
                     remito.NumRemito = int.Parse(txtNumRemito.Text);
                     remito.PathOrigin = path;
-                    string pathSystem = @"C:\SystemDocumentsCooperativa\RemitosElectronicos\"+txtNombrePdf.Text;
+                    string pathSystem = @"C:\SystemDocumentsCooperativa\RemitosElectronicos\" + txtNombrePdf.Text;
                     remito.PathSystem = pathSystem;
                     remito.File = FileConvertToByte(path);
                     var detalle = Context.OrdenVentaDetalle
@@ -305,15 +351,15 @@ namespace CooperativaProduccion
                     if (orden != null)
                     {
                         orden.Pendiente = false;
-                       
+
                         Context.Entry(orden).State = EntityState.Modified;
                         Context.SaveChanges();
 
                         for (long i = detalle.DesdeCaja.Value; i <= detalle.HastaCaja; i++)
                         {
                             var caja = Context.Caja
-                                .Where(x =>x.Campaña == detalle.Campaña 
-                                    && x.ProductoId == detalle.ProductoId 
+                                .Where(x => x.Campaña == detalle.Campaña
+                                    && x.ProductoId == detalle.ProductoId
                                     && x.NumeroCaja == i)
                                 .FirstOrDefault();
 
@@ -365,12 +411,12 @@ namespace CooperativaProduccion
         public byte[] FileConvertToByte(string varFilePath)
         {
             byte[] file;
-            
+
             using (var stream = new FileStream(varFilePath, FileMode.Open, FileAccess.Read))
             {
                 using (var reader = new BinaryReader(stream))
                 {
-                   return file = reader.ReadBytes((int)stream.Length);
+                    return file = reader.ReadBytes((int)stream.Length);
                 }
             }
         }
@@ -420,13 +466,14 @@ namespace CooperativaProduccion
             pathFile = @"C:\SystemDocumentsCooperativa\RemitosElectronicos";
             CreateIfMissing(pathFile);
         }
-     
+
         private void CopyFile()
         {
-            string pathFile = @"C:\SystemDocumentsCooperativa\RemitosElectronicos\"+txtNombrePdf.Text;
+            string pathFile = @"C:\SystemDocumentsCooperativa\RemitosElectronicos\" + txtNombrePdf.Text;
+
             if (path != string.Empty)
             {
-                System.IO.File.Copy(path, pathFile, true);
+                File.Copy(path, pathFile, true);
             }
             else
             {
@@ -448,6 +495,70 @@ namespace CooperativaProduccion
             catch (IOException ioex)
             {
                 Console.WriteLine(ioex.Message);
+            }
+        }
+
+        #endregion
+
+    }
+
+    public class RemoteCredentialsClass
+    {
+        [DllImport("advapi32.dll", SetLastError = true)]
+        private static extern bool LogonUser(string lpszUsername, string lpszDomain, string lpszPassword, int dwLogonType, int dwLogonProvider, ref IntPtr phToken);
+
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        private static extern bool CloseHandle(IntPtr handle);
+
+        // logon types
+        const int LOGON32_LOGON_INTERACTIVE = 2;
+        const int LOGON32_LOGON_NETWORK = 3;
+        const int LOGON32_LOGON_NEW_CREDENTIALS = 9;
+
+        // logon providers
+        const int LOGON32_PROVIDER_DEFAULT = 0;
+        const int LOGON32_PROVIDER_WINNT50 = 3;
+        const int LOGON32_PROVIDER_WINNT40 = 2;
+        const int LOGON32_PROVIDER_WINNT35 = 1;
+
+
+        private static void RaiseLastError()
+        {
+            int errorCode = Marshal.GetLastWin32Error();
+            string errorMessage = "IO Error: " + errorCode.ToString();
+
+            throw new ApplicationException(errorMessage);
+        }
+
+        IntPtr token = IntPtr.Zero;
+        WindowsImpersonationContext impersonatedUser = null;
+
+        public RemoteCredentialsClass(string server, string user, string pwd)
+        {
+            if (user.IndexOf("\\") > 0)
+            {
+                server = user.Substring(0, user.IndexOf("\\"));
+                if (user.Length > server.Length + 1) user = user.Substring(server.Length + 1);
+            }
+            bool isSuccess = LogonUser(user, server, pwd, LOGON32_LOGON_NEW_CREDENTIALS, LOGON32_PROVIDER_DEFAULT, ref token);
+            if (!isSuccess)
+            {
+                RaiseLastError();
+            }
+
+            WindowsIdentity newIdentity = new WindowsIdentity(token);
+            impersonatedUser = newIdentity.Impersonate();
+        }
+
+        public void CloseUNC()
+        {
+            if (impersonatedUser == null) return;
+            impersonatedUser.Undo();
+
+            bool isSuccess = CloseHandle(token);
+            if (!isSuccess)
+            {
+                RaiseLastError();
             }
         }
     }

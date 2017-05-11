@@ -43,6 +43,10 @@ namespace DesktopEntities.Models
         public virtual DbSet<PesadaDetalle> PesadaDetalle { get; set; }
         public virtual DbSet<Preingreso> Preingreso { get; set; }
         public virtual DbSet<PreingresoDetalle> PreingresoDetalle { get; set; }
+        public virtual DbSet<ProduccionBlend> ProduccionBlend { get; set; }
+        public virtual DbSet<ProduccionCorrida> ProduccionCorrida { get; set; }
+        public virtual DbSet<ProduccionMuestra> ProduccionMuestra { get; set; }
+        public virtual DbSet<ProduccionMuestraDetalle> ProduccionMuestraDetalle { get; set; }
         public virtual DbSet<Provincia> Provincia { get; set; }
         public virtual DbSet<Remito> Remito { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }

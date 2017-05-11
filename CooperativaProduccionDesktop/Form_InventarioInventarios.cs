@@ -20,6 +20,7 @@ using DevExpress.XtraGrid.Views.Base;
 using System.Globalization;
 using System.Diagnostics;
 using System.IO;
+using System.Data.Entity;
 
 namespace CooperativaProduccion
 {
@@ -165,7 +166,7 @@ namespace CooperativaProduccion
 
             Expression<Func<Movimiento, bool>> pred = x => true;
 
-            pred = pred.And(x => x.Fecha <= dpHasta.Value.Date);
+            pred = pred.And(x => DbFunctions.TruncateTime(x.Fecha) <= dpHasta.Value.Date);
 
             Expression<Func<Vw_Pesada, bool>> pred2 = x => true;
 

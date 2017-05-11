@@ -90,7 +90,7 @@
           <Property Name="TransaccionId" Type="uniqueidentifier" />
           <Property Name="Documento" Type="nvarchar" MaxLength="500" />
           <Property Name="DepositoId" Type="uniqueidentifier" />
-          <Property Name="Fecha" Type="date" />
+          <Property Name="Fecha" Type="datetime" />
           <Property Name="Unidad" Type="nvarchar" MaxLength="50" />
           <Property Name="Ingreso" Type="float" />
           <Property Name="Egreso" Type="float" />
@@ -247,6 +247,48 @@
           <Property Name="Hora" Type="time" Precision="7" Nullable="false" />
           <Property Name="ProductorId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Estado" Type="bit" />
+        </EntityType>
+        <EntityType Name="ProduccionBlend">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OrdenProduccion" Type="int" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProduccionCorrida">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ProductoId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Fecha" Type="date" Nullable="false" />
+          <Property Name="NumeroCorrida" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProduccionMuestra">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Fecha" Type="date" Nullable="false" />
+          <Property Name="Hora" Type="time" Precision="0" Nullable="false" />
+          <Property Name="ProductoId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Caja" Type="bigint" Nullable="false" />
+          <Property Name="CajaId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Corrida" Type="bigint" Nullable="false" />
+          <Property Name="CorridaId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PesoMuestra" Type="int" Nullable="false" />
+          <Property Name="TotalSobreUnMedio" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProduccionMuestraDetalle">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="MuestraId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Tamanio" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Kilos" Type="int" Nullable="false" />
+          <Property Name="Porcentaje" Type="decimal" Precision="18" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="Provincia">
           <Key>
@@ -429,7 +471,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Movimiento' does not 
           <Property Name="TransaccionId" Type="uniqueidentifier" />
           <Property Name="Documento" Type="nvarchar" MaxLength="500" />
           <Property Name="DepositoId" Type="uniqueidentifier" />
-          <Property Name="Fecha" Type="date" />
+          <Property Name="Fecha" Type="datetime" />
           <Property Name="Unidad" Type="nvarchar" MaxLength="50" />
           <Property Name="Ingreso" Type="float" />
           <Property Name="Egreso" Type="float" />
@@ -1072,6 +1114,42 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ProduccionCorrida_ProduccionBlend">
+          <End Role="ProduccionBlend" Type="Self.ProduccionBlend" Multiplicity="1" />
+          <End Role="ProduccionCorrida" Type="Self.ProduccionCorrida" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProduccionBlend">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProduccionCorrida">
+              <PropertyRef Name="ProductoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProduccionMuestra_ProduccionBlend">
+          <End Role="ProduccionBlend" Type="Self.ProduccionBlend" Multiplicity="1" />
+          <End Role="ProduccionMuestra" Type="Self.ProduccionMuestra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProduccionBlend">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProduccionMuestra">
+              <PropertyRef Name="ProductoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProduccionMuestraDetalle_ProduccionMuestra">
+          <End Role="ProduccionMuestra" Type="Self.ProduccionMuestra" Multiplicity="1" />
+          <End Role="ProduccionMuestraDetalle" Type="Self.ProduccionMuestraDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProduccionMuestra">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProduccionMuestraDetalle">
+              <PropertyRef Name="MuestraId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Remito_OrdenVenta">
           <End Role="OrdenVenta" Type="Self.OrdenVenta" Multiplicity="0..1" />
           <End Role="Remito" Type="Self.Remito" Multiplicity="*" />
@@ -1103,6 +1181,10 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
           <EntitySet Name="PesadaDetalle" EntityType="Self.PesadaDetalle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Preingreso" EntityType="Self.Preingreso" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PreingresoDetalle" EntityType="Self.PreingresoDetalle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProduccionBlend" EntityType="Self.ProduccionBlend" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProduccionCorrida" EntityType="Self.ProduccionCorrida" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProduccionMuestra" EntityType="Self.ProduccionMuestra" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProduccionMuestraDetalle" EntityType="Self.ProduccionMuestraDetalle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Provincia" EntityType="Self.Provincia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Remito" EntityType="Self.Remito" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
@@ -1591,6 +1673,18 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
             <End Role="Pago" EntitySet="Pago" />
             <End Role="PagoDetalle" EntitySet="PagoDetalle" />
           </AssociationSet>
+          <AssociationSet Name="FK_ProduccionCorrida_ProduccionBlend" Association="Self.FK_ProduccionCorrida_ProduccionBlend">
+            <End Role="ProduccionBlend" EntitySet="ProduccionBlend" />
+            <End Role="ProduccionCorrida" EntitySet="ProduccionCorrida" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProduccionMuestra_ProduccionBlend" Association="Self.FK_ProduccionMuestra_ProduccionBlend">
+            <End Role="ProduccionBlend" EntitySet="ProduccionBlend" />
+            <End Role="ProduccionMuestra" EntitySet="ProduccionMuestra" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProduccionMuestraDetalle_ProduccionMuestra" Association="Self.FK_ProduccionMuestraDetalle_ProduccionMuestra">
+            <End Role="ProduccionMuestra" EntitySet="ProduccionMuestra" />
+            <End Role="ProduccionMuestraDetalle" EntitySet="ProduccionMuestraDetalle" />
+          </AssociationSet>
           <AssociationSet Name="FK_Remito_OrdenVenta" Association="Self.FK_Remito_OrdenVenta">
             <End Role="OrdenVenta" EntitySet="OrdenVenta" />
             <End Role="Remito" EntitySet="Remito" />
@@ -1619,6 +1713,10 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
           <EntitySet Name="PesadaDetalle" EntityType="CooperativaProduccionModel.PesadaDetalle" />
           <EntitySet Name="Preingreso" EntityType="CooperativaProduccionModel.Preingreso" />
           <EntitySet Name="PreingresoDetalle" EntityType="CooperativaProduccionModel.PreingresoDetalle" />
+          <EntitySet Name="ProduccionBlend" EntityType="CooperativaProduccionModel.ProduccionBlend" />
+          <EntitySet Name="ProduccionCorrida" EntityType="CooperativaProduccionModel.ProduccionCorrida" />
+          <EntitySet Name="ProduccionMuestra" EntityType="CooperativaProduccionModel.ProduccionMuestra" />
+          <EntitySet Name="ProduccionMuestraDetalle" EntityType="CooperativaProduccionModel.ProduccionMuestraDetalle" />
           <EntitySet Name="Provincia" EntityType="CooperativaProduccionModel.Provincia" />
           <EntitySet Name="Remito" EntityType="CooperativaProduccionModel.Remito" />
           <EntitySet Name="Usuario" EntityType="CooperativaProduccionModel.Usuario" />
@@ -1688,6 +1786,18 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
           <AssociationSet Name="FK_DetallePreingreso_Preingreso" Association="CooperativaProduccionModel.FK_DetallePreingreso_Preingreso">
             <End Role="Preingreso" EntitySet="Preingreso" />
             <End Role="PreingresoDetalle" EntitySet="PreingresoDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProduccionCorrida_ProduccionBlend" Association="CooperativaProduccionModel.FK_ProduccionCorrida_ProduccionBlend">
+            <End Role="ProduccionBlend" EntitySet="ProduccionBlend" />
+            <End Role="ProduccionCorrida" EntitySet="ProduccionCorrida" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProduccionMuestra_ProduccionBlend" Association="CooperativaProduccionModel.FK_ProduccionMuestra_ProduccionBlend">
+            <End Role="ProduccionBlend" EntitySet="ProduccionBlend" />
+            <End Role="ProduccionMuestra" EntitySet="ProduccionMuestra" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProduccionMuestraDetalle_ProduccionMuestra" Association="CooperativaProduccionModel.FK_ProduccionMuestraDetalle_ProduccionMuestra">
+            <End Role="ProduccionMuestra" EntitySet="ProduccionMuestra" />
+            <End Role="ProduccionMuestraDetalle" EntitySet="ProduccionMuestraDetalle" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Caja">
@@ -1782,7 +1892,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
           <Property Name="TransaccionId" Type="Guid" />
           <Property Name="Documento" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="DepositoId" Type="Guid" />
-          <Property Name="Fecha" Type="DateTime" Precision="0" />
+          <Property Name="Fecha" Type="DateTime" Precision="3" />
           <Property Name="Unidad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Ingreso" Type="Double" />
           <Property Name="Egreso" Type="Double" />
@@ -1954,6 +2064,54 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
           <Property Name="Estado" Type="Boolean" />
           <NavigationProperty Name="Preingreso" Relationship="CooperativaProduccionModel.FK_DetallePreingreso_Preingreso" FromRole="PreingresoDetalle" ToRole="Preingreso" />
         </EntityType>
+        <EntityType Name="ProduccionBlend">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="OrdenProduccion" Type="Int32" Nullable="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ProduccionCorrida" Relationship="CooperativaProduccionModel.FK_ProduccionCorrida_ProduccionBlend" FromRole="ProduccionBlend" ToRole="ProduccionCorrida" />
+          <NavigationProperty Name="ProduccionMuestra" Relationship="CooperativaProduccionModel.FK_ProduccionMuestra_ProduccionBlend" FromRole="ProduccionBlend" ToRole="ProduccionMuestra" />
+        </EntityType>
+        <EntityType Name="ProduccionCorrida">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="ProductoId" Type="Guid" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="NumeroCorrida" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="ProduccionBlend" Relationship="CooperativaProduccionModel.FK_ProduccionCorrida_ProduccionBlend" FromRole="ProduccionCorrida" ToRole="ProduccionBlend" />
+        </EntityType>
+        <EntityType Name="ProduccionMuestra">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Hora" Type="Time" Nullable="false" Precision="0" />
+          <Property Name="ProductoId" Type="Guid" Nullable="false" />
+          <Property Name="Caja" Type="Int64" Nullable="false" />
+          <Property Name="CajaId" Type="Guid" Nullable="false" />
+          <Property Name="Corrida" Type="Int64" Nullable="false" />
+          <Property Name="CorridaId" Type="Guid" Nullable="false" />
+          <Property Name="PesoMuestra" Type="Int32" Nullable="false" />
+          <Property Name="TotalSobreUnMedio" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <NavigationProperty Name="ProduccionBlend" Relationship="CooperativaProduccionModel.FK_ProduccionMuestra_ProduccionBlend" FromRole="ProduccionMuestra" ToRole="ProduccionBlend" />
+          <NavigationProperty Name="ProduccionMuestraDetalle" Relationship="CooperativaProduccionModel.FK_ProduccionMuestraDetalle_ProduccionMuestra" FromRole="ProduccionMuestra" ToRole="ProduccionMuestraDetalle" />
+        </EntityType>
+        <EntityType Name="ProduccionMuestraDetalle">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="MuestraId" Type="Guid" Nullable="false" />
+          <Property Name="Tamanio" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Kilos" Type="Int32" Nullable="false" />
+          <Property Name="Porcentaje" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <NavigationProperty Name="ProduccionMuestra" Relationship="CooperativaProduccionModel.FK_ProduccionMuestraDetalle_ProduccionMuestra" FromRole="ProduccionMuestraDetalle" ToRole="ProduccionMuestra" />
+        </EntityType>
         <EntityType Name="Provincia">
           <Key>
             <PropertyRef Name="Id" />
@@ -2111,7 +2269,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
           <Property Name="TransaccionId" Type="Guid" />
           <Property Name="Documento" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="DepositoId" Type="Guid" />
-          <Property Name="Fecha" Type="DateTime" Precision="0" />
+          <Property Name="Fecha" Type="DateTime" Precision="3" />
           <Property Name="Unidad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Ingreso" Type="Double" />
           <Property Name="Egreso" Type="Double" />
@@ -2730,6 +2888,42 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ProduccionCorrida_ProduccionBlend">
+          <End Type="CooperativaProduccionModel.ProduccionBlend" Role="ProduccionBlend" Multiplicity="1" />
+          <End Type="CooperativaProduccionModel.ProduccionCorrida" Role="ProduccionCorrida" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProduccionBlend">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProduccionCorrida">
+              <PropertyRef Name="ProductoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProduccionMuestra_ProduccionBlend">
+          <End Type="CooperativaProduccionModel.ProduccionBlend" Role="ProduccionBlend" Multiplicity="1" />
+          <End Type="CooperativaProduccionModel.ProduccionMuestra" Role="ProduccionMuestra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProduccionBlend">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProduccionMuestra">
+              <PropertyRef Name="ProductoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProduccionMuestraDetalle_ProduccionMuestra">
+          <End Type="CooperativaProduccionModel.ProduccionMuestra" Role="ProduccionMuestra" Multiplicity="1" />
+          <End Type="CooperativaProduccionModel.ProduccionMuestraDetalle" Role="ProduccionMuestraDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProduccionMuestra">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProduccionMuestraDetalle">
+              <PropertyRef Name="MuestraId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2993,6 +3187,52 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
                 <ScalarProperty Name="Hora" ColumnName="Hora" />
                 <ScalarProperty Name="Fecha" ColumnName="Fecha" />
                 <ScalarProperty Name="PreingresoId" ColumnName="PreingresoId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProduccionBlend">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.ProduccionBlend">
+              <MappingFragment StoreEntitySet="ProduccionBlend">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="OrdenProduccion" ColumnName="OrdenProduccion" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProduccionCorrida">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.ProduccionCorrida">
+              <MappingFragment StoreEntitySet="ProduccionCorrida">
+                <ScalarProperty Name="NumeroCorrida" ColumnName="NumeroCorrida" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="ProductoId" ColumnName="ProductoId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProduccionMuestra">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.ProduccionMuestra">
+              <MappingFragment StoreEntitySet="ProduccionMuestra">
+                <ScalarProperty Name="TotalSobreUnMedio" ColumnName="TotalSobreUnMedio" />
+                <ScalarProperty Name="PesoMuestra" ColumnName="PesoMuestra" />
+                <ScalarProperty Name="CorridaId" ColumnName="CorridaId" />
+                <ScalarProperty Name="Corrida" ColumnName="Corrida" />
+                <ScalarProperty Name="CajaId" ColumnName="CajaId" />
+                <ScalarProperty Name="Caja" ColumnName="Caja" />
+                <ScalarProperty Name="ProductoId" ColumnName="ProductoId" />
+                <ScalarProperty Name="Hora" ColumnName="Hora" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProduccionMuestraDetalle">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.ProduccionMuestraDetalle">
+              <MappingFragment StoreEntitySet="ProduccionMuestraDetalle">
+                <ScalarProperty Name="Porcentaje" ColumnName="Porcentaje" />
+                <ScalarProperty Name="Kilos" ColumnName="Kilos" />
+                <ScalarProperty Name="Tamanio" ColumnName="Tamanio" />
+                <ScalarProperty Name="MuestraId" ColumnName="MuestraId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
