@@ -212,6 +212,7 @@
     <Compile Include="Controls\AdministracionVistaOPControl.Designer.cs">
       <DependentUpon>AdministracionVistaOPControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataAccess\BlendManager.cs" />
     <Compile Include="Extensions\ExtensionMethods.OrAnd.cs" />
     <Compile Include="Form_AdministracionBuscarTransporte.cs">
       <SubType>Form</SubType>
@@ -248,6 +249,54 @@
     </Compile>
     <Compile Include="Form_InventarioTransferencia.Designer.cs">
       <DependentUpon>Form_InventarioTransferencia.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_ProduccionHumedad.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_ProduccionHumedad.Designer.cs">
+      <DependentUpon>Form_ProduccionHumedad.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_ProduccionHumedadEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_ProduccionHumedadEditor.Designer.cs">
+      <DependentUpon>Form_ProduccionHumedadEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_ProduccionMuestras.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_ProduccionMuestras.Designer.cs">
+      <DependentUpon>Form_ProduccionMuestras.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_ProduccionMuestrasEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_ProduccionMuestrasEditor.Designer.cs">
+      <DependentUpon>Form_ProduccionMuestrasEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_ProduccionNicotina.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_ProduccionNicotina.Designer.cs">
+      <DependentUpon>Form_ProduccionNicotina.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_ProduccionNicotinaEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_ProduccionNicotinaEditor.Designer.cs">
+      <DependentUpon>Form_ProduccionNicotinaEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_ProduccionTemperatura.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_ProduccionTemperatura.Designer.cs">
+      <DependentUpon>Form_ProduccionTemperatura.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_ProduccionTemperaturaEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_ProduccionTemperaturaEditor.Designer.cs">
+      <DependentUpon>Form_ProduccionTemperaturaEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="Form_ProduccionTransferenciaMateriaPrima.cs">
       <SubType>Form</SubType>
@@ -431,6 +480,7 @@
     <Compile Include="Helpers\GridRecords\GridRomaneo.cs" />
     <Compile Include="Helpers\GridRecords\GridRomaneoResumenCompraDetalle.cs" />
     <Compile Include="Helpers\GridRecords\GridRomaneoDetalle.cs" />
+    <Compile Include="Helpers\IBlendManager.cs" />
     <Compile Include="Helpers\IniParser.cs" />
     <Compile Include="Helpers\Numalet.cs" />
     <Compile Include="Helpers\DevConstantes.cs" />
@@ -604,6 +654,11 @@
     <Compile Include="SplashScreen1.Designer.cs">
       <DependentUpon>SplashScreen1.cs</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\BlendViewModel.cs" />
+    <Compile Include="ViewModels\ControlDeHumedadViewModel.cs" />
+    <Compile Include="ViewModels\ControlDeNicotinaViewModel.cs" />
+    <Compile Include="ViewModels\ControlDeTemperaturaViewModel.cs" />
+    <Compile Include="ViewModels\MuestraViewModel.cs" />
     <Compile Include="ViewModels\OrdenDePagoViewModel.cs" />
     <Compile Include="ViewModels\ProductorViewModel.cs" />
     <Compile Include="ViewModels\RetencionViewModel.cs" />
@@ -688,6 +743,30 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_InventarioTransferencia.resx">
       <DependentUpon>Form_InventarioTransferencia.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_ProduccionHumedad.resx">
+      <DependentUpon>Form_ProduccionHumedad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_ProduccionHumedadEditor.resx">
+      <DependentUpon>Form_ProduccionHumedadEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_ProduccionMuestras.resx">
+      <DependentUpon>Form_ProduccionMuestras.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_ProduccionMuestrasEditor.resx">
+      <DependentUpon>Form_ProduccionMuestrasEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_ProduccionNicotina.resx">
+      <DependentUpon>Form_ProduccionNicotina.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_ProduccionNicotinaEditor.resx">
+      <DependentUpon>Form_ProduccionNicotinaEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_ProduccionTemperatura.resx">
+      <DependentUpon>Form_ProduccionTemperatura.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_ProduccionTemperaturaEditor.resx">
+      <DependentUpon>Form_ProduccionTemperaturaEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_ProduccionTransferenciaMateriaPrima.resx">
       <DependentUpon>Form_ProduccionTransferenciaMateriaPrima.cs</DependentUpon>

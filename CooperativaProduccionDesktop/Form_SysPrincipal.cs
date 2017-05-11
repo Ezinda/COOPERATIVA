@@ -353,5 +353,25 @@ namespace CooperativaProduccion
             var transferencia = new Form_ProduccionTransferenciaMateriaPrima();
             transferencia.Show();
         }
+
+        private void btnMuestras_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            new Form_ProduccionMuestras(new DataAccess.BlendManager()).Show();
+        }
+
+        private void btnControlDeTemperatura_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            new Form_ProduccionTemperatura(new DataAccess.BlendManager()).Show();
+        }
+
+        private void btnControlDeHumedad_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            new Form_ProduccionHumedad(new DataAccess.BlendManager()).Show();
+        }
+
+        private void btnControlDeNicotina_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            new Form_ProduccionNicotina(new DataAccess.BlendManager()).Show();
+        }
     }
 }

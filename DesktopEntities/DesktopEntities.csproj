@@ -49,6 +49,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\ActualizarLiquidacion_Result.cs">
+      <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Caja.cs">
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>
@@ -124,10 +127,25 @@
     <Compile Include="Models\ProduccionCorrida.cs">
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ProduccionHumedad.cs">
+      <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProduccionHumedadDetalle.cs">
+      <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ProduccionMuestra.cs">
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ProduccionMuestraDetalle.cs">
+      <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProduccionNicotinaDetalle.cs">
+      <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProduccionTemperatura.cs">
+      <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProduccionTemperaturaDetalle.cs">
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Provincia.cs">

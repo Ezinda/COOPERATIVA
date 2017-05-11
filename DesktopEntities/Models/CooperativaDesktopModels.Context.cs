@@ -12,6 +12,8 @@ namespace DesktopEntities.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class CooperativaProduccionEntities : DbContext
     {
@@ -45,8 +47,13 @@ namespace DesktopEntities.Models
         public virtual DbSet<PreingresoDetalle> PreingresoDetalle { get; set; }
         public virtual DbSet<ProduccionBlend> ProduccionBlend { get; set; }
         public virtual DbSet<ProduccionCorrida> ProduccionCorrida { get; set; }
+        public virtual DbSet<ProduccionHumedad> ProduccionHumedad { get; set; }
+        public virtual DbSet<ProduccionHumedadDetalle> ProduccionHumedadDetalle { get; set; }
         public virtual DbSet<ProduccionMuestra> ProduccionMuestra { get; set; }
         public virtual DbSet<ProduccionMuestraDetalle> ProduccionMuestraDetalle { get; set; }
+        public virtual DbSet<ProduccionNicotinaDetalle> ProduccionNicotinaDetalle { get; set; }
+        public virtual DbSet<ProduccionTemperatura> ProduccionTemperatura { get; set; }
+        public virtual DbSet<ProduccionTemperaturaDetalle> ProduccionTemperaturaDetalle { get; set; }
         public virtual DbSet<Provincia> Provincia { get; set; }
         public virtual DbSet<Remito> Remito { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
@@ -73,5 +80,31 @@ namespace DesktopEntities.Models
         public virtual DbSet<Vw_RomaneoOrdenPago> Vw_RomaneoOrdenPago { get; set; }
         public virtual DbSet<Vw_TipoTabaco> Vw_TipoTabaco { get; set; }
         public virtual DbSet<Vw_Transporte> Vw_Transporte { get; set; }
+    
+        public virtual ObjectResult<ActualizarLiquidacion_Result> ActualizarLiquidacion(Nullable<System.DateTime> fechaDesde, Nullable<System.DateTime> fechaHasta)
+        {
+            var fechaDesdeParameter = fechaDesde.HasValue ?
+                new ObjectParameter("FechaDesde", fechaDesde) :
+                new ObjectParameter("FechaDesde", typeof(System.DateTime));
+    
+            var fechaHastaParameter = fechaHasta.HasValue ?
+                new ObjectParameter("FechaHasta", fechaHasta) :
+                new ObjectParameter("FechaHasta", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ActualizarLiquidacion_Result>("ActualizarLiquidacion", fechaDesdeParameter, fechaHastaParameter);
+        }
+    
+        public virtual int MigrarStock(Nullable<int> campaña, Nullable<bool> warrant)
+        {
+            var campañaParameter = campaña.HasValue ?
+                new ObjectParameter("Campaña", campaña) :
+                new ObjectParameter("Campaña", typeof(int));
+    
+            var warrantParameter = warrant.HasValue ?
+                new ObjectParameter("Warrant", warrant) :
+                new ObjectParameter("Warrant", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("MigrarStock", campañaParameter, warrantParameter);
+        }
     }
 }

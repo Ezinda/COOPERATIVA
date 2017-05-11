@@ -69,6 +69,12 @@
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageSeguridad = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupSeguridad = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageGroupMuestras = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.btnMuestras = new DevExpress.XtraBars.BarButtonItem();
+            this.ribbonPageGroupControles = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.btnControlDeTemperatura = new DevExpress.XtraBars.BarButtonItem();
+            this.btnControlDeHumedad = new DevExpress.XtraBars.BarButtonItem();
+            this.btnControlDeNicotina = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             this.SuspendLayout();
             // 
@@ -98,9 +104,13 @@
             this.btnIngresoCaja,
             this.btnIngresoCajas,
             this.btnTransferenciaMercaderia,
-            this.btnTransferenciaMateriaPrima});
+            this.btnTransferenciaMateriaPrima,
+            this.btnMuestras,
+            this.btnControlDeTemperatura,
+            this.btnControlDeHumedad,
+            this.btnControlDeNicotina});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
-            this.ribbon.MaxItemId = 27;
+            this.ribbon.MaxItemId = 31;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPageRomaneo,
@@ -397,7 +407,9 @@
             // ribbonPage3
             // 
             this.ribbonPage3.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
-            this.ribbonPageGroup3});
+            this.ribbonPageGroup3,
+            this.ribbonPageGroupMuestras,
+            this.ribbonPageGroupControles});
             this.ribbonPage3.Image = ((System.Drawing.Image)(resources.GetObject("ribbonPage3.Image")));
             this.ribbonPage3.Name = "ribbonPage3";
             this.ribbonPage3.Text = "Producción";
@@ -472,6 +484,56 @@
             this.ribbonPageGroupSeguridad.ShowCaptionButton = false;
             this.ribbonPageGroupSeguridad.Text = "Seguridad";
             // 
+            // ribbonPageGroupMuestras
+            // 
+            this.ribbonPageGroupMuestras.ItemLinks.Add(this.btnMuestras);
+            this.ribbonPageGroupMuestras.Name = "ribbonPageGroupMuestras";
+            this.ribbonPageGroupMuestras.Text = "Muestras";
+            // 
+            // btnMuestras
+            // 
+            this.btnMuestras.Caption = "Muestras";
+            this.btnMuestras.Glyph = ((System.Drawing.Image)(resources.GetObject("btnMuestras.Glyph")));
+            this.btnMuestras.Id = 27;
+            this.btnMuestras.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnMuestras.LargeGlyph")));
+            this.btnMuestras.Name = "btnMuestras";
+            this.btnMuestras.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnMuestras_ItemClick);
+            // 
+            // ribbonPageGroupControles
+            // 
+            this.ribbonPageGroupControles.ItemLinks.Add(this.btnControlDeTemperatura);
+            this.ribbonPageGroupControles.ItemLinks.Add(this.btnControlDeHumedad);
+            this.ribbonPageGroupControles.ItemLinks.Add(this.btnControlDeNicotina);
+            this.ribbonPageGroupControles.Name = "ribbonPageGroupControles";
+            this.ribbonPageGroupControles.Text = "Controles";
+            // 
+            // btnControlDeTemperatura
+            // 
+            this.btnControlDeTemperatura.Caption = "Control de Temperatura";
+            this.btnControlDeTemperatura.Glyph = ((System.Drawing.Image)(resources.GetObject("btnControlDeTemperatura.Glyph")));
+            this.btnControlDeTemperatura.Id = 28;
+            this.btnControlDeTemperatura.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnControlDeTemperatura.LargeGlyph")));
+            this.btnControlDeTemperatura.Name = "btnControlDeTemperatura";
+            this.btnControlDeTemperatura.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnControlDeTemperatura_ItemClick);
+            // 
+            // btnControlDeHumedad
+            // 
+            this.btnControlDeHumedad.Caption = "Control de Humedad";
+            this.btnControlDeHumedad.Glyph = ((System.Drawing.Image)(resources.GetObject("btnControlDeHumedad.Glyph")));
+            this.btnControlDeHumedad.Id = 29;
+            this.btnControlDeHumedad.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnControlDeHumedad.LargeGlyph")));
+            this.btnControlDeHumedad.Name = "btnControlDeHumedad";
+            this.btnControlDeHumedad.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnControlDeHumedad_ItemClick);
+            // 
+            // btnControlDeNicotina
+            // 
+            this.btnControlDeNicotina.Caption = "Nicotina";
+            this.btnControlDeNicotina.Glyph = ((System.Drawing.Image)(resources.GetObject("btnControlDeNicotina.Glyph")));
+            this.btnControlDeNicotina.Id = 30;
+            this.btnControlDeNicotina.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnControlDeNicotina.LargeGlyph")));
+            this.btnControlDeNicotina.Name = "btnControlDeNicotina";
+            this.btnControlDeNicotina.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnControlDeNicotina_ItemClick);
+            // 
             // Form_SysPrincipal
             // 
             this.AllowFormGlass = DevExpress.Utils.DefaultBoolean.True;
@@ -533,5 +595,11 @@
         private DevExpress.XtraBars.BarButtonItem btnTransferenciaMercaderia;
         private DevExpress.XtraBars.BarButtonItem btnTransferenciaMateriaPrima;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup3;
+        private DevExpress.XtraBars.BarButtonItem btnMuestras;
+        private DevExpress.XtraBars.BarButtonItem btnControlDeTemperatura;
+        private DevExpress.XtraBars.BarButtonItem btnControlDeHumedad;
+        private DevExpress.XtraBars.BarButtonItem btnControlDeNicotina;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroupMuestras;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroupControles;
     }
 }

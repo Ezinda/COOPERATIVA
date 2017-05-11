@@ -17,7 +17,10 @@ namespace DesktopEntities.Models
         public ProduccionBlend()
         {
             this.ProduccionCorrida = new HashSet<ProduccionCorrida>();
+            this.ProduccionHumedad = new HashSet<ProduccionHumedad>();
             this.ProduccionMuestra = new HashSet<ProduccionMuestra>();
+            this.ProduccionNicotinaDetalle = new HashSet<ProduccionNicotinaDetalle>();
+            this.ProduccionTemperatura = new HashSet<ProduccionTemperatura>();
         }
     
         public System.Guid Id { get; set; }
@@ -25,6 +28,9 @@ namespace DesktopEntities.Models
         public string Descripcion { get; set; }
     
         public virtual ICollection<ProduccionCorrida> ProduccionCorrida { get; set; }
+        public virtual ICollection<ProduccionHumedad> ProduccionHumedad { get; set; }
         public virtual ICollection<ProduccionMuestra> ProduccionMuestra { get; set; }
+        public virtual ICollection<ProduccionNicotinaDetalle> ProduccionNicotinaDetalle { get; set; }
+        public virtual ICollection<ProduccionTemperatura> ProduccionTemperatura { get; set; }
     }
 }

@@ -12,26 +12,19 @@ namespace DesktopEntities.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ProduccionMuestra
+    public partial class ProduccionHumedadDetalle
     {
-        public ProduccionMuestra()
-        {
-            this.ProduccionMuestraDetalle = new HashSet<ProduccionMuestraDetalle>();
-        }
-    
         public System.Guid Id { get; set; }
-        public System.DateTime Fecha { get; set; }
+        public System.Guid HumedadId { get; set; }
         public System.TimeSpan Hora { get; set; }
-        public System.Guid ProductoId { get; set; }
         public long Caja { get; set; }
         public System.Guid CajaId { get; set; }
-        public long Corrida { get; set; }
-        public System.Guid CorridaId { get; set; }
-        public int PesoMuestra { get; set; }
-        public decimal TotalSobreUnMedio { get; set; }
-        public string Observaciones { get; set; }
+        public decimal TemperaturaEmpaque { get; set; }
+        public int Capsula { get; set; }
+        public System.TimeSpan HoraEntrada { get; set; }
+        public System.TimeSpan HoraSalida { get; set; }
+        public decimal Humedad { get; set; }
     
-        public virtual ProduccionBlend ProduccionBlend { get; set; }
-        public virtual ICollection<ProduccionMuestraDetalle> ProduccionMuestraDetalle { get; set; }
+        public virtual ProduccionHumedad ProduccionHumedad { get; set; }
     }
 }
