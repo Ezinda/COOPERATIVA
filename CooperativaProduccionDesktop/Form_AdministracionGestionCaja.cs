@@ -237,6 +237,8 @@ namespace CooperativaProduccion
             movimiento.Unidad = DevConstantes.Caja;
             movimiento.Ingreso = kilos;
             movimiento.Egreso = 0;
+            movimiento.Actual = true;
+            movimiento.Anulado = false;
 
             var deposito = Context.Vw_Deposito
                 .Where(x => x.nombre == DevConstantes.Deposito)

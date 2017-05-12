@@ -11,6 +11,7 @@ using DesktopEntities.Models;
 using System.Data.Entity;
 using System.Drawing.Printing;
 using CooperativaProduccion.Helpers;
+using EntityFramework.Extensions;
 
 namespace CooperativaProduccion
 {
@@ -177,6 +178,7 @@ namespace CooperativaProduccion
 
             if ( detalle != null)
             {
+                UpdateMovimientoActual(detalle.Id);
                 RegistrarMovimientoEgreso(detalle.Id, detalle.Kilos.Value);
                 RegistrarMovimientoIngreso(detalle.Id, detalle.Kilos.Value);
             }
@@ -195,6 +197,8 @@ namespace CooperativaProduccion
             movimiento.Unidad = DevConstantes.Kg;
             movimiento.Ingreso = 0;
             movimiento.Egreso = kilos;
+            movimiento.Actual = false;
+            movimiento.Anulado = false;
 
             var deposito = Context.Vw_Deposito
                 .Where(x => x.id == DevConstantes.DepositoMateriaPrima)
@@ -220,7 +224,9 @@ namespace CooperativaProduccion
             movimiento.Unidad = DevConstantes.Kg;
             movimiento.Ingreso = kilos;
             movimiento.Egreso = 0;
-            
+            movimiento.Actual = true;
+            movimiento.Anulado = false;
+
             var deposito = Context.Vw_Deposito
                 .Where(x => x.id == DevConstantes.ProduccionEnProceso)
                 .FirstOrDefault();
@@ -231,6 +237,15 @@ namespace CooperativaProduccion
             Context.SaveChanges();
 
             return movimiento.Id;
+        }
+
+        private void UpdateMovimientoActual(Guid Id)
+        {
+            var movimiento = Context.Movimiento
+                 .Where(x => x.TransaccionId == Id)
+                     .Update(x => new Movimiento() { Actual = false });
+
+            Context.SaveChanges();
         }
 
         #endregion

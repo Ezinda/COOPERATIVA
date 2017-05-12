@@ -14,6 +14,7 @@ using System.Data.Entity;
 using System.Linq.Expressions;
 using System.Runtime.InteropServices;
 using System.Security.Principal;
+using EntityFramework.Extensions;
 
 namespace CooperativaProduccion
 {
@@ -363,6 +364,7 @@ namespace CooperativaProduccion
                                     && x.NumeroCaja == i)
                                 .FirstOrDefault();
 
+                            UpdateMovimientoActual(caja.Id);
                             RegistrarMovimiento(caja.Id, 1, remito.FechaRemito.Value);
                         }
                     }
@@ -380,6 +382,15 @@ namespace CooperativaProduccion
             }
         }
 
+        private void UpdateMovimientoActual(Guid Id)
+        {
+            var movimiento = Context.Movimiento
+                 .Where(x => x.TransaccionId == Id)
+                     .Update(x => new Movimiento() { Actual = false });
+
+            Context.SaveChanges();
+        }
+
         private Guid RegistrarMovimiento(Guid Id, double kilos, DateTime fecha)
         {
             Movimiento movimiento;
@@ -392,6 +403,8 @@ namespace CooperativaProduccion
             movimiento.Unidad = DevConstantes.Caja;
             movimiento.Ingreso = 0;
             movimiento.Egreso = kilos;
+            movimiento.Actual = true;
+            movimiento.Anulado = false;
 
             var deposito = Context.Vw_Deposito
                 .Where(x => x.nombre == DevConstantes.Deposito)

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Windows.Forms;
 using DevExpress.XtraBars;
 using DesktopEntities.Models;
+using EntityFramework.Extensions;
 
 namespace CooperativaProduccion
 {
@@ -167,20 +168,33 @@ namespace CooperativaProduccion
         {
             for (int i = 0; i <= gridViewCaja.RowCount -1; i++)
             {
-                Guid CajaId = new Guid(gridViewCaja.GetRowCellValue(i, "Id").ToString());
-
-                var ingreso = Context.Movimiento.Where(x => x.TransaccionId == CajaId).Sum(x => x.Ingreso == null ? 0 : x.Ingreso).Value;
-
-                var egreso = Context.Movimiento.Where(x => x.TransaccionId == CajaId).Sum(x => x.Egreso == null ? 0 : x.Egreso).Value;
-
-                if (ingreso - egreso > 0)
+                if (gridViewCaja.IsRowSelected(i))
                 {
-                    var caja = Context.Caja.Where(x => x.Id == CajaId).FirstOrDefault();
+                    Guid CajaId = new Guid(gridViewCaja.GetRowCellValue(i, "Id").ToString());
 
-                    RegistrarMovimientoEgreso(caja.Id);
-                    RegistrarMovimientoIngreso(caja.Id);
+                    var ingreso = Context.Movimiento.Where(x => x.TransaccionId == CajaId).Sum(x => x.Ingreso == null ? 0 : x.Ingreso).Value;
+
+                    var egreso = Context.Movimiento.Where(x => x.TransaccionId == CajaId).Sum(x => x.Egreso == null ? 0 : x.Egreso).Value;
+
+                    if (ingreso - egreso > 0)
+                    {
+                        var caja = Context.Caja.Where(x => x.Id == CajaId).FirstOrDefault();
+
+                        UpdateMovimientoActual(caja.Id);
+                        RegistrarMovimientoEgreso(caja.Id);
+                        RegistrarMovimientoIngreso(caja.Id);
+                    }
                 }
             }
+        }
+
+        private void UpdateMovimientoActual(Guid Id)
+        {
+            var movimiento = Context.Movimiento
+                 .Where(x => x.TransaccionId == Id)
+                     .Update(x => new Movimiento() { Actual = false });
+
+            Context.SaveChanges();
         }
 
         private Guid RegistrarMovimientoEgreso(Guid Id)
@@ -195,6 +209,8 @@ namespace CooperativaProduccion
             movimiento.Unidad = DevConstantes.Caja;
             movimiento.Ingreso = 0;
             movimiento.Egreso = 1;
+            movimiento.Actual = false;
+            movimiento.Anulado = false;
 
             var DepositoId = Guid.Parse(cbDepositoOrigen.SelectedValue.ToString());
 
@@ -218,6 +234,8 @@ namespace CooperativaProduccion
             movimiento.Unidad = DevConstantes.Caja;
             movimiento.Ingreso = 1;
             movimiento.Egreso = 0;
+            movimiento.Actual = true;
+            movimiento.Anulado = false;
 
             var DepositoId = Guid.Parse(cbDepositoDestino.SelectedValue.ToString());
 

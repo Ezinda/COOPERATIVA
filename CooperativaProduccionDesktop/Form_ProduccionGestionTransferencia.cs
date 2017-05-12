@@ -14,6 +14,7 @@ using System.Data.Entity;
 using System.Globalization;
 using System.IO;
 using System.Diagnostics;
+using EntityFramework.Extensions;
 
 namespace CooperativaProduccion
 {
@@ -230,6 +231,7 @@ namespace CooperativaProduccion
                     .OrderByDescending(x => x.Fecha)
                     .FirstOrDefault();
 
+                UpdateMovimientoActual(detalle.TransaccionId.Value);
                 RegistrarMovimientoEgreso(detalle.TransaccionId.Value,Kilos,DepositoId);
                 RegistrarMovimientoIngreso(detalle.TransaccionId.Value,Kilos);
             }
@@ -248,6 +250,8 @@ namespace CooperativaProduccion
             movimiento.Ingreso = 0;
             movimiento.Egreso = Kilos;
             movimiento.DepositoId = DepositoId;
+            movimiento.Actual = false;
+            movimiento.Anulado = false;
 
             Context.Movimiento.Add(movimiento);
             Context.SaveChanges();
@@ -267,6 +271,8 @@ namespace CooperativaProduccion
             movimiento.Unidad = DevConstantes.Kg;
             movimiento.Ingreso = Kilos;
             movimiento.Egreso = 0;
+            movimiento.Actual = true;
+            movimiento.Anulado = false;
 
             var DepositoId = Guid.Parse(cbDepositoDestino.SelectedValue.ToString());
 
@@ -276,6 +282,15 @@ namespace CooperativaProduccion
             Context.SaveChanges();
 
             return movimiento.Id;
+        }
+
+        private void UpdateMovimientoActual(Guid Id)
+        {
+            var movimiento = Context.Movimiento
+                 .Where(x => x.TransaccionId == Id)
+                     .Update(x => new Movimiento() { Actual = false });
+
+            Context.SaveChanges();
         }
     }
 }

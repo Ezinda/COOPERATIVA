@@ -191,6 +191,7 @@
             this.gridViewCaja.Name = "gridViewCaja";
             this.gridViewCaja.OptionsBehavior.Editable = false;
             this.gridViewCaja.OptionsSelection.MultiSelect = true;
+            this.gridViewCaja.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CheckBoxRowSelect;
             this.gridViewCaja.OptionsView.ShowGroupPanel = false;
             // 
             // gridView2

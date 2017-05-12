@@ -1105,6 +1105,8 @@ namespace CooperativaProduccion
             movimiento.Ingreso = kilos;
             movimiento.Egreso = 0;
             movimiento.Documento = DevConstantes.Romaneo;
+            movimiento.Actual = true;
+            movimiento.Anulado = false;
 
             var deposito = _context.Vw_Deposito
                 .Where(x => x.nombre == DevConstantes.MateriaPrima)
