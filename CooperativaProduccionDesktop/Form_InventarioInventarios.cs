@@ -229,9 +229,21 @@ namespace CooperativaProduccion
 
             foreach (var movimiento in movimientos)
             {
+                Expression<Func<Movimiento, bool>> pred5 = x => true;
+
+                pred5 = pred5.And(x => DbFunctions.TruncateTime(x.Fecha) <= dpHasta.Value.Date);
+
+                var deposito = Context.Vw_Deposito
+                    .Where(x=>x.nombre == movimiento.Deposito)
+                    .FirstOrDefault();
+
+                pred5 = pred5.And(x => x.DepositoId == deposito.id);
+
                 var movimientoDetalle =
-                    (from m in Context.Movimiento.Where(pred)
-                     join p in Context.Vw_Pesada.Where(x=> x.DESCRIPCION == movimiento.TipoTabaco)
+                    (from m in Context.Movimiento
+                         .Where(pred5)
+                     join p in Context.Vw_Pesada
+                        .Where(x=> x.DESCRIPCION == movimiento.TipoTabaco)
                          on m.TransaccionId equals p.PesadaDetalleId
                      join d in Context.Vw_Deposito.Where(pred3)
                          on m.DepositoId equals d.id

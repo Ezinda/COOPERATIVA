@@ -165,7 +165,7 @@
             this.groupControl1.Name = "groupControl1";
             this.groupControl1.Size = new System.Drawing.Size(868, 49);
             this.groupControl1.TabIndex = 23;
-            this.groupControl1.Text = "Buscar Productor";
+            this.groupControl1.Text = "Filtros";
             // 
             // checkDeposito
             // 

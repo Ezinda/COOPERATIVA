@@ -373,5 +373,11 @@ namespace CooperativaProduccion
         {
             new Form_ProduccionNicotina(new DataAccess.BlendManager()).Show();
         }
+
+        private void btnGestionTransferencias_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var transferencia = new Form_ProduccionGestionTransferencia();
+            transferencia.Show();
+        }
     }
 }

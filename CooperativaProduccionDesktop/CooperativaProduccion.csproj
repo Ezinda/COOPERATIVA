@@ -250,6 +250,12 @@
     <Compile Include="Form_InventarioTransferencia.Designer.cs">
       <DependentUpon>Form_InventarioTransferencia.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_ProduccionGestionTransferencia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_ProduccionGestionTransferencia.Designer.cs">
+      <DependentUpon>Form_ProduccionGestionTransferencia.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_ProduccionHumedad.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -743,6 +749,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_InventarioTransferencia.resx">
       <DependentUpon>Form_InventarioTransferencia.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_ProduccionGestionTransferencia.resx">
+      <DependentUpon>Form_ProduccionGestionTransferencia.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_ProduccionHumedad.resx">
       <DependentUpon>Form_ProduccionHumedad.cs</DependentUpon>

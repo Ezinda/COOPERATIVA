@@ -142,10 +142,13 @@ namespace CooperativaProduccion
             pred3 = checkDeposito.Checked ? pred3.And(x => x.nombre == cbDeposito.Text) : pred3;
 
             var movimientos =
-                (from m in Context.Movimiento.Where(pred)
-                 join p in Context.Vw_Pesada.Where(pred2)
+                (from m in Context.Movimiento
+                     .Where(pred)
+                 join p in Context.Vw_Pesada
+                     .Where(pred2)
                      on m.TransaccionId equals p.PesadaDetalleId
-                 join d in Context.Vw_Deposito.Where(pred3)
+                 join d in Context.Vw_Deposito
+                     .Where(pred3)
                      on m.DepositoId equals d.id
                  group new { m, p, d } by new
                  {

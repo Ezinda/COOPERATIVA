@@ -52,6 +52,10 @@
             this.btnIngresoCajas = new DevExpress.XtraBars.BarButtonItem();
             this.btnTransferenciaMercaderia = new DevExpress.XtraBars.BarButtonItem();
             this.btnTransferenciaMateriaPrima = new DevExpress.XtraBars.BarButtonItem();
+            this.btnMuestras = new DevExpress.XtraBars.BarButtonItem();
+            this.btnControlDeTemperatura = new DevExpress.XtraBars.BarButtonItem();
+            this.btnControlDeHumedad = new DevExpress.XtraBars.BarButtonItem();
+            this.btnControlDeNicotina = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPageRomaneo = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupPorteria = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroupBalanza = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -62,6 +66,8 @@
             this.ribbonPageListaPrecio = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPage3 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup3 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageGroupMuestras = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageGroupControles = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPage4 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupFardos = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -69,12 +75,7 @@
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageSeguridad = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupSeguridad = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.ribbonPageGroupMuestras = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.btnMuestras = new DevExpress.XtraBars.BarButtonItem();
-            this.ribbonPageGroupControles = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.btnControlDeTemperatura = new DevExpress.XtraBars.BarButtonItem();
-            this.btnControlDeHumedad = new DevExpress.XtraBars.BarButtonItem();
-            this.btnControlDeNicotina = new DevExpress.XtraBars.BarButtonItem();
+            this.btnGestionTransferencias = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             this.SuspendLayout();
             // 
@@ -108,9 +109,10 @@
             this.btnMuestras,
             this.btnControlDeTemperatura,
             this.btnControlDeHumedad,
-            this.btnControlDeNicotina});
+            this.btnControlDeNicotina,
+            this.btnGestionTransferencias});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
-            this.ribbon.MaxItemId = 31;
+            this.ribbon.MaxItemId = 32;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPageRomaneo,
@@ -331,6 +333,42 @@
             this.btnTransferenciaMateriaPrima.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
             this.btnTransferenciaMateriaPrima.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnTransferenciaMateriaPrima_ItemClick);
             // 
+            // btnMuestras
+            // 
+            this.btnMuestras.Caption = "Muestras";
+            this.btnMuestras.Glyph = ((System.Drawing.Image)(resources.GetObject("btnMuestras.Glyph")));
+            this.btnMuestras.Id = 27;
+            this.btnMuestras.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnMuestras.LargeGlyph")));
+            this.btnMuestras.Name = "btnMuestras";
+            this.btnMuestras.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnMuestras_ItemClick);
+            // 
+            // btnControlDeTemperatura
+            // 
+            this.btnControlDeTemperatura.Caption = "Control de Temperatura";
+            this.btnControlDeTemperatura.Glyph = ((System.Drawing.Image)(resources.GetObject("btnControlDeTemperatura.Glyph")));
+            this.btnControlDeTemperatura.Id = 28;
+            this.btnControlDeTemperatura.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnControlDeTemperatura.LargeGlyph")));
+            this.btnControlDeTemperatura.Name = "btnControlDeTemperatura";
+            this.btnControlDeTemperatura.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnControlDeTemperatura_ItemClick);
+            // 
+            // btnControlDeHumedad
+            // 
+            this.btnControlDeHumedad.Caption = "Control de Humedad";
+            this.btnControlDeHumedad.Glyph = ((System.Drawing.Image)(resources.GetObject("btnControlDeHumedad.Glyph")));
+            this.btnControlDeHumedad.Id = 29;
+            this.btnControlDeHumedad.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnControlDeHumedad.LargeGlyph")));
+            this.btnControlDeHumedad.Name = "btnControlDeHumedad";
+            this.btnControlDeHumedad.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnControlDeHumedad_ItemClick);
+            // 
+            // btnControlDeNicotina
+            // 
+            this.btnControlDeNicotina.Caption = "Nicotina";
+            this.btnControlDeNicotina.Glyph = ((System.Drawing.Image)(resources.GetObject("btnControlDeNicotina.Glyph")));
+            this.btnControlDeNicotina.Id = 30;
+            this.btnControlDeNicotina.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnControlDeNicotina.LargeGlyph")));
+            this.btnControlDeNicotina.Name = "btnControlDeNicotina";
+            this.btnControlDeNicotina.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnControlDeNicotina_ItemClick);
+            // 
             // ribbonPageRomaneo
             // 
             this.ribbonPageRomaneo.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -418,9 +456,28 @@
             // 
             this.ribbonPageGroup3.AllowTextClipping = false;
             this.ribbonPageGroup3.ItemLinks.Add(this.btnTransferenciaMateriaPrima);
+            this.ribbonPageGroup3.ItemLinks.Add(this.btnGestionTransferencias);
             this.ribbonPageGroup3.Name = "ribbonPageGroup3";
             this.ribbonPageGroup3.ShowCaptionButton = false;
             this.ribbonPageGroup3.Text = "Transferencia";
+            // 
+            // ribbonPageGroupMuestras
+            // 
+            this.ribbonPageGroupMuestras.AllowTextClipping = false;
+            this.ribbonPageGroupMuestras.ItemLinks.Add(this.btnMuestras);
+            this.ribbonPageGroupMuestras.Name = "ribbonPageGroupMuestras";
+            this.ribbonPageGroupMuestras.ShowCaptionButton = false;
+            this.ribbonPageGroupMuestras.Text = "Muestras";
+            // 
+            // ribbonPageGroupControles
+            // 
+            this.ribbonPageGroupControles.AllowTextClipping = false;
+            this.ribbonPageGroupControles.ItemLinks.Add(this.btnControlDeTemperatura);
+            this.ribbonPageGroupControles.ItemLinks.Add(this.btnControlDeHumedad);
+            this.ribbonPageGroupControles.ItemLinks.Add(this.btnControlDeNicotina);
+            this.ribbonPageGroupControles.Name = "ribbonPageGroupControles";
+            this.ribbonPageGroupControles.ShowCaptionButton = false;
+            this.ribbonPageGroupControles.Text = "Controles";
             // 
             // ribbonPage4
             // 
@@ -484,55 +541,14 @@
             this.ribbonPageGroupSeguridad.ShowCaptionButton = false;
             this.ribbonPageGroupSeguridad.Text = "Seguridad";
             // 
-            // ribbonPageGroupMuestras
+            // btnGestionTransferencias
             // 
-            this.ribbonPageGroupMuestras.ItemLinks.Add(this.btnMuestras);
-            this.ribbonPageGroupMuestras.Name = "ribbonPageGroupMuestras";
-            this.ribbonPageGroupMuestras.Text = "Muestras";
-            // 
-            // btnMuestras
-            // 
-            this.btnMuestras.Caption = "Muestras";
-            this.btnMuestras.Glyph = ((System.Drawing.Image)(resources.GetObject("btnMuestras.Glyph")));
-            this.btnMuestras.Id = 27;
-            this.btnMuestras.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnMuestras.LargeGlyph")));
-            this.btnMuestras.Name = "btnMuestras";
-            this.btnMuestras.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnMuestras_ItemClick);
-            // 
-            // ribbonPageGroupControles
-            // 
-            this.ribbonPageGroupControles.ItemLinks.Add(this.btnControlDeTemperatura);
-            this.ribbonPageGroupControles.ItemLinks.Add(this.btnControlDeHumedad);
-            this.ribbonPageGroupControles.ItemLinks.Add(this.btnControlDeNicotina);
-            this.ribbonPageGroupControles.Name = "ribbonPageGroupControles";
-            this.ribbonPageGroupControles.Text = "Controles";
-            // 
-            // btnControlDeTemperatura
-            // 
-            this.btnControlDeTemperatura.Caption = "Control de Temperatura";
-            this.btnControlDeTemperatura.Glyph = ((System.Drawing.Image)(resources.GetObject("btnControlDeTemperatura.Glyph")));
-            this.btnControlDeTemperatura.Id = 28;
-            this.btnControlDeTemperatura.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnControlDeTemperatura.LargeGlyph")));
-            this.btnControlDeTemperatura.Name = "btnControlDeTemperatura";
-            this.btnControlDeTemperatura.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnControlDeTemperatura_ItemClick);
-            // 
-            // btnControlDeHumedad
-            // 
-            this.btnControlDeHumedad.Caption = "Control de Humedad";
-            this.btnControlDeHumedad.Glyph = ((System.Drawing.Image)(resources.GetObject("btnControlDeHumedad.Glyph")));
-            this.btnControlDeHumedad.Id = 29;
-            this.btnControlDeHumedad.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnControlDeHumedad.LargeGlyph")));
-            this.btnControlDeHumedad.Name = "btnControlDeHumedad";
-            this.btnControlDeHumedad.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnControlDeHumedad_ItemClick);
-            // 
-            // btnControlDeNicotina
-            // 
-            this.btnControlDeNicotina.Caption = "Nicotina";
-            this.btnControlDeNicotina.Glyph = ((System.Drawing.Image)(resources.GetObject("btnControlDeNicotina.Glyph")));
-            this.btnControlDeNicotina.Id = 30;
-            this.btnControlDeNicotina.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnControlDeNicotina.LargeGlyph")));
-            this.btnControlDeNicotina.Name = "btnControlDeNicotina";
-            this.btnControlDeNicotina.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnControlDeNicotina_ItemClick);
+            this.btnGestionTransferencias.Caption = "Gestión de Transferencias";
+            this.btnGestionTransferencias.Glyph = ((System.Drawing.Image)(resources.GetObject("btnGestionTransferencias.Glyph")));
+            this.btnGestionTransferencias.Id = 31;
+            this.btnGestionTransferencias.Name = "btnGestionTransferencias";
+            this.btnGestionTransferencias.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.btnGestionTransferencias.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnGestionTransferencias_ItemClick);
             // 
             // Form_SysPrincipal
             // 
@@ -601,5 +617,6 @@
         private DevExpress.XtraBars.BarButtonItem btnControlDeNicotina;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroupMuestras;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroupControles;
+        private DevExpress.XtraBars.BarButtonItem btnGestionTransferencias;
     }
 }
