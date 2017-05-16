@@ -9,6 +9,9 @@ using System.Windows.Forms;
 using DevExpress.XtraBars;
 using DesktopEntities.Models;
 using EntityFramework.Extensions;
+using System.Diagnostics;
+using System.IO;
+using System.Globalization;
 
 namespace CooperativaProduccion
 {
@@ -62,13 +65,16 @@ namespace CooperativaProduccion
 
                 var result =
                     (from c in Context.Caja
-                        .Where(x => x.ProductoId == ProductoId)
+                        .Where(x => x.ProductoId == ProductoId 
+                            && x.Fecha >= dpDesde.Value.Date 
+                            && x.Fecha <= dpHasta.Value.Date)
                      join p in Context.Vw_Producto
                         on c.ProductoId equals p.ID
                      join ca in Context.Cata
                         on c.CataId equals ca.Id into cat
                      from joined in cat.DefaultIfEmpty()
                      join m in Context.Movimiento
+                        .Where(x => x.Actual == true)
                         on c.Id equals m.TransaccionId
                      join d in Context.Vw_Deposito
                         .Where(x => x.id == DepositoId)
@@ -97,13 +103,16 @@ namespace CooperativaProduccion
             {
                 var result =
                     (from c in Context.Caja
-                        .Where(x => x.ProductoId == ProductoId)
+                     .Where(x => x.ProductoId == ProductoId
+                         && x.Fecha >= dpDesde.Value.Date
+                         && x.Fecha <= dpHasta.Value.Date)
                      join p in Context.Vw_Producto
                         on c.ProductoId equals p.ID
                      join ca in Context.Cata
                         on c.CataId equals ca.Id into cat
                      from joined in cat.DefaultIfEmpty()
                      join m in Context.Movimiento
+                        .Where(x => x.Actual == true)
                         on c.Id equals m.TransaccionId
                      join d in Context.Vw_Deposito
                         .Where(x => x.id == DepositoId)
@@ -203,7 +212,7 @@ namespace CooperativaProduccion
 
             movimiento = new Movimiento();
             movimiento.Id = Guid.NewGuid();
-            movimiento.Fecha = dpFechaTransferencia.Value.Date;
+            movimiento.Fecha = dpDesde.Value.Date;
             movimiento.TransaccionId = Id;
             movimiento.Documento = DevConstantes.Transferencia;
             movimiento.Unidad = DevConstantes.Caja;
@@ -228,7 +237,7 @@ namespace CooperativaProduccion
 
             movimiento = new Movimiento();
             movimiento.Id = Guid.NewGuid();
-            movimiento.Fecha = dpFechaTransferencia.Value.Date;
+            movimiento.Fecha = dpDesde.Value.Date;
             movimiento.TransaccionId = Id;
             movimiento.Documento = DevConstantes.Transferencia;
             movimiento.Unidad = DevConstantes.Caja;
@@ -245,6 +254,57 @@ namespace CooperativaProduccion
             Context.SaveChanges();
 
             return movimiento.Id;
+        }
+
+        private void btnExportarExcel_Click(object sender, EventArgs e)
+        {
+            string path = @"C:\SystemDocumentsCooperativa";
+
+            CreateIfMissing(path);
+
+            path = @"C:\SystemDocumentsCooperativa\ExcelInventarioTransferencia";
+
+            CreateIfMissing(path);
+
+            var Hora = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff",
+              CultureInfo.InvariantCulture).Replace(":", "").Replace(".", "")
+              .Replace("-", "").Replace(" ", "");
+
+            string fileName = @"C:\SystemDocumentsCooperativa\ExcelInventarioTransferencia\"
+                + Hora + " - ExcelInventarioTransferencia.xls";
+
+            gridControlCaja.ExportToXls(fileName);
+            StartProcess(fileName);
+        }
+
+        private void CreateIfMissing(string path)
+        {
+            try
+            {
+                if (!Directory.Exists(path))
+                {
+                    // Try to create the directory.
+                    DirectoryInfo di = Directory.CreateDirectory(path);
+                }
+            }
+            catch (IOException ioex)
+            {
+                Console.WriteLine(ioex.Message);
+            }
+        }
+
+        public void StartProcess(string path)
+        {
+            Process process = new Process();
+            try
+            {
+                process.StartInfo.FileName = path;
+                process.Start();
+            }
+            catch
+            {
+                throw;
+            }
         }
     }
 }

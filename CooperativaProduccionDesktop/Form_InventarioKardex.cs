@@ -127,9 +127,9 @@ namespace CooperativaProduccion
         {
             Expression<Func<Movimiento, bool>> pred = x => true;
 
-            pred = checkDesde.Checked ? pred.And(x => DbFunctions.TruncateTime(x.Fecha) > dpDesde.Value.Date) : pred;
+            pred = checkDesde.Checked ? pred.And(x => x.Fecha > dpDesde.Value.Date) : pred;
 
-            pred = pred.And(x => DbFunctions.TruncateTime(x.Fecha) <= dpHasta.Value.Date);
+            pred = pred.And(x => x.Fecha <= dpHasta.Value.Date);
 
             Expression<Func<Vw_Pesada, bool>> pred2 = x => true;
 

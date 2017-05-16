@@ -97,9 +97,11 @@ namespace CooperativaProduccion
 
             Expression<Func<Movimiento, bool>> pred = x => true;
 
-            pred = pred.And(x => DbFunctions.TruncateTime(x.Fecha) >= dpDesde.Value.Date);
+            pred = pred.And(x => x.Fecha >= dpDesde.Value.Date);
 
-            pred = pred.And(x => DbFunctions.TruncateTime(x.Fecha) <= dpHasta.Value.Date);
+            pred = pred.And(x => x.Fecha <= dpHasta.Value.Date);
+
+            pred = pred.And(x => x.Actual == true);
 
             var deposito = Context.Vw_Deposito
                 .Where(x => x.nombre == cbDeposito.Text)
@@ -158,7 +160,7 @@ namespace CooperativaProduccion
 
             CreateIfMissing(path);
 
-            path = @"C:\SystemDocumentsCooperativa\ExcelProduccion";
+            path = @"C:\SystemDocumentsCooperativa\ExcelProduccionTransferencia";
 
             CreateIfMissing(path);
 
@@ -166,7 +168,8 @@ namespace CooperativaProduccion
               CultureInfo.InvariantCulture).Replace(":", "").Replace(".", "")
               .Replace("-", "").Replace(" ", "");
 
-            string fileName = @"C:\SystemDocumentsCooperativa\ExcelProduccion\" + Hora + " - ExcelProduccion.xls";
+            string fileName = @"C:\SystemDocumentsCooperativa\ExcelProduccionTransferencia\"
+            + Hora + " - ExcelProduccionTransferencia.xls";
 
             gridControlFardo.ExportToXls(fileName);
             StartProcess(fileName);
@@ -227,13 +230,13 @@ namespace CooperativaProduccion
 
                 var detalle = Context.Movimiento
                     .Where(x => x.TransaccionId == PesadaDetalleId
-                    && x.DepositoId == DepositoId)
-                    .OrderByDescending(x => x.Fecha)
+                        && x.DepositoId == DepositoId
+                        && x.Actual == true)
                     .FirstOrDefault();
 
                 UpdateMovimientoActual(detalle.TransaccionId.Value);
-                RegistrarMovimientoEgreso(detalle.TransaccionId.Value,Kilos,DepositoId);
-                RegistrarMovimientoIngreso(detalle.TransaccionId.Value,Kilos);
+                RegistrarMovimientoEgreso(detalle.TransaccionId.Value, Kilos, DepositoId);
+                RegistrarMovimientoIngreso(detalle.TransaccionId.Value, Kilos);
             }
         }
 
@@ -243,7 +246,7 @@ namespace CooperativaProduccion
 
             movimiento = new Movimiento();
             movimiento.Id = Guid.NewGuid();
-            movimiento.Fecha = DateTime.Now;
+            movimiento.Fecha = DateTime.Now.Date;
             movimiento.TransaccionId = Id;
             movimiento.Documento = DevConstantes.Transferencia;
             movimiento.Unidad = DevConstantes.Kg;
@@ -265,7 +268,7 @@ namespace CooperativaProduccion
 
             movimiento = new Movimiento();
             movimiento.Id = Guid.NewGuid();
-            movimiento.Fecha = DateTime.Now;
+            movimiento.Fecha = DateTime.Now.Date;
             movimiento.TransaccionId = Id;
             movimiento.Documento = DevConstantes.Transferencia;
             movimiento.Unidad = DevConstantes.Kg;
