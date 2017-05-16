@@ -219,7 +219,7 @@ namespace CooperativaProduccion
                  {
                      full = a.CUIT + a.RAZONSOCIAL + a.CUITE,
                      ID = a.ID,
-                     CUIT = a.CUIT.Contains(DevConstantes.XX) ? a.CUITE : a.CUIT,
+                     CUIT = a.CUIT.ToUpper().Contains(DevConstantes.XX) ? a.CUITE : a.CUIT,
                      CLIENTE = a.RAZONSOCIAL,
                      DOMICILIO = a.DOMICILIO,
                      PROVINCIA = a.Provincia
@@ -583,7 +583,7 @@ namespace CooperativaProduccion
                 if (cliente != null)
                 {
                     txtCliente.Text = cliente.RAZONSOCIAL;
-                    txtCuitCliente.Text = cliente.CUIT.Contains(DevConstantes.XX) ? 
+                    txtCuitCliente.Text = cliente.CUIT.ToUpper().Contains(DevConstantes.XX) ? 
                         cliente.CUITE : cliente.CUIT;
                     txtDomicilio.Text = cliente.DOMICILIO;
                 }
