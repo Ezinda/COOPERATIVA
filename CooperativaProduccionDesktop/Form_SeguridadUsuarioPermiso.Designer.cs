@@ -55,6 +55,8 @@
             this.groupControl7 = new DevExpress.XtraEditors.GroupControl();
             this.checkConfiguracion = new System.Windows.Forms.CheckBox();
             this.checkSeguridad = new System.Windows.Forms.CheckBox();
+            this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
             this.groupControl2.SuspendLayout();
@@ -68,6 +70,8 @@
             this.groupControl8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl7)).BeginInit();
             this.groupControl7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).BeginInit();
+            this.groupControl3.SuspendLayout();
             this.SuspendLayout();
             // 
             // ribbon
@@ -81,8 +85,8 @@
             this.ribbon.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.Office2013;
             this.ribbon.ShowApplicationButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowCategoryInCaption = false;
+            this.ribbon.ShowDisplayOptionsMenuButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowExpandCollapseButton = DevExpress.Utils.DefaultBoolean.False;
-            this.ribbon.ShowFullScreenButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Hide;
             this.ribbon.ShowToolbarCustomizeItem = false;
             this.ribbon.Size = new System.Drawing.Size(611, 27);
@@ -100,11 +104,11 @@
             // gridControlUsuario
             // 
             this.gridControlUsuario.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridControlUsuario.Location = new System.Drawing.Point(2, 21);
+            this.gridControlUsuario.Location = new System.Drawing.Point(2, 20);
             this.gridControlUsuario.MainView = this.gridViewUsuario;
             this.gridControlUsuario.MenuManager = this.ribbon;
             this.gridControlUsuario.Name = "gridControlUsuario";
-            this.gridControlUsuario.Size = new System.Drawing.Size(362, 177);
+            this.gridControlUsuario.Size = new System.Drawing.Size(362, 178);
             this.gridControlUsuario.TabIndex = 0;
             this.gridControlUsuario.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewUsuario});
@@ -249,7 +253,7 @@
             this.groupControl8.Controls.Add(this.checkLiquidacion);
             this.groupControl8.Location = new System.Drawing.Point(369, 97);
             this.groupControl8.Name = "groupControl8";
-            this.groupControl8.Size = new System.Drawing.Size(238, 347);
+            this.groupControl8.Size = new System.Drawing.Size(238, 237);
             this.groupControl8.TabIndex = 46;
             this.groupControl8.Text = "Accesos del Módulo de Administración";
             // 
@@ -268,7 +272,7 @@
             // checkListaPrecio
             // 
             this.checkListaPrecio.AutoSize = true;
-            this.checkListaPrecio.Location = new System.Drawing.Point(7, 214);
+            this.checkListaPrecio.Location = new System.Drawing.Point(8, 213);
             this.checkListaPrecio.Name = "checkListaPrecio";
             this.checkListaPrecio.Size = new System.Drawing.Size(181, 17);
             this.checkListaPrecio.TabIndex = 36;
@@ -366,11 +370,31 @@
             this.checkSeguridad.Text = "Puede acceder al módulo de Seguridad";
             this.checkSeguridad.UseVisualStyleBackColor = true;
             // 
+            // groupControl3
+            // 
+            this.groupControl3.Controls.Add(this.checkBox1);
+            this.groupControl3.Location = new System.Drawing.Point(371, 337);
+            this.groupControl3.Name = "groupControl3";
+            this.groupControl3.Size = new System.Drawing.Size(238, 104);
+            this.groupControl3.TabIndex = 54;
+            this.groupControl3.Text = "Accesos del Módulo de Producción";
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(6, 23);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(181, 17);
+            this.checkBox1.TabIndex = 37;
+            this.checkBox1.Text = "Puede gestionar Lista de Precios";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
             // Form_SeguridadUsuarioPermiso
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(611, 477);
+            this.Controls.Add(this.groupControl3);
             this.Controls.Add(this.groupControl7);
             this.Controls.Add(this.groupControl8);
             this.Controls.Add(this.groupControl1);
@@ -401,7 +425,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.groupControl7)).EndInit();
             this.groupControl7.ResumeLayout(false);
             this.groupControl7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).EndInit();
+            this.groupControl3.ResumeLayout(false);
+            this.groupControl3.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -433,5 +461,7 @@
         private DevExpress.XtraEditors.GroupControl groupControl7;
         private System.Windows.Forms.CheckBox checkConfiguracion;
         private System.Windows.Forms.CheckBox checkSeguridad;
+        private DevExpress.XtraEditors.GroupControl groupControl3;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }

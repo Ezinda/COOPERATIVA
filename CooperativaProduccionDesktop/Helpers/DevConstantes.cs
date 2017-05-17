@@ -66,6 +66,8 @@ namespace CooperativaProduccion
         public static string Modificar = "Modificar";
         public static string Eliminar = "Eliminar";
         public static string Guardar = "Guardar";
+        public static string NuevoBlend = "Nuevo Blend";
+        public static string GuardarBlend = "Guardar Blend";
         public static string XX = "XX";
         public static string OrdenVenta = "OrdenVenta";
         public static string NumeroOperacion = "NumeroOperacion";

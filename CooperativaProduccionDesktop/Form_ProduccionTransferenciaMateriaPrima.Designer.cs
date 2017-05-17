@@ -32,7 +32,6 @@
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
             this.label4 = new System.Windows.Forms.Label();
-            this.cbProducto = new System.Windows.Forms.ComboBox();
             this.btnBuscarFardo = new DevExpress.XtraEditors.SimpleButton();
             this.txtKilos = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -42,6 +41,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnTransferir = new DevExpress.XtraEditors.SimpleButton();
             this.txtFardo = new System.Windows.Forms.TextBox();
+            this.txtBlend = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
             this.groupControl2.SuspendLayout();
@@ -67,8 +67,8 @@
             // 
             // groupControl2
             // 
+            this.groupControl2.Controls.Add(this.txtBlend);
             this.groupControl2.Controls.Add(this.label4);
-            this.groupControl2.Controls.Add(this.cbProducto);
             this.groupControl2.Controls.Add(this.btnBuscarFardo);
             this.groupControl2.Controls.Add(this.txtKilos);
             this.groupControl2.Controls.Add(this.label2);
@@ -88,27 +88,18 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(10, 128);
+            this.label4.Location = new System.Drawing.Point(10, 26);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(64, 24);
             this.label4.TabIndex = 80;
             this.label4.Text = "Blend";
-            // 
-            // cbProducto
-            // 
-            this.cbProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbProducto.FormattingEnabled = true;
-            this.cbProducto.Location = new System.Drawing.Point(103, 128);
-            this.cbProducto.Name = "cbProducto";
-            this.cbProducto.Size = new System.Drawing.Size(221, 24);
-            this.cbProducto.TabIndex = 79;
             // 
             // btnBuscarFardo
             // 
             this.btnBuscarFardo.Appearance.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBuscarFardo.Appearance.Options.UseFont = true;
             this.btnBuscarFardo.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscarFardo.Image")));
-            this.btnBuscarFardo.Location = new System.Drawing.Point(296, 24);
+            this.btnBuscarFardo.Location = new System.Drawing.Point(296, 55);
             this.btnBuscarFardo.Name = "btnBuscarFardo";
             this.btnBuscarFardo.Size = new System.Drawing.Size(28, 29);
             this.btnBuscarFardo.TabIndex = 64;
@@ -118,7 +109,7 @@
             // 
             this.txtKilos.Enabled = false;
             this.txtKilos.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtKilos.Location = new System.Drawing.Point(103, 94);
+            this.txtKilos.Location = new System.Drawing.Point(103, 125);
             this.txtKilos.Name = "txtKilos";
             this.txtKilos.Size = new System.Drawing.Size(221, 29);
             this.txtKilos.TabIndex = 63;
@@ -127,7 +118,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(10, 95);
+            this.label2.Location = new System.Drawing.Point(10, 128);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(55, 24);
             this.label2.TabIndex = 62;
@@ -149,7 +140,7 @@
             // 
             this.txtClase.Enabled = false;
             this.txtClase.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtClase.Location = new System.Drawing.Point(103, 59);
+            this.txtClase.Location = new System.Drawing.Point(103, 90);
             this.txtClase.Name = "txtClase";
             this.txtClase.Size = new System.Drawing.Size(221, 29);
             this.txtClase.TabIndex = 56;
@@ -158,7 +149,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(10, 57);
+            this.label3.Location = new System.Drawing.Point(10, 93);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(62, 24);
             this.label3.TabIndex = 55;
@@ -168,7 +159,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(10, 25);
+            this.label1.Location = new System.Drawing.Point(10, 56);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(93, 24);
             this.label1.TabIndex = 54;
@@ -189,11 +180,20 @@
             // txtFardo
             // 
             this.txtFardo.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFardo.Location = new System.Drawing.Point(103, 24);
+            this.txtFardo.Location = new System.Drawing.Point(103, 55);
             this.txtFardo.Name = "txtFardo";
             this.txtFardo.Size = new System.Drawing.Size(193, 29);
             this.txtFardo.TabIndex = 2;
             this.txtFardo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFardo_KeyPress);
+            // 
+            // txtBlend
+            // 
+            this.txtBlend.Enabled = false;
+            this.txtBlend.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBlend.Location = new System.Drawing.Point(103, 23);
+            this.txtBlend.Name = "txtBlend";
+            this.txtBlend.Size = new System.Drawing.Size(221, 29);
+            this.txtBlend.TabIndex = 81;
             // 
             // Form_ProduccionTransferenciaMateriaPrima
             // 
@@ -232,6 +232,6 @@
         private System.Windows.Forms.Label label2;
         private DevExpress.XtraEditors.SimpleButton btnBuscarFardo;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox cbProducto;
+        public System.Windows.Forms.TextBox txtBlend;
     }
 }

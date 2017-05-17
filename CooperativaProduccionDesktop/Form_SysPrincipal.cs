@@ -379,5 +379,17 @@ namespace CooperativaProduccion
             var transferencia = new Form_ProduccionGestionTransferencia();
             transferencia.Show();
         }
+
+        private void btnConfiguracionBlend_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var config = new Form_ProduccionConfiguracionBlend();
+            config.Show();
+        }
+
+        private void btnGestionProduccion_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var config = new Form_ProduccionGestionProduccion();
+            config.Show();
+        }
     }
 }

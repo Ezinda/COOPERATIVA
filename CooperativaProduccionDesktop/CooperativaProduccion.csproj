@@ -250,6 +250,18 @@
     <Compile Include="Form_InventarioTransferencia.Designer.cs">
       <DependentUpon>Form_InventarioTransferencia.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_ProduccionConfiguracionBlend.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_ProduccionConfiguracionBlend.Designer.cs">
+      <DependentUpon>Form_ProduccionConfiguracionBlend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_ProduccionGestionProduccion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_ProduccionGestionProduccion.Designer.cs">
+      <DependentUpon>Form_ProduccionGestionProduccion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_ProduccionGestionTransferencia.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -781,6 +793,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_InventarioTransferencia.resx">
       <DependentUpon>Form_InventarioTransferencia.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_ProduccionConfiguracionBlend.resx">
+      <DependentUpon>Form_ProduccionConfiguracionBlend.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_ProduccionGestionProduccion.resx">
+      <DependentUpon>Form_ProduccionGestionProduccion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_ProduccionGestionTransferencia.resx">
       <DependentUpon>Form_ProduccionGestionTransferencia.cs</DependentUpon>

@@ -67,6 +67,9 @@
     <Compile Include="Models\Configuracion.cs">
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ConfiguracionBlend.cs">
+      <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Contador.cs">
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>
@@ -84,6 +87,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CooperativaDesktopModels.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FardoEnProduccion.cs">
+      <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Movimiento.cs">
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>

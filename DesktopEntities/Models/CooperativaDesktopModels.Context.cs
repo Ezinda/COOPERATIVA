@@ -20,7 +20,6 @@ namespace DesktopEntities.Models
         public CooperativaProduccionEntities()
             : base("name=CooperativaProduccionEntities")
         {
-            ((IObjectContextAdapter)this).ObjectContext.CommandTimeout = 180;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -33,7 +32,9 @@ namespace DesktopEntities.Models
         public virtual DbSet<Clase> Clase { get; set; }
         public virtual DbSet<ConceptoDeOrdenDePago> ConceptoDeOrdenDePago { get; set; }
         public virtual DbSet<Configuracion> Configuracion { get; set; }
+        public virtual DbSet<ConfiguracionBlend> ConfiguracionBlend { get; set; }
         public virtual DbSet<Contador> Contador { get; set; }
+        public virtual DbSet<FardoEnProduccion> FardoEnProduccion { get; set; }
         public virtual DbSet<Movimiento> Movimiento { get; set; }
         public virtual DbSet<OrdenPago> OrdenPago { get; set; }
         public virtual DbSet<OrdenVenta> OrdenVenta { get; set; }

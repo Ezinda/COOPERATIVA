@@ -334,7 +334,7 @@ namespace CooperativaProduccion
                     remito.PathOrigin = path;
                     string pathSystem = @"C:\SystemDocumentsCooperativa\RemitosElectronicos\" + txtNombrePdf.Text;
                     remito.PathSystem = pathSystem;
-                    remito.File = FileConvertToByte(path);
+                    //remito.File = FileConvertToByte(path);
                     var detalle = Context.OrdenVentaDetalle
                            .Where(x => x.OrdenVentaId == ordenVenta.Id)
                            .FirstOrDefault();
@@ -482,17 +482,29 @@ namespace CooperativaProduccion
 
         private void CopyFile()
         {
-            string pathFile = @"C:\SystemDocumentsCooperativa\RemitosElectronicos\" + txtNombrePdf.Text;
+            RemoteCredentialsClass rcPlanta =
+                          new RemoteCredentialsClass(@"\\SERVER-PLANTA\SystemDocumentsCooperativa\RemitosElectronicos\", "Administrador", "Coopat123");
+            try
+            {
+                var pathPlanta = @"\\SERVER-PLANTA\SystemDocumentsCooperativa\RemitosElectronicos\" + txtNombrePdf.Text;
 
-            if (path != string.Empty)
-            {
-                File.Copy(path, pathFile, true);
+                if (path != string.Empty)
+                {
+                    File.Copy(path, pathPlanta, true);
+                }
+                else
+                {
+                    MessageBox.Show("Se debe adjuntar el remito electronico (Archivo pdf)",
+                        "Se requiere", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            else
+            finally
             {
-                MessageBox.Show("Se debe adjuntar el remito electronico (Archivo pdf)",
-                    "Se requiere", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                rcPlanta.CloseUNC();
             }
+
+            string pathFile = @"C:\SystemDocumentsCooperativa\RemitosElectronicos\" + txtNombrePdf.Text;
+            File.Copy(path, pathFile, true);
         }
 
         private void CreateIfMissing(string path)

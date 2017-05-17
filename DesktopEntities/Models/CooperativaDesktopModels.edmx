@@ -73,6 +73,16 @@
           <Property Name="Descripcion" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="Valor" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="ConfiguracionBlend">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ProductoId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Fecha" Type="date" Nullable="false" />
+          <Property Name="Hora" Type="time" Precision="7" Nullable="false" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="Contador">
           <Key>
             <PropertyRef Name="Id" />
@@ -81,6 +91,18 @@
           <Property Name="Nombre" Type="nvarchar" MaxLength="50" />
           <Property Name="Descripcion" Type="nvarchar" MaxLength="50" />
           <Property Name="Valor" Type="bigint" />
+        </EntityType>
+        <EntityType Name="FardoEnProduccion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PesadaDetalleId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Kilos" Type="float" Nullable="false" />
+          <Property Name="Unidad" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ProductoId" Type="uniqueidentifier" />
+          <Property Name="Fecha" Type="date" Nullable="false" />
+          <Property Name="Hora" Type="time" Precision="7" Nullable="false" />
         </EntityType>
         <EntityType Name="Movimiento">
           <Key>
@@ -1308,7 +1330,9 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
           <EntitySet Name="Clase" EntityType="Self.Clase" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ConceptoDeOrdenDePago" EntityType="Self.ConceptoDeOrdenDePago" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Configuracion" EntityType="Self.Configuracion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ConfiguracionBlend" EntityType="Self.ConfiguracionBlend" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Contador" EntityType="Self.Contador" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FardoEnProduccion" EntityType="Self.FardoEnProduccion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Movimiento" EntityType="Self.Movimiento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrdenPago" EntityType="Self.OrdenPago" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrdenVenta" EntityType="Self.OrdenVenta" Schema="dbo" store:Type="Tables" />
@@ -1873,7 +1897,9 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
           <EntitySet Name="Clase" EntityType="CooperativaProduccionModel.Clase" />
           <EntitySet Name="ConceptoDeOrdenDePago" EntityType="CooperativaProduccionModel.ConceptoDeOrdenDePago" />
           <EntitySet Name="Configuracion" EntityType="CooperativaProduccionModel.Configuracion" />
+          <EntitySet Name="ConfiguracionBlend" EntityType="CooperativaProduccionModel.ConfiguracionBlend" />
           <EntitySet Name="Contador" EntityType="CooperativaProduccionModel.Contador" />
+          <EntitySet Name="FardoEnProduccion" EntityType="CooperativaProduccionModel.FardoEnProduccion" />
           <EntitySet Name="Movimiento" EntityType="CooperativaProduccionModel.Movimiento" />
           <EntitySet Name="OrdenPago" EntityType="CooperativaProduccionModel.OrdenPago" />
           <EntitySet Name="OrdenVenta" EntityType="CooperativaProduccionModel.OrdenVenta" />
@@ -2077,6 +2103,16 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
           <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Valor" Type="Boolean" Nullable="false" />
         </EntityType>
+        <EntityType Name="ConfiguracionBlend">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="ProductoId" Type="Guid" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Hora" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+        </EntityType>
         <EntityType Name="Contador">
           <Key>
             <PropertyRef Name="Id" />
@@ -2085,6 +2121,18 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
           <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Valor" Type="Int64" />
+        </EntityType>
+        <EntityType Name="FardoEnProduccion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="PesadaDetalleId" Type="Guid" Nullable="false" />
+          <Property Name="Kilos" Type="Double" Nullable="false" />
+          <Property Name="Unidad" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProductoId" Type="Guid" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Hora" Type="Time" Nullable="false" Precision="7" />
         </EntityType>
         <EntityType Name="Movimiento">
           <Key>
@@ -3356,12 +3404,36 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="ConfiguracionBlend">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.ConfiguracionBlend">
+              <MappingFragment StoreEntitySet="ConfiguracionBlend">
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="Hora" ColumnName="Hora" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="ProductoId" ColumnName="ProductoId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Contador">
             <EntityTypeMapping TypeName="CooperativaProduccionModel.Contador">
               <MappingFragment StoreEntitySet="Contador">
                 <ScalarProperty Name="Valor" ColumnName="Valor" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FardoEnProduccion">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.FardoEnProduccion">
+              <MappingFragment StoreEntitySet="FardoEnProduccion">
+                <ScalarProperty Name="Hora" ColumnName="Hora" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="ProductoId" ColumnName="ProductoId" />
+                <ScalarProperty Name="Unidad" ColumnName="Unidad" />
+                <ScalarProperty Name="Kilos" ColumnName="Kilos" />
+                <ScalarProperty Name="PesadaDetalleId" ColumnName="PesadaDetalleId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

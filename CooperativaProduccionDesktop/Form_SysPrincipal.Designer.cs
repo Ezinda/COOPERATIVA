@@ -56,6 +56,8 @@
             this.btnControlDeTemperatura = new DevExpress.XtraBars.BarButtonItem();
             this.btnControlDeHumedad = new DevExpress.XtraBars.BarButtonItem();
             this.btnControlDeNicotina = new DevExpress.XtraBars.BarButtonItem();
+            this.btnGestionTransferencias = new DevExpress.XtraBars.BarButtonItem();
+            this.btnConfiguracionBlend = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPageRomaneo = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupPorteria = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroupBalanza = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -75,7 +77,7 @@
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageSeguridad = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupSeguridad = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.btnGestionTransferencias = new DevExpress.XtraBars.BarButtonItem();
+            this.btnGestionProduccion = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             this.SuspendLayout();
             // 
@@ -110,9 +112,11 @@
             this.btnControlDeTemperatura,
             this.btnControlDeHumedad,
             this.btnControlDeNicotina,
-            this.btnGestionTransferencias});
+            this.btnGestionTransferencias,
+            this.btnConfiguracionBlend,
+            this.btnGestionProduccion});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
-            this.ribbon.MaxItemId = 32;
+            this.ribbon.MaxItemId = 34;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPageRomaneo,
@@ -369,6 +373,24 @@
             this.btnControlDeNicotina.Name = "btnControlDeNicotina";
             this.btnControlDeNicotina.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnControlDeNicotina_ItemClick);
             // 
+            // btnGestionTransferencias
+            // 
+            this.btnGestionTransferencias.Caption = "Gestión de Transferencias";
+            this.btnGestionTransferencias.Glyph = ((System.Drawing.Image)(resources.GetObject("btnGestionTransferencias.Glyph")));
+            this.btnGestionTransferencias.Id = 31;
+            this.btnGestionTransferencias.Name = "btnGestionTransferencias";
+            this.btnGestionTransferencias.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.btnGestionTransferencias.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnGestionTransferencias_ItemClick);
+            // 
+            // btnConfiguracionBlend
+            // 
+            this.btnConfiguracionBlend.Caption = "Configuración Blend";
+            this.btnConfiguracionBlend.Glyph = ((System.Drawing.Image)(resources.GetObject("btnConfiguracionBlend.Glyph")));
+            this.btnConfiguracionBlend.Id = 32;
+            this.btnConfiguracionBlend.Name = "btnConfiguracionBlend";
+            this.btnConfiguracionBlend.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.btnConfiguracionBlend.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnConfiguracionBlend_ItemClick);
+            // 
             // ribbonPageRomaneo
             // 
             this.ribbonPageRomaneo.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -455,7 +477,9 @@
             // ribbonPageGroup3
             // 
             this.ribbonPageGroup3.AllowTextClipping = false;
+            this.ribbonPageGroup3.ItemLinks.Add(this.btnConfiguracionBlend);
             this.ribbonPageGroup3.ItemLinks.Add(this.btnTransferenciaMateriaPrima);
+            this.ribbonPageGroup3.ItemLinks.Add(this.btnGestionProduccion);
             this.ribbonPageGroup3.ItemLinks.Add(this.btnGestionTransferencias);
             this.ribbonPageGroup3.Name = "ribbonPageGroup3";
             this.ribbonPageGroup3.ShowCaptionButton = false;
@@ -541,14 +565,14 @@
             this.ribbonPageGroupSeguridad.ShowCaptionButton = false;
             this.ribbonPageGroupSeguridad.Text = "Seguridad";
             // 
-            // btnGestionTransferencias
+            // btnGestionProduccion
             // 
-            this.btnGestionTransferencias.Caption = "Gestión de Transferencias";
-            this.btnGestionTransferencias.Glyph = ((System.Drawing.Image)(resources.GetObject("btnGestionTransferencias.Glyph")));
-            this.btnGestionTransferencias.Id = 31;
-            this.btnGestionTransferencias.Name = "btnGestionTransferencias";
-            this.btnGestionTransferencias.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
-            this.btnGestionTransferencias.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnGestionTransferencias_ItemClick);
+            this.btnGestionProduccion.Caption = "Gestión de Producción";
+            this.btnGestionProduccion.Glyph = ((System.Drawing.Image)(resources.GetObject("btnGestionProduccion.Glyph")));
+            this.btnGestionProduccion.Id = 33;
+            this.btnGestionProduccion.Name = "btnGestionProduccion";
+            this.btnGestionProduccion.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.btnGestionProduccion.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnGestionProduccion_ItemClick);
             // 
             // Form_SysPrincipal
             // 
@@ -618,5 +642,7 @@
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroupMuestras;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroupControles;
         private DevExpress.XtraBars.BarButtonItem btnGestionTransferencias;
+        private DevExpress.XtraBars.BarButtonItem btnConfiguracionBlend;
+        private DevExpress.XtraBars.BarButtonItem btnGestionProduccion;
     }
 }

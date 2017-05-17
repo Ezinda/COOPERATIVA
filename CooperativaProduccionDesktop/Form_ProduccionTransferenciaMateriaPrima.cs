@@ -18,6 +18,7 @@ namespace CooperativaProduccion
     public partial class Form_ProduccionTransferenciaMateriaPrima : DevExpress.XtraBars.Ribbon.RibbonForm
     {
         public CooperativaProduccionEntities Context { get; set; }
+        private Guid? ProductoId;
 
         public Form_ProduccionTransferenciaMateriaPrima()
         {
@@ -76,12 +77,30 @@ namespace CooperativaProduccion
 
         private void Iniciar()
         {
+            CooperativaProduccionEntities Context = new CooperativaProduccionEntities();
+
             txtFardo.BackColor = Color.LightSkyBlue;
 
-            var producto = Context.Vw_Producto.ToList();
-            cbProducto.DataSource = producto;
-            cbProducto.DisplayMember = "DESCRIPCION";
-            cbProducto.ValueMember = "ID";
+            var blend = Context.ConfiguracionBlend
+                .Where(x => x.Activo == true)
+                .FirstOrDefault();
+
+            if (blend != null)
+            {
+                var producto = Context.Vw_Producto
+                    .Where(x => x.ID == blend.ProductoId)
+                    .FirstOrDefault();
+
+                if (producto != null)
+                {
+                    ProductoId = producto.ID;
+                    txtBlend.Text = producto.DESCRIPCION;
+                }
+            }
+            else
+            {
+                txtBlend.Text = string.Empty;
+            }
         }
 
         private bool ValidarTransferencia()
@@ -184,6 +203,7 @@ namespace CooperativaProduccion
 
             if ( detalle != null)
             {
+                RegistrarIngresoProceso(detalle.Id, detalle.Kilos.Value);
                 UpdateMovimientoActual(detalle.Id);
                 RegistrarMovimientoEgreso(detalle.Id, detalle.Kilos.Value);
                 RegistrarMovimientoIngreso(detalle.Id, detalle.Kilos.Value);
@@ -243,6 +263,31 @@ namespace CooperativaProduccion
             Context.SaveChanges();
 
             return movimiento.Id;
+        }
+
+        private void RegistrarIngresoProceso(Guid Id, double kilos)
+        {
+            FardoEnProduccion produccion;
+
+            produccion = new FardoEnProduccion();
+            produccion.Id = Guid.NewGuid();
+            produccion.Fecha = DateTime.Now.Date;
+            produccion.PesadaDetalleId = Id;
+            produccion.Kilos = kilos;
+            produccion.Unidad = DevConstantes.Kg;
+            produccion.Hora = DateTime.Now.TimeOfDay;
+            if (ProductoId.HasValue)
+            {
+                produccion.ProductoId = ProductoId.Value;
+            }
+            else
+            {
+                produccion.ProductoId = null;
+            }
+
+
+            Context.FardoEnProduccion.Add(produccion);
+            Context.SaveChanges();
         }
 
         private void UpdateMovimientoActual(Guid Id)
