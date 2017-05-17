@@ -31,6 +31,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_ProduccionGestionTransferencia));
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
+            this.txtFardo = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.dpDesde = new System.Windows.Forms.DateTimePicker();
+            this.label6 = new System.Windows.Forms.Label();
             this.cbDeposito = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.checkClase = new System.Windows.Forms.CheckBox();
@@ -46,14 +50,10 @@
             this.gridControlFardo = new DevExpress.XtraGrid.GridControl();
             this.gridViewFardo = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
+            this.btnExportarExcel = new DevExpress.XtraEditors.SimpleButton();
             this.cbDepositoDestino = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.btnTransferencia = new DevExpress.XtraEditors.SimpleButton();
-            this.btnExportarExcel = new DevExpress.XtraEditors.SimpleButton();
-            this.dpDesde = new System.Windows.Forms.DateTimePicker();
-            this.label6 = new System.Windows.Forms.Label();
-            this.txtFardo = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
@@ -108,6 +108,41 @@
             this.groupControl1.Size = new System.Drawing.Size(720, 75);
             this.groupControl1.TabIndex = 25;
             this.groupControl1.Text = "Filtros";
+            // 
+            // txtFardo
+            // 
+            this.txtFardo.Location = new System.Drawing.Point(520, 24);
+            this.txtFardo.Name = "txtFardo";
+            this.txtFardo.Size = new System.Drawing.Size(60, 21);
+            this.txtFardo.TabIndex = 92;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(459, 26);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(55, 16);
+            this.label10.TabIndex = 93;
+            this.label10.Text = "N° Fardo";
+            // 
+            // dpDesde
+            // 
+            this.dpDesde.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dpDesde.Location = new System.Drawing.Point(78, 23);
+            this.dpDesde.Name = "dpDesde";
+            this.dpDesde.Size = new System.Drawing.Size(76, 21);
+            this.dpDesde.TabIndex = 91;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(6, 26);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(76, 16);
+            this.label6.TabIndex = 90;
+            this.label6.Text = "Fecha Desde";
             // 
             // cbDeposito
             // 
@@ -226,7 +261,7 @@
             this.groupControl2.Name = "groupControl2";
             this.groupControl2.Size = new System.Drawing.Size(720, 338);
             this.groupControl2.TabIndex = 24;
-            this.groupControl2.Text = "Lista de Fardos";
+            this.groupControl2.Text = "Detalle de fardos";
             // 
             // gridControlFardo
             // 
@@ -272,6 +307,16 @@
             this.groupControl3.TabIndex = 26;
             this.groupControl3.Text = "Filtros";
             // 
+            // btnExportarExcel
+            // 
+            this.btnExportarExcel.Image = ((System.Drawing.Image)(resources.GetObject("btnExportarExcel.Image")));
+            this.btnExportarExcel.Location = new System.Drawing.Point(394, 5);
+            this.btnExportarExcel.Name = "btnExportarExcel";
+            this.btnExportarExcel.Size = new System.Drawing.Size(102, 22);
+            this.btnExportarExcel.TabIndex = 62;
+            this.btnExportarExcel.Text = "Exportar Excel";
+            this.btnExportarExcel.Click += new System.EventHandler(this.btnExportarExcel_Click);
+            // 
             // cbDepositoDestino
             // 
             this.cbDepositoDestino.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -301,51 +346,6 @@
             this.btnTransferencia.TabIndex = 59;
             this.btnTransferencia.Text = "Transferencia";
             this.btnTransferencia.Click += new System.EventHandler(this.btnTransferencia_Click);
-            // 
-            // btnExportarExcel
-            // 
-            this.btnExportarExcel.Image = ((System.Drawing.Image)(resources.GetObject("btnExportarExcel.Image")));
-            this.btnExportarExcel.Location = new System.Drawing.Point(394, 5);
-            this.btnExportarExcel.Name = "btnExportarExcel";
-            this.btnExportarExcel.Size = new System.Drawing.Size(102, 22);
-            this.btnExportarExcel.TabIndex = 62;
-            this.btnExportarExcel.Text = "Exportar Excel";
-            this.btnExportarExcel.Click += new System.EventHandler(this.btnExportarExcel_Click);
-            // 
-            // dpDesde
-            // 
-            this.dpDesde.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dpDesde.Location = new System.Drawing.Point(78, 23);
-            this.dpDesde.Name = "dpDesde";
-            this.dpDesde.Size = new System.Drawing.Size(76, 21);
-            this.dpDesde.TabIndex = 91;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(6, 26);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(76, 16);
-            this.label6.TabIndex = 90;
-            this.label6.Text = "Fecha Desde";
-            // 
-            // txtFardo
-            // 
-            this.txtFardo.Location = new System.Drawing.Point(520, 24);
-            this.txtFardo.Name = "txtFardo";
-            this.txtFardo.Size = new System.Drawing.Size(60, 21);
-            this.txtFardo.TabIndex = 92;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(459, 26);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(55, 16);
-            this.label10.TabIndex = 93;
-            this.label10.Text = "N° Fardo";
             // 
             // Form_ProduccionGestionTransferencia
             // 

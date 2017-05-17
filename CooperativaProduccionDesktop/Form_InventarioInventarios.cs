@@ -166,7 +166,7 @@ namespace CooperativaProduccion
 
             Expression<Func<Movimiento, bool>> pred = x => true;
 
-            pred = pred.And(x => DbFunctions.TruncateTime(x.Fecha) <= dpHasta.Value.Date);
+            pred = pred.And(x => x.Fecha <= dpHasta.Value.Date);
 
             Expression<Func<Vw_Pesada, bool>> pred2 = x => true;
 
@@ -231,7 +231,7 @@ namespace CooperativaProduccion
             {
                 Expression<Func<Movimiento, bool>> pred5 = x => true;
 
-                pred5 = pred5.And(x => DbFunctions.TruncateTime(x.Fecha) <= dpHasta.Value.Date);
+                pred5 = pred5.And(x => x.Fecha <= dpHasta.Value.Date);
 
                 var deposito = Context.Vw_Deposito
                     .Where(x=>x.nombre == movimiento.Deposito)

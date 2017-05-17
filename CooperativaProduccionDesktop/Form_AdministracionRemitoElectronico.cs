@@ -30,7 +30,14 @@ namespace CooperativaProduccion
         void IEnlace.Enviar(Guid Id, string fet, string nombre)
         {
             ClienteId = Id;
-            txtCliente.Text = nombre;
+            if (Remito.SelectedTabPage.Equals(TabIngresoRemito))
+            {
+                txtCliente.Text = nombre;
+            }
+            else
+            {
+                txtClienteRemito.Text = nombre;
+            }
         }
 
         private void txtCliente_KeyPress(object sender, KeyPressEventArgs e)
@@ -54,7 +61,7 @@ namespace CooperativaProduccion
                  {
                      full = a.CUIT + a.RAZONSOCIAL + a.CUITE,
                      ID = a.ID,
-                     CUIT = a.CUIT.Contains(DevConstantes.XX) ? a.CUITE : a.CUIT,
+                     CUIT = a.CUIT.ToUpper().Contains(DevConstantes.XX) ? a.CUITE : a.CUIT,
                      CLIENTE = a.RAZONSOCIAL,
                      PROVINCIA = a.Provincia
                  });
@@ -120,7 +127,7 @@ namespace CooperativaProduccion
                  {
                      full = a.CUIT + a.RAZONSOCIAL + a.CUITE,
                      ID = a.ID,
-                     CUIT = a.CUIT.Contains(DevConstantes.XX) ? a.CUITE : a.CUIT,
+                     CUIT = a.CUIT.ToUpper().Contains(DevConstantes.XX) ? a.CUITE : a.CUIT,
                      CLIENTE = a.RAZONSOCIAL,
                      PROVINCIA = a.Provincia
                  });

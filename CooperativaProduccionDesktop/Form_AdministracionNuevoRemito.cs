@@ -144,7 +144,7 @@ namespace CooperativaProduccion
                       NumOperacion = o.NumOperacion,
                       NumOrden = o.NumOrden,
                       Cliente = c.RAZONSOCIAL,
-                      Cuit = c.CUIT.Contains(DevConstantes.XX) ? c.CUITE : c.CUIT,
+                      Cuit = c.CUIT.ToUpper().Contains(DevConstantes.XX) ? c.CUITE : c.CUIT,
                       Fecha = o.Fecha
                   })
                  .FirstOrDefault();
@@ -203,7 +203,7 @@ namespace CooperativaProduccion
                          NumOperacion = r.NumOperacion,
                          NumOrden = r.NumOrden,
                          Cliente = c.RAZONSOCIAL,
-                         Cuit = c.CUIT.Contains(DevConstantes.XX) ? c.CUITE : c.CUIT,
+                         Cuit = c.CUIT.ToUpper().Contains(DevConstantes.XX) ? c.CUITE : c.CUIT,
                          Producto = p.DESCRIPCION,
                          CajaDesde = r.DesdeCaja,
                          CajaHasta = r.HastaCaja,

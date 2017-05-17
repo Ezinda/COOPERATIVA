@@ -77,6 +77,11 @@ namespace CooperativaProduccion
         private void Iniciar()
         {
             txtFardo.BackColor = Color.LightSkyBlue;
+
+            var producto = Context.Vw_Producto.ToList();
+            cbProducto.DataSource = producto;
+            cbProducto.DisplayMember = "DESCRIPCION";
+            cbProducto.ValueMember = "ID";
         }
 
         private bool ValidarTransferencia()
@@ -117,6 +122,7 @@ namespace CooperativaProduccion
                         (from d in Context.PesadaDetalle
                             .Where(x => x.NumFardo == fardo)
                          join m in Context.Movimiento
+                            .Where(x=>x.Actual == true)
                               on d.Id equals m.TransaccionId
                          join dep in Context.Vw_Deposito
                             .Where(x=>x.id == DevConstantes.ProduccionEnProceso)
@@ -191,7 +197,7 @@ namespace CooperativaProduccion
 
             movimiento = new Movimiento();
             movimiento.Id = Guid.NewGuid();
-            movimiento.Fecha = DateTime.Now;
+            movimiento.Fecha = DateTime.Now.Date;
             movimiento.TransaccionId = Id;
             movimiento.Documento = DevConstantes.Transferencia;
             movimiento.Unidad = DevConstantes.Kg;
@@ -218,7 +224,7 @@ namespace CooperativaProduccion
 
             movimiento = new Movimiento();
             movimiento.Id = Guid.NewGuid();
-            movimiento.Fecha = DateTime.Now;
+            movimiento.Fecha = DateTime.Now.Date;
             movimiento.TransaccionId = Id;
             movimiento.Documento = DevConstantes.Transferencia;
             movimiento.Unidad = DevConstantes.Kg;

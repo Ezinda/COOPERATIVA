@@ -31,6 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_ProduccionTransferenciaMateriaPrima));
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
+            this.label4 = new System.Windows.Forms.Label();
+            this.cbProducto = new System.Windows.Forms.ComboBox();
             this.btnBuscarFardo = new DevExpress.XtraEditors.SimpleButton();
             this.txtKilos = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -60,11 +62,13 @@
             this.ribbon.ShowExpandCollapseButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Hide;
             this.ribbon.ShowToolbarCustomizeItem = false;
-            this.ribbon.Size = new System.Drawing.Size(334, 27);
+            this.ribbon.Size = new System.Drawing.Size(330, 27);
             this.ribbon.Toolbar.ShowCustomizeItem = false;
             // 
             // groupControl2
             // 
+            this.groupControl2.Controls.Add(this.label4);
+            this.groupControl2.Controls.Add(this.cbProducto);
             this.groupControl2.Controls.Add(this.btnBuscarFardo);
             this.groupControl2.Controls.Add(this.txtKilos);
             this.groupControl2.Controls.Add(this.label2);
@@ -76,9 +80,28 @@
             this.groupControl2.Controls.Add(this.txtFardo);
             this.groupControl2.Location = new System.Drawing.Point(2, 28);
             this.groupControl2.Name = "groupControl2";
-            this.groupControl2.Size = new System.Drawing.Size(330, 159);
+            this.groupControl2.Size = new System.Drawing.Size(327, 187);
             this.groupControl2.TabIndex = 21;
             this.groupControl2.Text = "Fardo";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(10, 128);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(64, 24);
+            this.label4.TabIndex = 80;
+            this.label4.Text = "Blend";
+            // 
+            // cbProducto
+            // 
+            this.cbProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbProducto.FormattingEnabled = true;
+            this.cbProducto.Location = new System.Drawing.Point(103, 128);
+            this.cbProducto.Name = "cbProducto";
+            this.cbProducto.Size = new System.Drawing.Size(221, 24);
+            this.cbProducto.TabIndex = 79;
             // 
             // btnBuscarFardo
             // 
@@ -115,7 +138,7 @@
             this.btnSalir.Appearance.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSalir.Appearance.Options.UseFont = true;
             this.btnSalir.Image = ((System.Drawing.Image)(resources.GetObject("btnSalir.Image")));
-            this.btnSalir.Location = new System.Drawing.Point(232, 128);
+            this.btnSalir.Location = new System.Drawing.Point(230, 158);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(92, 26);
             this.btnSalir.TabIndex = 61;
@@ -156,7 +179,7 @@
             this.btnTransferir.Appearance.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTransferir.Appearance.Options.UseFont = true;
             this.btnTransferir.Image = ((System.Drawing.Image)(resources.GetObject("btnTransferir.Image")));
-            this.btnTransferir.Location = new System.Drawing.Point(134, 128);
+            this.btnTransferir.Location = new System.Drawing.Point(132, 158);
             this.btnTransferir.Name = "btnTransferir";
             this.btnTransferir.Size = new System.Drawing.Size(92, 26);
             this.btnTransferir.TabIndex = 53;
@@ -176,7 +199,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(334, 188);
+            this.ClientSize = new System.Drawing.Size(330, 216);
             this.Controls.Add(this.groupControl2);
             this.Controls.Add(this.ribbon);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -208,5 +231,7 @@
         public System.Windows.Forms.TextBox txtKilos;
         private System.Windows.Forms.Label label2;
         private DevExpress.XtraEditors.SimpleButton btnBuscarFardo;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox cbProducto;
     }
 }

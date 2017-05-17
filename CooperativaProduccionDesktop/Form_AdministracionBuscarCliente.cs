@@ -35,7 +35,7 @@ namespace CooperativaProduccion
                 {
                     full = a.CUIT + a.RAZONSOCIAL + a.CUITE,
                     ID = a.ID,
-                    CUIT = a.CUIT.Contains(DevConstantes.XX) ? a.CUITE : a.CUIT,
+                    CUIT = a.CUIT.ToUpper().Contains(DevConstantes.XX) ? a.CUITE : a.CUIT,
                     CLIENTE = a.RAZONSOCIAL,
                     PROVINCIA = a.Provincia
                 });
@@ -62,7 +62,7 @@ namespace CooperativaProduccion
                  {
                      full = a.CUIT + a.RAZONSOCIAL + a.CUITE,
                      ID = a.ID,
-                     CUIT = a.CUIT.Contains(DevConstantes.XX) ? a.CUITE : a.CUIT,
+                     CUIT = a.CUIT.ToUpper().Contains(DevConstantes.XX) ? a.CUITE : a.CUIT,
                      CLIENTE = a.RAZONSOCIAL,
                      PROVINCIA = a.Provincia
                  });
@@ -89,7 +89,7 @@ namespace CooperativaProduccion
                  {
                      full = a.CUIT + a.RAZONSOCIAL + a.CUITE,
                      ID = a.ID,
-                     CUIT = a.CUIT.Contains(DevConstantes.XX) ? a.CUITE : a.CUIT,
+                     CUIT = a.CUIT.ToUpper().Contains(DevConstantes.XX) ? a.CUITE : a.CUIT,
                      CLIENTE = a.RAZONSOCIAL,
                      PROVINCIA = a.Provincia
                  });
