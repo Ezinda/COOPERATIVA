@@ -237,11 +237,11 @@ namespace CooperativaProduccion.DataAccess
             //_dataSourceMuestra.Add(muestra);
         }
 
-        public List<MuestraViewModel> ListarMuestras(Guid blendId, DateTime fecha)
+        public List<MuestraViewModel> ListarMuestras(Guid blendId, DateTime desde, DateTime hasta)
         {
             return _context.ProduccionMuestra
                     .Include(x => x.ProduccionBlend)
-                    .Where(x => x.ProductoId == blendId && x.Fecha == fecha)
+                    .Where(x => x.ProductoId == blendId && x.Fecha >= desde && x.Fecha <= hasta)
                     .Select(x => new MuestraViewModel()
                     {
                         _Id = x.Id,
@@ -256,6 +256,37 @@ namespace CooperativaProduccion.DataAccess
                         TotalSobreUnMedio = x.TotalSobreUnMedio
                     })
                     .ToList();
+        }
+
+        public List<MuestraViewModel> ListarMuestrasConDetalle(Guid blendId, DateTime desde, DateTime hasta)
+        {
+            var muestras = _context.ProduccionMuestra
+                .Include(x => x.ProduccionBlend)
+                .Include(x => x.ProduccionMuestraDetalle)
+                .Where(x => x.ProductoId == blendId && x.Fecha >= desde && x.Fecha <= hasta)
+                .ToList();
+            var result = new List<MuestraViewModel>();
+
+            muestras.ForEach(x => result.Add(new MuestraViewModel()
+            {
+                _Id = x.Id,
+                Blend = new BlendViewModel() { Id = x.ProduccionBlend.Id, Descripcion = x.ProduccionBlend.Descripcion, OrdenProduccion = x.ProduccionBlend.OrdenProduccion },
+                Corrida = x.Corrida,
+                Fecha = x.Fecha,
+                Hora = x.Hora,
+                Caja = x.Caja,
+                Lineas = x.ProduccionMuestraDetalle.Select(y => new LineaDetalleMuestraViewModel()
+                {
+                    Tamanio = y.Tamanio,
+                    kilos = y.Kilos,
+                    Porcentaje = y.Porcentaje
+                }).ToList(),
+                Observaciones = x.Observaciones,
+                PesoMuestra = x.PesoMuestra,
+                TotalSobreUnMedio = x.TotalSobreUnMedio
+            }));
+
+            return result;
         }
 
         public void AddControlTemperatura(ControlDeTemperaturaViewModel control)
@@ -311,12 +342,12 @@ namespace CooperativaProduccion.DataAccess
             _context.SaveChanges();
         }
 
-        public List<ControlDeTemperaturaViewModel> ListarControlesDeTemperatura(Guid blendId, DateTime fecha)
+        public List<ControlDeTemperaturaViewModel> ListarControlesDeTemperatura(Guid blendId, DateTime desde, DateTime hasta)
         {
             var controles = _context.ProduccionTemperatura
                     .Include(x => x.ProduccionBlend)
                     .Include(x => x.ProduccionTemperaturaDetalle)
-                    .Where(x => x.ProductoId == blendId && x.Fecha == fecha)
+                    .Where(x => x.ProductoId == blendId && x.Fecha >= desde && x.Fecha <= hasta)
                     .ToList();
 
             var result = new List<ControlDeTemperaturaViewModel>();

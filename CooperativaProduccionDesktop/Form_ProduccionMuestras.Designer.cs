@@ -34,6 +34,7 @@
             this.gridViewMuestras = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.groupResultados = new DevExpress.XtraEditors.GroupControl();
             this.groupOpciones = new DevExpress.XtraEditors.GroupControl();
+            this.btnImprimir = new DevExpress.XtraEditors.SimpleButton();
             this.btnNuevo = new DevExpress.XtraEditors.SimpleButton();
             this.groupBusqueda = new DevExpress.XtraEditors.GroupControl();
             this.lblFecha = new System.Windows.Forms.Label();
@@ -77,7 +78,7 @@
             this.gridControlMuestras.MainView = this.gridViewMuestras;
             this.gridControlMuestras.MenuManager = this.ribbon;
             this.gridControlMuestras.Name = "gridControlMuestras";
-            this.gridControlMuestras.Size = new System.Drawing.Size(682, 422);
+            this.gridControlMuestras.Size = new System.Drawing.Size(550, 422);
             this.gridControlMuestras.TabIndex = 68;
             this.gridControlMuestras.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewMuestras});
@@ -106,19 +107,29 @@
             this.groupResultados.Controls.Add(this.gridControlMuestras);
             this.groupResultados.Location = new System.Drawing.Point(12, 89);
             this.groupResultados.Name = "groupResultados";
-            this.groupResultados.Size = new System.Drawing.Size(686, 444);
+            this.groupResultados.Size = new System.Drawing.Size(554, 444);
             this.groupResultados.TabIndex = 81;
             this.groupResultados.Text = "Resultados de búsqueda";
             // 
             // groupOpciones
             // 
             this.groupOpciones.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupOpciones.Controls.Add(this.btnImprimir);
             this.groupOpciones.Controls.Add(this.btnNuevo);
             this.groupOpciones.Location = new System.Drawing.Point(572, 33);
             this.groupOpciones.Name = "groupOpciones";
-            this.groupOpciones.Size = new System.Drawing.Size(126, 50);
+            this.groupOpciones.Size = new System.Drawing.Size(126, 500);
             this.groupOpciones.TabIndex = 80;
             this.groupOpciones.Text = "Opciones";
+            // 
+            // btnImprimir
+            // 
+            this.btnImprimir.Image = ((System.Drawing.Image)(resources.GetObject("btnImprimir.Image")));
+            this.btnImprimir.Location = new System.Drawing.Point(5, 51);
+            this.btnImprimir.Name = "btnImprimir";
+            this.btnImprimir.Size = new System.Drawing.Size(116, 22);
+            this.btnImprimir.TabIndex = 40;
+            this.btnImprimir.Text = "Imprimir reporte";
             // 
             // btnNuevo
             // 
@@ -238,5 +249,6 @@
         private DevExpress.XtraEditors.SimpleButton btnBuscar;
         private System.Windows.Forms.ComboBox cbBlend;
         private System.Windows.Forms.Label lblBlend;
+        private DevExpress.XtraEditors.SimpleButton btnImprimir;
     }
 }

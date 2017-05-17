@@ -23,7 +23,7 @@ namespace CooperativaProduccion.ViewModels
 
         public decimal TotalSobreUnMedio { get; set; }
 
-        public double PesoMuestra { get; set; }
+        public decimal PesoMuestra { get; set; }
 
         public string Observaciones { get; set; }
     }

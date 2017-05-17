@@ -280,6 +280,12 @@
     <Compile Include="Form_ProduccionMuestrasEditor.Designer.cs">
       <DependentUpon>Form_ProduccionMuestrasEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_ProduccionMuestrasImpresion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_ProduccionMuestrasImpresion.Designer.cs">
+      <DependentUpon>Form_ProduccionMuestrasImpresion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_ProduccionNicotina.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -303,6 +309,12 @@
     </Compile>
     <Compile Include="Form_ProduccionTemperaturaEditor.Designer.cs">
       <DependentUpon>Form_ProduccionTemperaturaEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_ProduccionTemperaturaImpresion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_ProduccionTemperaturaImpresion.Designer.cs">
+      <DependentUpon>Form_ProduccionTemperaturaImpresion.cs</DependentUpon>
     </Compile>
     <Compile Include="Form_ProduccionTransferenciaMateriaPrima.cs">
       <SubType>Form</SubType>
@@ -510,6 +522,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="ReportModels\ProduccionMuestra.cs" />
+    <Compile Include="ReportModels\ProduccionTemperatura.cs" />
     <Compile Include="ReportModels\RegistroEncabezado.cs" />
     <Compile Include="ReportModels\RegistroFardo.cs" />
     <Compile Include="ReportModels\RegistroRenglon.cs" />
@@ -536,6 +550,24 @@
     </Compile>
     <Compile Include="Reports\LiquidacionElectronicaReport.Designer.cs">
       <DependentUpon>LiquidacionElectronicaReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\ProduccionMuestraReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ProduccionMuestraReport.Designer.cs">
+      <DependentUpon>ProduccionMuestraReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\ProduccionTemperaturaDetalleReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ProduccionTemperaturaDetalleReport.Designer.cs">
+      <DependentUpon>ProduccionTemperaturaDetalleReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\ProduccionTemperaturaReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ProduccionTemperaturaReport.Designer.cs">
+      <DependentUpon>ProduccionTemperaturaReport.cs</DependentUpon>
     </Compile>
     <Compile Include="Reports\ProformaReport.cs">
       <SubType>Component</SubType>
@@ -765,6 +797,9 @@
     <EmbeddedResource Include="Form_ProduccionMuestrasEditor.resx">
       <DependentUpon>Form_ProduccionMuestrasEditor.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form_ProduccionMuestrasImpresion.resx">
+      <DependentUpon>Form_ProduccionMuestrasImpresion.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form_ProduccionNicotina.resx">
       <DependentUpon>Form_ProduccionNicotina.cs</DependentUpon>
     </EmbeddedResource>
@@ -776,6 +811,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_ProduccionTemperaturaEditor.resx">
       <DependentUpon>Form_ProduccionTemperaturaEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_ProduccionTemperaturaImpresion.resx">
+      <DependentUpon>Form_ProduccionTemperaturaImpresion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_ProduccionTransferenciaMateriaPrima.resx">
       <DependentUpon>Form_ProduccionTransferenciaMateriaPrima.cs</DependentUpon>
@@ -834,6 +872,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\LiquidacionElectronicaReport.resx">
       <DependentUpon>LiquidacionElectronicaReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ProduccionMuestraReport.resx">
+      <DependentUpon>ProduccionMuestraReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ProduccionTemperaturaDetalleReport.resx">
+      <DependentUpon>ProduccionTemperaturaDetalleReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ProduccionTemperaturaReport.resx">
+      <DependentUpon>ProduccionTemperaturaReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\ProformaReport.resx">
       <DependentUpon>ProformaReport.cs</DependentUpon>

@@ -28,6 +28,7 @@ namespace CooperativaProduccion
             this.Load += Form_ProduccionMuestras_Load;
             this.btnBuscar.Click += btnBuscar_Click;
             this.btnNuevo.Click += btnNuevo_Click;
+            this.btnImprimir.Click += btnImprimir_Click;
         }
 
         void Form_ProduccionMuestras_Load(object sender, EventArgs e)
@@ -85,7 +86,7 @@ namespace CooperativaProduccion
             var fecha = dateFecha.Value.Date;
             var blendId = (Guid)cbBlend.SelectedValue;
 
-            _detalle = _blendManager.ListarMuestras(blendId, fecha)
+            _detalle = _blendManager.ListarMuestras(blendId, fecha, fecha)
                 .Select(x => new LineaMuestra()
                 {
                     Blend = x.Blend.Descripcion,
@@ -104,6 +105,11 @@ namespace CooperativaProduccion
         void btnNuevo_Click(object sender, EventArgs e)
         {
             new Form_ProduccionMuestrasEditor(_blendManager).Show(this);
+        }
+
+        void btnImprimir_Click(object sender, EventArgs e)
+        {
+            new Form_ProduccionMuestrasImpresion(_blendManager).Show(this);
         }
 
         class Blend

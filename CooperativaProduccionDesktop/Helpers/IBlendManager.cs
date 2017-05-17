@@ -53,9 +53,14 @@ namespace CooperativaProduccion.Helpers
             return 1;
         }
 
-        public List<MuestraViewModel> ListarMuestras(Guid blendId, DateTime fecha)
+        public List<MuestraViewModel> ListarMuestras(Guid blendId, DateTime desde, DateTime hasta)
         {
-            return _dataSourceMuestra.Where(x => x.Blend.Id == blendId && x.Fecha == fecha).ToList();
+            return _dataSourceMuestra.Where(x => x.Blend.Id == blendId && x.Fecha >= desde && x.Fecha <= hasta).ToList();
+        }
+
+        public List<MuestraViewModel> ListarMuestrasConDetalle(Guid blendId, DateTime desde, DateTime hasta)
+        {
+            return _dataSourceMuestra.Where(x => x.Blend.Id == blendId && x.Fecha >= desde && x.Fecha <= hasta).ToList();
         }
 
         public void AddMuestra(MuestraViewModel muestra)
@@ -104,7 +109,7 @@ namespace CooperativaProduccion.Helpers
             ;
         }
 
-        public List<ControlDeTemperaturaViewModel> ListarControlesDeTemperatura(Guid blendId, DateTime fecha)
+        public List<ControlDeTemperaturaViewModel> ListarControlesDeTemperatura(Guid blendId, DateTime desde, DateTime hasta)
         {
             return new List<ControlDeTemperaturaViewModel>();
         }
@@ -144,11 +149,13 @@ namespace CooperativaProduccion.Helpers
 
         void ModifyMuestra(MuestraViewModel muestra);
 
-        List<MuestraViewModel> ListarMuestras(Guid blendId, DateTime fecha);
+        List<MuestraViewModel> ListarMuestras(Guid blendId, DateTime desde, DateTime hasta);
+
+        List<MuestraViewModel> ListarMuestrasConDetalle(Guid blendId, DateTime desde, DateTime hasta);
 
         void AddControlTemperatura(ControlDeTemperaturaViewModel control);
 
-        List<ControlDeTemperaturaViewModel> ListarControlesDeTemperatura(Guid blendId, DateTime fecha);
+        List<ControlDeTemperaturaViewModel> ListarControlesDeTemperatura(Guid blendId, DateTime desde, DateTime hasta);
 
         void AddControlHumedad(ControlDeHumedadViewModel control);
 
