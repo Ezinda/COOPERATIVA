@@ -33,7 +33,7 @@
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.dpDesde = new System.Windows.Forms.DateTimePicker();
             this.label6 = new System.Windows.Forms.Label();
-            this.checkTabaco = new System.Windows.Forms.CheckBox();
+            this.checkProducto = new System.Windows.Forms.CheckBox();
             this.cbProducto = new System.Windows.Forms.ComboBox();
             this.btnBuscar = new DevExpress.XtraEditors.SimpleButton();
             this.dpHasta = new System.Windows.Forms.DateTimePicker();
@@ -80,7 +80,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupControl1.Controls.Add(this.dpDesde);
             this.groupControl1.Controls.Add(this.label6);
-            this.groupControl1.Controls.Add(this.checkTabaco);
+            this.groupControl1.Controls.Add(this.checkProducto);
             this.groupControl1.Controls.Add(this.cbProducto);
             this.groupControl1.Controls.Add(this.btnBuscar);
             this.groupControl1.Controls.Add(this.dpHasta);
@@ -110,23 +110,23 @@
             this.label6.TabIndex = 90;
             this.label6.Text = "Fecha Desde";
             // 
-            // checkTabaco
+            // checkProducto
             // 
-            this.checkTabaco.AutoSize = true;
-            this.checkTabaco.Location = new System.Drawing.Point(577, 29);
-            this.checkTabaco.Name = "checkTabaco";
-            this.checkTabaco.Size = new System.Drawing.Size(15, 14);
-            this.checkTabaco.TabIndex = 85;
-            this.checkTabaco.UseVisualStyleBackColor = true;
-            this.checkTabaco.CheckedChanged += new System.EventHandler(this.checkTabaco_CheckedChanged);
+            this.checkProducto.AutoSize = true;
+            this.checkProducto.Location = new System.Drawing.Point(577, 28);
+            this.checkProducto.Name = "checkProducto";
+            this.checkProducto.Size = new System.Drawing.Size(15, 14);
+            this.checkProducto.TabIndex = 85;
+            this.checkProducto.UseVisualStyleBackColor = true;
+            this.checkProducto.CheckedChanged += new System.EventHandler(this.checkTabaco_CheckedChanged);
             // 
             // cbProducto
             // 
             this.cbProducto.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbProducto.FormattingEnabled = true;
-            this.cbProducto.Location = new System.Drawing.Point(375, 25);
+            this.cbProducto.Location = new System.Drawing.Point(355, 23);
             this.cbProducto.Name = "cbProducto";
-            this.cbProducto.Size = new System.Drawing.Size(196, 21);
+            this.cbProducto.Size = new System.Drawing.Size(216, 21);
             this.cbProducto.TabIndex = 82;
             this.cbProducto.SelectedIndexChanged += new System.EventHandler(this.cbProducto_SelectedIndexChanged);
             // 
@@ -164,11 +164,11 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(321, 27);
+            this.label2.Location = new System.Drawing.Point(318, 26);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(57, 16);
+            this.label2.Size = new System.Drawing.Size(39, 16);
             this.label2.TabIndex = 57;
-            this.label2.Text = "Producto";
+            this.label2.Text = "Blend";
             // 
             // groupControl2
             // 
@@ -264,7 +264,7 @@
 
         private DevExpress.XtraBars.Ribbon.RibbonControl ribbon;
         private DevExpress.XtraEditors.GroupControl groupControl1;
-        private System.Windows.Forms.CheckBox checkTabaco;
+        private System.Windows.Forms.CheckBox checkProducto;
         private System.Windows.Forms.ComboBox cbProducto;
         private DevExpress.XtraEditors.SimpleButton btnBuscar;
         private System.Windows.Forms.DateTimePicker dpHasta;

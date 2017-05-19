@@ -15,6 +15,8 @@ using System.Globalization;
 using System.IO;
 using System.Diagnostics;
 using EntityFramework.Extensions;
+using CooperativaProduccion.Reports;
+using DevExpress.XtraPrinting;
 
 namespace CooperativaProduccion
 {
@@ -32,10 +34,10 @@ namespace CooperativaProduccion
         private void CargarCombo()
         {
             var producto = 
-                (from c in Context.Vw_TipoTabaco
+                (from c in Context.Vw_Producto
                 select new
                 {
-                    Id = c.id,
+                    Id = c.ID,
                     Descripcion = c.DESCRIPCION
                 })
                 .OrderBy(x => x.Descripcion)
@@ -44,7 +46,6 @@ namespace CooperativaProduccion
             cbProducto.DataSource = producto;
             cbProducto.DisplayMember = "Descripcion";
             cbProducto.ValueMember = "Id";
-
         }
 
         private void cbProducto_SelectedIndexChanged(object sender, EventArgs e)
@@ -72,7 +73,9 @@ namespace CooperativaProduccion
 
             pred = pred.And(x => x.Fecha <= dpHasta.Value.Date);
 
-            Expression<Func<Vw_Pesada, bool>> pred2 = x => true;
+            Guid ProductoId = Guid.Parse(cbProducto.SelectedValue.ToString());
+
+            pred = checkProducto.Checked ? pred.And(x => x.ProductoId == ProductoId) : pred;
 
             var movimientos =
                 (from m in Context.FardoEnProduccion
@@ -87,7 +90,7 @@ namespace CooperativaProduccion
                      Id = m.Id,
                      PesadaDetalleId = m.PesadaDetalleId,
                      Fecha = m.Fecha,
-                     Hora = m.Hora.Hours + ":" + m.Hora.Minutes,
+                     Hora = m.Hora,
                      Fardo = p.NumFardo,
                      Kilos = p.Kilos,
                      Clase = p.Clase,
@@ -97,7 +100,25 @@ namespace CooperativaProduccion
                  .OrderBy(x=>x.Fardo)
                  .ToList();
 
-            gridControlFardo.DataSource = movimientos;
+            List<ProduccionGrid> datasource = new List<ProduccionGrid>();
+            
+            foreach (var item in movimientos)
+            {
+                ProduccionGrid grid = new ProduccionGrid();
+                grid.Id = item.Id;
+                grid.PesadaDetalleId = item.PesadaDetalleId;
+                grid.Fecha = item.Fecha;
+                grid.Hora = item.Hora.ToString(@"hh\:mm", CultureInfo.CurrentCulture);
+                grid.Fardo = item.Fardo.Value.ToString();
+                grid.Kilos = item.Kilos.Value;
+                grid.Clase = item.Clase;
+                grid.Tabaco = item.Tabaco;
+                grid.Blend = item.Blend;
+
+                datasource.Add(grid);
+            }
+
+            gridControlFardo.DataSource = datasource;
             gridViewFardo.Columns[0].Visible = false;
             gridViewFardo.Columns[1].Visible = false;
 
@@ -109,7 +130,7 @@ namespace CooperativaProduccion
 
             CreateIfMissing(path);
 
-            path = @"C:\SystemDocumentsCooperativa\ExcelProduccionTransferencia";
+            path = @"C:\SystemDocumentsCooperativa\ExcelProduccion";
 
             CreateIfMissing(path);
 
@@ -117,11 +138,55 @@ namespace CooperativaProduccion
               CultureInfo.InvariantCulture).Replace(":", "").Replace(".", "")
               .Replace("-", "").Replace(" ", "");
 
-            string fileName = @"C:\SystemDocumentsCooperativa\ExcelProduccionTransferencia\"
-            + Hora + " - ExcelProduccionTransferencia.xls";
+            string fileName = @"C:\SystemDocumentsCooperativa\ExcelProduccion\"
+            + Hora + " - ExcelProduccion.xls";
 
-            gridControlFardo.ExportToXls(fileName);
+            // Create a report instance.
+            var reporte = new ResumenProduccionPorHoraReport();
+
+            List<Vw_FardoEnProduccionPorHora> datasourceProduccion;
+            datasourceProduccion = GenerarReporteResumenProduccion();
+            reporte.DataSource = datasourceProduccion;
+
+            // Get its XLS export options.
+            XlsExportOptions xlsOptions = reporte.ExportOptions.Xls;
+
+            // Set XLS-specific export options.
+            xlsOptions.ShowGridLines = true;
+            xlsOptions.TextExportMode = TextExportMode.Value;
+
+            // Export the report to XLS.
+            reporte.ExportToXls(fileName);
+
+            // Show the result.
             StartProcess(fileName);
+        }
+
+        private List<Vw_FardoEnProduccionPorHora> GenerarReporteResumenProduccion()
+        {
+            var culture = CultureInfo.CreateSpecificCulture("es-ES");
+            var datasource = new List<Vw_FardoEnProduccionPorHora>();
+            var resumenes= Context.Vw_FardoEnProduccionPorHora
+                .Where(x => x.Fecha >= dpDesde.Value.Date
+                    && x.Fecha <= dpHasta.Value.Date)
+                .OrderBy(x => x.Fecha)
+                .ThenBy(x=>x.Nombre)
+                .ToList();
+
+            datasource = resumenes;
+
+            //foreach (var resumen in resumenes)
+            //{
+            //    Vw_FardoEnProduccionPorHora registro = new Vw_FardoEnProduccionPorHora();
+            //    registro.Fecha = resumen.Fecha;
+            //    registro.Nombre = resumen.Nombre;
+            //    registro.TipoTabaco = resumen.TipoTabaco;
+            //    registro.cantidad = resumen.cantidad;
+            //    registro.C06 = resumen.C06;
+            //    registro.C06 = resumen.C06;
+            //    datasource.Add(registro);
+            //}
+            return datasource;
         }
 
         private void CreateIfMissing(string path)
@@ -153,5 +218,20 @@ namespace CooperativaProduccion
                 throw;
             }
         }
+
+    }
+
+    class ProduccionGrid
+    {
+        public System.Guid Id { get; set; }
+        public System.Guid PesadaDetalleId { get; set; }
+        public System.DateTime Fecha { get; set; }
+        public string Hora { get; set; }
+        public string Fardo { get; set; }
+        public double Kilos { get; set; }
+        public string Clase { get; set; }
+        public string Tabaco { get; set; }
+        public string Blend { get; set; }
+
     }
 }

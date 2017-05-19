@@ -277,6 +277,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ProductoId" Type="uniqueidentifier" />
+          <Property Name="Periodo" Type="int" />
           <Property Name="OrdenProduccion" Type="int" Nullable="false" />
           <Property Name="Descripcion" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
@@ -549,6 +551,47 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Deposito' does not ha
           </Key>
           <Property Name="id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="nombre" Type="varchar" MaxLength="40" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_FardoEnProduccionPorHora' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Vw_FardoEnProduccionPorHora">
+          <Key>
+            <PropertyRef Name="Fecha" />
+            <PropertyRef Name="06" />
+            <PropertyRef Name="07" />
+            <PropertyRef Name="08" />
+            <PropertyRef Name="09" />
+            <PropertyRef Name="10" />
+            <PropertyRef Name="11" />
+            <PropertyRef Name="12" />
+            <PropertyRef Name="13" />
+            <PropertyRef Name="14" />
+            <PropertyRef Name="15" />
+            <PropertyRef Name="16" />
+            <PropertyRef Name="17" />
+            <PropertyRef Name="18" />
+            <PropertyRef Name="19" />
+            <PropertyRef Name="20" />
+          </Key>
+          <Property Name="Fecha" Type="date" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="120" />
+          <Property Name="TipoTabaco" Type="varchar" MaxLength="150" />
+          <Property Name="cantidad" Type="int" />
+          <Property Name="06" Type="float" Nullable="false" />
+          <Property Name="07" Type="float" Nullable="false" />
+          <Property Name="08" Type="float" Nullable="false" />
+          <Property Name="09" Type="float" Nullable="false" />
+          <Property Name="10" Type="float" Nullable="false" />
+          <Property Name="11" Type="float" Nullable="false" />
+          <Property Name="12" Type="float" Nullable="false" />
+          <Property Name="13" Type="float" Nullable="false" />
+          <Property Name="14" Type="float" Nullable="false" />
+          <Property Name="15" Type="float" Nullable="false" />
+          <Property Name="16" Type="float" Nullable="false" />
+          <Property Name="17" Type="float" Nullable="false" />
+          <Property Name="18" Type="float" Nullable="false" />
+          <Property Name="19" Type="float" Nullable="false" />
+          <Property Name="20" Type="float" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Movimiento' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -1425,6 +1468,29 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
     [Vw_Deposito].[nombre] AS [nombre]
     FROM [dbo].[Vw_Deposito] AS [Vw_Deposito]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="Vw_FardoEnProduccionPorHora" EntityType="Self.Vw_FardoEnProduccionPorHora" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Vw_FardoEnProduccionPorHora].[Fecha] AS [Fecha], 
+    [Vw_FardoEnProduccionPorHora].[Nombre] AS [Nombre], 
+    [Vw_FardoEnProduccionPorHora].[TipoTabaco] AS [TipoTabaco], 
+    [Vw_FardoEnProduccionPorHora].[cantidad] AS [cantidad], 
+    [Vw_FardoEnProduccionPorHora].[06] AS [06], 
+    [Vw_FardoEnProduccionPorHora].[07] AS [07], 
+    [Vw_FardoEnProduccionPorHora].[08] AS [08], 
+    [Vw_FardoEnProduccionPorHora].[09] AS [09], 
+    [Vw_FardoEnProduccionPorHora].[10] AS [10], 
+    [Vw_FardoEnProduccionPorHora].[11] AS [11], 
+    [Vw_FardoEnProduccionPorHora].[12] AS [12], 
+    [Vw_FardoEnProduccionPorHora].[13] AS [13], 
+    [Vw_FardoEnProduccionPorHora].[14] AS [14], 
+    [Vw_FardoEnProduccionPorHora].[15] AS [15], 
+    [Vw_FardoEnProduccionPorHora].[16] AS [16], 
+    [Vw_FardoEnProduccionPorHora].[17] AS [17], 
+    [Vw_FardoEnProduccionPorHora].[18] AS [18], 
+    [Vw_FardoEnProduccionPorHora].[19] AS [19], 
+    [Vw_FardoEnProduccionPorHora].[20] AS [20]
+    FROM [dbo].[Vw_FardoEnProduccionPorHora] AS [Vw_FardoEnProduccionPorHora]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="Vw_Movimiento" EntityType="Self.Vw_Movimiento" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [Vw_Movimiento].[Id] AS [Id], 
@@ -1928,6 +1994,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
           <EntitySet Name="Vw_Cliente" EntityType="CooperativaProduccionModel.Vw_Cliente" />
           <EntitySet Name="Vw_ConceptoDeOrdenDePago" EntityType="CooperativaProduccionModel.Vw_ConceptoDeOrdenDePago" />
           <EntitySet Name="Vw_Deposito" EntityType="CooperativaProduccionModel.Vw_Deposito" />
+          <EntitySet Name="Vw_FardoEnProduccionPorHora" EntityType="CooperativaProduccionModel.Vw_FardoEnProduccionPorHora" />
           <EntitySet Name="Vw_Movimiento" EntityType="CooperativaProduccionModel.Vw_Movimiento" />
           <EntitySet Name="Vw_OrdenPago" EntityType="CooperativaProduccionModel.Vw_OrdenPago" />
           <EntitySet Name="Vw_Pesada" EntityType="CooperativaProduccionModel.Vw_Pesada" />
@@ -2321,6 +2388,8 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="ProductoId" Type="Guid" />
+          <Property Name="Periodo" Type="Int32" />
           <Property Name="OrdenProduccion" Type="Int32" Nullable="false" />
           <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ProduccionCorrida" Relationship="CooperativaProduccionModel.FK_ProduccionCorrida_ProduccionBlend" FromRole="ProduccionBlend" ToRole="ProduccionCorrida" />
@@ -2587,6 +2656,45 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
           </Key>
           <Property Name="id" Type="Guid" Nullable="false" />
           <Property Name="nombre" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Vw_FardoEnProduccionPorHora">
+          <Key>
+            <PropertyRef Name="Fecha" />
+            <PropertyRef Name="C06" />
+            <PropertyRef Name="C07" />
+            <PropertyRef Name="C08" />
+            <PropertyRef Name="C09" />
+            <PropertyRef Name="C10" />
+            <PropertyRef Name="C11" />
+            <PropertyRef Name="C12" />
+            <PropertyRef Name="C13" />
+            <PropertyRef Name="C14" />
+            <PropertyRef Name="C15" />
+            <PropertyRef Name="C16" />
+            <PropertyRef Name="C17" />
+            <PropertyRef Name="C18" />
+            <PropertyRef Name="C19" />
+            <PropertyRef Name="C20" />
+          </Key>
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Nombre" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="TipoTabaco" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="cantidad" Type="Int32" />
+          <Property Name="C06" Type="Double" Nullable="false" />
+          <Property Name="C07" Type="Double" Nullable="false" />
+          <Property Name="C08" Type="Double" Nullable="false" />
+          <Property Name="C09" Type="Double" Nullable="false" />
+          <Property Name="C10" Type="Double" Nullable="false" />
+          <Property Name="C11" Type="Double" Nullable="false" />
+          <Property Name="C12" Type="Double" Nullable="false" />
+          <Property Name="C13" Type="Double" Nullable="false" />
+          <Property Name="C14" Type="Double" Nullable="false" />
+          <Property Name="C15" Type="Double" Nullable="false" />
+          <Property Name="C16" Type="Double" Nullable="false" />
+          <Property Name="C17" Type="Double" Nullable="false" />
+          <Property Name="C18" Type="Double" Nullable="false" />
+          <Property Name="C19" Type="Double" Nullable="false" />
+          <Property Name="C20" Type="Double" Nullable="false" />
         </EntityType>
         <EntityType Name="Vw_Movimiento">
           <Key>
@@ -3623,6 +3731,8 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
               <MappingFragment StoreEntitySet="ProduccionBlend">
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="OrdenProduccion" ColumnName="OrdenProduccion" />
+                <ScalarProperty Name="Periodo" ColumnName="Periodo" />
+                <ScalarProperty Name="ProductoId" ColumnName="ProductoId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -3873,6 +3983,31 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
               <MappingFragment StoreEntitySet="Vw_Deposito">
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vw_FardoEnProduccionPorHora">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.Vw_FardoEnProduccionPorHora">
+              <MappingFragment StoreEntitySet="Vw_FardoEnProduccionPorHora">
+                <ScalarProperty Name="C20" ColumnName="20" />
+                <ScalarProperty Name="C19" ColumnName="19" />
+                <ScalarProperty Name="C18" ColumnName="18" />
+                <ScalarProperty Name="C17" ColumnName="17" />
+                <ScalarProperty Name="C16" ColumnName="16" />
+                <ScalarProperty Name="C15" ColumnName="15" />
+                <ScalarProperty Name="C14" ColumnName="14" />
+                <ScalarProperty Name="C13" ColumnName="13" />
+                <ScalarProperty Name="C12" ColumnName="12" />
+                <ScalarProperty Name="C11" ColumnName="11" />
+                <ScalarProperty Name="C10" ColumnName="10" />
+                <ScalarProperty Name="C09" ColumnName="09" />
+                <ScalarProperty Name="C08" ColumnName="08" />
+                <ScalarProperty Name="C07" ColumnName="07" />
+                <ScalarProperty Name="C06" ColumnName="06" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="TipoTabaco" ColumnName="TipoTabaco" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
