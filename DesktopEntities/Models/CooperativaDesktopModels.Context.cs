@@ -63,6 +63,7 @@ namespace DesktopEntities.Models
         public virtual DbSet<Vw_Cliente> Vw_Cliente { get; set; }
         public virtual DbSet<Vw_ConceptoDeOrdenDePago> Vw_ConceptoDeOrdenDePago { get; set; }
         public virtual DbSet<Vw_Deposito> Vw_Deposito { get; set; }
+        public virtual DbSet<Vw_FardoEnProduccionPorHora> Vw_FardoEnProduccionPorHora { get; set; }
         public virtual DbSet<Vw_Movimiento> Vw_Movimiento { get; set; }
         public virtual DbSet<Vw_OrdenPago> Vw_OrdenPago { get; set; }
         public virtual DbSet<Vw_Pesada> Vw_Pesada { get; set; }

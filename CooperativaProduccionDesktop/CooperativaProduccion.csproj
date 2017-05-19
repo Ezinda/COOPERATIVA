@@ -668,6 +668,12 @@
     <Compile Include="Reports\ResumenDeClasePorTrimestreReport.Designer.cs">
       <DependentUpon>ResumenDeClasePorTrimestreReport.cs</DependentUpon>
     </Compile>
+    <Compile Include="Reports\ResumenProduccionPorHoraReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ResumenProduccionPorHoraReport.Designer.cs">
+      <DependentUpon>ResumenProduccionPorHoraReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Reports\ResumenRomaneoBurleyReport.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -943,6 +949,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\ResumenDeClasePorTrimestreReport.resx">
       <DependentUpon>ResumenDeClasePorTrimestreReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ResumenProduccionPorHoraReport.resx">
+      <DependentUpon>ResumenProduccionPorHoraReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\ResumenRomaneoBurleyReport.resx">
       <DependentUpon>ResumenRomaneoBurleyReport.cs</DependentUpon>

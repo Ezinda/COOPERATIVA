@@ -24,6 +24,8 @@ namespace DesktopEntities.Models
         }
     
         public System.Guid Id { get; set; }
+        public Nullable<System.Guid> ProductoId { get; set; }
+        public Nullable<int> Periodo { get; set; }
         public int OrdenProduccion { get; set; }
         public string Descripcion { get; set; }
     
