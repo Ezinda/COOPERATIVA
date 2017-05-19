@@ -128,28 +128,37 @@ namespace CooperativaProduccion.DataAccess
         {
             if (_blendsListados == null)
             {
-                _blendsListados = _context.ProduccionBlend
-                    .OrderBy(x => x.Descripcion)
+                _blendsListados =
+                    //_context.ProduccionBlend
+                    //.OrderBy(x => x.Descripcion)
+                    //.Select(x => new BlendViewModel()
+                    //{
+                    //    Id = x.Id,
+                    //    Descripcion = x.Descripcion,
+                    //    OrdenProduccion = x.OrdenProduccion
+                    //})
+                    //.ToList();
+                    _context.Vw_Producto
+                    .OrderBy(x => x.DESCRIPCION)
                     .Select(x => new BlendViewModel()
                     {
-                        Id = x.Id,
-                        Descripcion = x.Descripcion,
-                        OrdenProduccion = x.OrdenProduccion
+                        Id = x.ID,
+                        Descripcion = x.DESCRIPCION
                     })
                     .ToList();
 
-                if (_blendsListados.Count == 0)
-                {
-                    _blendsListados = _CargarTablaDeBlends()
-                        .OrderBy(x => x.Descripcion)
-                        .Select(x => new BlendViewModel()
-                        {
-                            Id = x.Id,
-                            Descripcion = x.Descripcion,
-                            OrdenProduccion = x.OrdenProduccion
-                        })
-                        .ToList();
-                }
+                //if (_blendsListados.Count == 0)
+                //{
+                //    _blendsListados = _CargarTablaDeBlends()
+                //        .OrderBy(x => x.Descripcion)
+                //        .Select(x => new BlendViewModel()
+                //        {
+                //            Id = x.Id,
+                //            Descripcion = x.Descripcion,
+                //            OrdenProduccion = x.OrdenProduccion
+                //        })
+                //        .ToList();
+                //}
             }
 
             return _blendsListados;
@@ -162,9 +171,9 @@ namespace CooperativaProduccion.DataAccess
                 return _context.ProduccionBlend
                     .Select(x => new BlendViewModel()
                     {
-                        Id = x.Id,
+                        Id = x.ProductoId ?? Guid.Empty,
                         Descripcion = x.Descripcion,
-                        OrdenProduccion = x.OrdenProduccion
+                        //OrdenProduccion = x.OrdenProduccion
                     })
                     .Single();
             }
@@ -174,14 +183,52 @@ namespace CooperativaProduccion.DataAccess
             }
         }
 
-        public int GetOrdenProduccion(Guid blendId)
+        public int GetOrdenProduccion(int periodo, Guid blendId)
         {
-            if (_blendsListados == null)
+            //if (_blendsListados == null)
+            //{
+            //    _blendsListados = ListarBlends();
+            //}
+            //
+            //return _blendsListados.Where(x => x.Id == blendId).Select(x => x.OrdenProduccion).Single();
+
+            var orden = _context.ProduccionBlend
+                .Where(x => x.Periodo == periodo && x.ProductoId == blendId)
+                .SingleOrDefault();
+
+            if (orden == null)
             {
-                _blendsListados = ListarBlends();
+                int maximo;
+
+                try
+                {
+                    maximo = _context.ProduccionBlend
+                        .Where(x => x.Periodo == periodo)
+                        .Max(x => x.OrdenProduccion);
+                }
+                catch
+                {
+                    maximo = 0;
+                }
+
+                int proximo;
+
+                if (maximo == 0)
+                {
+                    proximo = 1;
+                }
+                else
+                {
+                    proximo = maximo + 1;
+                }
+
+                orden = new ProduccionBlend() { Id = Guid.NewGuid(), ProductoId = blendId, Descripcion = String.Empty, Periodo = periodo, OrdenProduccion = proximo };
+
+                _context.ProduccionBlend.Add(orden);
+                _context.SaveChanges();
             }
 
-            return _blendsListados.Where(x => x.Id == blendId).Select(x => x.OrdenProduccion).Single();
+            return orden.OrdenProduccion;
         }
 
         public long GetSiguienteCorrida(Guid blendId, DateTime fecha)
@@ -245,7 +292,7 @@ namespace CooperativaProduccion.DataAccess
                     .Select(x => new MuestraViewModel()
                     {
                         _Id = x.Id,
-                        Blend = new BlendViewModel() { Id = x.ProduccionBlend.Id, Descripcion = x.ProduccionBlend.Descripcion, OrdenProduccion = x.ProduccionBlend.OrdenProduccion },
+                        Blend = new BlendViewModel() { Id = x.ProduccionBlend.ProductoId ?? Guid.Empty, Descripcion = x.ProduccionBlend.Descripcion },
                         Corrida = x.Corrida,
                         Fecha = x.Fecha,
                         Hora = x.Hora,
@@ -270,7 +317,7 @@ namespace CooperativaProduccion.DataAccess
             muestras.ForEach(x => result.Add(new MuestraViewModel()
             {
                 _Id = x.Id,
-                Blend = new BlendViewModel() { Id = x.ProduccionBlend.Id, Descripcion = x.ProduccionBlend.Descripcion, OrdenProduccion = x.ProduccionBlend.OrdenProduccion },
+                Blend = new BlendViewModel() { Id = x.ProduccionBlend.ProductoId ?? Guid.Empty, Descripcion = x.ProduccionBlend.Descripcion },
                 Corrida = x.Corrida,
                 Fecha = x.Fecha,
                 Hora = x.Hora,
@@ -371,7 +418,7 @@ namespace CooperativaProduccion.DataAccess
                 result.Add(new ControlDeTemperaturaViewModel()
                 {
                     _Id = control.Id,
-                    Blend = new BlendViewModel() { Id = control.ProduccionBlend.Id, Descripcion = control.ProduccionBlend.Descripcion, OrdenProduccion = control.ProduccionBlend.OrdenProduccion },
+                    Blend = new BlendViewModel() { Id = control.ProduccionBlend.ProductoId ?? Guid.Empty, Descripcion = control.ProduccionBlend.Descripcion },
                     Fecha = control.Fecha,
                     Corrida = control.Corrida,
                     Minimo = control.Minimo,
@@ -467,7 +514,7 @@ namespace CooperativaProduccion.DataAccess
                 result.Add(new ControlDeHumedadViewModel()
                 {
                     _Id = control.Id,
-                    Blend = new BlendViewModel() { Id = control.ProduccionBlend.Id, Descripcion = control.ProduccionBlend.Descripcion, OrdenProduccion = control.ProduccionBlend.OrdenProduccion },
+                    Blend = new BlendViewModel() { Id = control.ProduccionBlend.ProductoId ?? Guid.Empty, Descripcion = control.ProduccionBlend.Descripcion },
                     Fecha = control.Fecha,
                     Corrida = control.Corrida,
                     Lineas = detalles
@@ -536,7 +583,7 @@ namespace CooperativaProduccion.DataAccess
             var headers = controles.Select(x => new ControlDeNicotinaViewModel()
             {
                 Fecha = x.Fecha,
-                Blend = new BlendViewModel() { Id = x.ProduccionBlend.Id, Descripcion = x.ProduccionBlend.Descripcion, OrdenProduccion = x.ProduccionBlend.OrdenProduccion },
+                Blend = new BlendViewModel() { Id = x.ProduccionBlend.ProductoId ?? Guid.Empty, Descripcion = x.ProduccionBlend.Descripcion },
                 Corrida = x.Corrida,
                 Hora = x.Hora,
                 Lineas = new List<LineaDetalleControlDeNicotinaViewModel>()

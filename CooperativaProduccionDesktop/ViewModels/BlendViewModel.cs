@@ -10,7 +10,5 @@ namespace CooperativaProduccion.ViewModels
         public Guid Id { get; set; }
 
         public string Descripcion { get; set; }
-
-        public int OrdenProduccion { get; set; }
     }
 }

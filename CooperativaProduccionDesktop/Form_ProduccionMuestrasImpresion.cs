@@ -48,6 +48,7 @@ namespace CooperativaProduccion
         private DevExpress.XtraReports.UI.XtraReport _GenerarReporte(Guid blendId, DateTime desde, DateTime hasta)
         {
             var blend = _blendManager.GetBlend(blendId);
+            var ordenDeProduccion = _blendManager.GetOrdenProduccion(desde.Year, blendId);
             var muestras = _blendManager.ListarMuestrasConDetalle(blendId, desde, hasta);
             var records = new List<ProduccionMuestraReportRecord>();
 
@@ -171,7 +172,7 @@ namespace CooperativaProduccion
             reporte.DataSource = records;
 
             reporte.Parameters["Blend"].Value = blend.Descripcion.Trim();
-            reporte.Parameters["OrdenProduccion"].Value = blend.OrdenProduccion;
+            reporte.Parameters["OrdenProduccion"].Value = ordenDeProduccion;
             reporte.Parameters["Observaciones"].Value = String.Empty;
 
             return reporte;

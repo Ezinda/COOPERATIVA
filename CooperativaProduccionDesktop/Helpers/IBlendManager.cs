@@ -48,7 +48,7 @@ namespace CooperativaProduccion.Helpers
             return _dataSourceBlend.Where(x => x.Id == blendId).Single();
         }
 
-        public int GetOrdenProduccion(Guid blendId)
+        public int GetOrdenProduccion(int periodo, Guid blendId)
         {
             return 1;
         }
@@ -141,7 +141,7 @@ namespace CooperativaProduccion.Helpers
 
         BlendViewModel GetBlend(Guid blendId);
 
-        int GetOrdenProduccion(Guid blendId);
+        int GetOrdenProduccion(int periodo, Guid blendId);
 
         long GetSiguienteCorrida(Guid blendId, DateTime fecha);
 

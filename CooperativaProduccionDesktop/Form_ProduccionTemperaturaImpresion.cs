@@ -24,6 +24,7 @@ namespace CooperativaProduccion
 
             this.Load += Form_ProduccionTemperaturaImpresion_Load;
             this.dateDesde.ValueChanged += dateDesde_ValueChanged;
+            this.dateHasta.ValueChanged += dateHasta_ValueChanged;
             this.btnImprimir.Click += btnImprimir_Click;
         }
 
@@ -48,6 +49,7 @@ namespace CooperativaProduccion
         private DevExpress.XtraReports.UI.XtraReport _GenerarReporte(Guid blendId, DateTime desde, DateTime hasta)
         {
             var blend = _blendManager.GetBlend(blendId);
+            var ordenDeProduccion = _blendManager.GetOrdenProduccion(desde.Year, blendId);
             var temperaturas = _blendManager.ListarControlesDeTemperatura(blendId, desde, hasta);
             var records = new List<ProduccionTemperaturaRecord>();
             var details = new List<ProduccionTemperaturaDetalleRecord>();
@@ -82,13 +84,23 @@ namespace CooperativaProduccion
             reporte.Subreport.ReportSource.DataSource = details;
             
             reporte.Parameters["Blend"].Value = blend.Descripcion.Trim();
-            reporte.Parameters["OrdenProduccion"].Value = blend.OrdenProduccion;
+            reporte.Parameters["OrdenProduccion"].Value = ordenDeProduccion;
             return reporte;
         }
 
         void dateDesde_ValueChanged(object sender, EventArgs e)
         {
             this.dateHasta.Value = this.dateDesde.Value;
+        }
+
+        void dateHasta_ValueChanged(object sender, EventArgs e)
+        {
+            if (this.dateDesde.Value.Year != this.dateHasta.Value.Year)
+            {
+                MessageBox.Show("Las fechas del rango deben pertenecer al mismo año o periodo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                this.dateHasta.Value = this.dateDesde.Value;
+            }
         }
 
         void btnImprimir_Click(object sender, EventArgs e)

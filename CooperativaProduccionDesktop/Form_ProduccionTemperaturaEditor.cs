@@ -28,7 +28,9 @@ namespace CooperativaProduccion
 
             this.Load += Form_ProduccionMuestras_Load;
             this.dateFecha.ValueChanged += dateFecha_ValueChanged;
+            this.dateFecha.LostFocus += dateFecha_LostFocus;
             this.cbBlend.SelectedValueChanged += cbBlend_SelectedValueChanged;
+            this.cbBlend.LostFocus += cbBlend_LostFocus;
             this.gridViewTemperatura.ShownEditor += gridViewTemperatura_ShownEditor;
             this.gridViewTemperatura.RowCellClick += gridViewTemperatura_RowCellClick;
             //this.gridViewMuestra.CellValueChanged += gridViewMuestra_CellValueChanged;
@@ -39,6 +41,7 @@ namespace CooperativaProduccion
 
         void Form_ProduccionMuestras_Load(object sender, EventArgs e)
         {
+            this.dateFecha.Enabled = false;
             this.dateFecha.Value = DateTime.Now.Date;
             
             var blends = _blendManager.ListarBlends()
@@ -53,6 +56,8 @@ namespace CooperativaProduccion
             this.cbBlend.DisplayMember = "Descripcion";
             this.cbBlend.ValueMember = "Id";
             this.cbBlend.DataSource = blends;
+
+            _blendSeleccionado = this.cbBlend.SelectedValue == null ? Guid.Empty : (Guid)this.cbBlend.SelectedValue;
 
             _detalle = new List<LineaDetalle>()
             {
@@ -115,9 +120,9 @@ namespace CooperativaProduccion
             this.gridControlTemperatura.DataSource = new BindingList<LineaDetalle>(_detalle);
         }
 
-        private int _GetOrdenProduccion(Guid blendId)
+        private int _GetOrdenProduccion(int periodo, Guid blendId)
         {
-            return _blendManager.GetOrdenProduccion(blendId);
+            return _blendManager.GetOrdenProduccion(periodo, blendId);
         }
 
         private long _GetNumeroDeCorrida(Guid blendId, DateTime fecha)
@@ -127,15 +132,25 @@ namespace CooperativaProduccion
 
         void dateFecha_ValueChanged(object sender, EventArgs e)
         {
-            _fechaSeleccionada = this.dateFecha.Value.Date;
 
-            if (_blendSeleccionado != null && _blendSeleccionado != Guid.Empty)
+        }
+
+        void dateFecha_LostFocus(object sender, EventArgs e)
+        {
+            if (_fechaSeleccionada != this.dateFecha.Value.Date)
             {
-                this.lblCorrida.Text = "Corrida: " + _GetNumeroDeCorrida(_blendSeleccionado, _fechaSeleccionada);
-            }
-            else
-            {
-                this.lblCorrida.Text = "Corrida: ";
+                _fechaSeleccionada = this.dateFecha.Value.Date;
+
+                //if (_blendSeleccionado != null && _blendSeleccionado != Guid.Empty)
+                //{
+                //    this.lblOrden.Text = "Orden de Produccion: " + _GetOrdenProduccion(_fechaSeleccionada.Year, _blendSeleccionado);
+                //    this.lblCorrida.Text = "Corrida: " + _GetNumeroDeCorrida(_blendSeleccionado, _fechaSeleccionada);
+                //}
+                //else
+                //{
+                //    this.lblOrden.Text = "Orden de Produccion: ";
+                //    this.lblCorrida.Text = "Corrida: ";
+                //}
             }
         }
 
@@ -147,11 +162,24 @@ namespace CooperativaProduccion
                 this.lblCorrida.Text = "Corrida: ";
                 return;
             }
+        }
 
-            _blendSeleccionado = (Guid)this.cbBlend.SelectedValue;
+        void cbBlend_LostFocus(object sender, EventArgs e)
+        {
+            if (this.cbBlend.SelectedValue == null || _blendSeleccionado != (Guid)this.cbBlend.SelectedValue)
+            {
+                if (this.cbBlend.SelectedValue == null)
+                {
+                    this.lblOrden.Text = "Orden de Produccion: ";
+                    this.lblCorrida.Text = "Corrida: ";
+                    return;
+                }
 
-            this.lblOrden.Text = "Orden de Produccion: " + _GetOrdenProduccion(_blendSeleccionado);
-            this.lblCorrida.Text = "Corrida: " + _GetNumeroDeCorrida(_blendSeleccionado, _fechaSeleccionada);
+                _blendSeleccionado = (Guid)this.cbBlend.SelectedValue;
+
+                this.lblOrden.Text = "Orden de Produccion: " + _GetOrdenProduccion(_fechaSeleccionada.Year, _blendSeleccionado);
+                this.lblCorrida.Text = "Corrida: " + _GetNumeroDeCorrida(_blendSeleccionado, _fechaSeleccionada);
+            }
         }
 
         void gridViewTemperatura_ShownEditor(object sender, EventArgs e)
