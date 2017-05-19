@@ -43,6 +43,15 @@ namespace CooperativaProduccion.Helpers
             return _dataSourceBlend;
         }
 
+        public List<BlendDePeriodoViewModel> ListarOrdenesDeProduccion(int periodo)
+        {
+            return new List<BlendDePeriodoViewModel>();
+        }
+
+        public void ActualizarOrdenesDeProduccion(int periodo, List<BlendDePeriodoViewModel> blends)
+        {
+        }
+
         public BlendViewModel GetBlend(Guid blendId)
         {
             return _dataSourceBlend.Where(x => x.Id == blendId).Single();
@@ -138,6 +147,10 @@ namespace CooperativaProduccion.Helpers
     public interface IBlendManager
     {
         List<BlendViewModel> ListarBlends();
+
+        List<BlendDePeriodoViewModel> ListarOrdenesDeProduccion(int periodo);
+
+        void ActualizarOrdenesDeProduccion(int periodo, List<BlendDePeriodoViewModel> blends);
 
         BlendViewModel GetBlend(Guid blendId);
 

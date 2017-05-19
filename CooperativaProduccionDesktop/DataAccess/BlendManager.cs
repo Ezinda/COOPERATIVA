@@ -164,6 +164,81 @@ namespace CooperativaProduccion.DataAccess
             return _blendsListados;
         }
 
+        public List<BlendDePeriodoViewModel> ListarOrdenesDeProduccion(int periodo)
+        {
+            var blends = ListarBlends();
+            var ordenes = _context.ProduccionBlend
+                .Where(x => x.Periodo == periodo)
+                .ToList();
+
+            var result = new List<BlendDePeriodoViewModel>();
+
+            foreach (var blend in blends)
+            {
+                var orden = ordenes.Where(x => x.ProductoId == blend.Id).SingleOrDefault();
+
+                result.Add(new BlendDePeriodoViewModel()
+                {
+                    Id = blend.Id,
+                    Descripcion = blend.Descripcion,
+                    OrdenDeProduccion = orden != null ? orden.OrdenProduccion : 0
+                });
+            }
+
+            return result;
+        }
+
+        public void ActualizarOrdenesDeProduccion(int periodo, List<BlendDePeriodoViewModel> blends)
+        {
+            var ordenes = _context.ProduccionBlend
+                .Where(x => x.Periodo == periodo)
+                .ToList();
+
+            // Acualizacion de registros existentes
+            var flagSeActualizo = false;
+
+            foreach (var ordenExistente in ordenes)
+            {
+                var blend = blends.Where(x => x.Id == ordenExistente.ProductoId).SingleOrDefault();
+
+                if (blend != null)
+                {
+                    flagSeActualizo = true;
+                    ordenExistente.OrdenProduccion = blend.OrdenDeProduccion;
+                    _context.Entry(ordenExistente).State = EntityState.Modified;
+                }
+            }
+
+            if (flagSeActualizo)
+            {
+                _context.SaveChanges();
+            }
+
+            // Creacion de numero de ordenes no existentes
+            var flagSeCreo = false;
+
+            foreach (var blend in blends)
+            {
+                if (!ordenes.Where(x => x.ProductoId == blend.Id).Any() && blend.OrdenDeProduccion != 0)
+                {
+                    flagSeCreo = true;
+                    _context.ProduccionBlend.Add(new ProduccionBlend()
+                    {
+                        Id = Guid.NewGuid(),
+                        ProductoId = blend.Id,
+                        Descripcion = String.Empty,
+                        Periodo = periodo,
+                        OrdenProduccion = blend.OrdenDeProduccion
+                    });
+                }
+            }
+
+            if (flagSeCreo)
+            {
+                _context.SaveChanges();
+            }
+        }
+
         public BlendViewModel GetBlend(Guid blendId)
         {
             if (_blendsListados == null)

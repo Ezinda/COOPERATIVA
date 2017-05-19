@@ -11,4 +11,13 @@ namespace CooperativaProduccion.ViewModels
 
         public string Descripcion { get; set; }
     }
+
+    public class BlendDePeriodoViewModel
+    {
+        public Guid Id { get; set; }
+
+        public string Descripcion { get; set; }
+
+        public int OrdenDeProduccion { get; set; }
+    }
 }

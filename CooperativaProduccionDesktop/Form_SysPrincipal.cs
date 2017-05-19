@@ -391,5 +391,10 @@ namespace CooperativaProduccion
             var config = new Form_ProduccionGestionProduccion();
             config.Show();
         }
+
+        private void btnProduccionNumeroDeOrdenes_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            new Form_ProduccionNumeroDeOrdenesDeProduccion(new DataAccess.BlendManager()).Show();
+        }
     }
 }

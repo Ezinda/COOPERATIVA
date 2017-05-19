@@ -310,6 +310,12 @@
     <Compile Include="Form_ProduccionNicotinaEditor.Designer.cs">
       <DependentUpon>Form_ProduccionNicotinaEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_ProduccionNumeroDeOrdenesDeProduccion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_ProduccionNumeroDeOrdenesDeProduccion.Designer.cs">
+      <DependentUpon>Form_ProduccionNumeroDeOrdenesDeProduccion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_ProduccionTemperatura.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -823,6 +829,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_ProduccionNicotinaEditor.resx">
       <DependentUpon>Form_ProduccionNicotinaEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_ProduccionNumeroDeOrdenesDeProduccion.resx">
+      <DependentUpon>Form_ProduccionNumeroDeOrdenesDeProduccion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_ProduccionTemperatura.resx">
       <DependentUpon>Form_ProduccionTemperatura.cs</DependentUpon>
