@@ -18,6 +18,7 @@ namespace DesktopEntities.Models
         public string Nombre { get; set; }
         public string TipoTabaco { get; set; }
         public Nullable<int> cantidad { get; set; }
+        public Nullable<double> total { get; set; }
         public double C06 { get; set; }
         public double C07 { get; set; }
         public double C08 { get; set; }

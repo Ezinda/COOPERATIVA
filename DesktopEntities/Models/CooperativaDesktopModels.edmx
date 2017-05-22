@@ -577,6 +577,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_FardoEnProduccionPorH
           <Property Name="Nombre" Type="varchar" MaxLength="120" />
           <Property Name="TipoTabaco" Type="varchar" MaxLength="150" />
           <Property Name="cantidad" Type="int" />
+          <Property Name="total" Type="float" />
           <Property Name="06" Type="float" Nullable="false" />
           <Property Name="07" Type="float" Nullable="false" />
           <Property Name="08" Type="float" Nullable="false" />
@@ -593,6 +594,14 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_FardoEnProduccionPorH
           <Property Name="19" Type="float" Nullable="false" />
           <Property Name="20" Type="float" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'CooperativaProduccion.dbo.Vw_FardoEnProduccionTotales' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="Vw_FardoEnProduccionTotales">
+          <Property Name="cantidad" Type="int" />
+          <Property Name="total" Type="float" />
+          <Property Name="Nombre" Type="varchar" MaxLength="120" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="150" />
+        </EntityType>-->
         <!--Errors Found During Generation:
 warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Movimiento' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_Movimiento">
@@ -1474,6 +1483,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
     [Vw_FardoEnProduccionPorHora].[Nombre] AS [Nombre], 
     [Vw_FardoEnProduccionPorHora].[TipoTabaco] AS [TipoTabaco], 
     [Vw_FardoEnProduccionPorHora].[cantidad] AS [cantidad], 
+    [Vw_FardoEnProduccionPorHora].[total] AS [total], 
     [Vw_FardoEnProduccionPorHora].[06] AS [06], 
     [Vw_FardoEnProduccionPorHora].[07] AS [07], 
     [Vw_FardoEnProduccionPorHora].[08] AS [08], 
@@ -2680,6 +2690,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
           <Property Name="Nombre" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
           <Property Name="TipoTabaco" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="cantidad" Type="Int32" />
+          <Property Name="total" Type="Double" />
           <Property Name="C06" Type="Double" Nullable="false" />
           <Property Name="C07" Type="Double" Nullable="false" />
           <Property Name="C08" Type="Double" Nullable="false" />
@@ -4004,6 +4015,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
                 <ScalarProperty Name="C08" ColumnName="08" />
                 <ScalarProperty Name="C07" ColumnName="07" />
                 <ScalarProperty Name="C06" ColumnName="06" />
+                <ScalarProperty Name="total" ColumnName="total" />
                 <ScalarProperty Name="cantidad" ColumnName="cantidad" />
                 <ScalarProperty Name="TipoTabaco" ColumnName="TipoTabaco" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />

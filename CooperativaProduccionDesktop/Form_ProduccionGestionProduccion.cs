@@ -144,7 +144,7 @@ namespace CooperativaProduccion
             // Create a report instance.
             var reporte = new ResumenProduccionPorHoraReport();
 
-            List<Vw_FardoEnProduccionPorHora> datasourceProduccion;
+            List<FardoEnProduccionPorHora> datasourceProduccion;
             datasourceProduccion = GenerarReporteResumenProduccion();
             reporte.DataSource = datasourceProduccion;
 
@@ -162,10 +162,10 @@ namespace CooperativaProduccion
             StartProcess(fileName);
         }
 
-        private List<Vw_FardoEnProduccionPorHora> GenerarReporteResumenProduccion()
+        private List<FardoEnProduccionPorHora> GenerarReporteResumenProduccion()
         {
             var culture = CultureInfo.CreateSpecificCulture("es-ES");
-            var datasource = new List<Vw_FardoEnProduccionPorHora>();
+            var datasource = new List<FardoEnProduccionPorHora>();
             var resumenes= Context.Vw_FardoEnProduccionPorHora
                 .Where(x => x.Fecha >= dpDesde.Value.Date
                     && x.Fecha <= dpHasta.Value.Date)
@@ -173,19 +173,34 @@ namespace CooperativaProduccion
                 .ThenBy(x=>x.Nombre)
                 .ToList();
 
-            datasource = resumenes;
+          
 
-            //foreach (var resumen in resumenes)
-            //{
-            //    Vw_FardoEnProduccionPorHora registro = new Vw_FardoEnProduccionPorHora();
-            //    registro.Fecha = resumen.Fecha;
-            //    registro.Nombre = resumen.Nombre;
-            //    registro.TipoTabaco = resumen.TipoTabaco;
-            //    registro.cantidad = resumen.cantidad;
-            //    registro.C06 = resumen.C06;
-            //    registro.C06 = resumen.C06;
-            //    datasource.Add(registro);
-            //}
+            foreach (var resumen in resumenes)
+            {
+                FardoEnProduccionPorHora registro = new FardoEnProduccionPorHora();
+                registro.Fecha = resumen.Fecha.ToShortDateString();
+                registro.Nombre = resumen.Nombre;
+                registro.TipoTabaco = resumen.TipoTabaco;
+                registro.cantidad = resumen.cantidad;
+                registro.C06 = resumen.C06;
+                registro.C07 = resumen.C07;
+                registro.C08 = resumen.C08;
+                registro.C09 = resumen.C09;
+                registro.C10 = resumen.C10;
+                registro.C11 = resumen.C11;
+                registro.C12 = resumen.C12;
+                registro.C13 = resumen.C13;
+                registro.C14 = resumen.C14;
+                registro.C15 = resumen.C15;
+                registro.C16 = resumen.C16;
+                registro.C17 = resumen.C17;
+                registro.C18 = resumen.C18;
+                registro.C19 = resumen.C19;
+                registro.C20 = resumen.C20;
+                registro.total = resumen.total;
+
+                datasource.Add(registro);
+            }
             return datasource;
         }
 
@@ -233,5 +248,29 @@ namespace CooperativaProduccion
         public string Tabaco { get; set; }
         public string Blend { get; set; }
 
+    }
+
+    class FardoEnProduccionPorHora
+    {
+        public string Fecha { get; set; }
+        public string Nombre { get; set; }
+        public string TipoTabaco { get; set; }
+        public Nullable<int> cantidad { get; set; }
+        public Nullable<double> total { get; set; }
+        public double C06 { get; set; }
+        public double C07 { get; set; }
+        public double C08 { get; set; }
+        public double C09 { get; set; }
+        public double C10 { get; set; }
+        public double C11 { get; set; }
+        public double C12 { get; set; }
+        public double C13 { get; set; }
+        public double C14 { get; set; }
+        public double C15 { get; set; }
+        public double C16 { get; set; }
+        public double C17 { get; set; }
+        public double C18 { get; set; }
+        public double C19 { get; set; }
+        public double C20 { get; set; }
     }
 }
