@@ -16,6 +16,9 @@ using Extensions;
 using System.Diagnostics;
 using System.IO;
 using EntityFramework.Extensions;
+using DevExpress.XtraGrid.Columns;
+using DevExpress.XtraGrid;
+using DevExpress.Utils;
 
 namespace CooperativaProduccion
 {
@@ -299,10 +302,11 @@ namespace CooperativaProduccion
         private void CargarCombo()
         {
             var ordenVenta =
-                (from o in Context.OrdenVenta 
+                (from o in Context.OrdenVenta
+                    .Where(x => x.Pendiente == true)
                  join c in Context.Vw_Cliente
                  on o.ClienteId equals c.ID
-                 select new 
+                 select new
                  {
                      OrdenId = o.Id,
                      Descripcion = o.NumOrden + " - " + c.RAZONSOCIAL + " - " + o.Fecha.Year,
@@ -626,7 +630,7 @@ namespace CooperativaProduccion
 
             Expression<Func<Caja, bool>> pred = x => true;
 
-            pred = !(checkCampaña.Checked) ?
+            pred = checkCampaña.Checked ?
                 pred.And(x => x.Campaña == Campaña) : pred;
 
             pred = pred.And(x => x.ProductoId == ProductoId);
@@ -647,14 +651,14 @@ namespace CooperativaProduccion
                      select new
                      {
                          Id = c.Id,
+                         Campaña = c.Campaña,
                          NumLote = c.LoteCaja,
                          NumCaja = c.NumeroCaja,
                          Producto = cp.DESCRIPCION,
                          Tara = c.Tara,
                          Neto = c.Neto,
                          Bruto = c.Bruto,
-                         Cata = joined.NumCata,
-                         Campaña = c.Campaña
+                         Cata = joined.NumCata
                      })
                      .Take(cantidad)
                      .OrderBy(x => x.Campaña)
@@ -677,14 +681,14 @@ namespace CooperativaProduccion
                    select new
                    {
                        Id = c.Id,
+                       Campaña = c.Campaña,
                        NumLote = c.LoteCaja,
                        NumCaja = c.NumeroCaja,
                        Producto = cp.DESCRIPCION,
                        Tara = c.Tara,
                        Neto = c.Neto,
                        Bruto = c.Bruto,
-                       Cata = joined.NumCata,
-                       Campaña = c.Campaña
+                       Cata = joined.NumCata
                    })
                    .OrderBy(x => x.Campaña)
                    .ThenBy(x => x.NumCaja)
@@ -694,26 +698,37 @@ namespace CooperativaProduccion
             }
 
             gridViewCajaConsulta.Columns[0].Visible = false;
-            gridViewCajaConsulta.Columns[1].Caption = "N° Lote";
-            gridViewCajaConsulta.Columns[1].Width = 110;
-            gridViewCajaConsulta.Columns[2].Caption = "N° Caja";
+            gridViewCajaConsulta.Columns[1].Caption = "Campaña";
+            gridViewCajaConsulta.Columns[1].Width = 90;
+            gridViewCajaConsulta.Columns[2].Caption = "N° Lote";
             gridViewCajaConsulta.Columns[2].Width = 110;
-            gridViewCajaConsulta.Columns[3].Caption = "Producto";
-            gridViewCajaConsulta.Columns[3].Width = 100;
-            gridViewCajaConsulta.Columns[4].Caption = "Tara";
+            gridViewCajaConsulta.Columns[3].Caption = "N° Caja";
+            gridViewCajaConsulta.Columns[3].Width = 110;
+            gridViewCajaConsulta.Columns[4].Caption = "Producto";
             gridViewCajaConsulta.Columns[4].Width = 100;
-            gridViewCajaConsulta.Columns[5].Caption = "Neto";
+            gridViewCajaConsulta.Columns[5].Caption = "Tara";
             gridViewCajaConsulta.Columns[5].Width = 100;
-            gridViewCajaConsulta.Columns[6].Caption = "Bruto";
+            gridViewCajaConsulta.Columns[6].Caption = "Neto";
             gridViewCajaConsulta.Columns[6].Width = 100;
-            gridViewCajaConsulta.Columns[7].Caption = "N° Cata";
-            gridViewCajaConsulta.Columns[7].Width = 200;
-            gridViewCajaConsulta.Columns[8].Visible = false;
+            gridViewCajaConsulta.Columns[7].Caption = "Bruto";
+            gridViewCajaConsulta.Columns[7].Width = 100;
+            gridViewCajaConsulta.Columns[8].Caption = "N° Cata";
+            gridViewCajaConsulta.Columns[8].Width = 200;
+           
 
             for (var i = 0; i <= gridViewCajaConsulta.RowCount; i++)
             {
                 gridViewCajaConsulta.SelectRow(i);
             }
+            foreach (GridColumn column in gridViewCajaConsulta.Columns)
+            {
+                GridSummaryItem item = column.SummaryItem;
+                if (item != null)
+                    column.Summary.Remove(item);
+            }
+            gridViewCajaConsulta.Columns["NumCaja"].Summary.Add(DevExpress.Data.SummaryItemType.Count, "NumCaja", "Total Cajas : {0}");
+            gridViewCajaConsulta.Appearance.FooterPanel.TextOptions.HAlignment = HorzAlignment.Center;
+            gridViewCajaConsulta.Appearance.FooterPanel.Options.UseTextOptions = true;
         }
 
         private void AsignarCata()
@@ -853,6 +868,10 @@ namespace CooperativaProduccion
 
         #endregion
 
+        private void Cata_SelectedPageChanged(object sender, DevExpress.XtraTab.TabPageChangedEventArgs e)
+        {
+            CargarCombo();
+        }
     }
 
     public class OrdenVentaProducto

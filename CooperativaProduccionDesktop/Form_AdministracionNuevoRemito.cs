@@ -160,11 +160,13 @@ namespace CooperativaProduccion
 
                 var detalle =
                     (from o in Context.OrdenVentaDetalle
-                         .Where(x => x.OrdenVentaId == Id).AsEnumerable()
+                         .Where(x => x.OrdenVentaId == OrdenVentaId)
+                         .AsEnumerable()
                      join p in Context.Vw_Producto
                      on o.ProductoId equals p.ID
                      select new
                      {
+                         Campaña = o.Campaña,
                          Producto = p.DESCRIPCION,
                          Desde = o.DesdeCaja,
                          Hasta = o.HastaCaja
@@ -174,12 +176,10 @@ namespace CooperativaProduccion
                 if (detalle != null)
                 {
                     gridControlDetalleOrdenVenta.DataSource = detalle;
-                    gridViewDetalleOrdenVenta.Columns[0].Caption = "Producto";
-                    gridViewDetalleOrdenVenta.Columns[1].Caption = "Caja Desde";
-                    gridViewDetalleOrdenVenta.Columns[2].Caption = "Caja Hasta";
-
-
-
+                    gridViewDetalleOrdenVenta.Columns[0].Caption = "Campaña";
+                    gridViewDetalleOrdenVenta.Columns[1].Caption = "Producto";
+                    gridViewDetalleOrdenVenta.Columns[2].Caption = "Caja Desde";
+                    gridViewDetalleOrdenVenta.Columns[3].Caption = "Caja Hasta";
                 }
                 dpRemito.Focus();
             }
@@ -189,8 +189,6 @@ namespace CooperativaProduccion
                     (from r in Context.Remito
                          .Where(x => x.Id == Id)
                          .AsEnumerable()
-                     join p in Context.Vw_Producto
-                     on r.ProductoId equals p.ID
                      join c in Context.Vw_Cliente
                      on r.ClienteId equals c.ID
                      select new
@@ -202,56 +200,63 @@ namespace CooperativaProduccion
                          NumRemito = r.NumRemito,
                          NumOperacion = r.NumOperacion,
                          NumOrden = r.NumOrden,
+                         OrdenVentaId = r.OrdenVentaId,
                          Cliente = c.RAZONSOCIAL,
                          Cuit = c.CUIT.ToUpper().Contains(DevConstantes.XX) ? c.CUITE : c.CUIT,
-                         Producto = p.DESCRIPCION,
-                         CajaDesde = r.DesdeCaja,
-                         CajaHasta = r.HastaCaja,
                          PathSystem = r.PathSystem,
                          PathOrigin = r.PathOrigin,
                      })
                      .OrderBy(x => x.NumRemito)
-                     .ToList();
-
-                gridControlDetalleOrdenVenta.DataSource = remito;
-                gridViewDetalleOrdenVenta.Columns[0].Visible = false;
-                gridViewDetalleOrdenVenta.Columns[1].Visible = false;
-                gridViewDetalleOrdenVenta.Columns[2].Visible = false;
-                gridViewDetalleOrdenVenta.Columns[3].Visible = false;
-                gridViewDetalleOrdenVenta.Columns[4].Visible = false;
-                gridViewDetalleOrdenVenta.Columns[5].Visible = false;
-                gridViewDetalleOrdenVenta.Columns[6].Visible = false;
-                gridViewDetalleOrdenVenta.Columns[7].Visible = false;
-                gridViewDetalleOrdenVenta.Columns[8].Visible = false;
-                gridViewDetalleOrdenVenta.Columns[9].Caption = "Producto";
-                gridViewDetalleOrdenVenta.Columns[9].Width = 120;
-                gridViewDetalleOrdenVenta.Columns[9].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                gridViewDetalleOrdenVenta.Columns[9].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-                gridViewDetalleOrdenVenta.Columns[10].Caption = "Caja Desde";
-                gridViewDetalleOrdenVenta.Columns[10].Width = 120;
-                gridViewDetalleOrdenVenta.Columns[10].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                gridViewDetalleOrdenVenta.Columns[10].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-                gridViewDetalleOrdenVenta.Columns[11].Caption = "Caja Hasta";
-                gridViewDetalleOrdenVenta.Columns[11].Width = 120;
-                gridViewDetalleOrdenVenta.Columns[11].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                gridViewDetalleOrdenVenta.Columns[11].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-                gridViewDetalleOrdenVenta.Columns[12].Visible = false;
-                gridViewDetalleOrdenVenta.Columns[13].Visible = false;
+                     .FirstOrDefault();
 
                 if (remito != null)
                 {
-                    txtNumOperacion.Text = remito.FirstOrDefault().NumOperacion.ToString();
-                    dpOrdenVenta.Value = remito.FirstOrDefault().FechaOrden.Value;
-                    txtCliente.Text = remito.FirstOrDefault().Cliente;
-                    txtCuit.Text = remito.FirstOrDefault().Cuit;
-                    dpRemito.Value = remito.FirstOrDefault().FechaRemito.Value;
-                    txtPuntoVenta.Text = remito.FirstOrDefault().PuntoVenta.ToString().PadLeft(4, '0');
-                    txtNumRemito.Text = remito.FirstOrDefault().NumRemito.ToString();
-                    path = File.Exists(remito.FirstOrDefault().PathSystem) ?
-                        remito.FirstOrDefault().PathSystem :
-                        remito.FirstOrDefault().PathOrigin;
+                    txtNumOperacion.Text = remito.NumOperacion.ToString();
+                    dpOrdenVenta.Value = remito.FechaOrden.Value;
+                    txtCliente.Text = remito.Cliente;
+                    txtCuit.Text = remito.Cuit;
+                    dpRemito.Value = remito.FechaRemito.Value;
+                    txtPuntoVenta.Text = remito.PuntoVenta.ToString().PadLeft(4, '0');
+                    txtNumRemito.Text = remito.NumRemito.ToString();
+                    path = File.Exists(remito.PathSystem) ?
+                        remito.PathSystem :
+                        remito.PathOrigin;
                     txtNombrePdf.Text = Path.GetFileName(path);
                 }
+                                
+                var detalle =
+                (from o in Context.OrdenVentaDetalle
+                     .Where(x => x.OrdenVentaId == remito.OrdenVentaId )
+                     .AsEnumerable()
+                 join p in Context.Vw_Producto
+                 on o.ProductoId equals p.ID
+                 select new
+                 {
+                     Campaña = o.Campaña,
+                     Producto = p.DESCRIPCION,
+                     Desde = o.DesdeCaja,
+                     Hasta = o.HastaCaja
+                 })
+                .ToList();
+
+                gridControlDetalleOrdenVenta.DataSource = detalle;
+                gridViewDetalleOrdenVenta.Columns[0].Caption = "Campaña";
+                gridViewDetalleOrdenVenta.Columns[0].Width = 120;
+                gridViewDetalleOrdenVenta.Columns[0].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+                gridViewDetalleOrdenVenta.Columns[0].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+                gridViewDetalleOrdenVenta.Columns[1].Caption = "Producto";
+                gridViewDetalleOrdenVenta.Columns[1].Width = 120;
+                gridViewDetalleOrdenVenta.Columns[1].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+                gridViewDetalleOrdenVenta.Columns[1].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+                gridViewDetalleOrdenVenta.Columns[2].Caption = "Caja Desde";
+                gridViewDetalleOrdenVenta.Columns[2].Width = 120;
+                gridViewDetalleOrdenVenta.Columns[2].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+                gridViewDetalleOrdenVenta.Columns[2].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+                gridViewDetalleOrdenVenta.Columns[3].Caption = "Caja Hasta";
+                gridViewDetalleOrdenVenta.Columns[3].Width = 120;
+                gridViewDetalleOrdenVenta.Columns[3].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+                gridViewDetalleOrdenVenta.Columns[3].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+
             }
         }
 
@@ -259,18 +264,18 @@ namespace CooperativaProduccion
         {
             if (path != string.Empty)
             {
-                RemoteCredentialsClass rcADM =
-                    new RemoteCredentialsClass(@"\\SERVER-ADM\SystemDocumentsCooperativa\RemitosElectronicos\", "Administrador", "Coopat123");
-                try
-                {
-                    var pathAdm = @"\\SERVER-ADM\SystemDocumentsCooperativa\RemitosElectronicos\" + txtNombrePdf.Text;
+                //RemoteCredentialsClass rcADM =
+                //    new RemoteCredentialsClass(@"\\SERVER-ADM\SystemDocumentsCooperativa\RemitosElectronicos\", "Administrador", "Coopat123");
+                //try
+                //{
+                    //var pathAdm = @"\\SERVER-ADM\SystemDocumentsCooperativa\RemitosElectronicos\" + txtNombrePdf.Text;
 
-                    if (File.Exists(pathAdm))
-                    {
-                        System.Diagnostics.Process.Start(@"\\SERVER-ADM\SystemDocumentsCooperativa\RemitosElectronicos\" + txtNombrePdf.Text);
-                    }
-                    else
-                    {
+                    //if (File.Exists(pathAdm))
+                    //{
+                    //    System.Diagnostics.Process.Start(@"\\SERVER-ADM\SystemDocumentsCooperativa\RemitosElectronicos\" + txtNombrePdf.Text);
+                    //}
+                    //else
+                    //{
                         RemoteCredentialsClass rcPlanta =
                             new RemoteCredentialsClass(@"\\SERVER-PLANTA\SystemDocumentsCooperativa\RemitosElectronicos\", "Administrador", "Coopat123");
                         try
@@ -291,17 +296,17 @@ namespace CooperativaProduccion
                         {
                             rcPlanta.CloseUNC();
                         }
-                    }
-                }
-                finally
-                {
-                    rcADM.CloseUNC();
-                }
-            }
-            else
-            {
-                MessageBox.Show("Se debe adjuntar el remito electronico (Archivo pdf)",
-                           "Se requiere", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //}
+                //}
+                //finally
+                //{
+                //    rcADM.CloseUNC();
+                //}
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Se debe adjuntar el remito electronico (Archivo pdf)",
+            //               "Se requiere", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -334,21 +339,12 @@ namespace CooperativaProduccion
                     remito.PathOrigin = path;
                     string pathSystem = @"C:\SystemDocumentsCooperativa\RemitosElectronicos\" + txtNombrePdf.Text;
                     remito.PathSystem = pathSystem;
-                    //remito.File = FileConvertToByte(path);
-                    var detalle = Context.OrdenVentaDetalle
-                           .Where(x => x.OrdenVentaId == ordenVenta.Id)
-                           .FirstOrDefault();
-
-                    if (detalle != null)
-                    {
-                        remito.ProductoId = detalle.ProductoId;
-                        remito.DesdeCaja = detalle.DesdeCaja;
-                        remito.HastaCaja = detalle.HastaCaja;
-                    }
+                                       
                     Context.Remito.Add(remito);
                     Context.SaveChanges();
 
                     var orden = Context.OrdenVenta.Find(ordenVenta.Id);
+
                     if (orden != null)
                     {
                         orden.Pendiente = false;
@@ -356,16 +352,23 @@ namespace CooperativaProduccion
                         Context.Entry(orden).State = EntityState.Modified;
                         Context.SaveChanges();
 
-                        for (long i = detalle.DesdeCaja.Value; i <= detalle.HastaCaja; i++)
-                        {
-                            var caja = Context.Caja
-                                .Where(x => x.Campaña == detalle.Campaña
-                                    && x.ProductoId == detalle.ProductoId
-                                    && x.NumeroCaja == i)
-                                .FirstOrDefault();
+                        var detalles = Context.OrdenVentaDetalle
+                           .Where(x => x.OrdenVentaId == ordenVenta.Id)
+                           .ToList();
 
-                            UpdateMovimientoActual(caja.Id);
-                            RegistrarMovimiento(caja.Id, 1, remito.FechaRemito.Value);
+                        foreach (var item in detalles)
+                        {
+                            for (long i = item.DesdeCaja.Value; i <= item.HastaCaja; i++)
+                            {
+                                var caja = Context.Caja
+                                    .Where(x => x.Campaña == item.Campaña
+                                        && x.ProductoId == item.ProductoId
+                                        && x.NumeroCaja == i)
+                                    .FirstOrDefault();
+
+                                UpdateMovimientoActual(caja.Id);
+                                RegistrarMovimiento(caja.Id, 1, remito.FechaRemito.Value);
+                            }
                         }
                     }
                     IEnlaceActualizar mienlace = this.Owner as Form_AdministracionRemitoElectronico;

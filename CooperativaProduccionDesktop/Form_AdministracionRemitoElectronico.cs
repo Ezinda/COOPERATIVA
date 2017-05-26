@@ -198,7 +198,7 @@ namespace CooperativaProduccion
 
             pred = txtCliente.Text != string.Empty ? pred.And(x => x.ClienteId == ClienteId) : pred;
 
-            pred = checkPeriodo.Checked ? pred.And(x => x.Fecha >= dpDesde.Value && x.Fecha <= dpHasta.Value) : pred;
+            pred = pred.And(x => x.Fecha >= dpDesde.Value && x.Fecha <= dpHasta.Value);
 
             pred = pred.And(x => x.Pendiente == true);
 
@@ -297,14 +297,11 @@ namespace CooperativaProduccion
             pred = txtClienteRemito.Text != string.Empty ? 
                 pred.And(x => x.ClienteId == ClienteId) : pred;
 
-            pred = checkPeriodoRemito.Checked ? 
-                pred.And(x => x.FechaRemito >= dpDesdeRemito.Value 
-                     && x.FechaRemito <= dpHastaRemito.Value) : pred;
+            pred = pred.And(x => x.FechaRemito >= dpDesdeRemito.Value 
+                     && x.FechaRemito <= dpHastaRemito.Value);
 
             var remito =
                 (from r in Context.Remito.Where(pred).AsEnumerable()
-                 join p in Context.Vw_Producto
-                 on r.ProductoId equals p.ID
                  join c in Context.Vw_Cliente
                  on r.ClienteId equals c.ID
                  select new
@@ -316,10 +313,7 @@ namespace CooperativaProduccion
                      NumOperacion = r.NumOperacion,
                      NumOrden = r.NumOrden,
                      FechaOrden = r.FechaOrden,
-                     Cliente = c.RAZONSOCIAL,
-                     Producto = p.DESCRIPCION,
-                     CajaDesde = r.DesdeCaja,
-                     CajaHasta = r.HastaCaja                     
+                     Cliente = c.RAZONSOCIAL                    
                  })
                  .OrderBy(x => x.NumRemito)
                  .ToList();
@@ -354,18 +348,6 @@ namespace CooperativaProduccion
             gridViewRemito.Columns[7].Width = 250;
             gridViewRemito.Columns[7].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
             gridViewRemito.Columns[7].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
-            gridViewRemito.Columns[8].Caption = "Producto";
-            gridViewRemito.Columns[8].Width = 120;
-            gridViewRemito.Columns[8].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-            gridViewRemito.Columns[8].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-            gridViewRemito.Columns[9].Caption = "Caja Desde";
-            gridViewRemito.Columns[9].Width = 120;
-            gridViewRemito.Columns[9].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-            gridViewRemito.Columns[9].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-            gridViewRemito.Columns[10].Caption = "Caja Hasta";
-            gridViewRemito.Columns[10].Width = 120;
-            gridViewRemito.Columns[10].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-            gridViewRemito.Columns[10].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
             
         }
 

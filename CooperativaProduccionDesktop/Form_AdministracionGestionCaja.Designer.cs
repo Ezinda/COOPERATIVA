@@ -129,11 +129,12 @@
             this.Cata.Location = new System.Drawing.Point(3, 60);
             this.Cata.Name = "Cata";
             this.Cata.SelectedTabPage = this.TabIngresoCaja;
-            this.Cata.Size = new System.Drawing.Size(1059, 503);
+            this.Cata.Size = new System.Drawing.Size(1059, 485);
             this.Cata.TabIndex = 75;
             this.Cata.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.TabIngresoCaja,
             this.TabConsultaCaja});
+            this.Cata.SelectedPageChanged += new DevExpress.XtraTab.TabPageChangedEventHandler(this.Cata_SelectedPageChanged);
             // 
             // TabIngresoCaja
             // 
@@ -141,7 +142,7 @@
             this.TabIngresoCaja.Controls.Add(this.groupControl1);
             this.TabIngresoCaja.Image = ((System.Drawing.Image)(resources.GetObject("TabIngresoCaja.Image")));
             this.TabIngresoCaja.Name = "TabIngresoCaja";
-            this.TabIngresoCaja.Size = new System.Drawing.Size(1053, 472);
+            this.TabIngresoCaja.Size = new System.Drawing.Size(1053, 454);
             this.TabIngresoCaja.Text = "Ingreso de Cajas";
             // 
             // groupControl5
@@ -152,7 +153,7 @@
             this.groupControl5.Controls.Add(this.gridControlCaja);
             this.groupControl5.Location = new System.Drawing.Point(1, 86);
             this.groupControl5.Name = "groupControl5";
-            this.groupControl5.Size = new System.Drawing.Size(1053, 387);
+            this.groupControl5.Size = new System.Drawing.Size(1053, 369);
             this.groupControl5.TabIndex = 76;
             this.groupControl5.Text = "Detalle de Catas";
             // 
@@ -163,7 +164,7 @@
             this.gridControlCaja.MainView = this.gridViewCaja;
             this.gridControlCaja.MenuManager = this.ribbon;
             this.gridControlCaja.Name = "gridControlCaja";
-            this.gridControlCaja.Size = new System.Drawing.Size(1049, 365);
+            this.gridControlCaja.Size = new System.Drawing.Size(1049, 347);
             this.gridControlCaja.TabIndex = 68;
             this.gridControlCaja.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewCaja,
@@ -377,7 +378,7 @@
             this.TabConsultaCaja.Controls.Add(this.groupControl2);
             this.TabConsultaCaja.Image = ((System.Drawing.Image)(resources.GetObject("TabConsultaCaja.Image")));
             this.TabConsultaCaja.Name = "TabConsultaCaja";
-            this.TabConsultaCaja.Size = new System.Drawing.Size(1053, 472);
+            this.TabConsultaCaja.Size = new System.Drawing.Size(1053, 454);
             this.TabConsultaCaja.Text = "Consulta de Cajas";
             // 
             // groupControl8
@@ -387,7 +388,7 @@
             this.groupControl8.Controls.Add(this.btnExportarExcel);
             this.groupControl8.Controls.Add(this.btnImpimirEtiqueta);
             this.groupControl8.Controls.Add(this.btnAsignarCata);
-            this.groupControl8.Location = new System.Drawing.Point(1, 440);
+            this.groupControl8.Location = new System.Drawing.Point(1, 422);
             this.groupControl8.Name = "groupControl8";
             this.groupControl8.ShowCaption = false;
             this.groupControl8.Size = new System.Drawing.Size(1051, 31);
@@ -397,7 +398,7 @@
             // btnExportarExcel
             // 
             this.btnExportarExcel.Image = ((System.Drawing.Image)(resources.GetObject("btnExportarExcel.Image")));
-            this.btnExportarExcel.Location = new System.Drawing.Point(111, 2);
+            this.btnExportarExcel.Location = new System.Drawing.Point(5, 2);
             this.btnExportarExcel.Name = "btnExportarExcel";
             this.btnExportarExcel.Size = new System.Drawing.Size(115, 26);
             this.btnExportarExcel.TabIndex = 62;
@@ -417,7 +418,7 @@
             // btnAsignarCata
             // 
             this.btnAsignarCata.Image = ((System.Drawing.Image)(resources.GetObject("btnAsignarCata.Image")));
-            this.btnAsignarCata.Location = new System.Drawing.Point(5, 2);
+            this.btnAsignarCata.Location = new System.Drawing.Point(126, 2);
             this.btnAsignarCata.Name = "btnAsignarCata";
             this.btnAsignarCata.Size = new System.Drawing.Size(100, 26);
             this.btnAsignarCata.TabIndex = 60;
@@ -429,7 +430,7 @@
             this.groupControl7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.groupControl7.Controls.Add(this.btnPrevisualizar);
             this.groupControl7.Controls.Add(this.btnSubirAfip);
-            this.groupControl7.Location = new System.Drawing.Point(1, 612);
+            this.groupControl7.Location = new System.Drawing.Point(1, 603);
             this.groupControl7.Name = "groupControl7";
             this.groupControl7.ShowCaption = false;
             this.groupControl7.Size = new System.Drawing.Size(1386, 33);
@@ -462,7 +463,7 @@
             this.groupControl6.Controls.Add(this.gridControlCajaConsulta);
             this.groupControl6.Location = new System.Drawing.Point(-1, 52);
             this.groupControl6.Name = "groupControl6";
-            this.groupControl6.Size = new System.Drawing.Size(1053, 389);
+            this.groupControl6.Size = new System.Drawing.Size(1053, 369);
             this.groupControl6.TabIndex = 75;
             this.groupControl6.Text = "Lista de Cajas";
             // 
@@ -473,7 +474,7 @@
             this.gridControlCajaConsulta.MainView = this.gridViewCajaConsulta;
             this.gridControlCajaConsulta.MenuManager = this.ribbon;
             this.gridControlCajaConsulta.Name = "gridControlCajaConsulta";
-            this.gridControlCajaConsulta.Size = new System.Drawing.Size(1049, 367);
+            this.gridControlCajaConsulta.Size = new System.Drawing.Size(1049, 347);
             this.gridControlCajaConsulta.TabIndex = 68;
             this.gridControlCajaConsulta.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewCajaConsulta,
@@ -492,6 +493,7 @@
             this.gridViewCajaConsulta.GridControl = this.gridControlCajaConsulta;
             this.gridViewCajaConsulta.Name = "gridViewCajaConsulta";
             this.gridViewCajaConsulta.OptionsBehavior.Editable = false;
+            this.gridViewCajaConsulta.OptionsView.ShowFooter = true;
             this.gridViewCajaConsulta.OptionsView.ShowGroupPanel = false;
             // 
             // gridViewLiquidacionDetalle
@@ -535,7 +537,7 @@
             this.groupControl2.Name = "groupControl2";
             this.groupControl2.Size = new System.Drawing.Size(1051, 50);
             this.groupControl2.TabIndex = 72;
-            this.groupControl2.Text = "Buscar Cata";
+            this.groupControl2.Text = "Buscar";
             // 
             // checkCampaña
             // 

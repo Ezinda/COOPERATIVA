@@ -404,15 +404,11 @@
           <Property Name="NumOperacion" Type="bigint" />
           <Property Name="NumOrden" Type="bigint" />
           <Property Name="ClienteId" Type="uniqueidentifier" />
-          <Property Name="ProductoId" Type="uniqueidentifier" />
-          <Property Name="DesdeCaja" Type="bigint" />
-          <Property Name="HastaCaja" Type="bigint" />
           <Property Name="FechaOrden" Type="date" />
           <Property Name="FechaRemito" Type="date" />
           <Property Name="OrdenVentaId" Type="uniqueidentifier" />
           <Property Name="PathOrigin" Type="nvarchar(max)" />
           <Property Name="PathSystem" Type="nvarchar(max)" />
-          <Property Name="File" Type="varbinary(max)" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6013: The table/view 'CooperativaProduccion.dbo.temporalStock' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
@@ -2541,15 +2537,11 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
           <Property Name="NumOperacion" Type="Int64" />
           <Property Name="NumOrden" Type="Int64" />
           <Property Name="ClienteId" Type="Guid" />
-          <Property Name="ProductoId" Type="Guid" />
-          <Property Name="DesdeCaja" Type="Int64" />
-          <Property Name="HastaCaja" Type="Int64" />
           <Property Name="FechaOrden" Type="DateTime" Precision="0" />
           <Property Name="FechaRemito" Type="DateTime" Precision="0" />
           <Property Name="OrdenVentaId" Type="Guid" />
           <Property Name="PathOrigin" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="PathSystem" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="File" Type="Binary" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="OrdenVenta" Relationship="CooperativaProduccionModel.FK_Remito_OrdenVenta" FromRole="Remito" ToRole="OrdenVenta" />
         </EntityType>
         <EntityType Name="Usuario">
@@ -3872,15 +3864,11 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
           <EntitySetMapping Name="Remito">
             <EntityTypeMapping TypeName="CooperativaProduccionModel.Remito">
               <MappingFragment StoreEntitySet="Remito">
-                <ScalarProperty Name="File" ColumnName="File" />
                 <ScalarProperty Name="PathSystem" ColumnName="PathSystem" />
                 <ScalarProperty Name="PathOrigin" ColumnName="PathOrigin" />
                 <ScalarProperty Name="OrdenVentaId" ColumnName="OrdenVentaId" />
                 <ScalarProperty Name="FechaRemito" ColumnName="FechaRemito" />
                 <ScalarProperty Name="FechaOrden" ColumnName="FechaOrden" />
-                <ScalarProperty Name="HastaCaja" ColumnName="HastaCaja" />
-                <ScalarProperty Name="DesdeCaja" ColumnName="DesdeCaja" />
-                <ScalarProperty Name="ProductoId" ColumnName="ProductoId" />
                 <ScalarProperty Name="ClienteId" ColumnName="ClienteId" />
                 <ScalarProperty Name="NumOrden" ColumnName="NumOrden" />
                 <ScalarProperty Name="NumOperacion" ColumnName="NumOperacion" />

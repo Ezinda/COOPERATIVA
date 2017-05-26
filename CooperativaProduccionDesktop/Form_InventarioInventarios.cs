@@ -192,13 +192,15 @@ namespace CooperativaProduccion
                  {
                      Deposito = d.nombre,
                      TipoTabaco = p.DESCRIPCION,
-                     m.Unidad
+                     m.Unidad,
+                     Campaña = 1
                  } into g
                  select new
                  {
                      g.Key.Deposito,
                      g.Key.TipoTabaco,
                      g.Key.Unidad,
+                     Campaña = g.Key.Campaña,
                      Ingreso = g.Sum(c => c.m.Ingreso),
                      Egreso = g.Sum(c => c.m.Egreso),
                      Saldo = g.Sum(c => c.m.Ingreso) - g.Sum(c => c.m.Egreso)
@@ -213,18 +215,23 @@ namespace CooperativaProduccion
                         group new { m2, c, pr, d2 } by new
                         {
                             Deposito = d2.nombre,
-                            TipoTabaco = pr.DESCRIPCION,
-                            m2.Unidad
+                            TipoTabaco = pr.DESCRIPCION + " - " + c.Campaña,
+                            m2.Unidad,
+                            c.Campaña
                         } into g
                         select new
                         {
                             g.Key.Deposito,
                             g.Key.TipoTabaco,
                             g.Key.Unidad,
+                            g.Key.Campaña,
                             Ingreso = g.Sum(c => c.m2.Ingreso),
                             Egreso = g.Sum(c => c.m2.Egreso),
                             Saldo = g.Sum(c => c.m2.Ingreso) - g.Sum(c => c.m2.Egreso)
                         })
+                        .OrderBy(x => x.Deposito)
+                        .ThenBy(x => x.TipoTabaco)
+                        .ThenBy(x => x.Campaña)
                         .ToList();
 
             foreach (var movimiento in movimientos)
@@ -283,7 +290,7 @@ namespace CooperativaProduccion
             }
 
             gridControlInventario.DataSource = new BindingList<GridInventario>(lista);
-            gridViewInventario.Columns[0].Width = 120;
+            gridViewInventario.Columns[0].Width = 160;
             gridViewInventario.Columns[1].Width = 150;
             gridViewInventario.Columns[2].Width = 100;
             gridViewInventario.Columns[3].Width = 120;

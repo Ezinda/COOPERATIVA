@@ -37,7 +37,6 @@
             this.gridViewOrdenVentaPendiente = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
-            this.checkPeriodo = new System.Windows.Forms.CheckBox();
             this.btnBuscarOrdenVentaPendiente = new DevExpress.XtraEditors.SimpleButton();
             this.btnBuscarCliente = new DevExpress.XtraEditors.SimpleButton();
             this.txtCliente = new System.Windows.Forms.TextBox();
@@ -48,7 +47,6 @@
             this.label15 = new System.Windows.Forms.Label();
             this.TabConsultaRemito = new DevExpress.XtraTab.XtraTabPage();
             this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
-            this.checkPeriodoRemito = new System.Windows.Forms.CheckBox();
             this.btnBuscarRemito = new DevExpress.XtraEditors.SimpleButton();
             this.btnBuscarClienteRemito = new DevExpress.XtraEditors.SimpleButton();
             this.txtClienteRemito = new System.Windows.Forms.TextBox();
@@ -176,7 +174,6 @@
             // 
             this.groupControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupControl1.Controls.Add(this.checkPeriodo);
             this.groupControl1.Controls.Add(this.btnBuscarOrdenVentaPendiente);
             this.groupControl1.Controls.Add(this.btnBuscarCliente);
             this.groupControl1.Controls.Add(this.txtCliente);
@@ -190,15 +187,6 @@
             this.groupControl1.Size = new System.Drawing.Size(907, 52);
             this.groupControl1.TabIndex = 72;
             this.groupControl1.Text = "Buscar ordenes de venta pendientes";
-            // 
-            // checkPeriodo
-            // 
-            this.checkPeriodo.AutoSize = true;
-            this.checkPeriodo.Location = new System.Drawing.Point(377, 29);
-            this.checkPeriodo.Name = "checkPeriodo";
-            this.checkPeriodo.Size = new System.Drawing.Size(15, 14);
-            this.checkPeriodo.TabIndex = 83;
-            this.checkPeriodo.UseVisualStyleBackColor = true;
             // 
             // btnBuscarOrdenVentaPendiente
             // 
@@ -290,7 +278,6 @@
             // 
             this.groupControl2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupControl2.Controls.Add(this.checkPeriodoRemito);
             this.groupControl2.Controls.Add(this.btnBuscarRemito);
             this.groupControl2.Controls.Add(this.btnBuscarClienteRemito);
             this.groupControl2.Controls.Add(this.txtClienteRemito);
@@ -304,15 +291,6 @@
             this.groupControl2.Size = new System.Drawing.Size(907, 52);
             this.groupControl2.TabIndex = 77;
             this.groupControl2.Text = "Buscar Remitos";
-            // 
-            // checkPeriodoRemito
-            // 
-            this.checkPeriodoRemito.AutoSize = true;
-            this.checkPeriodoRemito.Location = new System.Drawing.Point(377, 29);
-            this.checkPeriodoRemito.Name = "checkPeriodoRemito";
-            this.checkPeriodoRemito.Size = new System.Drawing.Size(15, 14);
-            this.checkPeriodoRemito.TabIndex = 83;
-            this.checkPeriodoRemito.UseVisualStyleBackColor = true;
             // 
             // btnBuscarRemito
             // 
@@ -549,9 +527,7 @@
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewOrdenVentaPendiente;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView2;
         private DevExpress.XtraEditors.SimpleButton btnBuscarOrdenVentaPendiente;
-        private System.Windows.Forms.CheckBox checkPeriodo;
         private DevExpress.XtraEditors.GroupControl groupControl2;
-        private System.Windows.Forms.CheckBox checkPeriodoRemito;
         private DevExpress.XtraEditors.SimpleButton btnBuscarRemito;
         private DevExpress.XtraEditors.SimpleButton btnBuscarClienteRemito;
         private System.Windows.Forms.TextBox txtClienteRemito;

@@ -245,8 +245,6 @@
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Appearance.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBuscar.Appearance.Options.UseFont = true;
             this.btnBuscar.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscar.Image")));
             this.btnBuscar.Location = new System.Drawing.Point(782, 24);
             this.btnBuscar.Name = "btnBuscar";
@@ -297,8 +295,6 @@
             // 
             // btnExportarExcel
             // 
-            this.btnExportarExcel.Appearance.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExportarExcel.Appearance.Options.UseFont = true;
             this.btnExportarExcel.Image = ((System.Drawing.Image)(resources.GetObject("btnExportarExcel.Image")));
             this.btnExportarExcel.Location = new System.Drawing.Point(5, 5);
             this.btnExportarExcel.Name = "btnExportarExcel";
