@@ -43,7 +43,7 @@ namespace CooperativaProduccion
 
         void Form_ProduccionMuestras_Load(object sender, EventArgs e)
         {
-            this.dateFecha.Enabled = false;
+            this.dateFecha.Enabled = true;
             this.dateFecha.Value = DateTime.Now.Date;
             this.timeSpanHora.TimeSpan = DateTime.Now.TimeOfDay;
 

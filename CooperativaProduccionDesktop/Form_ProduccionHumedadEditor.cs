@@ -41,7 +41,7 @@ namespace CooperativaProduccion
 
         void Form_ProduccionHumedadEditor_Load(object sender, EventArgs e)
         {
-            this.dateFecha.Enabled = false;
+            this.dateFecha.Enabled = true;
             this.dateFecha.Value = DateTime.Now.Date;
             
             var blends = _blendManager.ListarBlends()
