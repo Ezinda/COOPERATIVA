@@ -70,6 +70,7 @@ namespace CooperativaProduccion
             this.cbBlend.DisplayMember = "Descripcion";
             this.cbBlend.ValueMember = "Id";
             this.cbBlend.DataSource = blends;
+            this.cbBlend.SelectedIndex = -1;
 
             _blendSeleccionado = this.cbBlend.SelectedValue == null ? Guid.Empty : (Guid)this.cbBlend.SelectedValue;
 
@@ -324,6 +325,12 @@ namespace CooperativaProduccion
 
             if (result != System.Windows.Forms.DialogResult.Yes)
             {
+                return;
+            }
+
+            if (this.cbBlend.SelectedValue == null)
+            {
+                MessageBox.Show("Se debe seleccionar un Blend", "No se puede grabar", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 

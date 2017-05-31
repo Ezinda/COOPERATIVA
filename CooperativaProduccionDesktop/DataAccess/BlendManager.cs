@@ -39,7 +39,13 @@ namespace CooperativaProduccion.DataAccess
 
             foreach (var producto in productos)
             {
-                blends.Add(new ProduccionBlend() { Id = producto.Id, Descripcion = producto.Nombre, OrdenProduccion = ordenDeProduccion });
+                blends.Add(new ProduccionBlend()
+                {
+                    Id = Guid.NewGuid(),
+                    ProductoId = producto.Id,
+                    Descripcion = producto.Nombre,
+                    OrdenProduccion = ordenDeProduccion
+                });
                 
                 ordenDeProduccion++;
             }
@@ -297,7 +303,19 @@ namespace CooperativaProduccion.DataAccess
                     proximo = maximo + 1;
                 }
 
-                orden = new ProduccionBlend() { Id = Guid.NewGuid(), ProductoId = blendId, Descripcion = String.Empty, Periodo = periodo, OrdenProduccion = proximo };
+                var producto = _context.Vw_Producto
+                    .Where(x => x.ID == blendId)
+                    .Select(x => x.DESCRIPCION)
+                    .Single();
+
+                orden = new ProduccionBlend()
+                {
+                    Id = Guid.NewGuid(),
+                    ProductoId = blendId,
+                    Descripcion = producto,
+                    Periodo = periodo,
+                    OrdenProduccion = proximo
+                };
 
                 _context.ProduccionBlend.Add(orden);
                 _context.SaveChanges();
@@ -331,13 +349,15 @@ namespace CooperativaProduccion.DataAccess
                 throw new Exception("No existe Caja");
             }
 
+            var dBblendId = _GetDbBlendId(muestra.Blend, muestra.Fecha.Year);
+
             var row = new ProduccionMuestra()
             {
                 Id = Guid.NewGuid(),
-                ProductoId = muestra.Blend.Id,
+                ProductoId = dBblendId,
                 Fecha = muestra.Fecha,
                 Corrida = muestra.Corrida,
-                CorridaId = _GetCorrida(muestra.Blend.Id, muestra.Fecha, true).Id,
+                CorridaId = _GetCorrida(dBblendId, muestra.Fecha, true).Id,
                 Hora = muestra.Hora,
                 Caja = muestra.Caja,
                 CajaId = caja.Id,
@@ -447,13 +467,15 @@ namespace CooperativaProduccion.DataAccess
                 });
             }
 
+            var dBblendId = _GetDbBlendId(control.Blend, control.Fecha.Year);
+
             var row = new ProduccionTemperatura()
             {
                 Id = Guid.NewGuid(),
                 Fecha = control.Fecha,
-                ProductoId = control.Blend.Id,
+                ProductoId = dBblendId,
                 Corrida = control.Corrida,
-                CorridaId = _GetCorrida(control.Blend.Id, control.Fecha, true).Id,
+                CorridaId = _GetCorrida(dBblendId, control.Fecha, true).Id,
                 Minimo = control.Minimo,
                 Meta = control.Meta,
                 Maximo = control.Maximo,
@@ -544,13 +566,15 @@ namespace CooperativaProduccion.DataAccess
                 });
             }
 
+            var dBblendId = _GetDbBlendId(control.Blend, control.Fecha.Year);
+
             var row = new ProduccionHumedad()
             {
                 Id = Guid.NewGuid(),
                 Fecha = control.Fecha,
-                ProductoId = control.Blend.Id,
+                ProductoId = dBblendId,
                 Corrida = control.Corrida,
-                CorridaId = _GetCorrida(control.Blend.Id, control.Fecha, true).Id,
+                CorridaId = _GetCorrida(dBblendId, control.Fecha, true).Id,
                 ProduccionHumedadDetalle = detalles
             };
 
@@ -558,12 +582,35 @@ namespace CooperativaProduccion.DataAccess
             _context.SaveChanges();
         }
 
+        private Guid _GetDbBlendId(Guid blendId, int year)
+        {
+            return _context.ProduccionBlend.Where(x => x.ProductoId == blendId && x.Periodo == year).Select(x => x.Id).Single();
+        }
+
+        private Guid _GetDbBlendId(BlendViewModel blend, int year)
+        {
+            var id = _context.ProduccionBlend.Where(x => x.ProductoId == blend.Id && x.Periodo == year).Select(x => x.Id).FirstOrDefault();
+
+            if (id != Guid.Empty)
+            {
+                return id;
+            }
+            else
+            {
+                GetOrdenProduccion(year, blend.Id);
+
+                return _context.ProduccionBlend.Where(x => x.ProductoId == blend.Id && x.Periodo == year).Select(x => x.Id).Single();
+            }
+        }
+
         public List<ControlDeHumedadViewModel> ListarControlesDeHumedad(Guid blendId, DateTime fecha)
         {
+            var dBBlendId = _GetDbBlendId(blendId, fecha.Year);
+
             var controles = _context.ProduccionHumedad
                     .Include(x => x.ProduccionBlend)
                     .Include(x => x.ProduccionHumedadDetalle)
-                    .Where(x => x.ProductoId == blendId && x.Fecha == fecha)
+                    .Where(x => x.ProductoId == dBBlendId && x.Fecha == fecha)
                     .ToList();
 
             var result = new List<ControlDeHumedadViewModel>();
@@ -624,15 +671,17 @@ namespace CooperativaProduccion.DataAccess
 
             var detalles = new List<ProduccionNicotinaDetalle>();
 
+            var dBblendId = _GetDbBlendId(control.Blend, control.Fecha.Year);
+
             foreach (var linea in control.Lineas)
             {
                 detalles.Add(new ProduccionNicotinaDetalle()
                 {
                     Id = Guid.NewGuid(),
                     Fecha = control.Fecha,
-                    ProductoId = control.Blend.Id,
+                    ProductoId = dBblendId,
                     Corrida = control.Corrida,
-                    CorridaId = _GetCorrida(control.Blend.Id, control.Fecha, true).Id,
+                    CorridaId = _GetCorrida(dBblendId, control.Fecha, true).Id,
                     Hora = control.Hora,
                     CajaDesde = linea.CajaDesde,
                     CajaHasta = linea.CajaHasta,
