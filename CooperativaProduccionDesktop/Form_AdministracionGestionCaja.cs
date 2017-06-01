@@ -635,6 +635,8 @@ namespace CooperativaProduccion
 
             pred = pred.And(x => x.ProductoId == ProductoId);
 
+            pred = checkSinCata.Checked ? pred.And(x => x.CataId == null) : pred;
+            
             if (!string.IsNullOrEmpty(cajas))
             {
                 var cantidad = int.Parse(txtCantidadCajaConsulta.Text);
@@ -735,36 +737,42 @@ namespace CooperativaProduccion
         {
             for (int i = 0; i < gridViewCajaConsulta.DataRowCount; i++)
             {
+                CooperativaProduccionEntities Context = new CooperativaProduccionEntities();
+
                 Guid CajaId = new Guid(gridViewCajaConsulta
                     .GetRowCellValue(i, "Id")
                     .ToString());
+                var existeCata = Context.Caja
+                    .Where(x => x.Id == CajaId
+                        && x.CataId == null)
+                        .Any();
+                if (existeCata)
+                {
+                    var Cata = Context.Cata
+                        .Where(x => x.NumCaja == null)
+                        .FirstOrDefault();
 
-                CooperativaProduccionEntities Context = new CooperativaProduccionEntities();
+                    var cajaUpdate = Context.Caja
+                        .Where(x => x.Id == CajaId)
+                        .Update(x => new Caja() { CataId = Cata.Id });
 
-                var Cata = Context.Cata
-                    .Where(x => x.NumCaja == null)
-                    .FirstOrDefault();
+                    Context.SaveChanges();
 
-                var cajaUpdate = Context.Caja
-                    .Where(x => x.Id == CajaId)
-                    .Update(x => new Caja() { CataId = Cata.Id });
+                    var caja = Context.Caja
+                        .Where(x => x.Id == CajaId)
+                        .FirstOrDefault();
 
-                Context.SaveChanges();
+                    var CataUpdate = Context.Cata.Where(x => x.Id == Cata.Id)
+                        .Update(x => new Cata()
+                        {
+                            CajaId = CajaId,
+                            NumCaja = caja.NumeroCaja,
+                            OrdenVentaId = caja.OrdenVentaId,
+                            NumOrden = caja.OrdenVenta.NumOrden
+                        });
 
-                var caja = Context.Caja
-                    .Where(x => x.Id == CajaId)
-                    .FirstOrDefault();
-                
-                var CataUpdate = Context.Cata.Where(x => x.Id == Cata.Id)
-                    .Update(x => new Cata() 
-                    { 
-                        CajaId = CajaId, 
-                        NumCaja = caja.NumeroCaja, 
-                        OrdenVentaId = caja.OrdenVentaId, 
-                        NumOrden = caja.OrdenVenta.NumOrden
-                    });
-
-                Context.SaveChanges();
+                    Context.SaveChanges();
+                }
             }
         }
 

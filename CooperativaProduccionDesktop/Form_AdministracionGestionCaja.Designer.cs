@@ -37,9 +37,9 @@
             this.gridViewCaja = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
+            this.checkCata = new System.Windows.Forms.CheckBox();
             this.cbOrden = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.checkCata = new System.Windows.Forms.CheckBox();
             this.txtBruto = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.txtCantidadCajaIngreso = new System.Windows.Forms.TextBox();
@@ -68,6 +68,7 @@
             this.groupControl4 = new DevExpress.XtraEditors.GroupControl();
             this.btnBuscarLiquidacion = new DevExpress.XtraEditors.SimpleButton();
             this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
+            this.checkSinCata = new System.Windows.Forms.CheckBox();
             this.checkCampaña = new System.Windows.Forms.CheckBox();
             this.cbCampaña = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -197,9 +198,9 @@
             this.groupControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupControl1.Controls.Add(this.checkCata);
             this.groupControl1.Controls.Add(this.cbOrden);
             this.groupControl1.Controls.Add(this.label2);
-            this.groupControl1.Controls.Add(this.checkCata);
             this.groupControl1.Controls.Add(this.txtBruto);
             this.groupControl1.Controls.Add(this.label7);
             this.groupControl1.Controls.Add(this.txtCantidadCajaIngreso);
@@ -219,6 +220,16 @@
             this.groupControl1.TabIndex = 72;
             this.groupControl1.Text = "Ingreso de Cajas";
             // 
+            // checkCata
+            // 
+            this.checkCata.AutoSize = true;
+            this.checkCata.Location = new System.Drawing.Point(862, 56);
+            this.checkCata.Name = "checkCata";
+            this.checkCata.Size = new System.Drawing.Size(87, 17);
+            this.checkCata.TabIndex = 93;
+            this.checkCata.Text = "Asociar Cata";
+            this.checkCata.UseVisualStyleBackColor = true;
+            // 
             // cbOrden
             // 
             this.cbOrden.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -237,16 +248,6 @@
             this.label2.Size = new System.Drawing.Size(40, 16);
             this.label2.TabIndex = 92;
             this.label2.Text = "Orden";
-            // 
-            // checkCata
-            // 
-            this.checkCata.AutoSize = true;
-            this.checkCata.Location = new System.Drawing.Point(864, 55);
-            this.checkCata.Name = "checkCata";
-            this.checkCata.Size = new System.Drawing.Size(87, 17);
-            this.checkCata.TabIndex = 90;
-            this.checkCata.Text = "Asociar Cata";
-            this.checkCata.UseVisualStyleBackColor = true;
             // 
             // txtBruto
             // 
@@ -525,6 +526,7 @@
             // 
             this.groupControl2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupControl2.Controls.Add(this.checkSinCata);
             this.groupControl2.Controls.Add(this.checkCampaña);
             this.groupControl2.Controls.Add(this.cbCampaña);
             this.groupControl2.Controls.Add(this.label1);
@@ -538,6 +540,18 @@
             this.groupControl2.Size = new System.Drawing.Size(1051, 50);
             this.groupControl2.TabIndex = 72;
             this.groupControl2.Text = "Buscar";
+            // 
+            // checkSinCata
+            // 
+            this.checkSinCata.AutoSize = true;
+            this.checkSinCata.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.checkSinCata.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold);
+            this.checkSinCata.Location = new System.Drawing.Point(696, 25);
+            this.checkSinCata.Name = "checkSinCata";
+            this.checkSinCata.Size = new System.Drawing.Size(147, 20);
+            this.checkSinCata.TabIndex = 66;
+            this.checkSinCata.Text = "Mostrar cajas sin catas";
+            this.checkSinCata.UseVisualStyleBackColor = true;
             // 
             // checkCampaña
             // 
@@ -570,7 +584,7 @@
             // 
             // txtCantidadCajaConsulta
             // 
-            this.txtCantidadCajaConsulta.Location = new System.Drawing.Point(649, 24);
+            this.txtCantidadCajaConsulta.Location = new System.Drawing.Point(597, 24);
             this.txtCantidadCajaConsulta.Name = "txtCantidadCajaConsulta";
             this.txtCantidadCajaConsulta.Size = new System.Drawing.Size(93, 21);
             this.txtCantidadCajaConsulta.TabIndex = 62;
@@ -580,7 +594,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(542, 26);
+            this.label11.Location = new System.Drawing.Point(490, 26);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(104, 16);
             this.label11.TabIndex = 61;
@@ -589,7 +603,7 @@
             // btnBuscarCaja
             // 
             this.btnBuscarCaja.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscarCaja.Image")));
-            this.btnBuscarCaja.Location = new System.Drawing.Point(748, 24);
+            this.btnBuscarCaja.Location = new System.Drawing.Point(849, 24);
             this.btnBuscarCaja.Name = "btnBuscarCaja";
             this.btnBuscarCaja.Size = new System.Drawing.Size(76, 21);
             this.btnBuscarCaja.TabIndex = 60;
@@ -600,10 +614,10 @@
             // 
             this.cbProductoConsulta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbProductoConsulta.FormattingEnabled = true;
-            this.cbProductoConsulta.Location = new System.Drawing.Point(247, 25);
+            this.cbProductoConsulta.Location = new System.Drawing.Point(242, 24);
             this.cbProductoConsulta.Name = "cbProductoConsulta";
             this.cbProductoConsulta.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.cbProductoConsulta.Size = new System.Drawing.Size(290, 21);
+            this.cbProductoConsulta.Size = new System.Drawing.Size(244, 21);
             this.cbProductoConsulta.TabIndex = 58;
             this.cbProductoConsulta.SelectedIndexChanged += new System.EventHandler(this.cbProductoConsulta_SelectedIndexChanged);
             this.cbProductoConsulta.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cbProductoConsulta_KeyPress);
@@ -699,7 +713,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.DateTimePicker dpIngresoCaja;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.CheckBox checkCata;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox txtCantidadCajaConsulta;
         private DevExpress.XtraEditors.GroupControl groupControl8;
@@ -711,5 +724,7 @@
         private DevExpress.XtraEditors.SimpleButton btnExportarExcel;
         private System.Windows.Forms.ComboBox cbOrden;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.CheckBox checkSinCata;
+        private System.Windows.Forms.CheckBox checkCata;
     }
 }

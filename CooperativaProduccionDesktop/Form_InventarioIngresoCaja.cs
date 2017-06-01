@@ -409,6 +409,8 @@ namespace CooperativaProduccion
 
             pred = pred.And(x => x.ProductoId == ProductoId);
 
+            pred = checkSinCata.Checked ? pred.And(x => x.CataId == null) : pred;
+
             if (!string.IsNullOrEmpty(cajas))
             {
                 var cantidad = int.Parse(txtCantidadCajaConsulta.Text);

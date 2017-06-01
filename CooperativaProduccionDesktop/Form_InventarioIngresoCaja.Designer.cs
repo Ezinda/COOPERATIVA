@@ -72,6 +72,7 @@
             this.btnBuscarCaja = new DevExpress.XtraEditors.SimpleButton();
             this.cbProductoConsulta = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.checkSinCata = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Cata)).BeginInit();
             this.Cata.SuspendLayout();
@@ -126,7 +127,7 @@
             this.Cata.Location = new System.Drawing.Point(2, 60);
             this.Cata.Name = "Cata";
             this.Cata.SelectedTabPage = this.TabIngresoCaja;
-            this.Cata.Size = new System.Drawing.Size(984, 442);
+            this.Cata.Size = new System.Drawing.Size(984, 440);
             this.Cata.TabIndex = 76;
             this.Cata.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.TabIngresoCaja,
@@ -139,7 +140,7 @@
             this.TabIngresoCaja.Controls.Add(this.groupControl1);
             this.TabIngresoCaja.Image = ((System.Drawing.Image)(resources.GetObject("TabIngresoCaja.Image")));
             this.TabIngresoCaja.Name = "TabIngresoCaja";
-            this.TabIngresoCaja.Size = new System.Drawing.Size(978, 441);
+            this.TabIngresoCaja.Size = new System.Drawing.Size(978, 409);
             this.TabIngresoCaja.Text = "Ingreso de Cajas";
             // 
             // groupControl5
@@ -150,7 +151,7 @@
             this.groupControl5.Controls.Add(this.gridControlCaja);
             this.groupControl5.Location = new System.Drawing.Point(1, 52);
             this.groupControl5.Name = "groupControl5";
-            this.groupControl5.Size = new System.Drawing.Size(978, 390);
+            this.groupControl5.Size = new System.Drawing.Size(978, 358);
             this.groupControl5.TabIndex = 76;
             this.groupControl5.Text = "Detalle de Catas";
             // 
@@ -161,7 +162,7 @@
             this.gridControlCaja.MainView = this.gridViewCaja;
             this.gridControlCaja.MenuManager = this.ribbon;
             this.gridControlCaja.Name = "gridControlCaja";
-            this.gridControlCaja.Size = new System.Drawing.Size(974, 368);
+            this.gridControlCaja.Size = new System.Drawing.Size(974, 336);
             this.gridControlCaja.TabIndex = 68;
             this.gridControlCaja.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewCaja,
@@ -209,7 +210,7 @@
             this.groupControl1.Controls.Add(this.label15);
             this.groupControl1.Location = new System.Drawing.Point(1, 1);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(976, 58);
+            this.groupControl1.Size = new System.Drawing.Size(976, 56);
             this.groupControl1.TabIndex = 72;
             this.groupControl1.Text = "Ingreso de Cajas";
             // 
@@ -343,7 +344,7 @@
             this.TabConsultaCaja.Controls.Add(this.groupControl2);
             this.TabConsultaCaja.Image = ((System.Drawing.Image)(resources.GetObject("TabConsultaCaja.Image")));
             this.TabConsultaCaja.Name = "TabConsultaCaja";
-            this.TabConsultaCaja.Size = new System.Drawing.Size(978, 411);
+            this.TabConsultaCaja.Size = new System.Drawing.Size(978, 409);
             this.TabConsultaCaja.Text = "Consulta de Cajas";
             // 
             // groupControl8
@@ -352,7 +353,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupControl8.Controls.Add(this.btnImpimirEtiqueta);
             this.groupControl8.Controls.Add(this.btnExportarExcel);
-            this.groupControl8.Location = new System.Drawing.Point(1, 379);
+            this.groupControl8.Location = new System.Drawing.Point(1, 377);
             this.groupControl8.Name = "groupControl8";
             this.groupControl8.ShowCaption = false;
             this.groupControl8.Size = new System.Drawing.Size(976, 31);
@@ -384,7 +385,7 @@
             this.groupControl7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.groupControl7.Controls.Add(this.btnPrevisualizar);
             this.groupControl7.Controls.Add(this.btnSubirAfip);
-            this.groupControl7.Location = new System.Drawing.Point(1, 581);
+            this.groupControl7.Location = new System.Drawing.Point(1, 580);
             this.groupControl7.Name = "groupControl7";
             this.groupControl7.ShowCaption = false;
             this.groupControl7.Size = new System.Drawing.Size(1417, 33);
@@ -417,7 +418,7 @@
             this.groupControl6.Controls.Add(this.gridControlCajaConsulta);
             this.groupControl6.Location = new System.Drawing.Point(-1, 52);
             this.groupControl6.Name = "groupControl6";
-            this.groupControl6.Size = new System.Drawing.Size(978, 326);
+            this.groupControl6.Size = new System.Drawing.Size(978, 324);
             this.groupControl6.TabIndex = 75;
             this.groupControl6.Text = "Lista de Cajas";
             // 
@@ -428,7 +429,7 @@
             this.gridControlCajaConsulta.MainView = this.gridViewCajaConsulta;
             this.gridControlCajaConsulta.MenuManager = this.ribbon;
             this.gridControlCajaConsulta.Name = "gridControlCajaConsulta";
-            this.gridControlCajaConsulta.Size = new System.Drawing.Size(974, 304);
+            this.gridControlCajaConsulta.Size = new System.Drawing.Size(974, 302);
             this.gridControlCajaConsulta.TabIndex = 68;
             this.gridControlCajaConsulta.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewCajaConsulta,
@@ -480,6 +481,7 @@
             // 
             this.groupControl2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupControl2.Controls.Add(this.checkSinCata);
             this.groupControl2.Controls.Add(this.checkCampaña);
             this.groupControl2.Controls.Add(this.cbCampaña);
             this.groupControl2.Controls.Add(this.label1);
@@ -544,7 +546,7 @@
             // btnBuscarCaja
             // 
             this.btnBuscarCaja.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscarCaja.Image")));
-            this.btnBuscarCaja.Location = new System.Drawing.Point(638, 24);
+            this.btnBuscarCaja.Location = new System.Drawing.Point(791, 24);
             this.btnBuscarCaja.Name = "btnBuscarCaja";
             this.btnBuscarCaja.Size = new System.Drawing.Size(76, 21);
             this.btnBuscarCaja.TabIndex = 60;
@@ -571,6 +573,18 @@
             this.label3.Size = new System.Drawing.Size(57, 16);
             this.label3.TabIndex = 57;
             this.label3.Text = "Producto";
+            // 
+            // checkSinCata
+            // 
+            this.checkSinCata.AutoSize = true;
+            this.checkSinCata.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.checkSinCata.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold);
+            this.checkSinCata.Location = new System.Drawing.Point(638, 25);
+            this.checkSinCata.Name = "checkSinCata";
+            this.checkSinCata.Size = new System.Drawing.Size(147, 20);
+            this.checkSinCata.TabIndex = 69;
+            this.checkSinCata.Text = "Mostrar cajas sin catas";
+            this.checkSinCata.UseVisualStyleBackColor = true;
             // 
             // Form_InventarioIngresoCaja
             // 
@@ -662,5 +676,6 @@
         private DevExpress.XtraEditors.GroupControl groupControl8;
         private DevExpress.XtraEditors.SimpleButton btnExportarExcel;
         private DevExpress.XtraEditors.SimpleButton btnImpimirEtiqueta;
+        private System.Windows.Forms.CheckBox checkSinCata;
     }
 }
