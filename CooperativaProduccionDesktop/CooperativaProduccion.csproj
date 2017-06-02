@@ -316,6 +316,12 @@
     <Compile Include="Form_ProduccionNumeroDeOrdenesDeProduccion.Designer.cs">
       <DependentUpon>Form_ProduccionNumeroDeOrdenesDeProduccion.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_ProduccionRegistrosDeCalidad.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_ProduccionRegistrosDeCalidad.Designer.cs">
+      <DependentUpon>Form_ProduccionRegistrosDeCalidad.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_ProduccionTemperatura.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -540,6 +546,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="ReportModels\ProduccionDatosDeCalidadAnualDetalle.cs" />
     <Compile Include="ReportModels\ProduccionMuestra.cs" />
     <Compile Include="ReportModels\ProduccionTemperatura.cs" />
     <Compile Include="ReportModels\RegistroEncabezado.cs" />
@@ -839,6 +846,9 @@
     <EmbeddedResource Include="Form_ProduccionNumeroDeOrdenesDeProduccion.resx">
       <DependentUpon>Form_ProduccionNumeroDeOrdenesDeProduccion.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form_ProduccionRegistrosDeCalidad.resx">
+      <DependentUpon>Form_ProduccionRegistrosDeCalidad.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form_ProduccionTemperatura.resx">
       <DependentUpon>Form_ProduccionTemperatura.cs</DependentUpon>
     </EmbeddedResource>
@@ -1006,6 +1016,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="RegistroDatosDeCalidadTemplate.xls">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\sm_Ezinda2.jpg" />
   </ItemGroup>
   <ItemGroup>

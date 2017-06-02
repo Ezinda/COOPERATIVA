@@ -59,6 +59,7 @@
             this.btnGestionTransferencias = new DevExpress.XtraBars.BarButtonItem();
             this.btnConfiguracionBlend = new DevExpress.XtraBars.BarButtonItem();
             this.btnGestionProduccion = new DevExpress.XtraBars.BarButtonItem();
+            this.btnProduccionNumeroDeOrdenes = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPageRomaneo = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupPorteria = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroupBalanza = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -71,6 +72,7 @@
             this.ribbonPageGroup3 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroupMuestras = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroupControles = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageProduccionConfig = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPage4 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupFardos = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -78,8 +80,8 @@
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageSeguridad = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupSeguridad = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.ribbonPageProduccionConfig = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.btnProduccionNumeroDeOrdenes = new DevExpress.XtraBars.BarButtonItem();
+            this.ribbonPageGroup4 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.barProduccionRegistrosDeCalidad = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             this.SuspendLayout();
             // 
@@ -117,9 +119,10 @@
             this.btnGestionTransferencias,
             this.btnConfiguracionBlend,
             this.btnGestionProduccion,
-            this.btnProduccionNumeroDeOrdenes});
+            this.btnProduccionNumeroDeOrdenes,
+            this.barProduccionRegistrosDeCalidad});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
-            this.ribbon.MaxItemId = 35;
+            this.ribbon.MaxItemId = 36;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPageRomaneo,
@@ -403,6 +406,15 @@
             this.btnGestionProduccion.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
             this.btnGestionProduccion.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnGestionProduccion_ItemClick);
             // 
+            // btnProduccionNumeroDeOrdenes
+            // 
+            this.btnProduccionNumeroDeOrdenes.Caption = "Número de Ordenes de Produccion";
+            this.btnProduccionNumeroDeOrdenes.Glyph = ((System.Drawing.Image)(resources.GetObject("btnProduccionNumeroDeOrdenes.Glyph")));
+            this.btnProduccionNumeroDeOrdenes.Id = 34;
+            this.btnProduccionNumeroDeOrdenes.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnProduccionNumeroDeOrdenes.LargeGlyph")));
+            this.btnProduccionNumeroDeOrdenes.Name = "btnProduccionNumeroDeOrdenes";
+            this.btnProduccionNumeroDeOrdenes.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnProduccionNumeroDeOrdenes_ItemClick);
+            // 
             // ribbonPageRomaneo
             // 
             this.ribbonPageRomaneo.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -482,7 +494,8 @@
             this.ribbonPageGroup3,
             this.ribbonPageGroupMuestras,
             this.ribbonPageGroupControles,
-            this.ribbonPageProduccionConfig});
+            this.ribbonPageProduccionConfig,
+            this.ribbonPageGroup4});
             this.ribbonPage3.Image = ((System.Drawing.Image)(resources.GetObject("ribbonPage3.Image")));
             this.ribbonPage3.Name = "ribbonPage3";
             this.ribbonPage3.Text = "Producción";
@@ -515,6 +528,12 @@
             this.ribbonPageGroupControles.Name = "ribbonPageGroupControles";
             this.ribbonPageGroupControles.ShowCaptionButton = false;
             this.ribbonPageGroupControles.Text = "Controles";
+            // 
+            // ribbonPageProduccionConfig
+            // 
+            this.ribbonPageProduccionConfig.ItemLinks.Add(this.btnProduccionNumeroDeOrdenes);
+            this.ribbonPageProduccionConfig.Name = "ribbonPageProduccionConfig";
+            this.ribbonPageProduccionConfig.Text = "Configuracion";
             // 
             // ribbonPage4
             // 
@@ -578,20 +597,20 @@
             this.ribbonPageGroupSeguridad.ShowCaptionButton = false;
             this.ribbonPageGroupSeguridad.Text = "Seguridad";
             // 
-            // ribbonPageProduccionConfig
+            // ribbonPageGroup4
             // 
-            this.ribbonPageProduccionConfig.ItemLinks.Add(this.btnProduccionNumeroDeOrdenes);
-            this.ribbonPageProduccionConfig.Name = "ribbonPageProduccionConfig";
-            this.ribbonPageProduccionConfig.Text = "Configuracion";
+            this.ribbonPageGroup4.ItemLinks.Add(this.barProduccionRegistrosDeCalidad);
+            this.ribbonPageGroup4.Name = "ribbonPageGroup4";
+            this.ribbonPageGroup4.Text = "Reportes";
             // 
-            // btnProduccionNumeroDeOrdenes
+            // barProduccionRegistrosDeCalidad
             // 
-            this.btnProduccionNumeroDeOrdenes.Caption = "Número de Ordenes de Produccion";
-            this.btnProduccionNumeroDeOrdenes.Glyph = ((System.Drawing.Image)(resources.GetObject("btnProduccionNumeroDeOrdenes.Glyph")));
-            this.btnProduccionNumeroDeOrdenes.Id = 34;
-            this.btnProduccionNumeroDeOrdenes.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnProduccionNumeroDeOrdenes.LargeGlyph")));
-            this.btnProduccionNumeroDeOrdenes.Name = "btnProduccionNumeroDeOrdenes";
-            this.btnProduccionNumeroDeOrdenes.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnProduccionNumeroDeOrdenes_ItemClick);
+            this.barProduccionRegistrosDeCalidad.Caption = "Registros de Calidad";
+            this.barProduccionRegistrosDeCalidad.Glyph = ((System.Drawing.Image)(resources.GetObject("barProduccionRegistrosDeCalidad.Glyph")));
+            this.barProduccionRegistrosDeCalidad.Id = 35;
+            this.barProduccionRegistrosDeCalidad.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barProduccionRegistrosDeCalidad.LargeGlyph")));
+            this.barProduccionRegistrosDeCalidad.Name = "barProduccionRegistrosDeCalidad";
+            this.barProduccionRegistrosDeCalidad.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barProduccionRegistrosDeCalidad_ItemClick);
             // 
             // Form_SysPrincipal
             // 
@@ -665,5 +684,7 @@
         private DevExpress.XtraBars.BarButtonItem btnGestionProduccion;
         private DevExpress.XtraBars.BarButtonItem btnProduccionNumeroDeOrdenes;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageProduccionConfig;
+        private DevExpress.XtraBars.BarButtonItem barProduccionRegistrosDeCalidad;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup4;
     }
 }

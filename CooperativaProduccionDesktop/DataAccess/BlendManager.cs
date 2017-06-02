@@ -72,11 +72,12 @@ namespace CooperativaProduccion.DataAccess
                 .ToList();
         }
 
-        private ProduccionCorrida _GetCorrida(Guid blendId, DateTime fecha, bool crearRegistro)
+        private ProduccionCorrida _GetCorrida(Guid realBlendId, DateTime fecha, bool crearRegistro)
         {
             var primerDiaDeAnio = new DateTime(fecha.Year, 1, 1);
+            //var realBlendId = _GetDbBlendId(productoId, fecha.Year);
             var corrida = _context.ProduccionCorrida
-                .Where(x => x.ProductoId == blendId && x.Fecha == fecha)
+                .Where(x => x.ProductoId == realBlendId && x.Fecha == fecha)
                 .FirstOrDefault();
 
             if (corrida == null)
@@ -86,7 +87,7 @@ namespace CooperativaProduccion.DataAccess
                 try
                 {
                     ultimoNumeroDeCorrida = _context.ProduccionCorrida
-                        .Where(x => x.ProductoId == blendId && x.Fecha >= primerDiaDeAnio && x.Fecha < fecha)
+                        .Where(x => x.ProductoId == realBlendId && x.Fecha >= primerDiaDeAnio && x.Fecha < fecha)
                         .Max(x => x.NumeroCorrida);
                 }
                 catch
@@ -94,7 +95,7 @@ namespace CooperativaProduccion.DataAccess
                     if (crearRegistro)
                     {
                         var numeroPrimerCorrida = 1;
-                        corrida = new ProduccionCorrida() { Id = Guid.NewGuid(), ProductoId = blendId, Fecha = fecha, NumeroCorrida = numeroPrimerCorrida };
+                        corrida = new ProduccionCorrida() { Id = Guid.NewGuid(), ProductoId = realBlendId, Fecha = fecha, NumeroCorrida = numeroPrimerCorrida };
 
                         _context.ProduccionCorrida.Add(corrida);
                         _context.SaveChanges();
@@ -102,7 +103,7 @@ namespace CooperativaProduccion.DataAccess
                     else
                     {
                         var numeroPrimerCorrida = 1;
-                        corrida = new ProduccionCorrida() { Id = Guid.NewGuid(), ProductoId = blendId, Fecha = fecha, NumeroCorrida = numeroPrimerCorrida };
+                        corrida = new ProduccionCorrida() { Id = Guid.NewGuid(), ProductoId = realBlendId, Fecha = fecha, NumeroCorrida = numeroPrimerCorrida };
                     }
 
                     return corrida;
@@ -111,7 +112,7 @@ namespace CooperativaProduccion.DataAccess
                 if (crearRegistro)
                 {
                     var numeroSiguienteCorrida = ultimoNumeroDeCorrida + 1;
-                    corrida = new ProduccionCorrida() { Id = Guid.NewGuid(), ProductoId = blendId, Fecha = fecha, NumeroCorrida = numeroSiguienteCorrida };
+                    corrida = new ProduccionCorrida() { Id = Guid.NewGuid(), ProductoId = realBlendId, Fecha = fecha, NumeroCorrida = numeroSiguienteCorrida };
 
                     _context.ProduccionCorrida.Add(corrida);
                     _context.SaveChanges();
@@ -119,7 +120,7 @@ namespace CooperativaProduccion.DataAccess
                 else
                 {
                     var numeroSiguienteCorrida = ultimoNumeroDeCorrida + 1;
-                    corrida = new ProduccionCorrida() { Id = Guid.NewGuid(), ProductoId = blendId, Fecha = fecha, NumeroCorrida = numeroSiguienteCorrida };
+                    corrida = new ProduccionCorrida() { Id = Guid.NewGuid(), ProductoId = realBlendId, Fecha = fecha, NumeroCorrida = numeroSiguienteCorrida };
                 }
 
                 return corrida;
@@ -326,7 +327,7 @@ namespace CooperativaProduccion.DataAccess
 
         public long GetSiguienteCorrida(Guid blendId, DateTime fecha)
         {
-            return _GetCorrida(blendId, fecha, false).NumeroCorrida;
+            return _GetCorrida(_GetDbBlendId(blendId, fecha.Year), fecha, false).NumeroCorrida;
         }
 
         public void AddMuestra(MuestraViewModel muestra)
@@ -383,7 +384,7 @@ namespace CooperativaProduccion.DataAccess
         {
             return _context.ProduccionMuestra
                     .Include(x => x.ProduccionBlend)
-                    .Where(x => x.ProductoId == blendId && x.Fecha >= desde && x.Fecha <= hasta)
+                    .Where(x => x.ProduccionBlend.ProductoId == blendId && x.Fecha >= desde && x.Fecha <= hasta)
                     .Select(x => new MuestraViewModel()
                     {
                         _Id = x.Id,
@@ -400,12 +401,12 @@ namespace CooperativaProduccion.DataAccess
                     .ToList();
         }
 
-        public List<MuestraViewModel> ListarMuestrasConDetalle(Guid blendId, DateTime desde, DateTime hasta)
+        public List<MuestraViewModel> ListarMuestrasConDetalle(DateTime desde, DateTime hasta)
         {
             var muestras = _context.ProduccionMuestra
                 .Include(x => x.ProduccionBlend)
                 .Include(x => x.ProduccionMuestraDetalle)
-                .Where(x => x.ProductoId == blendId && x.Fecha >= desde && x.Fecha <= hasta)
+                .Where(x => x.Fecha >= desde && x.Fecha <= hasta)
                 .ToList();
             var result = new List<MuestraViewModel>();
 
@@ -427,6 +428,76 @@ namespace CooperativaProduccion.DataAccess
                 PesoMuestra = x.PesoMuestra,
                 TotalSobreUnMedio = x.TotalSobreUnMedio
             }));
+
+            result = result.OrderBy(x => x.Blend.Descripcion)
+                .ThenBy(x => x.Fecha)
+                .ThenBy(x => x.Hora).ToList();
+
+            return result;
+        }
+
+        public List<MuestraViewModel> ListarMuestrasConDetalle(Guid blendId, DateTime desde, DateTime hasta)
+        {
+            var muestras = _context.ProduccionMuestra
+                .Include(x => x.ProduccionBlend)
+                .Include(x => x.ProduccionMuestraDetalle)
+                .Where(x => x.ProduccionBlend.ProductoId == blendId && x.Fecha >= desde && x.Fecha <= hasta)
+                .ToList();
+            var result = new List<MuestraViewModel>();
+
+            muestras.ForEach(x => result.Add(new MuestraViewModel()
+            {
+                _Id = x.Id,
+                Blend = new BlendViewModel() { Id = x.ProduccionBlend.ProductoId ?? Guid.Empty, Descripcion = x.ProduccionBlend.Descripcion },
+                Corrida = x.Corrida,
+                Fecha = x.Fecha,
+                Hora = x.Hora,
+                Caja = x.Caja,
+                Lineas = x.ProduccionMuestraDetalle.Select(y => new LineaDetalleMuestraViewModel()
+                {
+                    Tamanio = y.Tamanio,
+                    kilos = y.Kilos,
+                    Porcentaje = y.Porcentaje
+                }).ToList(),
+                Observaciones = x.Observaciones,
+                PesoMuestra = x.PesoMuestra,
+                TotalSobreUnMedio = x.TotalSobreUnMedio
+            }));
+
+            return result;
+        }
+
+        public List<MuestraViewModel> ListarMuestrasConDetalle(Guid[] blendId, DateTime desde, DateTime hasta)
+        {
+            var muestras = _context.ProduccionMuestra
+                .Include(x => x.ProduccionBlend)
+                .Include(x => x.ProduccionMuestraDetalle)
+                .Where(x => blendId.Contains(x.ProduccionBlend.ProductoId.Value) && x.Fecha >= desde && x.Fecha <= hasta)
+                .ToList();
+            var result = new List<MuestraViewModel>();
+
+            muestras.ForEach(x => result.Add(new MuestraViewModel()
+            {
+                _Id = x.Id,
+                Blend = new BlendViewModel() { Id = x.ProduccionBlend.ProductoId ?? Guid.Empty, Descripcion = x.ProduccionBlend.Descripcion },
+                Corrida = x.Corrida,
+                Fecha = x.Fecha,
+                Hora = x.Hora,
+                Caja = x.Caja,
+                Lineas = x.ProduccionMuestraDetalle.Select(y => new LineaDetalleMuestraViewModel()
+                {
+                    Tamanio = y.Tamanio,
+                    kilos = y.Kilos,
+                    Porcentaje = y.Porcentaje
+                }).ToList(),
+                Observaciones = x.Observaciones,
+                PesoMuestra = x.PesoMuestra,
+                TotalSobreUnMedio = x.TotalSobreUnMedio
+            }));
+
+            result = result.OrderBy(x => x.Blend.Descripcion)
+                .ThenBy(x => x.Fecha)
+                .ThenBy(x => x.Hora).ToList();
 
             return result;
         }
@@ -491,7 +562,7 @@ namespace CooperativaProduccion.DataAccess
             var controles = _context.ProduccionTemperatura
                     .Include(x => x.ProduccionBlend)
                     .Include(x => x.ProduccionTemperaturaDetalle)
-                    .Where(x => x.ProductoId == blendId && x.Fecha >= desde && x.Fecha <= hasta)
+                    .Where(x => x.ProduccionBlend.ProductoId == blendId && x.Fecha >= desde && x.Fecha <= hasta)
                     .ToList();
 
             var result = new List<ControlDeTemperaturaViewModel>();
@@ -605,12 +676,10 @@ namespace CooperativaProduccion.DataAccess
 
         public List<ControlDeHumedadViewModel> ListarControlesDeHumedad(Guid blendId, DateTime fecha)
         {
-            var dBBlendId = _GetDbBlendId(blendId, fecha.Year);
-
             var controles = _context.ProduccionHumedad
                     .Include(x => x.ProduccionBlend)
                     .Include(x => x.ProduccionHumedadDetalle)
-                    .Where(x => x.ProductoId == dBBlendId && x.Fecha == fecha)
+                    .Where(x => x.ProduccionBlend.ProductoId == blendId && x.Fecha == fecha)
                     .ToList();
 
             var result = new List<ControlDeHumedadViewModel>();
@@ -642,6 +711,53 @@ namespace CooperativaProduccion.DataAccess
                     Lineas = detalles
                 });
             }
+
+            return result;
+        }
+
+        public List<ControlDeHumedadViewModel> ListarControlesDeHumedad(Guid[] blendId, DateTime desde, DateTime hasta)
+        {
+            var controles = _context.ProduccionHumedad
+                    .Include(x => x.ProduccionBlend)
+                    .Include(x => x.ProduccionHumedadDetalle)
+                    .Where(x => blendId.Contains(x.ProduccionBlend.ProductoId.Value) && x.Fecha >= desde && x.Fecha <= hasta)
+                    .ToList();
+
+            var result = new List<ControlDeHumedadViewModel>();
+
+            foreach (var control in controles)
+            {
+                var detalles = new List<LineaDetalleControlDeHumedadViewModel>();
+
+                foreach (var detalle in control.ProduccionHumedadDetalle)
+                {
+                    detalles.Add(new LineaDetalleControlDeHumedadViewModel()
+                    {
+                        Hora = detalle.Hora,
+                        Caja = detalle.Caja,
+                        TemperaturaEmpaque = detalle.TemperaturaEmpaque,
+                        Capsula = detalle.Capsula,
+                        HoraEntrada = detalle.HoraEntrada,
+                        HoraSalida = detalle.HoraSalida,
+                        Humedad = detalle.Humedad
+                    });
+                }
+
+                detalles = detalles.OrderBy(x => x.Hora).ToList();
+
+                result.Add(new ControlDeHumedadViewModel()
+                {
+                    _Id = control.Id,
+                    Blend = new BlendViewModel() { Id = control.ProduccionBlend.ProductoId ?? Guid.Empty, Descripcion = control.ProduccionBlend.Descripcion },
+                    Fecha = control.Fecha,
+                    Corrida = control.Corrida,
+                    Lineas = detalles
+                });
+            }
+
+            result = result.OrderBy(x => x.Blend.Descripcion)
+                .ThenBy(x => x.Fecha)
+                .ToList();
 
             return result;
         }
@@ -701,7 +817,7 @@ namespace CooperativaProduccion.DataAccess
         {
             var controles = _context.ProduccionNicotinaDetalle
                     .Include(x => x.ProduccionBlend)
-                    .Where(x => x.ProductoId == blendId && x.Fecha == fecha)
+                    .Where(x => x.ProduccionBlend.ProductoId == blendId && x.Fecha == fecha)
                     .ToList();
 
             var headers = controles.Select(x => new ControlDeNicotinaViewModel()

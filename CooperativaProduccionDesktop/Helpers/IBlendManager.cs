@@ -67,9 +67,19 @@ namespace CooperativaProduccion.Helpers
             return _dataSourceMuestra.Where(x => x.Blend.Id == blendId && x.Fecha >= desde && x.Fecha <= hasta).ToList();
         }
 
+        public List<MuestraViewModel> ListarMuestrasConDetalle(DateTime desde, DateTime hasta)
+        {
+            return new List<MuestraViewModel>();
+        }
+
         public List<MuestraViewModel> ListarMuestrasConDetalle(Guid blendId, DateTime desde, DateTime hasta)
         {
             return _dataSourceMuestra.Where(x => x.Blend.Id == blendId && x.Fecha >= desde && x.Fecha <= hasta).ToList();
+        }
+
+        public List<MuestraViewModel> ListarMuestrasConDetalle(Guid[] blendId, DateTime desde, DateTime hasta)
+        {
+            return new List<MuestraViewModel>();
         }
 
         public void AddMuestra(MuestraViewModel muestra)
@@ -133,6 +143,11 @@ namespace CooperativaProduccion.Helpers
             return new List<ControlDeHumedadViewModel>();
         }
 
+        public List<ControlDeHumedadViewModel> ListarControlesDeHumedad(Guid[] blendId, DateTime desde, DateTime hasta)
+        {
+            return new List<ControlDeHumedadViewModel>();
+        }
+
         public void AddControlNicotina(ControlDeNicotinaViewModel control)
         {
             ;
@@ -164,7 +179,11 @@ namespace CooperativaProduccion.Helpers
 
         List<MuestraViewModel> ListarMuestras(Guid blendId, DateTime desde, DateTime hasta);
 
+        List<MuestraViewModel> ListarMuestrasConDetalle(DateTime desde, DateTime hasta);
+
         List<MuestraViewModel> ListarMuestrasConDetalle(Guid blendId, DateTime desde, DateTime hasta);
+
+        List<MuestraViewModel> ListarMuestrasConDetalle(Guid[] blendId, DateTime desde, DateTime hasta);
 
         void AddControlTemperatura(ControlDeTemperaturaViewModel control);
 
@@ -173,6 +192,8 @@ namespace CooperativaProduccion.Helpers
         void AddControlHumedad(ControlDeHumedadViewModel control);
 
         List<ControlDeHumedadViewModel> ListarControlesDeHumedad(Guid blendId, DateTime fecha);
+
+        List<ControlDeHumedadViewModel> ListarControlesDeHumedad(Guid[] blendId, DateTime desde, DateTime hasta);
 
         void AddControlNicotina(ControlDeNicotinaViewModel control);
 
