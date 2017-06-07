@@ -60,6 +60,7 @@
             this.btnConfiguracionBlend = new DevExpress.XtraBars.BarButtonItem();
             this.btnGestionProduccion = new DevExpress.XtraBars.BarButtonItem();
             this.btnProduccionNumeroDeOrdenes = new DevExpress.XtraBars.BarButtonItem();
+            this.barProduccionRegistrosDeCalidad = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPageRomaneo = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupPorteria = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroupBalanza = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -73,6 +74,7 @@
             this.ribbonPageGroupMuestras = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroupControles = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageProduccionConfig = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageGroup4 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPage4 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupFardos = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -80,8 +82,6 @@
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageSeguridad = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupSeguridad = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.ribbonPageGroup4 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.barProduccionRegistrosDeCalidad = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             this.SuspendLayout();
             // 
@@ -415,6 +415,15 @@
             this.btnProduccionNumeroDeOrdenes.Name = "btnProduccionNumeroDeOrdenes";
             this.btnProduccionNumeroDeOrdenes.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnProduccionNumeroDeOrdenes_ItemClick);
             // 
+            // barProduccionRegistrosDeCalidad
+            // 
+            this.barProduccionRegistrosDeCalidad.Caption = "Registros de Calidad";
+            this.barProduccionRegistrosDeCalidad.Glyph = ((System.Drawing.Image)(resources.GetObject("barProduccionRegistrosDeCalidad.Glyph")));
+            this.barProduccionRegistrosDeCalidad.Id = 35;
+            this.barProduccionRegistrosDeCalidad.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barProduccionRegistrosDeCalidad.LargeGlyph")));
+            this.barProduccionRegistrosDeCalidad.Name = "barProduccionRegistrosDeCalidad";
+            this.barProduccionRegistrosDeCalidad.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barProduccionRegistrosDeCalidad_ItemClick);
+            // 
             // ribbonPageRomaneo
             // 
             this.ribbonPageRomaneo.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -531,9 +540,19 @@
             // 
             // ribbonPageProduccionConfig
             // 
+            this.ribbonPageProduccionConfig.AllowTextClipping = false;
             this.ribbonPageProduccionConfig.ItemLinks.Add(this.btnProduccionNumeroDeOrdenes);
             this.ribbonPageProduccionConfig.Name = "ribbonPageProduccionConfig";
+            this.ribbonPageProduccionConfig.ShowCaptionButton = false;
             this.ribbonPageProduccionConfig.Text = "Configuracion";
+            // 
+            // ribbonPageGroup4
+            // 
+            this.ribbonPageGroup4.AllowTextClipping = false;
+            this.ribbonPageGroup4.ItemLinks.Add(this.barProduccionRegistrosDeCalidad);
+            this.ribbonPageGroup4.Name = "ribbonPageGroup4";
+            this.ribbonPageGroup4.ShowCaptionButton = false;
+            this.ribbonPageGroup4.Text = "Reportes";
             // 
             // ribbonPage4
             // 
@@ -596,21 +615,6 @@
             this.ribbonPageGroupSeguridad.Name = "ribbonPageGroupSeguridad";
             this.ribbonPageGroupSeguridad.ShowCaptionButton = false;
             this.ribbonPageGroupSeguridad.Text = "Seguridad";
-            // 
-            // ribbonPageGroup4
-            // 
-            this.ribbonPageGroup4.ItemLinks.Add(this.barProduccionRegistrosDeCalidad);
-            this.ribbonPageGroup4.Name = "ribbonPageGroup4";
-            this.ribbonPageGroup4.Text = "Reportes";
-            // 
-            // barProduccionRegistrosDeCalidad
-            // 
-            this.barProduccionRegistrosDeCalidad.Caption = "Registros de Calidad";
-            this.barProduccionRegistrosDeCalidad.Glyph = ((System.Drawing.Image)(resources.GetObject("barProduccionRegistrosDeCalidad.Glyph")));
-            this.barProduccionRegistrosDeCalidad.Id = 35;
-            this.barProduccionRegistrosDeCalidad.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barProduccionRegistrosDeCalidad.LargeGlyph")));
-            this.barProduccionRegistrosDeCalidad.Name = "barProduccionRegistrosDeCalidad";
-            this.barProduccionRegistrosDeCalidad.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barProduccionRegistrosDeCalidad_ItemClick);
             // 
             // Form_SysPrincipal
             // 

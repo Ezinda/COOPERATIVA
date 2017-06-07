@@ -214,6 +214,12 @@
     </Compile>
     <Compile Include="DataAccess\BlendManager.cs" />
     <Compile Include="Extensions\ExtensionMethods.OrAnd.cs" />
+    <Compile Include="Form_ProduccionBuscarFardo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_ProduccionBuscarFardo.Designer.cs">
+      <DependentUpon>Form_ProduccionBuscarFardo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_AdministracionBuscarTransporte.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -737,6 +743,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\AdministracionVistaOPControl.resx">
       <DependentUpon>AdministracionVistaOPControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_ProduccionBuscarFardo.resx">
+      <DependentUpon>Form_ProduccionBuscarFardo.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_AdministracionBuscarTransporte.resx">

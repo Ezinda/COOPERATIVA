@@ -15,10 +15,11 @@ using EntityFramework.Extensions;
 
 namespace CooperativaProduccion
 {
-    public partial class Form_ProduccionTransferenciaMateriaPrima : DevExpress.XtraBars.Ribbon.RibbonForm
+    public partial class Form_ProduccionTransferenciaMateriaPrima : DevExpress.XtraBars.Ribbon.RibbonForm, IEnlace
     {
         public CooperativaProduccionEntities Context { get; set; }
         private Guid? ProductoId;
+        private Guid PesadaDetalleId;
 
         public Form_ProduccionTransferenciaMateriaPrima()
         {
@@ -26,6 +27,8 @@ namespace CooperativaProduccion
             Context = new CooperativaProduccionEntities();
             Iniciar();
         }
+
+        #region Ingreso por Numero
 
         #region Method Code
 
@@ -79,6 +82,14 @@ namespace CooperativaProduccion
         {
             CooperativaProduccionEntities Context = new CooperativaProduccionEntities();
 
+            var tipotabaco = Context.Vw_TipoTabaco
+                .Where(x => x.RUBRO_ID != null)
+                .ToList();
+
+            cbTabacoAvanzado.DataSource = tipotabaco;
+            cbTabacoAvanzado.DisplayMember = "Descripcion";
+            cbTabacoAvanzado.ValueMember = "Id";
+
             txtFardo.BackColor = Color.LightSkyBlue;
 
             var blend = Context.ConfiguracionBlend
@@ -95,23 +106,27 @@ namespace CooperativaProduccion
                 {
                     ProductoId = producto.ID;
                     txtBlend.Text = producto.DESCRIPCION;
+                    txtBlendAvanzado.Text = producto.DESCRIPCION;
                 }
             }
             else
             {
                 txtBlend.Text = string.Empty;
+                txtBlendAvanzado.Text = string.Empty;
             }
         }
 
         private bool ValidarTransferencia()
         {
-            if (string.IsNullOrEmpty(txtFardo.Text) && 
+            if (string.IsNullOrEmpty(txtFardo.Text) &&
                 string.IsNullOrEmpty(txtClase.Text))
             {
                 MessageBox.Show("No se ha seleccionado un fardo.",
                     "Se requiere", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
+
+            CooperativaProduccionEntities Context = new CooperativaProduccionEntities();
 
             long fail = 0;
             bool successfullyParsed;
@@ -141,10 +156,10 @@ namespace CooperativaProduccion
                         (from d in Context.PesadaDetalle
                             .Where(x => x.NumFardo == fardo)
                          join m in Context.Movimiento
-                            .Where(x=>x.Actual == true)
+                            .Where(x => x.Actual == true)
                               on d.Id equals m.TransaccionId
                          join dep in Context.Vw_Deposito
-                            .Where(x=>x.id == DevConstantes.ProduccionEnProceso)
+                            .Where(x => x.id == DevConstantes.ProduccionEnProceso)
                             on m.DepositoId equals dep.id
                          select new
                          {
@@ -170,6 +185,11 @@ namespace CooperativaProduccion
             txtFardo.Text = string.Empty;
             txtClase.Text = string.Empty;
             txtKilos.Text = string.Empty;
+
+            cbTabacoAvanzado.Focus();
+            txtFardoAvanzado.Text = string.Empty;
+            txtClaseAvanzado.Text = string.Empty;
+            txtKilosAvanzado.Text = string.Empty;
         }
 
         private void MostrarFardo(long fardo)
@@ -201,7 +221,7 @@ namespace CooperativaProduccion
                 .Where(x => x.NumFardo == Fardo)
                 .FirstOrDefault();
 
-            if ( detalle != null)
+            if (detalle != null)
             {
                 RegistrarIngresoProceso(detalle.Id, detalle.Kilos.Value);
                 UpdateMovimientoActual(detalle.Id);
@@ -211,7 +231,7 @@ namespace CooperativaProduccion
             Limpiar();
         }
 
-        private Guid RegistrarMovimientoEgreso(Guid Id,double kilos)
+        private Guid RegistrarMovimientoEgreso(Guid Id, double kilos)
         {
             Movimiento movimiento;
 
@@ -229,7 +249,7 @@ namespace CooperativaProduccion
             var deposito = Context.Vw_Deposito
                 .Where(x => x.id == DevConstantes.DepositoMateriaPrima)
                 .FirstOrDefault();
-            
+
             movimiento.DepositoId = deposito.id;
 
             Context.Movimiento.Add(movimiento);
@@ -238,7 +258,7 @@ namespace CooperativaProduccion
             return movimiento.Id;
         }
 
-        private Guid RegistrarMovimientoIngreso(Guid Id,double kilos)
+        private Guid RegistrarMovimientoIngreso(Guid Id, double kilos)
         {
             Movimiento movimiento;
 
@@ -300,6 +320,244 @@ namespace CooperativaProduccion
         }
 
         #endregion
+
+        #endregion
+
+        #region Ingreso por Clase - Kilos
+
+        #region Method Code
+
+        private void btnSalirAvanzado_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void btnTransferirAvanzado_Click(object sender, EventArgs e)
+        {
+            if (ValidarTransferenciaAvanzada())
+            {
+                long fardo = long.Parse(txtFardoAvanzado.Text);
+                Transferir(fardo);
+            }
+        }
+
+        private void Cata_SelectedPageChanged(object sender, DevExpress.XtraTab.TabPageChangedEventArgs e)
+        {
+            Iniciar();
+            Limpiar();
+        }
+
+        private void cbTabacoAvanzado_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                if (!string.IsNullOrEmpty(cbTabacoAvanzado.Text))
+                {
+                    txtClaseAvanzado.Focus();
+                }
+            }
+
+            if (e.KeyChar == 8)
+            {
+                txtClaseAvanzado.Text = string.Empty;
+                txtKilosAvanzado.Text = string.Empty;
+                txtFardoAvanzado.Text = string.Empty;
+            }
+        }
+
+        private void txtClaseAvanzado_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                txtKilosAvanzado.Focus();
+            }
+        }
+
+        private void txtKilosAvanzado_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                if (ValidarParametrosTransferenciaAvanzada())
+                {
+                    Guid TabacoId = Guid.Parse(cbTabacoAvanzado.SelectedValue.ToString());
+                    string Clase = txtClaseAvanzado.Text;
+                    double Kilos = double.Parse(txtKilosAvanzado.Text);
+                    Form_ProduccionBuscarFardo buscarFardo =
+                        new Form_ProduccionBuscarFardo();
+                    buscarFardo.BuscarFardo(TabacoId, Clase, Kilos);
+                    buscarFardo.ShowDialog(this);
+                }
+                btnTransferirAvanzado.Focus();
+            }
+        }
+
+        private void btnBuscarFardoAvanzado_Click(object sender, EventArgs e)
+        {
+            if (ValidarParametrosTransferenciaAvanzada())
+            {
+                Guid TabacoId = Guid.Parse(cbTabacoAvanzado.SelectedValue.ToString());
+                string Clase = txtClaseAvanzado.Text;
+                double Kilos = double.Parse(txtKilosAvanzado.Text);
+                Form_ProduccionBuscarFardo buscarFardo = new Form_ProduccionBuscarFardo();
+                buscarFardo.BuscarFardo(TabacoId, Clase, Kilos);
+                buscarFardo.ShowDialog(this);
+            }
+        }
+
+        #endregion
+
+        #region Method Dev
+
+        private bool ValidarParametrosTransferenciaAvanzada()
+        {
+            if (string.IsNullOrEmpty(cbTabacoAvanzado.Text))
+            {
+                MessageBox.Show("No se ha seleccionado un tipo de tabaco.",
+                    "Se requiere", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(txtClaseAvanzado.Text))
+            {
+                MessageBox.Show("No se ha ingresado una clase.",
+                    "Se requiere", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(txtKilosAvanzado.Text))
+            {
+                MessageBox.Show("No se ingresaron kilos.",
+                    "Se requiere", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            //if (string.IsNullOrEmpty(txtFardoAvanzado.Text))
+            //{
+            //    MessageBox.Show("No se ha seleccionado un fardo.",
+            //        "Se requiere", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return false;
+            //}
+
+            //long fail = 0;
+            //bool successfullyParsed;
+            //successfullyParsed = long.TryParse(txtFardoAvanzado.Text, out fail);
+            //if (!successfullyParsed)
+            //{
+            //    MessageBox.Show("Debe ingresar un fardo válido.",
+            //          "Se requiere", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return false;
+            //}
+            //else
+            //{
+            //    long fardo = long.Parse(txtFardoAvanzado.Text);
+            //    var existe = Context.PesadaDetalle
+            //        .Where(x => x.NumFardo == fardo)
+            //        .Any();
+
+            //    if (!existe)
+            //    {
+            //        MessageBox.Show("No existe el fardo.",
+            //          "Se requiere", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //        return false;
+            //    }
+            //    else
+            //    {
+            //        var enproceso =
+            //            (from d in Context.PesadaDetalle
+            //                .Where(x => x.NumFardo == fardo)
+            //             join m in Context.Movimiento
+            //                .Where(x => x.Actual == true)
+            //                  on d.Id equals m.TransaccionId
+            //             join dep in Context.Vw_Deposito
+            //                .Where(x => x.id == DevConstantes.ProduccionEnProceso)
+            //                on m.DepositoId equals dep.id
+            //             select new
+            //             {
+            //                 Deposito = dep.nombre
+            //             })
+            //            .Any();
+
+            //        if (enproceso)
+            //        {
+            //            MessageBox.Show("El fardo ya esta en proceso.",
+            //                "Se requiere", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //            return false;
+            //        }
+            //    }
+            //}
+            return true;
+        }
+
+        void IEnlace.Enviar(Guid Id, string fet, string nombre)
+        {
+            PesadaDetalleId = Id;
+            txtFardoAvanzado.Text = fet;
+        }
+
+        private bool ValidarTransferenciaAvanzada()
+        {
+            if (string.IsNullOrEmpty(txtFardoAvanzado.Text))
+            {
+                MessageBox.Show("No se ha seleccionado un fardo.",
+                    "Se requiere", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            
+            CooperativaProduccionEntities Context = new CooperativaProduccionEntities();
+
+            long fail = 0;
+            bool successfullyParsed;
+            successfullyParsed = long.TryParse(txtFardoAvanzado.Text, out fail);
+            if (!successfullyParsed)
+            {
+                MessageBox.Show("Debe ingresar un fardo válido.",
+                      "Se requiere", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            else
+            {
+                long fardo = long.Parse(txtFardoAvanzado.Text);
+                var existe = Context.PesadaDetalle
+                    .Where(x => x.NumFardo == fardo)
+                    .Any();
+
+                if (!existe)
+                {
+                    MessageBox.Show("No existe el fardo.",
+                      "Se requiere", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+                else
+                {
+                    var enproceso =
+                        (from d in Context.PesadaDetalle
+                            .Where(x => x.NumFardo == fardo)
+                         join m in Context.Movimiento
+                            .Where(x => x.Actual == true)
+                              on d.Id equals m.TransaccionId
+                         join dep in Context.Vw_Deposito
+                            .Where(x => x.id == DevConstantes.ProduccionEnProceso)
+                            on m.DepositoId equals dep.id
+                         select new
+                         {
+                             Deposito = dep.nombre
+                         })
+                        .Any();
+
+                    if (enproceso)
+                    {
+                        MessageBox.Show("El fardo ya esta en proceso.",
+                            "Se requiere", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        #endregion
+
+        #endregion
+
 
     }
 }
