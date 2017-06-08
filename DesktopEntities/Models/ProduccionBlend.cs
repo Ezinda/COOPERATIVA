@@ -19,7 +19,7 @@ namespace DesktopEntities.Models
             this.ProduccionCorrida = new HashSet<ProduccionCorrida>();
             this.ProduccionHumedad = new HashSet<ProduccionHumedad>();
             this.ProduccionMuestra = new HashSet<ProduccionMuestra>();
-            this.ProduccionNicotinaDetalle = new HashSet<ProduccionNicotinaDetalle>();
+            this.ProduccionNicotina = new HashSet<ProduccionNicotina>();
             this.ProduccionTemperatura = new HashSet<ProduccionTemperatura>();
         }
     
@@ -32,7 +32,7 @@ namespace DesktopEntities.Models
         public virtual ICollection<ProduccionCorrida> ProduccionCorrida { get; set; }
         public virtual ICollection<ProduccionHumedad> ProduccionHumedad { get; set; }
         public virtual ICollection<ProduccionMuestra> ProduccionMuestra { get; set; }
-        public virtual ICollection<ProduccionNicotinaDetalle> ProduccionNicotinaDetalle { get; set; }
+        public virtual ICollection<ProduccionNicotina> ProduccionNicotina { get; set; }
         public virtual ICollection<ProduccionTemperatura> ProduccionTemperatura { get; set; }
     }
 }

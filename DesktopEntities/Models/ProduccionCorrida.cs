@@ -14,11 +14,17 @@ namespace DesktopEntities.Models
     
     public partial class ProduccionCorrida
     {
+        public ProduccionCorrida()
+        {
+            this.ProduccionNicotina = new HashSet<ProduccionNicotina>();
+        }
+    
         public System.Guid Id { get; set; }
         public System.Guid ProductoId { get; set; }
         public System.DateTime Fecha { get; set; }
         public long NumeroCorrida { get; set; }
     
         public virtual ProduccionBlend ProduccionBlend { get; set; }
+        public virtual ICollection<ProduccionNicotina> ProduccionNicotina { get; set; }
     }
 }

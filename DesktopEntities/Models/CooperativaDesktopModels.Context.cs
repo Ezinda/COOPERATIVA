@@ -53,6 +53,7 @@ namespace DesktopEntities.Models
         public virtual DbSet<ProduccionHumedadDetalle> ProduccionHumedadDetalle { get; set; }
         public virtual DbSet<ProduccionMuestra> ProduccionMuestra { get; set; }
         public virtual DbSet<ProduccionMuestraDetalle> ProduccionMuestraDetalle { get; set; }
+        public virtual DbSet<ProduccionNicotina> ProduccionNicotina { get; set; }
         public virtual DbSet<ProduccionNicotinaDetalle> ProduccionNicotinaDetalle { get; set; }
         public virtual DbSet<ProduccionTemperatura> ProduccionTemperatura { get; set; }
         public virtual DbSet<ProduccionTemperaturaDetalle> ProduccionTemperaturaDetalle { get; set; }

@@ -342,16 +342,23 @@
           <Property Name="Kilos" Type="int" Nullable="false" />
           <Property Name="Porcentaje" Type="decimal" Precision="18" Scale="2" Nullable="false" />
         </EntityType>
-        <EntityType Name="ProduccionNicotinaDetalle">
+        <EntityType Name="ProduccionNicotina">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Fecha" Type="date" Nullable="false" />
+          <Property Name="Hora" Type="time" Precision="0" Nullable="false" />
           <Property Name="ProductoId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Corrida" Type="bigint" Nullable="false" />
           <Property Name="CorridaId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Hora" Type="time" Precision="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProduccionNicotinaDetalle">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="NicotinaId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="CajaDesde" Type="bigint" Nullable="false" />
           <Property Name="CajaHasta" Type="bigint" Nullable="false" />
           <Property Name="PorcentajeHumedad" Type="decimal" Precision="18" Scale="2" Nullable="false" />
@@ -1316,15 +1323,39 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProduccionNicotinaDetalle_ProduccionBlend">
+        <Association Name="FK_ProduccionNicotina_ProduccionBlend">
           <End Role="ProduccionBlend" Type="Self.ProduccionBlend" Multiplicity="1" />
-          <End Role="ProduccionNicotinaDetalle" Type="Self.ProduccionNicotinaDetalle" Multiplicity="*" />
+          <End Role="ProduccionNicotina" Type="Self.ProduccionNicotina" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ProduccionBlend">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="ProduccionNicotinaDetalle">
+            <Dependent Role="ProduccionNicotina">
               <PropertyRef Name="ProductoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProduccionNicotina_ProduccionCorrida">
+          <End Role="ProduccionCorrida" Type="Self.ProduccionCorrida" Multiplicity="1" />
+          <End Role="ProduccionNicotina" Type="Self.ProduccionNicotina" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProduccionCorrida">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProduccionNicotina">
+              <PropertyRef Name="CorridaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProduccionNicotinaDetalle_ProduccionNicotina">
+          <End Role="ProduccionNicotina" Type="Self.ProduccionNicotina" Multiplicity="1" />
+          <End Role="ProduccionNicotinaDetalle" Type="Self.ProduccionNicotinaDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProduccionNicotina">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProduccionNicotinaDetalle">
+              <PropertyRef Name="NicotinaId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1399,6 +1430,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
           <EntitySet Name="ProduccionHumedadDetalle" EntityType="Self.ProduccionHumedadDetalle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProduccionMuestra" EntityType="Self.ProduccionMuestra" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProduccionMuestraDetalle" EntityType="Self.ProduccionMuestraDetalle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProduccionNicotina" EntityType="Self.ProduccionNicotina" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProduccionNicotinaDetalle" EntityType="Self.ProduccionNicotinaDetalle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProduccionTemperatura" EntityType="Self.ProduccionTemperatura" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProduccionTemperaturaDetalle" EntityType="Self.ProduccionTemperaturaDetalle" Schema="dbo" store:Type="Tables" />
@@ -1934,8 +1966,16 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
             <End Role="ProduccionMuestra" EntitySet="ProduccionMuestra" />
             <End Role="ProduccionMuestraDetalle" EntitySet="ProduccionMuestraDetalle" />
           </AssociationSet>
-          <AssociationSet Name="FK_ProduccionNicotinaDetalle_ProduccionBlend" Association="Self.FK_ProduccionNicotinaDetalle_ProduccionBlend">
+          <AssociationSet Name="FK_ProduccionNicotina_ProduccionBlend" Association="Self.FK_ProduccionNicotina_ProduccionBlend">
             <End Role="ProduccionBlend" EntitySet="ProduccionBlend" />
+            <End Role="ProduccionNicotina" EntitySet="ProduccionNicotina" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProduccionNicotina_ProduccionCorrida" Association="Self.FK_ProduccionNicotina_ProduccionCorrida">
+            <End Role="ProduccionCorrida" EntitySet="ProduccionCorrida" />
+            <End Role="ProduccionNicotina" EntitySet="ProduccionNicotina" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProduccionNicotinaDetalle_ProduccionNicotina" Association="Self.FK_ProduccionNicotinaDetalle_ProduccionNicotina">
+            <End Role="ProduccionNicotina" EntitySet="ProduccionNicotina" />
             <End Role="ProduccionNicotinaDetalle" EntitySet="ProduccionNicotinaDetalle" />
           </AssociationSet>
           <AssociationSet Name="FK_ProduccionTemperatura_ProduccionBlend" Association="Self.FK_ProduccionTemperatura_ProduccionBlend">
@@ -1990,6 +2030,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
           <EntitySet Name="ProduccionHumedadDetalle" EntityType="CooperativaProduccionModel.ProduccionHumedadDetalle" />
           <EntitySet Name="ProduccionMuestra" EntityType="CooperativaProduccionModel.ProduccionMuestra" />
           <EntitySet Name="ProduccionMuestraDetalle" EntityType="CooperativaProduccionModel.ProduccionMuestraDetalle" />
+          <EntitySet Name="ProduccionNicotina" EntityType="CooperativaProduccionModel.ProduccionNicotina" />
           <EntitySet Name="ProduccionNicotinaDetalle" EntityType="CooperativaProduccionModel.ProduccionNicotinaDetalle" />
           <EntitySet Name="ProduccionTemperatura" EntityType="CooperativaProduccionModel.ProduccionTemperatura" />
           <EntitySet Name="ProduccionTemperaturaDetalle" EntityType="CooperativaProduccionModel.ProduccionTemperaturaDetalle" />
@@ -2076,13 +2117,17 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
             <End Role="ProduccionBlend" EntitySet="ProduccionBlend" />
             <End Role="ProduccionMuestra" EntitySet="ProduccionMuestra" />
           </AssociationSet>
-          <AssociationSet Name="FK_ProduccionNicotinaDetalle_ProduccionBlend" Association="CooperativaProduccionModel.FK_ProduccionNicotinaDetalle_ProduccionBlend">
+          <AssociationSet Name="FK_ProduccionNicotina_ProduccionBlend" Association="CooperativaProduccionModel.FK_ProduccionNicotina_ProduccionBlend">
             <End Role="ProduccionBlend" EntitySet="ProduccionBlend" />
-            <End Role="ProduccionNicotinaDetalle" EntitySet="ProduccionNicotinaDetalle" />
+            <End Role="ProduccionNicotina" EntitySet="ProduccionNicotina" />
           </AssociationSet>
           <AssociationSet Name="FK_ProduccionTemperatura_ProduccionBlend" Association="CooperativaProduccionModel.FK_ProduccionTemperatura_ProduccionBlend">
             <End Role="ProduccionBlend" EntitySet="ProduccionBlend" />
             <End Role="ProduccionTemperatura" EntitySet="ProduccionTemperatura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProduccionNicotina_ProduccionCorrida" Association="CooperativaProduccionModel.FK_ProduccionNicotina_ProduccionCorrida">
+            <End Role="ProduccionCorrida" EntitySet="ProduccionCorrida" />
+            <End Role="ProduccionNicotina" EntitySet="ProduccionNicotina" />
           </AssociationSet>
           <AssociationSet Name="FK_ProduccionHumedadDetalle_ProduccionHumedad" Association="CooperativaProduccionModel.FK_ProduccionHumedadDetalle_ProduccionHumedad">
             <End Role="ProduccionHumedad" EntitySet="ProduccionHumedad" />
@@ -2091,6 +2136,10 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
           <AssociationSet Name="FK_ProduccionMuestraDetalle_ProduccionMuestra" Association="CooperativaProduccionModel.FK_ProduccionMuestraDetalle_ProduccionMuestra">
             <End Role="ProduccionMuestra" EntitySet="ProduccionMuestra" />
             <End Role="ProduccionMuestraDetalle" EntitySet="ProduccionMuestraDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProduccionNicotinaDetalle_ProduccionNicotina" Association="CooperativaProduccionModel.FK_ProduccionNicotinaDetalle_ProduccionNicotina">
+            <End Role="ProduccionNicotina" EntitySet="ProduccionNicotina" />
+            <End Role="ProduccionNicotinaDetalle" EntitySet="ProduccionNicotinaDetalle" />
           </AssociationSet>
           <AssociationSet Name="FK_ProduccionTemperaturaDetalle_ProduccionTemperatura" Association="CooperativaProduccionModel.FK_ProduccionTemperaturaDetalle_ProduccionTemperatura">
             <End Role="ProduccionTemperatura" EntitySet="ProduccionTemperatura" />
@@ -2401,7 +2450,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
           <NavigationProperty Name="ProduccionCorrida" Relationship="CooperativaProduccionModel.FK_ProduccionCorrida_ProduccionBlend" FromRole="ProduccionBlend" ToRole="ProduccionCorrida" />
           <NavigationProperty Name="ProduccionHumedad" Relationship="CooperativaProduccionModel.FK_ProduccionHumedad_ProduccionBlend" FromRole="ProduccionBlend" ToRole="ProduccionHumedad" />
           <NavigationProperty Name="ProduccionMuestra" Relationship="CooperativaProduccionModel.FK_ProduccionMuestra_ProduccionBlend" FromRole="ProduccionBlend" ToRole="ProduccionMuestra" />
-          <NavigationProperty Name="ProduccionNicotinaDetalle" Relationship="CooperativaProduccionModel.FK_ProduccionNicotinaDetalle_ProduccionBlend" FromRole="ProduccionBlend" ToRole="ProduccionNicotinaDetalle" />
+          <NavigationProperty Name="ProduccionNicotina" Relationship="CooperativaProduccionModel.FK_ProduccionNicotina_ProduccionBlend" FromRole="ProduccionBlend" ToRole="ProduccionNicotina" />
           <NavigationProperty Name="ProduccionTemperatura" Relationship="CooperativaProduccionModel.FK_ProduccionTemperatura_ProduccionBlend" FromRole="ProduccionBlend" ToRole="ProduccionTemperatura" />
         </EntityType>
         <EntityType Name="ProduccionCorrida">
@@ -2413,6 +2462,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
           <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="NumeroCorrida" Type="Int64" Nullable="false" />
           <NavigationProperty Name="ProduccionBlend" Relationship="CooperativaProduccionModel.FK_ProduccionCorrida_ProduccionBlend" FromRole="ProduccionCorrida" ToRole="ProduccionBlend" />
+          <NavigationProperty Name="ProduccionNicotina" Relationship="CooperativaProduccionModel.FK_ProduccionNicotina_ProduccionCorrida" FromRole="ProduccionCorrida" ToRole="ProduccionNicotina" />
         </EntityType>
         <EntityType Name="ProduccionHumedad">
           <Key>
@@ -2471,16 +2521,26 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
           <Property Name="Porcentaje" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <NavigationProperty Name="ProduccionMuestra" Relationship="CooperativaProduccionModel.FK_ProduccionMuestraDetalle_ProduccionMuestra" FromRole="ProduccionMuestraDetalle" ToRole="ProduccionMuestra" />
         </EntityType>
-        <EntityType Name="ProduccionNicotinaDetalle">
+        <EntityType Name="ProduccionNicotina">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Hora" Type="Time" Nullable="false" Precision="0" />
           <Property Name="ProductoId" Type="Guid" Nullable="false" />
           <Property Name="Corrida" Type="Int64" Nullable="false" />
           <Property Name="CorridaId" Type="Guid" Nullable="false" />
-          <Property Name="Hora" Type="Time" Nullable="false" Precision="0" />
+          <NavigationProperty Name="ProduccionBlend" Relationship="CooperativaProduccionModel.FK_ProduccionNicotina_ProduccionBlend" FromRole="ProduccionNicotina" ToRole="ProduccionBlend" />
+          <NavigationProperty Name="ProduccionCorrida" Relationship="CooperativaProduccionModel.FK_ProduccionNicotina_ProduccionCorrida" FromRole="ProduccionNicotina" ToRole="ProduccionCorrida" />
+          <NavigationProperty Name="ProduccionNicotinaDetalle" Relationship="CooperativaProduccionModel.FK_ProduccionNicotinaDetalle_ProduccionNicotina" FromRole="ProduccionNicotina" ToRole="ProduccionNicotinaDetalle" />
+        </EntityType>
+        <EntityType Name="ProduccionNicotinaDetalle">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="NicotinaId" Type="Guid" Nullable="false" />
           <Property Name="CajaDesde" Type="Int64" Nullable="false" />
           <Property Name="CajaHasta" Type="Int64" Nullable="false" />
           <Property Name="PorcentajeHumedad" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
@@ -2488,7 +2548,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
           <Property Name="Valor2" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <Property Name="PorcentajeALC" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <Property Name="PorcentajeNicotina" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <NavigationProperty Name="ProduccionBlend" Relationship="CooperativaProduccionModel.FK_ProduccionNicotinaDetalle_ProduccionBlend" FromRole="ProduccionNicotinaDetalle" ToRole="ProduccionBlend" />
+          <NavigationProperty Name="ProduccionNicotina" Relationship="CooperativaProduccionModel.FK_ProduccionNicotinaDetalle_ProduccionNicotina" FromRole="ProduccionNicotinaDetalle" ToRole="ProduccionNicotina" />
         </EntityType>
         <EntityType Name="ProduccionTemperatura">
           <Key>
@@ -3367,14 +3427,14 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProduccionNicotinaDetalle_ProduccionBlend">
+        <Association Name="FK_ProduccionNicotina_ProduccionBlend">
           <End Type="CooperativaProduccionModel.ProduccionBlend" Role="ProduccionBlend" Multiplicity="1" />
-          <End Type="CooperativaProduccionModel.ProduccionNicotinaDetalle" Role="ProduccionNicotinaDetalle" Multiplicity="*" />
+          <End Type="CooperativaProduccionModel.ProduccionNicotina" Role="ProduccionNicotina" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ProduccionBlend">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="ProduccionNicotinaDetalle">
+            <Dependent Role="ProduccionNicotina">
               <PropertyRef Name="ProductoId" />
             </Dependent>
           </ReferentialConstraint>
@@ -3388,6 +3448,18 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
             </Principal>
             <Dependent Role="ProduccionTemperatura">
               <PropertyRef Name="ProductoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProduccionNicotina_ProduccionCorrida">
+          <End Type="CooperativaProduccionModel.ProduccionCorrida" Role="ProduccionCorrida" Multiplicity="1" />
+          <End Type="CooperativaProduccionModel.ProduccionNicotina" Role="ProduccionNicotina" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProduccionCorrida">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProduccionNicotina">
+              <PropertyRef Name="CorridaId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3412,6 +3484,18 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
             </Principal>
             <Dependent Role="ProduccionMuestraDetalle">
               <PropertyRef Name="MuestraId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProduccionNicotinaDetalle_ProduccionNicotina">
+          <End Type="CooperativaProduccionModel.ProduccionNicotina" Role="ProduccionNicotina" Multiplicity="1" />
+          <End Type="CooperativaProduccionModel.ProduccionNicotinaDetalle" Role="ProduccionNicotinaDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProduccionNicotina">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProduccionNicotinaDetalle">
+              <PropertyRef Name="NicotinaId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3805,6 +3889,18 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="ProduccionNicotina">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.ProduccionNicotina">
+              <MappingFragment StoreEntitySet="ProduccionNicotina">
+                <ScalarProperty Name="CorridaId" ColumnName="CorridaId" />
+                <ScalarProperty Name="Corrida" ColumnName="Corrida" />
+                <ScalarProperty Name="ProductoId" ColumnName="ProductoId" />
+                <ScalarProperty Name="Hora" ColumnName="Hora" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="ProduccionNicotinaDetalle">
             <EntityTypeMapping TypeName="CooperativaProduccionModel.ProduccionNicotinaDetalle">
               <MappingFragment StoreEntitySet="ProduccionNicotinaDetalle">
@@ -3815,11 +3911,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
                 <ScalarProperty Name="PorcentajeHumedad" ColumnName="PorcentajeHumedad" />
                 <ScalarProperty Name="CajaHasta" ColumnName="CajaHasta" />
                 <ScalarProperty Name="CajaDesde" ColumnName="CajaDesde" />
-                <ScalarProperty Name="Hora" ColumnName="Hora" />
-                <ScalarProperty Name="CorridaId" ColumnName="CorridaId" />
-                <ScalarProperty Name="Corrida" ColumnName="Corrida" />
-                <ScalarProperty Name="ProductoId" ColumnName="ProductoId" />
-                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="NicotinaId" ColumnName="NicotinaId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

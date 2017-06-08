@@ -15,11 +15,7 @@ namespace DesktopEntities.Models
     public partial class ProduccionNicotinaDetalle
     {
         public System.Guid Id { get; set; }
-        public System.DateTime Fecha { get; set; }
-        public System.Guid ProductoId { get; set; }
-        public long Corrida { get; set; }
-        public System.Guid CorridaId { get; set; }
-        public System.TimeSpan Hora { get; set; }
+        public System.Guid NicotinaId { get; set; }
         public long CajaDesde { get; set; }
         public long CajaHasta { get; set; }
         public decimal PorcentajeHumedad { get; set; }
@@ -28,6 +24,6 @@ namespace DesktopEntities.Models
         public decimal PorcentajeALC { get; set; }
         public decimal PorcentajeNicotina { get; set; }
     
-        public virtual ProduccionBlend ProduccionBlend { get; set; }
+        public virtual ProduccionNicotina ProduccionNicotina { get; set; }
     }
 }
