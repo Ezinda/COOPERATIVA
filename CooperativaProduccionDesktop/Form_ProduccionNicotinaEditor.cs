@@ -25,12 +25,15 @@ namespace CooperativaProduccion
         private Guid _blendSeleccionado;
         private List<LineaDetalle> _detalle;
 
+        private Guid _controlId;
+
         public Form_ProduccionNicotinaEditor(IBlendManager blendManager)
         {
             InitializeComponent();
 
             //_context = new CooperativaProduccionEntities();
             _blendManager = blendManager;
+            _controlId = Guid.Empty;
 
             this.Load += Form_ProduccionNicotinaEditor_Load;
             this.dateFecha.ValueChanged += dateFecha_ValueChanged;
@@ -42,14 +45,17 @@ namespace CooperativaProduccion
             this.gridViewNicotina.GotFocus += gridViewNicotina_GotFocus;
             this.gridViewNicotina.CellValueChanged += gridViewNicotina_CellValueChanged;
             this.btnGrabar.Click += btnGrabar_Click;
+            this.btnEliminar.Click += btnEliminar_Click;
+        }
+
+        public Form_ProduccionNicotinaEditor(IBlendManager blendManager, Guid controlId)
+            : this(blendManager)
+        {
+            _controlId = controlId;
         }
 
         void Form_ProduccionNicotinaEditor_Load(object sender, EventArgs e)
         {
-            this.dateFecha.Enabled = true;
-            this.dateFecha.Value = DateTime.Now.Date;
-            this.timeSpanHora.TimeSpan = DateTime.Now.TimeOfDay;
-
             //var blends = _context.Vw_Producto
             //    .Select(x => new Blend()
             //    {
@@ -72,22 +78,67 @@ namespace CooperativaProduccion
             this.cbBlend.DataSource = blends;
             this.cbBlend.SelectedIndex = -1;
 
-            _blendSeleccionado = this.cbBlend.SelectedValue == null ? Guid.Empty : (Guid)this.cbBlend.SelectedValue;
-
-            _detalle = new List<LineaDetalle>()
+            if (_controlId == Guid.Empty)
             {
-                new LineaDetalle { CajaDesde = 0, CajaHasta = 0, PorcentajeH = 0m, FactorN = 0m, Valor1 = 0m, Valor2 = 0m, PorcentajeALC = 0m, PorcentajeNicotina = 0m },
-                new LineaDetalle { CajaDesde = 0, CajaHasta = 0, PorcentajeH = 0m, FactorN = 0m, Valor1 = 0m, Valor2 = 0m, PorcentajeALC = 0m, PorcentajeNicotina = 0m },
-                new LineaDetalle { CajaDesde = 0, CajaHasta = 0, PorcentajeH = 0m, FactorN = 0m, Valor1 = 0m, Valor2 = 0m, PorcentajeALC = 0m, PorcentajeNicotina = 0m },
-                new LineaDetalle { CajaDesde = 0, CajaHasta = 0, PorcentajeH = 0m, FactorN = 0m, Valor1 = 0m, Valor2 = 0m, PorcentajeALC = 0m, PorcentajeNicotina = 0m },
-                new LineaDetalle { CajaDesde = 0, CajaHasta = 0, PorcentajeH = 0m, FactorN = 0m, Valor1 = 0m, Valor2 = 0m, PorcentajeALC = 0m, PorcentajeNicotina = 0m },
-                new LineaDetalle { CajaDesde = 0, CajaHasta = 0, PorcentajeH = 0m, FactorN = 0m, Valor1 = 0m, Valor2 = 0m, PorcentajeALC = 0m, PorcentajeNicotina = 0m },
-                new LineaDetalle { CajaDesde = 0, CajaHasta = 0, PorcentajeH = 0m, FactorN = 0m, Valor1 = 0m, Valor2 = 0m, PorcentajeALC = 0m, PorcentajeNicotina = 0m },
-                new LineaDetalle { CajaDesde = 0, CajaHasta = 0, PorcentajeH = 0m, FactorN = 0m, Valor1 = 0m, Valor2 = 0m, PorcentajeALC = 0m, PorcentajeNicotina = 0m },
-                new LineaDetalle { CajaDesde = 0, CajaHasta = 0, PorcentajeH = 0m, FactorN = 0m, Valor1 = 0m, Valor2 = 0m, PorcentajeALC = 0m, PorcentajeNicotina = 0m },
-            };
+                this.dateFecha.Enabled = true;
+                this.dateFecha.Value = DateTime.Now.Date;
+                this.timeSpanHora.TimeSpan = DateTime.Now.TimeOfDay;
 
-            this.gridControlNicotina.DataSource = new BindingList<LineaDetalle>(_detalle);
+                _blendSeleccionado = this.cbBlend.SelectedValue == null ? Guid.Empty : (Guid)this.cbBlend.SelectedValue;
+
+                _detalle = new List<LineaDetalle>()
+                {
+                    new LineaDetalle { CajaDesde = 0, CajaHasta = 0, PorcentajeH = 0m, FactorN = 0m, Valor1 = 0m, Valor2 = 0m, PorcentajeALC = 0m, PorcentajeNicotina = 0m },
+                    new LineaDetalle { CajaDesde = 0, CajaHasta = 0, PorcentajeH = 0m, FactorN = 0m, Valor1 = 0m, Valor2 = 0m, PorcentajeALC = 0m, PorcentajeNicotina = 0m },
+                    new LineaDetalle { CajaDesde = 0, CajaHasta = 0, PorcentajeH = 0m, FactorN = 0m, Valor1 = 0m, Valor2 = 0m, PorcentajeALC = 0m, PorcentajeNicotina = 0m },
+                    new LineaDetalle { CajaDesde = 0, CajaHasta = 0, PorcentajeH = 0m, FactorN = 0m, Valor1 = 0m, Valor2 = 0m, PorcentajeALC = 0m, PorcentajeNicotina = 0m },
+                    new LineaDetalle { CajaDesde = 0, CajaHasta = 0, PorcentajeH = 0m, FactorN = 0m, Valor1 = 0m, Valor2 = 0m, PorcentajeALC = 0m, PorcentajeNicotina = 0m },
+                    new LineaDetalle { CajaDesde = 0, CajaHasta = 0, PorcentajeH = 0m, FactorN = 0m, Valor1 = 0m, Valor2 = 0m, PorcentajeALC = 0m, PorcentajeNicotina = 0m },
+                    new LineaDetalle { CajaDesde = 0, CajaHasta = 0, PorcentajeH = 0m, FactorN = 0m, Valor1 = 0m, Valor2 = 0m, PorcentajeALC = 0m, PorcentajeNicotina = 0m },
+                    new LineaDetalle { CajaDesde = 0, CajaHasta = 0, PorcentajeH = 0m, FactorN = 0m, Valor1 = 0m, Valor2 = 0m, PorcentajeALC = 0m, PorcentajeNicotina = 0m },
+                    new LineaDetalle { CajaDesde = 0, CajaHasta = 0, PorcentajeH = 0m, FactorN = 0m, Valor1 = 0m, Valor2 = 0m, PorcentajeALC = 0m, PorcentajeNicotina = 0m },
+                };
+
+                this.gridControlNicotina.DataSource = new BindingList<LineaDetalle>(_detalle);
+
+                btnEliminar.Visible = false;
+            }
+            else
+            {
+                var control = _blendManager.GetControlNicotina(_controlId);
+
+                this.dateFecha.Enabled = false;
+                this.dateFecha.Value = control.Fecha;
+                this.timeSpanHora.TimeSpan = control.Hora;
+
+                this.cbBlend.SelectedValue = control.Blend.Id;
+
+                _blendSeleccionado = control.Blend.Id;
+
+                this.lblOrden.Text = "Orden de Produccion: " + _GetOrdenProduccion(this.dateFecha.Value.Date.Year, _blendSeleccionado);
+                this.lblCorrida.Text = "Corrida: " + _GetNumeroDeCorrida(_blendSeleccionado, this.dateFecha.Value.Date);
+
+                _detalle = new List<LineaDetalle>();
+
+                foreach (var item in control.Lineas)
+                {
+                    _detalle.Add(new LineaDetalle
+                    {
+                        CajaDesde = item.CajaDesde,
+                        CajaHasta = item.CajaHasta,
+                        PorcentajeH = item.PorcentajeHumedad,
+                        FactorN = Math.Round(item.PorcentajeALC / (item.Valor1 * Form_ProduccionNicotinaEditor.constanteACL * _CalcFH(item.PorcentajeHumedad)), 2, MidpointRounding.AwayFromZero),
+                        Valor1 = item.Valor1,
+                        Valor2 = item.Valor2,
+                        PorcentajeALC = item.PorcentajeALC,
+                        PorcentajeNicotina = item.PorcentajeNicotina
+                    });
+                }
+
+                this.gridControlNicotina.DataSource = new BindingList<LineaDetalle>(_detalle);
+
+                btnEliminar.Visible = true;
+            }
 
             this.gridViewNicotina.OptionsMenu.EnableColumnMenu = false;
             //this.gridViewNicotina.OptionsView.ColumnAutoWidth = false;
@@ -158,19 +209,19 @@ namespace CooperativaProduccion
             return (fieldName == "Valor1" || fieldName == "Valor2" || _CheckIfFHParam(fieldName));
         }
 
-        private decimal _CalcFH(LineaDetalle row)
+        private decimal _CalcFH(decimal porcentajeH)
         {
-            return 100 / (100 - row.PorcentajeH);
+            return 100 / (100 - porcentajeH);
         }
 
         private decimal _CalcACL(LineaDetalle row)
         {
-            return Math.Round(row.Valor1 * row.FactorN * Form_ProduccionNicotinaEditor.constanteACL * _CalcFH(row), 2, MidpointRounding.AwayFromZero);
+            return Math.Round(row.Valor1 * row.FactorN * Form_ProduccionNicotinaEditor.constanteACL * _CalcFH(row.PorcentajeH), 2, MidpointRounding.AwayFromZero);
         }
 
         private decimal _CalcNicotina(LineaDetalle row)
         {
-            return Math.Round((2 * row.Valor2 - row.Valor1) * Form_ProduccionNicotinaEditor.constanteNicotina1 * Form_ProduccionNicotinaEditor.constanteNicotina2 * row.FactorN * _CalcFH(row), 2, MidpointRounding.AwayFromZero);
+            return Math.Round((2 * row.Valor2 - row.Valor1) * Form_ProduccionNicotinaEditor.constanteNicotina1 * Form_ProduccionNicotinaEditor.constanteNicotina2 * row.FactorN * _CalcFH(row.PorcentajeH), 2, MidpointRounding.AwayFromZero);
         }
 
         void dateFecha_ValueChanged(object sender, EventArgs e)
@@ -321,7 +372,16 @@ namespace CooperativaProduccion
 
         void btnGrabar_Click(object sender, EventArgs e)
         {
-            var result = MessageBox.Show("¿Confirma que desea dar de alta este control?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult result;
+
+            if (_controlId == Guid.Empty)
+            {
+                result = MessageBox.Show("¿Confirma que desea dar de alta estos nuevos registros de control de nicotina?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            }
+            else
+            {
+                result = MessageBox.Show("¿Confirma que desea modificar los registros de control de nicotina?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            }
 
             if (result != System.Windows.Forms.DialogResult.Yes)
             {
@@ -365,18 +425,55 @@ namespace CooperativaProduccion
                 Lineas = lineas
             };
 
+            if (_controlId == Guid.Empty)
+            {
+                try
+                {
+                    _blendManager.AddControlNicotina(control);
+
+                    Clear();
+                }
+                catch (Exception ex)
+                {
+                    if (ex.Message == "No existe Caja")
+                    {
+                        MessageBox.Show("No se puede encontrar el número de caja ingresado", "No se puede grabar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            else
+            {
+                try
+                {
+                    _blendManager.ModifyControlNicotina(_controlId, control);
+
+                    this.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("No se ha podido modificar los registros de control de nicotina", "No se puede modificar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        void btnEliminar_Click(object sender, EventArgs e)
+        {
+            var result = MessageBox.Show("¿Confirma que desea borrar los registros de control de nicotina?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result != System.Windows.Forms.DialogResult.Yes)
+            {
+                return;
+            }
+
             try
             {
-                _blendManager.AddControlNicotina(control);
+                _blendManager.DeleteControlNicotina(_controlId);
 
-                Clear();
+                this.Close();
             }
             catch (Exception ex)
             {
-                if (ex.Message == "No existe Caja")
-                {
-                    MessageBox.Show("No se puede encontrar el número de caja ingresado", "No se puede grabar", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                MessageBox.Show("No se ha podido borrar los registros de control de nicotina", "No se puede borrar", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

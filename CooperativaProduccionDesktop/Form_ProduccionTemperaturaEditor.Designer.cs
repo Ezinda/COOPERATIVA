@@ -47,6 +47,7 @@
             this.gridViewTemperatura = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.btnAgregar = new DevExpress.XtraEditors.SimpleButton();
             this.btnBorrar = new DevExpress.XtraEditors.SimpleButton();
+            this.btnEliminar = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtMinimo.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtMeta.Properties)).BeginInit();
@@ -188,7 +189,7 @@
             // 
             this.btnGrabar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnGrabar.Image = ((System.Drawing.Image)(resources.GetObject("btnGrabar.Image")));
-            this.btnGrabar.Location = new System.Drawing.Point(498, 445);
+            this.btnGrabar.Location = new System.Drawing.Point(498, 473);
             this.btnGrabar.Name = "btnGrabar";
             this.btnGrabar.Size = new System.Drawing.Size(76, 21);
             this.btnGrabar.TabIndex = 85;
@@ -202,7 +203,7 @@
             this.gridControlTemperatura.Location = new System.Drawing.Point(12, 145);
             this.gridControlTemperatura.MainView = this.gridViewTemperatura;
             this.gridControlTemperatura.Name = "gridControlTemperatura";
-            this.gridControlTemperatura.Size = new System.Drawing.Size(562, 286);
+            this.gridControlTemperatura.Size = new System.Drawing.Size(562, 276);
             this.gridControlTemperatura.TabIndex = 84;
             this.gridControlTemperatura.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewTemperatura});
@@ -217,7 +218,7 @@
             // 
             this.btnAgregar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAgregar.Image = ((System.Drawing.Image)(resources.GetObject("btnAgregar.Image")));
-            this.btnAgregar.Location = new System.Drawing.Point(12, 437);
+            this.btnAgregar.Location = new System.Drawing.Point(16, 427);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(125, 21);
             this.btnAgregar.TabIndex = 87;
@@ -227,17 +228,28 @@
             // 
             this.btnBorrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBorrar.Image = ((System.Drawing.Image)(resources.GetObject("btnBorrar.Image")));
-            this.btnBorrar.Location = new System.Drawing.Point(143, 437);
+            this.btnBorrar.Location = new System.Drawing.Point(147, 427);
             this.btnBorrar.Name = "btnBorrar";
             this.btnBorrar.Size = new System.Drawing.Size(125, 21);
             this.btnBorrar.TabIndex = 88;
             this.btnBorrar.Text = "Borrar registro";
             // 
+            // btnEliminar
+            // 
+            this.btnEliminar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnEliminar.Image = ((System.Drawing.Image)(resources.GetObject("btnEliminar.Image")));
+            this.btnEliminar.Location = new System.Drawing.Point(12, 473);
+            this.btnEliminar.Name = "btnEliminar";
+            this.btnEliminar.Size = new System.Drawing.Size(76, 21);
+            this.btnEliminar.TabIndex = 90;
+            this.btnEliminar.Text = "Eliminar";
+            // 
             // Form_ProduccionTemperaturaEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(586, 478);
+            this.ClientSize = new System.Drawing.Size(586, 506);
+            this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.btnBorrar);
             this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.btnGrabar);
@@ -290,5 +302,6 @@
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewTemperatura;
         private DevExpress.XtraEditors.SimpleButton btnAgregar;
         private DevExpress.XtraEditors.SimpleButton btnBorrar;
+        private DevExpress.XtraEditors.SimpleButton btnEliminar;
     }
 }

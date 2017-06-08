@@ -26,6 +26,7 @@ namespace CooperativaProduccion
             this.btnBuscar.Click += btnBuscar_Click;
             this.btnNuevo.Click += btnNuevo_Click;
             this.btnImprimir.Click += btnImprimir_Click;
+            this.gridViewTemperatura.DoubleClick += gridViewTemperatura_DoubleClick;
         }
 
         void Form_ProduccionMuestras_Load(object sender, EventArgs e)
@@ -50,6 +51,7 @@ namespace CooperativaProduccion
             this.gridControlTemperatura.DataSource = new BindingList<LineaControl>(_detalle);
 
             this.gridViewTemperatura.OptionsMenu.EnableColumnMenu = false;
+            this.gridViewTemperatura.Columns["_IDControl"].Visible = false;
             //this.gridViewMuestras.OptionsView.ColumnAutoWidth = false;
             //this.gridViewMuestra.Columns["Tamanio"].Caption = "Tamaño".ToUpper();
             //this.gridViewMuestra.Columns["Tamanio"].OptionsColumn.AllowEdit = false;
@@ -96,6 +98,7 @@ namespace CooperativaProduccion
                 {
                     _detalle.Add(new LineaControl()
                     {
+                        _IDControl = control._Id,
                         Blend = control.Blend.Descripcion,
                         Fecha = control.Fecha.ToShortDateString(),
                         Corrida = control.Corrida.ToString(),
@@ -118,6 +121,18 @@ namespace CooperativaProduccion
             new Form_ProduccionTemperaturaImpresion(_blendManager).Show(this);
         }
 
+        void gridViewTemperatura_DoubleClick(object sender, EventArgs e)
+        {
+            if (this.gridViewTemperatura.FocusedRowHandle < 0)
+            {
+                return;
+            }
+
+            var linea = this.gridViewTemperatura.GetFocusedRow() as LineaControl;
+
+            new Form_ProduccionTemperaturaEditor(_blendManager, linea._IDControl).Show(this);
+        }
+
         class Blend
         {
             public Guid Id { get; set; }
@@ -127,6 +142,8 @@ namespace CooperativaProduccion
 
         class LineaControl
         {
+            public Guid _IDControl { get; set; }
+
             public string Blend { get; set; }
 
             public string Fecha { get; set; }

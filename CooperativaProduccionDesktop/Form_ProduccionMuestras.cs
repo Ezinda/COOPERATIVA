@@ -1,4 +1,5 @@
 ﻿using CooperativaProduccion.Helpers;
+using CooperativaProduccion.ViewModels;
 using DesktopEntities.Models;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace CooperativaProduccion
         //private CooperativaProduccionEntities _context;
         private IBlendManager _blendManager;
 
+        private List<MuestraViewModel> _muestras;
         private List<LineaMuestra> _detalle;
 
         public Form_ProduccionMuestras(IBlendManager blendManager)
@@ -29,6 +31,7 @@ namespace CooperativaProduccion
             this.btnBuscar.Click += btnBuscar_Click;
             this.btnNuevo.Click += btnNuevo_Click;
             this.btnImprimir.Click += btnImprimir_Click;
+            this.gridViewMuestras.DoubleClick += gridViewMuestras_DoubleClick;
         }
 
         void Form_ProduccionMuestras_Load(object sender, EventArgs e)
@@ -61,6 +64,7 @@ namespace CooperativaProduccion
             this.gridControlMuestras.DataSource = new BindingList<LineaMuestra>(_detalle);
 
             this.gridViewMuestras.OptionsMenu.EnableColumnMenu = false;
+            this.gridViewMuestras.Columns["_ID"].Visible = false;
             //this.gridViewMuestras.OptionsView.ColumnAutoWidth = false;
             //this.gridViewMuestra.Columns["Tamanio"].Caption = "Tamaño".ToUpper();
             //this.gridViewMuestra.Columns["Tamanio"].OptionsColumn.AllowEdit = false;
@@ -86,9 +90,11 @@ namespace CooperativaProduccion
             var fecha = dateFecha.Value.Date;
             var blendId = (Guid)cbBlend.SelectedValue;
 
-            _detalle = _blendManager.ListarMuestras(blendId, fecha, fecha)
+            _muestras = _blendManager.ListarMuestras(blendId, fecha, fecha);
+            _detalle = _muestras
                 .Select(x => new LineaMuestra()
                 {
+                    _ID = x._Id,
                     Blend = x.Blend.Descripcion,
                     Fecha = x.Fecha.ToShortDateString(),
                     Hora = x.Hora.ToString(@"hh\:mm"),
@@ -112,6 +118,18 @@ namespace CooperativaProduccion
             new Form_ProduccionMuestrasImpresion(_blendManager).Show(this);
         }
 
+        void gridViewMuestras_DoubleClick(object sender, EventArgs e)
+        {
+            if (this.gridViewMuestras.FocusedRowHandle < 0)
+            {
+                return;
+            }
+
+            var linea = this.gridViewMuestras.GetFocusedRow() as LineaMuestra;
+
+            new Form_ProduccionMuestrasEditor(_blendManager, linea._ID).Show(this);
+        }
+
         class Blend
         {
             public Guid Id { get; set; }
@@ -121,6 +139,8 @@ namespace CooperativaProduccion
 
         class LineaMuestra
         {
+            public Guid _ID { get; set; }
+
             public string Blend { get; set; }
 
             public string Fecha { get; set; }

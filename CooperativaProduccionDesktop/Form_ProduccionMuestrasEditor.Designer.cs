@@ -47,6 +47,7 @@
             this.lblOrden = new System.Windows.Forms.Label();
             this.gridControlMuestra = new DevExpress.XtraGrid.GridControl();
             this.gridViewMuestra = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.btnEliminar = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinCaja.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.memoObservaciones.Properties)).BeginInit();
@@ -256,11 +257,22 @@
             this.gridViewMuestra.Name = "gridViewMuestra";
             this.gridViewMuestra.OptionsView.ShowGroupPanel = false;
             // 
+            // btnEliminar
+            // 
+            this.btnEliminar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnEliminar.Image = ((System.Drawing.Image)(resources.GetObject("btnEliminar.Image")));
+            this.btnEliminar.Location = new System.Drawing.Point(12, 507);
+            this.btnEliminar.Name = "btnEliminar";
+            this.btnEliminar.Size = new System.Drawing.Size(76, 21);
+            this.btnEliminar.TabIndex = 77;
+            this.btnEliminar.Text = "Eliminar";
+            // 
             // Form_ProduccionMuestrasEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(614, 540);
+            this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.btnGrabar);
             this.Controls.Add(this.lblFecha);
             this.Controls.Add(this.lblCaja);
@@ -313,5 +325,6 @@
         private System.Windows.Forms.Label lblOrden;
         private DevExpress.XtraGrid.GridControl gridControlMuestra;
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewMuestra;
+        private DevExpress.XtraEditors.SimpleButton btnEliminar;
     }
 }

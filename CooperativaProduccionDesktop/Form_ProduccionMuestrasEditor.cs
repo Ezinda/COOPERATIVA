@@ -22,12 +22,15 @@ namespace CooperativaProduccion
         private Guid _blendSeleccionado;
         private List<LineaDetalle> _detalle;
 
+        private Guid _muestraId;
+
         public Form_ProduccionMuestrasEditor(IBlendManager blendManager)
         {
             InitializeComponent();
 
             //_context = new CooperativaProduccionEntities();
             _blendManager = blendManager;
+            _muestraId = Guid.Empty;
 
             this.Load += Form_ProduccionMuestras_Load;
             this.dateFecha.ValueChanged += dateFecha_ValueChanged;
@@ -39,22 +42,17 @@ namespace CooperativaProduccion
             this.gridViewMuestra.GotFocus += gridViewMuestra_GotFocus;
             this.gridViewMuestra.CellValueChanged += gridViewMuestra_CellValueChanged;
             this.btnGrabar.Click += btnGrabar_Click;
+            this.btnEliminar.Click += btnEliminar_Click;
+        }
+
+        public Form_ProduccionMuestrasEditor(IBlendManager blendManager, Guid muestraId)
+            : this(blendManager)
+        {
+            _muestraId = muestraId;
         }
 
         void Form_ProduccionMuestras_Load(object sender, EventArgs e)
         {
-            this.dateFecha.Enabled = true;
-            this.dateFecha.Value = DateTime.Now.Date;
-            this.timeSpanHora.TimeSpan = DateTime.Now.TimeOfDay;
-
-            //var blends = _context.Vw_Producto
-            //    .Select(x => new Blend()
-            //    {
-            //        Id = x.ID,
-            //        Descripcion = x.DESCRIPCION
-            //    })
-            //    .OrderBy(x => x.Descripcion)
-            //    .ToList();
             var blends = _blendManager.ListarBlends()
                 .Select(x => new Blend()
                 {
@@ -69,19 +67,57 @@ namespace CooperativaProduccion
             this.cbBlend.DataSource = blends;
             this.cbBlend.SelectedIndex = -1;
 
-            _blendSeleccionado = this.cbBlend.SelectedValue == null ? Guid.Empty : (Guid)this.cbBlend.SelectedValue;
-
-            _detalle = new List<LineaDetalle>()
+            if (_muestraId == Guid.Empty)
             {
-                new LineaDetalle() { Tamanio = "1' y m/",  Kilos = 0, Porcentaje = 0m },
-                new LineaDetalle() { Tamanio = "1/2",      Kilos = 0, Porcentaje = 0m },
-                new LineaDetalle() { Tamanio = "1/4",      Kilos = 0, Porcentaje = 0m },
-                new LineaDetalle() { Tamanio = "1/8",      Kilos = 0, Porcentaje = 0m },
-                new LineaDetalle() { Tamanio = "PAN",      Kilos = 0, Porcentaje = 0m },
-                new LineaDetalle() { Tamanio = "P. TOTAL", Kilos = 0, Porcentaje = 0m },
-                new LineaDetalle() { Tamanio = "V/O BJ",   Kilos = 0, Porcentaje = 0m },
-                new LineaDetalle() { Tamanio = "FIBRA",    Kilos = 0, Porcentaje = 0m },
-            };
+                this.dateFecha.Enabled = true;
+                this.dateFecha.Value = DateTime.Now.Date;
+                this.timeSpanHora.TimeSpan = DateTime.Now.TimeOfDay;
+
+                _blendSeleccionado = this.cbBlend.SelectedValue == null ? Guid.Empty : (Guid)this.cbBlend.SelectedValue;
+
+                _detalle = new List<LineaDetalle>()
+                {
+                    new LineaDetalle() { Tamanio = "1' y m/",  Kilos = 0, Porcentaje = 0m },
+                    new LineaDetalle() { Tamanio = "1/2",      Kilos = 0, Porcentaje = 0m },
+                    new LineaDetalle() { Tamanio = "1/4",      Kilos = 0, Porcentaje = 0m },
+                    new LineaDetalle() { Tamanio = "1/8",      Kilos = 0, Porcentaje = 0m },
+                    new LineaDetalle() { Tamanio = "PAN",      Kilos = 0, Porcentaje = 0m },
+                    new LineaDetalle() { Tamanio = "P. TOTAL", Kilos = 0, Porcentaje = 0m },
+                    new LineaDetalle() { Tamanio = "V/O BJ",   Kilos = 0, Porcentaje = 0m },
+                    new LineaDetalle() { Tamanio = "FIBRA",    Kilos = 0, Porcentaje = 0m },
+                };
+
+                btnEliminar.Visible = false;
+            }
+            else
+            {
+                var muestra = _blendManager.GetMuestra(_muestraId);
+
+                this.dateFecha.Enabled = false;
+                this.dateFecha.Value = muestra.Fecha;
+                this.timeSpanHora.TimeSpan = muestra.Hora;
+
+                this.cbBlend.SelectedValue = muestra.Blend.Id;
+
+                _blendSeleccionado = muestra.Blend.Id;
+
+                this.spinCaja.Value = Convert.ToDecimal(muestra.Caja);
+
+                _detalle = new List<LineaDetalle>();
+
+                foreach (var item in muestra.Lineas)
+                {
+                    _detalle.Add(new LineaDetalle() { Tamanio = item.Tamanio, Kilos = item.kilos, Porcentaje = item.Porcentaje });
+                }
+
+                this.lblPM.Text = "P.M.: " + muestra.PesoMuestra;
+
+                this.lblTotal.Text = "TOTAL SOBRE 1/2: " + muestra.TotalSobreUnMedio;
+
+                this.memoObservaciones.Text = muestra.Observaciones;
+
+                btnEliminar.Visible = true;
+            }
 
             this.gridControlMuestra.DataSource = new BindingList<LineaDetalle>(_detalle);
 
@@ -410,7 +446,16 @@ namespace CooperativaProduccion
 
         void btnGrabar_Click(object sender, EventArgs e)
         {
-            var result = MessageBox.Show("¿Confirma que desea dar de alta esta muestra?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult result;
+
+            if (_muestraId == Guid.Empty)
+            {
+                result = MessageBox.Show("¿Confirma que desea dar de alta esta muestra?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            }
+            else
+            {
+                result = MessageBox.Show("¿Confirma que desea modificar esta muestra?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            }
 
             if (result != System.Windows.Forms.DialogResult.Yes)
             {
@@ -444,20 +489,57 @@ namespace CooperativaProduccion
                 Observaciones = this.memoObservaciones.Text.Trim()
             };
 
+            if (_muestraId == Guid.Empty)
+            {
+                try
+                {
+                    _blendManager.AddMuestra(muestra);
+
+                    Clear();
+                }
+                catch (Exception ex)
+                {
+                    if (ex.Message == "No existe Caja")
+                    {
+                        MessageBox.Show("No se puede encontrar el número de caja ingresado", "No se puede grabar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        spinCaja.Focus();
+                        spinCaja.SelectAll();
+                    }
+                }
+            }
+            else
+            {
+                try
+                {
+                    _blendManager.ModifyMuestra(_muestraId, muestra);
+
+                    this.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("No se ha podido modificar el registro de muestra", "No se puede modificar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        void btnEliminar_Click(object sender, EventArgs e)
+        {
+            var result = MessageBox.Show("¿Confirma que desea borrar esta muestra?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result != System.Windows.Forms.DialogResult.Yes)
+            {
+                return;
+            }
+
             try
             {
-                _blendManager.AddMuestra(muestra);
+                _blendManager.DeleteMuestra(_muestraId);
 
-                Clear();
+                this.Close();
             }
             catch (Exception ex)
             {
-                if (ex.Message == "No existe Caja")
-                {
-                    MessageBox.Show("No se puede encontrar el número de caja ingresado", "No se puede grabar", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    spinCaja.Focus();
-                    spinCaja.SelectAll();
-                }
+                MessageBox.Show("No se ha podido borrar el registro de muestra", "No se puede borrar", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

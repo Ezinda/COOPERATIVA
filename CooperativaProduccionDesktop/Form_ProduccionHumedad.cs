@@ -25,6 +25,7 @@ namespace CooperativaProduccion
             this.Load += Form_ProduccionHumedad_Load;
             this.btnBuscar.Click += btnBuscar_Click;
             this.btnNuevo.Click += btnNuevo_Click;
+            this.gridViewHumedad.DoubleClick += gridViewHumedad_DoubleClick;
         }
 
         void Form_ProduccionHumedad_Load(object sender, EventArgs e)
@@ -49,6 +50,7 @@ namespace CooperativaProduccion
             this.gridControlHumedad.DataSource = new BindingList<LineaControl>(_detalle);
 
             this.gridViewHumedad.OptionsMenu.EnableColumnMenu = false;
+            this.gridViewHumedad.Columns["_IDControl"].Visible = false;
             //this.gridViewMuestras.OptionsView.ColumnAutoWidth = false;
             //this.gridViewMuestra.Columns["Tamanio"].Caption = "Tamaño".ToUpper();
             //this.gridViewMuestra.Columns["Tamanio"].OptionsColumn.AllowEdit = false;
@@ -95,6 +97,7 @@ namespace CooperativaProduccion
                 {
                     _detalle.Add(new LineaControl()
                     {
+                        _IDControl = control._Id,
                         Blend = control.Blend.Descripcion,
                         Fecha = control.Fecha.ToShortDateString(),
                         Corrida = control.Corrida.ToString(),
@@ -112,6 +115,18 @@ namespace CooperativaProduccion
             new Form_ProduccionHumedadEditor(_blendManager).Show(this);
         }
 
+        void gridViewHumedad_DoubleClick(object sender, EventArgs e)
+        {
+            if (this.gridViewHumedad.FocusedRowHandle < 0)
+            {
+                return;
+            }
+
+            var linea = this.gridViewHumedad.GetFocusedRow() as LineaControl;
+
+            new Form_ProduccionHumedadEditor(_blendManager, linea._IDControl).Show(this);
+        }
+
         class Blend
         {
             public Guid Id { get; set; }
@@ -121,6 +136,8 @@ namespace CooperativaProduccion
 
         class LineaControl
         {
+            public Guid _IDControl { get; set; }
+
             public string Blend { get; set; }
 
             public string Fecha { get; set; }

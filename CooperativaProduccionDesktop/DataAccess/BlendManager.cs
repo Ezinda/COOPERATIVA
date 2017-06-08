@@ -372,12 +372,126 @@ namespace CooperativaProduccion.DataAccess
             _context.SaveChanges();
         }
 
-        public void ModifyMuestra(MuestraViewModel muestra)
+        public MuestraViewModel GetMuestra(Guid muestraId)
         {
-            //var oldMuestra = _dataSourceMuestra.Where(x => x._Id == muestra._Id).Single();
-            //_dataSourceMuestra.Remove(oldMuestra);
-            //
-            //_dataSourceMuestra.Add(muestra);
+            var muestra = _context.ProduccionMuestra
+                .Include(x => x.ProduccionBlend)
+                .Include(x => x.ProduccionMuestraDetalle)
+                .Where(x => x.Id == muestraId)
+                .Select(x => new MuestraViewModel()
+                {
+                    _Id = x.Id,
+                    Blend = new BlendViewModel() { Id = x.ProduccionBlend.ProductoId ?? Guid.Empty, Descripcion = x.ProduccionBlend.Descripcion },
+                    Corrida = x.Corrida,
+                    Fecha = x.Fecha,
+                    Hora = x.Hora,
+                    Caja = x.Caja,
+                    Lineas = x.ProduccionMuestraDetalle.Select(y => new LineaDetalleMuestraViewModel()
+                    {
+                        Tamanio = y.Tamanio,
+                        kilos = y.Kilos,
+                        Porcentaje = y.Porcentaje
+                    }).ToList(),
+                    Observaciones = x.Observaciones,
+                    PesoMuestra = x.PesoMuestra,
+                    TotalSobreUnMedio = x.TotalSobreUnMedio
+                })
+                .Single();
+
+            return muestra;
+        }
+
+        public void ModifyMuestra(Guid muestraId, MuestraViewModel muestravm)
+        {
+            var dBMuestra = _context.ProduccionMuestra
+                .Include(x => x.ProduccionMuestraDetalle)
+                .Single(x => x.Id == muestraId);
+
+            var detalles = new List<ProduccionMuestraDetalle>();
+
+            foreach (var linea in muestravm.Lineas)
+            {
+                var dBDetalle = dBMuestra.ProduccionMuestraDetalle
+                    .Where(x => x.Tamanio == linea.Tamanio)
+                    .SingleOrDefault();
+
+                if (dBDetalle != null)
+                {
+                    dBDetalle.Kilos = linea.kilos;
+                    dBDetalle.Porcentaje = linea.Porcentaje;
+
+                    _context.Entry(dBDetalle).State = EntityState.Modified;
+                }
+                else
+                {
+                    detalles.Add(new ProduccionMuestraDetalle()
+                    {
+                        Id = Guid.NewGuid(),
+                        Tamanio = linea.Tamanio,
+                        Kilos = linea.kilos,
+                        Porcentaje = linea.Porcentaje
+                    });
+                }
+            }
+
+            CajaData caja;
+
+            try
+            {
+                caja = _GetCaja(muestravm.Blend.Id, muestravm.Caja, muestravm.Fecha.Year);
+            }
+            catch
+            {
+                throw new Exception("No existe Caja");
+            }
+
+            var dBblendId = _GetDbBlendId(muestravm.Blend, muestravm.Fecha.Year);
+            
+            dBMuestra.ProductoId = dBblendId;
+            dBMuestra.Fecha = muestravm.Fecha;
+            dBMuestra.Corrida = muestravm.Corrida;
+            dBMuestra.CorridaId = _GetCorrida(dBblendId, muestravm.Fecha, true).Id;
+            dBMuestra.Hora = muestravm.Hora;
+            dBMuestra.Caja = muestravm.Caja;
+            dBMuestra.CajaId = caja.Id;
+
+            if (detalles.Count != 0)
+            {
+                if (dBMuestra.ProduccionMuestraDetalle == null)
+                {
+                    dBMuestra.ProduccionMuestraDetalle = detalles;
+                }
+                else
+                {
+                    foreach (var item in detalles)
+	                {
+                        dBMuestra.ProduccionMuestraDetalle.Add(item);
+	                }
+                }
+            }
+            
+            dBMuestra.PesoMuestra = Convert.ToInt32(muestravm.PesoMuestra);
+            dBMuestra.TotalSobreUnMedio = muestravm.TotalSobreUnMedio;
+            dBMuestra.Observaciones = muestravm.Observaciones;
+
+            _context.Entry(dBMuestra).State = EntityState.Modified;
+            _context.SaveChanges();
+        }
+
+        public void DeleteMuestra(Guid muestraId)
+        {
+            var detalle = _context.ProduccionMuestraDetalle.Where(x => x.MuestraId == muestraId)
+                .ToList();
+
+            if (detalle.Count != 0)
+            {
+                _context.ProduccionMuestraDetalle.RemoveRange(detalle);
+                _context.SaveChanges();
+            }
+
+            var muestra = _context.ProduccionMuestra.Find(muestraId);
+            _context.ProduccionMuestra.Remove(muestra);
+            _context.SaveChanges();
         }
 
         public List<MuestraViewModel> ListarMuestras(Guid blendId, DateTime desde, DateTime hasta)
@@ -557,6 +671,122 @@ namespace CooperativaProduccion.DataAccess
             _context.SaveChanges();
         }
 
+        public ControlDeTemperaturaViewModel GetControlTemperatura(Guid controlId)
+        {
+            var control = _context.ProduccionTemperatura
+                .Include(x => x.ProduccionTemperaturaDetalle)
+                .Single(x => x.Id == controlId);
+
+            var detalle = new List<LineaDetalleControlDeTempraturaViewModel>();
+
+            foreach (var item in control.ProduccionTemperaturaDetalle)
+            {
+                detalle.Add(new LineaDetalleControlDeTempraturaViewModel()
+                {
+                    Hora = item.Hora,
+                    Caja = item.Caja,
+                    TemperaturaEmpaque = item.TemperaturaEmpaque,
+                    TemperaturaAmbiente = item.TemperaturaAmbiente,
+                    Observaciones = item.Observaciones
+                });
+            }
+
+            return new ControlDeTemperaturaViewModel()
+            {
+                Fecha = control.Fecha,
+                Blend = _context.ProduccionBlend
+                    .Where(x => x.Id == control.ProductoId)
+                    .Select(x => new BlendViewModel()
+                    {
+                        Id = x.ProductoId ?? Guid.Empty,
+                        Descripcion = x.Descripcion,
+                        //OrdenProduccion = x.OrdenProduccion
+                    })
+                    .Single(),
+                Corrida = control.Corrida,
+                Minimo = control.Minimo,
+                Meta = control.Meta,
+                Maximo = control.Maximo,
+                Lineas = detalle
+            };
+        }
+
+        public void ModifyControlTemperatura(Guid controlId, ControlDeTemperaturaViewModel control)
+        {
+            var dBControl = _context.ProduccionTemperatura
+                .Include(x => x.ProduccionTemperaturaDetalle)
+                .Single(x => x.Id == controlId);
+
+            var numcajas = control.Lineas.Select(x => x.Caja).Distinct().ToList();
+
+            List<CajaData> cajas;
+
+            try
+            {
+                cajas = _GetCajas(control.Blend.Id, numcajas, control.Fecha.Year);
+
+                if (cajas.Count != numcajas.Count)
+                {
+                    throw new Exception("No existe Caja");
+                }
+            }
+            catch
+            {
+                throw new Exception("No existe Caja");
+            }
+
+            if (dBControl.ProduccionTemperaturaDetalle != null && dBControl.ProduccionTemperaturaDetalle.Count() > 0)
+            {
+                _context.ProduccionTemperaturaDetalle.RemoveRange(dBControl.ProduccionTemperaturaDetalle);
+            }
+
+            var detalles = new List<ProduccionTemperaturaDetalle>();
+
+            foreach (var linea in control.Lineas)
+            {
+                detalles.Add(new ProduccionTemperaturaDetalle()
+                {
+                    Id = Guid.NewGuid(),
+                    Hora = linea.Hora,
+                    Caja = linea.Caja,
+                    CajaId = cajas.Where(x => x.NumeroCaja == linea.Caja).Single().Id,
+                    TemperaturaEmpaque = linea.TemperaturaEmpaque,
+                    TemperaturaAmbiente = linea.TemperaturaAmbiente,
+                    Observaciones = linea.Observaciones
+                });
+            }
+
+            var dBblendId = _GetDbBlendId(control.Blend, control.Fecha.Year);
+            
+            dBControl.Fecha = control.Fecha;
+            dBControl.ProductoId = dBblendId;
+            dBControl.Corrida = control.Corrida;
+            dBControl.CorridaId = _GetCorrida(dBblendId, control.Fecha, true).Id;
+            dBControl.Minimo = control.Minimo;
+            dBControl.Meta = control.Meta;
+            dBControl.Maximo = control.Maximo;
+            dBControl.ProduccionTemperaturaDetalle = detalles;
+
+            _context.Entry(dBControl).State = EntityState.Modified;
+            _context.SaveChanges();
+        }
+
+        public void DeleteControlTemperatura(Guid controlId)
+        {
+            var dBControl = _context.ProduccionTemperatura
+                .Include(x => x.ProduccionTemperaturaDetalle)
+                .Single(x => x.Id == controlId);
+
+            if (_context.ProduccionTemperaturaDetalle != null && _context.ProduccionTemperaturaDetalle.Count() > 0)
+            {
+                _context.ProduccionTemperaturaDetalle.RemoveRange(dBControl.ProduccionTemperaturaDetalle);
+            }
+
+            _context.ProduccionTemperatura.Remove(dBControl);
+
+            _context.SaveChanges();
+        }
+
         public List<ControlDeTemperaturaViewModel> ListarControlesDeTemperatura(Guid blendId, DateTime desde, DateTime hasta)
         {
             var controles = _context.ProduccionTemperatura
@@ -650,6 +880,121 @@ namespace CooperativaProduccion.DataAccess
             };
 
             _context.ProduccionHumedad.Add(row);
+            _context.SaveChanges();
+        }
+
+        public ControlDeHumedadViewModel GetControlHumedad(Guid controlId)
+        {
+            var control = _context.ProduccionHumedad
+                .Include(x => x.ProduccionHumedadDetalle)
+                .Single(x => x.Id == controlId);
+
+            var detalle = new List<LineaDetalleControlDeHumedadViewModel>();
+
+            foreach (var item in control.ProduccionHumedadDetalle)
+            {
+                detalle.Add(new LineaDetalleControlDeHumedadViewModel()
+                {
+                    Hora = item.Hora,
+                    Caja = item.Caja,
+                    TemperaturaEmpaque = item.TemperaturaEmpaque,
+                    Capsula = item.Capsula,
+                    HoraEntrada = item.HoraEntrada,
+                    HoraSalida = item.HoraSalida,
+                    Humedad = item.Humedad
+                });
+            }
+
+            return new ControlDeHumedadViewModel()
+            {
+                _Id = control.Id,
+                Fecha = control.Fecha,
+                Blend = _context.ProduccionBlend
+                    .Where(x => x.Id == control.ProductoId)
+                    .Select(x => new BlendViewModel()
+                    {
+                        Id = x.ProductoId ?? Guid.Empty,
+                        Descripcion = x.Descripcion,
+                        //OrdenProduccion = x.OrdenProduccion
+                    })
+                    .Single(),
+                Corrida = control.Corrida,
+                Lineas = detalle
+            };
+        }
+
+        public void ModifyControlHumedad(Guid controlId, ControlDeHumedadViewModel control)
+        {
+            var dBControl = _context.ProduccionHumedad
+                .Include(x => x.ProduccionHumedadDetalle)
+                .Single(x => x.Id == controlId);
+
+            var numcajas = control.Lineas.Select(x => x.Caja).Distinct().ToList();
+
+            List<CajaData> cajas;
+
+            try
+            {
+                cajas = _GetCajas(control.Blend.Id, numcajas, control.Fecha.Year);
+
+                if (cajas.Count != numcajas.Count)
+                {
+                    throw new Exception("No existe Caja");
+                }
+            }
+            catch
+            {
+                throw new Exception("No existe Caja");
+            }
+
+            if (dBControl.ProduccionHumedadDetalle != null && dBControl.ProduccionHumedadDetalle.Count() > 0)
+            {
+                _context.ProduccionHumedadDetalle.RemoveRange(dBControl.ProduccionHumedadDetalle);
+            }
+
+            var detalles = new List<ProduccionHumedadDetalle>();
+
+            foreach (var linea in control.Lineas)
+            {
+                detalles.Add(new ProduccionHumedadDetalle()
+                {
+                    Id = Guid.NewGuid(),
+                    Hora = linea.Hora,
+                    Caja = linea.Caja,
+                    CajaId = cajas.Where(x => x.NumeroCaja == linea.Caja).Single().Id,
+                    TemperaturaEmpaque = linea.TemperaturaEmpaque,
+                    Capsula = Convert.ToInt32(linea.Capsula),
+                    HoraEntrada = linea.HoraEntrada,
+                    HoraSalida = linea.HoraSalida,
+                    Humedad = linea.Humedad
+                });
+            }
+
+            var dBblendId = _GetDbBlendId(control.Blend, control.Fecha.Year);
+
+            dBControl.Fecha = control.Fecha;
+            dBControl.ProductoId = dBblendId;
+            dBControl.Corrida = control.Corrida;
+            dBControl.CorridaId = _GetCorrida(dBblendId, control.Fecha, true).Id;
+            dBControl.ProduccionHumedadDetalle = detalles;
+
+            _context.Entry(dBControl).State = EntityState.Modified;
+            _context.SaveChanges();
+        }
+
+        public void DeleteControlHumedad(Guid controlId)
+        {
+            var dBControl = _context.ProduccionHumedad
+                .Include(x => x.ProduccionHumedadDetalle)
+                .Single(x => x.Id == controlId);
+
+            if (_context.ProduccionHumedadDetalle != null && _context.ProduccionHumedadDetalle.Count() > 0)
+            {
+                _context.ProduccionHumedadDetalle.RemoveRange(dBControl.ProduccionHumedadDetalle);
+            }
+
+            _context.ProduccionHumedad.Remove(dBControl);
+
             _context.SaveChanges();
         }
 
@@ -794,11 +1139,6 @@ namespace CooperativaProduccion.DataAccess
                 detalles.Add(new ProduccionNicotinaDetalle()
                 {
                     Id = Guid.NewGuid(),
-                    Fecha = control.Fecha,
-                    ProductoId = dBblendId,
-                    Corrida = control.Corrida,
-                    CorridaId = _GetCorrida(dBblendId, control.Fecha, true).Id,
-                    Hora = control.Hora,
                     CajaDesde = linea.CajaDesde,
                     CajaHasta = linea.CajaHasta,
                     PorcentajeHumedad = linea.PorcentajeHumedad,
@@ -809,53 +1149,157 @@ namespace CooperativaProduccion.DataAccess
                 });
             }
 
-            _context.ProduccionNicotinaDetalle.AddRange(detalles);
+            var row = new ProduccionNicotina()
+            {
+                Id = Guid.NewGuid(),
+                Fecha = control.Fecha,
+                ProductoId = dBblendId,
+                Corrida = control.Corrida,
+                CorridaId = _GetCorrida(dBblendId, control.Fecha, true).Id,
+                Hora = control.Hora,
+                ProduccionNicotinaDetalle = detalles,
+            };
+
+            _context.ProduccionNicotina.Add(row);
+            _context.SaveChanges();
+        }
+
+        public ControlDeNicotinaViewModel GetControlNicotina(Guid controlId)
+        {
+            var control = _context.ProduccionNicotina
+                .Include(x => x.ProduccionBlend)
+                .Include(x => x.ProduccionNicotinaDetalle)
+                .Where(x => x.Id == controlId)
+                .Single();
+
+            return new ControlDeNicotinaViewModel()
+            {
+                _Id = control.Id,
+                Fecha = control.Fecha,
+                Blend = new BlendViewModel() { Id = control.ProduccionBlend.ProductoId ?? Guid.Empty, Descripcion = control.ProduccionBlend.Descripcion },
+                Corrida = control.Corrida,
+                Hora = control.Hora,
+                Lineas = control.ProduccionNicotinaDetalle.Select(x => new LineaDetalleControlDeNicotinaViewModel()
+                {
+                    CajaDesde = x.CajaDesde,
+                    CajaHasta = x.CajaHasta,
+                    PorcentajeHumedad = x.PorcentajeHumedad,
+                    Valor1 = x.Valor1,
+                    Valor2 = x.Valor2,
+                    PorcentajeALC = x.PorcentajeALC,
+                    PorcentajeNicotina = x.PorcentajeNicotina
+                }).ToList()
+            };
+        }
+
+        public void ModifyControlNicotina(Guid controlId, ControlDeNicotinaViewModel control)
+        {
+            var dBControl = _context.ProduccionNicotina
+                .Include(x => x.ProduccionNicotinaDetalle)
+                .Single(x => x.Id == controlId);
+
+            List<long> numcajas = new List<long>();
+            numcajas.AddRange(control.Lineas.Select(x => x.CajaDesde).Distinct().ToList());
+            numcajas.AddRange(control.Lineas.Select(x => x.CajaHasta).Distinct().ToList());
+            var numcajasDistinct = numcajas.Distinct();
+
+            List<CajaData> cajas;
+
+            try
+            {
+                cajas = _GetCajas(control.Blend.Id, numcajasDistinct, control.Fecha.Year);
+
+                if (cajas.Count != numcajasDistinct.Count())
+                {
+                    throw new Exception("No existe Caja");
+                }
+            }
+            catch
+            {
+                throw new Exception("No existe Caja");
+            }
+
+            if (dBControl.ProduccionNicotinaDetalle != null && dBControl.ProduccionNicotinaDetalle.Count() > 0)
+            {
+                _context.ProduccionNicotinaDetalle.RemoveRange(dBControl.ProduccionNicotinaDetalle);
+            }
+
+            var detalles = new List<ProduccionNicotinaDetalle>();
+
+            foreach (var linea in control.Lineas)
+            {
+                detalles.Add(new ProduccionNicotinaDetalle()
+                {
+                    Id = Guid.NewGuid(),
+                    CajaDesde = linea.CajaDesde,
+                    CajaHasta = linea.CajaHasta,
+                    PorcentajeHumedad = linea.PorcentajeHumedad,
+                    Valor1 = linea.Valor1,
+                    Valor2 = linea.Valor2,
+                    PorcentajeALC = linea.PorcentajeALC,
+                    PorcentajeNicotina = linea.PorcentajeNicotina
+                });
+            }
+
+            var dBblendId = _GetDbBlendId(control.Blend, control.Fecha.Year);
+
+            dBControl.Fecha = control.Fecha;
+            dBControl.ProductoId = dBblendId;
+            dBControl.Corrida = control.Corrida;
+            dBControl.CorridaId = _GetCorrida(dBblendId, control.Fecha, true).Id;
+            dBControl.Hora = control.Hora;
+            dBControl.ProduccionNicotinaDetalle = detalles;
+
+            _context.Entry(dBControl).State = EntityState.Modified;
+            _context.SaveChanges();
+        }
+
+        public void DeleteControlNicotina(Guid controlId)
+        {
+            var dBControl = _context.ProduccionNicotina
+                .Include(x => x.ProduccionNicotinaDetalle)
+                .Single(x => x.Id == controlId);
+
+            if (_context.ProduccionNicotinaDetalle != null && _context.ProduccionNicotinaDetalle.Count() > 0)
+            {
+                _context.ProduccionNicotinaDetalle.RemoveRange(dBControl.ProduccionNicotinaDetalle);
+            }
+
+            _context.ProduccionNicotina.Remove(dBControl);
+
             _context.SaveChanges();
         }
 
         public List<ControlDeNicotinaViewModel> ListarControlesDeNicotina(Guid blendId, DateTime fecha)
         {
-            var controles = _context.ProduccionNicotinaDetalle
+            var controles = _context.ProduccionNicotina
                     .Include(x => x.ProduccionBlend)
+                    .Include(x => x.ProduccionNicotinaDetalle)
                     .Where(x => x.ProduccionBlend.ProductoId == blendId && x.Fecha == fecha)
                     .ToList();
 
-            var headers = controles.Select(x => new ControlDeNicotinaViewModel()
-            {
-                Fecha = x.Fecha,
-                Blend = new BlendViewModel() { Id = x.ProduccionBlend.ProductoId ?? Guid.Empty, Descripcion = x.ProduccionBlend.Descripcion },
-                Corrida = x.Corrida,
-                Hora = x.Hora,
-                Lineas = new List<LineaDetalleControlDeNicotinaViewModel>()
-            })
-            .ToList();
-
             var result = new List<ControlDeNicotinaViewModel>();
-
-            foreach (var header in headers)
-            {
-                if (!result.Where(x => x.Fecha == header.Fecha && x.Blend == header.Blend && x.Corrida == header.Corrida && x.Hora == header.Hora).Any())
-                {
-                    result.Add(header);
-                }
-            }
 
             foreach (var control in controles)
             {
-                var detalle = new LineaDetalleControlDeNicotinaViewModel()
+                result.Add(new ControlDeNicotinaViewModel()
                 {
-                    CajaDesde = control.CajaDesde,
-                    CajaHasta = control.CajaHasta,
-                    PorcentajeHumedad = control.PorcentajeHumedad,
-                    Valor1 = control.Valor1,
-                    Valor2 = control.Valor2,
-                    PorcentajeALC = control.PorcentajeALC,
-                    PorcentajeNicotina = control.PorcentajeNicotina
-                };
-
-                result.Where(x => x.Fecha == control.Fecha && x.Blend.Id == control.ProductoId && x.Corrida == control.Corrida && x.Hora == control.Hora)
-                    .Single()
-                    .Lineas.Add(detalle);
+                    _Id = control.Id,
+                    Fecha = control.Fecha,
+                    Blend = new BlendViewModel() { Id = control.ProduccionBlend.ProductoId ?? Guid.Empty, Descripcion = control.ProduccionBlend.Descripcion },
+                    Corrida = control.Corrida,
+                    Hora = control.Hora,
+                    Lineas = control.ProduccionNicotinaDetalle.Select(x => new LineaDetalleControlDeNicotinaViewModel()
+                    {
+                        CajaDesde = x.CajaDesde,
+                        CajaHasta = x.CajaHasta,
+                        PorcentajeHumedad = x.PorcentajeHumedad,
+                        Valor1 = x.Valor1,
+                        Valor2 = x.Valor2,
+                        PorcentajeALC = x.PorcentajeALC,
+                        PorcentajeNicotina = x.PorcentajeNicotina
+                    }).ToList()
+                });
             }
 
             return result;

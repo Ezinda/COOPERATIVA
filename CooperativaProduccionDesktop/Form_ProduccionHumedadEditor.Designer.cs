@@ -41,6 +41,7 @@
             this.cbBlend = new System.Windows.Forms.ComboBox();
             this.lblCorrida = new System.Windows.Forms.Label();
             this.lblOrden = new System.Windows.Forms.Label();
+            this.btnEliminar = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewHumedad)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlHumedad)).BeginInit();
@@ -68,7 +69,7 @@
             // 
             this.btnBorrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBorrar.Image = ((System.Drawing.Image)(resources.GetObject("btnBorrar.Image")));
-            this.btnBorrar.Location = new System.Drawing.Point(143, 434);
+            this.btnBorrar.Location = new System.Drawing.Point(147, 435);
             this.btnBorrar.Name = "btnBorrar";
             this.btnBorrar.Size = new System.Drawing.Size(125, 21);
             this.btnBorrar.TabIndex = 104;
@@ -88,7 +89,7 @@
             this.gridControlHumedad.Location = new System.Drawing.Point(12, 142);
             this.gridControlHumedad.MainView = this.gridViewHumedad;
             this.gridControlHumedad.Name = "gridControlHumedad";
-            this.gridControlHumedad.Size = new System.Drawing.Size(562, 286);
+            this.gridControlHumedad.Size = new System.Drawing.Size(562, 287);
             this.gridControlHumedad.TabIndex = 101;
             this.gridControlHumedad.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewHumedad});
@@ -97,7 +98,7 @@
             // 
             this.btnAgregar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAgregar.Image = ((System.Drawing.Image)(resources.GetObject("btnAgregar.Image")));
-            this.btnAgregar.Location = new System.Drawing.Point(12, 434);
+            this.btnAgregar.Location = new System.Drawing.Point(16, 435);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(125, 21);
             this.btnAgregar.TabIndex = 103;
@@ -107,7 +108,7 @@
             // 
             this.btnGrabar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnGrabar.Image = ((System.Drawing.Image)(resources.GetObject("btnGrabar.Image")));
-            this.btnGrabar.Location = new System.Drawing.Point(498, 442);
+            this.btnGrabar.Location = new System.Drawing.Point(498, 474);
             this.btnGrabar.Name = "btnGrabar";
             this.btnGrabar.Size = new System.Drawing.Size(76, 21);
             this.btnGrabar.TabIndex = 102;
@@ -170,11 +171,22 @@
             this.lblOrden.TabIndex = 93;
             this.lblOrden.Text = "Orden de Produccion:";
             // 
+            // btnEliminar
+            // 
+            this.btnEliminar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnEliminar.Image = ((System.Drawing.Image)(resources.GetObject("btnEliminar.Image")));
+            this.btnEliminar.Location = new System.Drawing.Point(12, 477);
+            this.btnEliminar.Name = "btnEliminar";
+            this.btnEliminar.Size = new System.Drawing.Size(76, 21);
+            this.btnEliminar.TabIndex = 106;
+            this.btnEliminar.Text = "Eliminar";
+            // 
             // Form_ProduccionHumedadEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(586, 478);
+            this.ClientSize = new System.Drawing.Size(586, 510);
+            this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.btnBorrar);
             this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.btnGrabar);
@@ -212,5 +224,6 @@
         private System.Windows.Forms.ComboBox cbBlend;
         private System.Windows.Forms.Label lblCorrida;
         private System.Windows.Forms.Label lblOrden;
+        private DevExpress.XtraEditors.SimpleButton btnEliminar;
     }
 }

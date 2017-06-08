@@ -20,11 +20,14 @@ namespace CooperativaProduccion
         private DateTime _fechaSeleccionada;
         private Guid _blendSeleccionado;
 
+        private Guid _controlId;
+
         public Form_ProduccionHumedadEditor(IBlendManager blendManager)
         {
             InitializeComponent();
 
             _blendManager = blendManager;
+            _controlId = Guid.Empty;
 
             this.Load += Form_ProduccionHumedadEditor_Load;
             this.dateFecha.ValueChanged += dateFecha_ValueChanged;
@@ -37,13 +40,17 @@ namespace CooperativaProduccion
             this.btnAgregar.Click += btnAgregar_Click;
             this.btnBorrar.Click += btnBorrar_Click;
             this.btnGrabar.Click += btnGrabar_Click;
+            this.btnEliminar.Click += btnEliminar_Click;
+        }
+
+        public Form_ProduccionHumedadEditor(IBlendManager blendManager, Guid controlId)
+            : this(blendManager)
+        {
+            _controlId = controlId;
         }
 
         void Form_ProduccionHumedadEditor_Load(object sender, EventArgs e)
         {
-            this.dateFecha.Enabled = true;
-            this.dateFecha.Value = DateTime.Now.Date;
-            
             var blends = _blendManager.ListarBlends()
                 .Select(x => new Blend()
                 {
@@ -58,19 +65,52 @@ namespace CooperativaProduccion
             this.cbBlend.DataSource = blends;
             this.cbBlend.SelectedIndex = -1;
 
-            _detalle = new List<LineaDetalle>()
+            if (_controlId == Guid.Empty)
             {
-                new LineaDetalle() { Hora = DateTime.MinValue.TimeOfDay, Caja = 0, TemperaturaEmpaque = 0m, Capsula = 0, HoraEntrada = DateTime.MinValue.TimeOfDay, HoraSalida = DateTime.MinValue.TimeOfDay, Humedad = 0m },
-                new LineaDetalle() { Hora = DateTime.MinValue.TimeOfDay, Caja = 0, TemperaturaEmpaque = 0m, Capsula = 0, HoraEntrada = DateTime.MinValue.TimeOfDay, HoraSalida = DateTime.MinValue.TimeOfDay, Humedad = 0m },
-                new LineaDetalle() { Hora = DateTime.MinValue.TimeOfDay, Caja = 0, TemperaturaEmpaque = 0m, Capsula = 0, HoraEntrada = DateTime.MinValue.TimeOfDay, HoraSalida = DateTime.MinValue.TimeOfDay, Humedad = 0m },
-                new LineaDetalle() { Hora = DateTime.MinValue.TimeOfDay, Caja = 0, TemperaturaEmpaque = 0m, Capsula = 0, HoraEntrada = DateTime.MinValue.TimeOfDay, HoraSalida = DateTime.MinValue.TimeOfDay, Humedad = 0m },
-                new LineaDetalle() { Hora = DateTime.MinValue.TimeOfDay, Caja = 0, TemperaturaEmpaque = 0m, Capsula = 0, HoraEntrada = DateTime.MinValue.TimeOfDay, HoraSalida = DateTime.MinValue.TimeOfDay, Humedad = 0m },
-                new LineaDetalle() { Hora = DateTime.MinValue.TimeOfDay, Caja = 0, TemperaturaEmpaque = 0m, Capsula = 0, HoraEntrada = DateTime.MinValue.TimeOfDay, HoraSalida = DateTime.MinValue.TimeOfDay, Humedad = 0m },
-                new LineaDetalle() { Hora = DateTime.MinValue.TimeOfDay, Caja = 0, TemperaturaEmpaque = 0m, Capsula = 0, HoraEntrada = DateTime.MinValue.TimeOfDay, HoraSalida = DateTime.MinValue.TimeOfDay, Humedad = 0m },
-                new LineaDetalle() { Hora = DateTime.MinValue.TimeOfDay, Caja = 0, TemperaturaEmpaque = 0m, Capsula = 0, HoraEntrada = DateTime.MinValue.TimeOfDay, HoraSalida = DateTime.MinValue.TimeOfDay, Humedad = 0m },
-            };
+                this.dateFecha.Enabled = true;
+                this.dateFecha.Value = DateTime.Now.Date;
 
-            this.gridControlHumedad.DataSource = new BindingList<LineaDetalle>(_detalle);
+                _detalle = new List<LineaDetalle>()
+                {
+                    new LineaDetalle() { Hora = DateTime.MinValue.TimeOfDay, Caja = 0, TemperaturaEmpaque = 0m, Capsula = 0, HoraEntrada = DateTime.MinValue.TimeOfDay, HoraSalida = DateTime.MinValue.TimeOfDay, Humedad = 0m },
+                    new LineaDetalle() { Hora = DateTime.MinValue.TimeOfDay, Caja = 0, TemperaturaEmpaque = 0m, Capsula = 0, HoraEntrada = DateTime.MinValue.TimeOfDay, HoraSalida = DateTime.MinValue.TimeOfDay, Humedad = 0m },
+                    new LineaDetalle() { Hora = DateTime.MinValue.TimeOfDay, Caja = 0, TemperaturaEmpaque = 0m, Capsula = 0, HoraEntrada = DateTime.MinValue.TimeOfDay, HoraSalida = DateTime.MinValue.TimeOfDay, Humedad = 0m },
+                    new LineaDetalle() { Hora = DateTime.MinValue.TimeOfDay, Caja = 0, TemperaturaEmpaque = 0m, Capsula = 0, HoraEntrada = DateTime.MinValue.TimeOfDay, HoraSalida = DateTime.MinValue.TimeOfDay, Humedad = 0m },
+                    new LineaDetalle() { Hora = DateTime.MinValue.TimeOfDay, Caja = 0, TemperaturaEmpaque = 0m, Capsula = 0, HoraEntrada = DateTime.MinValue.TimeOfDay, HoraSalida = DateTime.MinValue.TimeOfDay, Humedad = 0m },
+                    new LineaDetalle() { Hora = DateTime.MinValue.TimeOfDay, Caja = 0, TemperaturaEmpaque = 0m, Capsula = 0, HoraEntrada = DateTime.MinValue.TimeOfDay, HoraSalida = DateTime.MinValue.TimeOfDay, Humedad = 0m },
+                    new LineaDetalle() { Hora = DateTime.MinValue.TimeOfDay, Caja = 0, TemperaturaEmpaque = 0m, Capsula = 0, HoraEntrada = DateTime.MinValue.TimeOfDay, HoraSalida = DateTime.MinValue.TimeOfDay, Humedad = 0m },
+                    new LineaDetalle() { Hora = DateTime.MinValue.TimeOfDay, Caja = 0, TemperaturaEmpaque = 0m, Capsula = 0, HoraEntrada = DateTime.MinValue.TimeOfDay, HoraSalida = DateTime.MinValue.TimeOfDay, Humedad = 0m },
+                };
+
+                this.gridControlHumedad.DataSource = new BindingList<LineaDetalle>(_detalle);
+
+                btnEliminar.Visible = false;
+            }
+            else
+            {
+                var control = _blendManager.GetControlHumedad(_controlId);
+
+                this.dateFecha.Enabled = false;
+                this.dateFecha.Value = control.Fecha;
+
+                this.cbBlend.SelectedValue = control.Blend.Id;
+
+                _blendSeleccionado = control.Blend.Id;
+
+                this.lblOrden.Text = "Orden de Produccion: " + _GetOrdenProduccion(this.dateFecha.Value.Date.Year, _blendSeleccionado);
+                this.lblCorrida.Text = "Corrida: " + _GetNumeroDeCorrida(_blendSeleccionado, this.dateFecha.Value.Date);
+
+                _detalle = new List<LineaDetalle>();
+
+                foreach (var item in control.Lineas)
+                {
+                    _detalle.Add(new LineaDetalle() { Hora = item.Hora, Caja = item.Caja, TemperaturaEmpaque = item.TemperaturaEmpaque, Capsula = item.Capsula, HoraEntrada = item.HoraEntrada, HoraSalida = item.HoraSalida, Humedad = item.Humedad });
+                }
+
+                this.gridControlHumedad.DataSource = new BindingList<LineaDetalle>(_detalle);
+
+                btnEliminar.Visible = true;
+            }
 
             this.gridViewHumedad.OptionsMenu.EnableColumnMenu = false;
             //this.gridViewTemperatura.OptionsView.ColumnAutoWidth = false;
@@ -205,7 +245,16 @@ namespace CooperativaProduccion
 
         void btnGrabar_Click(object sender, EventArgs e)
         {
-            var result = MessageBox.Show("¿Confirma que desea dar de alta estos nuevos registros de control de humedad?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult result;
+
+            if (_controlId == Guid.Empty)
+            {
+                result = MessageBox.Show("¿Confirma que desea dar de alta estos nuevos registros de control de humedad?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            }
+            else
+            {
+                result = MessageBox.Show("¿Confirma que desea modificar los registros de control de humedad?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            }
 
             if (result != System.Windows.Forms.DialogResult.Yes)
             {
@@ -248,18 +297,55 @@ namespace CooperativaProduccion
                 Lineas = lineas
             };
 
+            if (_controlId == Guid.Empty)
+            {
+                try
+                {
+                    _blendManager.AddControlHumedad(control);
+
+                    Clear();
+                }
+                catch (Exception ex)
+                {
+                    if (ex.Message == "No existe Caja")
+                    {
+                        MessageBox.Show("No se puede encontrar el número de caja ingresado", "No se puede grabar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            else
+            {
+                try
+                {
+                    _blendManager.ModifyControlHumedad(_controlId, control);
+
+                    this.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("No se ha podido modificar los registros de control de humedad", "No se puede modificar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        void btnEliminar_Click(object sender, EventArgs e)
+        {
+            var result = MessageBox.Show("¿Confirma que desea borrar los registros de control de humedad?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result != System.Windows.Forms.DialogResult.Yes)
+            {
+                return;
+            }
+
             try
             {
-                _blendManager.AddControlHumedad(control);
+                _blendManager.DeleteControlHumedad(_controlId);
 
-                Clear();
+                this.Close();
             }
             catch (Exception ex)
             {
-                if (ex.Message == "No existe Caja")
-                {
-                    MessageBox.Show("No se puede encontrar el número de caja ingresado", "No se puede grabar", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                MessageBox.Show("No se ha podido borrar los registros de control de humedad", "No se puede borrar", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

@@ -23,12 +23,13 @@ namespace CooperativaProduccion
 
             _blendManager = blendManager;
 
-            this.Load += Form_ProduccionHumedad_Load;
+            this.Load += Form_ProduccionNicotina_Load;
             this.btnBuscar.Click += btnBuscar_Click;
             this.btnNuevo.Click += btnNuevo_Click;
+            this.gridViewNicotina.DoubleClick += gridViewNicotina_DoubleClick;
         }
 
-        void Form_ProduccionHumedad_Load(object sender, EventArgs e)
+        void Form_ProduccionNicotina_Load(object sender, EventArgs e)
         {
             this.dateFecha.Value = DateTime.Now.Date;
 
@@ -52,6 +53,7 @@ namespace CooperativaProduccion
             this.gridControlNicotina.DataSource = new BindingList<Linea>(_detalle);
 
             this.gridViewNicotina.OptionsMenu.EnableColumnMenu = false;
+            this.gridViewNicotina.Columns["_IDControl"].Visible = false;
             //this.gridViewMuestras.OptionsView.ColumnAutoWidth = false;
             //this.gridViewMuestra.Columns["Tamanio"].Caption = "Tamaño".ToUpper();
             //this.gridViewMuestra.Columns["Tamanio"].OptionsColumn.AllowEdit = false;
@@ -111,6 +113,7 @@ namespace CooperativaProduccion
                 {
                     _detalle.Add(new Linea()
                     {
+                        _IDControl = control._Id,
                         Blend = control.Blend.Descripcion,
                         Fecha = control.Fecha.ToShortDateString(),
                         Hora = control.Hora.ToString(@"hh\:mm"),
@@ -127,6 +130,18 @@ namespace CooperativaProduccion
         void btnNuevo_Click(object sender, EventArgs e)
         {
             new Form_ProduccionNicotinaEditor(_blendManager).Show(this);
+        }
+
+        void gridViewNicotina_DoubleClick(object sender, EventArgs e)
+        {
+            if (this.gridViewNicotina.FocusedRowHandle < 0)
+            {
+                return;
+            }
+
+            var linea = this.gridViewNicotina.GetFocusedRow() as Linea;
+
+            new Form_ProduccionNicotinaEditor(_blendManager, linea._IDControl).Show(this);
         }
 
         class Blend
@@ -151,6 +166,8 @@ namespace CooperativaProduccion
 
         class Linea
         {
+            public Guid _IDControl { get; set; }
+
             public string Blend { get; set; }
         
             public string Fecha { get; set; }

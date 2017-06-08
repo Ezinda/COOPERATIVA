@@ -58,6 +58,7 @@
             this.btnAgregar = new DevExpress.XtraEditors.SimpleButton();
             this.gridControlNicotina = new DevExpress.XtraGrid.GridControl();
             this.gridViewNicotina = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.btnEliminar = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinCaja.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.timeSpanHora.Properties)).BeginInit();
@@ -365,7 +366,7 @@
             // 
             this.btnBorrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBorrar.Image = ((System.Drawing.Image)(resources.GetObject("btnBorrar.Image")));
-            this.btnBorrar.Location = new System.Drawing.Point(147, 477);
+            this.btnBorrar.Location = new System.Drawing.Point(164, 461);
             this.btnBorrar.Name = "btnBorrar";
             this.btnBorrar.Size = new System.Drawing.Size(125, 21);
             this.btnBorrar.TabIndex = 98;
@@ -375,7 +376,7 @@
             // 
             this.btnAgregar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAgregar.Image = ((System.Drawing.Image)(resources.GetObject("btnAgregar.Image")));
-            this.btnAgregar.Location = new System.Drawing.Point(16, 477);
+            this.btnAgregar.Location = new System.Drawing.Point(33, 461);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(125, 21);
             this.btnAgregar.TabIndex = 97;
@@ -389,7 +390,7 @@
             this.gridControlNicotina.Location = new System.Drawing.Point(16, 185);
             this.gridControlNicotina.MainView = this.gridViewNicotina;
             this.gridControlNicotina.Name = "gridControlNicotina";
-            this.gridControlNicotina.Size = new System.Drawing.Size(562, 286);
+            this.gridControlNicotina.Size = new System.Drawing.Size(562, 270);
             this.gridControlNicotina.TabIndex = 96;
             this.gridControlNicotina.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewNicotina});
@@ -400,11 +401,22 @@
             this.gridViewNicotina.Name = "gridViewNicotina";
             this.gridViewNicotina.OptionsView.ShowGroupPanel = false;
             // 
+            // btnEliminar
+            // 
+            this.btnEliminar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnEliminar.Image = ((System.Drawing.Image)(resources.GetObject("btnEliminar.Image")));
+            this.btnEliminar.Location = new System.Drawing.Point(12, 505);
+            this.btnEliminar.Name = "btnEliminar";
+            this.btnEliminar.Size = new System.Drawing.Size(76, 21);
+            this.btnEliminar.TabIndex = 107;
+            this.btnEliminar.Text = "Eliminar";
+            // 
             // Form_ProduccionNicotinaEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(586, 538);
+            this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.btnBorrar);
             this.Controls.Add(this.groupControl1);
             this.Controls.Add(this.btnGrabar);
@@ -472,5 +484,6 @@
         private DevExpress.XtraEditors.SimpleButton btnAgregar;
         private DevExpress.XtraGrid.GridControl gridControlNicotina;
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewNicotina;
+        private DevExpress.XtraEditors.SimpleButton btnEliminar;
     }
 }
