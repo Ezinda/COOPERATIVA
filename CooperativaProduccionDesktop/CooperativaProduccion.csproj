@@ -286,6 +286,12 @@
     <Compile Include="Form_ProduccionHumedadEditor.Designer.cs">
       <DependentUpon>Form_ProduccionHumedadEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_ProduccionHumedadImpresion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_ProduccionHumedadImpresion.Designer.cs">
+      <DependentUpon>Form_ProduccionHumedadImpresion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_ProduccionMuestras.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -553,6 +559,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="ReportModels\ProduccionDatosDeCalidadAnualDetalle.cs" />
+    <Compile Include="ReportModels\ProduccionHumedad.cs" />
     <Compile Include="ReportModels\ProduccionMuestra.cs" />
     <Compile Include="ReportModels\ProduccionTemperatura.cs" />
     <Compile Include="ReportModels\RegistroEncabezado.cs" />
@@ -581,6 +588,18 @@
     </Compile>
     <Compile Include="Reports\LiquidacionElectronicaReport.Designer.cs">
       <DependentUpon>LiquidacionElectronicaReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\ProduccionHumedadDetalleReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ProduccionHumedadDetalleReport.Designer.cs">
+      <DependentUpon>ProduccionHumedadDetalleReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\ProduccionHumedadReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ProduccionHumedadReport.Designer.cs">
+      <DependentUpon>ProduccionHumedadReport.cs</DependentUpon>
     </Compile>
     <Compile Include="Reports\ProduccionMuestraReport.cs">
       <SubType>Component</SubType>
@@ -838,6 +857,9 @@
     <EmbeddedResource Include="Form_ProduccionHumedadEditor.resx">
       <DependentUpon>Form_ProduccionHumedadEditor.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form_ProduccionHumedadImpresion.resx">
+      <DependentUpon>Form_ProduccionHumedadImpresion.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form_ProduccionMuestras.resx">
       <DependentUpon>Form_ProduccionMuestras.cs</DependentUpon>
     </EmbeddedResource>
@@ -925,6 +947,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\LiquidacionElectronicaReport.resx">
       <DependentUpon>LiquidacionElectronicaReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ProduccionHumedadDetalleReport.resx">
+      <DependentUpon>ProduccionHumedadDetalleReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ProduccionHumedadReport.resx">
+      <DependentUpon>ProduccionHumedadReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\ProduccionMuestraReport.resx">
       <DependentUpon>ProduccionMuestraReport.cs</DependentUpon>

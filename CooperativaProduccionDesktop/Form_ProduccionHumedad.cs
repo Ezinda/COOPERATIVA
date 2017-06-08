@@ -25,6 +25,7 @@ namespace CooperativaProduccion
             this.Load += Form_ProduccionHumedad_Load;
             this.btnBuscar.Click += btnBuscar_Click;
             this.btnNuevo.Click += btnNuevo_Click;
+            this.btnImprimir.Click += btnImprimir_Click;
             this.gridViewHumedad.DoubleClick += gridViewHumedad_DoubleClick;
         }
 
@@ -113,6 +114,11 @@ namespace CooperativaProduccion
         void btnNuevo_Click(object sender, EventArgs e)
         {
             new Form_ProduccionHumedadEditor(_blendManager).Show(this);
+        }
+
+        void btnImprimir_Click(object sender, EventArgs e)
+        {
+            new Form_ProduccionHumedadImpresion(_blendManager).Show(this);
         }
 
         void gridViewHumedad_DoubleClick(object sender, EventArgs e)
