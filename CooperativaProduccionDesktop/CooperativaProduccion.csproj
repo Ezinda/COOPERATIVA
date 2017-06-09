@@ -569,6 +569,7 @@
     <Compile Include="ReportModels\RegistroResumenRomaneoBurley.cs" />
     <Compile Include="ReportModels\RegistroResumenRomaneoVirginia.cs" />
     <Compile Include="ReportModels\ResumenClasePorMes.cs" />
+    <Compile Include="ReportModels\ResumenClasePorQuincena.cs" />
     <Compile Include="ReportModels\ResumenClasePorTrimestre.cs" />
     <Compile Include="ReportModels\ResumenCompra.cs" />
     <Compile Include="Reports\ClasesReport.cs">
@@ -630,6 +631,18 @@
     </Compile>
     <Compile Include="Reports\LiquidacionManualReport.Designer.cs">
       <DependentUpon>LiquidacionManualReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\ResumenDeClasePorQuincenaReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ResumenDeClasePorQuincenaReport.Designer.cs">
+      <DependentUpon>ResumenDeClasePorQuincenaReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\ResumenDeClasePorQuincenaTabacosReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ResumenDeClasePorQuincenaTabacosReport.Designer.cs">
+      <DependentUpon>ResumenDeClasePorQuincenaTabacosReport.cs</DependentUpon>
     </Compile>
     <Compile Include="Reports\ResumenLiquidacionTabacosReport.cs">
       <SubType>Component</SubType>
@@ -968,6 +981,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\LiquidacionManualReport.resx">
       <DependentUpon>LiquidacionManualReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ResumenDeClasePorQuincenaReport.resx">
+      <DependentUpon>ResumenDeClasePorQuincenaReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ResumenDeClasePorQuincenaTabacosReport.resx">
+      <DependentUpon>ResumenDeClasePorQuincenaTabacosReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\ResumenLiquidacionTabacosReport.resx">
       <DependentUpon>ResumenLiquidacionTabacosReport.cs</DependentUpon>

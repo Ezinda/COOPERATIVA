@@ -912,5 +912,11 @@ namespace CooperativaProduccion
             // Show the result.
             StartProcess(fileName);
         }
+
+        private void btnResumenClasesQuincena_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var filtro = new Form_RomaneoFiltroResumen(DevConstantes.ResumenClasesQuincena);
+            filtro.Show();
+        }
     }
 }

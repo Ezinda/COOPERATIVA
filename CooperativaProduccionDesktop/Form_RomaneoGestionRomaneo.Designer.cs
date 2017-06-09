@@ -60,6 +60,7 @@
             this.btnResumenCompra = new DevExpress.XtraBars.BarButtonItem();
             this.btnResumenClasesMes = new DevExpress.XtraBars.BarButtonItem();
             this.btnResumenClasesTrimestre = new DevExpress.XtraBars.BarButtonItem();
+            this.btnResumenClasesQuincena = new DevExpress.XtraBars.BarButtonItem();
             this.btnExportarRomaneo = new DevExpress.XtraBars.BarButtonItem();
             this.btnExportarListaRomaneo = new DevExpress.XtraBars.BarButtonItem();
             this.btnExportarListaRomaneoClases = new DevExpress.XtraBars.BarButtonItem();
@@ -359,9 +360,10 @@
             this.btnResumenClasesTrimestre,
             this.btnExportarRomaneo,
             this.btnExportarListaRomaneo,
-            this.btnExportarListaRomaneoClases});
+            this.btnExportarListaRomaneoClases,
+            this.btnResumenClasesQuincena});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.MaxItemId = 14;
+            this.ribbonControl1.MaxItemId = 15;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
@@ -394,7 +396,8 @@
             new DevExpress.XtraBars.LinkPersistInfo(this.btnResumenRomaneo),
             new DevExpress.XtraBars.LinkPersistInfo(this.btnResumenCompra),
             new DevExpress.XtraBars.LinkPersistInfo(this.btnResumenClasesMes),
-            new DevExpress.XtraBars.LinkPersistInfo(this.btnResumenClasesTrimestre)});
+            new DevExpress.XtraBars.LinkPersistInfo(this.btnResumenClasesTrimestre),
+            new DevExpress.XtraBars.LinkPersistInfo(this.btnResumenClasesQuincena)});
             this.barSubItem2.Name = "barSubItem2";
             this.barSubItem2.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
             // 
@@ -433,6 +436,15 @@
             this.btnResumenClasesTrimestre.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnResumenClasesTrimestre.LargeGlyph")));
             this.btnResumenClasesTrimestre.Name = "btnResumenClasesTrimestre";
             this.btnResumenClasesTrimestre.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnResumenClasesTrimestre_ItemClick);
+            // 
+            // btnResumenClasesQuincena
+            // 
+            this.btnResumenClasesQuincena.Caption = "Resumen de Clases por quincena";
+            this.btnResumenClasesQuincena.Glyph = ((System.Drawing.Image)(resources.GetObject("btnResumenClasesQuincena.Glyph")));
+            this.btnResumenClasesQuincena.Id = 14;
+            this.btnResumenClasesQuincena.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnResumenClasesQuincena.LargeGlyph")));
+            this.btnResumenClasesQuincena.Name = "btnResumenClasesQuincena";
+            this.btnResumenClasesQuincena.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnResumenClasesQuincena_ItemClick);
             // 
             // btnExportarRomaneo
             // 
@@ -571,5 +583,6 @@
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup2;
         private DevExpress.XtraBars.BarButtonItem btnExportarListaRomaneo;
         private DevExpress.XtraBars.BarButtonItem btnExportarListaRomaneoClases;
+        private DevExpress.XtraBars.BarButtonItem btnResumenClasesQuincena;
     }
 }
