@@ -81,6 +81,7 @@ namespace CooperativaProduccion
                 .Where(x => x.Usuario1.Equals(user)
                     && x.Password.Equals(password));
 
+
             if (acceso.Count() == 1)
             {
                 usuario = acceso.FirstOrDefault();
