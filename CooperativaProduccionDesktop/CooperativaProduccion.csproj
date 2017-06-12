@@ -322,6 +322,12 @@
     <Compile Include="Form_ProduccionNicotinaEditor.Designer.cs">
       <DependentUpon>Form_ProduccionNicotinaEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_ProduccionNicotinaImpresion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_ProduccionNicotinaImpresion.Designer.cs">
+      <DependentUpon>Form_ProduccionNicotinaImpresion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_ProduccionNumeroDeOrdenesDeProduccion.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -561,6 +567,7 @@
     <Compile Include="ReportModels\ProduccionDatosDeCalidadAnualDetalle.cs" />
     <Compile Include="ReportModels\ProduccionHumedad.cs" />
     <Compile Include="ReportModels\ProduccionMuestra.cs" />
+    <Compile Include="ReportModels\ProduccionNicotina.cs" />
     <Compile Include="ReportModels\ProduccionTemperatura.cs" />
     <Compile Include="ReportModels\RegistroEncabezado.cs" />
     <Compile Include="ReportModels\RegistroFardo.cs" />
@@ -607,6 +614,12 @@
     </Compile>
     <Compile Include="Reports\ProduccionMuestraReport.Designer.cs">
       <DependentUpon>ProduccionMuestraReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\ProduccionNicotinaReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ProduccionNicotinaReport.Designer.cs">
+      <DependentUpon>ProduccionNicotinaReport.cs</DependentUpon>
     </Compile>
     <Compile Include="Reports\ProduccionTemperaturaDetalleReport.cs">
       <SubType>Component</SubType>
@@ -888,6 +901,9 @@
     <EmbeddedResource Include="Form_ProduccionNicotinaEditor.resx">
       <DependentUpon>Form_ProduccionNicotinaEditor.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form_ProduccionNicotinaImpresion.resx">
+      <DependentUpon>Form_ProduccionNicotinaImpresion.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form_ProduccionNumeroDeOrdenesDeProduccion.resx">
       <DependentUpon>Form_ProduccionNumeroDeOrdenesDeProduccion.cs</DependentUpon>
     </EmbeddedResource>
@@ -969,6 +985,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\ProduccionMuestraReport.resx">
       <DependentUpon>ProduccionMuestraReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ProduccionNicotinaReport.resx">
+      <DependentUpon>ProduccionNicotinaReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\ProduccionTemperaturaDetalleReport.resx">
       <DependentUpon>ProduccionTemperaturaDetalleReport.cs</DependentUpon>

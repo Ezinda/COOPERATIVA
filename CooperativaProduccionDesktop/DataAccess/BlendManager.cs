@@ -1270,12 +1270,12 @@ namespace CooperativaProduccion.DataAccess
             _context.SaveChanges();
         }
 
-        public List<ControlDeNicotinaViewModel> ListarControlesDeNicotina(Guid blendId, DateTime fecha)
+        public List<ControlDeNicotinaViewModel> ListarControlesDeNicotina(Guid blendId, DateTime desde, DateTime hasta)
         {
             var controles = _context.ProduccionNicotina
                     .Include(x => x.ProduccionBlend)
                     .Include(x => x.ProduccionNicotinaDetalle)
-                    .Where(x => x.ProduccionBlend.ProductoId == blendId && x.Fecha == fecha)
+                    .Where(x => x.ProduccionBlend.ProductoId == blendId && x.Fecha >= desde && x.Fecha <= hasta)
                     .ToList();
 
             var result = new List<ControlDeNicotinaViewModel>();

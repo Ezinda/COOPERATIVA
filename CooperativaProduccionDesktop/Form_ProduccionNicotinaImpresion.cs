@@ -12,23 +12,23 @@ using System.Windows.Forms;
 
 namespace CooperativaProduccion
 {
-    public partial class Form_ProduccionTemperaturaImpresion : DevExpress.XtraBars.Ribbon.RibbonForm
+    public partial class Form_ProduccionNicotinaImpresion : DevExpress.XtraBars.Ribbon.RibbonForm
     {
         private IBlendManager _blendManager;
 
-        public Form_ProduccionTemperaturaImpresion(IBlendManager blendManager)
+        public Form_ProduccionNicotinaImpresion(IBlendManager blendManager)
         {
             InitializeComponent();
 
             _blendManager = blendManager;
 
-            this.Load += Form_ProduccionTemperaturaImpresion_Load;
+            this.Load += Form_ProduccionNicotinaImpresion_Load;
             this.dateDesde.ValueChanged += dateDesde_ValueChanged;
             this.dateHasta.ValueChanged += dateHasta_ValueChanged;
             this.btnImprimir.Click += btnImprimir_Click;
         }
 
-        void Form_ProduccionTemperaturaImpresion_Load(object sender, EventArgs e)
+        void Form_ProduccionNicotinaImpresion_Load(object sender, EventArgs e)
         {
             this.dateDesde.Value = DateTime.Now.Date;
 
@@ -50,38 +50,30 @@ namespace CooperativaProduccion
         {
             var blend = _blendManager.GetBlend(blendId);
             var ordenDeProduccion = _blendManager.GetOrdenProduccion(desde.Year, blendId);
-            var temperaturas = _blendManager.ListarControlesDeTemperatura(blendId, desde, hasta);
-            var records = new List<ProduccionTemperaturaRecord>();
-            var details = new List<ProduccionTemperaturaDetalleRecord>();
+            var controles = _blendManager.ListarControlesDeNicotina(blendId, desde, hasta);
+            var records = new List<ProduccionNicotinaRecord>();
 
-            temperaturas.ForEach(x =>
+            controles.ForEach(x =>
             {
-                records.Add(new ProduccionTemperaturaRecord()
+                foreach (var linea in x.Lineas)
                 {
-                    _Fecha = x.Fecha.ToShortDateString(),
+                    records.Add(new ProduccionNicotinaRecord()
+                    {
+                        _Fecha = x.Fecha.ToShortDateString(),
+                        _Hora = x.Hora.ToString(@"hh\:mm"),
 
-                    Corrida = x.Corrida,
-                    Minimo = x.Minimo,
-                    Meta = x.Meta,
-                    Maximo = x.Maximo
-                });
-
-                details.AddRange(x.Lineas.Select(y => new ProduccionTemperaturaDetalleRecord()
-                {
-                    Fecha = x.Fecha.ToShortDateString(),
-                    Hora = y.Hora.ToString(@"hh\:mm"),
-                    Turno = String.Empty,
-                    Caja = y.Caja,
-                    TempEmpaque = y.TemperaturaEmpaque,
-                    Ejecuto = String.Empty,
-                    TempAmbiente = y.TemperaturaAmbiente,
-                    Observaciones = y.Observaciones
-                }).ToList());
+                        Cajas = linea.CajaDesde + "-" + linea.CajaHasta,
+                        PorcentajeH = linea.PorcentajeHumedad.ToString(),
+                        Valor1 = linea.Valor1.ToString(),
+                        Valor2 = linea.Valor2.ToString(),
+                        PorcentajeALC = linea.PorcentajeALC.ToString(),
+                        PorcentajeNicotina = linea.PorcentajeNicotina.ToString()
+                    });
+                }
             }); 
             
-            var reporte = new ProduccionTemperaturaReport();
+            var reporte = new ProduccionNicotinaReport();
             reporte.DataSource = records;
-            reporte.Subreport.ReportSource.DataSource = details;
             
             reporte.Parameters["Blend"].Value = blend.Descripcion.Trim();
             reporte.Parameters["OrdenProduccion"].Value = ordenDeProduccion;
@@ -108,7 +100,7 @@ namespace CooperativaProduccion
             var reporte = _GenerarReporte((Guid)this.cbBlend.SelectedValue, this.dateDesde.Value.Date, this.dateHasta.Value.Date);
 
             Form_AdministracionWinReport wr = new Form_AdministracionWinReport();
-            wr.Text = "Producción: Reporte de Temperatura";
+            wr.Text = "Producción: Reporte de Nicotina";
             wr.documentViewerReports.DocumentSource = reporte;
             
             wr.Show();

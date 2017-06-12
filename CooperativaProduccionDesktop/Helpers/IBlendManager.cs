@@ -66,6 +66,6 @@ namespace CooperativaProduccion.Helpers
 
         void DeleteControlNicotina(Guid controlId);
 
-        List<ControlDeNicotinaViewModel> ListarControlesDeNicotina(Guid blendId, DateTime fecha);
+        List<ControlDeNicotinaViewModel> ListarControlesDeNicotina(Guid blendId, DateTime desde, DateTime hasta);
     }
 }

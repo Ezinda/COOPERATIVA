@@ -107,7 +107,7 @@ namespace CooperativaProduccion
             var reporte = _GenerarReporte((Guid)this.cbBlend.SelectedValue, this.dateDesde.Value.Date, this.dateHasta.Value.Date);
 
             Form_AdministracionWinReport wr = new Form_AdministracionWinReport();
-            wr.Text = "Producción: Reporte de Muestras";
+            wr.Text = "Producción: Reporte de Humedad";
             wr.documentViewerReports.DocumentSource = reporte;
             
             wr.Show();

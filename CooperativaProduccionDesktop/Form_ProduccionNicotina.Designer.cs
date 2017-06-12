@@ -41,6 +41,7 @@
             this.btnBuscar = new DevExpress.XtraEditors.SimpleButton();
             this.cbBlend = new System.Windows.Forms.ComboBox();
             this.lblBlend = new System.Windows.Forms.Label();
+            this.btnImprimir = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupResultados)).BeginInit();
             this.groupResultados.SuspendLayout();
@@ -78,7 +79,7 @@
             this.groupResultados.Controls.Add(this.gridControlNicotina);
             this.groupResultados.Location = new System.Drawing.Point(12, 93);
             this.groupResultados.Name = "groupResultados";
-            this.groupResultados.Size = new System.Drawing.Size(669, 361);
+            this.groupResultados.Size = new System.Drawing.Size(537, 361);
             this.groupResultados.TabIndex = 90;
             this.groupResultados.Text = "Resultados de búsqueda";
             // 
@@ -88,7 +89,7 @@
             this.gridControlNicotina.Location = new System.Drawing.Point(2, 20);
             this.gridControlNicotina.MainView = this.gridViewNicotina;
             this.gridControlNicotina.Name = "gridControlNicotina";
-            this.gridControlNicotina.Size = new System.Drawing.Size(665, 339);
+            this.gridControlNicotina.Size = new System.Drawing.Size(533, 339);
             this.gridControlNicotina.TabIndex = 68;
             this.gridControlNicotina.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewNicotina});
@@ -112,10 +113,11 @@
             // groupOpciones
             // 
             this.groupOpciones.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupOpciones.Controls.Add(this.btnImprimir);
             this.groupOpciones.Controls.Add(this.btnNuevo);
             this.groupOpciones.Location = new System.Drawing.Point(555, 37);
             this.groupOpciones.Name = "groupOpciones";
-            this.groupOpciones.Size = new System.Drawing.Size(126, 50);
+            this.groupOpciones.Size = new System.Drawing.Size(126, 415);
             this.groupOpciones.TabIndex = 89;
             this.groupOpciones.Text = "Opciones";
             // 
@@ -195,6 +197,15 @@
             this.lblBlend.TabIndex = 57;
             this.lblBlend.Text = "Blend";
             // 
+            // btnImprimir
+            // 
+            this.btnImprimir.Image = ((System.Drawing.Image)(resources.GetObject("btnImprimir.Image")));
+            this.btnImprimir.Location = new System.Drawing.Point(5, 51);
+            this.btnImprimir.Name = "btnImprimir";
+            this.btnImprimir.Size = new System.Drawing.Size(116, 22);
+            this.btnImprimir.TabIndex = 42;
+            this.btnImprimir.Text = "Imprimir reporte";
+            // 
             // Form_ProduccionNicotina
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -237,5 +248,6 @@
         private DevExpress.XtraEditors.SimpleButton btnBuscar;
         private System.Windows.Forms.ComboBox cbBlend;
         private System.Windows.Forms.Label lblBlend;
+        private DevExpress.XtraEditors.SimpleButton btnImprimir;
     }
 }

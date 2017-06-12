@@ -26,6 +26,7 @@ namespace CooperativaProduccion
             this.Load += Form_ProduccionNicotina_Load;
             this.btnBuscar.Click += btnBuscar_Click;
             this.btnNuevo.Click += btnNuevo_Click;
+            this.btnImprimir.Click += btnImprimir_Click;
             this.gridViewNicotina.DoubleClick += gridViewNicotina_DoubleClick;
         }
 
@@ -79,7 +80,7 @@ namespace CooperativaProduccion
             var fecha = dateFecha.Value.Date;
             var blendId = (Guid)cbBlend.SelectedValue;
 
-            var controles = _blendManager.ListarControlesDeNicotina(blendId, fecha);
+            var controles = _blendManager.ListarControlesDeNicotina(blendId, fecha, fecha);
                 //.Select(x => new LineaControl()
                 //{
                 //    Blend = x.Blend.Descripcion,
@@ -130,6 +131,11 @@ namespace CooperativaProduccion
         void btnNuevo_Click(object sender, EventArgs e)
         {
             new Form_ProduccionNicotinaEditor(_blendManager).Show(this);
+        }
+
+        void btnImprimir_Click(object sender, EventArgs e)
+        {
+            new Form_ProduccionNicotinaImpresion(_blendManager).Show(this);
         }
 
         void gridViewNicotina_DoubleClick(object sender, EventArgs e)

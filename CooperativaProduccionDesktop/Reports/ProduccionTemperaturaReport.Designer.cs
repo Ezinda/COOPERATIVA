@@ -31,14 +31,14 @@
             this.components = new System.ComponentModel.Container();
             this.Detail = new DevExpress.XtraReports.UI.DetailBand();
             this.Subreport = new DevExpress.XtraReports.UI.XRSubreport();
+            this.xrLabel145 = new DevExpress.XtraReports.UI.XRLabel();
+            this.xrLabel146 = new DevExpress.XtraReports.UI.XRLabel();
             this.TopMargin = new DevExpress.XtraReports.UI.TopMarginBand();
             this.BottomMargin = new DevExpress.XtraReports.UI.BottomMarginBand();
             this.PageHeader = new DevExpress.XtraReports.UI.PageHeaderBand();
             this.xrLabel141 = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLabel142 = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLabel143 = new DevExpress.XtraReports.UI.XRLabel();
-            this.xrLabel146 = new DevExpress.XtraReports.UI.XRLabel();
-            this.xrLabel145 = new DevExpress.XtraReports.UI.XRLabel();
             this.Blend = new DevExpress.XtraReports.Parameters.Parameter();
             this.OrdenProduccion = new DevExpress.XtraReports.Parameters.Parameter();
             this.Corrida = new DevExpress.XtraReports.Parameters.Parameter();
@@ -46,6 +46,7 @@
             this.Meta = new DevExpress.XtraReports.Parameters.Parameter();
             this.Maximo = new DevExpress.XtraReports.Parameters.Parameter();
             this.objectDataSource1 = new DevExpress.DataAccess.ObjectBinding.ObjectDataSource(this.components);
+            this.xrLabel1 = new DevExpress.XtraReports.UI.XRLabel();
             ((System.ComponentModel.ISupportInitialize)(this.objectDataSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
@@ -70,6 +71,32 @@
             this.Subreport.ReportSource = new CooperativaProduccion.Reports.ProduccionTemperaturaDetalleReport();
             this.Subreport.SizeF = new System.Drawing.SizeF(750.9999F, 116.75F);
             // 
+            // xrLabel145
+            // 
+            this.xrLabel145.Dpi = 100F;
+            this.xrLabel145.Font = new System.Drawing.Font("Arial", 11F);
+            this.xrLabel145.LocationFloat = new DevExpress.Utils.PointFloat(550.0416F, 10.00001F);
+            this.xrLabel145.Multiline = true;
+            this.xrLabel145.Name = "xrLabel145";
+            this.xrLabel145.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.xrLabel145.SizeF = new System.Drawing.SizeF(200.9583F, 60.75004F);
+            this.xrLabel145.StylePriority.UseFont = false;
+            this.xrLabel145.Text = "Mínimo: [Minimo]\r\nMeta: [Meta]\r\nMáximo: [Maximo]";
+            // 
+            // xrLabel146
+            // 
+            this.xrLabel146.Dpi = 100F;
+            this.xrLabel146.Font = new System.Drawing.Font("Arial", 11F, System.Drawing.FontStyle.Bold);
+            this.xrLabel146.LocationFloat = new DevExpress.Utils.PointFloat(0F, 47.75003F);
+            this.xrLabel146.Name = "xrLabel146";
+            this.xrLabel146.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.xrLabel146.SizeF = new System.Drawing.SizeF(537.5416F, 23F);
+            this.xrLabel146.StylePriority.UseFont = false;
+            this.xrLabel146.StylePriority.UseTextAlignment = false;
+            this.xrLabel146.Text = "BLEND: [Parameters.Blend]   O. PRODUCCION N°: [Parameters.OrdenProduccion]   CORR" +
+    "IDA: [Corrida]";
+            this.xrLabel146.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter;
+            // 
             // TopMargin
             // 
             this.TopMargin.Dpi = 100F;
@@ -89,11 +116,12 @@
             // PageHeader
             // 
             this.PageHeader.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
+            this.xrLabel1,
             this.xrLabel141,
             this.xrLabel142,
             this.xrLabel143});
             this.PageHeader.Dpi = 100F;
-            this.PageHeader.HeightF = 23F;
+            this.PageHeader.HeightF = 48F;
             this.PageHeader.Name = "PageHeader";
             // 
             // xrLabel141
@@ -130,32 +158,6 @@
             this.xrLabel143.Text = "CONTROL DE CALIDAD";
             this.xrLabel143.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter;
             // 
-            // xrLabel146
-            // 
-            this.xrLabel146.Dpi = 100F;
-            this.xrLabel146.Font = new System.Drawing.Font("Arial", 11F, System.Drawing.FontStyle.Bold);
-            this.xrLabel146.LocationFloat = new DevExpress.Utils.PointFloat(0F, 47.75003F);
-            this.xrLabel146.Name = "xrLabel146";
-            this.xrLabel146.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
-            this.xrLabel146.SizeF = new System.Drawing.SizeF(537.5416F, 23F);
-            this.xrLabel146.StylePriority.UseFont = false;
-            this.xrLabel146.StylePriority.UseTextAlignment = false;
-            this.xrLabel146.Text = "BLEND: [Parameters.Blend]   O. PRODUCCION N°: [Parameters.OrdenProduccion]   CORR" +
-    "IDA: [Corrida]";
-            this.xrLabel146.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter;
-            // 
-            // xrLabel145
-            // 
-            this.xrLabel145.Dpi = 100F;
-            this.xrLabel145.Font = new System.Drawing.Font("Arial", 11F);
-            this.xrLabel145.LocationFloat = new DevExpress.Utils.PointFloat(550.0416F, 10.00001F);
-            this.xrLabel145.Multiline = true;
-            this.xrLabel145.Name = "xrLabel145";
-            this.xrLabel145.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
-            this.xrLabel145.SizeF = new System.Drawing.SizeF(200.9583F, 60.75004F);
-            this.xrLabel145.StylePriority.UseFont = false;
-            this.xrLabel145.Text = "Mínimo: [Minimo]\r\nMeta: [Meta]\r\nMáximo: [Maximo]";
-            // 
             // Blend
             // 
             this.Blend.Name = "Blend";
@@ -190,6 +192,19 @@
             // 
             this.objectDataSource1.DataSource = typeof(CooperativaProduccion.ReportModels.ProduccionTemperaturaRecord);
             this.objectDataSource1.Name = "objectDataSource1";
+            // 
+            // xrLabel1
+            // 
+            this.xrLabel1.Dpi = 100F;
+            this.xrLabel1.Font = new System.Drawing.Font("Arial", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))));
+            this.xrLabel1.LocationFloat = new DevExpress.Utils.PointFloat(6.357829E-05F, 25F);
+            this.xrLabel1.Name = "xrLabel1";
+            this.xrLabel1.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.xrLabel1.SizeF = new System.Drawing.SizeF(750.9998F, 23F);
+            this.xrLabel1.StylePriority.UseFont = false;
+            this.xrLabel1.StylePriority.UseTextAlignment = false;
+            this.xrLabel1.Text = "CONTROL DE TEMPERATURA EN PRODUCTO FINAL";
+            this.xrLabel1.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter;
             // 
             // ProduccionTemperaturaReport
             // 
@@ -234,5 +249,6 @@
         private DevExpress.XtraReports.Parameters.Parameter Maximo;
         public DevExpress.XtraReports.UI.XRSubreport Subreport;
         private DevExpress.DataAccess.ObjectBinding.ObjectDataSource objectDataSource1;
+        private DevExpress.XtraReports.UI.XRLabel xrLabel1;
     }
 }
