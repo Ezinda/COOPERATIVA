@@ -1615,8 +1615,16 @@ namespace CooperativaProduccion
             reporte.Parameters["Provincia"].Value = cbProvincia.Text.ToUpper();
             reporte.Parameters["Quincena01"].Value = CultureInfo.CreateSpecificCulture("es").TextInfo.ToUpper(mes01) + " 1ra Quincena";
             reporte.Parameters["Quincena02"].Value = CultureInfo.CreateSpecificCulture("es").TextInfo.ToUpper(mes01) + " 2da Quincena";
-            reporte.Parameters["Quincena03"].Value = CultureInfo.CreateSpecificCulture("es").TextInfo.ToUpper(mes02) + " 1ra Quincena";
-            reporte.Parameters["Quincena04"].Value = CultureInfo.CreateSpecificCulture("es").TextInfo.ToUpper(mes02) + " 2da Quincena";
+            if (hasta.Month != desde.Month && hasta.Year == desde.Year)
+            {
+                reporte.Parameters["Quincena03"].Value = CultureInfo.CreateSpecificCulture("es").TextInfo.ToUpper(mes02) + " 1ra Quincena";
+                reporte.Parameters["Quincena04"].Value = CultureInfo.CreateSpecificCulture("es").TextInfo.ToUpper(mes02) + " 2da Quincena";
+            }
+            else
+            {
+                reporte.Parameters["Quincena03"].Value = string.Empty;
+                reporte.Parameters["Quincena04"].Value = string.Empty;
+            }
             reporte.Parameters["Desde"].Value = desde.ToShortDateString();
             reporte.Parameters["Hasta"].Value = hasta.ToShortDateString();
 

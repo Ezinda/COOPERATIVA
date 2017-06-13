@@ -18,6 +18,7 @@ using System.IO;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid;
 using DevExpress.Utils;
+using EntityFramework.Extensions;
 
 namespace CooperativaProduccion
 {
@@ -209,25 +210,26 @@ namespace CooperativaProduccion
                     ProductoId = producto.ID;
                     try
                     {
-                        LoteCaja = ContadorNumeroLote(dpIngresoCaja.Value.Year, ProductoId);
-                        for (int i = 0; i < cantidad; i++)
-                        {
-                            Caja caja;
-                            caja = new Caja();
-                            caja.Id = Guid.NewGuid();
-                            caja.NumeroCaja = ContadorNumeroCaja(dpIngresoCaja.Value.Year, ProductoId);
-                            caja.LoteCaja = LoteCaja;
-                            caja.Campaña = dpIngresoCaja.Value.Year;
-                            caja.Fecha = dpIngresoCaja.Value.Date;
-                            caja.Hora = DateTime.Now.TimeOfDay;
-                            caja.ProductoId = producto.ID;
-                            caja.Bruto = decimal.Parse(txtBruto.Text, CultureInfo.InvariantCulture);
-                            caja.Tara = decimal.Parse(txtTara.Text, CultureInfo.InvariantCulture);
-                            caja.Neto = decimal.Parse(txtNeto.Text, CultureInfo.InvariantCulture);
-                            Context.Caja.Add(caja);
-                            Context.SaveChanges();
-                            RegistrarMovimiento(caja.Id, 1, caja.Fecha);
-                        }
+                        TransferenciaProduccionDeposito(dpIngresoCaja.Value.Date, producto.ID);
+                        //LoteCaja = ContadorNumeroLote(dpIngresoCaja.Value.Year, ProductoId);
+                        //for (int i = 0; i < cantidad; i++)
+                        //{
+                        //    Caja caja;
+                        //    caja = new Caja();
+                        //    caja.Id = Guid.NewGuid();
+                        //    caja.NumeroCaja = ContadorNumeroCaja(dpIngresoCaja.Value.Year, ProductoId);
+                        //    caja.LoteCaja = LoteCaja;
+                        //    caja.Campaña = dpIngresoCaja.Value.Year;
+                        //    caja.Fecha = dpIngresoCaja.Value.Date;
+                        //    caja.Hora = DateTime.Now.TimeOfDay;
+                        //    caja.ProductoId = producto.ID;
+                        //    caja.Bruto = decimal.Parse(txtBruto.Text, CultureInfo.InvariantCulture);
+                        //    caja.Tara = decimal.Parse(txtTara.Text, CultureInfo.InvariantCulture);
+                        //    caja.Neto = decimal.Parse(txtNeto.Text, CultureInfo.InvariantCulture);
+                        //    Context.Caja.Add(caja);
+                        //    Context.SaveChanges();
+                        //    RegistrarMovimientoIngreso(caja.Id, 1, caja.Fecha);
+                        //}
                     }
                     catch
                     {
@@ -325,7 +327,95 @@ namespace CooperativaProduccion
             return numLote;
         }
 
-        private Guid RegistrarMovimiento(Guid Id, double kilos, DateTime fecha)
+        private void TransferenciaProduccionDeposito(DateTime Fecha, Guid ProductoId)
+        {
+            var fardos =
+               (from f in Context.FardoEnProduccion
+                .Where(x => x.ProductoId == ProductoId
+                    && x.Fecha == Fecha)
+                join m in Context.Movimiento
+                    .Where(x => x.Fecha == Fecha
+                        && x.DepositoId == DevConstantes.ProduccionEnProceso)
+                on f.PesadaDetalleId equals m.TransaccionId
+                group new { f, m } by new
+                {
+                    PesadaDetalleId = f.PesadaDetalleId,
+                    Kilos = f.Kilos,
+                    Fecha = f.Fecha,
+
+                } into g
+                select new FardosEgreso
+                {
+                    PesadaDetalleId = g.Key.PesadaDetalleId,
+                    Kilos = g.Key.Kilos,
+                    Fecha = g.Key.Fecha,
+                    Egreso = g.Sum(c => c.m.Egreso)
+                })
+                .Where(x=>x.Egreso <= 0)
+                .ToList();
+
+            List<Movimiento> list = new List<Movimiento>();
+
+            RegistrarMovimientoEgreso(fardos);
+
+            //foreach (var item in fardos)
+            //{
+            //    UpdateMovimientoActual(item.PesadaDetalleId);
+            //}              
+        }
+
+        private void RegistrarMovimientoEgreso(List<FardosEgreso> fardos)
+        {
+            List<Movimiento> list = new List<Movimiento>();
+
+            foreach (var item in fardos)
+            {
+
+                UpdateMovimientoActual(item.PesadaDetalleId);
+
+                Movimiento movimiento;
+
+                movimiento = new Movimiento();
+                movimiento.Id = Guid.NewGuid();
+                movimiento.Fecha = item.Fecha;
+                movimiento.TransaccionId = item.PesadaDetalleId;
+                movimiento.Documento = DevConstantes.Transferencia;
+                movimiento.Unidad = DevConstantes.Kg;
+                movimiento.Ingreso = 0;
+                movimiento.Egreso = item.Kilos;
+                movimiento.Actual = false;
+                movimiento.Anulado = false;
+
+                var deposito = Context.Vw_Deposito
+                    .Where(x => x.id == DevConstantes.ProduccionEnProceso)
+                    .FirstOrDefault();
+
+                movimiento.DepositoId = deposito.id;
+
+                list.Add(movimiento);
+            }
+
+            Context.Configuration.AutoDetectChangesEnabled = false;
+            Context.Configuration.ValidateOnSaveEnabled = false;
+            Context.Movimiento.AddRange(list);
+            Context.SaveChanges();
+
+        }
+
+        private void UpdateMovimientoActual(Guid Id)
+        {
+            Context.Configuration.AutoDetectChangesEnabled = false;
+            Context.Configuration.ValidateOnSaveEnabled = false;
+
+            var movimiento = Context.Movimiento
+                 .Where(x => x.TransaccionId == Id
+                     && x.DepositoId != DevConstantes.DepositoCaja)
+                     .Update(x => new Movimiento() { Actual = false });
+
+            Context.SaveChanges();
+        }
+
+        private Guid RegistrarMovimientoIngreso(Guid Id, double kilos, DateTime fecha)
         {
             Movimiento movimiento;
 
@@ -353,6 +443,13 @@ namespace CooperativaProduccion
             Context.SaveChanges();
 
             return movimiento.Id;
+        }
+
+        private void RegistrarMovimientoEgreso(Guid Id, double kilos, DateTime fecha)
+        {
+           
+
+
         }
 
         private void cbProductoConsulta_SelectedIndexChanged(object sender, EventArgs e)
@@ -642,5 +739,13 @@ namespace CooperativaProduccion
                 throw;
             }
         }
+    }
+
+    internal class FardosEgreso
+    {
+        public Guid PesadaDetalleId { get; set; }
+        public double? Kilos { get; set; }
+        public DateTime Fecha { get; set; }
+        public double? Egreso { get; set; }
     }
 }
