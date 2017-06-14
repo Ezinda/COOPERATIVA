@@ -188,6 +188,7 @@ namespace CooperativaProduccion.DataAccess
                 {
                     Id = blend.Id,
                     Descripcion = blend.Descripcion,
+                    Periodo = periodo,
                     OrdenDeProduccion = orden != null ? orden.OrdenProduccion : 0
                 });
             }
@@ -211,7 +212,13 @@ namespace CooperativaProduccion.DataAccess
                 if (blend != null)
                 {
                     flagSeActualizo = true;
-                    ordenExistente.OrdenProduccion = blend.OrdenDeProduccion;
+
+                    if (blend.OrdenDeProduccion != 0)
+                    {
+                        ordenExistente.OrdenProduccion = blend.OrdenDeProduccion;
+                    }
+                    
+                    ordenExistente.Descripcion = blend.Descripcion;
                     _context.Entry(ordenExistente).State = EntityState.Modified;
                 }
             }
@@ -1301,6 +1308,106 @@ namespace CooperativaProduccion.DataAccess
                     }).ToList()
                 });
             }
+
+            return result;
+        }
+
+        public List<RendimientoViewModel> ListarDatosDeRendimiento(Guid[] blendsId, DateTime desde, DateTime hasta)
+        {
+            var periodoDesde = desde.Year;
+            var periodoHasta = hasta.Year;
+
+            var blends = _context.ProduccionBlend
+                    .Where(x => blendsId.Contains(x.ProductoId.Value) && x.Periodo >= periodoDesde && x.Periodo <= periodoHasta)
+                    .Select(x => new BlendDePeriodoViewModel()
+                    {
+                        Id = x.ProductoId ?? Guid.Empty,
+                        Descripcion = x.Descripcion,
+                        Periodo = x.Periodo.Value,
+                        OrdenDeProduccion = x.OrdenProduccion
+                    })
+                    .ToList();
+
+            if (blends.Count == 0)
+            {
+                return new List<RendimientoViewModel>();
+            }
+
+            var corridas = _context.ProduccionCorrida
+                .Where(x => blendsId.Contains(x.ProduccionBlend.ProductoId.Value) && x.Fecha >= desde && x.Fecha <= hasta)
+                .Select(x => new
+                {
+                    x.ProduccionBlend.ProductoId,
+                    x.Fecha,
+                    x.NumeroCorrida
+                })
+                .ToList();
+
+            if (corridas.Count == 0)
+            {
+                return new List<RendimientoViewModel>();
+            }
+
+            var cajas = _context.Caja
+                .Where(x => x.Fecha >= desde && x.Fecha <= hasta && blendsId.Contains(x.ProductoId))
+                .ToList();
+
+            var fardos = _context.FardoEnProduccion
+                .Where(x => x.Fecha >= desde && x.Fecha <= hasta && blendsId.Contains(x.ProductoId.Value))
+                .GroupBy(x => new { x.ProductoId, x.Fecha })
+                .Select(g => new
+                {
+                    ProductoId = g.Key.ProductoId,
+                    Fecha = g.Key.Fecha,
+                    Kilos = g.Sum(x => x.Kilos)
+                })
+                .ToList();
+
+            var result = new List<RendimientoViewModel>();
+            BlendDePeriodoViewModel currentBlendVM = null;
+
+            foreach (var productoId in blendsId)
+	        {
+                for (DateTime fechaItem = desde; fechaItem <= hasta; fechaItem = fechaItem.AddDays(1))
+                {
+                    var cajasDeFecha = cajas.Where(x => x.Fecha == fechaItem && x.ProductoId == productoId).ToList();
+
+                    if (cajasDeFecha.Count == 0)
+                    {
+                        continue;
+                    }
+
+                    if (currentBlendVM == null || currentBlendVM.Periodo != fechaItem.Year || currentBlendVM.Id != productoId)
+                    {
+                        try
+                        {
+                            currentBlendVM = blends.Where(x => x.Id == productoId && x.Periodo == fechaItem.Year).Single();
+                        }
+                        catch
+                        {
+                            fechaItem = new DateTime(fechaItem.Year, 12, 31);
+
+                            continue;
+                        }
+                    }
+
+                    var corrida = corridas.Where(x => x.Fecha == fechaItem && x.ProductoId == productoId).Select(x => x.NumeroCorrida).FirstOrDefault();
+
+                    result.Add(new RendimientoViewModel()
+                    {
+                        Blend = currentBlendVM,
+                        BlendDescripcion = currentBlendVM.Descripcion,
+                        Fecha = fechaItem,
+                        OrdenDeProduccion = currentBlendVM.OrdenDeProduccion,
+                        Corrida = corrida,
+                        Tara = cajasDeFecha[0].Tara,
+                        PrimeraCaja = cajasDeFecha.Min(x => x.NumeroCaja),
+                        UltimaCaja = cajasDeFecha.Max(x => x.NumeroCaja),
+                        NumeroCajas = cajasDeFecha.Count(),
+                        Kilos = Convert.ToInt64(fardos.Where(x => x.ProductoId == productoId && x.Fecha == fechaItem).Select(x => x.Kilos).FirstOrDefault()),
+                    });
+                }
+	        }
 
             return result;
         }

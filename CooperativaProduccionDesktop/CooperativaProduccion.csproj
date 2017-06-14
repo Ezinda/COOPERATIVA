@@ -340,6 +340,12 @@
     <Compile Include="Form_ProduccionRegistrosDeCalidad.Designer.cs">
       <DependentUpon>Form_ProduccionRegistrosDeCalidad.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_ProduccionRegistrosDeRendimiento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_ProduccionRegistrosDeRendimiento.Designer.cs">
+      <DependentUpon>Form_ProduccionRegistrosDeRendimiento.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_ProduccionTemperatura.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -568,6 +574,7 @@
     <Compile Include="ReportModels\ProduccionHumedad.cs" />
     <Compile Include="ReportModels\ProduccionMuestra.cs" />
     <Compile Include="ReportModels\ProduccionNicotina.cs" />
+    <Compile Include="ReportModels\ProduccionRegistroDatosDeRendimientoDetalle.cs" />
     <Compile Include="ReportModels\ProduccionTemperatura.cs" />
     <Compile Include="ReportModels\RegistroEncabezado.cs" />
     <Compile Include="ReportModels\RegistroFardo.cs" />
@@ -781,6 +788,7 @@
     <Compile Include="ViewModels\MuestraViewModel.cs" />
     <Compile Include="ViewModels\OrdenDePagoViewModel.cs" />
     <Compile Include="ViewModels\ProductorViewModel.cs" />
+    <Compile Include="ViewModels\RendimientoViewModel.cs" />
     <Compile Include="ViewModels\RetencionViewModel.cs" />
     <EmbeddedResource Include="Controls\AdministracionGeneracionOPControl.resx">
       <DependentUpon>AdministracionGeneracionOPControl.cs</DependentUpon>
@@ -909,6 +917,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_ProduccionRegistrosDeCalidad.resx">
       <DependentUpon>Form_ProduccionRegistrosDeCalidad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_ProduccionRegistrosDeRendimiento.resx">
+      <DependentUpon>Form_ProduccionRegistrosDeRendimiento.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_ProduccionTemperatura.resx">
       <DependentUpon>Form_ProduccionTemperatura.cs</DependentUpon>
@@ -1068,6 +1079,9 @@
       <DependentUpon>SplashScreen1.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
+    <None Include="PlantillaRendimiento.xls">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Properties\DataSources\CooperativaProduccion.Helpers.GridRecords.GridLiquidacionDetalle.datasource" />
     <None Include="Properties\DataSources\CooperativaProduccion.ReportModels.RegistroResumenRomaneoBurley.datasource" />
     <None Include="Properties\Settings.settings">

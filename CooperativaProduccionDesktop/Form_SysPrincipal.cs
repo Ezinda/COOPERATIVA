@@ -401,5 +401,10 @@ namespace CooperativaProduccion
         {
             new Form_ProduccionRegistrosDeCalidad(new DataAccess.BlendManager()).Show();
         }
+
+        private void barProduccionRegistrosDeRendimiento_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            new Form_ProduccionRegistrosDeRendimiento(new DataAccess.BlendManager()).Show();
+        }
     }
 }

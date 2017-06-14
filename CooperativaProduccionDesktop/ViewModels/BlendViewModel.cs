@@ -18,6 +18,8 @@ namespace CooperativaProduccion.ViewModels
 
         public string Descripcion { get; set; }
 
+        public int Periodo { get; set; }
+
         public int OrdenDeProduccion { get; set; }
     }
 }

@@ -91,8 +91,6 @@ namespace CooperativaProduccion
                 return;
             }
 
-            var ordenes = new List<BlendDePeriodoViewModel>();
-
             foreach (var item in _detalle)
 	        {
 	        	 _ordenes.Where(x => x.Descripcion == item.Blend).Single().OrdenDeProduccion = item.NumeroOrden;
