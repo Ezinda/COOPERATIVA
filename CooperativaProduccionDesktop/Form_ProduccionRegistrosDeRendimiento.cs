@@ -290,6 +290,8 @@ namespace CooperativaProduccion
                     Type.Missing);
 
                 oWB.Close();
+
+                oXL.Quit();
             }
             catch (Exception ex)
             {
