@@ -19,6 +19,7 @@ using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid;
 using DevExpress.Utils;
 using EntityFramework.Extensions;
+using System.Threading.Tasks;
 
 namespace CooperativaProduccion
 {
@@ -210,26 +211,28 @@ namespace CooperativaProduccion
                     ProductoId = producto.ID;
                     try
                     {
-                        TransferenciaProduccionDeposito(dpIngresoCaja.Value.Date, producto.ID);
-                        //LoteCaja = ContadorNumeroLote(dpIngresoCaja.Value.Year, ProductoId);
-                        //for (int i = 0; i < cantidad; i++)
-                        //{
-                        //    Caja caja;
-                        //    caja = new Caja();
-                        //    caja.Id = Guid.NewGuid();
-                        //    caja.NumeroCaja = ContadorNumeroCaja(dpIngresoCaja.Value.Year, ProductoId);
-                        //    caja.LoteCaja = LoteCaja;
-                        //    caja.Campaña = dpIngresoCaja.Value.Year;
-                        //    caja.Fecha = dpIngresoCaja.Value.Date;
-                        //    caja.Hora = DateTime.Now.TimeOfDay;
-                        //    caja.ProductoId = producto.ID;
-                        //    caja.Bruto = decimal.Parse(txtBruto.Text, CultureInfo.InvariantCulture);
-                        //    caja.Tara = decimal.Parse(txtTara.Text, CultureInfo.InvariantCulture);
-                        //    caja.Neto = decimal.Parse(txtNeto.Text, CultureInfo.InvariantCulture);
-                        //    Context.Caja.Add(caja);
-                        //    Context.SaveChanges();
-                        //    RegistrarMovimientoIngreso(caja.Id, 1, caja.Fecha);
-                        //}
+                        Task task = new Task(() => TransferenciaProduccionDeposito(dpIngresoCaja.Value.Date, producto.ID));
+                        task.Start();
+
+                        LoteCaja = ContadorNumeroLote(dpIngresoCaja.Value.Year, ProductoId);
+                        for (int i = 0; i < cantidad; i++)
+                        {
+                            Caja caja;
+                            caja = new Caja();
+                            caja.Id = Guid.NewGuid();
+                            caja.NumeroCaja = ContadorNumeroCaja(dpIngresoCaja.Value.Year, ProductoId);
+                            caja.LoteCaja = LoteCaja;
+                            caja.Campaña = dpIngresoCaja.Value.Year;
+                            caja.Fecha = dpIngresoCaja.Value.Date;
+                            caja.Hora = DateTime.Now.TimeOfDay;
+                            caja.ProductoId = producto.ID;
+                            caja.Bruto = decimal.Parse(txtBruto.Text, CultureInfo.InvariantCulture);
+                            caja.Tara = decimal.Parse(txtTara.Text, CultureInfo.InvariantCulture);
+                            caja.Neto = decimal.Parse(txtNeto.Text, CultureInfo.InvariantCulture);
+                            Context.Caja.Add(caja);
+                            Context.SaveChanges();
+                            RegistrarMovimientoIngreso(caja.Id, 1, caja.Fecha);
+                        }
                     }
                     catch
                     {
@@ -354,14 +357,8 @@ namespace CooperativaProduccion
                 .Where(x=>x.Egreso <= 0)
                 .ToList();
 
-            List<Movimiento> list = new List<Movimiento>();
-
             RegistrarMovimientoEgreso(fardos);
-
-            //foreach (var item in fardos)
-            //{
-            //    UpdateMovimientoActual(item.PesadaDetalleId);
-            //}              
+         
         }
 
         private void RegistrarMovimientoEgreso(List<FardosEgreso> fardos)
@@ -370,7 +367,6 @@ namespace CooperativaProduccion
 
             foreach (var item in fardos)
             {
-
                 UpdateMovimientoActual(item.PesadaDetalleId);
 
                 Movimiento movimiento;
@@ -399,7 +395,6 @@ namespace CooperativaProduccion
             Context.Configuration.ValidateOnSaveEnabled = false;
             Context.Movimiento.AddRange(list);
             Context.SaveChanges();
-
         }
 
         private void UpdateMovimientoActual(Guid Id)
@@ -415,7 +410,7 @@ namespace CooperativaProduccion
             Context.SaveChanges();
         }
 
-        private Guid RegistrarMovimientoIngreso(Guid Id, double kilos, DateTime fecha)
+        private void RegistrarMovimientoIngreso(Guid Id, double kilos, DateTime fecha)
         {
             Movimiento movimiento;
 
@@ -441,15 +436,6 @@ namespace CooperativaProduccion
 
             Context.Movimiento.Add(movimiento);
             Context.SaveChanges();
-
-            return movimiento.Id;
-        }
-
-        private void RegistrarMovimientoEgreso(Guid Id, double kilos, DateTime fecha)
-        {
-           
-
-
         }
 
         private void cbProductoConsulta_SelectedIndexChanged(object sender, EventArgs e)

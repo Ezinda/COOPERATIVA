@@ -143,6 +143,7 @@
             this.TabIngresoCaja.Controls.Add(this.groupControl1);
             this.TabIngresoCaja.Image = ((System.Drawing.Image)(resources.GetObject("TabIngresoCaja.Image")));
             this.TabIngresoCaja.Name = "TabIngresoCaja";
+            this.TabIngresoCaja.PageVisible = false;
             this.TabIngresoCaja.Size = new System.Drawing.Size(1053, 454);
             this.TabIngresoCaja.Text = "Ingreso de Cajas";
             // 
