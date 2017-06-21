@@ -335,9 +335,9 @@ namespace CooperativaProduccion
             var fardos =
                (from f in Context.FardoEnProduccion
                 .Where(x => x.ProductoId == ProductoId
-                    && x.Fecha == Fecha)
+                    && x.Fecha <= Fecha)
                 join m in Context.Movimiento
-                    .Where(x => x.Fecha == Fecha
+                    .Where(x => x.Fecha <= Fecha
                         && x.DepositoId == DevConstantes.ProduccionEnProceso)
                 on f.PesadaDetalleId equals m.TransaccionId
                 group new { f, m } by new
