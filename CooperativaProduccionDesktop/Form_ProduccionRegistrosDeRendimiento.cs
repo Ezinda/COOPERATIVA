@@ -203,12 +203,6 @@ namespace CooperativaProduccion
 
                     var registros = listaRendimiento.Where(x => x.Blend == blend).OrderBy(x => x.Fecha).ToList();
 
-                    oSheetBlendPeriodo.get_Range("H5", "H5").Formula = "=SUM(H7:H9684)";
-                    oSheetBlendPeriodo.get_Range("I5", "I5").Formula = "=SUM(I7:I9685)";
-                    oSheetBlendPeriodo.get_Range("J5", "J5").Formula = "=SUM(J7:J9685)";
-                    oSheetBlendPeriodo.get_Range("K5", "K5").Formula = "=SUM(K7:K685)";
-                    oSheetBlendPeriodo.get_Range("L5", "L5").Formula = "=IF(ISERROR(+((K5)/(I5))*100), 0, +((K5)/(I5))*100)";
-
                     for (int i = 0; i < registros.Count; i++)
                     {
                         var row = (i + 7);
@@ -230,6 +224,12 @@ namespace CooperativaProduccion
 
                     // borrar la ultima fila la cual esta vacia vacia
                     ((Microsoft.Office.Interop.Excel.Range)oSheetBlendPeriodo.Rows[(registros.Count + 7), System.Reflection.Missing.Value]).Delete(Microsoft.Office.Interop.Excel.XlDeleteShiftDirection.xlShiftUp);
+
+                    oSheetBlendPeriodo.get_Range("H5", "H5").Formula = "=SUM(H7:H9684)";
+                    oSheetBlendPeriodo.get_Range("I5", "I5").Formula = "=SUM(I7:I9685)";
+                    oSheetBlendPeriodo.get_Range("J5", "J5").Formula = "=SUM(J7:J9685)";
+                    oSheetBlendPeriodo.get_Range("K5", "K5").Formula = "=SUM(K7:K685)";
+                    oSheetBlendPeriodo.get_Range("L5", "L5").Formula = "=IF(ISERROR(+((K5)/(I5))*100), 0, +((K5)/(I5))*100)";
 
                     RngToCopy = oSheetBlendPeriodo.get_Range("B" + (registros.Count - 1 + 7 + 5), "D" + (registros.Count - 1 + 7 + 5)).EntireRow.Copy(Type.Missing);
 
