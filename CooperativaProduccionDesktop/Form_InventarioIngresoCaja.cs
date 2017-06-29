@@ -192,8 +192,10 @@ namespace CooperativaProduccion
             {
                 return;
             }
+            btnGenerarLote.Enabled = false;
             GenerarLoteCajas();
             BuscarCaja(LoteCaja);
+            btnGenerarLote.Enabled = true;
         }
 
         private void GenerarLoteCajas()
@@ -211,8 +213,11 @@ namespace CooperativaProduccion
                     ProductoId = producto.ID;
                     try
                     {
-                        Task task = new Task(() => TransferenciaProduccionDeposito(dpIngresoCaja.Value.Date, producto.ID));
-                        task.Start();
+                       
+                        Task
+                        .Factory
+                        .StartNew(() => TransferenciaProduccionDeposito(dpIngresoCaja.Value.Date, producto.ID))
+                        .Wait();
 
                         LoteCaja = ContadorNumeroLote(dpIngresoCaja.Value.Year, ProductoId);
                         for (int i = 0; i < cantidad; i++)

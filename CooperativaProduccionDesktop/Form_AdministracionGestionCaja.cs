@@ -19,6 +19,7 @@ using EntityFramework.Extensions;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid;
 using DevExpress.Utils;
+using System.Threading.Tasks;
 
 namespace CooperativaProduccion
 {
@@ -27,6 +28,7 @@ namespace CooperativaProduccion
         public CooperativaProduccionEntities Context { get; set; }
         private long LoteCaja;
         private string printerTicket;
+        private List<CajaCata> ListCajaCata = new List<CajaCata>();
 
         public Form_AdministracionGestionCaja()
         {
@@ -569,8 +571,8 @@ namespace CooperativaProduccion
                 {
                     return;
                 }
-                AsignarCata();
-                BuscarCajaConsulta(txtCantidadCajaConsulta.Text);
+                Task task = new Task(() => AsignarCata());
+                task.Start();
             }
         }
 
@@ -650,7 +652,7 @@ namespace CooperativaProduccion
                      join ca in Context.Cata
                          on c.CataId equals ca.Id into cat
                      from joined in cat.DefaultIfEmpty()
-                     select new
+                     select new CajaCata
                      {
                          Id = c.Id,
                          Campaña = c.Campaña,
@@ -660,7 +662,9 @@ namespace CooperativaProduccion
                          Tara = c.Tara,
                          Neto = c.Neto,
                          Bruto = c.Bruto,
-                         Cata = joined.NumCata
+                         Cata = joined.NumCata,
+                         OrdenVentaId = c.OrdenVentaId,
+                         NumOrden = c.OrdenVenta != null ? c.OrdenVenta.NumOrden : (long?)null
                      })
                      .Take(cantidad)
                      .OrderBy(x => x.Campaña)
@@ -668,6 +672,7 @@ namespace CooperativaProduccion
                      .ToList();
 
                 gridControlCajaConsulta.DataSource = result;
+                ListCajaCata = result.ToList<CajaCata>();
             }
             else
             {
@@ -680,7 +685,7 @@ namespace CooperativaProduccion
                    join ca in Context.Cata
                         on c.CataId equals ca.Id into cat
                    from joined in cat.DefaultIfEmpty()
-                   select new
+                   select new CajaCata
                    {
                        Id = c.Id,
                        Campaña = c.Campaña,
@@ -690,15 +695,18 @@ namespace CooperativaProduccion
                        Tara = c.Tara,
                        Neto = c.Neto,
                        Bruto = c.Bruto,
-                       Cata = joined.NumCata
+                       Cata = joined.NumCata,
+                       OrdenVentaId = c.OrdenVentaId,
+                       NumOrden = c.OrdenVenta != null ? c.OrdenVenta.NumOrden : (long?)null
                    })
                    .OrderBy(x => x.Campaña)
                    .ThenBy(x => x.NumCaja)
                    .ToList();
 
                 gridControlCajaConsulta.DataSource = result;
+                ListCajaCata = result.ToList<CajaCata>();
             }
-
+            
             gridViewCajaConsulta.Columns[0].Visible = false;
             gridViewCajaConsulta.Columns[1].Caption = "Campaña";
             gridViewCajaConsulta.Columns[1].Width = 90;
@@ -716,8 +724,8 @@ namespace CooperativaProduccion
             gridViewCajaConsulta.Columns[7].Width = 100;
             gridViewCajaConsulta.Columns[8].Caption = "N° Cata";
             gridViewCajaConsulta.Columns[8].Width = 200;
-           
-
+            gridViewCajaConsulta.Columns[9].Visible = false;
+            gridViewCajaConsulta.Columns[10].Visible = false;
             for (var i = 0; i <= gridViewCajaConsulta.RowCount; i++)
             {
                 gridViewCajaConsulta.SelectRow(i);
@@ -735,45 +743,106 @@ namespace CooperativaProduccion
 
         private void AsignarCata()
         {
-            for (int i = 0; i < gridViewCajaConsulta.DataRowCount; i++)
+            var count = ListCajaCata.Where(x => x.Cata == null).Count();
+
+            var catas = Context.Cata
+                .Where(x => x.NumCaja == null)
+                .OrderBy(x => x.NumCata)
+                .Select(x => x.Id)
+                .Take(count)
+                .ToList();
+
+            foreach (var item in ListCajaCata.Where(x=>x.Cata == null))
             {
-                CooperativaProduccionEntities Context = new CooperativaProduccionEntities();
-
-                Guid CajaId = new Guid(gridViewCajaConsulta
-                    .GetRowCellValue(i, "Id")
-                    .ToString());
-                var existeCata = Context.Caja
-                    .Where(x => x.Id == CajaId
-                        && x.CataId == null)
-                        .Any();
-                if (existeCata)
+                foreach (var cata in catas)
                 {
-                    var Cata = Context.Cata
-                        .Where(x => x.NumCaja == null)
-                        .FirstOrDefault();
-
-                    var cajaUpdate = Context.Caja
-                        .Where(x => x.Id == CajaId)
-                        .Update(x => new Caja() { CataId = Cata.Id });
-
-                    Context.SaveChanges();
-
-                    var caja = Context.Caja
-                        .Where(x => x.Id == CajaId)
-                        .FirstOrDefault();
-
-                    var CataUpdate = Context.Cata.Where(x => x.Id == Cata.Id)
-                        .Update(x => new Cata()
-                        {
-                            CajaId = CajaId,
-                            NumCaja = caja.NumeroCaja,
-                            OrdenVentaId = caja.OrdenVentaId,
-                            NumOrden = caja.OrdenVenta.NumOrden
-                        });
-
+                    //Guid CajaId = item.Id;
+                    //var cajaUpdate = Context.Caja
+                    //      .Where(x => x.Id == CajaId)
+                    //      .Update(x => new Caja() { CataId = cata });
+                    var caja = Context.Caja.Find(item.Id);
+                    caja.CataId = cata;
+                    Context.Entry(caja).State = EntityState.Modified;
                     Context.SaveChanges();
                 }
+                
+                //var CataUpdate = Context.Cata
+                //    .Where(x => x.Id == Cata)
+                //    .Update(x => new Cata()
+                //    {
+                //        CajaId = item.Id,
+                //        NumCaja = item.NumCaja,
+                //        OrdenVentaId = item.OrdenVentaId,
+                //        NumOrden = item.NumOrden
+                //    });
             }
+               
+            
+
+            //for (int i = 0; i < gridViewCajaConsulta.DataRowCount; i++)
+            //{
+            //    var NumeroCata = gridViewCajaConsulta.GetRowCellValue(i, "Cata");
+
+            //    if (NumeroCata == null)
+            //    {
+            //        Guid CajaId = new Guid(gridViewCajaConsulta
+            //            .GetRowCellValue(i, "Id")
+            //            .ToString());
+            
+            //        var Cata = Context.Cata
+            //            .Where(x => x.NumCaja == null)
+            //            .OrderBy(x => x.NumCata).
+            //            .FirstOrDefault();
+
+            //        try
+            //        {
+            //            //disable detection of changes to improve performance
+            //            Context.Configuration.AutoDetectChangesEnabled = false;
+
+            //            //for all the entities to update...
+            //            var cajaUpdate = Context.Caja
+            //                  .Where(x => x.Id == CajaId)
+            //                  .Update(x => new Caja() { CataId = Cata.Id });
+            //            //then perform the update
+            //            Context.SaveChanges();
+            //        }
+            //        finally
+            //        {
+            //            //re-enable detection of changes
+            //            Context.Configuration.AutoDetectChangesEnabled = true;
+            //        }
+
+            //        CooperativaProduccionEntities _Context = new CooperativaProduccionEntities();
+
+            //        var caja = _Context.Caja
+            //            .Where(x => x.Id == CajaId)
+            //            .FirstOrDefault();
+            //        try
+            //        {
+            //            //disable detection of changes to improve performance
+            //            Context.Configuration.AutoDetectChangesEnabled = false;
+
+
+            //            var CataUpdate = _Context.Cata
+            //            .Where(x => x.Id == Cata.Id)
+            //            .Update(x => new Cata()
+            //            {
+            //                CajaId = CajaId,
+            //                NumCaja = caja.NumeroCaja,
+            //                OrdenVentaId = caja.OrdenVenta != null ? caja.OrdenVentaId : null,
+            //                NumOrden = caja.OrdenVenta != null ? caja.OrdenVenta.NumOrden : (long?)null
+            //            });
+
+            //            _Context.SaveChanges();
+            //        }
+            //        finally
+            //        {
+            //            //re-enable detection of changes
+            //            Context.Configuration.AutoDetectChangesEnabled = true;
+            //        }
+            //    }
+            // }
+            BuscarCajaConsulta(txtCantidadCajaConsulta.Text);
         }
 
         private bool ValidarConsulta()
@@ -882,6 +951,21 @@ namespace CooperativaProduccion
         }
     }
 
+    internal class CajaCata
+    {
+        public Guid Id { get; set; }
+        public int Campaña { get; set; }
+        public long NumLote { get; set; }
+        public long NumCaja { get; set; }
+        public string Producto { get; set; }
+        public decimal Tara { get; set; }
+        public decimal Neto { get; set; }
+        public decimal Bruto { get; set; }
+        public long? Cata { get; set; }       
+        public Guid? OrdenVentaId { get; set; }
+        public long? NumOrden { get; set; }
+}
+
     public class OrdenVentaProducto
     {
         public Guid OrdenId { get; set; }
@@ -889,4 +973,6 @@ namespace CooperativaProduccion
         public int Campaña { get; set; }
         public string Descripcion { get; set; }
     }
+
+
 }
