@@ -505,6 +505,12 @@ namespace CooperativaProduccion
                         spinCaja.Focus();
                         spinCaja.SelectAll();
                     }
+                    else if (ex.Message == "Muestra repetida")
+                    {
+                        MessageBox.Show("Una muestra con el mismo blend, periodo, y número de caja ya se encuentra registrada", "No se puede grabar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        spinCaja.Focus();
+                        spinCaja.SelectAll();
+                    }
                 }
             }
             else

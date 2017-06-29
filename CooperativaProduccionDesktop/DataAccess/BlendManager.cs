@@ -56,6 +56,15 @@ namespace CooperativaProduccion.DataAccess
             return blends;
         }
 
+        private bool _ExisteMuestra(Guid productoId, long numeroDeCaja, int campania)
+        {
+            return _context.ProduccionMuestra
+                .Where(x =>
+                    x.ProduccionBlend.ProductoId == productoId && x.ProduccionBlend.Periodo == campania
+                    && x.Caja == numeroDeCaja && x.Fecha.Year == campania)
+                .Any();
+        }
+
         private CajaData _GetCaja(Guid productoId, long numeroDeCaja, int campania)
         {
             return _context.Caja
@@ -357,6 +366,16 @@ namespace CooperativaProduccion.DataAccess
                 throw new Exception("No existe Caja");
             }
 
+            try
+            {
+                if (_ExisteMuestra(muestra.Blend.Id, muestra.Caja, muestra.Fecha.Year))
+                    throw new Exception("Muestra repetida");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
             var dBblendId = _GetDbBlendId(muestra.Blend, muestra.Fecha.Year);
 
             var row = new ProduccionMuestra()
@@ -450,6 +469,16 @@ namespace CooperativaProduccion.DataAccess
             catch
             {
                 throw new Exception("No existe Caja");
+            }
+
+            try
+            {
+                if (_ExisteMuestra(muestravm.Blend.Id, muestravm.Caja, muestravm.Fecha.Year))
+                    throw new Exception("Muestra repetida");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
 
             var dBblendId = _GetDbBlendId(muestravm.Blend, muestravm.Fecha.Year);
