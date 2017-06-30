@@ -213,10 +213,6 @@ namespace CooperativaProduccion
                     ProductoId = producto.ID;
                     try
                     {
-                       
-                        Task
-                        .Factory
-                        .StartNew(() => TransferenciaProduccionDeposito(dpIngresoCaja.Value.Date, producto.ID));
 
                         LoteCaja = ContadorNumeroLote(dpIngresoCaja.Value.Year, ProductoId);
                         for (int i = 0; i < cantidad; i++)
@@ -237,10 +233,14 @@ namespace CooperativaProduccion
                             Context.SaveChanges();
                             RegistrarMovimientoIngreso(caja.Id, 1, caja.Fecha);
                         }
+
+                        Task
+                        .Factory
+                        .StartNew(() => TransferenciaProduccionDeposito(dpIngresoCaja.Value.Date, producto.ID));                        
                     }
-                    catch
+                    catch(Exception e)
                     {
-                        throw;
+                        Console.WriteLine(e.Message);
                     }
                 }
             }
@@ -248,6 +248,7 @@ namespace CooperativaProduccion
 
         private void BuscarCaja(long Lote)
         {
+            //CooperativaProduccionEntities Context = new CooperativaProduccionEntities();
             var result =
                 (from c in Context.Caja
                      .Where(x => x.LoteCaja == Lote)
