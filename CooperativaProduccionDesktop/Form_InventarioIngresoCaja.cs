@@ -216,8 +216,7 @@ namespace CooperativaProduccion
                        
                         Task
                         .Factory
-                        .StartNew(() => TransferenciaProduccionDeposito(dpIngresoCaja.Value.Date, producto.ID))
-                        .Wait();
+                        .StartNew(() => TransferenciaProduccionDeposito(dpIngresoCaja.Value.Date, producto.ID));
 
                         LoteCaja = ContadorNumeroLote(dpIngresoCaja.Value.Year, ProductoId);
                         for (int i = 0; i < cantidad; i++)

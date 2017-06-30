@@ -571,8 +571,9 @@ namespace CooperativaProduccion
                 {
                     return;
                 }
-                Task task = new Task(() => AsignarCata());
-                task.Start();
+                btnAsignarCata.Enabled = false;
+                btnBuscarCaja.Enabled = false;
+                backgroundWorker1.RunWorkerAsync();
             }
         }
 
@@ -743,106 +744,55 @@ namespace CooperativaProduccion
 
         private void AsignarCata()
         {
-            var count = ListCajaCata.Where(x => x.Cata == null).Count();
-
-            var catas = Context.Cata
-                .Where(x => x.NumCaja == null)
-                .OrderBy(x => x.NumCata)
-                .Select(x => x.Id)
-                .Take(count)
-                .ToList();
-
-            foreach (var item in ListCajaCata.Where(x=>x.Cata == null))
+            progressBar1.BeginInvoke((MethodInvoker)(() => progressBar1.Maximum = gridViewCajaConsulta.DataRowCount));
+            progressBar1.BeginInvoke((MethodInvoker)(() => progressBar1.Value = 0));
+            Context.Configuration.AutoDetectChangesEnabled = false;
+            int count=0;
+            foreach (var item in ListCajaCata.Where(x => x.Cata == null))
             {
-                foreach (var cata in catas)
-                {
-                    //Guid CajaId = item.Id;
-                    //var cajaUpdate = Context.Caja
-                    //      .Where(x => x.Id == CajaId)
-                    //      .Update(x => new Caja() { CataId = cata });
-                    var caja = Context.Caja.Find(item.Id);
-                    caja.CataId = cata;
-                    Context.Entry(caja).State = EntityState.Modified;
-                    Context.SaveChanges();
-                }
-                
-                //var CataUpdate = Context.Cata
-                //    .Where(x => x.Id == Cata)
-                //    .Update(x => new Cata()
+
+                //}
+                //for (int i = 0; i < gridViewCajaConsulta.DataRowCount; i++)
+                //{
+                //    var NumeroCata = gridViewCajaConsulta.GetRowCellValue(i, "Cata");
+
+                //    if (NumeroCata == null)
                 //    {
-                //        CajaId = item.Id,
-                //        NumCaja = item.NumCaja,
-                //        OrdenVentaId = item.OrdenVentaId,
-                //        NumOrden = item.NumOrden
-                //    });
+                //Guid CajaId = new Guid(gridViewCajaConsulta
+                //    .GetRowCellValue(i, "Id")
+                //    .ToString());
+
+                var Cata = Context.Cata
+                    .Where(x => x.NumCaja == null)
+                    .OrderBy(x => x.NumCata)
+                    .Select(x => x.Id)
+                    .FirstOrDefault();
+
+                //disable detection of changes to improve performance
+
+                //for all the entities to update...
+                var cajaUpdate = Context.Caja
+                      .Where(x => x.Id == item.Id)
+                      .Update(x => new Caja() { CataId = Cata });
+                //then perform the update
+                //var caja = Context.Caja
+                //    .Where(x => x.Id == item.Id)
+                //    .FirstOrDefault();
+
+                var CataUpdate = Context.Cata
+                .Where(x => x.Id == Cata)
+                .Update(x => new Cata()
+                {
+                    CajaId = item.Id,
+                    NumCaja = item.NumCaja,
+                    OrdenVentaId = item.OrdenVentaId != null ? item.OrdenVentaId : null,
+                    NumOrden = item.NumOrden != null ? item.NumOrden : (long?)null
+                });
+                Context.SaveChanges();
+                backgroundWorker1.ReportProgress(count);
+                count++;
             }
-               
-            
-
-            //for (int i = 0; i < gridViewCajaConsulta.DataRowCount; i++)
-            //{
-            //    var NumeroCata = gridViewCajaConsulta.GetRowCellValue(i, "Cata");
-
-            //    if (NumeroCata == null)
-            //    {
-            //        Guid CajaId = new Guid(gridViewCajaConsulta
-            //            .GetRowCellValue(i, "Id")
-            //            .ToString());
-            
-            //        var Cata = Context.Cata
-            //            .Where(x => x.NumCaja == null)
-            //            .OrderBy(x => x.NumCata).
-            //            .FirstOrDefault();
-
-            //        try
-            //        {
-            //            //disable detection of changes to improve performance
-            //            Context.Configuration.AutoDetectChangesEnabled = false;
-
-            //            //for all the entities to update...
-            //            var cajaUpdate = Context.Caja
-            //                  .Where(x => x.Id == CajaId)
-            //                  .Update(x => new Caja() { CataId = Cata.Id });
-            //            //then perform the update
-            //            Context.SaveChanges();
-            //        }
-            //        finally
-            //        {
-            //            //re-enable detection of changes
-            //            Context.Configuration.AutoDetectChangesEnabled = true;
-            //        }
-
-            //        CooperativaProduccionEntities _Context = new CooperativaProduccionEntities();
-
-            //        var caja = _Context.Caja
-            //            .Where(x => x.Id == CajaId)
-            //            .FirstOrDefault();
-            //        try
-            //        {
-            //            //disable detection of changes to improve performance
-            //            Context.Configuration.AutoDetectChangesEnabled = false;
-
-
-            //            var CataUpdate = _Context.Cata
-            //            .Where(x => x.Id == Cata.Id)
-            //            .Update(x => new Cata()
-            //            {
-            //                CajaId = CajaId,
-            //                NumCaja = caja.NumeroCaja,
-            //                OrdenVentaId = caja.OrdenVenta != null ? caja.OrdenVentaId : null,
-            //                NumOrden = caja.OrdenVenta != null ? caja.OrdenVenta.NumOrden : (long?)null
-            //            });
-
-            //            _Context.SaveChanges();
-            //        }
-            //        finally
-            //        {
-            //            //re-enable detection of changes
-            //            Context.Configuration.AutoDetectChangesEnabled = true;
-            //        }
-            //    }
-            // }
-            BuscarCajaConsulta(txtCantidadCajaConsulta.Text);
+            Context.Configuration.AutoDetectChangesEnabled = true;
         }
 
         private bool ValidarConsulta()
@@ -948,6 +898,28 @@ namespace CooperativaProduccion
         private void Cata_SelectedPageChanged(object sender, DevExpress.XtraTab.TabPageChangedEventArgs e)
         {
             CargarCombo();
+        }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+           AsignarCata();
+        }
+
+        private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            progressBar1.Value = e.ProgressPercentage;
+        }
+
+        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            BuscarCajaConsulta(txtCantidadCajaConsulta.Text);
+            btnAsignarCata.BeginInvoke((MethodInvoker)(() => btnAsignarCata.Enabled = true));
+            btnBuscarCaja.BeginInvoke((MethodInvoker)(() => btnBuscarCaja.Enabled = true));
+        }
+
+        private void Form_AdministracionGestionCaja_Load(object sender, EventArgs e)
+        {
+            CheckForIllegalCrossThreadCalls = false;
         }
     }
 

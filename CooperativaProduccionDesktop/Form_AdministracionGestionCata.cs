@@ -13,6 +13,7 @@ using System.Linq.Expressions;
 using Extensions;
 using System.Globalization;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace CooperativaProduccion
 {
@@ -22,6 +23,7 @@ namespace CooperativaProduccion
         private string target;
         private int numerolote;
         private long numerocata;
+        private List<CataCaja> ListCataCaja = new List<CataCaja>();
 
         public Form_AdministracionGestionCata()
         {
@@ -198,7 +200,9 @@ namespace CooperativaProduccion
             {
                 return;
             }
-            CrearTxtVinculacion();
+
+            Task.Factory.StartNew(() => CrearTxtVinculacion());
+
         }
 
         private void Cata_SelectedPageChanged(object sender, DevExpress.XtraTab.TabPageChangedEventArgs e)
@@ -254,16 +258,16 @@ namespace CooperativaProduccion
             pred = !(checkTodos.Checked) ? 
                 pred.And(x => x.Lote == lote) : pred;
 
-            var result = (
-                from a in Context.Cata.Where(pred)
+            var result = 
+                (from a in Context.Cata.Where(pred)
                 join p in Context.Vw_Producto
                     on a.Caja.ProductoId equals p.ID into cp
                 from joined in cp.DefaultIfEmpty()
-                select new
+                select new CataCaja
                 {
-                    ID = a.Id,
-                    Lote = a.Lote,
-                    Cata = (string)a.NumCata.Value.ToString() ?? string.Empty,
+                    Id = a.Id,
+                    Lote = a.Lote.Value,
+                    Cata = a.NumCata,
                     NumOrden = a.NumOrden ?? 0,
                     NumCaja = a.NumCaja ?? 0,
                     Producto = joined.DESCRIPCION,
@@ -273,9 +277,10 @@ namespace CooperativaProduccion
                     Bruto = (decimal?)a.Caja.Bruto ?? 0
                 })
                 .OrderBy(x => x.Lote)
-                .ThenBy(x => x.NumCaja)
+                .ThenBy(x => x.Cata)
                 .ToList();
 
+            ListCataCaja = result.ToList<CataCaja>();
             gridControlCata.DataSource = result;
             gridViewCata.Columns[0].Visible = false;
             gridViewCata.Columns[1].Caption = "Lote";
@@ -389,30 +394,15 @@ namespace CooperativaProduccion
                 {
                     string Cuit = DevConstantes.CuitEmpresa.Replace("-","");
                     sw.WriteLine("1;"+Cuit+";46;"+cbLote.Text);
-                    var lote = long.Parse(cbLote.SelectedValue.ToString());
-                    var catas = Context.Cata
-                        .Where(x=>x.Lote == lote && x.NumCaja != null)
-                        .ToList();
-                    foreach (var cata in catas)
+
+                    foreach (var cata in ListCataCaja.Where(x=>x.NumCaja!=0))
                     {
-                        var caja = Context.Caja
-                            .Where(x=>x.CataId == cata.Id)
-                            .FirstOrDefault();
-                        sw.WriteLine("2;" + cata.NumCata + ";2;1;" + caja.Bruto + ";"
+                        sw.WriteLine("2;" + cata.Cata + ";2;1;" + cata.Bruto + ";"
                             + cata.NumOrden.ToString().PadLeft(8, '0')
                             + cata.NumCaja.ToString().PadLeft(19, '0'));
                     }
                 }
 
-                // Write file contents on console. 
-                using (StreamReader sr = File.OpenText(fileName))
-                {
-                    string s = "";
-                    while ((s = sr.ReadLine()) != null)
-                    {
-                        Console.WriteLine(s);
-                    }
-                }
                 MessageBox.Show("Archivo de vinculación creado.",
                    "Confirmación", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -456,5 +446,19 @@ namespace CooperativaProduccion
 
         #endregion
  
+    }
+
+    internal class CataCaja
+    {
+        public Guid Id { get; set; }
+        public long Lote { get; set; }
+        public long? Cata { get; set; }
+        public long? NumOrden { get; set; }
+        public long NumCaja { get; set; }
+        public string Producto { get; set; }
+        public int Campaña { get; set; }
+        public decimal Neto { get; set; }
+        public decimal Tara { get; set; }
+        public decimal Bruto { get; set; }
     }
 }

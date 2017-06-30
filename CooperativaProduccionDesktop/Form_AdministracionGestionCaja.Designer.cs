@@ -77,6 +77,8 @@
             this.btnBuscarCaja = new DevExpress.XtraEditors.SimpleButton();
             this.cbProductoConsulta = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Cata)).BeginInit();
             this.Cata.SuspendLayout();
@@ -373,6 +375,7 @@
             // 
             // TabConsultaCaja
             // 
+            this.TabConsultaCaja.Controls.Add(this.progressBar1);
             this.TabConsultaCaja.Controls.Add(this.groupControl8);
             this.TabConsultaCaja.Controls.Add(this.groupControl7);
             this.TabConsultaCaja.Controls.Add(this.groupControl6);
@@ -463,9 +466,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupControl6.Controls.Add(this.gridControlCajaConsulta);
-            this.groupControl6.Location = new System.Drawing.Point(-1, 52);
+            this.groupControl6.Location = new System.Drawing.Point(-1, 68);
             this.groupControl6.Name = "groupControl6";
-            this.groupControl6.Size = new System.Drawing.Size(1053, 369);
+            this.groupControl6.Size = new System.Drawing.Size(1053, 352);
             this.groupControl6.TabIndex = 75;
             this.groupControl6.Text = "Lista de Cajas";
             // 
@@ -476,7 +479,7 @@
             this.gridControlCajaConsulta.MainView = this.gridViewCajaConsulta;
             this.gridControlCajaConsulta.MenuManager = this.ribbon;
             this.gridControlCajaConsulta.Name = "gridControlCajaConsulta";
-            this.gridControlCajaConsulta.Size = new System.Drawing.Size(1049, 347);
+            this.gridControlCajaConsulta.Size = new System.Drawing.Size(1049, 330);
             this.gridControlCajaConsulta.TabIndex = 68;
             this.gridControlCajaConsulta.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewCajaConsulta,
@@ -633,6 +636,22 @@
             this.label3.TabIndex = 57;
             this.label3.Text = "Producto";
             // 
+            // progressBar1
+            // 
+            this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressBar1.Location = new System.Drawing.Point(1, 52);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(1052, 15);
+            this.progressBar1.TabIndex = 77;
+            // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.WorkerReportsProgress = true;
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
+            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
+            // 
             // Form_AdministracionGestionCaja
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -645,6 +664,7 @@
             this.Ribbon = this.ribbon;
             this.Text = "Administración - Gestión de Cajas";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.Form_AdministracionGestionCaja_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Cata)).EndInit();
             this.Cata.ResumeLayout(false);
@@ -727,5 +747,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox checkSinCata;
         private System.Windows.Forms.CheckBox checkCata;
+        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }
