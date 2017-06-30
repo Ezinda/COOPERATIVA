@@ -234,9 +234,12 @@ namespace CooperativaProduccion
                             RegistrarMovimientoIngreso(caja.Id, 1, caja.Fecha);
                         }
 
-                        Task
-                        .Factory
-                        .StartNew(() => TransferenciaProduccionDeposito(dpIngresoCaja.Value.Date, producto.ID));                        
+                        //Task
+                        //.Factory
+                        //.StartNew(() => TransferenciaProduccionDeposito(dpIngresoCaja.Value.Date, producto.ID));                        
+                        
+                        Task task = new Task(() => TransferenciaProduccionDeposito(dpIngresoCaja.Value.Date, producto.ID));
+                        task.Start();
                     }
                     catch(Exception e)
                     {
