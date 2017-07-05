@@ -104,11 +104,18 @@ namespace CooperativaProduccion
             var desde = dpDesde.Value.Date;
             var hasta = dpHasta.Value.Date;
 
-            var ordenesDeProduccion = _blendManager.ListarOrdenesDeProduccion(periodo)
-                .OrderBy(x => x.OrdenDeProduccion)
-                .ToList();
+            //var ordenesDeProduccion = _blendManager.ListarOrdenesDeProduccion(periodo)
+            //    .OrderBy(x => x.OrdenDeProduccion)
+            //    .ToList();
 
             var listaDatosDeRendimiento = _blendManager.ListarDatosDeRendimiento(blendsId, desde, hasta);
+
+            if (listaDatosDeRendimiento.Count == 0)
+            {
+                MessageBox.Show("No hay registros para listar.", "Sin registros", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                return;
+            }
 
             try
             {
@@ -190,104 +197,112 @@ namespace CooperativaProduccion
                     .ThenBy(x => x.Descripcion)
                     .ToList();
 
-                foreach (var blend in blendPorPeriodo)
+                if (blendPorPeriodo.Count > 0)
                 {
-                    oSheetEnBLanco.Copy(Type.Missing, oWB.Sheets[oWB.Sheets.Count]);
-                    oWB.Sheets[oWB.Sheets.Count].Name = blend.Descripcion + "-" + blend.Periodo;
-
-                    var oSheetBlendPeriodo = (Microsoft.Office.Interop.Excel.Worksheet)oWB.Worksheets[blend.Descripcion + "-" + blend.Periodo];
-                    var RngToCopy = oSheetBlendPeriodo.get_Range("A7", "L7").EntireRow.Copy(Type.Missing);
-
-                    // Celda B3
-                    oSheetBlendPeriodo.Cells[3, 2] = "BLEND: " + blend.Descripcion;
-
-                    var registros = listaRendimiento.Where(x => x.Blend == blend).OrderBy(x => x.Fecha).ToList();
-
-                    for (int i = 0; i < registros.Count; i++)
+                    foreach (var blend in blendPorPeriodo)
                     {
-                        var row = (i + 7);
+                        oSheetEnBLanco.Copy(Type.Missing, oWB.Sheets[oWB.Sheets.Count]);
+                        oWB.Sheets[oWB.Sheets.Count].Name = blend.Descripcion + "-" + blend.Periodo;
 
-                        Microsoft.Office.Interop.Excel.Range RngToInsert = oSheetBlendPeriodo.get_Range("A" + row, Type.Missing).EntireRow;
-                        RngToInsert.Insert(Microsoft.Office.Interop.Excel.XlInsertShiftDirection.xlShiftDown, RngToCopy);
+                        var oSheetBlendPeriodo = (Microsoft.Office.Interop.Excel.Worksheet)oWB.Worksheets[blend.Descripcion + "-" + blend.Periodo];
+                        var RngToCopy = oSheetBlendPeriodo.get_Range("A7", "L7").EntireRow.Copy(Type.Missing);
 
-                        oSheetBlendPeriodo.Cells[row, 01].Value2 = registros[i].BlendDescripcion;
-                        oSheetBlendPeriodo.Cells[row, 02].Value2 = registros[i].Fecha;
-                        oSheetBlendPeriodo.Cells[row, 03].Value2 = registros[i].OrdenDeProduccion;
-                        oSheetBlendPeriodo.Cells[row, 04].Value2 = registros[i].Corrida;
-                        oSheetBlendPeriodo.Cells[row, 05].Value2 = String.Empty;
-                        oSheetBlendPeriodo.Cells[row, 06].Value2 = registros[i].PrimeraCaja;
-                        oSheetBlendPeriodo.Cells[row, 07].Value2 = registros[i].UltimaCaja;
-                        oSheetBlendPeriodo.Cells[row, 08].Value2 = registros[i].NumeroCajas;
-                        oSheetBlendPeriodo.Cells[row, 09].Value2 = registros[i].Kilos;
-                        oSheetBlendPeriodo.Cells[row, 10].Value2 = String.Empty;
-                    }
+                        // Celda B3
+                        oSheetBlendPeriodo.Cells[3, 2] = "BLEND: " + blend.Descripcion;
+
+                        var registros = listaRendimiento.Where(x => x.Blend == blend).OrderBy(x => x.Fecha).ToList();
+
+                        for (int i = 0; i < registros.Count; i++)
+                        {
+                            var row = (i + 7);
+
+                            Microsoft.Office.Interop.Excel.Range RngToInsert = oSheetBlendPeriodo.get_Range("A" + row, Type.Missing).EntireRow;
+                            RngToInsert.Insert(Microsoft.Office.Interop.Excel.XlInsertShiftDirection.xlShiftDown, RngToCopy);
+
+                            oSheetBlendPeriodo.Cells[row, 01].Value2 = registros[i].BlendDescripcion;
+                            oSheetBlendPeriodo.Cells[row, 02].Value2 = registros[i].Fecha;
+                            oSheetBlendPeriodo.Cells[row, 03].Value2 = registros[i].OrdenDeProduccion;
+                            oSheetBlendPeriodo.Cells[row, 04].Value2 = registros[i].Corrida;
+                            oSheetBlendPeriodo.Cells[row, 05].Value2 = String.Empty;
+                            oSheetBlendPeriodo.Cells[row, 06].Value2 = registros[i].PrimeraCaja;
+                            oSheetBlendPeriodo.Cells[row, 07].Value2 = registros[i].UltimaCaja;
+                            oSheetBlendPeriodo.Cells[row, 08].Value2 = registros[i].NumeroCajas;
+                            oSheetBlendPeriodo.Cells[row, 09].Value2 = registros[i].Kilos;
+                            oSheetBlendPeriodo.Cells[row, 10].Value2 = String.Empty;
+                        }
 
                     // borrar la ultima fila la cual esta vacia vacia
                     ((Microsoft.Office.Interop.Excel.Range)oSheetBlendPeriodo.Rows[(registros.Count + 7), System.Reflection.Missing.Value]).Delete(Microsoft.Office.Interop.Excel.XlDeleteShiftDirection.xlShiftUp);
 
-                    oSheetBlendPeriodo.get_Range("H5", "H5").Formula = "=SUM(H7:H9684)";
-                    oSheetBlendPeriodo.get_Range("I5", "I5").Formula = "=SUM(I7:I9685)";
-                    oSheetBlendPeriodo.get_Range("J5", "J5").Formula = "=SUM(J7:J9685)";
-                    oSheetBlendPeriodo.get_Range("K5", "K5").Formula = "=SUM(K7:K685)";
-                    oSheetBlendPeriodo.get_Range("L5", "L5").Formula = "=IF(ISERROR(+((K5)/(I5))*100), 0, +((K5)/(I5))*100)";
+                        oSheetBlendPeriodo.get_Range("H5", "H5").Formula = "=SUM(H7:H9684)";
+                        oSheetBlendPeriodo.get_Range("I5", "I5").Formula = "=SUM(I7:I9685)";
+                        oSheetBlendPeriodo.get_Range("J5", "J5").Formula = "=SUM(J7:J9685)";
+                        oSheetBlendPeriodo.get_Range("K5", "K5").Formula = "=SUM(K7:K685)";
+                        oSheetBlendPeriodo.get_Range("L5", "L5").Formula = "=IF(ISERROR(+((K5)/(I5))*100), 0, +((K5)/(I5))*100)";
 
-                    RngToCopy = oSheetBlendPeriodo.get_Range("B" + (registros.Count - 1 + 7 + 5), "D" + (registros.Count - 1 + 7 + 5)).EntireRow.Copy(Type.Missing);
+                        RngToCopy = oSheetBlendPeriodo.get_Range("B" + (registros.Count - 1 + 7 + 5), "D" + (registros.Count - 1 + 7 + 5)).EntireRow.Copy(Type.Missing);
 
-                    var taraActual = -1m;
-                    var taraActualRow = -1;
+                        var taraActual = -1m;
+                        var taraActualRow = -1;
 
-                    for (int i = 0; i < registros.Count; i++)
-                    {
-                        if (taraActual != registros[i].Tara)
+                        for (int i = 0; i < registros.Count; i++)
                         {
-                            taraActual = registros[i].Tara;
-
-                            if (taraActualRow == -1)
+                            if (taraActual != registros[i].Tara)
                             {
-                                taraActualRow = (registros.Count - 1 + 7 + 5);
+                                taraActual = registros[i].Tara;
+
+                                if (taraActualRow == -1)
+                                {
+                                    taraActualRow = (registros.Count - 1 + 7 + 5);
+                                }
+                                else
+                                {
+                                    taraActualRow++;
+                                }
+
+                                Microsoft.Office.Interop.Excel.Range RngToInsert = oSheetBlendPeriodo.get_Range("B" + taraActualRow, Type.Missing).EntireRow;
+                                RngToInsert.Insert(Microsoft.Office.Interop.Excel.XlInsertShiftDirection.xlShiftDown, RngToCopy);
+
+                                oSheetBlendPeriodo.Cells[taraActualRow, 02].Value2 = registros[i].PrimeraCaja;
+                                oSheetBlendPeriodo.Cells[taraActualRow, 03].Value2 = registros[i].UltimaCaja;
+                                oSheetBlendPeriodo.Cells[taraActualRow, 04].Value2 = registros[i].Tara;
                             }
                             else
                             {
-                                taraActualRow++;
+                                oSheetBlendPeriodo.Cells[taraActualRow, 03].Value2 = registros[i].UltimaCaja;
                             }
-
-                            Microsoft.Office.Interop.Excel.Range RngToInsert = oSheetBlendPeriodo.get_Range("B" + taraActualRow, Type.Missing).EntireRow;
-                            RngToInsert.Insert(Microsoft.Office.Interop.Excel.XlInsertShiftDirection.xlShiftDown, RngToCopy);
-
-                            oSheetBlendPeriodo.Cells[taraActualRow, 02].Value2 = registros[i].PrimeraCaja;
-                            oSheetBlendPeriodo.Cells[taraActualRow, 03].Value2 = registros[i].UltimaCaja;
-                            oSheetBlendPeriodo.Cells[taraActualRow, 04].Value2 = registros[i].Tara;
                         }
-                        else
+
+                        if (taraActualRow != -1)
                         {
-                            oSheetBlendPeriodo.Cells[taraActualRow, 03].Value2 = registros[i].UltimaCaja;
+                            // borrar la ultima fila la cual esta vacia vacia
+                            ((Microsoft.Office.Interop.Excel.Range)oSheetBlendPeriodo.Rows[taraActualRow + 1, System.Reflection.Missing.Value]).Delete(Microsoft.Office.Interop.Excel.XlDeleteShiftDirection.xlShiftUp);
                         }
-                    }
 
-                    if (taraActualRow != -1)
-                    {
-                        // borrar la ultima fila la cual esta vacia vacia
-                        ((Microsoft.Office.Interop.Excel.Range)oSheetBlendPeriodo.Rows[taraActualRow + 1, System.Reflection.Missing.Value]).Delete(Microsoft.Office.Interop.Excel.XlDeleteShiftDirection.xlShiftUp);
+                        oSheetBlendPeriodo.get_Range("K7", "K" + ((7 - 1) + registros.Count)).Formula = "=(H7*200)";
+                        oSheetBlendPeriodo.get_Range("L7", "L" + ((7 - 1) + registros.Count)).Formula = "=IF(ISERROR(+((K7)/(I7))*100), 0, +((K7)/(I7))*100)";
                     }
-
-                    oSheetBlendPeriodo.get_Range("K7", "K" + ((7 - 1) + registros.Count)).Formula = "=(H7*200)";
-                    oSheetBlendPeriodo.get_Range("L7", "L" + ((7 - 1) + registros.Count)).Formula = "=IF(ISERROR(+((K7)/(I7))*100), 0, +((K7)/(I7))*100)";
-                }
 
                 ((Microsoft.Office.Interop.Excel.Worksheet)oWB.Worksheets["PlantillaEnBlanco"]).Visible = Microsoft.Office.Interop.Excel.XlSheetVisibility.xlSheetVeryHidden;
+
+                    oWB.SaveAs(filename,
+                        Microsoft.Office.Interop.Excel.XlFileFormat.xlExcel8,
+                        Type.Missing,
+                        Type.Missing,
+                        false,
+                        false,
+                        Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlNoChange,
+                        Type.Missing,
+                        Type.Missing,
+                        Type.Missing,
+                        Type.Missing,
+                        Type.Missing);
+                }
+                else
+                {
+                    throw new Exception("No hay registros");
+                }
                 
-                oWB.SaveAs(filename,
-                    Microsoft.Office.Interop.Excel.XlFileFormat.xlExcel8,
-                    Type.Missing,
-                    Type.Missing,
-                    false,
-                    false,
-                    Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlNoChange,
-                    Type.Missing,
-                    Type.Missing,
-                    Type.Missing,
-                    Type.Missing,
-                    Type.Missing);
 
                 oWB.Close();
 
