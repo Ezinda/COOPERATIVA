@@ -543,7 +543,10 @@
     <Compile Include="Helpers\GridRecords\GridKardex.cs" />
     <Compile Include="Helpers\GridRecords\GridOrdenVenta.cs" />
     <Compile Include="Helpers\GridRecords\GridOrdenVentaDetalle.cs" />
+    <Compile Include="Helpers\GridRecords\GridCajaTrazabilidad.cs" />
+    <Compile Include="Helpers\GridRecords\GridRomaneoTrazabilidadDetalle.cs" />
     <Compile Include="Helpers\GridRecords\GridRomaneo.cs" />
+    <Compile Include="Helpers\GridRecords\GridProduccionTrazabilidadDetalle.cs" />
     <Compile Include="Helpers\GridRecords\GridRomaneoResumenCompraDetalle.cs" />
     <Compile Include="Helpers\GridRecords\GridRomaneoDetalle.cs" />
     <Compile Include="Helpers\IBlendManager.cs" />

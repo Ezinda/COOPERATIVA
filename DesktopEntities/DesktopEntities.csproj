@@ -181,6 +181,9 @@
     <Compile Include="Models\Vw_FardoEnProduccionPorHora.cs">
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Vw_LiquidacionAjuste.cs">
+      <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Vw_Movimiento.cs">
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>

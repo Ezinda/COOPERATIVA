@@ -417,21 +417,6 @@
           <Property Name="PathOrigin" Type="nvarchar(max)" />
           <Property Name="PathSystem" Type="nvarchar(max)" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'CooperativaProduccion.dbo.temporalStock' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="temporalStock">
-          <Property Name="Id" Type="uniqueidentifier" />
-          <Property Name="Lote" Type="bigint" />
-          <Property Name="Cata" Type="bigint" />
-          <Property Name="Orden" Type="int" />
-          <Property Name="CajaNumero" Type="int" />
-          <Property Name="ProductoId" Type="uniqueidentifier" />
-          <Property Name="Tara" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="Neto" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="Bruto" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="Campaña" Type="int" />
-          <Property Name="Warrant" Type="bit" />
-        </EntityType>-->
         <EntityType Name="Usuario">
           <Key>
             <PropertyRef Name="Id" />
@@ -598,13 +583,20 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_FardoEnProduccionPorH
           <Property Name="20" Type="float" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6013: The table/view 'CooperativaProduccion.dbo.Vw_FardoEnProduccionTotales' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="Vw_FardoEnProduccionTotales">
-          <Property Name="cantidad" Type="int" />
-          <Property Name="total" Type="float" />
-          <Property Name="Nombre" Type="varchar" MaxLength="120" />
-          <Property Name="Descripcion" Type="varchar" MaxLength="150" />
-        </EntityType>-->
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_LiquidacionAjuste' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Vw_LiquidacionAjuste">
+          <Key>
+            <PropertyRef Name="Letra" />
+          </Key>
+          <Property Name="ProductorId" Type="uniqueidentifier" />
+          <Property Name="Tabaco" Type="varchar" MaxLength="150" />
+          <Property Name="NOMBRE" Type="varchar" MaxLength="100" />
+          <Property Name="CUIT" Type="varchar" MaxLength="40" />
+          <Property Name="nrofet" Type="varchar" MaxLength="30" />
+          <Property Name="ImporteBruto" Type="decimal" Precision="38" Scale="2" />
+          <Property Name="Letra" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="Provincia" Type="varchar" MaxLength="40" />
+        </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Movimiento' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_Movimiento">
@@ -1529,6 +1521,18 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
     [Vw_FardoEnProduccionPorHora].[20] AS [20]
     FROM [dbo].[Vw_FardoEnProduccionPorHora] AS [Vw_FardoEnProduccionPorHora]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="Vw_LiquidacionAjuste" EntityType="Self.Vw_LiquidacionAjuste" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Vw_LiquidacionAjuste].[ProductorId] AS [ProductorId], 
+    [Vw_LiquidacionAjuste].[Tabaco] AS [Tabaco], 
+    [Vw_LiquidacionAjuste].[NOMBRE] AS [NOMBRE], 
+    [Vw_LiquidacionAjuste].[CUIT] AS [CUIT], 
+    [Vw_LiquidacionAjuste].[nrofet] AS [nrofet], 
+    [Vw_LiquidacionAjuste].[ImporteBruto] AS [ImporteBruto], 
+    [Vw_LiquidacionAjuste].[Letra] AS [Letra], 
+    [Vw_LiquidacionAjuste].[Provincia] AS [Provincia]
+    FROM [dbo].[Vw_LiquidacionAjuste] AS [Vw_LiquidacionAjuste]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="Vw_Movimiento" EntityType="Self.Vw_Movimiento" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [Vw_Movimiento].[Id] AS [Id], 
@@ -2145,6 +2149,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
             <End Role="ProduccionTemperatura" EntitySet="ProduccionTemperatura" />
             <End Role="ProduccionTemperaturaDetalle" EntitySet="ProduccionTemperaturaDetalle" />
           </AssociationSet>
+          <EntitySet Name="Vw_LiquidacionAjuste" EntityType="CooperativaProduccionModel.Vw_LiquidacionAjuste" />
           </EntityContainer>
         <ComplexType Name="ActualizarLiquidacion_Result">
           <Property Type="Int32" Name="Column1" Nullable="true" />
@@ -3511,6 +3516,19 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Vw_LiquidacionAjuste">
+          <Key>
+            <PropertyRef Name="Letra" />
+          </Key>
+          <Property Name="ProductorId" Type="Guid" />
+          <Property Name="Tabaco" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="NOMBRE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CUIT" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="nrofet" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ImporteBruto" Type="Decimal" Precision="38" Scale="2" />
+          <Property Name="Letra" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="Provincia" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4515,6 +4533,20 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
                 <ScalarProperty Name="CUIT" ColumnName="CUIT" />
                 <ScalarProperty Name="ALIAS_1_NOMBRE" ColumnName="ALIAS_1_NOMBRE" />
                 <ScalarProperty Name="ALIAS_0_ID" ColumnName="ALIAS_0_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vw_LiquidacionAjuste">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.Vw_LiquidacionAjuste">
+              <MappingFragment StoreEntitySet="Vw_LiquidacionAjuste">
+                <ScalarProperty Name="Provincia" ColumnName="Provincia" />
+                <ScalarProperty Name="Letra" ColumnName="Letra" />
+                <ScalarProperty Name="ImporteBruto" ColumnName="ImporteBruto" />
+                <ScalarProperty Name="nrofet" ColumnName="nrofet" />
+                <ScalarProperty Name="CUIT" ColumnName="CUIT" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="Tabaco" ColumnName="Tabaco" />
+                <ScalarProperty Name="ProductorId" ColumnName="ProductorId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

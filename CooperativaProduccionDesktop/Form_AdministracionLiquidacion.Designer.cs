@@ -71,6 +71,33 @@
             this.txtFet = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.txtProductor = new System.Windows.Forms.TextBox();
+            this.TabProcesoLiquidacionReajuste = new DevExpress.XtraTab.XtraTabPage();
+            this.groupControl4 = new DevExpress.XtraEditors.GroupControl();
+            this.gridControlLiquidacionAjuste = new DevExpress.XtraGrid.GridControl();
+            this.gridViewLiquidacionAjuste = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.groupControl7 = new DevExpress.XtraEditors.GroupControl();
+            this.cbTabacoAjuste = new System.Windows.Forms.ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.txtCuitAjuste = new System.Windows.Forms.TextBox();
+            this.btnBuscarAjuste = new DevExpress.XtraEditors.SimpleButton();
+            this.label11 = new System.Windows.Forms.Label();
+            this.dpHastaAjuste = new System.Windows.Forms.DateTimePicker();
+            this.btnBuscarProductorAjuste = new DevExpress.XtraEditors.SimpleButton();
+            this.label12 = new System.Windows.Forms.Label();
+            this.btnBuscarFetAjuste = new DevExpress.XtraEditors.SimpleButton();
+            this.dpDesdeAjuste = new System.Windows.Forms.DateTimePicker();
+            this.txtProvinciaAjuste = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.txtFetAjuste = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.txtProductorAjuste = new System.Windows.Forms.TextBox();
+            this.btnCalcularAjuste = new DevExpress.XtraEditors.SimpleButton();
+            this.txtPorcentajeAjuste = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.btnProcesarAjuste = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlLiquidacion)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewLiquidacion)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
@@ -90,6 +117,13 @@
             this.groupControl6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
             this.groupControl2.SuspendLayout();
+            this.TabProcesoLiquidacionReajuste.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl4)).BeginInit();
+            this.groupControl4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControlLiquidacionAjuste)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewLiquidacionAjuste)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl7)).BeginInit();
+            this.groupControl7.SuspendLayout();
             this.SuspendLayout();
             // 
             // gridControlLiquidacion
@@ -288,7 +322,8 @@
             this.Liquidacion.TabIndex = 73;
             this.Liquidacion.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.TabProcesoLiquidacion,
-            this.TabConsultaLiquidacion});
+            this.TabConsultaLiquidacion,
+            this.TabProcesoLiquidacionReajuste});
             this.Liquidacion.SelectedPageChanged += new DevExpress.XtraTab.TabPageChangedEventHandler(this.Liquidacion_SelectedPageChanged);
             // 
             // TabProcesoLiquidacion
@@ -560,6 +595,292 @@
             this.txtProductor.TabIndex = 64;
             this.txtProductor.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtProductor_KeyPress);
             // 
+            // TabProcesoLiquidacionReajuste
+            // 
+            this.TabProcesoLiquidacionReajuste.Controls.Add(this.groupControl4);
+            this.TabProcesoLiquidacionReajuste.Controls.Add(this.groupControl7);
+            this.TabProcesoLiquidacionReajuste.Image = ((System.Drawing.Image)(resources.GetObject("TabProcesoLiquidacionReajuste.Image")));
+            this.TabProcesoLiquidacionReajuste.Name = "TabProcesoLiquidacionReajuste";
+            this.TabProcesoLiquidacionReajuste.Size = new System.Drawing.Size(1266, 676);
+            this.TabProcesoLiquidacionReajuste.Text = "Liquidación por Reajuste";
+            // 
+            // groupControl4
+            // 
+            this.groupControl4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupControl4.Controls.Add(this.gridControlLiquidacionAjuste);
+            this.groupControl4.Location = new System.Drawing.Point(1, 77);
+            this.groupControl4.Name = "groupControl4";
+            this.groupControl4.Size = new System.Drawing.Size(1265, 567);
+            this.groupControl4.TabIndex = 77;
+            this.groupControl4.Text = "Lista de Romaneo";
+            // 
+            // gridControlLiquidacionAjuste
+            // 
+            this.gridControlLiquidacionAjuste.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridControlLiquidacionAjuste.Location = new System.Drawing.Point(2, 20);
+            this.gridControlLiquidacionAjuste.MainView = this.gridViewLiquidacionAjuste;
+            this.gridControlLiquidacionAjuste.MenuManager = this.ribbon;
+            this.gridControlLiquidacionAjuste.Name = "gridControlLiquidacionAjuste";
+            this.gridControlLiquidacionAjuste.Size = new System.Drawing.Size(1261, 545);
+            this.gridControlLiquidacionAjuste.TabIndex = 68;
+            this.gridControlLiquidacionAjuste.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridViewLiquidacionAjuste});
+            // 
+            // gridViewLiquidacionAjuste
+            // 
+            this.gridViewLiquidacionAjuste.Appearance.FocusedCell.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.gridViewLiquidacionAjuste.Appearance.FocusedCell.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gridViewLiquidacionAjuste.Appearance.FocusedCell.Options.UseBackColor = true;
+            this.gridViewLiquidacionAjuste.Appearance.FocusedCell.Options.UseFont = true;
+            this.gridViewLiquidacionAjuste.Appearance.FocusedRow.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.gridViewLiquidacionAjuste.Appearance.FocusedRow.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gridViewLiquidacionAjuste.Appearance.FocusedRow.Options.UseBackColor = true;
+            this.gridViewLiquidacionAjuste.Appearance.FocusedRow.Options.UseFont = true;
+            this.gridViewLiquidacionAjuste.GridControl = this.gridControlLiquidacionAjuste;
+            this.gridViewLiquidacionAjuste.Name = "gridViewLiquidacionAjuste";
+            this.gridViewLiquidacionAjuste.OptionsBehavior.Editable = false;
+            this.gridViewLiquidacionAjuste.OptionsSelection.MultiSelect = true;
+            this.gridViewLiquidacionAjuste.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CheckBoxRowSelect;
+            this.gridViewLiquidacionAjuste.OptionsView.ShowFooter = true;
+            this.gridViewLiquidacionAjuste.OptionsView.ShowGroupPanel = false;
+            // 
+            // groupControl7
+            // 
+            this.groupControl7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupControl7.Controls.Add(this.btnProcesarAjuste);
+            this.groupControl7.Controls.Add(this.label19);
+            this.groupControl7.Controls.Add(this.txtPorcentajeAjuste);
+            this.groupControl7.Controls.Add(this.label18);
+            this.groupControl7.Controls.Add(this.btnCalcularAjuste);
+            this.groupControl7.Controls.Add(this.cbTabacoAjuste);
+            this.groupControl7.Controls.Add(this.label10);
+            this.groupControl7.Controls.Add(this.txtCuitAjuste);
+            this.groupControl7.Controls.Add(this.btnBuscarAjuste);
+            this.groupControl7.Controls.Add(this.label11);
+            this.groupControl7.Controls.Add(this.dpHastaAjuste);
+            this.groupControl7.Controls.Add(this.btnBuscarProductorAjuste);
+            this.groupControl7.Controls.Add(this.label12);
+            this.groupControl7.Controls.Add(this.btnBuscarFetAjuste);
+            this.groupControl7.Controls.Add(this.dpDesdeAjuste);
+            this.groupControl7.Controls.Add(this.txtProvinciaAjuste);
+            this.groupControl7.Controls.Add(this.label13);
+            this.groupControl7.Controls.Add(this.label14);
+            this.groupControl7.Controls.Add(this.label16);
+            this.groupControl7.Controls.Add(this.txtFetAjuste);
+            this.groupControl7.Controls.Add(this.label17);
+            this.groupControl7.Controls.Add(this.txtProductorAjuste);
+            this.groupControl7.Location = new System.Drawing.Point(2, 1);
+            this.groupControl7.Name = "groupControl7";
+            this.groupControl7.Size = new System.Drawing.Size(1264, 75);
+            this.groupControl7.TabIndex = 76;
+            this.groupControl7.Text = "Buscar Romaneo";
+            // 
+            // cbTabacoAjuste
+            // 
+            this.cbTabacoAjuste.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbTabacoAjuste.FormattingEnabled = true;
+            this.cbTabacoAjuste.Location = new System.Drawing.Point(305, 24);
+            this.cbTabacoAjuste.Name = "cbTabacoAjuste";
+            this.cbTabacoAjuste.Size = new System.Drawing.Size(192, 21);
+            this.cbTabacoAjuste.TabIndex = 83;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(253, 26);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(46, 16);
+            this.label10.TabIndex = 82;
+            this.label10.Text = "Tabaco";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // txtCuitAjuste
+            // 
+            this.txtCuitAjuste.Enabled = false;
+            this.txtCuitAjuste.Location = new System.Drawing.Point(542, 51);
+            this.txtCuitAjuste.Name = "txtCuitAjuste";
+            this.txtCuitAjuste.Size = new System.Drawing.Size(124, 21);
+            this.txtCuitAjuste.TabIndex = 72;
+            // 
+            // btnBuscarAjuste
+            // 
+            this.btnBuscarAjuste.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscarAjuste.Image")));
+            this.btnBuscarAjuste.Location = new System.Drawing.Point(765, 23);
+            this.btnBuscarAjuste.Name = "btnBuscarAjuste";
+            this.btnBuscarAjuste.Size = new System.Drawing.Size(81, 22);
+            this.btnBuscarAjuste.TabIndex = 39;
+            this.btnBuscarAjuste.Text = "Buscar";
+            this.btnBuscarAjuste.Click += new System.EventHandler(this.btnBuscarAjuste_Click);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(505, 53);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(34, 16);
+            this.label11.TabIndex = 71;
+            this.label11.Text = "CUIT";
+            // 
+            // dpHastaAjuste
+            // 
+            this.dpHastaAjuste.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dpHastaAjuste.Location = new System.Drawing.Point(168, 23);
+            this.dpHastaAjuste.Name = "dpHastaAjuste";
+            this.dpHastaAjuste.Size = new System.Drawing.Size(79, 21);
+            this.dpHastaAjuste.TabIndex = 60;
+            // 
+            // btnBuscarProductorAjuste
+            // 
+            this.btnBuscarProductorAjuste.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscarProductorAjuste.Image")));
+            this.btnBuscarProductorAjuste.Location = new System.Drawing.Point(469, 51);
+            this.btnBuscarProductorAjuste.Name = "btnBuscarProductorAjuste";
+            this.btnBuscarProductorAjuste.Size = new System.Drawing.Size(28, 20);
+            this.btnBuscarProductorAjuste.TabIndex = 70;
+            this.btnBuscarProductorAjuste.Click += new System.EventHandler(this.btnBuscarProductorAjuste_Click);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(129, 26);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(38, 16);
+            this.label12.TabIndex = 59;
+            this.label12.Text = "Hasta";
+            // 
+            // btnBuscarFetAjuste
+            // 
+            this.btnBuscarFetAjuste.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscarFetAjuste.Image")));
+            this.btnBuscarFetAjuste.Location = new System.Drawing.Point(128, 50);
+            this.btnBuscarFetAjuste.Name = "btnBuscarFetAjuste";
+            this.btnBuscarFetAjuste.Size = new System.Drawing.Size(28, 21);
+            this.btnBuscarFetAjuste.TabIndex = 69;
+            this.btnBuscarFetAjuste.Click += new System.EventHandler(this.btnBuscarFetAjuste_Click);
+            // 
+            // dpDesdeAjuste
+            // 
+            this.dpDesdeAjuste.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dpDesdeAjuste.Location = new System.Drawing.Point(46, 24);
+            this.dpDesdeAjuste.Name = "dpDesdeAjuste";
+            this.dpDesdeAjuste.Size = new System.Drawing.Size(79, 21);
+            this.dpDesdeAjuste.TabIndex = 58;
+            // 
+            // txtProvinciaAjuste
+            // 
+            this.txtProvinciaAjuste.Enabled = false;
+            this.txtProvinciaAjuste.Location = new System.Drawing.Point(729, 52);
+            this.txtProvinciaAjuste.Name = "txtProvinciaAjuste";
+            this.txtProvinciaAjuste.Size = new System.Drawing.Size(117, 21);
+            this.txtProvinciaAjuste.TabIndex = 68;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(5, 26);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(41, 16);
+            this.label13.TabIndex = 57;
+            this.label13.Text = "Desde";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(672, 54);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(57, 16);
+            this.label14.TabIndex = 67;
+            this.label14.Text = "Provincia";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Location = new System.Drawing.Point(9, 51);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(28, 16);
+            this.label16.TabIndex = 65;
+            this.label16.Text = "FET";
+            // 
+            // txtFetAjuste
+            // 
+            this.txtFetAjuste.Location = new System.Drawing.Point(41, 50);
+            this.txtFetAjuste.Name = "txtFetAjuste";
+            this.txtFetAjuste.Size = new System.Drawing.Size(87, 21);
+            this.txtFetAjuste.TabIndex = 66;
+            this.txtFetAjuste.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFetAjuste_KeyPress);
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.Location = new System.Drawing.Point(159, 52);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(61, 16);
+            this.label17.TabIndex = 63;
+            this.label17.Text = "Productor";
+            // 
+            // txtProductorAjuste
+            // 
+            this.txtProductorAjuste.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtProductorAjuste.Location = new System.Drawing.Point(220, 51);
+            this.txtProductorAjuste.Name = "txtProductorAjuste";
+            this.txtProductorAjuste.Size = new System.Drawing.Size(247, 21);
+            this.txtProductorAjuste.TabIndex = 64;
+            this.txtProductorAjuste.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtProductorAjuste_KeyPress);
+            // 
+            // btnCalcularAjuste
+            // 
+            this.btnCalcularAjuste.Image = ((System.Drawing.Image)(resources.GetObject("btnCalcularAjuste.Image")));
+            this.btnCalcularAjuste.Location = new System.Drawing.Point(1022, 24);
+            this.btnCalcularAjuste.Name = "btnCalcularAjuste";
+            this.btnCalcularAjuste.Size = new System.Drawing.Size(81, 22);
+            this.btnCalcularAjuste.TabIndex = 84;
+            this.btnCalcularAjuste.Text = "Calcular";
+            // 
+            // txtPorcentajeAjuste
+            // 
+            this.txtPorcentajeAjuste.Location = new System.Drawing.Point(950, 24);
+            this.txtPorcentajeAjuste.Name = "txtPorcentajeAjuste";
+            this.txtPorcentajeAjuste.Size = new System.Drawing.Size(52, 21);
+            this.txtPorcentajeAjuste.TabIndex = 86;
+            this.txtPorcentajeAjuste.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPorcentajeAjuste_KeyPress);
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Location = new System.Drawing.Point(852, 26);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(99, 16);
+            this.label18.TabIndex = 85;
+            this.label18.Text = "Ajuste de Precios";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.Location = new System.Drawing.Point(1003, 26);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(17, 16);
+            this.label19.TabIndex = 87;
+            this.label19.Text = "%";
+            // 
+            // btnProcesarAjuste
+            // 
+            this.btnProcesarAjuste.Image = ((System.Drawing.Image)(resources.GetObject("btnProcesarAjuste.Image")));
+            this.btnProcesarAjuste.Location = new System.Drawing.Point(1109, 24);
+            this.btnProcesarAjuste.Name = "btnProcesarAjuste";
+            this.btnProcesarAjuste.Size = new System.Drawing.Size(81, 22);
+            this.btnProcesarAjuste.TabIndex = 85;
+            this.btnProcesarAjuste.Text = "Procesar";
+            // 
             // Form_AdministracionLiquidacion
             // 
             this.AllowFormGlass = DevExpress.Utils.DefaultBoolean.False;
@@ -595,6 +916,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
             this.groupControl2.ResumeLayout(false);
             this.groupControl2.PerformLayout();
+            this.TabProcesoLiquidacionReajuste.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl4)).EndInit();
+            this.groupControl4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gridControlLiquidacionAjuste)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewLiquidacionAjuste)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl7)).EndInit();
+            this.groupControl7.ResumeLayout(false);
+            this.groupControl7.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -644,5 +973,32 @@
         private DevExpress.XtraEditors.SimpleButton btnPrevisualizarLiquidacionManual;
         private System.Windows.Forms.ComboBox cbTabacoLiquidacion;
         private System.Windows.Forms.Label label9;
+        private DevExpress.XtraTab.XtraTabPage TabProcesoLiquidacionReajuste;
+        private DevExpress.XtraEditors.GroupControl groupControl4;
+        private DevExpress.XtraGrid.GridControl gridControlLiquidacionAjuste;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridViewLiquidacionAjuste;
+        private DevExpress.XtraEditors.GroupControl groupControl7;
+        private System.Windows.Forms.ComboBox cbTabacoAjuste;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox txtCuitAjuste;
+        private DevExpress.XtraEditors.SimpleButton btnBuscarAjuste;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.DateTimePicker dpHastaAjuste;
+        private DevExpress.XtraEditors.SimpleButton btnBuscarProductorAjuste;
+        private System.Windows.Forms.Label label12;
+        private DevExpress.XtraEditors.SimpleButton btnBuscarFetAjuste;
+        private System.Windows.Forms.DateTimePicker dpDesdeAjuste;
+        private System.Windows.Forms.TextBox txtProvinciaAjuste;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TextBox txtFetAjuste;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.TextBox txtProductorAjuste;
+        private DevExpress.XtraEditors.SimpleButton btnProcesarAjuste;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.TextBox txtPorcentajeAjuste;
+        private System.Windows.Forms.Label label18;
+        private DevExpress.XtraEditors.SimpleButton btnCalcularAjuste;
     }
 }

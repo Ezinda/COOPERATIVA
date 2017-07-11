@@ -20,6 +20,7 @@ using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid;
 using DevExpress.Utils;
 using System.Threading.Tasks;
+using CooperativaProduccion.Helpers.GridRecords;
 
 namespace CooperativaProduccion
 {
@@ -303,22 +304,22 @@ namespace CooperativaProduccion
 
         private void CargarCombo()
         {
-            var ordenVenta =
-                (from o in Context.OrdenVenta
-                    .Where(x => x.Pendiente == true)
-                 join c in Context.Vw_Cliente
-                 on o.ClienteId equals c.ID
-                 select new
-                 {
-                     OrdenId = o.Id,
-                     Descripcion = o.NumOrden + " - " + c.RAZONSOCIAL + " - " + o.Fecha.Year,
-                 })
-                .OrderBy(x => x.Descripcion)
-                .ToList();
+            //var ordenVenta =
+            //    (from o in Context.OrdenVenta
+            //        .Where(x => x.Pendiente == true)
+            //     join c in Context.Vw_Cliente
+            //     on o.ClienteId equals c.ID
+            //     select new
+            //     {
+            //         OrdenId = o.Id,
+            //         Descripcion = o.NumOrden + " - " + c.RAZONSOCIAL + " - " + o.Fecha.Year,
+            //     })
+            //    .OrderBy(x => x.Descripcion)
+            //    .ToList();
 
-            cbOrden.DataSource = ordenVenta;
-            cbOrden.DisplayMember = "Descripcion";
-            cbOrden.ValueMember = "OrdenId";
+            //cbOrden.DataSource = ordenVenta;
+            //cbOrden.DisplayMember = "Descripcion";
+            //cbOrden.ValueMember = "OrdenId";
 
             var campaña =
                (from c in Context.Caja
@@ -337,6 +338,10 @@ namespace CooperativaProduccion
             cbCampaña.DisplayMember = "Campaña";
             cbCampaña.ValueMember = "Campaña";
 
+            cbCampañaTrazabilidad.DataSource = campaña;
+            cbCampañaTrazabilidad.DisplayMember = "Campaña";
+            cbCampañaTrazabilidad.ValueMember = "Campaña";
+
             var producto = Context.Vw_Producto.ToList();
             cbProductoIngreso.DataSource = producto;
             cbProductoIngreso.DisplayMember = "DESCRIPCION";
@@ -345,6 +350,10 @@ namespace CooperativaProduccion
             cbProductoConsulta.DataSource = producto;
             cbProductoConsulta.DisplayMember = "DESCRIPCION";
             cbProductoConsulta.ValueMember = "ID";
+
+            cbProductoTrazabilidad.DataSource = producto;
+            cbProductoTrazabilidad.DisplayMember = "DESCRIPCION";
+            cbProductoTrazabilidad.ValueMember = "ID";
 
         }
 
@@ -750,35 +759,16 @@ namespace CooperativaProduccion
             int count=0;
             foreach (var item in ListCajaCata.Where(x => x.Cata == null))
             {
-
-                //}
-                //for (int i = 0; i < gridViewCajaConsulta.DataRowCount; i++)
-                //{
-                //    var NumeroCata = gridViewCajaConsulta.GetRowCellValue(i, "Cata");
-
-                //    if (NumeroCata == null)
-                //    {
-                //Guid CajaId = new Guid(gridViewCajaConsulta
-                //    .GetRowCellValue(i, "Id")
-                //    .ToString());
-
                 var Cata = Context.Cata
                     .Where(x => x.NumCaja == null)
                     .OrderBy(x => x.NumCata)
                     .Select(x => x.Id)
                     .FirstOrDefault();
 
-                //disable detection of changes to improve performance
-
-                //for all the entities to update...
                 var cajaUpdate = Context.Caja
                       .Where(x => x.Id == item.Id)
                       .Update(x => new Caja() { CataId = Cata });
-                //then perform the update
-                //var caja = Context.Caja
-                //    .Where(x => x.Id == item.Id)
-                //    .FirstOrDefault();
-
+             
                 var CataUpdate = Context.Cata
                 .Where(x => x.Id == Cata)
                 .Update(x => new Cata()
@@ -920,6 +910,143 @@ namespace CooperativaProduccion
         private void Form_AdministracionGestionCaja_Load(object sender, EventArgs e)
         {
             CheckForIllegalCrossThreadCalls = false;
+        }
+
+        private void btnBuscarTrazabilidad_Click(object sender, EventArgs e)
+        {
+            if (ValidarConsulta())
+            {
+                BuscarCajaTrazabilidad(txtNumCaja.Text);
+            }
+        }
+
+        private void BuscarCajaTrazabilidad(string caja)
+        {
+            int Campaña = int.Parse(cbCampaña.Text);
+
+            var ProductoId = Guid.Parse(cbProductoTrazabilidad.SelectedValue.ToString());
+
+            List<GridCajaTrazabilidad> lista = new List<GridCajaTrazabilidad>();
+
+            Expression<Func<Caja, bool>> pred = x => true;
+
+            pred = checkCampañaTrazabilidad.Checked ?
+                pred.And(x => x.Campaña == Campaña) : pred;
+
+            pred = pred.And(x => x.ProductoId == ProductoId);
+
+            if (!string.IsNullOrEmpty(caja))
+            {
+                var numeroCaja = int.Parse(txtNumCaja.Text);
+                pred = !string.IsNullOrEmpty(caja) ?
+                    pred.And(x => x.NumeroCaja == numeroCaja) : pred;
+            }
+
+            var Cajas =
+              (from c in Context.Caja
+                   .Where(pred)
+               join p in Context.Vw_Producto
+                    on c.ProductoId equals p.ID into pr
+               from cp in pr.DefaultIfEmpty()
+               join ca in Context.Cata
+                    on c.CataId equals ca.Id into cat
+               from joined in cat.DefaultIfEmpty()
+               select new
+               {
+                   Id = c.Id,
+                   Campaña = c.Campaña,
+                   NumLote = c.LoteCaja,
+                   NumCaja = c.NumeroCaja,
+                   ProductoId = cp.ID,
+                   Producto = cp.DESCRIPCION,
+                   Tara = c.Tara,
+                   Neto = c.Neto,
+                   Bruto = c.Bruto,
+                   Cata = joined.NumCata,
+                   OrdenVentaId = c.OrdenVentaId,
+                   NumOrden = c.OrdenVenta != null ? c.OrdenVenta.NumOrden : (long?)null,
+                   Fecha = c.Fecha
+               })
+               .OrderBy(x => x.Campaña)
+               .ThenBy(x => x.NumCaja)
+               .ToList();
+
+            foreach (var item in Cajas)
+            {
+                var ProduccionDetalle =
+                    (from m in Context.FardoEnProduccion
+                     .Where(x=>x.Fecha == item.Fecha 
+                        && x.ProductoId == item.ProductoId)
+                    join p in Context.Vw_Pesada
+                        on m.PesadaDetalleId equals p.PesadaDetalleId
+                    join d in Context.Vw_Producto
+                        on m.ProductoId equals d.ID into pp
+                    from pl in pp.DefaultIfEmpty()
+                    select new
+                    {
+                        Id = m.Id,
+                        PesadaDetalleId = m.PesadaDetalleId,
+                        Fecha = m.Fecha,
+                        Hora = m.Hora,
+                        Fardo = p.NumFardo,
+                        Kilos = p.Kilos,
+                        Clase = p.Clase,
+                        Tabaco = p.DESCRIPCION,
+                        Blend = pl.DESCRIPCION
+                    })
+                    .OrderBy(x => x.Fardo)
+                    .ToList();
+
+                var rowsDetalle = ProduccionDetalle.Select(x =>
+                    new GridProduccionTrazabilidadDetalle()
+                    {
+                        Fecha = x.Fecha,
+                        Hora = x.Hora.ToString(@"hh\:mm", CultureInfo.CurrentCulture),
+                        Fardo = x.Fardo.Value.ToString(),
+                        Kilos = x.Kilos.Value,
+                        Clase = x.Clase,
+                        Tabaco = x.Tabaco,
+                        Blend = x.Blend,
+                    })
+                    .OrderBy(x => x.Fecha)
+                    .ThenBy(x => x.Hora)
+                    .ToList();
+
+                var rowCaja = new GridCajaTrazabilidad();
+                rowCaja.Campaña = item.Campaña;
+                rowCaja.NumLote = item.NumLote;
+                rowCaja.NumCaja = item.NumCaja;
+                rowCaja.Producto = item.Producto;
+                rowCaja.Tara = item.Tara;
+                rowCaja.Neto = item.Neto;
+                rowCaja.Bruto = item.Bruto;
+                rowCaja.Cata = item.Cata;
+                rowCaja.NumOrden = item.NumOrden;
+                rowCaja.Fecha = item.Fecha.ToShortDateString();
+                rowCaja.ProduccionTrazabilidadDetalle = rowsDetalle;
+
+                lista.Add(rowCaja);
+            }
+            gridControlCajaTrazabilidad.DataSource = new BindingList<GridCajaTrazabilidad>(lista);
+            gridViewCajaTrazabilidad.Columns[0].Visible = false;
+            gridViewCajaTrazabilidad.Columns[1].Caption = "Campaña";
+            gridViewCajaTrazabilidad.Columns[1].Width = 90;
+            gridViewCajaTrazabilidad.Columns[2].Caption = "N° Lote";
+            gridViewCajaTrazabilidad.Columns[2].Width = 110;
+            gridViewCajaTrazabilidad.Columns[3].Caption = "N° Caja";
+            gridViewCajaTrazabilidad.Columns[3].Width = 110;
+            gridViewCajaTrazabilidad.Columns[4].Caption = "Producto";
+            gridViewCajaTrazabilidad.Columns[4].Width = 100;
+            gridViewCajaTrazabilidad.Columns[5].Caption = "Tara";
+            gridViewCajaTrazabilidad.Columns[5].Width = 100;
+            gridViewCajaTrazabilidad.Columns[6].Caption = "Neto";
+            gridViewCajaTrazabilidad.Columns[6].Width = 100;
+            gridViewCajaTrazabilidad.Columns[7].Caption = "Bruto";
+            gridViewCajaTrazabilidad.Columns[7].Width = 100;
+            gridViewCajaTrazabilidad.Columns[8].Caption = "N° Cata";
+            gridViewCajaTrazabilidad.Columns[8].Width = 200;
+            gridViewCajaTrazabilidad.Columns[9].Visible = false;
+            gridViewCajaTrazabilidad.Columns[10].Visible = false;
         }
     }
 
