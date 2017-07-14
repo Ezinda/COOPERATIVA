@@ -541,6 +541,7 @@
     <Compile Include="Helpers\GridRecords\GridInventario.cs" />
     <Compile Include="Helpers\GridRecords\GridInventarioDetalle.cs" />
     <Compile Include="Helpers\GridRecords\GridKardex.cs" />
+    <Compile Include="Helpers\GridRecords\GridLiquidacionAjuste.cs" />
     <Compile Include="Helpers\GridRecords\GridOrdenVenta.cs" />
     <Compile Include="Helpers\GridRecords\GridOrdenVentaDetalle.cs" />
     <Compile Include="Helpers\GridRecords\GridCajaTrazabilidad.cs" />

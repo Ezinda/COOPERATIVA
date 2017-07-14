@@ -72,6 +72,14 @@
             this.label7 = new System.Windows.Forms.Label();
             this.txtProductor = new System.Windows.Forms.TextBox();
             this.TabProcesoLiquidacionReajuste = new DevExpress.XtraTab.XtraTabPage();
+            this.groupControl8 = new DevExpress.XtraEditors.GroupControl();
+            this.dpFechaLiquidacionAjuste = new System.Windows.Forms.DateTimePicker();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.btnCalcularAjuste = new DevExpress.XtraEditors.SimpleButton();
+            this.btnProcesarAjuste = new DevExpress.XtraEditors.SimpleButton();
+            this.txtPorcentajeAjuste = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
             this.groupControl4 = new DevExpress.XtraEditors.GroupControl();
             this.gridControlLiquidacionAjuste = new DevExpress.XtraGrid.GridControl();
             this.gridViewLiquidacionAjuste = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -93,11 +101,6 @@
             this.txtFetAjuste = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.txtProductorAjuste = new System.Windows.Forms.TextBox();
-            this.btnCalcularAjuste = new DevExpress.XtraEditors.SimpleButton();
-            this.txtPorcentajeAjuste = new System.Windows.Forms.TextBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.btnProcesarAjuste = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlLiquidacion)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewLiquidacion)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
@@ -118,6 +121,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
             this.groupControl2.SuspendLayout();
             this.TabProcesoLiquidacionReajuste.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl8)).BeginInit();
+            this.groupControl8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl4)).BeginInit();
             this.groupControl4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlLiquidacionAjuste)).BeginInit();
@@ -597,6 +602,7 @@
             // 
             // TabProcesoLiquidacionReajuste
             // 
+            this.TabProcesoLiquidacionReajuste.Controls.Add(this.groupControl8);
             this.TabProcesoLiquidacionReajuste.Controls.Add(this.groupControl4);
             this.TabProcesoLiquidacionReajuste.Controls.Add(this.groupControl7);
             this.TabProcesoLiquidacionReajuste.Image = ((System.Drawing.Image)(resources.GetObject("TabProcesoLiquidacionReajuste.Image")));
@@ -604,17 +610,100 @@
             this.TabProcesoLiquidacionReajuste.Size = new System.Drawing.Size(1266, 676);
             this.TabProcesoLiquidacionReajuste.Text = "Liquidación por Reajuste";
             // 
+            // groupControl8
+            // 
+            this.groupControl8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupControl8.Controls.Add(this.dpFechaLiquidacionAjuste);
+            this.groupControl8.Controls.Add(this.label18);
+            this.groupControl8.Controls.Add(this.label20);
+            this.groupControl8.Controls.Add(this.btnCalcularAjuste);
+            this.groupControl8.Controls.Add(this.btnProcesarAjuste);
+            this.groupControl8.Controls.Add(this.txtPorcentajeAjuste);
+            this.groupControl8.Controls.Add(this.label19);
+            this.groupControl8.Location = new System.Drawing.Point(2, 77);
+            this.groupControl8.Name = "groupControl8";
+            this.groupControl8.Size = new System.Drawing.Size(1264, 56);
+            this.groupControl8.TabIndex = 78;
+            this.groupControl8.Text = "Liquidación de Ajuste";
+            // 
+            // dpFechaLiquidacionAjuste
+            // 
+            this.dpFechaLiquidacionAjuste.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dpFechaLiquidacionAjuste.Location = new System.Drawing.Point(111, 27);
+            this.dpFechaLiquidacionAjuste.Name = "dpFechaLiquidacionAjuste";
+            this.dpFechaLiquidacionAjuste.Size = new System.Drawing.Size(79, 21);
+            this.dpFechaLiquidacionAjuste.TabIndex = 89;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Location = new System.Drawing.Point(222, 31);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(99, 16);
+            this.label18.TabIndex = 85;
+            this.label18.Text = "Ajuste de Precios";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.Location = new System.Drawing.Point(5, 30);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(106, 16);
+            this.label20.TabIndex = 88;
+            this.label20.Text = "Fecha Liquidación";
+            // 
+            // btnCalcularAjuste
+            // 
+            this.btnCalcularAjuste.Image = ((System.Drawing.Image)(resources.GetObject("btnCalcularAjuste.Image")));
+            this.btnCalcularAjuste.Location = new System.Drawing.Point(417, 29);
+            this.btnCalcularAjuste.Name = "btnCalcularAjuste";
+            this.btnCalcularAjuste.Size = new System.Drawing.Size(81, 22);
+            this.btnCalcularAjuste.TabIndex = 84;
+            this.btnCalcularAjuste.Text = "Calcular";
+            this.btnCalcularAjuste.Click += new System.EventHandler(this.btnCalcularAjuste_Click);
+            // 
+            // btnProcesarAjuste
+            // 
+            this.btnProcesarAjuste.Image = ((System.Drawing.Image)(resources.GetObject("btnProcesarAjuste.Image")));
+            this.btnProcesarAjuste.Location = new System.Drawing.Point(504, 29);
+            this.btnProcesarAjuste.Name = "btnProcesarAjuste";
+            this.btnProcesarAjuste.Size = new System.Drawing.Size(81, 22);
+            this.btnProcesarAjuste.TabIndex = 85;
+            this.btnProcesarAjuste.Text = "Procesar";
+            this.btnProcesarAjuste.Click += new System.EventHandler(this.btnProcesarAjuste_Click);
+            // 
+            // txtPorcentajeAjuste
+            // 
+            this.txtPorcentajeAjuste.Location = new System.Drawing.Point(328, 29);
+            this.txtPorcentajeAjuste.Name = "txtPorcentajeAjuste";
+            this.txtPorcentajeAjuste.Size = new System.Drawing.Size(65, 21);
+            this.txtPorcentajeAjuste.TabIndex = 86;
+            this.txtPorcentajeAjuste.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPorcentajeAjuste_KeyPress);
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.Location = new System.Drawing.Point(394, 32);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(17, 16);
+            this.label19.TabIndex = 87;
+            this.label19.Text = "%";
+            // 
             // groupControl4
             // 
             this.groupControl4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupControl4.Controls.Add(this.gridControlLiquidacionAjuste);
-            this.groupControl4.Location = new System.Drawing.Point(1, 77);
+            this.groupControl4.Location = new System.Drawing.Point(1, 134);
             this.groupControl4.Name = "groupControl4";
-            this.groupControl4.Size = new System.Drawing.Size(1265, 567);
+            this.groupControl4.Size = new System.Drawing.Size(1265, 509);
             this.groupControl4.TabIndex = 77;
-            this.groupControl4.Text = "Lista de Romaneo";
+            this.groupControl4.Text = "Lista de Liquidación";
             // 
             // gridControlLiquidacionAjuste
             // 
@@ -623,7 +712,7 @@
             this.gridControlLiquidacionAjuste.MainView = this.gridViewLiquidacionAjuste;
             this.gridControlLiquidacionAjuste.MenuManager = this.ribbon;
             this.gridControlLiquidacionAjuste.Name = "gridControlLiquidacionAjuste";
-            this.gridControlLiquidacionAjuste.Size = new System.Drawing.Size(1261, 545);
+            this.gridControlLiquidacionAjuste.Size = new System.Drawing.Size(1261, 487);
             this.gridControlLiquidacionAjuste.TabIndex = 68;
             this.gridControlLiquidacionAjuste.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewLiquidacionAjuste});
@@ -650,11 +739,6 @@
             // 
             this.groupControl7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupControl7.Controls.Add(this.btnProcesarAjuste);
-            this.groupControl7.Controls.Add(this.label19);
-            this.groupControl7.Controls.Add(this.txtPorcentajeAjuste);
-            this.groupControl7.Controls.Add(this.label18);
-            this.groupControl7.Controls.Add(this.btnCalcularAjuste);
             this.groupControl7.Controls.Add(this.cbTabacoAjuste);
             this.groupControl7.Controls.Add(this.label10);
             this.groupControl7.Controls.Add(this.txtCuitAjuste);
@@ -701,15 +785,15 @@
             // txtCuitAjuste
             // 
             this.txtCuitAjuste.Enabled = false;
-            this.txtCuitAjuste.Location = new System.Drawing.Point(542, 51);
+            this.txtCuitAjuste.Location = new System.Drawing.Point(538, 51);
             this.txtCuitAjuste.Name = "txtCuitAjuste";
-            this.txtCuitAjuste.Size = new System.Drawing.Size(124, 21);
+            this.txtCuitAjuste.Size = new System.Drawing.Size(118, 21);
             this.txtCuitAjuste.TabIndex = 72;
             // 
             // btnBuscarAjuste
             // 
             this.btnBuscarAjuste.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscarAjuste.Image")));
-            this.btnBuscarAjuste.Location = new System.Drawing.Point(765, 23);
+            this.btnBuscarAjuste.Location = new System.Drawing.Point(749, 20);
             this.btnBuscarAjuste.Name = "btnBuscarAjuste";
             this.btnBuscarAjuste.Size = new System.Drawing.Size(81, 22);
             this.btnBuscarAjuste.TabIndex = 39;
@@ -720,7 +804,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(505, 53);
+            this.label11.Location = new System.Drawing.Point(501, 53);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(34, 16);
             this.label11.TabIndex = 71;
@@ -773,9 +857,9 @@
             // txtProvinciaAjuste
             // 
             this.txtProvinciaAjuste.Enabled = false;
-            this.txtProvinciaAjuste.Location = new System.Drawing.Point(729, 52);
+            this.txtProvinciaAjuste.Location = new System.Drawing.Point(717, 52);
             this.txtProvinciaAjuste.Name = "txtProvinciaAjuste";
-            this.txtProvinciaAjuste.Size = new System.Drawing.Size(117, 21);
+            this.txtProvinciaAjuste.Size = new System.Drawing.Size(113, 21);
             this.txtProvinciaAjuste.TabIndex = 68;
             // 
             // label13
@@ -792,7 +876,7 @@
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(672, 54);
+            this.label14.Location = new System.Drawing.Point(660, 54);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(57, 16);
             this.label14.TabIndex = 67;
@@ -835,52 +919,6 @@
             this.txtProductorAjuste.TabIndex = 64;
             this.txtProductorAjuste.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtProductorAjuste_KeyPress);
             // 
-            // btnCalcularAjuste
-            // 
-            this.btnCalcularAjuste.Image = ((System.Drawing.Image)(resources.GetObject("btnCalcularAjuste.Image")));
-            this.btnCalcularAjuste.Location = new System.Drawing.Point(1022, 24);
-            this.btnCalcularAjuste.Name = "btnCalcularAjuste";
-            this.btnCalcularAjuste.Size = new System.Drawing.Size(81, 22);
-            this.btnCalcularAjuste.TabIndex = 84;
-            this.btnCalcularAjuste.Text = "Calcular";
-            // 
-            // txtPorcentajeAjuste
-            // 
-            this.txtPorcentajeAjuste.Location = new System.Drawing.Point(950, 24);
-            this.txtPorcentajeAjuste.Name = "txtPorcentajeAjuste";
-            this.txtPorcentajeAjuste.Size = new System.Drawing.Size(52, 21);
-            this.txtPorcentajeAjuste.TabIndex = 86;
-            this.txtPorcentajeAjuste.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPorcentajeAjuste_KeyPress);
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(852, 26);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(99, 16);
-            this.label18.TabIndex = 85;
-            this.label18.Text = "Ajuste de Precios";
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(1003, 26);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(17, 16);
-            this.label19.TabIndex = 87;
-            this.label19.Text = "%";
-            // 
-            // btnProcesarAjuste
-            // 
-            this.btnProcesarAjuste.Image = ((System.Drawing.Image)(resources.GetObject("btnProcesarAjuste.Image")));
-            this.btnProcesarAjuste.Location = new System.Drawing.Point(1109, 24);
-            this.btnProcesarAjuste.Name = "btnProcesarAjuste";
-            this.btnProcesarAjuste.Size = new System.Drawing.Size(81, 22);
-            this.btnProcesarAjuste.TabIndex = 85;
-            this.btnProcesarAjuste.Text = "Procesar";
-            // 
             // Form_AdministracionLiquidacion
             // 
             this.AllowFormGlass = DevExpress.Utils.DefaultBoolean.False;
@@ -917,6 +955,9 @@
             this.groupControl2.ResumeLayout(false);
             this.groupControl2.PerformLayout();
             this.TabProcesoLiquidacionReajuste.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl8)).EndInit();
+            this.groupControl8.ResumeLayout(false);
+            this.groupControl8.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl4)).EndInit();
             this.groupControl4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridControlLiquidacionAjuste)).EndInit();
@@ -1000,5 +1041,8 @@
         private System.Windows.Forms.TextBox txtPorcentajeAjuste;
         private System.Windows.Forms.Label label18;
         private DevExpress.XtraEditors.SimpleButton btnCalcularAjuste;
+        private DevExpress.XtraEditors.GroupControl groupControl8;
+        private System.Windows.Forms.DateTimePicker dpFechaLiquidacionAjuste;
+        private System.Windows.Forms.Label label20;
     }
 }
