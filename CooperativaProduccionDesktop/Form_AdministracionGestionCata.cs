@@ -296,8 +296,8 @@ namespace CooperativaProduccion
             gridViewCata.Columns[3].Width = 90;
             gridViewCata.Columns[4].Caption = "N° Caja";
             gridViewCata.Columns[4].Width = 90;
-            //gridViewCata.Columns[5].Visible = false;
-            //gridViewCata.Columns[6].Visible = false;
+            gridViewCata.Columns[5].Visible = false;
+            gridViewCata.Columns[6].Visible = false;
             txtTotal.Text = CalcularTotalCata();
             txtUtilizados.Text = CalcularTotalCataUtilizadas();
             txtDisponibles.Text = CalcularTotalCataDisponibles();
