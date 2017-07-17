@@ -262,7 +262,10 @@ namespace CooperativaProduccion
                 (from a in Context.Cata.Where(pred)
                 join p in Context.Vw_Producto
                     on a.Caja.ProductoId equals p.ID into cp
-                from joined in cp.DefaultIfEmpty()
+                from joined1 in cp.DefaultIfEmpty()
+                join b in Context.ProduccionBlend
+                    on a.Caja.ProductoId equals b.ProductoId into cb
+                    from joined in cb.DefaultIfEmpty() 
                 select new CataCaja
                 {
                     Id = a.Id,
@@ -270,7 +273,9 @@ namespace CooperativaProduccion
                     Cata = a.NumCata,
                     NumOrden = a.NumOrden ?? 0,
                     NumCaja = a.NumCaja ?? 0,
-                    Producto = joined.DESCRIPCION,
+                    ProductoId = (Guid?)joined1.ID ?? null,
+                    OrdenProduccion = joined.OrdenProduccion.ToString(),
+                    Producto = joined1.DESCRIPCION,
                     Campaña = (int?)a.Caja.Campaña ?? 0,
                     Neto = (decimal?)a.Caja.Neto ?? 0,
                     Tara = (decimal?)a.Caja.Tara ?? 0,
@@ -291,7 +296,8 @@ namespace CooperativaProduccion
             gridViewCata.Columns[3].Width = 90;
             gridViewCata.Columns[4].Caption = "N° Caja";
             gridViewCata.Columns[4].Width = 90;
-            
+            //gridViewCata.Columns[5].Visible = false;
+            //gridViewCata.Columns[6].Visible = false;
             txtTotal.Text = CalcularTotalCata();
             txtUtilizados.Text = CalcularTotalCataUtilizadas();
             txtDisponibles.Text = CalcularTotalCataDisponibles();
@@ -398,8 +404,9 @@ namespace CooperativaProduccion
                     foreach (var cata in ListCataCaja.Where(x=>x.NumCaja!=0))
                     {
                         sw.WriteLine("2;" + cata.Cata + ";2;1;" + cata.Bruto + ";"
-                            + cata.NumOrden.ToString().PadLeft(8, '0')
-                            + cata.NumCaja.ToString().PadLeft(19, '0'));
+                            + cata.Campaña.ToString() + cata.OrdenProduccion.PadLeft(5, '0')
+                            + cata.NumCaja.ToString().PadLeft(20, '0')+";");
+                     
                     }
                 }
 
@@ -455,6 +462,8 @@ namespace CooperativaProduccion
         public long? Cata { get; set; }
         public long? NumOrden { get; set; }
         public long NumCaja { get; set; }
+        public Guid? ProductoId { get; set; }
+        public string OrdenProduccion { get; set; }
         public string Producto { get; set; }
         public int Campaña { get; set; }
         public decimal Neto { get; set; }
