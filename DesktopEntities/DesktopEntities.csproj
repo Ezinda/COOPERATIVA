@@ -91,6 +91,9 @@
     <Compile Include="Models\FardoEnProduccion.cs">
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Liquidacion.cs">
+      <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Movimiento.cs">
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>

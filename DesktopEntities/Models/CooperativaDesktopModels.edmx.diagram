@@ -84,6 +84,7 @@
         <AssociationConnector Association="CooperativaProduccionModel.FK_ProduccionNicotinaDetalle_ProduccionNicotina" />
         <AssociationConnector Association="CooperativaProduccionModel.FK_ProduccionTemperaturaDetalle_ProduccionTemperatura" />
         <EntityTypeShape EntityType="CooperativaProduccionModel.Vw_LiquidacionAjuste" Width="1.5" PointX="25.375" PointY="6.75" />
+        <EntityTypeShape EntityType="CooperativaProduccionModel.Liquidacion" Width="1.5" PointX="25.375" PointY="10.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

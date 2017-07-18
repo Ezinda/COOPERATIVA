@@ -104,6 +104,23 @@
           <Property Name="Fecha" Type="date" Nullable="false" />
           <Property Name="Hora" Type="time" Precision="7" Nullable="false" />
         </EntityType>
+        <EntityType Name="Liquidacion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PuntoVenta" Type="int" Nullable="false" />
+          <Property Name="NumInternoLiquidacion" Type="bigint" Nullable="false" />
+          <Property Name="Fecha" Type="date" Nullable="false" />
+          <Property Name="Letra" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ProductorId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ProductoId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TabacoId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ImporteNeto" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="IvaPorcentaje" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="IvaCalculado" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Total" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
         <EntityType Name="Movimiento">
           <Key>
             <PropertyRef Name="Id" />
@@ -1404,6 +1421,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
           <EntitySet Name="ConfiguracionBlend" EntityType="Self.ConfiguracionBlend" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Contador" EntityType="Self.Contador" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FardoEnProduccion" EntityType="Self.FardoEnProduccion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Liquidacion" EntityType="Self.Liquidacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Movimiento" EntityType="Self.Movimiento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrdenPago" EntityType="Self.OrdenPago" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrdenVenta" EntityType="Self.OrdenVenta" Schema="dbo" store:Type="Tables" />
@@ -2150,6 +2168,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
             <End Role="ProduccionTemperaturaDetalle" EntitySet="ProduccionTemperaturaDetalle" />
           </AssociationSet>
           <EntitySet Name="Vw_LiquidacionAjuste" EntityType="CooperativaProduccionModel.Vw_LiquidacionAjuste" />
+          <EntitySet Name="Liquidacion" EntityType="CooperativaProduccionModel.Liquidacion" />
           </EntityContainer>
         <ComplexType Name="ActualizarLiquidacion_Result">
           <Property Type="Int32" Name="Column1" Nullable="true" />
@@ -3529,6 +3548,23 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
           <Property Name="Letra" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="Provincia" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="Liquidacion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="PuntoVenta" Type="Int32" Nullable="false" />
+          <Property Name="NumInternoLiquidacion" Type="Int64" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Letra" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProductorId" Type="Guid" Nullable="false" />
+          <Property Name="ProductoId" Type="Guid" Nullable="false" />
+          <Property Name="TabacoId" Type="Guid" Nullable="false" />
+          <Property Name="ImporteNeto" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="IvaPorcentaje" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="IvaCalculado" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Total" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4547,6 +4583,24 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
                 <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
                 <ScalarProperty Name="Tabaco" ColumnName="Tabaco" />
                 <ScalarProperty Name="ProductorId" ColumnName="ProductorId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Liquidacion">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.Liquidacion">
+              <MappingFragment StoreEntitySet="Liquidacion">
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="IvaCalculado" ColumnName="IvaCalculado" />
+                <ScalarProperty Name="IvaPorcentaje" ColumnName="IvaPorcentaje" />
+                <ScalarProperty Name="ImporteNeto" ColumnName="ImporteNeto" />
+                <ScalarProperty Name="TabacoId" ColumnName="TabacoId" />
+                <ScalarProperty Name="ProductoId" ColumnName="ProductoId" />
+                <ScalarProperty Name="ProductorId" ColumnName="ProductorId" />
+                <ScalarProperty Name="Letra" ColumnName="Letra" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="NumInternoLiquidacion" ColumnName="NumInternoLiquidacion" />
+                <ScalarProperty Name="PuntoVenta" ColumnName="PuntoVenta" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

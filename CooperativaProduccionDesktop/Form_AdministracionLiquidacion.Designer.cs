@@ -101,6 +101,7 @@
             this.txtFetAjuste = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.txtProductorAjuste = new System.Windows.Forms.TextBox();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlLiquidacion)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewLiquidacion)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
@@ -602,6 +603,7 @@
             // 
             // TabProcesoLiquidacionReajuste
             // 
+            this.TabProcesoLiquidacionReajuste.Controls.Add(this.progressBar1);
             this.TabProcesoLiquidacionReajuste.Controls.Add(this.groupControl8);
             this.TabProcesoLiquidacionReajuste.Controls.Add(this.groupControl4);
             this.TabProcesoLiquidacionReajuste.Controls.Add(this.groupControl7);
@@ -623,14 +625,15 @@
             this.groupControl8.Controls.Add(this.label19);
             this.groupControl8.Location = new System.Drawing.Point(2, 77);
             this.groupControl8.Name = "groupControl8";
-            this.groupControl8.Size = new System.Drawing.Size(1264, 56);
+            this.groupControl8.ShowCaption = false;
+            this.groupControl8.Size = new System.Drawing.Size(1264, 29);
             this.groupControl8.TabIndex = 78;
             this.groupControl8.Text = "Liquidación de Ajuste";
             // 
             // dpFechaLiquidacionAjuste
             // 
             this.dpFechaLiquidacionAjuste.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dpFechaLiquidacionAjuste.Location = new System.Drawing.Point(111, 27);
+            this.dpFechaLiquidacionAjuste.Location = new System.Drawing.Point(111, 5);
             this.dpFechaLiquidacionAjuste.Name = "dpFechaLiquidacionAjuste";
             this.dpFechaLiquidacionAjuste.Size = new System.Drawing.Size(79, 21);
             this.dpFechaLiquidacionAjuste.TabIndex = 89;
@@ -639,7 +642,7 @@
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(222, 31);
+            this.label18.Location = new System.Drawing.Point(200, 6);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(99, 16);
             this.label18.TabIndex = 85;
@@ -649,7 +652,7 @@
             // 
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.Location = new System.Drawing.Point(5, 30);
+            this.label20.Location = new System.Drawing.Point(5, 6);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(106, 16);
             this.label20.TabIndex = 88;
@@ -658,7 +661,7 @@
             // btnCalcularAjuste
             // 
             this.btnCalcularAjuste.Image = ((System.Drawing.Image)(resources.GetObject("btnCalcularAjuste.Image")));
-            this.btnCalcularAjuste.Location = new System.Drawing.Point(417, 29);
+            this.btnCalcularAjuste.Location = new System.Drawing.Point(416, 4);
             this.btnCalcularAjuste.Name = "btnCalcularAjuste";
             this.btnCalcularAjuste.Size = new System.Drawing.Size(81, 22);
             this.btnCalcularAjuste.TabIndex = 84;
@@ -668,7 +671,7 @@
             // btnProcesarAjuste
             // 
             this.btnProcesarAjuste.Image = ((System.Drawing.Image)(resources.GetObject("btnProcesarAjuste.Image")));
-            this.btnProcesarAjuste.Location = new System.Drawing.Point(504, 29);
+            this.btnProcesarAjuste.Location = new System.Drawing.Point(503, 4);
             this.btnProcesarAjuste.Name = "btnProcesarAjuste";
             this.btnProcesarAjuste.Size = new System.Drawing.Size(81, 22);
             this.btnProcesarAjuste.TabIndex = 85;
@@ -677,7 +680,7 @@
             // 
             // txtPorcentajeAjuste
             // 
-            this.txtPorcentajeAjuste.Location = new System.Drawing.Point(328, 29);
+            this.txtPorcentajeAjuste.Location = new System.Drawing.Point(305, 5);
             this.txtPorcentajeAjuste.Name = "txtPorcentajeAjuste";
             this.txtPorcentajeAjuste.Size = new System.Drawing.Size(65, 21);
             this.txtPorcentajeAjuste.TabIndex = 86;
@@ -687,7 +690,7 @@
             // 
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(394, 32);
+            this.label19.Location = new System.Drawing.Point(376, 5);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(17, 16);
             this.label19.TabIndex = 87;
@@ -699,9 +702,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupControl4.Controls.Add(this.gridControlLiquidacionAjuste);
-            this.groupControl4.Location = new System.Drawing.Point(1, 134);
+            this.groupControl4.Location = new System.Drawing.Point(1, 123);
             this.groupControl4.Name = "groupControl4";
-            this.groupControl4.Size = new System.Drawing.Size(1265, 509);
+            this.groupControl4.Size = new System.Drawing.Size(1265, 550);
             this.groupControl4.TabIndex = 77;
             this.groupControl4.Text = "Lista de Liquidación";
             // 
@@ -712,7 +715,7 @@
             this.gridControlLiquidacionAjuste.MainView = this.gridViewLiquidacionAjuste;
             this.gridControlLiquidacionAjuste.MenuManager = this.ribbon;
             this.gridControlLiquidacionAjuste.Name = "gridControlLiquidacionAjuste";
-            this.gridControlLiquidacionAjuste.Size = new System.Drawing.Size(1261, 487);
+            this.gridControlLiquidacionAjuste.Size = new System.Drawing.Size(1261, 528);
             this.gridControlLiquidacionAjuste.TabIndex = 68;
             this.gridControlLiquidacionAjuste.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewLiquidacionAjuste});
@@ -766,16 +769,16 @@
             // 
             this.cbTabacoAjuste.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbTabacoAjuste.FormattingEnabled = true;
-            this.cbTabacoAjuste.Location = new System.Drawing.Point(305, 24);
+            this.cbTabacoAjuste.Location = new System.Drawing.Point(335, 24);
             this.cbTabacoAjuste.Name = "cbTabacoAjuste";
-            this.cbTabacoAjuste.Size = new System.Drawing.Size(192, 21);
+            this.cbTabacoAjuste.Size = new System.Drawing.Size(162, 21);
             this.cbTabacoAjuste.TabIndex = 83;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(253, 26);
+            this.label10.Location = new System.Drawing.Point(283, 26);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(46, 16);
             this.label10.TabIndex = 82;
@@ -793,7 +796,7 @@
             // btnBuscarAjuste
             // 
             this.btnBuscarAjuste.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscarAjuste.Image")));
-            this.btnBuscarAjuste.Location = new System.Drawing.Point(749, 20);
+            this.btnBuscarAjuste.Location = new System.Drawing.Point(749, 24);
             this.btnBuscarAjuste.Name = "btnBuscarAjuste";
             this.btnBuscarAjuste.Size = new System.Drawing.Size(81, 22);
             this.btnBuscarAjuste.TabIndex = 39;
@@ -813,7 +816,7 @@
             // dpHastaAjuste
             // 
             this.dpHastaAjuste.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dpHastaAjuste.Location = new System.Drawing.Point(168, 23);
+            this.dpHastaAjuste.Location = new System.Drawing.Point(198, 23);
             this.dpHastaAjuste.Name = "dpHastaAjuste";
             this.dpHastaAjuste.Size = new System.Drawing.Size(79, 21);
             this.dpHastaAjuste.TabIndex = 60;
@@ -831,7 +834,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(129, 26);
+            this.label12.Location = new System.Drawing.Point(159, 26);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(38, 16);
             this.label12.TabIndex = 59;
@@ -918,6 +921,15 @@
             this.txtProductorAjuste.Size = new System.Drawing.Size(247, 21);
             this.txtProductorAjuste.TabIndex = 64;
             this.txtProductorAjuste.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtProductorAjuste_KeyPress);
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressBar1.Location = new System.Drawing.Point(2, 107);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(1264, 15);
+            this.progressBar1.TabIndex = 79;
             // 
             // Form_AdministracionLiquidacion
             // 
@@ -1044,5 +1056,6 @@
         private DevExpress.XtraEditors.GroupControl groupControl8;
         private System.Windows.Forms.DateTimePicker dpFechaLiquidacionAjuste;
         private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.ProgressBar progressBar1;
     }
 }

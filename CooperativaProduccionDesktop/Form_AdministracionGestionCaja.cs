@@ -638,6 +638,7 @@ namespace CooperativaProduccion
         private void BuscarCajaConsulta(string cajas)
         {
             int Campaña = int.Parse(cbCampaña.Text);
+
             var ProductoId = Guid.Parse(cbProductoConsulta.SelectedValue.ToString());
 
             Expression<Func<Caja, bool>> pred = x => true;
@@ -654,8 +655,8 @@ namespace CooperativaProduccion
                 var cantidad = int.Parse(txtCantidadCajaConsulta.Text);
 
                 var result =
-                    (from c in Context.Caja
-                         .Where(pred)
+                    (from c in Context.Caja.OrderBy(x=>x.NumeroCaja)
+                         .Where(pred).Take(cantidad)
                      join p in Context.Vw_Producto
                          on c.ProductoId equals p.ID into pr
                      from cp in pr.DefaultIfEmpty()
@@ -676,7 +677,7 @@ namespace CooperativaProduccion
                          OrdenVentaId = c.OrdenVentaId,
                          NumOrden = c.OrdenVenta != null ? c.OrdenVenta.NumOrden : (long?)null
                      })
-                     .Take(cantidad)
+                    
                      .OrderBy(x => x.Campaña)
                      .ThenBy(x => x.NumCaja)
                      .ToList();

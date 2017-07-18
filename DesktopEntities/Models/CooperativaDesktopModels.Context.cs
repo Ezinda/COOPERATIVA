@@ -20,7 +20,6 @@ namespace DesktopEntities.Models
         public CooperativaProduccionEntities()
             : base("name=CooperativaProduccionEntities")
         {
-            ((IObjectContextAdapter)this).ObjectContext.CommandTimeout = 180;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -86,6 +85,7 @@ namespace DesktopEntities.Models
         public virtual DbSet<Vw_TipoTabaco> Vw_TipoTabaco { get; set; }
         public virtual DbSet<Vw_Transporte> Vw_Transporte { get; set; }
         public virtual DbSet<Vw_LiquidacionAjuste> Vw_LiquidacionAjuste { get; set; }
+        public virtual DbSet<Liquidacion> Liquidacion { get; set; }
     
         public virtual ObjectResult<ActualizarLiquidacion_Result> ActualizarLiquidacion(Nullable<System.DateTime> fechaDesde, Nullable<System.DateTime> fechaHasta)
         {

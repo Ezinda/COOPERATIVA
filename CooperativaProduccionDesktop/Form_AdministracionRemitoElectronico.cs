@@ -198,7 +198,7 @@ namespace CooperativaProduccion
 
             pred = txtCliente.Text != string.Empty ? pred.And(x => x.ClienteId == ClienteId) : pred;
 
-            pred = pred.And(x => x.Fecha >= dpDesde.Value && x.Fecha <= dpHasta.Value);
+            pred = pred.And(x => x.Fecha >= dpDesde.Value.Date && x.Fecha <= dpHasta.Value.Date);
 
             pred = pred.And(x => x.Pendiente == true);
 
@@ -297,8 +297,8 @@ namespace CooperativaProduccion
             pred = txtClienteRemito.Text != string.Empty ? 
                 pred.And(x => x.ClienteId == ClienteId) : pred;
 
-            pred = pred.And(x => x.FechaRemito >= dpDesdeRemito.Value 
-                     && x.FechaRemito <= dpHastaRemito.Value);
+            pred = pred.And(x => x.FechaRemito >= dpDesdeRemito.Value.Date 
+                     && x.FechaRemito <= dpHastaRemito.Value.Date);
 
             var remito =
                 (from r in Context.Remito.Where(pred).AsEnumerable()
