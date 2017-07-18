@@ -14,13 +14,8 @@ namespace DesktopEntities.Models
     
     public partial class Vw_LiquidacionAjuste
     {
-        public Nullable<System.Guid> ProductorId { get; set; }
-        public string Tabaco { get; set; }
-        public string NOMBRE { get; set; }
-        public string CUIT { get; set; }
-        public string nrofet { get; set; }
-        public Nullable<decimal> ImporteBruto { get; set; }
-        public string Letra { get; set; }
-        public string Provincia { get; set; }
+        public System.Guid ID { get; set; }
+        public string CODIGO { get; set; }
+        public string DESCRIPCION { get; set; }
     }
 }

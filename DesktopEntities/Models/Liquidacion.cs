@@ -21,7 +21,7 @@ namespace DesktopEntities.Models
         public string Letra { get; set; }
         public System.Guid ProductorId { get; set; }
         public System.Guid ProductoId { get; set; }
-        public System.Guid TabacoId { get; set; }
+        public string Tabaco { get; set; }
         public decimal ImporteNeto { get; set; }
         public decimal IvaPorcentaje { get; set; }
         public decimal IvaCalculado { get; set; }

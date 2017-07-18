@@ -25,6 +25,7 @@ using CooperativaProduccion.ReportModels;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid;
 using EntityFramework.Extensions;
+using System.Threading.Tasks;
 
 namespace CooperativaProduccion
 {
@@ -1229,14 +1230,14 @@ namespace CooperativaProduccion
 
             pred = pred.And(x => x.NumInternoLiquidacion != null);
 
-           // List<GridLiquidacionAjuste> lista = new List<GridLiquidacionAjuste>();
+            lista = new List<GridLiquidacionAjuste>();
 
             var liquidaciones =
                 (from a in Context.Vw_Romaneo
                  .Where(pred)
                  group a by new
                  {
-                     a.ProductorId,
+                     ProductorId = a.ProductorId.Value,
                      a.NOMBRE,
                      a.CUIT,
                      a.nrofet,
@@ -1310,7 +1311,7 @@ namespace CooperativaProduccion
                     foreach (var liquidacion in liquidaciones)
                     {
                         var rowLiquidacion = new GridLiquidacionAjuste();
-                        rowLiquidacion.ProductorId = liquidacion.ProductorId.Value;
+                        rowLiquidacion.ProductorId = liquidacion.ProductorId;
                         rowLiquidacion.Productor = liquidacion.Productor;
                         rowLiquidacion.Cuit = liquidacion.Cuit;
                         rowLiquidacion.Fet = liquidacion.Fet;
@@ -1437,113 +1438,79 @@ namespace CooperativaProduccion
 
         private void LiquidarAjuste()
         {
-            int PuntoVenta = NumeroPuntoVentaLiquidacion();
-
-            if (gridViewLiquidacionAjuste.SelectedRowsCount > 0)
+            try
             {
-                for (int i = 0; i <= gridViewLiquidacionAjuste.RowCount; i++)
+                CooperativaProduccionEntities Context = new CooperativaProduccionEntities();
+
+                int PuntoVenta = NumeroPuntoVentaLiquidacion();
+
+                if (gridViewLiquidacionAjuste.SelectedRowsCount > 0)
                 {
-                    if (gridViewLiquidacionAjuste.IsRowSelected(i))
+                    for (int i = 0; i <= gridViewLiquidacionAjuste.RowCount; i++)
                     {
-                        var ProductorId = new Guid(gridViewLiquidacionAjuste.GetRowCellValue(i, "ProductorId").ToString());
-                        var rowliquidacion = lista.Where(x => x.ProductorId == ProductorId).FirstOrDefault();
-                        
-                        Liquidacion liquidacion;
-                        liquidacion = new Liquidacion();
-                        liquidacion.Id = Guid.NewGuid();
-                        liquidacion.PuntoVenta = PuntoVenta;
-                        liquidacion.ProductoId = rowliquidacion.ProductorId;
-                        liquidacion.Fecha = rowliquidacion.FechaInternaLiquidacion;
-                        liquidacion.Letra = rowliquidacion.Letra;
-                       
-                        //Caja caja;
-                        //caja = new Caja();
-                        //caja.Id = Guid.NewGuid();
-                        //caja.NumeroCaja = ContadorNumeroCaja(dpIngresoCaja.Value.Year, ProductoId);
-                        //caja.LoteCaja = LoteCaja;
-                        //caja.Campaña = dpIngresoCaja.Value.Year;
-                        //caja.Fecha = dpIngresoCaja.Value.Date;
-                        //caja.Hora = DateTime.Now.TimeOfDay;
-                        //caja.ProductoId = producto.ID;
-                        //caja.Bruto = decimal.Parse(txtBruto.Text, CultureInfo.InvariantCulture);
-                        //caja.Tara = decimal.Parse(txtTara.Text, CultureInfo.InvariantCulture);
-                        //caja.Neto = decimal.Parse(txtNeto.Text, CultureInfo.InvariantCulture);
-                        //Context.Caja.Add(caja);
-                        //Context.SaveChanges();
+                        if (gridViewLiquidacionAjuste.IsRowSelected(i))
+                        {
+                            var ProductorId = new Guid(gridViewLiquidacionAjuste.GetRowCellValue(i, "ProductorId").ToString());
+                            var rowliquidacion = lista.Where(x => x.ProductorId == ProductorId).FirstOrDefault();
 
-                        //var Iva = gridViewLiquidacionAjuste.GetRowCellValue(i, "LETRA").ToString();
+                            Liquidacion liquidacion;
+                            liquidacion = new Liquidacion();
+                            liquidacion.Id = Guid.NewGuid();
+                            liquidacion.PuntoVenta = PuntoVenta;
+                            liquidacion.NumInternoLiquidacion = ContadorNumeroInternoLiquidacion(rowliquidacion.Letra);
+                            liquidacion.Fecha = rowliquidacion.FechaInternaLiquidacion;
+                            liquidacion.Letra = rowliquidacion.Letra;
+                            liquidacion.ProductorId = rowliquidacion.ProductorId;
+                            var producto = Context.Vw_LiquidacionAjuste.FirstOrDefault();
+                            liquidacion.ProductoId = producto.ID;
+                            liquidacion.Tabaco = rowliquidacion.Tabaco;
+                            liquidacion.ImporteNeto = rowliquidacion.ImporteNeto;
+                            liquidacion.IvaPorcentaje = rowliquidacion.IvaPorcentaje;
+                            liquidacion.IvaCalculado = rowliquidacion.IvaCalculadoAjuste;
+                            liquidacion.Total = rowliquidacion.TotalAjuste;
+                            Context.Liquidacion.Add(liquidacion);
+                            Context.SaveChanges();
 
-                        //var romaneo = Context.Pesada.Find(Id);
-                        //if (romaneo != null)
-                        //{
-                        //    romaneo.PuntoVentaLiquidacion = NumeroPuntoVentaLiquidacion();
-                        //    romaneo.NumInternoLiquidacion = ContadorNumeroInternoLiquidacion(Iva);
+                            #region Actualizar contador
 
-                        //    var pesada = Context.Pesada
-                        //        .Where(x => x.Id == Id)
-                        //        .FirstOrDefault();
+                            if (rowliquidacion.Letra.Equals(DevConstantes.A))
+                            {
+                                var contador = Context.Contador
+                                    .Where(x => x.Nombre.Equals(DevConstantes.LiquidacionA))
+                                    .FirstOrDefault();
 
-                        //    romaneo.FechaInternaLiquidacion = pesada.FechaRomaneo;
-                        //    romaneo.condIva = Iva;
-                        //    var vwromaneo = Context.Vw_Romaneo
-                        //        .Where(x => x.PesadaId == Id)
-                        //        .FirstOrDefault();
-                        //    var subtotal = vwromaneo.ImporteBruto;//romaneo.ImporteBruto;
-                        //    var iva = subtotal * (romaneo.IvaPorcentaje / 100);
-                        //    var total = subtotal + iva;
+                                var count = Context.Contador.Find(contador.Id);
+                                if (count != null)
+                                {
+                                    count.Valor = count.Valor + 1;
+                                    Context.Entry(count).State = EntityState.Modified;
+                                    Context.SaveChanges();
+                                }
+                            }
+                            else
+                            {
+                                var contador = Context.Contador
+                                    .Where(x => x.Nombre.Equals(DevConstantes.LiquidacionB))
+                                    .FirstOrDefault();
 
-                        //    if (Iva == DevConstantes.A)
-                        //    {
-                        //        romaneo.ImporteNeto = decimal.Round(subtotal.Value, 2, MidpointRounding.AwayFromZero);
-                        //        romaneo.IvaCalculado = decimal.Round(iva.Value, 2, MidpointRounding.AwayFromZero);
-                        //        romaneo.Total = decimal.Round(total.Value, 2, MidpointRounding.AwayFromZero);
-                        //    }
-                        //    else
-                        //    {
-                        //        romaneo.ImporteNeto = romaneo.ImporteBruto;
-                        //        romaneo.IvaCalculado = decimal.Round(0, 2, MidpointRounding.AwayFromZero);
-                        //        romaneo.Total = romaneo.ImporteBruto;
-                        //    }
+                                var count = Context.Contador.Find(contador.Id);
+                                if (count != null)
+                                {
+                                    count.Valor = count.Valor + 1;
+                                    Context.Entry(count).State = EntityState.Modified;
+                                    Context.SaveChanges();
+                                }
+                            }
 
-                        //    Context.Entry(romaneo).State = EntityState.Modified;
-                        //    Context.SaveChanges();
+                            #endregion
 
-                        //    #region Actualizar contador
-
-                        //    if (Iva.Equals(DevConstantes.A))
-                        //    {
-                        //        var contador = Context.Contador
-                        //            .Where(x => x.Nombre.Equals(DevConstantes.LiquidacionA))
-                        //            .FirstOrDefault();
-
-                        //        var count = Context.Contador.Find(contador.Id);
-                        //        if (count != null)
-                        //        {
-                        //            count.Valor = count.Valor + 1;
-                        //            Context.Entry(count).State = EntityState.Modified;
-                        //            Context.SaveChanges();
-                        //        }
-                        //    }
-                        //    else
-                        //    {
-                        //        var contador = Context.Contador
-                        //            .Where(x => x.Nombre.Equals(DevConstantes.LiquidacionB))
-                        //            .FirstOrDefault();
-
-                        //        var count = Context.Contador.Find(contador.Id);
-                        //        if (count != null)
-                        //        {
-                        //            count.Valor = count.Valor + 1;
-                        //            Context.Entry(count).State = EntityState.Modified;
-                        //            Context.SaveChanges();
-                        //        }
-                        //    }
-
-                        //    #endregion
-
-                        //}
+                        }
                     }
                 }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
             }
         }
 
@@ -1561,9 +1528,10 @@ namespace CooperativaProduccion
             {
                 return;
             }
-
-
+            Task task = new Task(() => LiquidarAjuste());
+            task.Start();
+            MessageBox.Show("Liquidaciones Procesadas.",
+               "Confirmación", MessageBoxButtons.OK);
         }
-
     }
 }
