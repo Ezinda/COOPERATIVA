@@ -7,12 +7,14 @@ namespace CooperativaProduccion.Helpers.GridRecords
 {
     public class GridLiquidacionAjuste
     {
+        public Guid Id { get; set; }
         public Guid ProductorId { get; set; }
         public string Productor { get; set; }
         public string Cuit { get; set; }
         public string Fet { get; set; }
         public string Provincia { get; set; }
         public string Letra { get; set; }
+        public Guid ProductoId { get; set; }
         public decimal ImporteBruto { get; set; }
         public decimal ImporteNeto { get; set; }
         public decimal Ajuste { get; set; }

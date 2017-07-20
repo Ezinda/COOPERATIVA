@@ -117,7 +117,7 @@ namespace CooperativaProduccion
             string deposito = gridViewInventario.GetRowCellValue(gridViewInventario.FocusedRowHandle, "Deposito")
                      .ToString();
 
-            string producto = gridViewInventario.GetRowCellValue(gridViewInventario.FocusedRowHandle, "TipoTabaco")
+            string producto = gridViewInventario.GetRowCellValue(gridViewInventario.FocusedRowHandle, "Tabaco")
                 .ToString();
 
             string item = string.Empty;
@@ -192,6 +192,7 @@ namespace CooperativaProduccion
                  {
                      Deposito = d.nombre,
                      TipoTabaco = p.DESCRIPCION,
+                     Tabaco = p.DESCRIPCION,
                      m.Unidad,
                      Campaña = 1
                  } into g
@@ -199,6 +200,7 @@ namespace CooperativaProduccion
                  {
                      g.Key.Deposito,
                      g.Key.TipoTabaco,
+                     g.Key.Tabaco,
                      g.Key.Unidad,
                      Campaña = g.Key.Campaña,
                      Ingreso = g.Sum(c => c.m.Ingreso),
@@ -216,6 +218,7 @@ namespace CooperativaProduccion
                         {
                             Deposito = d2.nombre,
                             TipoTabaco = pr.DESCRIPCION + " - " + c.Campaña,
+                            Tabaco = pr.DESCRIPCION,
                             m2.Unidad,
                             c.Campaña
                         } into g
@@ -223,6 +226,7 @@ namespace CooperativaProduccion
                         {
                             g.Key.Deposito,
                             g.Key.TipoTabaco,
+                            g.Key.Tabaco,
                             g.Key.Unidad,
                             g.Key.Campaña,
                             Ingreso = g.Sum(c => c.m2.Ingreso),
@@ -281,6 +285,7 @@ namespace CooperativaProduccion
                 var rowInventario = new GridInventario();
                 rowInventario.Deposito = movimiento.Deposito;
                 rowInventario.TipoTabaco = movimiento.TipoTabaco;
+                rowInventario.Tabaco = movimiento.Tabaco;
                 rowInventario.Unidad = movimiento.Unidad;
                 rowInventario.Ingreso = movimiento.Ingreso;
                 rowInventario.Egreso = movimiento.Egreso;
@@ -292,11 +297,11 @@ namespace CooperativaProduccion
             gridControlInventario.DataSource = new BindingList<GridInventario>(lista);
             gridViewInventario.Columns[0].Width = 160;
             gridViewInventario.Columns[1].Width = 150;
-            gridViewInventario.Columns[2].Width = 100;
-            gridViewInventario.Columns[3].Width = 120;
+            gridViewInventario.Columns[2].Visible = false;
+            gridViewInventario.Columns[3].Width = 100;
             gridViewInventario.Columns[4].Width = 120;
             gridViewInventario.Columns[5].Width = 120;
-
+            gridViewInventario.Columns[6].Width = 120;
         }
 
         #endregion

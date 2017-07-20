@@ -101,7 +101,6 @@
             this.txtFetAjuste = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.txtProductorAjuste = new System.Windows.Forms.TextBox();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlLiquidacion)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewLiquidacion)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
@@ -603,7 +602,6 @@
             // 
             // TabProcesoLiquidacionReajuste
             // 
-            this.TabProcesoLiquidacionReajuste.Controls.Add(this.progressBar1);
             this.TabProcesoLiquidacionReajuste.Controls.Add(this.groupControl8);
             this.TabProcesoLiquidacionReajuste.Controls.Add(this.groupControl4);
             this.TabProcesoLiquidacionReajuste.Controls.Add(this.groupControl7);
@@ -702,9 +700,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupControl4.Controls.Add(this.gridControlLiquidacionAjuste);
-            this.groupControl4.Location = new System.Drawing.Point(1, 123);
+            this.groupControl4.Location = new System.Drawing.Point(1, 107);
             this.groupControl4.Name = "groupControl4";
-            this.groupControl4.Size = new System.Drawing.Size(1265, 550);
+            this.groupControl4.Size = new System.Drawing.Size(1265, 564);
             this.groupControl4.TabIndex = 77;
             this.groupControl4.Text = "Lista de Liquidación";
             // 
@@ -715,7 +713,7 @@
             this.gridControlLiquidacionAjuste.MainView = this.gridViewLiquidacionAjuste;
             this.gridControlLiquidacionAjuste.MenuManager = this.ribbon;
             this.gridControlLiquidacionAjuste.Name = "gridControlLiquidacionAjuste";
-            this.gridControlLiquidacionAjuste.Size = new System.Drawing.Size(1261, 528);
+            this.gridControlLiquidacionAjuste.Size = new System.Drawing.Size(1261, 542);
             this.gridControlLiquidacionAjuste.TabIndex = 68;
             this.gridControlLiquidacionAjuste.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewLiquidacionAjuste});
@@ -922,15 +920,6 @@
             this.txtProductorAjuste.TabIndex = 64;
             this.txtProductorAjuste.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtProductorAjuste_KeyPress);
             // 
-            // progressBar1
-            // 
-            this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBar1.Location = new System.Drawing.Point(2, 107);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(1264, 15);
-            this.progressBar1.TabIndex = 79;
-            // 
             // Form_AdministracionLiquidacion
             // 
             this.AllowFormGlass = DevExpress.Utils.DefaultBoolean.False;
@@ -1056,6 +1045,5 @@
         private DevExpress.XtraEditors.GroupControl groupControl8;
         private System.Windows.Forms.DateTimePicker dpFechaLiquidacionAjuste;
         private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.ProgressBar progressBar1;
     }
 }

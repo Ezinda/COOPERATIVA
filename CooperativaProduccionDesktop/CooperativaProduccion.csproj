@@ -596,6 +596,12 @@
     <Compile Include="Reports\ClasesReport.Designer.cs">
       <DependentUpon>ClasesReport.cs</DependentUpon>
     </Compile>
+    <Compile Include="Reports\DetalleLiquidacionAjusteReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\DetalleLiquidacionAjusteReport.Designer.cs">
+      <DependentUpon>DetalleLiquidacionAjusteReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Reports\DetalleLiquidacionAReport.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -607,6 +613,12 @@
     </Compile>
     <Compile Include="Reports\LiquidacionElectronicaReport.Designer.cs">
       <DependentUpon>LiquidacionElectronicaReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\LiquidacionAjusteManualReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\LiquidacionAjusteManualReport.Designer.cs">
+      <DependentUpon>LiquidacionAjusteManualReport.cs</DependentUpon>
     </Compile>
     <Compile Include="Reports\ProduccionHumedadDetalleReport.cs">
       <SubType>Component</SubType>
@@ -986,11 +998,17 @@
     <EmbeddedResource Include="Reports\ClasesReport.resx">
       <DependentUpon>ClasesReport.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\DetalleLiquidacionAjusteReport.resx">
+      <DependentUpon>DetalleLiquidacionAjusteReport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\DetalleLiquidacionAReport.resx">
       <DependentUpon>DetalleLiquidacionAReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\LiquidacionElectronicaReport.resx">
       <DependentUpon>LiquidacionElectronicaReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\LiquidacionAjusteManualReport.resx">
+      <DependentUpon>LiquidacionAjusteManualReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\ProduccionHumedadDetalleReport.resx">
       <DependentUpon>ProduccionHumedadDetalleReport.cs</DependentUpon>

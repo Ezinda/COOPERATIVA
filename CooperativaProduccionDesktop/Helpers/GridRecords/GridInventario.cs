@@ -9,6 +9,7 @@ namespace CooperativaProduccion.Helpers.GridRecords
     {
         public string Deposito { get; set; }
         public string TipoTabaco { get; set; }
+        public string Tabaco { get; set; }
         public string Unidad { get; set; }
         public Nullable<double> Ingreso { get; set; }
         public Nullable<double> Egreso { get; set; }

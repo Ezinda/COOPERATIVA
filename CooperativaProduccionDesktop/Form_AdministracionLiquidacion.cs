@@ -523,6 +523,54 @@ namespace CooperativaProduccion
                 lista.Add(rowLiquidacion);
             }
 
+            Expression<Func<Liquidacion, bool>> pred2 = x => true;
+
+            pred2 = pred2.And(x => x.Fecha >= dpDesdeLiquidacion.Value.Date
+                && x.Fecha <= dpHastaLiquidacion.Value.Date);
+
+            pred2 = !string.IsNullOrEmpty(txtFet.Text) ? pred2.And(x => x.ProductorId == ProductorId) : pred2;
+
+            pred2 = !string.IsNullOrEmpty(cbTabaco.Text) ? pred2.And(x => x.Tabaco == cbTabaco.Text) : pred2;
+
+            var ajustes =
+                (from l in Context.Liquidacion.Where(pred2)
+                 join p in Context.Vw_Productor
+                 on l.ProductorId equals p.ID
+                 select new
+                 {
+                     LiquidacionId = l.Id,
+                     Fecha = l.Fecha,
+                     NumInternoLiquidacion = l.NumInternoLiquidacion,
+                     Nombre = p.NOMBRE,
+                     Cuit = p.CUIT,
+                     Fet = p.nrofet,
+                     Provincia = p.Provincia,
+                     Letra = l.Letra,
+                     ImporteBruto = l.Total
+                 })
+                 .OrderBy(x=>x.NumInternoLiquidacion)
+                 .ToList();
+
+            foreach (var item in ajustes)
+            {
+                var rowLiquidacion = new GridLiquidacion();
+                rowLiquidacion.PesadaId = item.LiquidacionId;
+                rowLiquidacion.fechaInternaLiquidacion = item.Fecha;
+                rowLiquidacion.numInternoLiquidacion = item.NumInternoLiquidacion;
+                rowLiquidacion.NOMBRE = item.Nombre;
+                rowLiquidacion.CUIT = item.Cuit;
+                rowLiquidacion.nrofet = item.Fet;
+                rowLiquidacion.Provincia = item.Provincia;
+                rowLiquidacion.Letra = item.Letra;
+                rowLiquidacion.Totalkg = null;
+                rowLiquidacion.ImporteBruto = item.ImporteBruto;
+                rowLiquidacion.fechaAfipLiquidacion = null;
+                rowLiquidacion.numAfipLiquidacion = null;
+                rowLiquidacion.cae = null;
+                rowLiquidacion.fechaVtoCae = null;
+                lista.Add(rowLiquidacion);
+            }
+
             gridControlLiquidacion.DataSource = new BindingList<GridLiquidacion>(lista);
 
             gridViewLiquidacion.Columns[0].Visible = false;
@@ -840,161 +888,295 @@ namespace CooperativaProduccion
 
         private void ImprimirLiquidacion(Guid Id)
         {
-            var reporte = new LiquidacionManualReport();
             CooperativaProduccionEntities Context = new CooperativaProduccionEntities();
+
             var liquidacion = Context.Vw_Romaneo
                 .Where(x => x.PesadaId == Id)
                 .FirstOrDefault();
 
-            #region Tipo Factura
-
-            if (liquidacion.Letra != null)
+            if (liquidacion != null)
             {
-                //reporte.lblLetra.Text = liquidacion.Letra == DevConstantes.A ? 
-                //    DevConstantes.A : DevConstantes.B;
-                //reporte.lblCodigo.Text = liquidacion.Letra == DevConstantes.A ? 
-                //    DevConstantes.Codigo001 : DevConstantes.Codigo006;
-            }
+                var reporte = new LiquidacionManualReport();
 
-            #endregion
+                #region Tipo Factura
 
-            #region Parametros Cabecera Factura
+                if (liquidacion.Letra != null)
+                {
+                    //reporte.lblLetra.Text = liquidacion.Letra == DevConstantes.A ? 
+                    //    DevConstantes.A : DevConstantes.B;
+                    //reporte.lblCodigo.Text = liquidacion.Letra == DevConstantes.A ? 
+                    //    DevConstantes.Codigo001 : DevConstantes.Codigo006;
+                }
 
-            reporte.Parameters["nroComprobante"].Value = liquidacion.NumAfipLiquidacion == null ? 
-                string.Empty : liquidacion.NumAfipLiquidacion;
-            reporte.Parameters["fechaEmision"].Value = liquidacion.FechaAfipLiquidacion == null ? 
-                string.Empty : liquidacion.FechaAfipLiquidacion.Value.ToShortDateString();
-            reporte.Parameters["cuitEmpresa"].Value = DevConstantes.CuitEmpresa;
-            reporte.Parameters["iibb"].Value = DevConstantes.IIBB;
-            reporte.Parameters["ines"].Value = DevConstantes.Ines;
-            reporte.Parameters["inicioActividades"].Value = DevConstantes.InicioActividades;
-            reporte.Parameters["fechaEmision"].Value = liquidacion.FechaInternaLiquidacion == null ? 
-                string.Empty : liquidacion.FechaInternaLiquidacion.Value.ToShortDateString();
-           
-            #endregion
+                #endregion
 
-            #region Parametros Datos Productor
+                #region Parametros Cabecera Factura
 
-            reporte.Parameters["productor"].Value = liquidacion.NOMBRE;
+                reporte.Parameters["nroComprobante"].Value = liquidacion.NumAfipLiquidacion == null ?
+                    string.Empty : liquidacion.NumAfipLiquidacion;
+                reporte.Parameters["fechaEmision"].Value = liquidacion.FechaAfipLiquidacion == null ?
+                    string.Empty : liquidacion.FechaAfipLiquidacion.Value.ToShortDateString();
+                reporte.Parameters["cuitEmpresa"].Value = DevConstantes.CuitEmpresa;
+                reporte.Parameters["iibb"].Value = DevConstantes.IIBB;
+                reporte.Parameters["ines"].Value = DevConstantes.Ines;
+                reporte.Parameters["inicioActividades"].Value = DevConstantes.InicioActividades;
+                reporte.Parameters["fechaEmision"].Value = liquidacion.FechaInternaLiquidacion == null ?
+                    string.Empty : liquidacion.FechaInternaLiquidacion.Value.ToShortDateString();
 
-            var productor = Context.Vw_Productor
-                .Where(x => x.ID == liquidacion.ProductorId)
-                .FirstOrDefault();
+                #endregion
 
-            reporte.Parameters["domicilio"].Value = productor.DOMICILIO == null ? 
-                string.Empty : productor.DOMICILIO;
-            reporte.Parameters["provincia"].Value = productor.Provincia == null ? 
-                string.Empty : productor.Provincia;
-         
-            if (productor.IVA == DevConstantes.MTS)
-            {
-                reporte.Parameters["iva"].Value = DevConstantes.MonotributoSocial;
-            }
-            else if (productor.IVA == DevConstantes.MT)
-            {
-                reporte.Parameters["iva"].Value = DevConstantes.Monotributo;
-            }
-            else if (productor.IVA == DevConstantes.RI)
-            {
-                reporte.Parameters["iva"].Value = DevConstantes.ResponsableInscripto;
-            }
-            else if (productor.IVA == DevConstantes.TP)
-            {
-                reporte.Parameters["iva"].Value = DevConstantes.TrabajadorPromovido;
-            }
-            reporte.Parameters["fet"].Value = productor.nrofet == null ? 
-                string.Empty : productor.nrofet;
-            reporte.Parameters["localidad"].Value = productor.CALLE == null ? 
-                string.Empty : productor.CALLE;
-            reporte.Parameters["cuitProductor"].Value = productor.CUIT == null ? 
-                string.Empty : productor.CUIT;
+                #region Parametros Datos Productor
 
-            #endregion
+                reporte.Parameters["productor"].Value = liquidacion.NOMBRE;
 
-            #region Parametros Romaneo
-
-            var pesadaDetalle = Context.PesadaDetalle
-                .Where(x => x.PesadaId == liquidacion.PesadaId)
-                .FirstOrDefault();
-            if (pesadaDetalle != null)
-            {
-                var clase = Context.Vw_Clase
-                    .Where(x => x.ID == pesadaDetalle.ClaseId)
+                var productor = Context.Vw_Productor
+                    .Where(x => x.ID == liquidacion.ProductorId)
                     .FirstOrDefault();
-                if (clase != null)
+
+                reporte.Parameters["domicilio"].Value = productor.DOMICILIO == null ?
+                    string.Empty : productor.DOMICILIO;
+                reporte.Parameters["provincia"].Value = productor.Provincia == null ?
+                    string.Empty : productor.Provincia;
+
+                if (productor.IVA == DevConstantes.MTS)
                 {
-                    reporte.Parameters["numRomaneo"].Value = clase.DESCRIPCION 
-                        + " - ROMANEO N°:" + liquidacion.NumRomaneo;
+                    reporte.Parameters["iva"].Value = DevConstantes.MonotributoSocial;
+                }
+                else if (productor.IVA == DevConstantes.MT)
+                {
+                    reporte.Parameters["iva"].Value = DevConstantes.Monotributo;
+                }
+                else if (productor.IVA == DevConstantes.RI)
+                {
+                    reporte.Parameters["iva"].Value = DevConstantes.ResponsableInscripto;
+                }
+                else if (productor.IVA == DevConstantes.TP)
+                {
+                    reporte.Parameters["iva"].Value = DevConstantes.TrabajadorPromovido;
+                }
+                reporte.Parameters["fet"].Value = productor.nrofet == null ?
+                    string.Empty : productor.nrofet;
+                reporte.Parameters["localidad"].Value = productor.CALLE == null ?
+                    string.Empty : productor.CALLE;
+                reporte.Parameters["cuitProductor"].Value = productor.CUIT == null ?
+                    string.Empty : productor.CUIT;
+
+                #endregion
+
+                #region Parametros Romaneo
+
+                var pesadaDetalle = Context.PesadaDetalle
+                    .Where(x => x.PesadaId == liquidacion.PesadaId)
+                    .FirstOrDefault();
+                if (pesadaDetalle != null)
+                {
+                    var clase = Context.Vw_Clase
+                        .Where(x => x.ID == pesadaDetalle.ClaseId)
+                        .FirstOrDefault();
+                    if (clase != null)
+                    {
+                        reporte.Parameters["numRomaneo"].Value = clase.DESCRIPCION
+                            + " - ROMANEO N°:" + liquidacion.NumRomaneo;
+                    }
+                }
+                #endregion
+
+                #region SubReport Detalle Liquidacion
+
+                List<GridLiquidacionDetalle> datasourceDetalle;
+                datasourceDetalle = GenerarReporteLiquidacionDetalle(liquidacion.PesadaId);
+                reporte.SubreportDetalleLiquidacionA.ReportSource.DataSource = datasourceDetalle;
+
+                #endregion
+
+                var liq = Context.Pesada
+                    .Where(x => x.Id == Id)
+                    .FirstOrDefault();
+
+                #region Total en Letras
+
+                if (liquidacion.ImporteBruto != null)
+                {
+                    reporte.Parameters["totalLetra"].Value = Numalet.ToCardinal(liq.Total.ToString()).ToUpper();
+                }
+
+                #endregion
+
+                #region Parametros Totales
+
+                reporte.Parameters["totalKilos"].Value = CalcularTotalKilos(Id);
+                reporte.Parameters["totalFardos"].Value = CalcularTotalFardo(Id);
+
+                if (liquidacion.ImporteBruto != null)
+                {
+                    if (liquidacion.Letra == DevConstantes.A)
+                    {
+                        reporte.Parameters["subtotal"].Value = decimal.Round(
+                            decimal.Parse(liq.ImporteNeto.ToString()), 2, MidpointRounding.AwayFromZero);
+                        reporte.Parameters["iva21"].Value = decimal.Round(
+                            decimal.Parse(liq.IvaCalculado.ToString()), 2, MidpointRounding.AwayFromZero);
+                        reporte.Parameters["total"].Value = decimal.Round(
+                            decimal.Parse(liq.Total.ToString()), 2, MidpointRounding.AwayFromZero);
+                    }
+                    else
+                    {
+                        reporte.lblSubTotal.Visible = false;
+                        reporte.lblSubTotalValor.Visible = false;
+                        reporte.lblIva.Visible = false;
+                        reporte.lblIvaValor.Visible = false;
+                        reporte.Parameters["total"].Value = decimal.Round(
+                            decimal.Parse(liq.Total.ToString()), 2, MidpointRounding.AwayFromZero);
+                    }
+                }
+
+                #endregion
+
+                #region Parametros Cae
+
+                if (liquidacion.Cae != null)
+                {
+                    reporte.Parameters["cae"].Value = liquidacion.Cae;
+                    reporte.Parameters["fechaVtoCae"].Value = liquidacion.FechaVtoCae.Value.ToShortDateString();
+                }
+
+                #endregion
+
+                using (ReportPrintTool tool = new ReportPrintTool(reporte))
+                {
+                    reporte.ShowPreviewMarginLines = false;
+                    tool.PreviewForm.Text = "Etiqueta";
+                    tool.ShowPreviewDialog();
                 }
             }
-            #endregion
-
-            #region SubReport Detalle Liquidacion
-
-            List<GridLiquidacionDetalle> datasourceDetalle;
-            datasourceDetalle = GenerarReporteLiquidacionDetalle(liquidacion.PesadaId);
-            reporte.SubreportDetalleLiquidacionA.ReportSource.DataSource = datasourceDetalle;
-
-            #endregion
-
-            var liq = Context.Pesada
-                .Where(x => x.Id == Id)
-                .FirstOrDefault();
-
-            #region Total en Letras
-
-            if (liquidacion.ImporteBruto != null)
+            else
             {
-                reporte.Parameters["totalLetra"].Value = Numalet.ToCardinal(liq.Total.ToString()).ToUpper();
-            }
+                var ajuste =
+                    (from l in Context.Liquidacion
+                     .Where(x => x.Id == Id)
+                     join p in Context.Vw_Productor
+                     on l.ProductorId equals p.ID
+                     select new
+                     {
+                         LiquidacionId = l.Id,
+                         Fecha = l.Fecha,
+                         NumInternoLiquidacion = l.NumInternoLiquidacion,
+                         ProductorId = l.ProductorId,
+                         Nombre = p.NOMBRE,
+                         Cuit = p.CUIT,
+                         Fet = p.nrofet,
+                         Provincia = p.Provincia,
+                         Letra = l.Letra,
+                         ImporteBruto = l.Total,
+                         ImporteNeto = l.ImporteNeto,
+                         IvaCalculado = l.IvaCalculado
 
-            #endregion
+                     })
+                     .OrderBy(x => x.NumInternoLiquidacion)
+                     .FirstOrDefault();
 
-            #region Parametros Totales
-
-            reporte.Parameters["totalKilos"].Value = CalcularTotalKilos(Id);
-            reporte.Parameters["totalFardos"].Value = CalcularTotalFardo(Id);
-
-            if (liquidacion.ImporteBruto != null)
-            {
-                if (liquidacion.Letra == DevConstantes.A)
+                if (ajuste != null)
                 {
-                    reporte.Parameters["subtotal"].Value = decimal.Round(
-                        decimal.Parse(liq.ImporteNeto.ToString()), 2, MidpointRounding.AwayFromZero);
-                    reporte.Parameters["iva21"].Value = decimal.Round(
-                        decimal.Parse(liq.IvaCalculado.ToString()), 2, MidpointRounding.AwayFromZero);
-                    reporte.Parameters["total"].Value = decimal.Round(
-                        decimal.Parse(liq.Total.ToString()), 2, MidpointRounding.AwayFromZero);
+                    var reporte = new LiquidacionAjusteManualReport();
+
+                    #region Parametros Cabecera Factura
+
+                    reporte.Parameters["nroComprobante"].Value = ajuste.NumInternoLiquidacion;
+                    reporte.Parameters["fechaEmision"].Value = ajuste.Fecha.ToShortDateString();
+                    reporte.Parameters["cuitEmpresa"].Value = DevConstantes.CuitEmpresa;
+                    reporte.Parameters["iibb"].Value = DevConstantes.IIBB;
+                    reporte.Parameters["ines"].Value = DevConstantes.Ines;
+                    reporte.Parameters["inicioActividades"].Value = DevConstantes.InicioActividades;
+            
+                    #endregion
+
+                    #region Parametros Datos Productor
+
+                    reporte.Parameters["productor"].Value = ajuste.Nombre;
+
+                    var productor = Context.Vw_Productor
+                        .Where(x => x.ID == ajuste.ProductorId)
+                        .FirstOrDefault();
+
+                    reporte.Parameters["domicilio"].Value = productor.DOMICILIO == null ?
+                        string.Empty : productor.DOMICILIO;
+                    reporte.Parameters["provincia"].Value = productor.Provincia == null ?
+                        string.Empty : productor.Provincia;
+
+                    if (productor.IVA == DevConstantes.MTS)
+                    {
+                        reporte.Parameters["iva"].Value = DevConstantes.MonotributoSocial;
+                    }
+                    else if (productor.IVA == DevConstantes.MT)
+                    {
+                        reporte.Parameters["iva"].Value = DevConstantes.Monotributo;
+                    }
+                    else if (productor.IVA == DevConstantes.RI)
+                    {
+                        reporte.Parameters["iva"].Value = DevConstantes.ResponsableInscripto;
+                    }
+                    else if (productor.IVA == DevConstantes.TP)
+                    {
+                        reporte.Parameters["iva"].Value = DevConstantes.TrabajadorPromovido;
+                    }
+                    reporte.Parameters["fet"].Value = productor.nrofet == null ?
+                        string.Empty : productor.nrofet;
+                    reporte.Parameters["localidad"].Value = productor.CALLE == null ?
+                        string.Empty : productor.CALLE;
+                    reporte.Parameters["cuitProductor"].Value = productor.CUIT == null ?
+                        string.Empty : productor.CUIT;
+
+                    #endregion
+
+                   
+                    #region SubReport Detalle Liquidacion
+
+                    List<GridLiquidacionDetalle> datasourceDetalle;
+                    datasourceDetalle = GenerarReporteLiquidacionAjusteDetalle(ajuste.LiquidacionId);
+                    reporte.SubreportDetalleLiquidacionA.ReportSource.DataSource = datasourceDetalle;
+
+                    #endregion
+
+                    #region Total en Letras
+
+                    reporte.Parameters["totalLetra"].Value = Numalet.ToCardinal(ajuste.ImporteBruto.ToString()).ToUpper();
+                 
+                    #endregion
+
+                    #region Parametros Totales
+
+                  
+                        if (ajuste.Letra == DevConstantes.A)
+                        {
+                            reporte.Parameters["subtotal"].Value = decimal.Round(
+                                decimal.Parse(ajuste.ImporteNeto.ToString()), 2, MidpointRounding.AwayFromZero);
+                            reporte.Parameters["iva21"].Value = decimal.Round(
+                                decimal.Parse(ajuste.IvaCalculado.ToString()), 2, MidpointRounding.AwayFromZero);
+                            reporte.Parameters["total"].Value = decimal.Round(
+                                decimal.Parse(ajuste.ImporteBruto.ToString()), 2, MidpointRounding.AwayFromZero);
+                        }
+                        else
+                        {
+                            reporte.lblSubTotal.Visible = false;
+                            reporte.lblSubTotalValor.Visible = false;
+                            reporte.lblIva.Visible = false;
+                            reporte.lblIvaValor.Visible = false;
+                            reporte.Parameters["total"].Value = decimal.Round(
+                                decimal.Parse(ajuste.ImporteBruto.ToString()), 2, MidpointRounding.AwayFromZero);
+                        }
+                  
+                    #endregion
+                                        
+                    using (ReportPrintTool tool = new ReportPrintTool(reporte))
+                    {
+                        reporte.ShowPreviewMarginLines = false;
+                        tool.PreviewForm.Text = "Etiqueta";
+                        tool.ShowPreviewDialog();
+                    }
                 }
-                else
-                {
-                    reporte.lblSubTotal.Visible = false;
-                    reporte.lblSubTotalValor.Visible = false;
-                    reporte.lblIva.Visible = false;
-                    reporte.lblIvaValor.Visible = false;
-                    reporte.Parameters["total"].Value = decimal.Round(
-                        decimal.Parse(liq.Total.ToString()), 2, MidpointRounding.AwayFromZero);
-                }
             }
+         
 
-            #endregion
-
-            #region Parametros Cae
-
-            if (liquidacion.Cae != null)
-            {
-                reporte.Parameters["cae"].Value = liquidacion.Cae;
-                reporte.Parameters["fechaVtoCae"].Value = liquidacion.FechaVtoCae.Value.ToShortDateString();
-            }
-
-            #endregion
-
-            using (ReportPrintTool tool = new ReportPrintTool(reporte))
-            {
-                reporte.ShowPreviewMarginLines = false;
-                tool.PreviewForm.Text = "Etiqueta";
-                tool.ShowPreviewDialog();
-            }
+           
 
         }
 
@@ -1046,6 +1228,30 @@ namespace CooperativaProduccion
                             MidpointRounding.AwayFromZero);
                     }
                 }
+                datasource.Add(detalle);
+            }
+            return datasource;
+        }
+
+        public List<GridLiquidacionDetalle> GenerarReporteLiquidacionAjusteDetalle(Guid PesadaId)
+        {
+            List<GridLiquidacionDetalle> datasource = new List<GridLiquidacionDetalle>();
+
+            var liquidacionDetalles = (
+                from a in Context.Liquidacion
+                    .Where(x => x.Id == PesadaId)
+                join p in Context.Vw_LiquidacionAjuste
+                on a.ProductoId equals p.ID
+                select new
+                {
+                    Clase = p.DESCRIPCION,
+                })
+                .ToList();
+
+            foreach (var liquidacionDetalle in liquidacionDetalles)
+            {
+                GridLiquidacionDetalle detalle = new GridLiquidacionDetalle();
+                detalle.Clase = liquidacionDetalle.Clase;
                 datasource.Add(detalle);
             }
             return datasource;
@@ -1300,23 +1506,32 @@ namespace CooperativaProduccion
             else
             {
                 decimal cero;
+
                 decimal valorajuste;
+
                 decimal ivaPorcentaje;
+
                 bool successfullyParsed = decimal.TryParse(txtPorcentajeAjuste.Text, out cero);
+
                 if (successfullyParsed)
                 {
                     valorajuste = decimal.Parse(txtPorcentajeAjuste.Text)/100;
+
                     ivaPorcentaje = decimal.Parse(DevConstantes.Iva,CultureInfo.InvariantCulture);
 
+                    var producto = Context.Vw_LiquidacionAjuste.FirstOrDefault();
+                    
                     foreach (var liquidacion in liquidaciones)
                     {
                         var rowLiquidacion = new GridLiquidacionAjuste();
+                        rowLiquidacion.Id = Guid.NewGuid();
                         rowLiquidacion.ProductorId = liquidacion.ProductorId;
                         rowLiquidacion.Productor = liquidacion.Productor;
                         rowLiquidacion.Cuit = liquidacion.Cuit;
                         rowLiquidacion.Fet = liquidacion.Fet;
                         rowLiquidacion.Provincia = liquidacion.Provincia;
                         rowLiquidacion.Letra = liquidacion.Letra;
+                        rowLiquidacion.ProductoId = producto.ID;
                         rowLiquidacion.ImporteBruto = liquidacion.ImporteBruto.Value;
                         rowLiquidacion.ImporteNeto = liquidacion.ImporteNeto.Value;
                         rowLiquidacion.Ajuste = Math.Round(liquidacion.ImporteNeto.Value * valorajuste, 2, MidpointRounding.ToEven);
@@ -1346,56 +1561,58 @@ namespace CooperativaProduccion
                     gridViewLiquidacionAjuste.Columns.Clear();
                     gridControlLiquidacionAjuste.DataSource = new BindingList<GridLiquidacionAjuste>(lista);
                     gridViewLiquidacionAjuste.Columns[0].Visible = false;
-                    gridViewLiquidacionAjuste.Columns[1].Caption = "Productor";
-                    gridViewLiquidacionAjuste.Columns[1].Width = 150;
-                    gridViewLiquidacionAjuste.Columns[2].Caption = "Cuit";
-                    gridViewLiquidacionAjuste.Columns[2].Width = 65;
-                    gridViewLiquidacionAjuste.Columns[2].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-                    gridViewLiquidacionAjuste.Columns[2].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                    gridViewLiquidacionAjuste.Columns[3].Caption = "Fet";
-                    gridViewLiquidacionAjuste.Columns[3].Width = 55;
+                    gridViewLiquidacionAjuste.Columns[1].Visible = false;
+                    gridViewLiquidacionAjuste.Columns[2].Caption = "Productor";
+                    gridViewLiquidacionAjuste.Columns[2].Width = 150;
+                    gridViewLiquidacionAjuste.Columns[3].Caption = "Cuit";
+                    gridViewLiquidacionAjuste.Columns[3].Width = 65;
                     gridViewLiquidacionAjuste.Columns[3].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
                     gridViewLiquidacionAjuste.Columns[3].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                    gridViewLiquidacionAjuste.Columns[4].Caption = "Provincia";
-                    gridViewLiquidacionAjuste.Columns[4].Width = 60;
+                    gridViewLiquidacionAjuste.Columns[4].Caption = "Fet";
+                    gridViewLiquidacionAjuste.Columns[4].Width = 55;
                     gridViewLiquidacionAjuste.Columns[4].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
                     gridViewLiquidacionAjuste.Columns[4].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                    gridViewLiquidacionAjuste.Columns[5].Caption = "Letra";
+                    gridViewLiquidacionAjuste.Columns[5].Caption = "Provincia";
                     gridViewLiquidacionAjuste.Columns[5].Width = 60;
                     gridViewLiquidacionAjuste.Columns[5].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
                     gridViewLiquidacionAjuste.Columns[5].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                    gridViewLiquidacionAjuste.Columns[6].Caption = "Bruto";
-                    gridViewLiquidacionAjuste.Columns[6].Width = 90;
-                    gridViewLiquidacionAjuste.Columns[6].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Far;
+                    gridViewLiquidacionAjuste.Columns[6].Caption = "Letra";
+                    gridViewLiquidacionAjuste.Columns[6].Width = 60;
+                    gridViewLiquidacionAjuste.Columns[6].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
                     gridViewLiquidacionAjuste.Columns[6].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                    gridViewLiquidacionAjuste.Columns[7].Caption = "Neto";
-                    gridViewLiquidacionAjuste.Columns[7].Width = 90;
-                    gridViewLiquidacionAjuste.Columns[7].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Far;
-                    gridViewLiquidacionAjuste.Columns[7].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                    gridViewLiquidacionAjuste.Columns[8].Caption = "Ajuste";
+                    gridViewLiquidacionAjuste.Columns[7].Visible = false;
+                    gridViewLiquidacionAjuste.Columns[8].Caption = "Bruto";
                     gridViewLiquidacionAjuste.Columns[8].Width = 90;
                     gridViewLiquidacionAjuste.Columns[8].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Far;
                     gridViewLiquidacionAjuste.Columns[8].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                    gridViewLiquidacionAjuste.Columns[9].Visible = false;
-                    gridViewLiquidacionAjuste.Columns[10].Caption = "Iva";
+                    gridViewLiquidacionAjuste.Columns[9].Caption = "Neto";
+                    gridViewLiquidacionAjuste.Columns[9].Width = 90;
+                    gridViewLiquidacionAjuste.Columns[9].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Far;
+                    gridViewLiquidacionAjuste.Columns[9].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+                    gridViewLiquidacionAjuste.Columns[10].Caption = "Ajuste";
                     gridViewLiquidacionAjuste.Columns[10].Width = 90;
                     gridViewLiquidacionAjuste.Columns[10].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Far;
                     gridViewLiquidacionAjuste.Columns[10].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                    gridViewLiquidacionAjuste.Columns[11].Caption = "Total";
-                    gridViewLiquidacionAjuste.Columns[11].Width = 90;
-                    gridViewLiquidacionAjuste.Columns[11].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Far;
-                    gridViewLiquidacionAjuste.Columns[11].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                    gridViewLiquidacionAjuste.Columns[12].Caption = "Total";
+                    gridViewLiquidacionAjuste.Columns[11].Visible = false;
+                    gridViewLiquidacionAjuste.Columns[12].Caption = "Iva";
                     gridViewLiquidacionAjuste.Columns[12].Width = 90;
                     gridViewLiquidacionAjuste.Columns[12].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Far;
                     gridViewLiquidacionAjuste.Columns[12].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                    gridViewLiquidacionAjuste.Columns[13].Caption = "Fecha Liquidación";
-                    gridViewLiquidacionAjuste.Columns[13].Width = 60;
-                    gridViewLiquidacionAjuste.Columns[13].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+                    gridViewLiquidacionAjuste.Columns[13].Caption = "Total";
+                    gridViewLiquidacionAjuste.Columns[13].Width = 90;
+                    gridViewLiquidacionAjuste.Columns[13].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Far;
                     gridViewLiquidacionAjuste.Columns[13].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                    gridViewLiquidacionAjuste.Columns[14].Visible = false;
-                    gridViewLiquidacionAjuste.Columns[15].Visible = false;
+                    gridViewLiquidacionAjuste.Columns[14].Caption = "Tabaco";
+                    gridViewLiquidacionAjuste.Columns[14].Width = 90;
+                    gridViewLiquidacionAjuste.Columns[14].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Far;
+                    gridViewLiquidacionAjuste.Columns[14].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+                    gridViewLiquidacionAjuste.Columns[15].Caption = "Fecha Liquidación";
+                    gridViewLiquidacionAjuste.Columns[15].Width = 60;
+                    gridViewLiquidacionAjuste.Columns[15].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+                    gridViewLiquidacionAjuste.Columns[15].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
                     gridViewLiquidacionAjuste.Columns[16].Visible = false;
+                    gridViewLiquidacionAjuste.Columns[17].Visible = false;
+                    gridViewLiquidacionAjuste.Columns[18].Visible = false;
                                          
                 }
             }
@@ -1442,7 +1659,17 @@ namespace CooperativaProduccion
             {
                 CooperativaProduccionEntities Context = new CooperativaProduccionEntities();
 
-                int PuntoVenta = NumeroPuntoVentaLiquidacion();
+                long contadorA = Context.Contador
+                                .Where(x => x.Nombre == DevConstantes.LiquidacionA)
+                                .Select(x => x.Valor.Value)
+                                .FirstOrDefault() + 1;
+
+                long contadorB = Context.Contador
+                    .Where(x => x.Nombre == DevConstantes.LiquidacionB)
+                    .Select(x => x.Valor.Value)
+                    .FirstOrDefault() + 1;
+
+                List<Liquidacion> listaLiquidacion = new List<DesktopEntities.Models.Liquidacion>();
 
                 if (gridViewLiquidacionAjuste.SelectedRowsCount > 0)
                 {
@@ -1450,14 +1677,19 @@ namespace CooperativaProduccion
                     {
                         if (gridViewLiquidacionAjuste.IsRowSelected(i))
                         {
-                            var ProductorId = new Guid(gridViewLiquidacionAjuste.GetRowCellValue(i, "ProductorId").ToString());
-                            var rowliquidacion = lista.Where(x => x.ProductorId == ProductorId).FirstOrDefault();
+                            var ProductorId = new Guid(gridViewLiquidacionAjuste
+                                .GetRowCellValue(i, "ProductorId")
+                                .ToString());
+
+                            var rowliquidacion = lista
+                                .Where(x => x.ProductorId == ProductorId)
+                                .FirstOrDefault();
+
 
                             Liquidacion liquidacion;
                             liquidacion = new Liquidacion();
                             liquidacion.Id = Guid.NewGuid();
-                            liquidacion.PuntoVenta = PuntoVenta;
-                            liquidacion.NumInternoLiquidacion = ContadorNumeroInternoLiquidacion(rowliquidacion.Letra);
+                            liquidacion.PuntoVenta = rowliquidacion.PuntoVentaLiquidacion;
                             liquidacion.Fecha = rowliquidacion.FechaInternaLiquidacion;
                             liquidacion.Letra = rowliquidacion.Letra;
                             liquidacion.ProductorId = rowliquidacion.ProductorId;
@@ -1468,44 +1700,28 @@ namespace CooperativaProduccion
                             liquidacion.IvaPorcentaje = rowliquidacion.IvaPorcentaje;
                             liquidacion.IvaCalculado = rowliquidacion.IvaCalculadoAjuste;
                             liquidacion.Total = rowliquidacion.TotalAjuste;
-                            Context.Liquidacion.Add(liquidacion);
-                            Context.SaveChanges();
 
-                            #region Actualizar contador
 
-                            if (rowliquidacion.Letra.Equals(DevConstantes.A))
+                            if (rowliquidacion.Letra == DevConstantes.A)
                             {
-                                var contador = Context.Contador
-                                    .Where(x => x.Nombre.Equals(DevConstantes.LiquidacionA))
-                                    .FirstOrDefault();
-
-                                var count = Context.Contador.Find(contador.Id);
-                                if (count != null)
-                                {
-                                    count.Valor = count.Valor + 1;
-                                    Context.Entry(count).State = EntityState.Modified;
-                                    Context.SaveChanges();
-                                }
+                                liquidacion.NumInternoLiquidacion = contadorA;
+                                contadorA = contadorA + 1;
                             }
                             else
                             {
-                                var contador = Context.Contador
-                                    .Where(x => x.Nombre.Equals(DevConstantes.LiquidacionB))
-                                    .FirstOrDefault();
-
-                                var count = Context.Contador.Find(contador.Id);
-                                if (count != null)
-                                {
-                                    count.Valor = count.Valor + 1;
-                                    Context.Entry(count).State = EntityState.Modified;
-                                    Context.SaveChanges();
-                                }
+                                liquidacion.NumInternoLiquidacion = contadorB;
+                                contadorB = contadorB + 1;
                             }
-
-                            #endregion
-
+                            listaLiquidacion.Add(liquidacion);
                         }
                     }
+                }
+                if (listaLiquidacion.Count > 0)
+                {
+                    Context.Configuration.AutoDetectChangesEnabled = false;
+                    Context.Configuration.ValidateOnSaveEnabled = false;
+                    Context.Liquidacion.AddRange(listaLiquidacion);
+                    Context.SaveChanges();
                 }
             }
             catch (Exception e)
@@ -1533,5 +1749,7 @@ namespace CooperativaProduccion
             MessageBox.Show("Liquidaciones Procesadas.",
                "Confirmación", MessageBoxButtons.OK);
         }
+
+     
     }
 }

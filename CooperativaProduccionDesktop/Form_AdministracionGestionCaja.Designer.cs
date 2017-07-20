@@ -594,6 +594,8 @@
             this.gridViewCajaConsulta.GridControl = this.gridControlCajaConsulta;
             this.gridViewCajaConsulta.Name = "gridViewCajaConsulta";
             this.gridViewCajaConsulta.OptionsBehavior.Editable = false;
+            this.gridViewCajaConsulta.OptionsSelection.MultiSelect = true;
+            this.gridViewCajaConsulta.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CheckBoxRowSelect;
             this.gridViewCajaConsulta.OptionsView.ShowFooter = true;
             this.gridViewCajaConsulta.OptionsView.ShowGroupPanel = false;
             // 

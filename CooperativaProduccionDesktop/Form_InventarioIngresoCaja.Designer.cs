@@ -64,6 +64,7 @@
             this.groupControl4 = new DevExpress.XtraEditors.GroupControl();
             this.btnBuscarLiquidacion = new DevExpress.XtraEditors.SimpleButton();
             this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
+            this.checkSinCata = new System.Windows.Forms.CheckBox();
             this.checkCampaña = new System.Windows.Forms.CheckBox();
             this.cbCampaña = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -72,7 +73,6 @@
             this.btnBuscarCaja = new DevExpress.XtraEditors.SimpleButton();
             this.cbProductoConsulta = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.checkSinCata = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Cata)).BeginInit();
             this.Cata.SuspendLayout();
@@ -449,6 +449,7 @@
             this.gridViewCajaConsulta.Name = "gridViewCajaConsulta";
             this.gridViewCajaConsulta.OptionsBehavior.Editable = false;
             this.gridViewCajaConsulta.OptionsSelection.MultiSelect = true;
+            this.gridViewCajaConsulta.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CheckBoxRowSelect;
             this.gridViewCajaConsulta.OptionsView.ShowFooter = true;
             this.gridViewCajaConsulta.OptionsView.ShowGroupPanel = false;
             // 
@@ -495,6 +496,18 @@
             this.groupControl2.Size = new System.Drawing.Size(976, 50);
             this.groupControl2.TabIndex = 72;
             this.groupControl2.Text = "Buscar";
+            // 
+            // checkSinCata
+            // 
+            this.checkSinCata.AutoSize = true;
+            this.checkSinCata.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.checkSinCata.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold);
+            this.checkSinCata.Location = new System.Drawing.Point(638, 25);
+            this.checkSinCata.Name = "checkSinCata";
+            this.checkSinCata.Size = new System.Drawing.Size(147, 20);
+            this.checkSinCata.TabIndex = 69;
+            this.checkSinCata.Text = "Mostrar cajas sin catas";
+            this.checkSinCata.UseVisualStyleBackColor = true;
             // 
             // checkCampaña
             // 
@@ -573,18 +586,6 @@
             this.label3.Size = new System.Drawing.Size(57, 16);
             this.label3.TabIndex = 57;
             this.label3.Text = "Producto";
-            // 
-            // checkSinCata
-            // 
-            this.checkSinCata.AutoSize = true;
-            this.checkSinCata.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.checkSinCata.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold);
-            this.checkSinCata.Location = new System.Drawing.Point(638, 25);
-            this.checkSinCata.Name = "checkSinCata";
-            this.checkSinCata.Size = new System.Drawing.Size(147, 20);
-            this.checkSinCata.TabIndex = 69;
-            this.checkSinCata.Text = "Mostrar cajas sin catas";
-            this.checkSinCata.UseVisualStyleBackColor = true;
             // 
             // Form_InventarioIngresoCaja
             // 
