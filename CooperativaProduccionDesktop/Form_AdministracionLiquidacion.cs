@@ -1555,6 +1555,7 @@ namespace CooperativaProduccion
                         rowLiquidacion.FechaInternaLiquidacion = dpFechaLiquidacionAjuste.Value.Date;
 
                         lista.Add(rowLiquidacion);
+                        
                     }
 
                     gridControlLiquidacionAjuste.DataSource = null;
@@ -1669,7 +1670,7 @@ namespace CooperativaProduccion
                     .Select(x => x.Valor.Value)
                     .FirstOrDefault() + 1;
 
-                List<Liquidacion> listaLiquidacion = new List<DesktopEntities.Models.Liquidacion>();
+                List<Liquidacion> listaLiquidacion = new List<Liquidacion>();
 
                 if (gridViewLiquidacionAjuste.SelectedRowsCount > 0)
                 {
@@ -1684,24 +1685,21 @@ namespace CooperativaProduccion
                             var rowliquidacion = lista
                                 .Where(x => x.ProductorId == ProductorId)
                                 .FirstOrDefault();
-
-
+                            
                             Liquidacion liquidacion;
                             liquidacion = new Liquidacion();
-                            liquidacion.Id = Guid.NewGuid();
+                            liquidacion.Id = rowliquidacion.Id;
                             liquidacion.PuntoVenta = rowliquidacion.PuntoVentaLiquidacion;
                             liquidacion.Fecha = rowliquidacion.FechaInternaLiquidacion;
                             liquidacion.Letra = rowliquidacion.Letra;
                             liquidacion.ProductorId = rowliquidacion.ProductorId;
-                            var producto = Context.Vw_LiquidacionAjuste.FirstOrDefault();
-                            liquidacion.ProductoId = producto.ID;
+                            liquidacion.ProductoId = rowliquidacion.ProductoId;
                             liquidacion.Tabaco = rowliquidacion.Tabaco;
-                            liquidacion.ImporteNeto = rowliquidacion.ImporteNeto;
+                            liquidacion.ImporteNeto = rowliquidacion.Ajuste;
                             liquidacion.IvaPorcentaje = rowliquidacion.IvaPorcentaje;
                             liquidacion.IvaCalculado = rowliquidacion.IvaCalculadoAjuste;
                             liquidacion.Total = rowliquidacion.TotalAjuste;
-
-
+                            
                             if (rowliquidacion.Letra == DevConstantes.A)
                             {
                                 liquidacion.NumInternoLiquidacion = contadorA;
@@ -1722,6 +1720,8 @@ namespace CooperativaProduccion
                     Context.Configuration.ValidateOnSaveEnabled = false;
                     Context.Liquidacion.AddRange(listaLiquidacion);
                     Context.SaveChanges();
+                    MessageBox.Show("Liquidaciones Procesadas.",
+                        "Confirmación", MessageBoxButtons.OK);
                 }
             }
             catch (Exception e)
@@ -1746,8 +1746,7 @@ namespace CooperativaProduccion
             }
             Task task = new Task(() => LiquidarAjuste());
             task.Start();
-            MessageBox.Show("Liquidaciones Procesadas.",
-               "Confirmación", MessageBoxButtons.OK);
+           
         }
 
      
