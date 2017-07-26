@@ -702,7 +702,7 @@
             this.groupControl4.Controls.Add(this.gridControlLiquidacionAjuste);
             this.groupControl4.Location = new System.Drawing.Point(1, 107);
             this.groupControl4.Name = "groupControl4";
-            this.groupControl4.Size = new System.Drawing.Size(1265, 564);
+            this.groupControl4.Size = new System.Drawing.Size(1265, 570);
             this.groupControl4.TabIndex = 77;
             this.groupControl4.Text = "Lista de Liquidación";
             // 
@@ -713,7 +713,7 @@
             this.gridControlLiquidacionAjuste.MainView = this.gridViewLiquidacionAjuste;
             this.gridControlLiquidacionAjuste.MenuManager = this.ribbon;
             this.gridControlLiquidacionAjuste.Name = "gridControlLiquidacionAjuste";
-            this.gridControlLiquidacionAjuste.Size = new System.Drawing.Size(1261, 542);
+            this.gridControlLiquidacionAjuste.Size = new System.Drawing.Size(1261, 548);
             this.gridControlLiquidacionAjuste.TabIndex = 68;
             this.gridControlLiquidacionAjuste.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewLiquidacionAjuste});

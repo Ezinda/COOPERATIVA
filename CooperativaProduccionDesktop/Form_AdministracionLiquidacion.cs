@@ -34,7 +34,7 @@ namespace CooperativaProduccion
         public CooperativaProduccionEntities Context { get; set; }
         private Form_AdministracionBuscarProductor _formBuscarProductor;
         private Guid ProductorId;
-        public List<GridLiquidacionAjuste> lista;
+        public List<GridLiquidacionAjuste> liquidaciones;
 
         public Form_AdministracionLiquidacion(bool Liquidar, 
             bool LiquidacionSubirAfip,bool LiquidacionImprimir)
@@ -1430,15 +1430,23 @@ namespace CooperativaProduccion
             pred = pred.And(x => x.FechaInternaLiquidacion >= dpDesdeAjuste.Value.Date
                 && x.FechaInternaLiquidacion <= dpHastaAjuste.Value.Date);
 
-            pred = !string.IsNullOrEmpty(txtFetAjuste.Text) ? pred.And(x => x.ProductorId == ProductorId) : pred;
+            pred = !string.IsNullOrEmpty(txtFetAjuste.Text) ? 
+                pred.And(x => x.ProductorId == ProductorId) : pred;
 
-            pred = !string.IsNullOrEmpty(cbTabacoAjuste.Text) ? pred.And(x => x.Tabaco == cbTabacoAjuste.Text) : pred;
+            pred = !string.IsNullOrEmpty(cbTabacoAjuste.Text) ? 
+                pred.And(x => x.Tabaco == cbTabacoAjuste.Text) : pred;
 
             pred = pred.And(x => x.NumInternoLiquidacion != null);
 
-            lista = new List<GridLiquidacionAjuste>();
+            liquidaciones = new List<GridLiquidacionAjuste>();
 
-            var liquidaciones =
+            int puntoVenta = NumeroPuntoVentaLiquidacion();
+
+            Guid productoId = Context.Vw_LiquidacionAjuste
+                .Select(x => x.ID)
+                .FirstOrDefault();
+
+            liquidaciones =
                 (from a in Context.Vw_Romaneo
                  .Where(pred)
                  group a by new
@@ -1451,174 +1459,68 @@ namespace CooperativaProduccion
                      a.Letra,
                      a.Tabaco,
                  } into gl
-                 select new
+                 select new GridLiquidacionAjuste
                  {
+                     Id = Guid.NewGuid(),
                      ProductorId = gl.Key.ProductorId,
                      Productor = gl.Key.NOMBRE,
                      Cuit = gl.Key.CUIT,
                      Fet = gl.Key.nrofet,
                      Provincia = gl.Key.Provincia,
                      Letra = gl.Key.Letra,
-                     ImporteBruto = gl.Sum(a => a.ImporteBruto),
-                     ImporteNeto = gl.Sum(a => a.ImporteNeto),
-                     Ajuste = gl.Sum(a => a.ImporteBruto),
-                     Tabaco = gl.Key.Tabaco
+                     ImporteBruto = gl.Sum(a => a.ImporteBruto.Value),
+                     ImporteNeto = gl.Sum(a => a.ImporteNeto.Value),
+                     Ajuste = gl.Sum(a => a.ImporteBruto.Value),
+                     Tabaco = gl.Key.Tabaco,
+                     PuntoVentaLiquidacion = puntoVenta,
+                     ProductoId = productoId 
                  })
                  .OrderBy(x => x.Productor)
                  .ToList();
 
-            if (ajuste.Equals(false))
-            {
-                gridControlLiquidacionAjuste.DataSource = liquidaciones;
-                gridViewLiquidacionAjuste.Columns[0].Visible = false;
-                gridViewLiquidacionAjuste.Columns[1].Caption = "Productor";
-                gridViewLiquidacionAjuste.Columns[1].Width = 150;
-                gridViewLiquidacionAjuste.Columns[2].Caption = "Cuit";
-                gridViewLiquidacionAjuste.Columns[2].Width = 65;
-                gridViewLiquidacionAjuste.Columns[2].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-                gridViewLiquidacionAjuste.Columns[2].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                gridViewLiquidacionAjuste.Columns[3].Caption = "Fet";
-                gridViewLiquidacionAjuste.Columns[3].Width = 55;
-                gridViewLiquidacionAjuste.Columns[3].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-                gridViewLiquidacionAjuste.Columns[3].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                gridViewLiquidacionAjuste.Columns[4].Caption = "Provincia";
-                gridViewLiquidacionAjuste.Columns[4].Width = 60;
-                gridViewLiquidacionAjuste.Columns[4].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-                gridViewLiquidacionAjuste.Columns[4].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                gridViewLiquidacionAjuste.Columns[5].Caption = "Letra";
-                gridViewLiquidacionAjuste.Columns[5].Width = 60;
-                gridViewLiquidacionAjuste.Columns[5].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-                gridViewLiquidacionAjuste.Columns[5].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                gridViewLiquidacionAjuste.Columns[6].Caption = "Bruto";
-                gridViewLiquidacionAjuste.Columns[6].Width = 90;
-                gridViewLiquidacionAjuste.Columns[6].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Far;
-                gridViewLiquidacionAjuste.Columns[6].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                gridViewLiquidacionAjuste.Columns[7].Caption = "Neto";
-                gridViewLiquidacionAjuste.Columns[7].Width = 90;
-                gridViewLiquidacionAjuste.Columns[7].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Far;
-                gridViewLiquidacionAjuste.Columns[7].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                gridViewLiquidacionAjuste.Columns[8].Visible = false;
-                gridViewLiquidacionAjuste.Columns[9].Caption = "Tabaco";
-                gridViewLiquidacionAjuste.Columns[9].Width = 90;
-                gridViewLiquidacionAjuste.Columns[9].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Far;
-                gridViewLiquidacionAjuste.Columns[9].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-            }
-            else
-            {
-                decimal cero;
+            gridControlLiquidacionAjuste.DataSource = new BindingList<GridLiquidacionAjuste>(liquidaciones);
+            gridViewLiquidacionAjuste.Columns[0].Visible = false;
+            gridViewLiquidacionAjuste.Columns[1].Visible = false;
+            gridViewLiquidacionAjuste.Columns[2].Caption = "Productor";
+            gridViewLiquidacionAjuste.Columns[2].Width = 150;
+            gridViewLiquidacionAjuste.Columns[3].Caption = "Cuit";
+            gridViewLiquidacionAjuste.Columns[3].Width = 65;
+            gridViewLiquidacionAjuste.Columns[3].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+            gridViewLiquidacionAjuste.Columns[3].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+            gridViewLiquidacionAjuste.Columns[4].Caption = "Fet";
+            gridViewLiquidacionAjuste.Columns[4].Width = 55;
+            gridViewLiquidacionAjuste.Columns[4].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+            gridViewLiquidacionAjuste.Columns[4].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+            gridViewLiquidacionAjuste.Columns[5].Caption = "Provincia";
+            gridViewLiquidacionAjuste.Columns[5].Width = 60;
+            gridViewLiquidacionAjuste.Columns[5].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+            gridViewLiquidacionAjuste.Columns[5].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+            gridViewLiquidacionAjuste.Columns[6].Caption = "Letra";
+            gridViewLiquidacionAjuste.Columns[6].Width = 60;
+            gridViewLiquidacionAjuste.Columns[6].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+            gridViewLiquidacionAjuste.Columns[6].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+            gridViewLiquidacionAjuste.Columns[7].Visible = false;
+            gridViewLiquidacionAjuste.Columns[8].Caption = "Bruto";
+            gridViewLiquidacionAjuste.Columns[8].Width = 90;
+            gridViewLiquidacionAjuste.Columns[8].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Far;
+            gridViewLiquidacionAjuste.Columns[8].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+            gridViewLiquidacionAjuste.Columns[9].Caption = "Neto";
+            gridViewLiquidacionAjuste.Columns[9].Width = 90;
+            gridViewLiquidacionAjuste.Columns[9].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Far;
+            gridViewLiquidacionAjuste.Columns[9].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+            gridViewLiquidacionAjuste.Columns[10].Visible = false;
+            gridViewLiquidacionAjuste.Columns[11].Visible = false;
+            gridViewLiquidacionAjuste.Columns[12].Visible = false;
+            gridViewLiquidacionAjuste.Columns[13].Visible = false;
+            gridViewLiquidacionAjuste.Columns[14].Caption = "Tabaco";
+            gridViewLiquidacionAjuste.Columns[14].Width = 90;
+            gridViewLiquidacionAjuste.Columns[14].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Far;
+            gridViewLiquidacionAjuste.Columns[14].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+            gridViewLiquidacionAjuste.Columns[15].Visible = false;
+            gridViewLiquidacionAjuste.Columns[16].Visible = false;
+            gridViewLiquidacionAjuste.Columns[17].Visible = false;
+            gridViewLiquidacionAjuste.Columns[18].Visible = false;
 
-                decimal valorajuste;
-
-                decimal ivaPorcentaje;
-
-                bool successfullyParsed = decimal.TryParse(txtPorcentajeAjuste.Text, out cero);
-
-                if (successfullyParsed)
-                {
-                    valorajuste = decimal.Parse(txtPorcentajeAjuste.Text)/100;
-
-                    ivaPorcentaje = decimal.Parse(DevConstantes.Iva,CultureInfo.InvariantCulture);
-
-                    var producto = Context.Vw_LiquidacionAjuste.FirstOrDefault();
-                    
-                    foreach (var liquidacion in liquidaciones)
-                    {
-                        var rowLiquidacion = new GridLiquidacionAjuste();
-                        rowLiquidacion.Id = Guid.NewGuid();
-                        rowLiquidacion.ProductorId = liquidacion.ProductorId;
-                        rowLiquidacion.Productor = liquidacion.Productor;
-                        rowLiquidacion.Cuit = liquidacion.Cuit;
-                        rowLiquidacion.Fet = liquidacion.Fet;
-                        rowLiquidacion.Provincia = liquidacion.Provincia;
-                        rowLiquidacion.Letra = liquidacion.Letra;
-                        rowLiquidacion.ProductoId = producto.ID;
-                        rowLiquidacion.ImporteBruto = liquidacion.ImporteBruto.Value;
-                        rowLiquidacion.ImporteNeto = liquidacion.ImporteNeto.Value;
-                        rowLiquidacion.Ajuste = Math.Round(liquidacion.ImporteNeto.Value * valorajuste, 2, MidpointRounding.ToEven);
-                    
-                        var subtotal = rowLiquidacion.Ajuste;
-                        var iva = subtotal * (ivaPorcentaje / 100);
-                        var total = subtotal + iva;
-
-                        if (rowLiquidacion.Letra == DevConstantes.A)
-                        {
-                            rowLiquidacion.IvaCalculadoAjuste = decimal.Round(iva, 2, MidpointRounding.AwayFromZero);
-                            rowLiquidacion.TotalAjuste = decimal.Round(total, 2, MidpointRounding.AwayFromZero);
-                        }
-                        else
-                        {
-                            rowLiquidacion.IvaCalculadoAjuste = decimal.Round(0, 2, MidpointRounding.AwayFromZero);
-                            rowLiquidacion.TotalAjuste = subtotal;
-                        }
-                        rowLiquidacion.Tabaco = liquidacion.Tabaco;
-                        rowLiquidacion.PuntoVentaLiquidacion = NumeroPuntoVentaLiquidacion();
-                        rowLiquidacion.FechaInternaLiquidacion = dpFechaLiquidacionAjuste.Value.Date;
-
-                        lista.Add(rowLiquidacion);
-                        
-                    }
-
-                    gridControlLiquidacionAjuste.DataSource = null;
-                    gridViewLiquidacionAjuste.Columns.Clear();
-                    gridControlLiquidacionAjuste.DataSource = new BindingList<GridLiquidacionAjuste>(lista);
-                    gridViewLiquidacionAjuste.Columns[0].Visible = false;
-                    gridViewLiquidacionAjuste.Columns[1].Visible = false;
-                    gridViewLiquidacionAjuste.Columns[2].Caption = "Productor";
-                    gridViewLiquidacionAjuste.Columns[2].Width = 150;
-                    gridViewLiquidacionAjuste.Columns[3].Caption = "Cuit";
-                    gridViewLiquidacionAjuste.Columns[3].Width = 65;
-                    gridViewLiquidacionAjuste.Columns[3].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-                    gridViewLiquidacionAjuste.Columns[3].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                    gridViewLiquidacionAjuste.Columns[4].Caption = "Fet";
-                    gridViewLiquidacionAjuste.Columns[4].Width = 55;
-                    gridViewLiquidacionAjuste.Columns[4].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-                    gridViewLiquidacionAjuste.Columns[4].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                    gridViewLiquidacionAjuste.Columns[5].Caption = "Provincia";
-                    gridViewLiquidacionAjuste.Columns[5].Width = 60;
-                    gridViewLiquidacionAjuste.Columns[5].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-                    gridViewLiquidacionAjuste.Columns[5].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                    gridViewLiquidacionAjuste.Columns[6].Caption = "Letra";
-                    gridViewLiquidacionAjuste.Columns[6].Width = 60;
-                    gridViewLiquidacionAjuste.Columns[6].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-                    gridViewLiquidacionAjuste.Columns[6].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                    gridViewLiquidacionAjuste.Columns[7].Visible = false;
-                    gridViewLiquidacionAjuste.Columns[8].Caption = "Bruto";
-                    gridViewLiquidacionAjuste.Columns[8].Width = 90;
-                    gridViewLiquidacionAjuste.Columns[8].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Far;
-                    gridViewLiquidacionAjuste.Columns[8].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                    gridViewLiquidacionAjuste.Columns[9].Caption = "Neto";
-                    gridViewLiquidacionAjuste.Columns[9].Width = 90;
-                    gridViewLiquidacionAjuste.Columns[9].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Far;
-                    gridViewLiquidacionAjuste.Columns[9].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                    gridViewLiquidacionAjuste.Columns[10].Caption = "Ajuste";
-                    gridViewLiquidacionAjuste.Columns[10].Width = 90;
-                    gridViewLiquidacionAjuste.Columns[10].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Far;
-                    gridViewLiquidacionAjuste.Columns[10].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                    gridViewLiquidacionAjuste.Columns[11].Visible = false;
-                    gridViewLiquidacionAjuste.Columns[12].Caption = "Iva";
-                    gridViewLiquidacionAjuste.Columns[12].Width = 90;
-                    gridViewLiquidacionAjuste.Columns[12].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Far;
-                    gridViewLiquidacionAjuste.Columns[12].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                    gridViewLiquidacionAjuste.Columns[13].Caption = "Total";
-                    gridViewLiquidacionAjuste.Columns[13].Width = 90;
-                    gridViewLiquidacionAjuste.Columns[13].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Far;
-                    gridViewLiquidacionAjuste.Columns[13].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                    gridViewLiquidacionAjuste.Columns[14].Caption = "Tabaco";
-                    gridViewLiquidacionAjuste.Columns[14].Width = 90;
-                    gridViewLiquidacionAjuste.Columns[14].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Far;
-                    gridViewLiquidacionAjuste.Columns[14].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                    gridViewLiquidacionAjuste.Columns[15].Caption = "Fecha Liquidación";
-                    gridViewLiquidacionAjuste.Columns[15].Width = 60;
-                    gridViewLiquidacionAjuste.Columns[15].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
-                    gridViewLiquidacionAjuste.Columns[15].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
-                    gridViewLiquidacionAjuste.Columns[16].Visible = false;
-                    gridViewLiquidacionAjuste.Columns[17].Visible = false;
-                    gridViewLiquidacionAjuste.Columns[18].Visible = false;
-                                         
-                }
-            }
-
-            
             for (var i = 0; i <= gridViewLiquidacionAjuste.RowCount; i++)
             {
                 gridViewLiquidacionAjuste.SelectRow(i);
@@ -1632,6 +1534,7 @@ namespace CooperativaProduccion
             }
 
             gridViewLiquidacionAjuste.Columns["ImporteBruto"].Summary.Add(DevExpress.Data.SummaryItemType.Sum, "ImporteBruto", "{0}");
+            gridViewLiquidacionAjuste.Columns["ImporteNeto"].Summary.Add(DevExpress.Data.SummaryItemType.Sum, "ImporteNeto", "{0}");
             gridViewLiquidacionAjuste.Appearance.FooterPanel.TextOptions.HAlignment = HorzAlignment.Far;
             gridViewLiquidacionAjuste.Appearance.FooterPanel.Options.UseTextOptions = true;
         }
@@ -1678,11 +1581,11 @@ namespace CooperativaProduccion
                     {
                         if (gridViewLiquidacionAjuste.IsRowSelected(i))
                         {
-                            var ProductorId = new Guid(gridViewLiquidacionAjuste
+                            Guid ProductorId = new Guid(gridViewLiquidacionAjuste
                                 .GetRowCellValue(i, "ProductorId")
                                 .ToString());
 
-                            var rowliquidacion = lista
+                            var rowliquidacion = liquidaciones
                                 .Where(x => x.ProductorId == ProductorId)
                                 .FirstOrDefault();
                             
@@ -1714,12 +1617,13 @@ namespace CooperativaProduccion
                         }
                     }
                 }
+
                 if (listaLiquidacion.Count > 0)
                 {
-                    Context.Configuration.AutoDetectChangesEnabled = false;
-                    Context.Configuration.ValidateOnSaveEnabled = false;
-                    Context.Liquidacion.AddRange(listaLiquidacion);
-                    Context.SaveChanges();
+                    ExtensionMethods.BulkInsert(Context.Database.Connection.ConnectionString, "Liquidacion", listaLiquidacion);
+                    UpdateContadorLiquidacion();
+                    LimpiarGridLiquidacionAjuste();
+
                     MessageBox.Show("Liquidaciones Procesadas.",
                         "Confirmación", MessageBoxButtons.OK);
                 }
@@ -1730,9 +1634,40 @@ namespace CooperativaProduccion
             }
         }
 
+        private void UpdateContadorLiquidacion()
+        {
+            var liquidacionA = Context.Liquidacion
+                .Where(x => x.Letra == DevConstantes.A)
+                .OrderByDescending(x => x.NumInternoLiquidacion)
+                .Select(x => x.NumInternoLiquidacion)
+                .FirstOrDefault();
+
+            var ContadorA = Context.Contador
+                .Where(x => x.Nombre == DevConstantes.LiquidacionA)
+                .Update(x => new Contador()
+                {
+                    Valor = liquidacionA
+                });
+
+            var liquidacionB = Context.Liquidacion
+                .Where(x => x.Letra == DevConstantes.B)
+                .OrderByDescending(x => x.NumInternoLiquidacion)
+                .Select(x => x.NumInternoLiquidacion)
+                .FirstOrDefault();
+
+            var ContadorB = Context.Contador
+                .Where(x => x.Nombre == DevConstantes.LiquidacionB)
+                .Update(x => new Contador()
+                {
+                    Valor = liquidacionB
+                });
+
+            Context.SaveChanges();     
+        }
+
         private void btnCalcularAjuste_Click(object sender, EventArgs e)
         {
-            BuscarLiquidacionAjuste(true);
+           CalcularLiquidacionAjuste();
         }
 
         private void btnProcesarAjuste_Click(object sender, EventArgs e)
@@ -1744,11 +1679,132 @@ namespace CooperativaProduccion
             {
                 return;
             }
-            Task task = new Task(() => LiquidarAjuste());
-            task.Start();
-           
+
+            LiquidarAjuste();
         }
 
-     
+        private void CalcularLiquidacionAjuste()
+        {
+            decimal cero;
+
+            decimal valorajuste;
+
+            decimal ivaPorcentaje;
+
+            bool successfullyParsed = decimal.TryParse(txtPorcentajeAjuste.Text, out cero);
+
+            if (successfullyParsed)
+            {
+                valorajuste = decimal.Parse(txtPorcentajeAjuste.Text) / 100;
+
+                ivaPorcentaje = decimal.Parse(DevConstantes.Iva, CultureInfo.InvariantCulture);
+
+                foreach (var rowliquidacion in liquidaciones)
+                {
+                    rowliquidacion.Ajuste = Math.Round(rowliquidacion.ImporteNeto * valorajuste, 2, MidpointRounding.ToEven);
+
+                    //subtotal * porcentaje de iva
+                    decimal iva = rowliquidacion.Ajuste * (ivaPorcentaje / 100);
+                    //subtotal + iva
+                    decimal total = rowliquidacion.Ajuste + iva;
+
+                    if (rowliquidacion.Letra == DevConstantes.A)
+                    {
+                        rowliquidacion.IvaCalculadoAjuste = decimal.Round(iva, 2, MidpointRounding.AwayFromZero);
+                        rowliquidacion.TotalAjuste = decimal.Round(total, 2, MidpointRounding.AwayFromZero);
+                    }
+                    else
+                    {
+                        rowliquidacion.IvaCalculadoAjuste = decimal.Round(0, 2, MidpointRounding.AwayFromZero);
+                        rowliquidacion.TotalAjuste = rowliquidacion.Ajuste;
+                    }
+                    rowliquidacion.FechaInternaLiquidacion = dpFechaLiquidacionAjuste.Value.Date;
+                }
+
+                gridControlLiquidacionAjuste.DataSource = null;
+
+                gridViewLiquidacionAjuste.Columns.Clear();
+                gridControlLiquidacionAjuste.DataSource = new BindingList<GridLiquidacionAjuste>(liquidaciones);
+                gridViewLiquidacionAjuste.Columns[0].Visible = false;
+                gridViewLiquidacionAjuste.Columns[1].Visible = false;
+                gridViewLiquidacionAjuste.Columns[2].Caption = "Productor";
+                gridViewLiquidacionAjuste.Columns[2].Width = 150;
+                gridViewLiquidacionAjuste.Columns[3].Caption = "Cuit";
+                gridViewLiquidacionAjuste.Columns[3].Width = 65;
+                gridViewLiquidacionAjuste.Columns[3].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+                gridViewLiquidacionAjuste.Columns[3].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+                gridViewLiquidacionAjuste.Columns[4].Caption = "Fet";
+                gridViewLiquidacionAjuste.Columns[4].Width = 55;
+                gridViewLiquidacionAjuste.Columns[4].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+                gridViewLiquidacionAjuste.Columns[4].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+                gridViewLiquidacionAjuste.Columns[5].Caption = "Provincia";
+                gridViewLiquidacionAjuste.Columns[5].Width = 60;
+                gridViewLiquidacionAjuste.Columns[5].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+                gridViewLiquidacionAjuste.Columns[5].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+                gridViewLiquidacionAjuste.Columns[6].Caption = "Letra";
+                gridViewLiquidacionAjuste.Columns[6].Width = 60;
+                gridViewLiquidacionAjuste.Columns[6].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+                gridViewLiquidacionAjuste.Columns[6].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+                gridViewLiquidacionAjuste.Columns[7].Visible = false;
+                gridViewLiquidacionAjuste.Columns[8].Caption = "Bruto";
+                gridViewLiquidacionAjuste.Columns[8].Width = 90;
+                gridViewLiquidacionAjuste.Columns[8].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Far;
+                gridViewLiquidacionAjuste.Columns[8].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+                gridViewLiquidacionAjuste.Columns[9].Caption = "Neto";
+                gridViewLiquidacionAjuste.Columns[9].Width = 90;
+                gridViewLiquidacionAjuste.Columns[9].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Far;
+                gridViewLiquidacionAjuste.Columns[9].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+                gridViewLiquidacionAjuste.Columns[10].Caption = "Ajuste";
+                gridViewLiquidacionAjuste.Columns[10].Width = 90;
+                gridViewLiquidacionAjuste.Columns[10].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Far;
+                gridViewLiquidacionAjuste.Columns[10].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+                gridViewLiquidacionAjuste.Columns[11].Visible = false;
+                gridViewLiquidacionAjuste.Columns[12].Caption = "Iva";
+                gridViewLiquidacionAjuste.Columns[12].Width = 90;
+                gridViewLiquidacionAjuste.Columns[12].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Far;
+                gridViewLiquidacionAjuste.Columns[12].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+                gridViewLiquidacionAjuste.Columns[13].Caption = "Total";
+                gridViewLiquidacionAjuste.Columns[13].Width = 90;
+                gridViewLiquidacionAjuste.Columns[13].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Far;
+                gridViewLiquidacionAjuste.Columns[13].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+                gridViewLiquidacionAjuste.Columns[14].Caption = "Tabaco";
+                gridViewLiquidacionAjuste.Columns[14].Width = 90;
+                gridViewLiquidacionAjuste.Columns[14].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Far;
+                gridViewLiquidacionAjuste.Columns[14].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+                gridViewLiquidacionAjuste.Columns[15].Caption = "Fecha Liquidación";
+                gridViewLiquidacionAjuste.Columns[15].Width = 60;
+                gridViewLiquidacionAjuste.Columns[15].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
+                gridViewLiquidacionAjuste.Columns[15].AppearanceHeader.TextOptions.HAlignment = HorzAlignment.Center;
+                gridViewLiquidacionAjuste.Columns[16].Visible = false;
+                gridViewLiquidacionAjuste.Columns[17].Visible = false;
+                gridViewLiquidacionAjuste.Columns[18].Visible = false;
+
+            }
+
+            for (var i = 0; i <= gridViewLiquidacionAjuste.RowCount; i++)
+            {
+                gridViewLiquidacionAjuste.SelectRow(i);
+            }
+
+            foreach (GridColumn column in gridViewLiquidacionAjuste.Columns)
+            {
+                GridSummaryItem item = column.SummaryItem;
+                if (item != null)
+                    column.Summary.Remove(item);
+            }
+
+            gridViewLiquidacionAjuste.Columns["ImporteBruto"].Summary.Add(DevExpress.Data.SummaryItemType.Sum, "ImporteBruto", "{0}");
+            gridViewLiquidacionAjuste.Columns["ImporteNeto"].Summary.Add(DevExpress.Data.SummaryItemType.Sum, "ImporteNeto", "{0}");
+            gridViewLiquidacionAjuste.Columns["Ajuste"].Summary.Add(DevExpress.Data.SummaryItemType.Sum, "Ajuste", "{0}");
+            gridViewLiquidacionAjuste.Columns["TotalAjuste"].Summary.Add(DevExpress.Data.SummaryItemType.Sum, "TotalAjuste", "{0}");
+            gridViewLiquidacionAjuste.Appearance.FooterPanel.TextOptions.HAlignment = HorzAlignment.Far;
+            gridViewLiquidacionAjuste.Appearance.FooterPanel.Options.UseTextOptions = true;
+        }
+
+        private void LimpiarGridLiquidacionAjuste()
+        {
+            gridControlLiquidacionAjuste.DataSource = null;
+            gridViewLiquidacionAjuste.Columns.Clear();
+        }
     }
 }
