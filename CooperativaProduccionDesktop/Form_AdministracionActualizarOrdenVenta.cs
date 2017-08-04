@@ -18,6 +18,7 @@ namespace CooperativaProduccion
         public CooperativaProduccionEntities Context { get; set; }
         private Guid OrdenVentaId;
         private Guid DetalleId;
+
         public Form_AdministracionActualizarOrdenVenta(Guid Id,Guid? OrdenVentaDetalleId,bool nuevo)
         {
             InitializeComponent();
@@ -66,7 +67,14 @@ namespace CooperativaProduccion
 
         private void cbProducto_SelectedValueChanged(object sender, EventArgs e)
         {
-    
+            var Producto = cbProducto.SelectedItem as dynamic;
+            Guid ProductoId = Producto.ID;
+            var Campaña = cbCampaña.SelectedItem as dynamic;
+            int año = Campaña.Campaña;
+            var deposito = cbDeposito.SelectedItem as dynamic;
+            Guid DepositoId = deposito.id;
+
+            CargarCajas(ProductoId, año, DepositoId);
         }
 
         #endregion
@@ -134,7 +142,6 @@ namespace CooperativaProduccion
             cbProducto.DataSource = producto;
             cbProducto.DisplayMember = "Descripcion";
             cbProducto.ValueMember = "Id";
-
           
         }
 
@@ -439,12 +446,14 @@ namespace CooperativaProduccion
         private void Deshabilitar()
         {
             cbCampaña.Enabled = false;
+            cbDeposito.Enabled = false;
             cbProducto.Enabled = false;
         }
 
         private void Habilitar()
         {
             cbCampaña.Enabled = true;
+            cbDeposito.Enabled = false;
             cbProducto.Enabled = true;
         }
 
@@ -458,26 +467,12 @@ namespace CooperativaProduccion
 
         private void cbDeposito_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            var Producto = cbProducto.SelectedItem as dynamic;
-            Guid ProductoId = Producto.ID;
-            var Campaña = cbCampaña.SelectedItem as dynamic;
-            int año = Campaña.Campaña;
-            var deposito = cbDeposito.SelectedItem as dynamic;
-            Guid DepositoId = deposito.id;
-
-            CargarCajas(ProductoId, año, DepositoId);
+           
         }
 
         private void cbProducto_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            var Producto = cbProducto.SelectedItem as dynamic;
-            Guid ProductoId = Producto.ID;
-            var Campaña = cbCampaña.SelectedItem as dynamic;
-            int año = Campaña.Campaña;
-            var deposito = cbDeposito.SelectedItem as dynamic;
-            Guid DepositoId = deposito.id;
-
-            CargarCajas(ProductoId, año, DepositoId);
+        
         }
     }
 }
