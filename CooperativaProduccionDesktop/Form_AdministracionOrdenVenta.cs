@@ -684,6 +684,7 @@ namespace CooperativaProduccion
                .ToString());
 
             GridView parcial = sender as GridView;
+
             Guid OrdenVentaDetalleId = new Guid(parcial
                           .GetRowCellValue(parcial.FocusedRowHandle, "Id")
                           .ToString());
@@ -694,7 +695,7 @@ namespace CooperativaProduccion
 
             if (Pendiente.Equals(DevConstantes.SI))
             {
-                var ordenventa = new Form_AdministracionActualizarOrdenVenta(OrdenVentaId,OrdenVentaDetalleId, false);
+                var ordenventa = new Form_AdministracionActualizarOrdenVenta(OrdenVentaId, OrdenVentaDetalleId, false);
                 ordenventa.ShowDialog(this);
             }
             else
@@ -799,7 +800,6 @@ namespace CooperativaProduccion
                 tool.PreviewForm.Text = "Etiqueta";
                 tool.ShowPreviewDialog();
             }
-
         }
     }
 }

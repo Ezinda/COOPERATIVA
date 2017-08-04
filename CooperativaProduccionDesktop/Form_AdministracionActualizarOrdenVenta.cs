@@ -66,11 +66,7 @@ namespace CooperativaProduccion
 
         private void cbProducto_SelectedValueChanged(object sender, EventArgs e)
         {
-            var Producto = cbProducto.SelectedItem as dynamic;
-            Guid ProductoId = Producto.ID;
-            var Campaña = cbCampaña.SelectedItem as dynamic;
-            int año = Campaña.Campaña;
-            CargarCajas(ProductoId, año);
+    
         }
 
         #endregion
@@ -121,6 +117,15 @@ namespace CooperativaProduccion
                  .OrderBy(x => x.Campaña)
                  .ToList();
 
+            var deposito = Context.Vw_Deposito
+              .Where(x => x.nombre == DevConstantes.Warrants
+                  || x.nombre == DevConstantes.Deposito)
+              .ToList();
+
+            cbDeposito.DataSource = deposito;
+            cbDeposito.DisplayMember = "nombre";
+            cbDeposito.ValueMember = "id";
+
             cbCampaña.DataSource = campaña;
             cbCampaña.DisplayMember = "Campaña";
             cbCampaña.ValueMember = "Campaña";
@@ -130,12 +135,23 @@ namespace CooperativaProduccion
             cbProducto.DisplayMember = "Descripcion";
             cbProducto.ValueMember = "Id";
 
+          
         }
 
         private void CargarDatos(Guid Id,Guid OrdenVentaDetalleId)
         {
+            var deposito = Context.Vw_Deposito
+                .Where(x => x.nombre == DevConstantes.Warrants
+                    || x.nombre == DevConstantes.Deposito)
+                .ToList();
+            cbDeposito.DataSource = deposito;
+            cbDeposito.DisplayMember = "nombre";
+            cbDeposito.ValueMember = "id";
+
             OrdenVentaId = Id;
+
             DetalleId = OrdenVentaDetalleId;
+
             var ordenVenta =
                  (from o in Context.OrdenVenta
                     .Where(x => x.Id == Id)
@@ -162,8 +178,7 @@ namespace CooperativaProduccion
             cbCampaña.DataSource = ordenVenta;
             cbCampaña.DisplayMember = "Campaña";
             cbCampaña.ValueMember = "Campaña";
-
-
+            
             cbProducto.DataSource = ordenVenta;
             cbProducto.DisplayMember = "Producto";
             cbProducto.ValueMember = "ID";
@@ -176,13 +191,31 @@ namespace CooperativaProduccion
             if (ordenVenta.Any())
             {
                 txtOperacion.Text = ordenVenta.FirstOrDefault().NumOperacion.ToString();
+
                 txtCliente.Text = ordenVenta.FirstOrDefault().Cliente;
             }
-            var detalle = Context.OrdenVentaDetalle.Where(x => x.Id == OrdenVentaDetalleId).FirstOrDefault();
+            var detalle = Context.OrdenVentaDetalle
+                .Where(x => x.Id == OrdenVentaDetalleId)
+                .FirstOrDefault();
+
             txtCajaDesde.Text = detalle.DesdeCaja.Value.ToString();
+
             txtCajaHasta.Text = detalle.HastaCaja.Value.ToString();
 
+            var cajaDesde =
+                 (from c in Context.Caja
+                      .Where(x => x.ProductoId == ProductoId
+                          && x.Campaña == año
+                          && x.NumeroCaja == detalle.DesdeCaja)
+                  join m in Context.Movimiento
+                     on c.Id equals m.TransaccionId
+                  select new
+                  {
+                      DepositoId = m.DepositoId
+                  })
+                 .FirstOrDefault();
 
+            cbDeposito.SelectedValue = cajaDesde.DepositoId;
         }
 
         private void Modificar(Guid OrdenVentaId, Guid ProductoId, int año)
@@ -310,18 +343,19 @@ namespace CooperativaProduccion
             }
         }
 
-        private void CargarCajas(Guid ProductoId, int Campaña)
+        private void CargarCajas(Guid ProductoId, int Campaña, Guid DepositoId)
         {
             var deposito = Context.Vw_Deposito
-               .Where(x => x.nombre == DevConstantes.Warrants)
-               .Single();
+               .Where(x => x.id == DepositoId)
+               .Select(x => x.id)
+               .FirstOrDefault();
 
             var caja =
                     (from c in Context.Caja
                      .Where(x => x.ProductoId == ProductoId
                          && x.Campaña == Campaña)
                      join m in Context.Movimiento
-                     .Where(x => x.DepositoId != deposito.id)
+                     .Where(x => x.DepositoId == deposito)
                      on c.Id equals m.TransaccionId
                      select new
                      {
@@ -336,12 +370,18 @@ namespace CooperativaProduccion
                          .Where(x => x.ProductoId == ProductoId
                              && x.Campaña == Campaña)
                      join m in Context.Movimiento
-                        .Where(x => x.DepositoId != deposito.id)
+                        .Where(x => x.DepositoId == deposito)
                         on c.Id equals m.TransaccionId
-                     select new
+                     group new { c, m } by new
                      {
                          NumeroCaja = c.NumeroCaja
+                     } into g
+                     select new
+                     {
+                         g.Key.NumeroCaja,
+                         Saldo = g.Sum(c => c.m.Ingreso) - g.Sum(c => c.m.Egreso)
                      })
+                    .Where(x => x.Saldo > 0)
                      .OrderBy(x => x.NumeroCaja)
                      .FirstOrDefault();
 
@@ -355,12 +395,18 @@ namespace CooperativaProduccion
                          .Where(x => x.ProductoId == ProductoId
                              && x.Campaña == Campaña)
                      join m in Context.Movimiento
-                     .Where(x => x.DepositoId != deposito.id)
+                     .Where(x => x.DepositoId == deposito)
                      on c.Id equals m.TransaccionId
-                     select new
+                     group new { c, m } by new
                      {
                          NumeroCaja = c.NumeroCaja
+                     } into g
+                     select new
+                     {
+                         g.Key.NumeroCaja,
+                         Saldo = g.Sum(c => c.m.Ingreso) - g.Sum(c => c.m.Egreso)
                      })
+                    .Where(x => x.Saldo > 0)
                     .OrderByDescending(x => x.NumeroCaja)
                     .FirstOrDefault();
 
@@ -375,7 +421,6 @@ namespace CooperativaProduccion
                 txtCajaHasta.Text = string.Empty;
             }
         }
-
 
         private void UbicarBotones(Guid? OrdenVentaDetalleId)
         {
@@ -404,5 +449,35 @@ namespace CooperativaProduccion
         }
 
         #endregion
+
+        private void cbDeposito_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+
+        }
+
+        private void cbDeposito_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            var Producto = cbProducto.SelectedItem as dynamic;
+            Guid ProductoId = Producto.ID;
+            var Campaña = cbCampaña.SelectedItem as dynamic;
+            int año = Campaña.Campaña;
+            var deposito = cbDeposito.SelectedItem as dynamic;
+            Guid DepositoId = deposito.id;
+
+            CargarCajas(ProductoId, año, DepositoId);
+        }
+
+        private void cbProducto_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            var Producto = cbProducto.SelectedItem as dynamic;
+            Guid ProductoId = Producto.ID;
+            var Campaña = cbCampaña.SelectedItem as dynamic;
+            int año = Campaña.Campaña;
+            var deposito = cbDeposito.SelectedItem as dynamic;
+            Guid DepositoId = deposito.id;
+
+            CargarCajas(ProductoId, año, DepositoId);
+        }
     }
 }
