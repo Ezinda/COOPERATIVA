@@ -87,8 +87,8 @@ namespace CooperativaProduccion
 
         private void btnGrabarRemito_Click(object sender, EventArgs e)
         {
-            //if (Validar())
-            //{
+            if (Validar())
+            {
                 var resultado = MessageBox.Show("¿Desea grabar el remito?",
                      "Atención", MessageBoxButtons.OKCancel);
                 if (resultado != DialogResult.OK)
@@ -99,7 +99,7 @@ namespace CooperativaProduccion
                 MessageBox.Show("Remito Grabado",
                     "Confirmación", MessageBoxButtons.OKCancel);
                 this.Close();
-            //}
+            }
         }
 
         #endregion
@@ -315,9 +315,9 @@ namespace CooperativaProduccion
             try
             {
                 //Crea Carpeta SystemDocumentsCooperativa.
-              //  CreateFolder();
+                CreateFolder();
                 //Copia el Remito Electronico en dicha direccion.
-             //   CopyFile();
+                CopyFile();
 
                 var ordenVenta = Context.OrdenVenta
                     .Where(x => x.Id == OrdenVentaId)
@@ -336,9 +336,9 @@ namespace CooperativaProduccion
                     remito.OrdenVentaId = ordenVenta.Id;
                     remito.PuntoVenta = int.Parse(txtPuntoVenta.Text);
                     remito.NumRemito = int.Parse(txtNumRemito.Text);
-              //      remito.PathOrigin = path;
-              //      string pathSystem = @"C:\SystemDocumentsCooperativa\RemitosElectronicos\" + txtNombrePdf.Text;
-               //     remito.PathSystem = pathSystem;
+                    remito.PathOrigin = path;
+                    string pathSystem = @"C:\SystemDocumentsCooperativa\RemitosElectronicos\" + txtNombrePdf.Text;
+                    remito.PathSystem = pathSystem;
                                        
                     Context.Remito.Add(remito);
                     Context.SaveChanges();
@@ -409,17 +409,13 @@ namespace CooperativaProduccion
             movimiento.Actual = true;
             movimiento.Anulado = false;
 
-            var deposito = Context.Vw_Deposito
-                .Where(x => x.nombre == DevConstantes.Deposito)
-                .FirstOrDefault();
-
             var depositoId = Context.Movimiento
                 .Where(x => x.TransaccionId == Id)
                 .OrderByDescending(x => x.Fecha)
                 .Select(x => x.DepositoId)
                 .FirstOrDefault();
 
-            if (deposito != null)
+            if (depositoId != null)
             {
                 movimiento.DepositoId = depositoId;
             }

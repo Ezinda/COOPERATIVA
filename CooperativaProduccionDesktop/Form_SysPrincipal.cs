@@ -36,10 +36,10 @@ namespace CooperativaProduccion
         {
             InitializeComponent();
             Context = new CooperativaProduccionEntities();
-            //ShowSplashForm();
-            //_CurrentUser = CheckCredentials();
-            //SolicitarCredenciales(_CurrentUser);
-            //CloseSessionForm();
+            ShowSplashForm();
+            _CurrentUser = CheckCredentials();
+            SolicitarCredenciales(_CurrentUser);
+            CloseSessionForm();
         }
         
         #region Method Code
