@@ -258,12 +258,18 @@ namespace CooperativaProduccion
             pred = !(checkTodos.Checked) ? 
                 pred.And(x => x.Lote == lote) : pred;
 
+            var campaña = Context.Cata
+                .Where(x => x.Lote == lote)
+                .Select(x => x.Caja.Campaña)
+                .FirstOrDefault();
+
             var result = 
                 (from a in Context.Cata.Where(pred)
                 join p in Context.Vw_Producto
                     on a.Caja.ProductoId equals p.ID into cp
                 from joined1 in cp.DefaultIfEmpty()
                 join b in Context.ProduccionBlend
+                    .Where(x => x.Periodo == campaña)
                     on a.Caja.ProductoId equals b.ProductoId into cb
                     from joined in cb.DefaultIfEmpty() 
                 select new CataCaja

@@ -283,7 +283,8 @@ namespace CooperativaProduccion
             else
             {
                 int count = 0;
-                for (int i = 0; i <= gridViewCajaConsulta.RowCount; i++)
+
+                for (int i = 0; i <= gridViewCajaConsulta.SelectedRowsCount; i++)
                 {
                     if (gridViewCajaConsulta.GetRowCellValue(i, "Cata") == null)
                     {
@@ -298,6 +299,7 @@ namespace CooperativaProduccion
                         "Se requiere", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
+                
             }
             return true;
         }
@@ -582,7 +584,14 @@ namespace CooperativaProduccion
                 }
                 btnAsignarCata.Enabled = false;
                 btnBuscarCaja.Enabled = false;
-                backgroundWorker1.RunWorkerAsync();
+                if (gridViewCajaConsulta.SelectedRowsCount == gridViewCajaConsulta.RowCount)
+                {
+                    backgroundWorker1.RunWorkerAsync();
+                }
+                else
+                {
+                    AsignarCataRowSelected();
+                }
             }
         }
 
@@ -758,6 +767,7 @@ namespace CooperativaProduccion
             progressBar1.BeginInvoke((MethodInvoker)(() => progressBar1.Value = 0));
             Context.Configuration.AutoDetectChangesEnabled = false;
             int count=0;
+
             foreach (var item in ListCajaCata.Where(x => x.Cata == null))
             {
                 var Cata = Context.Cata
@@ -784,6 +794,51 @@ namespace CooperativaProduccion
                 count++;
             }
             Context.Configuration.AutoDetectChangesEnabled = true;
+        }
+
+        private void AsignarCataRowSelected()
+        {
+            if (gridViewCajaConsulta.SelectedRowsCount > 0)
+            {
+                for (int i = 0; i < gridViewCajaConsulta.DataRowCount; i++)
+                {
+                    if (gridViewCajaConsulta.IsRowSelected(i))
+                    {
+                        Guid CajaId = new Guid(gridViewCajaConsulta
+                            .GetRowCellValue(i, "Id")
+                            .ToString());
+
+                        foreach (var item in ListCajaCata
+                            .Where(x => x.Cata == null
+                            && x.Id == CajaId))
+                        {
+                            var Cata = Context.Cata
+                                .Where(x => x.NumCaja == null)
+                                .OrderBy(x => x.NumCata)
+                                .Select(x => x.Id)
+                                .FirstOrDefault();
+
+                            var cajaUpdate = Context.Caja
+                                  .Where(x => x.Id == item.Id)
+                                  .Update(x => new Caja() { CataId = Cata });
+
+                            var CataUpdate = Context.Cata
+                            .Where(x => x.Id == Cata)
+                            .Update(x => new Cata()
+                            {
+                                CajaId = item.Id,
+                                NumCaja = item.NumCaja,
+                                OrdenVentaId = item.OrdenVentaId != null ? item.OrdenVentaId : null,
+                                NumOrden = item.NumOrden != null ? item.NumOrden : (long?)null
+                            });
+                            Context.SaveChanges();
+                        }
+                    }
+                }
+            }
+            BuscarCajaConsulta(txtCantidadCajaConsulta.Text);
+            btnAsignarCata.Enabled = true;
+            btnBuscarCaja.Enabled = true;
         }
 
         private bool ValidarConsulta()
