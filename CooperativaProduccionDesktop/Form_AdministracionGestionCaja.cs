@@ -284,7 +284,7 @@ namespace CooperativaProduccion
             {
                 int count = 0;
 
-                for (int i = 0; i <= gridViewCajaConsulta.SelectedRowsCount; i++)
+                for (int i = 1; i <= gridViewCajaConsulta.SelectedRowsCount; i++)
                 {
                     if (gridViewCajaConsulta.GetRowCellValue(i, "Cata") == null)
                     {
