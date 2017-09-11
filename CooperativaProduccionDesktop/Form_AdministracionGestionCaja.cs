@@ -787,7 +787,8 @@ namespace CooperativaProduccion
                     CajaId = item.Id,
                     NumCaja = item.NumCaja,
                     OrdenVentaId = item.OrdenVentaId != null ? item.OrdenVentaId : null,
-                    NumOrden = item.NumOrden != null ? item.NumOrden : (long?)null
+                    NumOrden = item.NumOrden != null ? item.NumOrden : (long?)null,
+                    Fecha = DateTime.Now.Date
                 });
                 Context.SaveChanges();
                 backgroundWorker1.ReportProgress(count);
@@ -829,7 +830,8 @@ namespace CooperativaProduccion
                                 CajaId = item.Id,
                                 NumCaja = item.NumCaja,
                                 OrdenVentaId = item.OrdenVentaId != null ? item.OrdenVentaId : null,
-                                NumOrden = item.NumOrden != null ? item.NumOrden : (long?)null
+                                NumOrden = item.NumOrden != null ? item.NumOrden : (long?)null,
+                                Fecha = DateTime.Now.Date
                             });
                             Context.SaveChanges();
                         }

@@ -16,7 +16,9 @@ namespace CooperativaProduccion
     public partial class Form_AdministracionActualizarOrdenVenta : DevExpress.XtraBars.Ribbon.RibbonForm
     {
         public CooperativaProduccionEntities Context { get; set; }
+
         private Guid OrdenVentaId;
+
         private Guid DetalleId;
 
         public Form_AdministracionActualizarOrdenVenta(Guid Id,Guid? OrdenVentaDetalleId,bool nuevo)

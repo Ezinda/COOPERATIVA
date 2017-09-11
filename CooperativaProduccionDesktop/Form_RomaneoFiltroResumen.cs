@@ -2355,6 +2355,78 @@ namespace CooperativaProduccion
 
                     datasource.Add(registro);
                 }
+
+                Expression<Func<Liquidacion, bool>> pred2 = x => true;
+
+                pred2 = pred2.And(x => x.Fecha >= dpDesdeRomaneo.Value.Date
+                    && x.Fecha <= dpHastaRomaneo.Value.Date);
+
+                pred2 = !string.IsNullOrEmpty(cbTabaco.Text) ? 
+                    pred2.And(x => x.Tabaco == cbTabaco.Text) : pred2;
+
+                Expression<Func<Vw_Productor, bool>> pred3 = x => true;
+
+                pred3 = !string.IsNullOrEmpty(cbProvincia.Text) ? 
+                    pred3.And(x => x.Provincia == cbProvincia.Text) : pred3;
+
+                    var ajustes =
+                    (from l in Context.Liquidacion.Where(pred2)
+                     join p in Context.Vw_Productor.Where(pred3)
+                     on l.ProductorId equals p.ID
+                     select new
+                     {
+                         LiquidacionId = l.Id,
+                         Fecha = l.Fecha,
+                         NumInternoLiquidacion = l.NumInternoLiquidacion,
+                         Nombre = p.NOMBRE,
+                         Cuit = p.CUIT,
+                         Fet = p.nrofet,
+                         Provincia = p.Provincia,
+                         Letra = l.Letra,
+                         Iva = p.IVA,
+                         ImporteNeto = l.ImporteNeto,
+                         IvaCalculado = l.IvaCalculado,
+                         ImporteBruto = l.Total
+                     })
+                     .OrderBy(x => x.NumInternoLiquidacion)
+                     .ToList();
+
+                foreach (var item in ajustes)
+                {
+                    RegistroResumenLiquidacion registro = new RegistroResumenLiquidacion();
+                    registro.FechaInternaLiquidacion = item.Fecha.ToShortDateString();
+                    registro.nrofet = item.Fet;
+                    registro.NOMBRE = item.Nombre;
+                    registro.CUIT = item.Cuit;
+
+                    if (item.Iva == DevConstantes.MTS)
+                    {
+                        registro.IVA = DevConstantes.MonotributoSocial;
+                    }
+                    else if (item.Iva == DevConstantes.MT)
+                    {
+                        registro.IVA = DevConstantes.Monotributo;
+                    }
+                    else if (item.Iva == DevConstantes.RI)
+                    {
+                        registro.IVA = DevConstantes.ResponsableInscripto;
+                    }
+                    else if (item.Iva == DevConstantes.TP)
+                    {
+                        registro.IVA = DevConstantes.TrabajadorPromovido;
+                    }
+
+                    registro.TC = DevConstantes.LI;
+                    registro.Letra = item.Letra;
+                    //registro.PuntoVentaLiquidacion = item.PuntoVentaLiquidacion.Value.ToString();
+                    registro.NumInternoLiquidacion = item.NumInternoLiquidacion.ToString();
+                    //registro.TotalKg = resumen.TotalKg.Value.ToString();
+                    registro.ImporteNeto = item.ImporteNeto.ToString();
+                    registro.IvaCalculado = item.IvaCalculado.ToString();
+                    registro.ImporteBruto = item.ImporteBruto.ToString();
+
+                    datasource.Add(registro);
+                }
                 return datasource;
 
                 #endregion
@@ -2421,6 +2493,79 @@ namespace CooperativaProduccion
 
                     datasource.Add(registro);
                 }
+
+                Expression<Func<Liquidacion, bool>> pred2 = x => true;
+
+                pred2 = pred2.And(x => x.Fecha >= dpDesdeRomaneo.Value.Date
+                    && x.Fecha <= dpHastaRomaneo.Value.Date);
+
+                pred2 = !string.IsNullOrEmpty(cbTabaco.Text) ?
+                    pred2.And(x => x.Tabaco == cbTabaco.Text) : pred2;
+
+                Expression<Func<Vw_Productor, bool>> pred3 = x => true;
+
+                pred3 = !string.IsNullOrEmpty(cbProvincia.Text) ?
+                    pred3.And(x => x.Provincia == cbProvincia.Text) : pred3;
+
+                var ajustes =
+                (from l in Context.Liquidacion.Where(pred2)
+                 join p in Context.Vw_Productor.Where(pred3)
+                 on l.ProductorId equals p.ID
+                 select new
+                 {
+                     LiquidacionId = l.Id,
+                     Fecha = l.Fecha,
+                     NumInternoLiquidacion = l.NumInternoLiquidacion,
+                     Nombre = p.NOMBRE,
+                     Cuit = p.CUIT,
+                     Fet = p.nrofet,
+                     Provincia = p.Provincia,
+                     Letra = l.Letra,
+                     Iva = p.IVA,
+                     ImporteNeto = l.ImporteNeto,
+                     IvaCalculado = l.IvaCalculado,
+                     ImporteBruto = l.Total
+                 })
+                 .OrderBy(x => x.NumInternoLiquidacion)
+                 .ToList();
+
+                foreach (var item in ajustes)
+                {
+                    RegistroResumenLiquidacion registro = new RegistroResumenLiquidacion();
+                    registro.FechaInternaLiquidacion = item.Fecha.ToShortDateString();
+                    registro.nrofet = item.Fet;
+                    registro.NOMBRE = item.Nombre;
+                    registro.CUIT = item.Cuit;
+
+                    if (item.Iva == DevConstantes.MTS)
+                    {
+                        registro.IVA = DevConstantes.MonotributoSocial;
+                    }
+                    else if (item.Iva == DevConstantes.MT)
+                    {
+                        registro.IVA = DevConstantes.Monotributo;
+                    }
+                    else if (item.Iva == DevConstantes.RI)
+                    {
+                        registro.IVA = DevConstantes.ResponsableInscripto;
+                    }
+                    else if (item.Iva == DevConstantes.TP)
+                    {
+                        registro.IVA = DevConstantes.TrabajadorPromovido;
+                    }
+
+                    registro.TC = DevConstantes.LI;
+                    registro.Letra = item.Letra;
+                    //registro.PuntoVentaLiquidacion = item.PuntoVentaLiquidacion.Value.ToString();
+                    registro.NumInternoLiquidacion = item.NumInternoLiquidacion.ToString();
+                    //registro.TotalKg = resumen.TotalKg.Value.ToString();
+                    registro.ImporteNeto = item.ImporteNeto.ToString();
+                    registro.IvaCalculado = item.IvaCalculado.ToString();
+                    registro.ImporteBruto = item.ImporteBruto.ToString();
+
+                    datasource.Add(registro);
+                }
+
                 return datasource;
 
                 #endregion

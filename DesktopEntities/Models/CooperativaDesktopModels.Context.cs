@@ -36,6 +36,7 @@ namespace DesktopEntities.Models
         public virtual DbSet<ConfiguracionBlend> ConfiguracionBlend { get; set; }
         public virtual DbSet<Contador> Contador { get; set; }
         public virtual DbSet<FardoEnProduccion> FardoEnProduccion { get; set; }
+        public virtual DbSet<Liquidacion> Liquidacion { get; set; }
         public virtual DbSet<Movimiento> Movimiento { get; set; }
         public virtual DbSet<OrdenPago> OrdenPago { get; set; }
         public virtual DbSet<OrdenVenta> OrdenVenta { get; set; }
@@ -66,6 +67,7 @@ namespace DesktopEntities.Models
         public virtual DbSet<Vw_ConceptoDeOrdenDePago> Vw_ConceptoDeOrdenDePago { get; set; }
         public virtual DbSet<Vw_Deposito> Vw_Deposito { get; set; }
         public virtual DbSet<Vw_FardoEnProduccionPorHora> Vw_FardoEnProduccionPorHora { get; set; }
+        public virtual DbSet<Vw_LiquidacionAjuste> Vw_LiquidacionAjuste { get; set; }
         public virtual DbSet<Vw_Movimiento> Vw_Movimiento { get; set; }
         public virtual DbSet<Vw_OrdenPago> Vw_OrdenPago { get; set; }
         public virtual DbSet<Vw_Pesada> Vw_Pesada { get; set; }
@@ -85,8 +87,6 @@ namespace DesktopEntities.Models
         public virtual DbSet<Vw_RomaneoOrdenPago> Vw_RomaneoOrdenPago { get; set; }
         public virtual DbSet<Vw_TipoTabaco> Vw_TipoTabaco { get; set; }
         public virtual DbSet<Vw_Transporte> Vw_Transporte { get; set; }
-        public virtual DbSet<Liquidacion> Liquidacion { get; set; }
-        public virtual DbSet<Vw_LiquidacionAjuste> Vw_LiquidacionAjuste { get; set; }
     
         public virtual ObjectResult<ActualizarLiquidacion_Result> ActualizarLiquidacion(Nullable<System.DateTime> fechaDesde, Nullable<System.DateTime> fechaHasta)
         {

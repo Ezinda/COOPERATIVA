@@ -1806,5 +1806,24 @@ namespace CooperativaProduccion
             gridControlLiquidacionAjuste.DataSource = null;
             gridViewLiquidacionAjuste.Columns.Clear();
         }
+
+        private void btnExportar_Click(object sender, EventArgs e)
+        {
+            var Hora = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff",
+              CultureInfo.InvariantCulture).Replace(":", "")
+              .Replace(".", "").Replace("-", "").Replace(" ", "");
+            string fileName = Hora + "-" + "Exportar";
+
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Title = "Save Excel Files";
+            saveFileDialog1.FileName = fileName;
+            saveFileDialog1.Filter = "Excel files (*.xls)|*.xls";
+            saveFileDialog1.RestoreDirectory = true;
+
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                gridControlLiquidacionAjuste.ExportToXls(saveFileDialog1.FileName);
+            }
+        }
     }
 }

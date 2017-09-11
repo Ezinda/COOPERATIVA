@@ -101,6 +101,8 @@
             this.txtFetAjuste = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.txtProductorAjuste = new System.Windows.Forms.TextBox();
+            this.groupControl9 = new DevExpress.XtraEditors.GroupControl();
+            this.btnExportar = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlLiquidacion)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewLiquidacion)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
@@ -129,6 +131,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridViewLiquidacionAjuste)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl7)).BeginInit();
             this.groupControl7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl9)).BeginInit();
+            this.groupControl9.SuspendLayout();
             this.SuspendLayout();
             // 
             // gridControlLiquidacion
@@ -602,6 +606,7 @@
             // 
             // TabProcesoLiquidacionReajuste
             // 
+            this.TabProcesoLiquidacionReajuste.Controls.Add(this.groupControl9);
             this.TabProcesoLiquidacionReajuste.Controls.Add(this.groupControl8);
             this.TabProcesoLiquidacionReajuste.Controls.Add(this.groupControl4);
             this.TabProcesoLiquidacionReajuste.Controls.Add(this.groupControl7);
@@ -702,7 +707,7 @@
             this.groupControl4.Controls.Add(this.gridControlLiquidacionAjuste);
             this.groupControl4.Location = new System.Drawing.Point(1, 107);
             this.groupControl4.Name = "groupControl4";
-            this.groupControl4.Size = new System.Drawing.Size(1265, 570);
+            this.groupControl4.Size = new System.Drawing.Size(1265, 536);
             this.groupControl4.TabIndex = 77;
             this.groupControl4.Text = "Lista de Liquidación";
             // 
@@ -713,7 +718,7 @@
             this.gridControlLiquidacionAjuste.MainView = this.gridViewLiquidacionAjuste;
             this.gridControlLiquidacionAjuste.MenuManager = this.ribbon;
             this.gridControlLiquidacionAjuste.Name = "gridControlLiquidacionAjuste";
-            this.gridControlLiquidacionAjuste.Size = new System.Drawing.Size(1261, 548);
+            this.gridControlLiquidacionAjuste.Size = new System.Drawing.Size(1261, 514);
             this.gridControlLiquidacionAjuste.TabIndex = 68;
             this.gridControlLiquidacionAjuste.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewLiquidacionAjuste});
@@ -920,6 +925,28 @@
             this.txtProductorAjuste.TabIndex = 64;
             this.txtProductorAjuste.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtProductorAjuste_KeyPress);
             // 
+            // groupControl9
+            // 
+            this.groupControl9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupControl9.Controls.Add(this.btnExportar);
+            this.groupControl9.Location = new System.Drawing.Point(0, 644);
+            this.groupControl9.Name = "groupControl9";
+            this.groupControl9.ShowCaption = false;
+            this.groupControl9.Size = new System.Drawing.Size(1264, 32);
+            this.groupControl9.TabIndex = 79;
+            this.groupControl9.Text = "Buscar Romaneo";
+            // 
+            // btnExportar
+            // 
+            this.btnExportar.Image = ((System.Drawing.Image)(resources.GetObject("btnExportar.Image")));
+            this.btnExportar.Location = new System.Drawing.Point(5, 5);
+            this.btnExportar.Name = "btnExportar";
+            this.btnExportar.Size = new System.Drawing.Size(94, 23);
+            this.btnExportar.TabIndex = 3;
+            this.btnExportar.Text = "Exportar";
+            this.btnExportar.Click += new System.EventHandler(this.btnExportar_Click);
+            // 
             // Form_AdministracionLiquidacion
             // 
             this.AllowFormGlass = DevExpress.Utils.DefaultBoolean.False;
@@ -966,6 +993,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.groupControl7)).EndInit();
             this.groupControl7.ResumeLayout(false);
             this.groupControl7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl9)).EndInit();
+            this.groupControl9.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1045,5 +1074,7 @@
         private DevExpress.XtraEditors.GroupControl groupControl8;
         private System.Windows.Forms.DateTimePicker dpFechaLiquidacionAjuste;
         private System.Windows.Forms.Label label20;
+        private DevExpress.XtraEditors.GroupControl groupControl9;
+        private DevExpress.XtraEditors.SimpleButton btnExportar;
     }
 }

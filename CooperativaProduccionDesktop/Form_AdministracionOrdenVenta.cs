@@ -336,7 +336,7 @@ namespace CooperativaProduccion
                     string TipoRegistro = "1";
                     string VersionArchivo = "2";
                     string ParaExportacion = Cliente.CUIT.ToUpper().Contains(DevConstantes.XX) ? DevConstantes.S : DevConstantes.N;
-                    string ConsolidaEnPlanta = DevConstantes.S;
+                    string ConsolidaEnPlanta = Cliente.CUIT.ToUpper().Contains(DevConstantes.XX) ? DevConstantes.S : DevConstantes.N;
                     string IIBB = DevConstantes.CuitEmpresa.Replace("-", "");
                     string InicioActividades = DateTime.ParseExact(DevConstantes.InicioActividades,"dd-MM-yy", CultureInfo.InvariantCulture).ToString("dd/MM/yyyy");
                     string CuitTitular = string.Empty;

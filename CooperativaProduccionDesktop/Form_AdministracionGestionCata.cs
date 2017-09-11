@@ -260,33 +260,34 @@ namespace CooperativaProduccion
 
             var campaña = Context.Cata
                 .Where(x => x.Lote == lote)
-                .Select(x => x.Caja.Campaña)
+                .Select(x => x.Caja != null ? x.Caja.Campaña : DateTime.Now.Year)
                 .FirstOrDefault();
 
-            var result = 
+            var result =
                 (from a in Context.Cata.Where(pred)
-                join p in Context.Vw_Producto
-                    on a.Caja.ProductoId equals p.ID into cp
-                from joined1 in cp.DefaultIfEmpty()
-                join b in Context.ProduccionBlend
-                    .Where(x => x.Periodo == campaña)
-                    on a.Caja.ProductoId equals b.ProductoId into cb
-                    from joined in cb.DefaultIfEmpty() 
-                select new CataCaja
-                {
-                    Id = a.Id,
-                    Lote = a.Lote.Value,
-                    Cata = a.NumCata,
-                    NumOrden = a.NumOrden ?? 0,
-                    NumCaja = a.NumCaja ?? 0,
-                    ProductoId = (Guid?)joined1.ID ?? null,
-                    OrdenProduccion = joined.OrdenProduccion.ToString(),
-                    Producto = joined1.DESCRIPCION,
-                    Campaña = (int?)a.Caja.Campaña ?? 0,
-                    Neto = (decimal?)a.Caja.Neto ?? 0,
-                    Tara = (decimal?)a.Caja.Tara ?? 0,
-                    Bruto = (decimal?)a.Caja.Bruto ?? 0
-                })
+                 join p in Context.Vw_Producto
+                     on a.Caja.ProductoId equals p.ID into cp
+                 from joined1 in cp.DefaultIfEmpty()
+                 join b in Context.ProduccionBlend
+                     .Where(x => x.Periodo == campaña)
+                     on a.Caja.ProductoId equals b.ProductoId into cb
+                 from joined in cb.DefaultIfEmpty()
+                 select new CataCaja
+                 {
+                     Id = a.Id,
+                     Lote = a.Lote.Value,
+                     Cata = a.NumCata,
+                     NumOrden = a.NumOrden ?? 0,
+                     NumCaja = a.NumCaja ?? 0,
+                     ProductoId = (Guid?)joined1.ID ?? null,
+                     OrdenProduccion = joined.OrdenProduccion.ToString(),
+                     Producto = joined1.DESCRIPCION,
+                     Fecha = a.Fecha ?? null ,
+                     Campaña = (int?)a.Caja.Campaña ?? 0,
+                     Neto = (decimal?)a.Caja.Neto ?? 0,
+                     Tara = (decimal?)a.Caja.Tara ?? 0,
+                     Bruto = (decimal?)a.Caja.Bruto ?? 0
+                 })
                 .OrderBy(x => x.Lote)
                 .ThenBy(x => x.Cata)
                 .ToList();
@@ -471,6 +472,7 @@ namespace CooperativaProduccion
         public Guid? ProductoId { get; set; }
         public string OrdenProduccion { get; set; }
         public string Producto { get; set; }
+        public DateTime? Fecha { get; set; }
         public int Campaña { get; set; }
         public decimal Neto { get; set; }
         public decimal Tara { get; set; }

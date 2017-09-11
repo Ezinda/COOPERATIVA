@@ -21,6 +21,7 @@ namespace DesktopEntities.Models
         public Nullable<long> NumCaja { get; set; }
         public Nullable<System.Guid> OrdenVentaId { get; set; }
         public Nullable<System.Guid> CajaId { get; set; }
+        public Nullable<System.DateTime> Fecha { get; set; }
     
         public virtual Caja Caja { get; set; }
         public virtual OrdenVenta OrdenVenta { get; set; }
