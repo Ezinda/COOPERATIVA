@@ -588,7 +588,9 @@
     <Compile Include="ReportModels\RegistroResumenRomaneoVirginia.cs" />
     <Compile Include="ReportModels\ResumenClasePorMes.cs" />
     <Compile Include="ReportModels\ResumenClasePorQuincena.cs" />
+    <Compile Include="ReportModels\PlanillaAcopiadoresAjuste.cs" />
     <Compile Include="ReportModels\ResumenClasePorTrimestre.cs" />
+    <Compile Include="ReportModels\ResumenCompraAjuste.cs" />
     <Compile Include="ReportModels\ResumenCompra.cs" />
     <Compile Include="Reports\ClasesReport.cs">
       <SubType>Component</SubType>
@@ -668,6 +670,18 @@
     <Compile Include="Reports\LiquidacionManualReport.Designer.cs">
       <DependentUpon>LiquidacionManualReport.cs</DependentUpon>
     </Compile>
+    <Compile Include="Reports\ResumenCompraAjusteReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ResumenCompraAjusteReport.Designer.cs">
+      <DependentUpon>ResumenCompraAjusteReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\ResumenCompraAjusteTabacosReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ResumenCompraAjusteTabacosReport.Designer.cs">
+      <DependentUpon>ResumenCompraAjusteTabacosReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Reports\ResumenDeClasePorQuincenaReport.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -679,6 +693,12 @@
     </Compile>
     <Compile Include="Reports\ResumenDeClasePorQuincenaTabacosReport.Designer.cs">
       <DependentUpon>ResumenDeClasePorQuincenaTabacosReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\PlanillaAcopiadoresAjusteReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\PlanillaAcopiadoresAjusteReport.Designer.cs">
+      <DependentUpon>PlanillaAcopiadoresAjusteReport.cs</DependentUpon>
     </Compile>
     <Compile Include="Reports\ResumenLiquidacionTabacosReport.cs">
       <SubType>Component</SubType>
@@ -1034,11 +1054,20 @@
     <EmbeddedResource Include="Reports\LiquidacionManualReport.resx">
       <DependentUpon>LiquidacionManualReport.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ResumenCompraAjusteReport.resx">
+      <DependentUpon>ResumenCompraAjusteReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ResumenCompraAjusteTabacosReport.resx">
+      <DependentUpon>ResumenCompraAjusteTabacosReport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\ResumenDeClasePorQuincenaReport.resx">
       <DependentUpon>ResumenDeClasePorQuincenaReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\ResumenDeClasePorQuincenaTabacosReport.resx">
       <DependentUpon>ResumenDeClasePorQuincenaTabacosReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\PlanillaAcopiadoresAjusteReport.resx">
+      <DependentUpon>PlanillaAcopiadoresAjusteReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\ResumenLiquidacionTabacosReport.resx">
       <DependentUpon>ResumenLiquidacionTabacosReport.cs</DependentUpon>

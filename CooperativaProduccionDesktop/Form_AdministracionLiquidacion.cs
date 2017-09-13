@@ -49,7 +49,7 @@ namespace CooperativaProduccion
         private void Iniciar(bool Liquidar, bool LiquidacionSubirAfip, bool LiquidacionImprimir)
         {
             btnLiquidar.Visible = Liquidar;
-            btnSubirAfip.Visible = LiquidacionSubirAfip;
+            btnSubirAfip.Visible = false;//LiquidacionSubirAfip;
             btnPrevisualizarLiquidacionManual.Visible = LiquidacionImprimir;
             txtPorcentajeAjuste.Text = "0.00";
         }
@@ -1343,7 +1343,7 @@ namespace CooperativaProduccion
 
         private void ResumenLiquidacion_Click(object sender, EventArgs e)
         {
-            var filtro = new Form_RomaneoFiltroResumen(DevConstantes.Liquidacion);
+            var filtro = new Form_RomaneoFiltroResumen(DevConstantes.Liquidacion,false);
             filtro.Show();
         }
 

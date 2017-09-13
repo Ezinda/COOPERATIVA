@@ -40,6 +40,7 @@
             this.btnSalir = new DevExpress.XtraEditors.SimpleButton();
             this.cbProvincia = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.checkAjuste = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             this.SuspendLayout();
             // 
@@ -59,14 +60,14 @@
             this.ribbon.ShowPageHeadersInFormCaption = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowQatLocationSelector = false;
             this.ribbon.ShowToolbarCustomizeItem = false;
-            this.ribbon.Size = new System.Drawing.Size(237, 27);
+            this.ribbon.Size = new System.Drawing.Size(225, 27);
             this.ribbon.Toolbar.ShowCustomizeItem = false;
             // 
             // btnAceptar
             // 
             this.btnAceptar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAceptar.Image = ((System.Drawing.Image)(resources.GetObject("btnAceptar.Image")));
-            this.btnAceptar.Location = new System.Drawing.Point(44, 145);
+            this.btnAceptar.Location = new System.Drawing.Point(35, 169);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(88, 24);
             this.btnAceptar.TabIndex = 5;
@@ -77,7 +78,7 @@
             // cbTabaco
             // 
             this.cbTabaco.FormattingEnabled = true;
-            this.cbTabaco.Location = new System.Drawing.Point(84, 91);
+            this.cbTabaco.Location = new System.Drawing.Point(75, 91);
             this.cbTabaco.Name = "cbTabaco";
             this.cbTabaco.Size = new System.Drawing.Size(142, 21);
             this.cbTabaco.TabIndex = 3;
@@ -87,7 +88,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(7, 92);
+            this.label1.Location = new System.Drawing.Point(6, 92);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(46, 16);
             this.label1.TabIndex = 80;
@@ -98,7 +99,7 @@
             // 
             this.dpHastaRomaneo.DropDownAlign = System.Windows.Forms.LeftRightAlignment.Right;
             this.dpHastaRomaneo.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dpHastaRomaneo.Location = new System.Drawing.Point(84, 64);
+            this.dpHastaRomaneo.Location = new System.Drawing.Point(75, 64);
             this.dpHastaRomaneo.Name = "dpHastaRomaneo";
             this.dpHastaRomaneo.Size = new System.Drawing.Size(142, 21);
             this.dpHastaRomaneo.TabIndex = 2;
@@ -108,7 +109,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(7, 66);
+            this.label2.Location = new System.Drawing.Point(6, 66);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(38, 16);
             this.label2.TabIndex = 59;
@@ -118,7 +119,7 @@
             // 
             this.dpDesdeRomaneo.DropDownAlign = System.Windows.Forms.LeftRightAlignment.Right;
             this.dpDesdeRomaneo.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dpDesdeRomaneo.Location = new System.Drawing.Point(84, 37);
+            this.dpDesdeRomaneo.Location = new System.Drawing.Point(75, 37);
             this.dpDesdeRomaneo.Name = "dpDesdeRomaneo";
             this.dpDesdeRomaneo.Size = new System.Drawing.Size(142, 21);
             this.dpDesdeRomaneo.TabIndex = 1;
@@ -128,7 +129,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(7, 39);
+            this.label3.Location = new System.Drawing.Point(6, 39);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(41, 16);
             this.label3.TabIndex = 57;
@@ -138,7 +139,7 @@
             // 
             this.btnSalir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSalir.Image = ((System.Drawing.Image)(resources.GetObject("btnSalir.Image")));
-            this.btnSalir.Location = new System.Drawing.Point(138, 145);
+            this.btnSalir.Location = new System.Drawing.Point(129, 169);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(88, 24);
             this.btnSalir.TabIndex = 6;
@@ -148,7 +149,7 @@
             // cbProvincia
             // 
             this.cbProvincia.FormattingEnabled = true;
-            this.cbProvincia.Location = new System.Drawing.Point(84, 118);
+            this.cbProvincia.Location = new System.Drawing.Point(75, 118);
             this.cbProvincia.Name = "cbProvincia";
             this.cbProvincia.Size = new System.Drawing.Size(142, 21);
             this.cbProvincia.TabIndex = 4;
@@ -158,18 +159,31 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(7, 119);
+            this.label4.Location = new System.Drawing.Point(6, 119);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(57, 16);
             this.label4.TabIndex = 83;
             this.label4.Text = "Provincia";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // Form_RomaneoFiltroResumenCompra
+            // checkAjuste
+            // 
+            this.checkAjuste.AutoSize = true;
+            this.checkAjuste.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.checkAjuste.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold);
+            this.checkAjuste.Location = new System.Drawing.Point(4, 145);
+            this.checkAjuste.Name = "checkAjuste";
+            this.checkAjuste.Size = new System.Drawing.Size(85, 20);
+            this.checkAjuste.TabIndex = 85;
+            this.checkAjuste.Text = "Con Ajuste";
+            this.checkAjuste.UseVisualStyleBackColor = true;
+            // 
+            // Form_RomaneoFiltroResumen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(237, 180);
+            this.ClientSize = new System.Drawing.Size(225, 198);
+            this.Controls.Add(this.checkAjuste);
             this.Controls.Add(this.cbProvincia);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -184,7 +198,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.Name = "Form_RomaneoFiltroResumenCompra";
+            this.Name = "Form_RomaneoFiltroResumen";
             this.Ribbon = this.ribbon;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Filtro Resumen de Compra";
@@ -207,5 +221,6 @@
         private DevExpress.XtraEditors.SimpleButton btnSalir;
         private System.Windows.Forms.ComboBox cbProvincia;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.CheckBox checkAjuste;
     }
 }

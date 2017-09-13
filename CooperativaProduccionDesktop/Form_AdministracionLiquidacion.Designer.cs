@@ -72,6 +72,8 @@
             this.label7 = new System.Windows.Forms.Label();
             this.txtProductor = new System.Windows.Forms.TextBox();
             this.TabProcesoLiquidacionReajuste = new DevExpress.XtraTab.XtraTabPage();
+            this.groupControl9 = new DevExpress.XtraEditors.GroupControl();
+            this.btnExportar = new DevExpress.XtraEditors.SimpleButton();
             this.groupControl8 = new DevExpress.XtraEditors.GroupControl();
             this.dpFechaLiquidacionAjuste = new System.Windows.Forms.DateTimePicker();
             this.label18 = new System.Windows.Forms.Label();
@@ -101,8 +103,6 @@
             this.txtFetAjuste = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.txtProductorAjuste = new System.Windows.Forms.TextBox();
-            this.groupControl9 = new DevExpress.XtraEditors.GroupControl();
-            this.btnExportar = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlLiquidacion)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewLiquidacion)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
@@ -123,6 +123,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
             this.groupControl2.SuspendLayout();
             this.TabProcesoLiquidacionReajuste.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl9)).BeginInit();
+            this.groupControl9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl8)).BeginInit();
             this.groupControl8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl4)).BeginInit();
@@ -131,8 +133,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridViewLiquidacionAjuste)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl7)).BeginInit();
             this.groupControl7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl9)).BeginInit();
-            this.groupControl9.SuspendLayout();
             this.SuspendLayout();
             // 
             // gridControlLiquidacion
@@ -372,7 +372,7 @@
             // ResumenLiquidacion
             // 
             this.ResumenLiquidacion.Image = ((System.Drawing.Image)(resources.GetObject("ResumenLiquidacion.Image")));
-            this.ResumenLiquidacion.Location = new System.Drawing.Point(521, 5);
+            this.ResumenLiquidacion.Location = new System.Drawing.Point(196, 4);
             this.ResumenLiquidacion.Name = "ResumenLiquidacion";
             this.ResumenLiquidacion.Size = new System.Drawing.Size(172, 23);
             this.ResumenLiquidacion.TabIndex = 3;
@@ -382,20 +382,22 @@
             // btnPrevisualizarLiquidacionElectronica
             // 
             this.btnPrevisualizarLiquidacionElectronica.Image = ((System.Drawing.Image)(resources.GetObject("btnPrevisualizarLiquidacionElectronica.Image")));
-            this.btnPrevisualizarLiquidacionElectronica.Location = new System.Drawing.Point(307, 5);
+            this.btnPrevisualizarLiquidacionElectronica.Location = new System.Drawing.Point(1051, 4);
             this.btnPrevisualizarLiquidacionElectronica.Name = "btnPrevisualizarLiquidacionElectronica";
             this.btnPrevisualizarLiquidacionElectronica.Size = new System.Drawing.Size(208, 23);
             this.btnPrevisualizarLiquidacionElectronica.TabIndex = 2;
             this.btnPrevisualizarLiquidacionElectronica.Text = "Previsualizar Liquidación Electrónica";
+            this.btnPrevisualizarLiquidacionElectronica.Visible = false;
             // 
             // btnSubirAfip
             // 
             this.btnSubirAfip.Image = ((System.Drawing.Image)(resources.GetObject("btnSubirAfip.Image")));
-            this.btnSubirAfip.Location = new System.Drawing.Point(196, 5);
+            this.btnSubirAfip.Location = new System.Drawing.Point(940, 4);
             this.btnSubirAfip.Name = "btnSubirAfip";
             this.btnSubirAfip.Size = new System.Drawing.Size(105, 23);
             this.btnSubirAfip.TabIndex = 1;
             this.btnSubirAfip.Text = "Subir Afip";
+            this.btnSubirAfip.Visible = false;
             this.btnSubirAfip.Click += new System.EventHandler(this.btnSubirAfip_Click);
             // 
             // btnPrevisualizarLiquidacionManual
@@ -614,6 +616,28 @@
             this.TabProcesoLiquidacionReajuste.Name = "TabProcesoLiquidacionReajuste";
             this.TabProcesoLiquidacionReajuste.Size = new System.Drawing.Size(1266, 676);
             this.TabProcesoLiquidacionReajuste.Text = "Liquidación por Reajuste";
+            // 
+            // groupControl9
+            // 
+            this.groupControl9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupControl9.Controls.Add(this.btnExportar);
+            this.groupControl9.Location = new System.Drawing.Point(0, 644);
+            this.groupControl9.Name = "groupControl9";
+            this.groupControl9.ShowCaption = false;
+            this.groupControl9.Size = new System.Drawing.Size(1264, 32);
+            this.groupControl9.TabIndex = 79;
+            this.groupControl9.Text = "Buscar Romaneo";
+            // 
+            // btnExportar
+            // 
+            this.btnExportar.Image = ((System.Drawing.Image)(resources.GetObject("btnExportar.Image")));
+            this.btnExportar.Location = new System.Drawing.Point(5, 5);
+            this.btnExportar.Name = "btnExportar";
+            this.btnExportar.Size = new System.Drawing.Size(94, 23);
+            this.btnExportar.TabIndex = 3;
+            this.btnExportar.Text = "Exportar";
+            this.btnExportar.Click += new System.EventHandler(this.btnExportar_Click);
             // 
             // groupControl8
             // 
@@ -925,28 +949,6 @@
             this.txtProductorAjuste.TabIndex = 64;
             this.txtProductorAjuste.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtProductorAjuste_KeyPress);
             // 
-            // groupControl9
-            // 
-            this.groupControl9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupControl9.Controls.Add(this.btnExportar);
-            this.groupControl9.Location = new System.Drawing.Point(0, 644);
-            this.groupControl9.Name = "groupControl9";
-            this.groupControl9.ShowCaption = false;
-            this.groupControl9.Size = new System.Drawing.Size(1264, 32);
-            this.groupControl9.TabIndex = 79;
-            this.groupControl9.Text = "Buscar Romaneo";
-            // 
-            // btnExportar
-            // 
-            this.btnExportar.Image = ((System.Drawing.Image)(resources.GetObject("btnExportar.Image")));
-            this.btnExportar.Location = new System.Drawing.Point(5, 5);
-            this.btnExportar.Name = "btnExportar";
-            this.btnExportar.Size = new System.Drawing.Size(94, 23);
-            this.btnExportar.TabIndex = 3;
-            this.btnExportar.Text = "Exportar";
-            this.btnExportar.Click += new System.EventHandler(this.btnExportar_Click);
-            // 
             // Form_AdministracionLiquidacion
             // 
             this.AllowFormGlass = DevExpress.Utils.DefaultBoolean.False;
@@ -983,6 +985,8 @@
             this.groupControl2.ResumeLayout(false);
             this.groupControl2.PerformLayout();
             this.TabProcesoLiquidacionReajuste.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl9)).EndInit();
+            this.groupControl9.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl8)).EndInit();
             this.groupControl8.ResumeLayout(false);
             this.groupControl8.PerformLayout();
@@ -993,8 +997,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.groupControl7)).EndInit();
             this.groupControl7.ResumeLayout(false);
             this.groupControl7.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl9)).EndInit();
-            this.groupControl9.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -459,25 +459,25 @@ namespace CooperativaProduccion
 
         private void btnResumenRomaneo_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var filtro = new Form_RomaneoFiltroResumen(DevConstantes.ResumenRomaneo);
+            var filtro = new Form_RomaneoFiltroResumen(DevConstantes.ResumenRomaneo, false);
             filtro.Show();
         }
 
         private void btnResumenCompra_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var filtro = new Form_RomaneoFiltroResumen(DevConstantes.ResumenCompra);
+            var filtro = new Form_RomaneoFiltroResumen(DevConstantes.ResumenCompra, true);
             filtro.Show();
         }
 
         private void btnResumenClasesMes_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var filtro = new Form_RomaneoFiltroResumen(DevConstantes.ResumenClasesMes);
+            var filtro = new Form_RomaneoFiltroResumen(DevConstantes.ResumenClasesMes, false);
             filtro.Show();
         }
 
         private void btnResumenClasesTrimestre_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var filtro = new Form_RomaneoFiltroResumen(DevConstantes.ResumenClasesTrimestre);
+            var filtro = new Form_RomaneoFiltroResumen(DevConstantes.ResumenClasesTrimestre, false);
             filtro.Show();
         }
 
@@ -915,7 +915,13 @@ namespace CooperativaProduccion
 
         private void btnResumenClasesQuincena_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var filtro = new Form_RomaneoFiltroResumen(DevConstantes.ResumenClasesQuincena);
+            var filtro = new Form_RomaneoFiltroResumen(DevConstantes.ResumenClasesQuincena, false);
+            filtro.Show();
+        }
+
+        private void btnPlanillaAcopiadoresAjustes_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var filtro = new Form_RomaneoFiltroResumen(DevConstantes.PlanillaAcopiadoresAjuste, false);
             filtro.Show();
         }
     }

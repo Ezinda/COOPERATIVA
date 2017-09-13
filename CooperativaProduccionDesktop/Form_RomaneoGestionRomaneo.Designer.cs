@@ -64,10 +64,12 @@
             this.btnExportarRomaneo = new DevExpress.XtraBars.BarButtonItem();
             this.btnExportarListaRomaneo = new DevExpress.XtraBars.BarButtonItem();
             this.btnExportarListaRomaneoClases = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.barSubItem1 = new DevExpress.XtraBars.BarSubItem();
+            this.btnPlanillaAcopiadoresAjustes = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).BeginInit();
             this.groupControl3.SuspendLayout();
@@ -361,9 +363,11 @@
             this.btnExportarRomaneo,
             this.btnExportarListaRomaneo,
             this.btnExportarListaRomaneoClases,
-            this.btnResumenClasesQuincena});
+            this.btnResumenClasesQuincena,
+            this.barButtonItem1,
+            this.btnPlanillaAcopiadoresAjustes});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.MaxItemId = 15;
+            this.ribbonControl1.MaxItemId = 17;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
@@ -397,7 +401,8 @@
             new DevExpress.XtraBars.LinkPersistInfo(this.btnResumenCompra),
             new DevExpress.XtraBars.LinkPersistInfo(this.btnResumenClasesMes),
             new DevExpress.XtraBars.LinkPersistInfo(this.btnResumenClasesTrimestre),
-            new DevExpress.XtraBars.LinkPersistInfo(this.btnResumenClasesQuincena)});
+            new DevExpress.XtraBars.LinkPersistInfo(this.btnResumenClasesQuincena),
+            new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.btnPlanillaAcopiadoresAjustes, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph)});
             this.barSubItem2.Name = "barSubItem2";
             this.barSubItem2.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
             // 
@@ -476,6 +481,11 @@
             this.btnExportarListaRomaneoClases.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText;
             this.btnExportarListaRomaneoClases.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnExportarListaRomaneoClases_ItemClick);
             // 
+            // barButtonItem1
+            // 
+            this.barButtonItem1.Id = 15;
+            this.barButtonItem1.Name = "barButtonItem1";
+            // 
             // ribbonPage1
             // 
             this.ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -507,6 +517,15 @@
             // 
             this.barSubItem1.Id = -1;
             this.barSubItem1.Name = "barSubItem1";
+            // 
+            // btnPlanillaAcopiadoresAjustes
+            // 
+            this.btnPlanillaAcopiadoresAjustes.Caption = "Planilla para Acopiadores c/Ajuste";
+            this.btnPlanillaAcopiadoresAjustes.Glyph = ((System.Drawing.Image)(resources.GetObject("btnPlanillaAcopiadoresAjustes.Glyph")));
+            this.btnPlanillaAcopiadoresAjustes.Id = 16;
+            this.btnPlanillaAcopiadoresAjustes.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnPlanillaAcopiadoresAjustes.LargeGlyph")));
+            this.btnPlanillaAcopiadoresAjustes.Name = "btnPlanillaAcopiadoresAjustes";
+            this.btnPlanillaAcopiadoresAjustes.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnPlanillaAcopiadoresAjustes_ItemClick);
             // 
             // Form_RomaneoGestionRomaneo
             // 
@@ -584,5 +603,7 @@
         private DevExpress.XtraBars.BarButtonItem btnExportarListaRomaneo;
         private DevExpress.XtraBars.BarButtonItem btnExportarListaRomaneoClases;
         private DevExpress.XtraBars.BarButtonItem btnResumenClasesQuincena;
+        private DevExpress.XtraBars.BarButtonItem barButtonItem1;
+        private DevExpress.XtraBars.BarButtonItem btnPlanillaAcopiadoresAjustes;
     }
 }

@@ -659,6 +659,11 @@ namespace CooperativaProduccion
                 Context.OrdenVentaDetalle.RemoveRange(Context.OrdenVentaDetalle.Where(x => x.OrdenVentaId == Id));
                 Context.OrdenVenta.RemoveRange(Context.OrdenVenta.Where(x => x.Id == Id));
 
+                var contador = Context.Contador
+                    .Where(x => x.Nombre == DevConstantes.OrdenVenta
+                        || x.Nombre == DevConstantes.NumeroOperacion)
+                        .Update(x => new Contador() { Valor = x.Valor - 1 });
+                
                 Context.SaveChanges();
             }
             catch
