@@ -61,6 +61,7 @@
             this.btnResumenClasesMes = new DevExpress.XtraBars.BarButtonItem();
             this.btnResumenClasesTrimestre = new DevExpress.XtraBars.BarButtonItem();
             this.btnResumenClasesQuincena = new DevExpress.XtraBars.BarButtonItem();
+            this.btnPlanillaAcopiadoresAjustes = new DevExpress.XtraBars.BarButtonItem();
             this.btnExportarRomaneo = new DevExpress.XtraBars.BarButtonItem();
             this.btnExportarListaRomaneo = new DevExpress.XtraBars.BarButtonItem();
             this.btnExportarListaRomaneoClases = new DevExpress.XtraBars.BarButtonItem();
@@ -69,7 +70,7 @@
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.barSubItem1 = new DevExpress.XtraBars.BarSubItem();
-            this.btnPlanillaAcopiadoresAjustes = new DevExpress.XtraBars.BarButtonItem();
+            this.btnResumenCompraAjusteMes = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).BeginInit();
             this.groupControl3.SuspendLayout();
@@ -365,9 +366,10 @@
             this.btnExportarListaRomaneoClases,
             this.btnResumenClasesQuincena,
             this.barButtonItem1,
-            this.btnPlanillaAcopiadoresAjustes});
+            this.btnPlanillaAcopiadoresAjustes,
+            this.btnResumenCompraAjusteMes});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.MaxItemId = 17;
+            this.ribbonControl1.MaxItemId = 18;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
@@ -402,7 +404,8 @@
             new DevExpress.XtraBars.LinkPersistInfo(this.btnResumenClasesMes),
             new DevExpress.XtraBars.LinkPersistInfo(this.btnResumenClasesTrimestre),
             new DevExpress.XtraBars.LinkPersistInfo(this.btnResumenClasesQuincena),
-            new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.btnPlanillaAcopiadoresAjustes, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph)});
+            new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.btnPlanillaAcopiadoresAjustes, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph),
+            new DevExpress.XtraBars.LinkPersistInfo(this.btnResumenCompraAjusteMes)});
             this.barSubItem2.Name = "barSubItem2";
             this.barSubItem2.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
             // 
@@ -450,6 +453,15 @@
             this.btnResumenClasesQuincena.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnResumenClasesQuincena.LargeGlyph")));
             this.btnResumenClasesQuincena.Name = "btnResumenClasesQuincena";
             this.btnResumenClasesQuincena.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnResumenClasesQuincena_ItemClick);
+            // 
+            // btnPlanillaAcopiadoresAjustes
+            // 
+            this.btnPlanillaAcopiadoresAjustes.Caption = "Planilla para Acopiadores c/Ajuste";
+            this.btnPlanillaAcopiadoresAjustes.Glyph = ((System.Drawing.Image)(resources.GetObject("btnPlanillaAcopiadoresAjustes.Glyph")));
+            this.btnPlanillaAcopiadoresAjustes.Id = 16;
+            this.btnPlanillaAcopiadoresAjustes.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnPlanillaAcopiadoresAjustes.LargeGlyph")));
+            this.btnPlanillaAcopiadoresAjustes.Name = "btnPlanillaAcopiadoresAjustes";
+            this.btnPlanillaAcopiadoresAjustes.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnPlanillaAcopiadoresAjustes_ItemClick);
             // 
             // btnExportarRomaneo
             // 
@@ -518,14 +530,14 @@
             this.barSubItem1.Id = -1;
             this.barSubItem1.Name = "barSubItem1";
             // 
-            // btnPlanillaAcopiadoresAjustes
+            // btnResumenCompraAjusteMes
             // 
-            this.btnPlanillaAcopiadoresAjustes.Caption = "Planilla para Acopiadores c/Ajuste";
-            this.btnPlanillaAcopiadoresAjustes.Glyph = ((System.Drawing.Image)(resources.GetObject("btnPlanillaAcopiadoresAjustes.Glyph")));
-            this.btnPlanillaAcopiadoresAjustes.Id = 16;
-            this.btnPlanillaAcopiadoresAjustes.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnPlanillaAcopiadoresAjustes.LargeGlyph")));
-            this.btnPlanillaAcopiadoresAjustes.Name = "btnPlanillaAcopiadoresAjustes";
-            this.btnPlanillaAcopiadoresAjustes.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnPlanillaAcopiadoresAjustes_ItemClick);
+            this.btnResumenCompraAjusteMes.Caption = "Resumen de Compra y Ajuste por mes";
+            this.btnResumenCompraAjusteMes.Glyph = ((System.Drawing.Image)(resources.GetObject("btnResumenCompraAjusteMes.Glyph")));
+            this.btnResumenCompraAjusteMes.Id = 17;
+            this.btnResumenCompraAjusteMes.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnResumenCompraAjusteMes.LargeGlyph")));
+            this.btnResumenCompraAjusteMes.Name = "btnResumenCompraAjusteMes";
+            this.btnResumenCompraAjusteMes.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnResumenCompraAjusteMes_ItemClick);
             // 
             // Form_RomaneoGestionRomaneo
             // 
@@ -605,5 +617,6 @@
         private DevExpress.XtraBars.BarButtonItem btnResumenClasesQuincena;
         private DevExpress.XtraBars.BarButtonItem barButtonItem1;
         private DevExpress.XtraBars.BarButtonItem btnPlanillaAcopiadoresAjustes;
+        private DevExpress.XtraBars.BarButtonItem btnResumenCompraAjusteMes;
     }
 }

@@ -61,7 +61,7 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -574,6 +574,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="ReportModels\ResumenCompraAjusteporMes.cs" />
     <Compile Include="ReportModels\ProduccionDatosDeCalidadAnualDetalle.cs" />
     <Compile Include="ReportModels\ProduccionHumedad.cs" />
     <Compile Include="ReportModels\ProduccionMuestra.cs" />
@@ -621,6 +622,12 @@
     </Compile>
     <Compile Include="Reports\LiquidacionAjusteManualReport.Designer.cs">
       <DependentUpon>LiquidacionAjusteManualReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\ResumenCompraAjusteMes.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ResumenCompraAjusteMes.Designer.cs">
+      <DependentUpon>ResumenCompraAjusteMes.cs</DependentUpon>
     </Compile>
     <Compile Include="Reports\ProduccionHumedadDetalleReport.cs">
       <SubType>Component</SubType>
@@ -1029,6 +1036,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\LiquidacionAjusteManualReport.resx">
       <DependentUpon>LiquidacionAjusteManualReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ResumenCompraAjusteMes.resx">
+      <DependentUpon>ResumenCompraAjusteMes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\ProduccionHumedadDetalleReport.resx">
       <DependentUpon>ProduccionHumedadDetalleReport.cs</DependentUpon>

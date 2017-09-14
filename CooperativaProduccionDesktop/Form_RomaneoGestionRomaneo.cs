@@ -924,5 +924,11 @@ namespace CooperativaProduccion
             var filtro = new Form_RomaneoFiltroResumen(DevConstantes.PlanillaAcopiadoresAjuste, false);
             filtro.Show();
         }
+
+        private void btnResumenCompraAjusteMes_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var filtro = new Form_RomaneoFiltroResumen(DevConstantes.ResumenCompraAjusteMes, false);
+            filtro.Show();
+        }
     }
 }

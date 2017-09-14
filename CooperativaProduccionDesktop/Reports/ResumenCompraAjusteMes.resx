@@ -388,15 +388,14 @@
         RU5ErkJggg==
 </value>
   </data>
-  <metadata name="fileSystemWatcher1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 95</value>
-  </metadata>
   <data name="xrLabel7.Text" xml:space="preserve">
-    <value>Declaro bajo juramento, que los datos consignados en la presente planilla, son copia fiel de las facturas que obran en nuestro poder, y han sido emitidas en el acto de compra de [Parameters.Tabaco] en nuestra boca de acopio</value>
+    <value>Declaro bajo juramento, que los datos consignados en la presente planilla, son copia fiel de las facturas que obran en nuestro poder, y han sido emitidas en el acto de compra de tabaco [Parameters.TipoDeTabaco] en nuestra boca de acopio</value>
   </data>
-  <metadata name="objectDataSource1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 56</value>
-  </metadata>
+  <data name="ValorAcopioTotalConAjuste.Expression" xml:space="preserve">
+    <value>[ValorAcopioMes01] + [ValorAcopioMes02] + [ValorAcopioMes03]+ 
+[ValorAcopioMes04] + [ValorAcopioMes05] + [ValorAcopioAjusteMes01] + 
+[ValorAcopioAjusteMes02] + [ValorAcopioAjusteMes03]+ [ValorAcopioAjusteMes04] + [ValorAcopioAjusteMes05]</value>
+  </data>
   <metadata name="objectDataSource2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 134</value>
   </metadata>

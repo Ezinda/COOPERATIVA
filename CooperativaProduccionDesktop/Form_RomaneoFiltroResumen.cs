@@ -171,6 +171,10 @@ namespace CooperativaProduccion
             {
                 PlanillaAcopiadoresAjuste();
             }
+            else if (Origen.Equals(DevConstantes.ResumenCompraAjusteMes))
+            {
+                ResumenCompraAjusteMes();
+            }
             this.Close();
         }
 
@@ -2976,7 +2980,9 @@ namespace CooperativaProduccion
             foreach (var item in resumenes)
             {
                 var mesdeitem = item.a == null ? mes01 : item.a.Mes;
+
                 var clase = item.a == null ? item.b.NOMBRE : item.a.Clase;
+                
                 PlanillaAcopiadoresAjuste detalle = result.Where(x => x.Clase == clase).SingleOrDefault();
 
                 if (detalle == null)
@@ -3021,8 +3027,10 @@ namespace CooperativaProduccion
                     detalle.Kilos05 = kilos05;
                     detalle.TotalKilos = totalkilos;
                     detalle.PrecioPorKilo = item.b.PRECIOCOMPRA.Value;
-                    detalle.PrecioPorKiloAjuste = item.b == null ? decimal.Parse("0") : 
-                        (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) + item.b.PRECIOCOMPRA.Value;
+                    detalle.PrecioPorKiloAjuste = item.b == null ? decimal.Parse("0") :
+                        Math.Round((item.b.PRECIOCOMPRA.Value * 
+                        (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) + item.b.PRECIOCOMPRA.Value, 
+                        2, MidpointRounding.ToEven);
                     
                     result.Add(detalle);
                 }
@@ -3057,7 +3065,7 @@ namespace CooperativaProduccion
                         kilos05 += item.a == null ? 0 : Convert.ToDecimal(item.a.Kilos);
                     }
 
-                    totalkilos = kilos01 + kilos02 + kilos03;
+                    totalkilos = kilos01 + kilos02 + kilos03 + kilos04 + kilos05;
 
                     detalle.Clase = item.b.NOMBRE;
                     detalle.Kilos01 = kilos01;
@@ -3068,8 +3076,9 @@ namespace CooperativaProduccion
                     detalle.TotalKilos = totalkilos;
                     detalle.PrecioPorKilo = item.b.PRECIOCOMPRA.Value;
                     detalle.PrecioPorKiloAjuste = item.b == null ? decimal.Parse("0") :
-                    (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) + item.b.PRECIOCOMPRA.Value;
-
+                        Math.Round((item.b.PRECIOCOMPRA.Value *
+                        (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) + item.b.PRECIOCOMPRA.Value,
+                        2, MidpointRounding.ToEven);
 
                 }
             }
@@ -3077,6 +3086,273 @@ namespace CooperativaProduccion
             return result;
         }
      
+        #endregion
+
+        #region Resumen Compra con Ajuste por Mes
+
+        private void ResumenCompraAjusteMes()
+        {
+            var reporte = new ResumenCompraAjusteMes();
+            var desde = dpDesdeRomaneo.Value.Date;
+            var hasta = dpHastaRomaneo.Value.Date;
+            var tipotabaco = cbTabaco.Text;
+
+            if (desde.Year != hasta.Year)
+            {
+                MessageBox.Show("El rango de fecha seleccionado debe tener el mismo año.",
+                    "Fecha fuera de rango",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+
+                return;
+            }
+
+            if ((hasta.Month - desde.Month) != 4)
+            {
+                MessageBox.Show("El rango de fecha seleccionado debe ser entre cinco meses.",
+                    "Fecha fuera de rango",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+
+                return;
+            }
+
+            if (String.IsNullOrEmpty(tipotabaco))
+            {
+                MessageBox.Show("Se debe seleccionar un tipo de tabaco.",
+                    "Tipo de tabaco no seleccionado",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+
+                return;
+            }
+
+            var anio = desde.Year.ToString();
+            var mes01 = new DateTime(desde.Year, desde.Month, 1).ToString("MMMM", CultureInfo.CreateSpecificCulture("es"));
+            var mes02 = new DateTime(desde.Year, desde.Month + 1, 1).ToString("MMMM", CultureInfo.CreateSpecificCulture("es"));
+            var mes03 = new DateTime(desde.Year, desde.Month + 2, 1).ToString("MMMM", CultureInfo.CreateSpecificCulture("es"));
+            var mes04 = new DateTime(desde.Year, desde.Month + 3, 1).ToString("MMMM", CultureInfo.CreateSpecificCulture("es"));
+            var mes05 = new DateTime(desde.Year, desde.Month + 4, 1).ToString("MMMM", CultureInfo.CreateSpecificCulture("es"));
+            var datasource = GenerarReporteResumenCompraAjusteMes(desde, hasta, tipotabaco);
+
+            reporte.DataSource = datasource;
+            reporte.Parameters["Campaña"].Value = anio + ".-";
+            reporte.Parameters["TipoDeTabaco"].Value = tipotabaco;
+            reporte.Parameters["Provincia"].Value = cbProvincia.Text.ToUpper();
+            reporte.Parameters["Mes01"].Value = CultureInfo.CreateSpecificCulture("es").TextInfo.ToUpper(mes01);
+            reporte.Parameters["Mes02"].Value = CultureInfo.CreateSpecificCulture("es").TextInfo.ToUpper(mes02);
+            reporte.Parameters["Mes03"].Value = CultureInfo.CreateSpecificCulture("es").TextInfo.ToUpper(mes03);
+            reporte.Parameters["Mes04"].Value = CultureInfo.CreateSpecificCulture("es").TextInfo.ToUpper(mes04);
+            reporte.Parameters["Mes05"].Value = CultureInfo.CreateSpecificCulture("es").TextInfo.ToUpper(mes05);
+            reporte.Parameters["Desde"].Value = desde.ToShortDateString();
+            reporte.Parameters["Hasta"].Value = hasta.ToShortDateString();
+
+            Form_AdministracionWinReport wr = new Form_AdministracionWinReport();
+            wr.Text = "Planilla para Acopiadores con Ajustes";
+            wr.documentViewerReports.DocumentSource = reporte;
+            wr.Show();
+        }
+
+        public List<ResumenCompraAjusteporMes> GenerarReporteResumenCompraAjusteMes(DateTime desde, DateTime hasta, string tipotabaco)
+        {
+            var mes01 = desde.Month;
+            var mes02 = desde.Month + 1;
+            var mes03 = desde.Month + 2;
+            var mes04 = desde.Month + 3;
+            var mes05 = desde.Month + 4;
+            var culture = CultureInfo.CreateSpecificCulture("es-ES");
+            var context = new CooperativaProduccionEntities();
+            var ajuste = Context.Contador
+              .Where(x => x.Nombre == DevConstantes.PorcentajeAjuste)
+              .FirstOrDefault();
+            Expression<Func<Vw_ResumenClasePorFecha, bool>> pred = x => true;
+
+            List<ResumenCompraAjusteporMes> result = new List<ResumenCompraAjusteporMes>();
+
+            pred = pred.And(x =>
+                x.Tabaco == tipotabaco &&
+                x.FechaRomaneo >= desde &&
+                x.FechaRomaneo <= hasta);
+
+            pred = !string.IsNullOrEmpty(cbProvincia.Text) ? pred.And(x => x.provincia == cbProvincia.Text) : pred;
+
+            var clases = Context.Vw_Clase
+                .Where(x => x.DESCRIPCION == cbTabaco.Text)
+                .ToList();
+
+            var resumen = (from r in context.Vw_ResumenClasePorFecha
+                .Where(pred)
+                           group r by new
+                           {
+                               Mes = r.FechaRomaneo.Value.Month,
+                               Clase = r.Clase,
+                               Orden = r.Orden,
+                               PrecioPorKilo = r.PrecioPorKilo
+                           } into g
+                           select new
+                           {
+                               Mes = g.Key.Mes,
+                               Orden = g.Key.Orden,
+                               Clase = g.Key.Clase,
+                               Kilos = g.Sum(x => x.Kilos),
+                               PrecioPorKilo = g.Key.PrecioPorKilo,
+                               Total = g.Sum(x => x.Importe)
+                           })
+                           .ToList();
+
+            var resumenes = resumen
+                .FullOuterJoin(clases, a => a.Clase, b => b.NOMBRE, (a, b, Clases) => new { a, b })
+                .OrderBy(x => x.b.NOMBRE)
+                .ThenBy(x => x.b.Orden)
+                .ToList();
+
+
+            foreach (var item in resumenes)
+            {
+                var mesdeitem = item.a == null ? mes01 : item.a.Mes;
+
+                var clase = item.a == null ? item.b.NOMBRE : item.a.Clase;
+
+                ResumenCompraAjusteporMes detalle = result.Where(x => x.Clase == clase).SingleOrDefault();
+
+                if (detalle == null)
+                {
+                    var kilos01 = 0m;
+                    var kilos02 = 0m;
+                    var kilos03 = 0m;
+                    var kilos04 = 0m;
+                    var kilos05 = 0m;
+                    var totalkilos = 0m;
+
+                    if (mesdeitem == mes01)
+                    {
+                        kilos01 += item.a == null ? 0 : Convert.ToDecimal(item.a.Kilos);
+                    }
+                    else if (mesdeitem == mes02)
+                    {
+                        kilos02 += item.a == null ? 0 : Convert.ToDecimal(item.a.Kilos);
+                    }
+                    else if (mesdeitem == mes03)
+                    {
+                        kilos03 += item.a == null ? 0 : Convert.ToDecimal(item.a.Kilos);
+                    }
+                    else if (mesdeitem == mes04)
+                    {
+                        kilos04 += item.a == null ? 0 : Convert.ToDecimal(item.a.Kilos);
+                    }
+                    else if (mesdeitem == mes05)
+                    {
+                        kilos05 += item.a == null ? 0 : Convert.ToDecimal(item.a.Kilos);
+                    }
+
+                    totalkilos = kilos01 + kilos02 + kilos03 + kilos04 + kilos05;
+
+                    detalle = new ResumenCompraAjusteporMes();
+
+                    detalle.Clase = item.b.NOMBRE;
+                    detalle.Kilos01 = kilos01;
+                    detalle.Importe01 = kilos01 * item.b.PRECIOCOMPRA.Value;
+                    detalle.Ajuste01 = kilos01 * (item.b == null ? decimal.Parse("0") :
+                        Math.Round((item.b.PRECIOCOMPRA.Value *
+                        (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)),2, MidpointRounding.ToEven));
+                    detalle.Kilos02 = kilos02;
+                    detalle.Importe02 = kilos02 * item.b.PRECIOCOMPRA.Value;
+                    detalle.Ajuste02 = kilos02 * (item.b == null ? decimal.Parse("0") :
+                        Math.Round((item.b.PRECIOCOMPRA.Value *
+                        (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)),2, MidpointRounding.ToEven));
+                    detalle.Kilos03 = kilos03;
+                    detalle.Importe03 = kilos03 * item.b.PRECIOCOMPRA.Value;
+                    detalle.Ajuste03 = kilos03 * (item.b == null ? decimal.Parse("0") :
+                        Math.Round((item.b.PRECIOCOMPRA.Value *
+                        (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)),2, MidpointRounding.ToEven));
+                    detalle.Kilos04 = kilos04;
+                    detalle.Importe04 = kilos04 * item.b.PRECIOCOMPRA.Value;
+                    detalle.Ajuste04 = kilos04 * (item.b == null ? decimal.Parse("0") :
+                        Math.Round((item.b.PRECIOCOMPRA.Value *
+                        (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)),2, MidpointRounding.ToEven));
+                    detalle.Kilos05 = kilos05;
+                    detalle.Importe05 = kilos05 * item.b.PRECIOCOMPRA.Value;
+                    detalle.Ajuste05 = kilos05 * (item.b == null ? decimal.Parse("0") :
+                        Math.Round((item.b.PRECIOCOMPRA.Value *
+                        (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)),2, MidpointRounding.ToEven));
+                    detalle.TotalKilos = totalkilos;
+                    detalle.PrecioPorKilo = totalkilos * item.b.PRECIOCOMPRA.Value;
+                    detalle.PrecioPorKiloAjuste = totalkilos * (item.b == null ? decimal.Parse("0") :
+                        Math.Round((item.b.PRECIOCOMPRA.Value *
+                        (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)),2, MidpointRounding.ToEven));
+                    result.Add(detalle);
+                }
+                else
+                {
+                    var kilos01 = Convert.ToDecimal(detalle.Kilos01);
+                    var kilos02 = Convert.ToDecimal(detalle.Kilos02);
+                    var kilos03 = Convert.ToDecimal(detalle.Kilos03);
+                    var kilos04 = Convert.ToDecimal(detalle.Kilos04);
+                    var kilos05 = Convert.ToDecimal(detalle.Kilos05);
+
+                    var totalkilos = 0m;
+
+                    if (mesdeitem == mes01)
+                    {
+                        kilos01 += item.a == null ? 0 : Convert.ToDecimal(item.a.Kilos);
+                    }
+                    else if (mesdeitem == mes02)
+                    {
+                        kilos02 += item.a == null ? 0 : Convert.ToDecimal(item.a.Kilos);
+                    }
+                    else if (mesdeitem == mes03)
+                    {
+                        kilos03 += item.a == null ? 0 : Convert.ToDecimal(item.a.Kilos);
+                    }
+                    else if (mesdeitem == mes04)
+                    {
+                        kilos04 += item.a == null ? 0 : Convert.ToDecimal(item.a.Kilos);
+                    }
+                    else if (mesdeitem == mes05)
+                    {
+                        kilos05 += item.a == null ? 0 : Convert.ToDecimal(item.a.Kilos);
+                    }
+
+                    totalkilos = kilos01 + kilos02 + kilos03 + kilos04 + kilos05;
+
+                    detalle.Clase = item.b.NOMBRE;
+                    detalle.Kilos01 = kilos01;
+                    detalle.Importe01 = kilos01 * item.b.PRECIOCOMPRA.Value;
+                    detalle.Ajuste01 = kilos01 * (item.b == null ? decimal.Parse("0") : 
+                        Math.Round((item.b.PRECIOCOMPRA.Value *
+                        (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)), 2, MidpointRounding.ToEven));
+                    detalle.Kilos02 = kilos02;
+                    detalle.Importe02 = kilos02 * item.b.PRECIOCOMPRA.Value;
+                    detalle.Ajuste02 = kilos02 * (item.b == null ? decimal.Parse("0") :
+                        Math.Round((item.b.PRECIOCOMPRA.Value *
+                        (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)), 2, MidpointRounding.ToEven));
+                    detalle.Kilos03 = kilos03;
+                    detalle.Importe03 = kilos03 * item.b.PRECIOCOMPRA.Value;
+                    detalle.Ajuste03 = kilos03 * (item.b == null ? decimal.Parse("0") :
+                        Math.Round((item.b.PRECIOCOMPRA.Value *
+                        (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)), 2, MidpointRounding.ToEven));
+                    detalle.Kilos04 = kilos04;
+                    detalle.Importe04 = kilos04 * item.b.PRECIOCOMPRA.Value;
+                    detalle.Ajuste04 = kilos04 * (item.b == null ? decimal.Parse("0") :
+                        Math.Round((item.b.PRECIOCOMPRA.Value *
+                        (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)), 2, MidpointRounding.ToEven));
+                    detalle.Kilos05 = kilos05;
+                    detalle.Importe05 = kilos05 * item.b.PRECIOCOMPRA.Value;
+                    detalle.Ajuste05 = kilos05 * (item.b == null ? decimal.Parse("0") :
+                        Math.Round((item.b.PRECIOCOMPRA.Value *
+                        (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)), 2, MidpointRounding.ToEven));
+                    detalle.TotalKilos = totalkilos;
+                    detalle.PrecioPorKilo = totalkilos * item.b.PRECIOCOMPRA.Value;
+                    detalle.PrecioPorKiloAjuste = totalkilos * (item.b == null ? decimal.Parse("0") :
+                        Math.Round((item.b.PRECIOCOMPRA.Value *
+                        (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)), 2, MidpointRounding.ToEven));
+
+                }
+            }
+
+            return result;
+        }
+
         #endregion
 
         #endregion

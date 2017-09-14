@@ -90,6 +90,7 @@ namespace CooperativaProduccion
         public static string ResumenClasesTrimestre = "ResumenClasesTrimestre";
         public static string ResumenClasesQuincena = "ResumenClasesQuincena";
         public static string PlanillaAcopiadoresAjuste = "PlanillaAcopiadoresAjuste";
+        public static string ResumenCompraAjusteMes = "ResumenCompraAjusteMes";
         public static string PorcentajeAjuste = "PorcentajeAjuste";
     }
 }

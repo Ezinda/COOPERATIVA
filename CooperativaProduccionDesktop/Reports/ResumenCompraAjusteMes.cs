@@ -6,9 +6,9 @@ using DevExpress.XtraReports.UI;
 
 namespace CooperativaProduccion.Reports
 {
-    public partial class DetalleLiquidacionAjusteReport : DevExpress.XtraReports.UI.XtraReport
+    public partial class ResumenCompraAjusteMes : DevExpress.XtraReports.UI.XtraReport
     {
-        public DetalleLiquidacionAjusteReport()
+        public ResumenCompraAjusteMes()
         {
             InitializeComponent();
         }
