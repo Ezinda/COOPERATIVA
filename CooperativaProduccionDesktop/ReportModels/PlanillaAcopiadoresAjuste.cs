@@ -17,5 +17,6 @@ namespace CooperativaProduccion.ReportModels
         public decimal TotalKilos { get; set; }
         public decimal PrecioPorKilo { get; set; }
         public decimal PrecioPorKiloAjuste { get; set; }
+        public decimal Ajuste { get; set; }
     }
 }

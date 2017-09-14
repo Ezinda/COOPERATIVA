@@ -153,7 +153,6 @@
             this.ValorAcopioTotal = new DevExpress.XtraReports.UI.CalculatedField();
             this.ValorAcopioMes04 = new DevExpress.XtraReports.UI.CalculatedField();
             this.ValorAcopioMes05 = new DevExpress.XtraReports.UI.CalculatedField();
-            this.objectDataSource1 = new DevExpress.DataAccess.ObjectBinding.ObjectDataSource(this.components);
             this.ValorAcopioAjusteMes01 = new DevExpress.XtraReports.UI.CalculatedField();
             this.ValorAcopioAjusteMes02 = new DevExpress.XtraReports.UI.CalculatedField();
             this.ValorAcopioAjusteMes03 = new DevExpress.XtraReports.UI.CalculatedField();
@@ -166,6 +165,7 @@
             this.ValorAcopioTotalMes04 = new DevExpress.XtraReports.UI.CalculatedField();
             this.ValorAcopioTotalMes05 = new DevExpress.XtraReports.UI.CalculatedField();
             this.ValorAcopioTotalConAjuste = new DevExpress.XtraReports.UI.CalculatedField();
+            this.objectDataSource1 = new DevExpress.DataAccess.ObjectBinding.ObjectDataSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.xrTable1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable2)).BeginInit();
@@ -1568,38 +1568,33 @@
             this.ValorAcopioMes05.FieldType = DevExpress.XtraReports.UI.FieldType.Decimal;
             this.ValorAcopioMes05.Name = "ValorAcopioMes05";
             // 
-            // objectDataSource1
-            // 
-            this.objectDataSource1.DataSource = typeof(CooperativaProduccion.ReportModels.PlanillaAcopiadoresAjuste);
-            this.objectDataSource1.Name = "objectDataSource1";
-            // 
             // ValorAcopioAjusteMes01
             // 
-            this.ValorAcopioAjusteMes01.Expression = "[Kilos01] * [PrecioPorKiloAjuste]";
+            this.ValorAcopioAjusteMes01.Expression = "[Kilos01] * [Ajuste]";
             this.ValorAcopioAjusteMes01.FieldType = DevExpress.XtraReports.UI.FieldType.Decimal;
             this.ValorAcopioAjusteMes01.Name = "ValorAcopioAjusteMes01";
             // 
             // ValorAcopioAjusteMes02
             // 
-            this.ValorAcopioAjusteMes02.Expression = "[Kilos02] * [PrecioPorKiloAjuste]";
+            this.ValorAcopioAjusteMes02.Expression = "[Kilos02] * [Ajuste]";
             this.ValorAcopioAjusteMes02.FieldType = DevExpress.XtraReports.UI.FieldType.Decimal;
             this.ValorAcopioAjusteMes02.Name = "ValorAcopioAjusteMes02";
             // 
             // ValorAcopioAjusteMes03
             // 
-            this.ValorAcopioAjusteMes03.Expression = "[Kilos03] * [PrecioPorKiloAjuste]";
+            this.ValorAcopioAjusteMes03.Expression = "[Kilos03] * [Ajuste]";
             this.ValorAcopioAjusteMes03.FieldType = DevExpress.XtraReports.UI.FieldType.Decimal;
             this.ValorAcopioAjusteMes03.Name = "ValorAcopioAjusteMes03";
             // 
             // ValorAcopioAjusteMes04
             // 
-            this.ValorAcopioAjusteMes04.Expression = "[Kilos04] * [PrecioPorKiloAjuste]";
+            this.ValorAcopioAjusteMes04.Expression = "[Kilos04] * [Ajuste]";
             this.ValorAcopioAjusteMes04.FieldType = DevExpress.XtraReports.UI.FieldType.Decimal;
             this.ValorAcopioAjusteMes04.Name = "ValorAcopioAjusteMes04";
             // 
             // ValorAcopioAjusteMes05
             // 
-            this.ValorAcopioAjusteMes05.Expression = "[Kilos05] * [PrecioPorKiloAjuste]";
+            this.ValorAcopioAjusteMes05.Expression = "[Kilos05] * [Ajuste]";
             this.ValorAcopioAjusteMes05.FieldType = DevExpress.XtraReports.UI.FieldType.Decimal;
             this.ValorAcopioAjusteMes05.Name = "ValorAcopioAjusteMes05";
             // 
@@ -1612,31 +1607,31 @@
             // 
             // ValorAcopioTotalMes01
             // 
-            this.ValorAcopioTotalMes01.Expression = "[Kilos01] * ([PrecioPorKilo] +  [PrecioPorKiloAjuste])";
+            this.ValorAcopioTotalMes01.Expression = "[Kilos01] * ([PrecioPorKilo] +  [Ajuste])";
             this.ValorAcopioTotalMes01.FieldType = DevExpress.XtraReports.UI.FieldType.Decimal;
             this.ValorAcopioTotalMes01.Name = "ValorAcopioTotalMes01";
             // 
             // ValorAcopioTotalMes02
             // 
-            this.ValorAcopioTotalMes02.Expression = "[Kilos02] * ([PrecioPorKilo] +  [PrecioPorKiloAjuste])";
+            this.ValorAcopioTotalMes02.Expression = "[Kilos02] * ([PrecioPorKilo] +  [Ajuste])";
             this.ValorAcopioTotalMes02.FieldType = DevExpress.XtraReports.UI.FieldType.Decimal;
             this.ValorAcopioTotalMes02.Name = "ValorAcopioTotalMes02";
             // 
             // ValorAcopioTotalMes03
             // 
-            this.ValorAcopioTotalMes03.Expression = "[Kilos03] * ([PrecioPorKilo] +  [PrecioPorKiloAjuste])";
+            this.ValorAcopioTotalMes03.Expression = "[Kilos03] * ([PrecioPorKilo] +  [Ajuste])";
             this.ValorAcopioTotalMes03.FieldType = DevExpress.XtraReports.UI.FieldType.Decimal;
             this.ValorAcopioTotalMes03.Name = "ValorAcopioTotalMes03";
             // 
             // ValorAcopioTotalMes04
             // 
-            this.ValorAcopioTotalMes04.Expression = "[Kilos04] * ([PrecioPorKilo] +  [PrecioPorKiloAjuste])";
+            this.ValorAcopioTotalMes04.Expression = "[Kilos04] * ([PrecioPorKilo] +  [Ajuste])";
             this.ValorAcopioTotalMes04.FieldType = DevExpress.XtraReports.UI.FieldType.Decimal;
             this.ValorAcopioTotalMes04.Name = "ValorAcopioTotalMes04";
             // 
             // ValorAcopioTotalMes05
             // 
-            this.ValorAcopioTotalMes05.Expression = "[Kilos05] * ([PrecioPorKilo] +  [PrecioPorKiloAjuste])";
+            this.ValorAcopioTotalMes05.Expression = "[Kilos05] * ([PrecioPorKilo] +  [Ajuste])";
             this.ValorAcopioTotalMes05.FieldType = DevExpress.XtraReports.UI.FieldType.Decimal;
             this.ValorAcopioTotalMes05.Name = "ValorAcopioTotalMes05";
             // 
@@ -1645,6 +1640,11 @@
             this.ValorAcopioTotalConAjuste.Expression = resources.GetString("ValorAcopioTotalConAjuste.Expression");
             this.ValorAcopioTotalConAjuste.FieldType = DevExpress.XtraReports.UI.FieldType.Decimal;
             this.ValorAcopioTotalConAjuste.Name = "ValorAcopioTotalConAjuste";
+            // 
+            // objectDataSource1
+            // 
+            this.objectDataSource1.DataSource = typeof(CooperativaProduccion.ReportModels.PlanillaAcopiadoresAjuste);
+            this.objectDataSource1.Name = "objectDataSource1";
             // 
             // PlanillaAcopiadoresAjusteReport
             // 

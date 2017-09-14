@@ -111,12 +111,20 @@ namespace CooperativaProduccion
                     }
                     else
                     {
-                        ResumenClasePorTrimestreTabacos();
+                        ResumenClasePorQuincenaTabacos();
                     }
                 }
                 else if (Origen.Equals(DevConstantes.Liquidacion))
                 {
                     LiquidacionExportToXLS();
+                }
+                else if (Origen.Equals(DevConstantes.PlanillaAcopiadoresAjuste))
+                {
+                    PlanillaAcopiadoresAjuste();
+                }
+                else if (Origen.Equals(DevConstantes.ResumenCompraAjusteMes))
+                {
+                    ResumenCompraAjusteMes();
                 }
                 this.Close();
             }
@@ -3042,8 +3050,16 @@ namespace CooperativaProduccion
                         Math.Round((item.b.PRECIOCOMPRA.Value * 
                         (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) + item.b.PRECIOCOMPRA.Value, 
                         2, MidpointRounding.ToEven);
-                    
+                    detalle.Ajuste = Math.Round((item.b.PRECIOCOMPRA.Value *
+                        (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)),
+                        2, MidpointRounding.ToEven);
                     result.Add(detalle);
+                    Console.WriteLine("kg: " + detalle.Kilos01 + " ajuste:" + detalle.Ajuste + " " + detalle.Kilos01 * detalle.Ajuste);
+                    Console.WriteLine("kg: " + detalle.Kilos02 + " ajuste:" + detalle.Ajuste + " " + detalle.Kilos02 * detalle.Ajuste);
+                    Console.WriteLine("kg: " + detalle.Kilos03 + " ajuste:" + detalle.Ajuste + " " + detalle.Kilos03 * detalle.Ajuste);
+                    Console.WriteLine("kg: " + detalle.Kilos04 + " ajuste:" + detalle.Ajuste + " " + detalle.Kilos04 * detalle.Ajuste);
+                    Console.WriteLine("kg: " + detalle.Kilos05 + " ajuste:" + detalle.Ajuste + " " + detalle.Kilos05 * detalle.Ajuste);
+                
                 }
                 else
                 {
@@ -3090,7 +3106,14 @@ namespace CooperativaProduccion
                         Math.Round((item.b.PRECIOCOMPRA.Value *
                         (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) + item.b.PRECIOCOMPRA.Value,
                         2, MidpointRounding.ToEven);
-
+                    detalle.Ajuste = Math.Round((item.b.PRECIOCOMPRA.Value *
+                        (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)),
+                        2, MidpointRounding.ToEven);
+                    Console.WriteLine("kg: " + detalle.Kilos01 + " ajuste:" + detalle.Ajuste + " " + detalle.Kilos01 * detalle.Ajuste);
+                    Console.WriteLine("kg: " + detalle.Kilos02 + " ajuste:" + detalle.Ajuste + " " + detalle.Kilos02 * detalle.Ajuste);
+                    Console.WriteLine("kg: " + detalle.Kilos03 + " ajuste:" + detalle.Ajuste + " " + detalle.Kilos03 * detalle.Ajuste);
+                    Console.WriteLine("kg: " + detalle.Kilos04 + " ajuste:" + detalle.Ajuste + " " + detalle.Kilos04 * detalle.Ajuste);
+                    Console.WriteLine("kg: " + detalle.Kilos05 + " ajuste:" + detalle.Ajuste + " " + detalle.Kilos05 * detalle.Ajuste);
                 }
             }
 
