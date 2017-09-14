@@ -872,6 +872,11 @@ namespace CooperativaProduccion
                     .OrderBy(x => x.b.Orden)
                     .ToList();
 
+                var totalCompra = decimal.Parse((liquidacionDetalles.Sum(x => x.Total) * (float.Parse(ajuste.Valor.Value.ToString()) / 100)).ToString());
+                var totalLiquidacion = LiquidacionAjuste();
+                var saldo = totalCompra - totalLiquidacion;
+                var ajusteDelAjuste = (saldo / totalCompra)+decimal.Parse("0,000000035");
+
                 foreach (var liquidacionDetalle in liquidaciones)
                 {
                     ResumenCompraAjuste detalle = new ResumenCompraAjuste();
@@ -879,7 +884,12 @@ namespace CooperativaProduccion
                     detalle.Fardos = liquidacionDetalle.a == null ? "0" : liquidacionDetalle.a.Fardos.Value.ToString();
                     detalle.Kilos = liquidacionDetalle.a == null ? "0" : liquidacionDetalle.a.Kilos.Value.ToString();
                     detalle.Importe = liquidacionDetalle.a == null ? "0" : liquidacionDetalle.a.Total.ToString("F", culture);
-                    detalle.Ajuste = liquidacionDetalle.a == null ? "0" : (liquidacionDetalle.a.Total * (float.Parse(ajuste.Valor.Value.ToString()) / 100)).ToString("F",culture);
+                    detalle.Ajuste = liquidacionDetalle.a == null ? "0" : 
+                        (decimal.Parse(liquidacionDetalle.a.Total.ToString()) * 
+                        (decimal.Parse(ajuste.Valor.Value.ToString()) / 100) - 
+                        ((decimal.Parse(liquidacionDetalle.a.Total.ToString()) *
+                        (decimal.Parse(ajuste.Valor.Value.ToString()) / 100) * ajusteDelAjuste) 
+                        )).ToString("F",culture);
                     datasource.Add(detalle);
                 }
                 return datasource;
@@ -937,6 +947,7 @@ namespace CooperativaProduccion
                     detalle.Kilos = item.a == null ? "0" : item.a.Kilos.Value.ToString();
                     detalle.Importe = item.a == null ? "0" : item.a.Total.Value.ToString("F", culture);
                     detalle.Ajuste = item.a == null ? "0" : (item.a.Total * (float.Parse(ajuste.Valor.Value.ToString()) / 100)).Value.ToString("F", culture);
+
                     detalle.Provincia = item.a == null ? string.Empty : item.a.Provincia;
                     datasource.Add(detalle);
                 }
@@ -2972,8 +2983,8 @@ namespace CooperativaProduccion
 
             var resumenes = resumen
                 .FullOuterJoin(clases, a => a.Clase, b => b.NOMBRE, (a, b, Clases) => new { a, b })
-                .OrderBy(x => x.b.NOMBRE)
-                .ThenBy(x => x.b.Orden)
+                .OrderBy(x => x.b.Orden)
+               // .ThenBy(x => x.b.Orden)
                 .ToList();
 
 
@@ -3202,8 +3213,8 @@ namespace CooperativaProduccion
 
             var resumenes = resumen
                 .FullOuterJoin(clases, a => a.Clase, b => b.NOMBRE, (a, b, Clases) => new { a, b })
-                .OrderBy(x => x.b.NOMBRE)
-                .ThenBy(x => x.b.Orden)
+                .OrderBy(x => x.b.Orden)
+               // .ThenBy(x => x.b.Orden)
                 .ToList();
 
 
@@ -3354,6 +3365,44 @@ namespace CooperativaProduccion
         }
 
         #endregion
+
+        public decimal LiquidacionAjuste()
+        {
+            Expression<Func<Liquidacion, bool>> pred2 = x => true;
+
+            pred2 = !string.IsNullOrEmpty(cbTabaco.Text) ?
+                pred2.And(x => x.Tabaco == cbTabaco.Text) : pred2;
+
+            Expression<Func<Vw_Productor, bool>> pred3 = x => true;
+
+            pred3 = !string.IsNullOrEmpty(cbProvincia.Text) ?
+                pred3.And(x => x.Provincia == cbProvincia.Text) : pred3;
+
+            var ajustes =
+            (from l in Context.Liquidacion.Where(pred2)
+             join p in Context.Vw_Productor.Where(pred3)
+             on l.ProductorId equals p.ID
+             select new
+             {
+                 LiquidacionId = l.Id,
+                 Fecha = l.Fecha,
+                 NumInternoLiquidacion = l.NumInternoLiquidacion,
+                 Nombre = p.NOMBRE,
+                 Cuit = p.CUIT,
+                 Fet = p.nrofet,
+                 Provincia = p.Provincia,
+                 Letra = l.Letra,
+                 Iva = p.IVA,
+                 ImporteNeto = l.ImporteNeto,
+                 IvaCalculado = l.IvaCalculado,
+                 ImporteBruto = l.Total
+             })
+             .OrderBy(x => x.NumInternoLiquidacion)
+             .ToList();
+
+            decimal s = decimal.Parse(ajustes.Sum(x => x.ImporteNeto).ToString());
+            return s; 
+        }
 
         #endregion
     }
