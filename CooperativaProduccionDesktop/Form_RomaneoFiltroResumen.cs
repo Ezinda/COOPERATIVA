@@ -893,11 +893,7 @@ namespace CooperativaProduccion
                     detalle.Kilos = liquidacionDetalle.a == null ? "0" : liquidacionDetalle.a.Kilos.Value.ToString();
                     detalle.Importe = liquidacionDetalle.a == null ? "0" : liquidacionDetalle.a.Total.ToString("F", culture);
                     detalle.Ajuste = liquidacionDetalle.a == null ? "0" : 
-                        (decimal.Parse(liquidacionDetalle.a.Total.ToString()) * 
-                        (decimal.Parse(ajuste.Valor.Value.ToString()) / 100) - 
-                        ((decimal.Parse(liquidacionDetalle.a.Total.ToString()) *
-                        (decimal.Parse(ajuste.Valor.Value.ToString()) / 100) * ajusteDelAjuste) 
-                        )).ToString("F",culture);
+                        (decimal.Parse(liquidacionDetalle.a.Total.ToString()) * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100) - ((decimal.Parse(liquidacionDetalle.a.Total.ToString()) * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100) * ajusteDelAjuste))).ToString("F",culture);
                     datasource.Add(detalle);
                 }
                 return datasource;
@@ -2995,6 +2991,10 @@ namespace CooperativaProduccion
                // .ThenBy(x => x.b.Orden)
                 .ToList();
 
+            var totalCompra = decimal.Parse((resumen.Sum(x => x.Total) * (float.Parse(ajuste.Valor.Value.ToString()) / 100)).ToString());
+            var totalLiquidacion = LiquidacionAjuste();
+            var saldo = totalCompra - totalLiquidacion;
+            var ajusteDelAjuste = (saldo / totalCompra) + decimal.Parse("0,000000035");
 
             foreach (var item in resumenes)
             {
@@ -3047,19 +3047,13 @@ namespace CooperativaProduccion
                     detalle.TotalKilos = totalkilos;
                     detalle.PrecioPorKilo = item.b.PRECIOCOMPRA.Value;
                     detalle.PrecioPorKiloAjuste = item.b == null ? decimal.Parse("0") :
-                        Math.Round((item.b.PRECIOCOMPRA.Value * 
-                        (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) + item.b.PRECIOCOMPRA.Value, 
+                        Math.Round((item.b.PRECIOCOMPRA.Value *
+                        (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) + item.b.PRECIOCOMPRA.Value,
                         2, MidpointRounding.ToEven);
-                    detalle.Ajuste = Math.Round((item.b.PRECIOCOMPRA.Value *
-                        (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)),
-                        2, MidpointRounding.ToEven);
+                    detalle.Ajuste = (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) - 
+                        (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100))*ajusteDelAjuste;
                     result.Add(detalle);
-                    Console.WriteLine("kg: " + detalle.Kilos01 + " ajuste:" + detalle.Ajuste + " " + detalle.Kilos01 * detalle.Ajuste);
-                    Console.WriteLine("kg: " + detalle.Kilos02 + " ajuste:" + detalle.Ajuste + " " + detalle.Kilos02 * detalle.Ajuste);
-                    Console.WriteLine("kg: " + detalle.Kilos03 + " ajuste:" + detalle.Ajuste + " " + detalle.Kilos03 * detalle.Ajuste);
-                    Console.WriteLine("kg: " + detalle.Kilos04 + " ajuste:" + detalle.Ajuste + " " + detalle.Kilos04 * detalle.Ajuste);
-                    Console.WriteLine("kg: " + detalle.Kilos05 + " ajuste:" + detalle.Ajuste + " " + detalle.Kilos05 * detalle.Ajuste);
-                
+                            
                 }
                 else
                 {
@@ -3106,14 +3100,9 @@ namespace CooperativaProduccion
                         Math.Round((item.b.PRECIOCOMPRA.Value *
                         (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) + item.b.PRECIOCOMPRA.Value,
                         2, MidpointRounding.ToEven);
-                    detalle.Ajuste = Math.Round((item.b.PRECIOCOMPRA.Value *
-                        (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)),
-                        2, MidpointRounding.ToEven);
-                    Console.WriteLine("kg: " + detalle.Kilos01 + " ajuste:" + detalle.Ajuste + " " + detalle.Kilos01 * detalle.Ajuste);
-                    Console.WriteLine("kg: " + detalle.Kilos02 + " ajuste:" + detalle.Ajuste + " " + detalle.Kilos02 * detalle.Ajuste);
-                    Console.WriteLine("kg: " + detalle.Kilos03 + " ajuste:" + detalle.Ajuste + " " + detalle.Kilos03 * detalle.Ajuste);
-                    Console.WriteLine("kg: " + detalle.Kilos04 + " ajuste:" + detalle.Ajuste + " " + detalle.Kilos04 * detalle.Ajuste);
-                    Console.WriteLine("kg: " + detalle.Kilos05 + " ajuste:" + detalle.Ajuste + " " + detalle.Kilos05 * detalle.Ajuste);
+                    detalle.Ajuste = (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) -
+                        (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) * ajusteDelAjuste;
+
                 }
             }
 
@@ -3240,6 +3229,10 @@ namespace CooperativaProduccion
                // .ThenBy(x => x.b.Orden)
                 .ToList();
 
+            var totalCompra = decimal.Parse((resumen.Sum(x => x.Total) * (float.Parse(ajuste.Valor.Value.ToString()) / 100)).ToString());
+            var totalLiquidacion = LiquidacionAjuste();
+            var saldo = totalCompra - totalLiquidacion;
+            var ajusteDelAjuste = (saldo / totalCompra) + decimal.Parse("0,000000035");
 
             foreach (var item in resumenes)
             {
@@ -3286,34 +3279,28 @@ namespace CooperativaProduccion
                     detalle.Clase = item.b.NOMBRE;
                     detalle.Kilos01 = kilos01;
                     detalle.Importe01 = kilos01 * item.b.PRECIOCOMPRA.Value;
-                    detalle.Ajuste01 = kilos01 * (item.b == null ? decimal.Parse("0") :
-                        Math.Round((item.b.PRECIOCOMPRA.Value *
-                        (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)),2, MidpointRounding.ToEven));
+                    detalle.Ajuste01 = kilos01 * (item.b == null ? decimal.Parse("0") : ((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) - (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) * ajusteDelAjuste));
+
                     detalle.Kilos02 = kilos02;
                     detalle.Importe02 = kilos02 * item.b.PRECIOCOMPRA.Value;
-                    detalle.Ajuste02 = kilos02 * (item.b == null ? decimal.Parse("0") :
-                        Math.Round((item.b.PRECIOCOMPRA.Value *
-                        (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)),2, MidpointRounding.ToEven));
+                    detalle.Ajuste02 = kilos02 * (item.b == null ? decimal.Parse("0") : ((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) - (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) * ajusteDelAjuste));
+
                     detalle.Kilos03 = kilos03;
                     detalle.Importe03 = kilos03 * item.b.PRECIOCOMPRA.Value;
-                    detalle.Ajuste03 = kilos03 * (item.b == null ? decimal.Parse("0") :
-                        Math.Round((item.b.PRECIOCOMPRA.Value *
-                        (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)),2, MidpointRounding.ToEven));
+                    detalle.Ajuste03 = kilos03 * (item.b == null ? decimal.Parse("0") : ((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) - (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) * ajusteDelAjuste));
+
                     detalle.Kilos04 = kilos04;
                     detalle.Importe04 = kilos04 * item.b.PRECIOCOMPRA.Value;
-                    detalle.Ajuste04 = kilos04 * (item.b == null ? decimal.Parse("0") :
-                        Math.Round((item.b.PRECIOCOMPRA.Value *
-                        (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)),2, MidpointRounding.ToEven));
+                    detalle.Ajuste04 = kilos04 * (item.b == null ? decimal.Parse("0") : ((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) - (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) * ajusteDelAjuste));
+
                     detalle.Kilos05 = kilos05;
                     detalle.Importe05 = kilos05 * item.b.PRECIOCOMPRA.Value;
-                    detalle.Ajuste05 = kilos05 * (item.b == null ? decimal.Parse("0") :
-                        Math.Round((item.b.PRECIOCOMPRA.Value *
-                        (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)),2, MidpointRounding.ToEven));
+                    detalle.Ajuste05 = kilos05 * (item.b == null ? decimal.Parse("0") : ((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) - (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) * ajusteDelAjuste));
+
                     detalle.TotalKilos = totalkilos;
                     detalle.PrecioPorKilo = totalkilos * item.b.PRECIOCOMPRA.Value;
-                    detalle.PrecioPorKiloAjuste = totalkilos * (item.b == null ? decimal.Parse("0") :
-                        Math.Round((item.b.PRECIOCOMPRA.Value *
-                        (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)),2, MidpointRounding.ToEven));
+                    detalle.PrecioPorKiloAjuste = totalkilos * (item.b == null ? decimal.Parse("0") : ((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) - (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) * ajusteDelAjuste));
+
                     result.Add(detalle);
                 }
                 else
@@ -3352,34 +3339,27 @@ namespace CooperativaProduccion
                     detalle.Clase = item.b.NOMBRE;
                     detalle.Kilos01 = kilos01;
                     detalle.Importe01 = kilos01 * item.b.PRECIOCOMPRA.Value;
-                    detalle.Ajuste01 = kilos01 * (item.b == null ? decimal.Parse("0") : 
-                        Math.Round((item.b.PRECIOCOMPRA.Value *
-                        (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)), 2, MidpointRounding.ToEven));
+                    detalle.Ajuste01 = kilos01 * (item.b == null ? decimal.Parse("0") : ((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) - (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) * ajusteDelAjuste));
+
                     detalle.Kilos02 = kilos02;
                     detalle.Importe02 = kilos02 * item.b.PRECIOCOMPRA.Value;
-                    detalle.Ajuste02 = kilos02 * (item.b == null ? decimal.Parse("0") :
-                        Math.Round((item.b.PRECIOCOMPRA.Value *
-                        (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)), 2, MidpointRounding.ToEven));
+                    detalle.Ajuste02 = kilos02 * (item.b == null ? decimal.Parse("0") : ((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) - (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) * ajusteDelAjuste));
+
                     detalle.Kilos03 = kilos03;
                     detalle.Importe03 = kilos03 * item.b.PRECIOCOMPRA.Value;
-                    detalle.Ajuste03 = kilos03 * (item.b == null ? decimal.Parse("0") :
-                        Math.Round((item.b.PRECIOCOMPRA.Value *
-                        (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)), 2, MidpointRounding.ToEven));
+                    detalle.Ajuste03 = kilos03 * (item.b == null ? decimal.Parse("0") : ((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) - (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) * ajusteDelAjuste));
+
                     detalle.Kilos04 = kilos04;
                     detalle.Importe04 = kilos04 * item.b.PRECIOCOMPRA.Value;
-                    detalle.Ajuste04 = kilos04 * (item.b == null ? decimal.Parse("0") :
-                        Math.Round((item.b.PRECIOCOMPRA.Value *
-                        (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)), 2, MidpointRounding.ToEven));
+                    detalle.Ajuste04 = kilos04 * (item.b == null ? decimal.Parse("0") : ((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) - (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) * ajusteDelAjuste));
+
                     detalle.Kilos05 = kilos05;
                     detalle.Importe05 = kilos05 * item.b.PRECIOCOMPRA.Value;
-                    detalle.Ajuste05 = kilos05 * (item.b == null ? decimal.Parse("0") :
-                        Math.Round((item.b.PRECIOCOMPRA.Value *
-                        (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)), 2, MidpointRounding.ToEven));
+                    detalle.Ajuste05 = kilos05 * (item.b == null ? decimal.Parse("0") : ((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) - (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) * ajusteDelAjuste));
+
                     detalle.TotalKilos = totalkilos;
                     detalle.PrecioPorKilo = totalkilos * item.b.PRECIOCOMPRA.Value;
-                    detalle.PrecioPorKiloAjuste = totalkilos * (item.b == null ? decimal.Parse("0") :
-                        Math.Round((item.b.PRECIOCOMPRA.Value *
-                        (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)), 2, MidpointRounding.ToEven));
+                    detalle.PrecioPorKiloAjuste = totalkilos * (item.b == null ? decimal.Parse("0") : ((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) - (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) * ajusteDelAjuste));
 
                 }
             }
