@@ -33,6 +33,7 @@
             this.Cata = new DevExpress.XtraTab.XtraTabControl();
             this.TabTransferenciaCaja = new DevExpress.XtraTab.XtraTabPage();
             this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
+            this.btnExportarExcel = new DevExpress.XtraEditors.SimpleButton();
             this.cbDepositoDestino = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.btnTransferencia = new DevExpress.XtraEditors.SimpleButton();
@@ -52,7 +53,9 @@
             this.label5 = new System.Windows.Forms.Label();
             this.dpDesde = new System.Windows.Forms.DateTimePicker();
             this.label15 = new System.Windows.Forms.Label();
-            this.btnExportarExcel = new DevExpress.XtraEditors.SimpleButton();
+            this.cbCampaña = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.checkPeriodo = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Cata)).BeginInit();
             this.Cata.SuspendLayout();
@@ -85,7 +88,7 @@
             this.ribbon.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Show;
             this.ribbon.ShowQatLocationSelector = false;
             this.ribbon.ShowToolbarCustomizeItem = false;
-            this.ribbon.Size = new System.Drawing.Size(1089, 49);
+            this.ribbon.Size = new System.Drawing.Size(1243, 49);
             this.ribbon.Toolbar.ShowCustomizeItem = false;
             // 
             // Cata
@@ -96,7 +99,7 @@
             this.Cata.Location = new System.Drawing.Point(3, 54);
             this.Cata.Name = "Cata";
             this.Cata.SelectedTabPage = this.TabTransferenciaCaja;
-            this.Cata.Size = new System.Drawing.Size(1088, 445);
+            this.Cata.Size = new System.Drawing.Size(1242, 445);
             this.Cata.TabIndex = 77;
             this.Cata.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.TabTransferenciaCaja});
@@ -108,7 +111,7 @@
             this.TabTransferenciaCaja.Controls.Add(this.groupControl1);
             this.TabTransferenciaCaja.Image = ((System.Drawing.Image)(resources.GetObject("TabTransferenciaCaja.Image")));
             this.TabTransferenciaCaja.Name = "TabTransferenciaCaja";
-            this.TabTransferenciaCaja.Size = new System.Drawing.Size(1082, 414);
+            this.TabTransferenciaCaja.Size = new System.Drawing.Size(1236, 414);
             this.TabTransferenciaCaja.Text = "Transferencia de Cajas";
             // 
             // groupControl3
@@ -122,9 +125,19 @@
             this.groupControl3.Location = new System.Drawing.Point(1, 380);
             this.groupControl3.Name = "groupControl3";
             this.groupControl3.ShowCaption = false;
-            this.groupControl3.Size = new System.Drawing.Size(1080, 33);
+            this.groupControl3.Size = new System.Drawing.Size(1234, 33);
             this.groupControl3.TabIndex = 77;
             this.groupControl3.Text = "Buscar Cata";
+            // 
+            // btnExportarExcel
+            // 
+            this.btnExportarExcel.Image = ((System.Drawing.Image)(resources.GetObject("btnExportarExcel.Image")));
+            this.btnExportarExcel.Location = new System.Drawing.Point(394, 6);
+            this.btnExportarExcel.Name = "btnExportarExcel";
+            this.btnExportarExcel.Size = new System.Drawing.Size(102, 22);
+            this.btnExportarExcel.TabIndex = 63;
+            this.btnExportarExcel.Text = "Exportar Excel";
+            this.btnExportarExcel.Click += new System.EventHandler(this.btnExportarExcel_Click);
             // 
             // cbDepositoDestino
             // 
@@ -164,7 +177,7 @@
             this.groupControl5.Controls.Add(this.gridControlCaja);
             this.groupControl5.Location = new System.Drawing.Point(1, 52);
             this.groupControl5.Name = "groupControl5";
-            this.groupControl5.Size = new System.Drawing.Size(1082, 328);
+            this.groupControl5.Size = new System.Drawing.Size(1236, 328);
             this.groupControl5.TabIndex = 76;
             this.groupControl5.Text = "Detalle de cajas";
             // 
@@ -175,7 +188,7 @@
             this.gridControlCaja.MainView = this.gridViewCaja;
             this.gridControlCaja.MenuManager = this.ribbon;
             this.gridControlCaja.Name = "gridControlCaja";
-            this.gridControlCaja.Size = new System.Drawing.Size(1078, 306);
+            this.gridControlCaja.Size = new System.Drawing.Size(1232, 306);
             this.gridControlCaja.TabIndex = 68;
             this.gridControlCaja.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewCaja,
@@ -209,6 +222,9 @@
             this.groupControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupControl1.Controls.Add(this.checkPeriodo);
+            this.groupControl1.Controls.Add(this.cbCampaña);
+            this.groupControl1.Controls.Add(this.label3);
             this.groupControl1.Controls.Add(this.dpHasta);
             this.groupControl1.Controls.Add(this.label2);
             this.groupControl1.Controls.Add(this.btnBuscar);
@@ -222,7 +238,7 @@
             this.groupControl1.Controls.Add(this.label15);
             this.groupControl1.Location = new System.Drawing.Point(1, 1);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(1080, 50);
+            this.groupControl1.Size = new System.Drawing.Size(1234, 50);
             this.groupControl1.TabIndex = 72;
             this.groupControl1.Text = "Filtros de búsquedas";
             // 
@@ -247,9 +263,9 @@
             // btnBuscar
             // 
             this.btnBuscar.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscar.Image")));
-            this.btnBuscar.Location = new System.Drawing.Point(974, 24);
+            this.btnBuscar.Location = new System.Drawing.Point(1157, 24);
             this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(91, 22);
+            this.btnBuscar.Size = new System.Drawing.Size(71, 22);
             this.btnBuscar.TabIndex = 91;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
@@ -258,7 +274,7 @@
             // 
             this.cbDepositoOrigen.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbDepositoOrigen.FormattingEnabled = true;
-            this.cbDepositoOrigen.Location = new System.Drawing.Point(590, 23);
+            this.cbDepositoOrigen.Location = new System.Drawing.Point(805, 24);
             this.cbDepositoOrigen.Name = "cbDepositoOrigen";
             this.cbDepositoOrigen.Size = new System.Drawing.Size(178, 21);
             this.cbDepositoOrigen.TabIndex = 89;
@@ -267,7 +283,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(499, 26);
+            this.label1.Location = new System.Drawing.Point(714, 27);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(94, 16);
             this.label1.TabIndex = 90;
@@ -275,7 +291,7 @@
             // 
             // txtCantidadCaja
             // 
-            this.txtCantidadCaja.Location = new System.Drawing.Point(876, 24);
+            this.txtCantidadCaja.Location = new System.Drawing.Point(1091, 25);
             this.txtCantidadCaja.Name = "txtCantidadCaja";
             this.txtCantidadCaja.Size = new System.Drawing.Size(60, 21);
             this.txtCantidadCaja.TabIndex = 6;
@@ -284,7 +300,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(774, 26);
+            this.label10.Location = new System.Drawing.Point(989, 27);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(104, 16);
             this.label10.TabIndex = 88;
@@ -294,7 +310,7 @@
             // 
             this.cbProductoIngreso.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbProductoIngreso.FormattingEnabled = true;
-            this.cbProductoIngreso.Location = new System.Drawing.Point(309, 23);
+            this.cbProductoIngreso.Location = new System.Drawing.Point(524, 24);
             this.cbProductoIngreso.Name = "cbProductoIngreso";
             this.cbProductoIngreso.Size = new System.Drawing.Size(178, 21);
             this.cbProductoIngreso.TabIndex = 2;
@@ -303,7 +319,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(251, 26);
+            this.label5.Location = new System.Drawing.Point(461, 27);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(57, 16);
             this.label5.TabIndex = 78;
@@ -327,21 +343,38 @@
             this.label15.TabIndex = 76;
             this.label15.Text = "Desde";
             // 
-            // btnExportarExcel
+            // cbCampaña
             // 
-            this.btnExportarExcel.Image = ((System.Drawing.Image)(resources.GetObject("btnExportarExcel.Image")));
-            this.btnExportarExcel.Location = new System.Drawing.Point(394, 6);
-            this.btnExportarExcel.Name = "btnExportarExcel";
-            this.btnExportarExcel.Size = new System.Drawing.Size(102, 22);
-            this.btnExportarExcel.TabIndex = 63;
-            this.btnExportarExcel.Text = "Exportar Excel";
-            this.btnExportarExcel.Click += new System.EventHandler(this.btnExportarExcel_Click);
+            this.cbCampaña.FormattingEnabled = true;
+            this.cbCampaña.Location = new System.Drawing.Point(331, 25);
+            this.cbCampaña.Name = "cbCampaña";
+            this.cbCampaña.Size = new System.Drawing.Size(121, 21);
+            this.cbCampaña.TabIndex = 94;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(272, 27);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(57, 16);
+            this.label3.TabIndex = 95;
+            this.label3.Text = "Campaña";
+            // 
+            // checkPeriodo
+            // 
+            this.checkPeriodo.AutoSize = true;
+            this.checkPeriodo.Location = new System.Drawing.Point(252, 27);
+            this.checkPeriodo.Name = "checkPeriodo";
+            this.checkPeriodo.Size = new System.Drawing.Size(15, 14);
+            this.checkPeriodo.TabIndex = 96;
+            this.checkPeriodo.UseVisualStyleBackColor = true;
             // 
             // Form_InventarioTransferencia
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1089, 511);
+            this.ClientSize = new System.Drawing.Size(1243, 511);
             this.Controls.Add(this.Cata);
             this.Controls.Add(this.ribbon);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -395,5 +428,8 @@
         private System.Windows.Forms.DateTimePicker dpHasta;
         private System.Windows.Forms.Label label2;
         private DevExpress.XtraEditors.SimpleButton btnExportarExcel;
+        private System.Windows.Forms.CheckBox checkPeriodo;
+        private System.Windows.Forms.ComboBox cbCampaña;
+        private System.Windows.Forms.Label label3;
     }
 }

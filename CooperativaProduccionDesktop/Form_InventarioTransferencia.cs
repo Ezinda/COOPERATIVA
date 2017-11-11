@@ -12,6 +12,8 @@ using EntityFramework.Extensions;
 using System.Diagnostics;
 using System.IO;
 using System.Globalization;
+using System.Linq.Expressions;
+using Extensions;
 
 namespace CooperativaProduccion
 {
@@ -29,7 +31,6 @@ namespace CooperativaProduccion
         private void CargarCombo()
         {
             var producto = Context.Vw_Producto.ToList();
-
             cbProductoIngreso.DataSource = producto;
             cbProductoIngreso.DisplayMember = "DESCRIPCION";
             cbProductoIngreso.ValueMember = "ID";
@@ -44,6 +45,23 @@ namespace CooperativaProduccion
             cbDepositoDestino.DisplayMember = "nombre";
             cbDepositoDestino.ValueMember = "ID";
 
+            var campaña =
+                (from c in Context.Caja
+                    .Where(x => x.OrdenVentaId == null)
+                 group new { c } by new
+                 {
+                     Campaña = c.Campaña
+                 } into g
+                 select new
+                 {
+                     Campaña = g.Key.Campaña
+                 })
+                 .OrderBy(x => x.Campaña)
+                 .ToList();
+
+            cbCampaña.DataSource = campaña;
+            cbCampaña.DisplayMember = "Campaña";
+            cbCampaña.ValueMember = "Campaña";
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
@@ -59,15 +77,27 @@ namespace CooperativaProduccion
 
             var DepositoId = Guid.Parse(cbDepositoOrigen.SelectedValue.ToString());
 
+            DateTime desde = dpDesde.Value.Date;
+
+            DateTime hasta = dpHasta.Value.Date;
+
+            int campaña = int.Parse(cbCampaña.SelectedValue.ToString());
+
+            Expression<Func<Caja, bool>> pred = x => true;
+
+            pred = checkPeriodo.Checked ? pred.And(x => x.Fecha >= desde.Date && x.Fecha <= hasta.Date) : pred;
+
+            pred = !string.IsNullOrEmpty(cbCampaña.Text) ? pred.And(x => x.Fecha.Year == campaña) : pred;
+
+            pred = pred.And(x => x.ProductoId == ProductoId);
+
             if (!string.IsNullOrEmpty(cajas))
             {
                 var cantidad = int.Parse(txtCantidadCaja.Text);
 
                 var result =
                     (from c in Context.Caja
-                        .Where(x => x.ProductoId == ProductoId 
-                            && x.Fecha >= dpDesde.Value.Date 
-                            && x.Fecha <= dpHasta.Value.Date)
+                        .Where(pred)
                      join p in Context.Vw_Producto
                         on c.ProductoId equals p.ID
                      join ca in Context.Cata
@@ -91,7 +121,8 @@ namespace CooperativaProduccion
                          Cata = joined.NumCata,
                          Fecha = c.Fecha,
                          DepositoId = m.DepositoId,
-                         Deposito = d.nombre
+                         Deposito = d.nombre,
+                         Campaña = c.Campaña
                      })
                      .Take(cantidad)
                      .OrderBy(x => x.NumCaja)
@@ -103,9 +134,7 @@ namespace CooperativaProduccion
             {
                 var result =
                     (from c in Context.Caja
-                     .Where(x => x.ProductoId == ProductoId
-                         && x.Fecha >= dpDesde.Value.Date
-                         && x.Fecha <= dpHasta.Value.Date)
+                     .Where(pred)
                      join p in Context.Vw_Producto
                         on c.ProductoId equals p.ID
                      join ca in Context.Cata
@@ -129,7 +158,8 @@ namespace CooperativaProduccion
                          Cata = joined.NumCata,
                          Fecha = c.Fecha,
                          DepositoId = m.DepositoId,
-                         Deposito = d.nombre
+                         Deposito = d.nombre,
+                         Camapaña = c.Campaña
                      })
                      .OrderBy(x => x.NumCaja)
                      .ToList();
@@ -155,6 +185,8 @@ namespace CooperativaProduccion
             gridViewCaja.Columns[9].Visible = false;
             gridViewCaja.Columns[10].Caption = "Deposito";
             gridViewCaja.Columns[10].Width = 200;
+            gridViewCaja.Columns[11].Caption = "Campaña";
+            gridViewCaja.Columns[11].Width = 200;
         }
 
         private void btnGenerarLote_Click(object sender, EventArgs e)

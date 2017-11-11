@@ -435,21 +435,6 @@
           <Property Name="PathOrigin" Type="nvarchar(max)" />
           <Property Name="PathSystem" Type="nvarchar(max)" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'CooperativaProduccion.dbo.temporalStock' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="temporalStock">
-          <Property Name="Id" Type="uniqueidentifier" />
-          <Property Name="Lote" Type="bigint" />
-          <Property Name="Cata" Type="bigint" />
-          <Property Name="Orden" Type="int" />
-          <Property Name="CajaNumero" Type="int" />
-          <Property Name="ProductoId" Type="uniqueidentifier" />
-          <Property Name="Tara" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="Neto" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="Bruto" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="Campaña" Type="int" />
-          <Property Name="Warrant" Type="bit" />
-        </EntityType>-->
         <EntityType Name="Usuario">
           <Key>
             <PropertyRef Name="Id" />
@@ -768,6 +753,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Producto' does not ha
           <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="CODIGO" Type="varchar" MaxLength="30" />
           <Property Name="DESCRIPCION" Type="varchar" MaxLength="150" />
+          <Property Name="SUBRUBRO" Type="varchar" MaxLength="60" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Productor' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -1666,7 +1652,8 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
             <DefiningQuery>SELECT 
     [Vw_Producto].[ID] AS [ID], 
     [Vw_Producto].[CODIGO] AS [CODIGO], 
-    [Vw_Producto].[DESCRIPCION] AS [DESCRIPCION]
+    [Vw_Producto].[DESCRIPCION] AS [DESCRIPCION], 
+    [Vw_Producto].[SUBRUBRO] AS [SUBRUBRO]
     FROM [dbo].[Vw_Producto] AS [Vw_Producto]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="Vw_Productor" EntityType="Self.Vw_Productor" store:Type="Views" store:Schema="dbo">
@@ -2946,6 +2933,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
           <Property Name="ID" Type="Guid" Nullable="false" />
           <Property Name="CODIGO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="DESCRIPCION" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="SUBRUBRO" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Vw_Productor">
           <Key>
@@ -4305,6 +4293,7 @@ warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not 
           <EntitySetMapping Name="Vw_Producto">
             <EntityTypeMapping TypeName="CooperativaProduccionModel.Vw_Producto">
               <MappingFragment StoreEntitySet="Vw_Producto">
+                <ScalarProperty Name="SUBRUBRO" ColumnName="SUBRUBRO" />
                 <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
                 <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
                 <ScalarProperty Name="ID" ColumnName="ID" />

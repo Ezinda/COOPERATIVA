@@ -17,5 +17,6 @@ namespace DesktopEntities.Models
         public System.Guid ID { get; set; }
         public string CODIGO { get; set; }
         public string DESCRIPCION { get; set; }
+        public string SUBRUBRO { get; set; }
     }
 }

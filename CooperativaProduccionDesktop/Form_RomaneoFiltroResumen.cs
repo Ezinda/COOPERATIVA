@@ -3050,8 +3050,10 @@ namespace CooperativaProduccion
                         Math.Round((item.b.PRECIOCOMPRA.Value *
                         (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) + item.b.PRECIOCOMPRA.Value,
                         2, MidpointRounding.ToEven);
-                    detalle.Ajuste = (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) - 
-                        (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100))*ajusteDelAjuste;
+                    detalle.Ajuste = tipotabaco == DevConstantes.TabacoVirginia ?
+                        Math.Round((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)), 2, MidpointRounding.ToEven) :
+                        ((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) - 
+                        (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) * ajusteDelAjuste);
                     result.Add(detalle);
                             
                 }
@@ -3100,8 +3102,10 @@ namespace CooperativaProduccion
                         Math.Round((item.b.PRECIOCOMPRA.Value *
                         (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) + item.b.PRECIOCOMPRA.Value,
                         2, MidpointRounding.ToEven);
-                    detalle.Ajuste = (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) -
-                        (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) * ajusteDelAjuste;
+                    detalle.Ajuste = tipotabaco == DevConstantes.TabacoVirginia ?
+                                      Math.Round((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)), 2, MidpointRounding.ToEven) :
+                                      ((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) -
+                                      (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) * ajusteDelAjuste);
 
                 }
             }
@@ -3279,28 +3283,80 @@ namespace CooperativaProduccion
                     detalle.Clase = item.b.NOMBRE;
                     detalle.Kilos01 = kilos01;
                     detalle.Importe01 = kilos01 * item.b.PRECIOCOMPRA.Value;
-                    detalle.Ajuste01 = kilos01 * (item.b == null ? decimal.Parse("0") : ((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) - (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) * ajusteDelAjuste));
-
+                    detalle.Ajuste01 = tipotabaco == DevConstantes.TabacoBurley ? 
+                        kilos01 * (item.b == null ? 
+                        decimal.Parse("0") : 
+                        ((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) - 
+                        (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) * 
+                        ajusteDelAjuste)) :
+                        kilos01 * (item.b == null ?
+                        decimal.Parse("0") :
+                        Math.Round((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)), 2, MidpointRounding.ToEven));
+                                        
                     detalle.Kilos02 = kilos02;
                     detalle.Importe02 = kilos02 * item.b.PRECIOCOMPRA.Value;
-                    detalle.Ajuste02 = kilos02 * (item.b == null ? decimal.Parse("0") : ((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) - (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) * ajusteDelAjuste));
+                    //detalle.Ajuste02 = kilos02 * (item.b == null ? decimal.Parse("0") : ((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) - (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) * ajusteDelAjuste));
+                    detalle.Ajuste02 = tipotabaco == DevConstantes.TabacoBurley ?
+                       kilos02 * (item.b == null ?
+                       decimal.Parse("0") :
+                       ((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) -
+                       (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) *
+                       ajusteDelAjuste)) :
+                       kilos02 * (item.b == null ?
+                       decimal.Parse("0") :
+                       Math.Round((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)), 2, MidpointRounding.ToEven));
 
                     detalle.Kilos03 = kilos03;
                     detalle.Importe03 = kilos03 * item.b.PRECIOCOMPRA.Value;
-                    detalle.Ajuste03 = kilos03 * (item.b == null ? decimal.Parse("0") : ((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) - (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) * ajusteDelAjuste));
+                    //detalle.Ajuste03 = kilos03 * (item.b == null ? decimal.Parse("0") : ((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) - (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) * ajusteDelAjuste));
+                    detalle.Ajuste03 = tipotabaco == DevConstantes.TabacoBurley ?
+                       kilos03 * (item.b == null ?
+                       decimal.Parse("0") :
+                       ((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) -
+                       (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) *
+                       ajusteDelAjuste)) :
+                       kilos03 * (item.b == null ?
+                       decimal.Parse("0") :
+                       Math.Round((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)), 2, MidpointRounding.ToEven));
 
                     detalle.Kilos04 = kilos04;
                     detalle.Importe04 = kilos04 * item.b.PRECIOCOMPRA.Value;
-                    detalle.Ajuste04 = kilos04 * (item.b == null ? decimal.Parse("0") : ((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) - (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) * ajusteDelAjuste));
+                    //detalle.Ajuste04 = kilos04 * (item.b == null ? decimal.Parse("0") : ((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) - (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) * ajusteDelAjuste));
+                    detalle.Ajuste04 = tipotabaco == DevConstantes.TabacoBurley ?
+                       kilos04 * (item.b == null ?
+                       decimal.Parse("0") :
+                       ((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) -
+                       (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) *
+                       ajusteDelAjuste)) :
+                       kilos04 * (item.b == null ?
+                       decimal.Parse("0") :
+                       Math.Round((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)), 2, MidpointRounding.ToEven));
 
                     detalle.Kilos05 = kilos05;
                     detalle.Importe05 = kilos05 * item.b.PRECIOCOMPRA.Value;
-                    detalle.Ajuste05 = kilos05 * (item.b == null ? decimal.Parse("0") : ((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) - (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) * ajusteDelAjuste));
+                    //detalle.Ajuste05 = kilos05 * (item.b == null ? decimal.Parse("0") : ((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) - (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) * ajusteDelAjuste));
+                    detalle.Ajuste05 = tipotabaco == DevConstantes.TabacoBurley ?
+                       kilos05 * (item.b == null ?
+                       decimal.Parse("0") :
+                       ((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) -
+                       (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) *
+                       ajusteDelAjuste)) :
+                       kilos05 * (item.b == null ?
+                       decimal.Parse("0") :
+                       Math.Round((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)), 2, MidpointRounding.ToEven));
 
                     detalle.TotalKilos = totalkilos;
                     detalle.PrecioPorKilo = totalkilos * item.b.PRECIOCOMPRA.Value;
-                    detalle.PrecioPorKiloAjuste = totalkilos * (item.b == null ? decimal.Parse("0") : ((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) - (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) * ajusteDelAjuste));
-
+                   // detalle.PrecioPorKiloAjuste = totalkilos * (item.b == null ? decimal.Parse("0") : ((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) - (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) * ajusteDelAjuste));
+                    detalle.PrecioPorKiloAjuste = tipotabaco == DevConstantes.TabacoBurley ?
+                       totalkilos * (item.b == null ?
+                       decimal.Parse("0") :
+                       ((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) -
+                       (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) *
+                       ajusteDelAjuste)) :
+                       totalkilos * (item.b == null ?
+                       decimal.Parse("0") :
+                       Math.Round((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)), 2, MidpointRounding.ToEven));
                     result.Add(detalle);
                 }
                 else
@@ -3339,28 +3395,80 @@ namespace CooperativaProduccion
                     detalle.Clase = item.b.NOMBRE;
                     detalle.Kilos01 = kilos01;
                     detalle.Importe01 = kilos01 * item.b.PRECIOCOMPRA.Value;
-                    detalle.Ajuste01 = kilos01 * (item.b == null ? decimal.Parse("0") : ((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) - (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) * ajusteDelAjuste));
+                    detalle.Ajuste01 = tipotabaco == DevConstantes.TabacoBurley ?
+                        kilos01 * (item.b == null ?
+                        decimal.Parse("0") :
+                        ((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) -
+                        (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) *
+                        ajusteDelAjuste)) :
+                        kilos01 * (item.b == null ?
+                        decimal.Parse("0") :
+                        Math.Round((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)), 2, MidpointRounding.ToEven));
 
                     detalle.Kilos02 = kilos02;
                     detalle.Importe02 = kilos02 * item.b.PRECIOCOMPRA.Value;
-                    detalle.Ajuste02 = kilos02 * (item.b == null ? decimal.Parse("0") : ((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) - (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) * ajusteDelAjuste));
+                    //detalle.Ajuste02 = kilos02 * (item.b == null ? decimal.Parse("0") : ((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) - (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) * ajusteDelAjuste));
+                    detalle.Ajuste02 = tipotabaco == DevConstantes.TabacoBurley ?
+                       kilos02 * (item.b == null ?
+                       decimal.Parse("0") :
+                       ((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) -
+                       (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) *
+                       ajusteDelAjuste)) :
+                       kilos02 * (item.b == null ?
+                       decimal.Parse("0") :
+                       Math.Round((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)), 2, MidpointRounding.ToEven));
 
                     detalle.Kilos03 = kilos03;
                     detalle.Importe03 = kilos03 * item.b.PRECIOCOMPRA.Value;
-                    detalle.Ajuste03 = kilos03 * (item.b == null ? decimal.Parse("0") : ((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) - (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) * ajusteDelAjuste));
+                    //detalle.Ajuste03 = kilos03 * (item.b == null ? decimal.Parse("0") : ((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) - (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) * ajusteDelAjuste));
+                    detalle.Ajuste03 = tipotabaco == DevConstantes.TabacoBurley ?
+                       kilos03 * (item.b == null ?
+                       decimal.Parse("0") :
+                       ((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) -
+                       (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) *
+                       ajusteDelAjuste)) :
+                       kilos03 * (item.b == null ?
+                       decimal.Parse("0") :
+                       Math.Round((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)), 2, MidpointRounding.ToEven));
 
                     detalle.Kilos04 = kilos04;
                     detalle.Importe04 = kilos04 * item.b.PRECIOCOMPRA.Value;
-                    detalle.Ajuste04 = kilos04 * (item.b == null ? decimal.Parse("0") : ((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) - (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) * ajusteDelAjuste));
+                    //detalle.Ajuste04 = kilos04 * (item.b == null ? decimal.Parse("0") : ((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) - (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) * ajusteDelAjuste));
+                    detalle.Ajuste04 = tipotabaco == DevConstantes.TabacoBurley ?
+                       kilos04 * (item.b == null ?
+                       decimal.Parse("0") :
+                       ((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) -
+                       (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) *
+                       ajusteDelAjuste)) :
+                       kilos04 * (item.b == null ?
+                       decimal.Parse("0") :
+                       Math.Round((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)), 2, MidpointRounding.ToEven));
 
                     detalle.Kilos05 = kilos05;
                     detalle.Importe05 = kilos05 * item.b.PRECIOCOMPRA.Value;
-                    detalle.Ajuste05 = kilos05 * (item.b == null ? decimal.Parse("0") : ((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) - (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) * ajusteDelAjuste));
+                    //detalle.Ajuste05 = kilos05 * (item.b == null ? decimal.Parse("0") : ((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) - (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) * ajusteDelAjuste));
+                    detalle.Ajuste05 = tipotabaco == DevConstantes.TabacoBurley ?
+                       kilos05 * (item.b == null ?
+                       decimal.Parse("0") :
+                       ((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) -
+                       (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) *
+                       ajusteDelAjuste)) :
+                       kilos05 * (item.b == null ?
+                       decimal.Parse("0") :
+                       Math.Round((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)), 2, MidpointRounding.ToEven));
 
                     detalle.TotalKilos = totalkilos;
                     detalle.PrecioPorKilo = totalkilos * item.b.PRECIOCOMPRA.Value;
-                    detalle.PrecioPorKiloAjuste = totalkilos * (item.b == null ? decimal.Parse("0") : ((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) - (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) * ajusteDelAjuste));
-
+                    // detalle.PrecioPorKiloAjuste = totalkilos * (item.b == null ? decimal.Parse("0") : ((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) - (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) * ajusteDelAjuste));
+                    detalle.PrecioPorKiloAjuste = tipotabaco == DevConstantes.TabacoBurley ?
+                       totalkilos * (item.b == null ?
+                       decimal.Parse("0") :
+                       ((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) -
+                       (item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)) *
+                       ajusteDelAjuste)) :
+                       totalkilos * (item.b == null ?
+                       decimal.Parse("0") :
+                       Math.Round((item.b.PRECIOCOMPRA.Value * (decimal.Parse(ajuste.Valor.Value.ToString()) / 100)), 2, MidpointRounding.ToEven));
                 }
             }
 

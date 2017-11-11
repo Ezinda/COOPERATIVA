@@ -36,10 +36,10 @@ namespace CooperativaProduccion
         {
             InitializeComponent();
             Context = new CooperativaProduccionEntities();
-            ShowSplashForm();
-            _CurrentUser = CheckCredentials();
-            SolicitarCredenciales(_CurrentUser);
-            CloseSessionForm();
+            //ShowSplashForm();
+            //_CurrentUser = CheckCredentials();
+            //SolicitarCredenciales(_CurrentUser);
+            //CloseSessionForm();
         }
         
         #region Method Code
@@ -405,6 +405,12 @@ namespace CooperativaProduccion
         private void barProduccionRegistrosDeRendimiento_ItemClick(object sender, ItemClickEventArgs e)
         {
             new Form_ProduccionRegistrosDeRendimiento(new DataAccess.BlendManager()).Show();
+        }
+
+        private void btnFiltroDDJJ_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var ddjj = new Form_InventarioFiltroDDJJ();
+            ddjj.Show();
         }
     }
 }

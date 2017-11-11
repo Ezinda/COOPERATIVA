@@ -61,6 +61,7 @@
             this.btnGestionProduccion = new DevExpress.XtraBars.BarButtonItem();
             this.btnProduccionNumeroDeOrdenes = new DevExpress.XtraBars.BarButtonItem();
             this.barProduccionRegistrosDeCalidad = new DevExpress.XtraBars.BarButtonItem();
+            this.barProduccionRegistrosDeRendimiento = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPageRomaneo = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupPorteria = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroupBalanza = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -82,7 +83,8 @@
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageSeguridad = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupSeguridad = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.barProduccionRegistrosDeRendimiento = new DevExpress.XtraBars.BarButtonItem();
+            this.ribbonPageGroup5 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.btnFiltroDDJJ = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             this.SuspendLayout();
             // 
@@ -122,9 +124,10 @@
             this.btnGestionProduccion,
             this.btnProduccionNumeroDeOrdenes,
             this.barProduccionRegistrosDeCalidad,
-            this.barProduccionRegistrosDeRendimiento});
+            this.barProduccionRegistrosDeRendimiento,
+            this.btnFiltroDDJJ});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
-            this.ribbon.MaxItemId = 37;
+            this.ribbon.MaxItemId = 38;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPageRomaneo,
@@ -426,6 +429,15 @@
             this.barProduccionRegistrosDeCalidad.Name = "barProduccionRegistrosDeCalidad";
             this.barProduccionRegistrosDeCalidad.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barProduccionRegistrosDeCalidad_ItemClick);
             // 
+            // barProduccionRegistrosDeRendimiento
+            // 
+            this.barProduccionRegistrosDeRendimiento.Caption = "Cálculo de Rendimiento";
+            this.barProduccionRegistrosDeRendimiento.Glyph = ((System.Drawing.Image)(resources.GetObject("barProduccionRegistrosDeRendimiento.Glyph")));
+            this.barProduccionRegistrosDeRendimiento.Id = 36;
+            this.barProduccionRegistrosDeRendimiento.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barProduccionRegistrosDeRendimiento.LargeGlyph")));
+            this.barProduccionRegistrosDeRendimiento.Name = "barProduccionRegistrosDeRendimiento";
+            this.barProduccionRegistrosDeRendimiento.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barProduccionRegistrosDeRendimiento_ItemClick);
+            // 
             // ribbonPageRomaneo
             // 
             this.ribbonPageRomaneo.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -561,7 +573,8 @@
             // 
             this.ribbonPage4.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
             this.ribbonPageGroupFardos,
-            this.ribbonPageGroup2});
+            this.ribbonPageGroup2,
+            this.ribbonPageGroup5});
             this.ribbonPage4.Image = ((System.Drawing.Image)(resources.GetObject("ribbonPage4.Image")));
             this.ribbonPage4.Name = "ribbonPage4";
             this.ribbonPage4.Text = "Inventario";
@@ -619,14 +632,22 @@
             this.ribbonPageGroupSeguridad.ShowCaptionButton = false;
             this.ribbonPageGroupSeguridad.Text = "Seguridad";
             // 
-            // barProduccionRegistrosDeRendimiento
+            // ribbonPageGroup5
             // 
-            this.barProduccionRegistrosDeRendimiento.Caption = "Cálculo de Rendimiento";
-            this.barProduccionRegistrosDeRendimiento.Glyph = ((System.Drawing.Image)(resources.GetObject("barProduccionRegistrosDeRendimiento.Glyph")));
-            this.barProduccionRegistrosDeRendimiento.Id = 36;
-            this.barProduccionRegistrosDeRendimiento.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barProduccionRegistrosDeRendimiento.LargeGlyph")));
-            this.barProduccionRegistrosDeRendimiento.Name = "barProduccionRegistrosDeRendimiento";
-            this.barProduccionRegistrosDeRendimiento.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barProduccionRegistrosDeRendimiento_ItemClick);
+            this.ribbonPageGroup5.AllowTextClipping = false;
+            this.ribbonPageGroup5.ItemLinks.Add(this.btnFiltroDDJJ);
+            this.ribbonPageGroup5.Name = "ribbonPageGroup5";
+            this.ribbonPageGroup5.ShowCaptionButton = false;
+            this.ribbonPageGroup5.Text = "Reportes";
+            // 
+            // btnFiltroDDJJ
+            // 
+            this.btnFiltroDDJJ.Caption = "DDJJ";
+            this.btnFiltroDDJJ.Glyph = ((System.Drawing.Image)(resources.GetObject("btnFiltroDDJJ.Glyph")));
+            this.btnFiltroDDJJ.Id = 37;
+            this.btnFiltroDDJJ.Name = "btnFiltroDDJJ";
+            this.btnFiltroDDJJ.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.btnFiltroDDJJ.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnFiltroDDJJ_ItemClick);
             // 
             // Form_SysPrincipal
             // 
@@ -703,5 +724,7 @@
         private DevExpress.XtraBars.BarButtonItem barProduccionRegistrosDeCalidad;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup4;
         private DevExpress.XtraBars.BarButtonItem barProduccionRegistrosDeRendimiento;
+        private DevExpress.XtraBars.BarButtonItem btnFiltroDDJJ;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup5;
     }
 }
