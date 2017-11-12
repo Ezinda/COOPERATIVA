@@ -12,11 +12,13 @@ namespace DesktopEntities.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Configuracion
+    public partial class Vw_Stock
     {
         public System.Guid Id { get; set; }
-        public string Nombre { get; set; }
-        public string Descripcion { get; set; }
-        public bool Valor { get; set; }
+        public Nullable<System.Guid> DepositoId { get; set; }
+        public Nullable<System.DateTime> Fecha { get; set; }
+        public string SUBRUBRO { get; set; }
+        public decimal Ingreso { get; set; }
+        public decimal Egreso { get; set; }
     }
 }

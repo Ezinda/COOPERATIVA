@@ -238,6 +238,9 @@
     <Compile Include="Models\Vw_RomaneoOrdenPago.cs">
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Vw_Stock.cs">
+      <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Vw_TipoTabaco.cs">
       <DependentUpon>CooperativaDesktopModels.tt</DependentUpon>
     </Compile>

@@ -208,80 +208,97 @@ namespace CooperativaProduccion
                      .ToList();
                 #endregion  
 
-
+                #region Stock Caja - Campaña anterior
+                
                 var depositoCajaAnterior =
-                    (from m2 in Context.Movimiento.Where(x => x.Fecha.Value.Year < campaña).AsEnumerable()
-                     join c in Context.Caja.Where(x => x.Campaña < campaña).AsEnumerable()
-                     on m2.TransaccionId equals c.Id
-                     join pr in Context.Vw_Producto.AsEnumerable()
-                         on c.ProductoId equals pr.ID
-                     join d2 in Context.Vw_Deposito.AsEnumerable()
-                        .Where(x => x.id == DevConstantes.DepositoCaja)
-                         on m2.DepositoId equals d2.id
-                     group new { m2, c, pr, d2 } by new
+                    (from s in Context.Vw_Stock
+                         .Where(x => x.Fecha.Value.Year < campaña)
+                     group new { s } by new
                      {
-                         CajaId = c.Id,
-                         Deposito = d2.nombre,
-                         TipoTabaco = pr.DESCRIPCION + " - " + c.Campaña,
-                         Tabaco = pr.DESCRIPCION,
-                         Subrubro = pr.SUBRUBRO,
-                         m2.Unidad,
-                         c.Campaña,
-                         Bruto = Convert.ToDouble(c.Bruto)
+                         s.Id,
+                         Subrubro = s.SUBRUBRO
                      } into g
                      select new
                      {
-                         g.Key.CajaId,
-                         g.Key.Deposito,
-                         g.Key.TipoTabaco,
-                         g.Key.Tabaco,
+                         g.Key.Id,
                          g.Key.Subrubro,
-                         g.Key.Unidad,
-                         g.Key.Campaña,
-                         g.Key.Bruto,
-                         Ingreso = g.Sum(c => c.m2.Ingreso),
-                         Egreso = g.Sum(c => c.m2.Egreso),
-                         Saldo = (g.Sum(c => c.m2.Ingreso) - g.Sum(c => c.m2.Egreso)) * g.Key.Bruto
+                         Saldo = g.Sum(c => c.s.Ingreso) - g.Sum(c => c.s.Egreso)
                      })
-                     .ToList();
+                    .ToList();
 
-                var depositoCajaActual =
-                    (from m2 in Context.Movimiento
-                        .Where(x => x.Fecha.Value.Year == campaña).AsEnumerable()
-                     join c in Context.Caja
-                        .Where(x => x.Campaña == campaña).AsEnumerable()
-                     on m2.TransaccionId equals c.Id
-                     join pr in Context.Vw_Producto.AsEnumerable()
-                         on c.ProductoId equals pr.ID
-                     join d2 in Context.Vw_Deposito
-                        .Where(x => x.id == DevConstantes.DepositoCaja).AsEnumerable()
-                         on m2.DepositoId equals d2.id
-                     group new { m2, c, pr, d2 } by new
-                     {
-                         CajaId = c.Id,
-                         Deposito = d2.nombre,
-                         TipoTabaco = pr.DESCRIPCION + " - " + c.Campaña,
-                         Tabaco = pr.DESCRIPCION,
-                         Subrubro = pr.SUBRUBRO,
-                         m2.Unidad,
-                         c.Campaña,
-                         Bruto = Convert.ToDouble(c.Bruto)
-                     } into g
+                #endregion
+
+                #region Ingreso de Cajas - Campaña Actual
+                
+                var ingresoCajasVirginia =
+                    (from c in Context.Caja.Where(x => x.Campaña == campaña)
+                     join pr in Context.Vw_Producto.Where(x => x.SUBRUBRO == "61")
+                     on c.ProductoId equals pr.ID
                      select new
                      {
-                         g.Key.CajaId,
-                         g.Key.Deposito,
-                         g.Key.TipoTabaco,
-                         g.Key.Tabaco,
-                         g.Key.Subrubro,
-                         g.Key.Unidad,
-                         g.Key.Campaña,
-                         g.Key.Bruto,
-                         Ingreso = g.Sum(c => c.m2.Ingreso),
-                         Egreso = g.Sum(c => c.m2.Egreso),
-                         Saldo = g.Sum(c => c.m2.Ingreso) - g.Sum(c => c.m2.Egreso) * g.Key.Bruto
+                         Ingreso = c.Bruto
+                     }).Sum(x => x.Ingreso);
+
+                var ingresoCajasBurley =
+                    (from c in Context.Caja.Where(x => x.Campaña == campaña)
+                     join pr in Context.Vw_Producto.Where(x => x.SUBRUBRO == "60")
+                     on c.ProductoId equals pr.ID
+                     select new
+                     {
+                         Ingreso = c.Bruto
                      })
-                     .ToList();
+                    .Sum(x => x.Ingreso);
+
+                #endregion
+
+                //var depositoCajaActual =
+                //      (from s in Context.Vw_Stock.Where(x => x.Fecha.Value.Year == campaña)
+                //       group new { s } by new
+                //       {
+                //           s.Id,
+                //           Deposito = s.DepositoId,
+                //           Subrubro = s.SUBRUBRO
+                //       } into g
+                //       select new
+                //       {
+                //           g.Key.Id,
+                //           g.Key.Deposito,
+                //           g.Key.Subrubro,
+                //           Ingreso = g.Sum(c => c.s.Ingreso),
+                //           Egreso = g.Sum(c => c.s.Egreso),
+                //           Saldo = g.Sum(c => c.s.Ingreso) - g.Sum(c => c.s.Egreso)
+                //       })
+                //     .ToList();
+                    //(from m2 in Context.Movimiento
+                    //    .Where(x => x.Fecha.Value.Year == campaña)
+                    // join c in Context.Caja
+                    //    .Where(x => x.Campaña == campaña)
+                    // on m2.TransaccionId equals c.Id
+                    // join pr in Context.Vw_Producto
+                    //     on c.ProductoId equals pr.ID
+                    // join d2 in Context.Vw_Deposito
+                    //    .Where(x => x.id == DevConstantes.DepositoCaja)
+                    //     on m2.DepositoId equals d2.id
+                    // group new { m2, c, pr, d2 } by new
+                    // {
+                    //     c.Id,
+                    //     Deposito = d2.nombre,
+                    //     Subrubro = pr.SUBRUBRO,
+                    //     c.Campaña,
+                    //     Bruto = c.Bruto
+                    // } into g
+                    // select new
+                    // {
+                    //     g.Key.Id,
+                    //     g.Key.Deposito,
+                    //     g.Key.Subrubro,
+                    //     g.Key.Campaña,
+                    //     g.Key.Bruto,
+                    //     Ingreso = g.Sum(c => c.m2.Ingreso),
+                    //     Egreso = g.Sum(c => c.m2.Egreso),
+                    //     Saldo = g.Sum(c => c.m2.Ingreso) - g.Sum(c => c.m2.Egreso)
+                    // })
+                    // .ToList();
 
                 //C5
                 var inicialVirginiaHoja = materiaprima
@@ -318,15 +335,10 @@ namespace CooperativaProduccion
                         .FirstOrDefault();
 
                 //C9
-                var cajasVirginia = depositoCajaActual
-                    .Where(x => x.Subrubro == "61")
-                    .Select(x => x.Saldo)
-                    .Sum();
+                var cajasVirginia = ingresoCajasVirginia;
+
                 //D9
-                var cajasBurley = depositoCajaActual
-                    .Where(x => x.Subrubro == "60")
-                    .Select(x => x.Saldo)
-                    .Sum();
+                var cajasBurley = ingresoCajasBurley;
                 
                 //C13
                 var romaneoVirginia = materiaprima
@@ -340,14 +352,64 @@ namespace CooperativaProduccion
                       .Sum(x => x.Ingreso);
 
                 //C11
-                var mermasVirginia = romaneoVirginia - hojasProducidasVirginia.Egreso - cajasVirginia;
+                var mermasVirginia = romaneoVirginia - hojasProducidasVirginia.Egreso - Convert.ToDouble(cajasVirginia);
 
                 //D11
-                var mermasBurley = romaneoBurley - hojasProducidasBurley.Egreso - cajasBurley;
+                var mermasBurley = romaneoBurley - hojasProducidasBurley.Egreso - Convert.ToDouble(cajasBurley);
+
+                //C18
+                // Venta Virginia
+                var ventaVirginia =
+                    (from c in Context.Caja
+                     .Where(x => x.Campaña == campaña)
+                     join p in Context.Vw_Producto.Where(x => x.SUBRUBRO == "61")
+                     on c.ProductoId equals p.ID
+                     join o in Context.OrdenVenta
+                     on c.OrdenVentaId equals o.Id
+                     join r in Context.Remito.Where(x => x.FechaRemito.Value.Year == campaña)
+                     on o.Id equals r.OrdenVentaId
+                     select new
+                     {
+                         Saldo = (Decimal?)c.Bruto
+                     })
+                    .Select(x => x.Saldo).Sum() ?? 0;
+                
+                //D18
+                //Venta Burley
+                var ventaBurley =
+                    (from c in Context.Caja
+                     .Where(x => x.Campaña == campaña)
+                     join p in Context.Vw_Producto.Where(x => x.SUBRUBRO == "60")
+                     on c.ProductoId equals p.ID
+                     join o in Context.OrdenVenta
+                     on c.OrdenVentaId equals o.Id
+                     join r in Context.Remito.Where(x => x.FechaRemito.Value.Year == campaña)
+                     on o.Id equals r.OrdenVentaId
+                     select new
+                     {
+                         Saldo = (Decimal?)c.Bruto
+                     })
+                    .Select(x => x.Saldo).Sum() ?? 0;
+                
+                //C26
+                var saldoRomaneoVirginia = materiaprima
+                  .Where(x => x.Campaña == campaña
+                      && x.Subrubro == DevConstantes.TabacoVirginia)
+                      .Sum(x => x.Saldo);
+
+                //D26
+                var saldoRomaneoBurley = materiaprima
+                  .Where(x => x.Campaña == campaña
+                      && x.Subrubro == DevConstantes.TabacoBurley)
+                      .Sum(x => x.Saldo);
+
+                //C27
+                var saldoCajaVirginia = ingresoCajasVirginia - ventaVirginia;
+
+                //D27
+                var saldoCajaBurley = ingresoCajasBurley - ventaBurley;
 
                 #region MyRegion
-
-                
 
                 // Stock actual de Virginia - Cajas
                 //var actualVirginiaDespalillado =
@@ -362,16 +424,16 @@ namespace CooperativaProduccion
                 //       .Select(x => x.Saldo).Sum() ?? 0;
 
                 // Stock actual de Burley - Cajas
-                //var actualBurleyDespalillado =
-                //      (from c in Context.Caja
-                //       .Where(x => x.Campaña == campaña)
-                //       join p in Context.Vw_Producto.Where(x => x.SUBRUBRO == "60")
-                //       on c.ProductoId equals p.ID
-                //       select new
-                //       {
-                //           Saldo = (Decimal?)c.Bruto
-                //       })
-                //       .Select(x => x.Saldo).Sum() ?? 0;
+               //var actualBurleyDespalillado =
+               //      (from c in Context.Caja
+               //       .Where(x => x.Campaña == campaña)
+               //       join p in Context.Vw_Producto.Where(x => x.SUBRUBRO == "60")
+               //       on c.ProductoId equals p.ID
+               //       select new
+               //       {
+               //           Saldo = (Decimal?)c.Bruto
+               //       })
+               //       .Select(x => x.Saldo).Sum() ?? 0;
 
                 // Romaneo Virginia
                 //var romaneoVirginia = Context.Vw_ResumenRomaneoVirginia
@@ -444,38 +506,7 @@ namespace CooperativaProduccion
                 // Merma Burley
                 //var mermaBurley = decimal.Parse(romaneoBurley.Ingreso.ToString()) - actualBurleyDespalillado - decimal.Parse(romaneoBurley.Saldo.ToString());
 
-                // Venta Virginia
-                //var ventaVirginia =
-                //    (from c in Context.Caja
-                //     .Where(x => x.Campaña == campaña)
-                //     join p in Context.Vw_Producto.Where(x => x.SUBRUBRO == "61")
-                //     on c.ProductoId equals p.ID
-                //     join o in Context.OrdenVenta
-                //     on c.OrdenVentaId equals o.Id
-                //     join r in Context.Remito.Where(x => x.FechaRemito.Value.Year == campaña)
-                //     on o.Id equals r.OrdenVentaId
-                //     select new
-                //     {
-                //         Saldo = (Decimal?)c.Bruto
-                //     })
-                //    .Select(x => x.Saldo).Sum() ?? 0;
-
-                // Venta Burley
-                //var ventaBurley =
-                //    (from c in Context.Caja
-                //     .Where(x => x.Campaña == campaña)
-                //     join p in Context.Vw_Producto.Where(x => x.SUBRUBRO == "60")
-                //     on c.ProductoId equals p.ID
-                //     join o in Context.OrdenVenta
-                //     on c.OrdenVentaId equals o.Id
-                //     join r in Context.Remito.Where(x => x.FechaRemito.Value.Year == campaña)
-                //     on o.Id equals r.OrdenVentaId
-                //     select new
-                //     {
-                //         Saldo = (Decimal?)c.Bruto
-                //     })
-                //    .Select(x => x.Saldo).Sum() ?? 0;
-
+                
                 // Producido Virginia - Ingreso de Cajas
                 //var producidoVirginia =
                 //   (from m2 in Context.Movimiento.Where(x => x.Fecha.Value.Year == campaña)
@@ -539,27 +570,33 @@ namespace CooperativaProduccion
 
                 oSheetAnexo.Cells[3, 3] = "TIPOS DE TABACO al " + DateTime.Now.ToShortDateString();
 
+                oSheetAnexo.Cells[5, 3] = inicialVirginiaHoja;
+                oSheetAnexo.Cells[5, 4] = inicialBurleyHoja;
+
                 // Celda B3
-                //oSheetAnexo.Cells[6, 3] = inicialVirginiaDespalillado;
-                //oSheetAnexo.Cells[6, 4] = inicialBurleyDespalillado;
+                oSheetAnexo.Cells[6, 3] = stockVirginiaAnterior;
+                oSheetAnexo.Cells[6, 4] = stockBurleyAnterior;
 
-                ////  oSheetAnexo.Cells[8, 3] = //hojaVirginia.Saldo;
-                //oSheetAnexo.Cells[8, 4] = romaneoBurley.Saldo;
+                oSheetAnexo.Cells[8, 3] = hojasProducidasVirginia.Egreso;
+                oSheetAnexo.Cells[8, 4] = hojasProducidasBurley.Egreso;
 
-                //oSheetAnexo.Cells[9, 3] = actualVirginiaDespalillado;
-                //oSheetAnexo.Cells[9, 4] = actualBurleyDespalillado;
+                oSheetAnexo.Cells[9, 3] = cajasVirginia;
+                oSheetAnexo.Cells[9, 4] = cajasBurley;
 
-                //oSheetAnexo.Cells[11, 3] = mermaVirginia;
-                //oSheetAnexo.Cells[11, 4] = mermaBurley;
+                oSheetAnexo.Cells[11, 3] = mermasVirginia;
+                oSheetAnexo.Cells[11, 4] = mermasBurley;
 
-                //oSheetAnexo.Cells[13, 3] = romaneoVirginia;
-                //oSheetAnexo.Cells[13, 4] = romaneoBurley.Ingreso;
+                oSheetAnexo.Cells[13, 3] = romaneoVirginia;
+                oSheetAnexo.Cells[13, 4] = romaneoBurley;
 
-                //oSheetAnexo.Cells[18, 3] = ventaVirginia;
-                //oSheetAnexo.Cells[18, 4] = ventaBurley;
-                
-                //oSheetAnexo.Cells[27, 3] = decimal.Parse(producidoVirginia.ToString()) - ventaVirginia;
-                //oSheetAnexo.Cells[27, 4] = decimal.Parse(producidoBurley.Ingreso.ToString()) - ventaBurley;
+                oSheetAnexo.Cells[18, 3] = ventaVirginia;
+                oSheetAnexo.Cells[18, 4] = ventaBurley;
+
+                oSheetAnexo.Cells[26, 3] = inicialVirginiaHoja + saldoRomaneoVirginia;
+                oSheetAnexo.Cells[26, 4] = inicialBurleyHoja + saldoRomaneoBurley;
+
+                oSheetAnexo.Cells[27, 3] = saldoCajaVirginia + stockVirginiaAnterior;
+                oSheetAnexo.Cells[27, 4] = saldoCajaBurley + stockBurleyAnterior;
 
                 //  ((Microsoft.Office.Interop.Excel.Worksheet)oWB.Worksheets["anexo"]).Visible = Microsoft.Office.Interop.Excel.XlSheetVisibility.xlSheetVeryHidden;
 
