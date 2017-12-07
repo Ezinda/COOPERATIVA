@@ -666,8 +666,8 @@ namespace CooperativaProduccion
 
                 if (Pendiente.Equals(DevConstantes.SI))
                 {
-                    var ordenventa = new Form_AdministracionActualizarOrdenVenta(OrdenVentaId,null,true);
-                    ordenventa.ShowDialog(this);
+                  var ordenventa = new Form_AdministracionActualizarOrdenVenta(OrdenVentaId,null,true);
+                  ordenventa.ShowDialog(this);
                 }
                 else
                 {
@@ -695,8 +695,8 @@ namespace CooperativaProduccion
 
             if (Pendiente.Equals(DevConstantes.SI))
             {
-                var ordenventa = new Form_AdministracionActualizarOrdenVenta(OrdenVentaId, OrdenVentaDetalleId, false);
-                ordenventa.ShowDialog(this);
+              var ordenventa = new Form_AdministracionActualizarOrdenVenta(OrdenVentaId, OrdenVentaDetalleId, false);
+              ordenventa.ShowDialog(this);
             }
             else
             {

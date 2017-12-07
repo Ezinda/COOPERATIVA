@@ -108,6 +108,7 @@
             this.txtCajaDesde.Name = "txtCajaDesde";
             this.txtCajaDesde.Size = new System.Drawing.Size(79, 21);
             this.txtCajaDesde.TabIndex = 82;
+            this.txtCajaDesde.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCajaDesde_KeyDown);
             // 
             // label4
             // 

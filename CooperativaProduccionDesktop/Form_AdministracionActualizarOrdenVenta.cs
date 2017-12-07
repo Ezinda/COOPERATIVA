@@ -64,7 +64,17 @@ namespace CooperativaProduccion
             Guid ProductoId = Producto.ID;
             var Campaña = cbCampaña.SelectedItem as dynamic;
             int año = Campaña.Campaña;
-            Modificar(OrdenVentaId, ProductoId, año);
+            long cajaDesde = long.Parse(txtCajaDesde.Text);
+            long cajaHasta = long.Parse(txtCajaHasta.Text);
+
+            if (ValidarCaja(ProductoId,año,cajaDesde,cajaHasta))
+            {
+                Modificar(OrdenVentaId, ProductoId, año);
+            }
+            else
+            {
+                MessageBox.Show("No existe el numero de caja ingresado.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void cbProducto_SelectedValueChanged(object sender, EventArgs e)
@@ -147,7 +157,7 @@ namespace CooperativaProduccion
           
         }
 
-        private void CargarDatos(Guid Id,Guid OrdenVentaDetalleId)
+        private void CargarDatos(Guid Id, Guid OrdenVentaDetalleId)
         {
             var deposito = Context.Vw_Deposito
                 .Where(x => x.nombre == DevConstantes.Warrants
@@ -187,7 +197,7 @@ namespace CooperativaProduccion
             cbCampaña.DataSource = ordenVenta;
             cbCampaña.DisplayMember = "Campaña";
             cbCampaña.ValueMember = "Campaña";
-            
+
             cbProducto.DataSource = ordenVenta;
             cbProducto.DisplayMember = "Producto";
             cbProducto.ValueMember = "ID";
@@ -224,7 +234,10 @@ namespace CooperativaProduccion
                   })
                  .FirstOrDefault();
 
-            cbDeposito.SelectedValue = cajaDesde.DepositoId;
+            if (cajaDesde != null)
+            {
+                cbDeposito.SelectedValue = cajaDesde.DepositoId;
+            }
         }
 
         private void Modificar(Guid OrdenVentaId, Guid ProductoId, int año)
@@ -475,6 +488,26 @@ namespace CooperativaProduccion
         private void cbProducto_SelectionChangeCommitted(object sender, EventArgs e)
         {
         
+        }
+
+        private void txtCajaDesde_KeyDown(object sender, KeyEventArgs e)
+        {
+          
+        }
+
+        private bool ValidarCaja(Guid productoId,int campaña,long cajadesde, long cajahasta)
+        {
+            for (long i = cajadesde; i <= cajahasta; i++)
+            {
+                var existe = Context.Caja
+                    .Where(x => x.ProductoId == productoId
+                        && x.Campaña == campaña
+                        && x.NumeroCaja == i)
+                        .Any();
+
+                return existe;
+            }
+            return true;
         }
     }
 }

@@ -352,10 +352,10 @@ namespace CooperativaProduccion
                       .Sum(x => x.Ingreso);
 
                 //C11
-                var mermasVirginia = romaneoVirginia - hojasProducidasVirginia.Egreso - Convert.ToDouble(cajasVirginia);
+                var mermasVirginia = Convert.ToDecimal(hojasProducidasVirginia.Egreso) - cajasVirginia;
 
                 //D11
-                var mermasBurley = romaneoBurley - hojasProducidasBurley.Egreso - Convert.ToDouble(cajasBurley);
+                var mermasBurley = Convert.ToDecimal(hojasProducidasBurley.Egreso) - cajasBurley;
 
                 //C18
                 // Venta Virginia
