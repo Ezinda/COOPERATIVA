@@ -376,6 +376,18 @@
     <Compile Include="Form_InventarioFiltroDDJJ.Designer.cs">
       <DependentUpon>Form_InventarioFiltroDDJJ.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_RomaneoAsignacionTurno.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_RomaneoAsignacionTurno.Designer.cs">
+      <DependentUpon>Form_RomaneoAsignacionTurno.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_RomaneoBuscarPreingreso.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_RomaneoBuscarPreingreso.Designer.cs">
+      <DependentUpon>Form_RomaneoBuscarPreingreso.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_RomaneoFiltroResumen.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -490,11 +502,11 @@
     <Compile Include="Form_AdministracionRemitoElectronico.Designer.cs">
       <DependentUpon>Form_AdministracionRemitoElectronico.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form_RomaneoBuscarPreingreso.cs">
+    <Compile Include="Form_RomaneoBuscarTurno.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_RomaneoBuscarPreingreso.Designer.cs">
-      <DependentUpon>Form_RomaneoBuscarPreingreso.cs</DependentUpon>
+    <Compile Include="Form_RomaneoBuscarTurno.Designer.cs">
+      <DependentUpon>Form_RomaneoBuscarTurno.cs</DependentUpon>
     </Compile>
     <Compile Include="Form_RomaneoGestionRomaneo.cs">
       <SubType>Form</SubType>
@@ -551,6 +563,7 @@
     <Compile Include="Helpers\GridRecords\GridOrdenVenta.cs" />
     <Compile Include="Helpers\GridRecords\GridOrdenVentaDetalle.cs" />
     <Compile Include="Helpers\GridRecords\GridCajaTrazabilidad.cs" />
+    <Compile Include="Helpers\GridRecords\GridTurno.cs" />
     <Compile Include="Helpers\GridRecords\GridRomaneoTrazabilidadDetalle.cs" />
     <Compile Include="Helpers\GridRecords\GridRomaneo.cs" />
     <Compile Include="Helpers\GridRecords\GridProduccionTrazabilidadDetalle.cs" />
@@ -823,6 +836,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
+    <Compile Include="Reports\TurnoReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\TurnoReport.Designer.cs">
+      <DependentUpon>TurnoReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Services\MessageBoxService.cs" />
     <Compile Include="SplashScreen1.cs">
       <SubType>Form</SubType>
@@ -982,8 +1001,14 @@
     <EmbeddedResource Include="Form_ProduccionTransferenciaMateriaPrima.resx">
       <DependentUpon>Form_ProduccionTransferenciaMateriaPrima.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form_RomaneoAsignacionTurno.resx">
+      <DependentUpon>Form_RomaneoAsignacionTurno.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form_RomaneoBuscarPreingreso.resx">
       <DependentUpon>Form_RomaneoBuscarPreingreso.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_RomaneoBuscarTurno.resx">
+      <DependentUpon>Form_RomaneoBuscarTurno.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_InventarioFiltroDDJJ.resx">
       <DependentUpon>Form_InventarioFiltroDDJJ.cs</DependentUpon>
@@ -1144,6 +1169,9 @@
     <EmbeddedResource Include="Properties\Resource.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\TurnoReport.resx">
+      <DependentUpon>TurnoReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SplashScreen1.resx">
       <DependentUpon>SplashScreen1.cs</DependentUpon>

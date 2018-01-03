@@ -104,12 +104,12 @@ namespace CooperativaProduccion
                         on c.CataId equals ca.Id into cat
                      from joined in cat.DefaultIfEmpty()
                      join m in Context.Movimiento
-                        .Where(x => x.Actual == true)
+                        .Where(x => x.Actual == true && x.Egreso != 1)
                         on c.Id equals m.TransaccionId
                      join d in Context.Vw_Deposito
                         .Where(x => x.id == DepositoId)
                         on m.DepositoId equals d.id
-                     select new
+                     select new 
                      {
                          Id = c.Id,
                          NumLote = c.LoteCaja,
@@ -141,12 +141,12 @@ namespace CooperativaProduccion
                         on c.CataId equals ca.Id into cat
                      from joined in cat.DefaultIfEmpty()
                      join m in Context.Movimiento
-                        .Where(x => x.Actual == true)
+                        .Where(x => x.Actual == true && x.Egreso != 1)
                         on c.Id equals m.TransaccionId
                      join d in Context.Vw_Deposito
                         .Where(x => x.id == DepositoId)
                         on m.DepositoId equals d.id
-                     select new
+                     select new 
                      {
                          Id = c.Id,
                          NumLote = c.LoteCaja,
@@ -159,7 +159,7 @@ namespace CooperativaProduccion
                          Fecha = c.Fecha,
                          DepositoId = m.DepositoId,
                          Deposito = d.nombre,
-                         Camapaña = c.Campaña
+                         Campaña = c.Campaña
                      })
                      .OrderBy(x => x.NumCaja)
                      .ToList();
@@ -212,7 +212,7 @@ namespace CooperativaProduccion
                 if (gridViewCaja.IsRowSelected(i))
                 {
                     Guid CajaId = new Guid(gridViewCaja.GetRowCellValue(i, "Id").ToString());
-
+                    
                     var ingreso = Context.Movimiento.Where(x => x.TransaccionId == CajaId).Sum(x => x.Ingreso == null ? 0 : x.Ingreso).Value;
 
                     var egreso = Context.Movimiento.Where(x => x.TransaccionId == CajaId).Sum(x => x.Egreso == null ? 0 : x.Egreso).Value;
@@ -338,5 +338,21 @@ namespace CooperativaProduccion
                 throw;
             }
         }
+    }
+
+    internal class CajaTransferencia
+    {
+        public Guid Id  {get;set;}
+        public long NumLote { get; set; }
+        public long NumCaja { get; set; }
+        public string Producto { get; set; }
+        public decimal Bruto { get; set; }
+        public decimal Tara { get; set; }
+        public decimal Neto { get; set; }
+        public long? Cata { get; set; }
+        public string Fecha { get; set; }
+        public Guid? DepositoId { get; set; }
+        public string Deposito { get; set; }
+        public int Campaña { get; set; }
     }
 }

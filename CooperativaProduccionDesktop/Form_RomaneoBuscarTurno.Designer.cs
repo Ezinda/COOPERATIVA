@@ -1,6 +1,6 @@
 ﻿namespace CooperativaProduccion
 {
-    partial class Form_RomaneoBuscarPreingreso
+    partial class Form_RomaneoBuscarTurno
     {
         /// <summary>
         /// Required designer variable.
@@ -36,9 +36,18 @@
             this.dpDesde = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
+            this.btnBuscarProductor = new DevExpress.XtraEditors.SimpleButton();
+            this.btnBuscarFet = new DevExpress.XtraEditors.SimpleButton();
+            this.txtFet = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtProductor = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.btnNuevoTurno = new DevExpress.XtraEditors.SimpleButton();
             this.label3 = new System.Windows.Forms.Label();
             this.dpHasta = new System.Windows.Forms.DateTimePicker();
             this.btnBuscar = new DevExpress.XtraEditors.SimpleButton();
+            this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
+            this.btnImprimir = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
             this.groupControl2.SuspendLayout();
@@ -46,6 +55,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridViewPreingreso)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).BeginInit();
+            this.groupControl3.SuspendLayout();
             this.SuspendLayout();
             // 
             // ribbon
@@ -59,32 +70,33 @@
             this.ribbon.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.Office2013;
             this.ribbon.ShowApplicationButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowCategoryInCaption = false;
+            this.ribbon.ShowDisplayOptionsMenuButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowExpandCollapseButton = DevExpress.Utils.DefaultBoolean.False;
-            this.ribbon.ShowFullScreenButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Hide;
             this.ribbon.ShowToolbarCustomizeItem = false;
-            this.ribbon.Size = new System.Drawing.Size(801, 27);
+            this.ribbon.Size = new System.Drawing.Size(1073, 27);
             this.ribbon.Toolbar.ShowCustomizeItem = false;
             // 
             // groupControl2
             // 
-            this.groupControl2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.groupControl2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupControl2.Controls.Add(this.gridControlPringreso);
-            this.groupControl2.Location = new System.Drawing.Point(4, 85);
+            this.groupControl2.Location = new System.Drawing.Point(4, 84);
             this.groupControl2.Name = "groupControl2";
-            this.groupControl2.Size = new System.Drawing.Size(793, 390);
+            this.groupControl2.Size = new System.Drawing.Size(1065, 351);
             this.groupControl2.TabIndex = 22;
-            this.groupControl2.Text = "Lista de Preingresos";
+            this.groupControl2.Text = "Lista de Turno";
             // 
             // gridControlPringreso
             // 
             this.gridControlPringreso.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridControlPringreso.Location = new System.Drawing.Point(2, 21);
+            this.gridControlPringreso.Location = new System.Drawing.Point(2, 20);
             this.gridControlPringreso.MainView = this.gridViewPreingreso;
             this.gridControlPringreso.MenuManager = this.ribbon;
             this.gridControlPringreso.Name = "gridControlPringreso";
-            this.gridControlPringreso.Size = new System.Drawing.Size(789, 367);
+            this.gridControlPringreso.Size = new System.Drawing.Size(1061, 329);
             this.gridControlPringreso.TabIndex = 0;
             this.gridControlPringreso.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewPreingreso});
@@ -104,9 +116,9 @@
             // 
             this.dpDesde.CustomFormat = "dd/MM/yyyy";
             this.dpDesde.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dpDesde.Location = new System.Drawing.Point(92, 24);
+            this.dpDesde.Location = new System.Drawing.Point(82, 24);
             this.dpDesde.Name = "dpDesde";
-            this.dpDesde.Size = new System.Drawing.Size(101, 21);
+            this.dpDesde.Size = new System.Drawing.Size(75, 21);
             this.dpDesde.TabIndex = 1;
             // 
             // label1
@@ -121,6 +133,15 @@
             // 
             // groupControl1
             // 
+            this.groupControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupControl1.Controls.Add(this.btnBuscarProductor);
+            this.groupControl1.Controls.Add(this.btnBuscarFet);
+            this.groupControl1.Controls.Add(this.txtFet);
+            this.groupControl1.Controls.Add(this.label6);
+            this.groupControl1.Controls.Add(this.txtProductor);
+            this.groupControl1.Controls.Add(this.label7);
+            this.groupControl1.Controls.Add(this.btnNuevoTurno);
             this.groupControl1.Controls.Add(this.label3);
             this.groupControl1.Controls.Add(this.dpHasta);
             this.groupControl1.Controls.Add(this.btnBuscar);
@@ -128,15 +149,82 @@
             this.groupControl1.Controls.Add(this.dpDesde);
             this.groupControl1.Location = new System.Drawing.Point(5, 30);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(792, 52);
+            this.groupControl1.Size = new System.Drawing.Size(1064, 52);
             this.groupControl1.TabIndex = 24;
             this.groupControl1.Text = "Búsqueda";
+            // 
+            // btnBuscarProductor
+            // 
+            this.btnBuscarProductor.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscarProductor.Image")));
+            this.btnBuscarProductor.Location = new System.Drawing.Point(816, 24);
+            this.btnBuscarProductor.Name = "btnBuscarProductor";
+            this.btnBuscarProductor.Size = new System.Drawing.Size(28, 22);
+            this.btnBuscarProductor.TabIndex = 76;
+            this.btnBuscarProductor.Click += new System.EventHandler(this.btnBuscarProductor_Click);
+            // 
+            // btnBuscarFet
+            // 
+            this.btnBuscarFet.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscarFet.Image")));
+            this.btnBuscarFet.Location = new System.Drawing.Point(454, 24);
+            this.btnBuscarFet.Name = "btnBuscarFet";
+            this.btnBuscarFet.Size = new System.Drawing.Size(28, 22);
+            this.btnBuscarFet.TabIndex = 75;
+            this.btnBuscarFet.Click += new System.EventHandler(this.btnBuscarFet_Click);
+            // 
+            // txtFet
+            // 
+            this.txtFet.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtFet.Location = new System.Drawing.Point(342, 24);
+            this.txtFet.Name = "txtFet";
+            this.txtFet.Size = new System.Drawing.Size(112, 21);
+            this.txtFet.TabIndex = 74;
+            this.txtFet.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFet_KeyPress);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(313, 27);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(28, 16);
+            this.label6.TabIndex = 73;
+            this.label6.Text = "FET";
+            // 
+            // txtProductor
+            // 
+            this.txtProductor.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtProductor.Location = new System.Drawing.Point(547, 25);
+            this.txtProductor.Name = "txtProductor";
+            this.txtProductor.Size = new System.Drawing.Size(269, 21);
+            this.txtProductor.TabIndex = 72;
+            this.txtProductor.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtProductor_KeyPress);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(488, 27);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(61, 16);
+            this.label7.TabIndex = 71;
+            this.label7.Text = "Productor";
+            // 
+            // btnNuevoTurno
+            // 
+            this.btnNuevoTurno.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnNuevoTurno.Image = ((System.Drawing.Image)(resources.GetObject("btnNuevoTurno.Image")));
+            this.btnNuevoTurno.Location = new System.Drawing.Point(967, 25);
+            this.btnNuevoTurno.Name = "btnNuevoTurno";
+            this.btnNuevoTurno.Size = new System.Drawing.Size(92, 22);
+            this.btnNuevoTurno.TabIndex = 61;
+            this.btnNuevoTurno.Text = "Nuevo Turno";
+            this.btnNuevoTurno.Click += new System.EventHandler(this.btnNuevoTurno_Click);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(202, 27);
+            this.label3.Location = new System.Drawing.Point(160, 27);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(73, 16);
             this.label3.TabIndex = 63;
@@ -146,34 +234,58 @@
             // 
             this.dpHasta.CustomFormat = "dd/MM/yyyy";
             this.dpHasta.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dpHasta.Location = new System.Drawing.Point(288, 24);
+            this.dpHasta.Location = new System.Drawing.Point(233, 24);
             this.dpHasta.Name = "dpHasta";
-            this.dpHasta.Size = new System.Drawing.Size(101, 21);
+            this.dpHasta.Size = new System.Drawing.Size(76, 21);
             this.dpHasta.TabIndex = 61;
             // 
             // btnBuscar
             // 
+            this.btnBuscar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBuscar.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscar.Image")));
-            this.btnBuscar.Location = new System.Drawing.Point(395, 21);
+            this.btnBuscar.Location = new System.Drawing.Point(883, 25);
             this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(84, 26);
+            this.btnBuscar.Size = new System.Drawing.Size(78, 22);
             this.btnBuscar.TabIndex = 60;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
-            // Form_RomaneoBuscarPreingreso
+            // groupControl3
+            // 
+            this.groupControl3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupControl3.Controls.Add(this.btnImprimir);
+            this.groupControl3.Location = new System.Drawing.Point(4, 441);
+            this.groupControl3.Name = "groupControl3";
+            this.groupControl3.ShowCaption = false;
+            this.groupControl3.Size = new System.Drawing.Size(1064, 31);
+            this.groupControl3.TabIndex = 26;
+            this.groupControl3.Text = "Imprimir";
+            // 
+            // btnImprimir
+            // 
+            this.btnImprimir.Image = ((System.Drawing.Image)(resources.GetObject("btnImprimir.Image")));
+            this.btnImprimir.Location = new System.Drawing.Point(6, 5);
+            this.btnImprimir.Name = "btnImprimir";
+            this.btnImprimir.Size = new System.Drawing.Size(78, 22);
+            this.btnImprimir.TabIndex = 60;
+            this.btnImprimir.Text = "Imprimir";
+            this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
+            // 
+            // Form_RomaneoBuscarTurno
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(801, 477);
+            this.ClientSize = new System.Drawing.Size(1073, 477);
+            this.Controls.Add(this.groupControl3);
             this.Controls.Add(this.groupControl1);
             this.Controls.Add(this.groupControl2);
             this.Controls.Add(this.ribbon);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "Form_RomaneoBuscarPreingreso";
+            this.Name = "Form_RomaneoBuscarTurno";
             this.Ribbon = this.ribbon;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Buscar Preingresos";
+            this.Text = "Buscar Turnos";
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
             this.groupControl2.ResumeLayout(false);
@@ -182,7 +294,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
             this.groupControl1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).EndInit();
+            this.groupControl3.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -198,5 +313,14 @@
         private System.Windows.Forms.DateTimePicker dpHasta;
         private DevExpress.XtraEditors.SimpleButton btnBuscar;
         private System.Windows.Forms.Label label3;
+        private DevExpress.XtraEditors.SimpleButton btnNuevoTurno;
+        private DevExpress.XtraEditors.SimpleButton btnBuscarProductor;
+        private DevExpress.XtraEditors.SimpleButton btnBuscarFet;
+        private System.Windows.Forms.TextBox txtFet;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox txtProductor;
+        private System.Windows.Forms.Label label7;
+        private DevExpress.XtraEditors.GroupControl groupControl3;
+        private DevExpress.XtraEditors.SimpleButton btnImprimir;
     }
 }

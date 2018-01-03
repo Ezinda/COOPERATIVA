@@ -435,21 +435,16 @@
           <Property Name="PathOrigin" Type="nvarchar(max)" />
           <Property Name="PathSystem" Type="nvarchar(max)" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6013: La tabla o vista 'CooperativaProduccion.dbo.temporalStock' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
-        <EntityType Name="temporalStock">
-          <Property Name="Id" Type="uniqueidentifier" />
-          <Property Name="Lote" Type="bigint" />
-          <Property Name="Cata" Type="bigint" />
-          <Property Name="Orden" Type="int" />
-          <Property Name="CajaNumero" Type="int" />
-          <Property Name="ProductoId" Type="uniqueidentifier" />
-          <Property Name="Tara" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="Neto" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="Bruto" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="Campaña" Type="int" />
-          <Property Name="Warrant" Type="bit" />
-        </EntityType>-->
+        <EntityType Name="Turno">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ProductorId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FechaSolicitud" Type="date" Nullable="false" />
+          <Property Name="FechaTurno" Type="date" Nullable="false" />
+          <Property Name="Kilos" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
         <EntityType Name="Usuario">
           <Key>
             <PropertyRef Name="Id" />
@@ -615,14 +610,6 @@ advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_FardoEnProducci
           <Property Name="19" Type="float" Nullable="false" />
           <Property Name="20" Type="float" Nullable="false" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6013: La tabla o vista 'CooperativaProduccion.dbo.Vw_FardoEnProduccionTotales' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
-        <EntityType Name="Vw_FardoEnProduccionTotales">
-          <Property Name="cantidad" Type="int" />
-          <Property Name="total" Type="float" />
-          <Property Name="Nombre" Type="varchar" MaxLength="120" />
-          <Property Name="Descripcion" Type="varchar" MaxLength="150" />
-        </EntityType>-->
         <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_LiquidacionAjuste' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="Vw_LiquidacionAjuste">
@@ -1481,6 +1468,7 @@ advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_Transporte' no 
           <EntitySet Name="ProduccionTemperaturaDetalle" EntityType="Self.ProduccionTemperaturaDetalle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Provincia" EntityType="Self.Provincia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Remito" EntityType="Self.Remito" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Turno" EntityType="Self.Turno" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vw_Clase" EntityType="Self.Vw_Clase" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -2211,6 +2199,7 @@ advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_Transporte' no 
             <End Role="ProduccionTemperatura" EntitySet="ProduccionTemperatura" />
             <End Role="ProduccionTemperaturaDetalle" EntitySet="ProduccionTemperaturaDetalle" />
           </AssociationSet>
+          <EntitySet Name="Turno" EntityType="CooperativaProduccionModel.Turno" />
           </EntityContainer>
         <ComplexType Name="ActualizarLiquidacion_Result">
           <Property Type="Int32" Name="Column1" Nullable="true" />
@@ -3617,6 +3606,16 @@ advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_Transporte' no 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Turno">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="ProductorId" Type="Guid" Nullable="false" />
+          <Property Name="FechaSolicitud" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="FechaTurno" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Kilos" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4662,6 +4661,17 @@ advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_Transporte' no 
                 <ScalarProperty Name="CUIT" ColumnName="CUIT" />
                 <ScalarProperty Name="ALIAS_1_NOMBRE" ColumnName="ALIAS_1_NOMBRE" />
                 <ScalarProperty Name="ALIAS_0_ID" ColumnName="ALIAS_0_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Turno">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.Turno">
+              <MappingFragment StoreEntitySet="Turno">
+                <ScalarProperty Name="Kilos" ColumnName="Kilos" />
+                <ScalarProperty Name="FechaTurno" ColumnName="FechaTurno" />
+                <ScalarProperty Name="FechaSolicitud" ColumnName="FechaSolicitud" />
+                <ScalarProperty Name="ProductorId" ColumnName="ProductorId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

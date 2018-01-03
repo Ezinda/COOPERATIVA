@@ -412,5 +412,11 @@ namespace CooperativaProduccion
             var ddjj = new Form_InventarioFiltroDDJJ();
             ddjj.Show();
         }
+
+        private void btnAsignarTurno_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var asignacion = new Form_RomaneoBuscarTurno();
+            asignacion.Show();
+        }
     }
 }

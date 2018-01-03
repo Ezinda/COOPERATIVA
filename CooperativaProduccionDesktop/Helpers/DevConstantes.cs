@@ -92,5 +92,8 @@ namespace CooperativaProduccion
         public static string PlanillaAcopiadoresAjuste = "PlanillaAcopiadoresAjuste";
         public static string ResumenCompraAjusteMes = "ResumenCompraAjusteMes";
         public static string PorcentajeAjuste = "PorcentajeAjuste";
+
+        public static string AsignacionTurno = "AsignacionTurno";
+        public static string BuscarProductorTurno = "BuscarProductorTurno";
     }
 }
