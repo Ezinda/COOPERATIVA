@@ -435,6 +435,21 @@
           <Property Name="PathOrigin" Type="nvarchar(max)" />
           <Property Name="PathSystem" Type="nvarchar(max)" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'CooperativaProduccion.dbo.temporalStock' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="temporalStock">
+          <Property Name="Id" Type="uniqueidentifier" />
+          <Property Name="Lote" Type="bigint" />
+          <Property Name="Cata" Type="bigint" />
+          <Property Name="Orden" Type="int" />
+          <Property Name="CajaNumero" Type="int" />
+          <Property Name="ProductoId" Type="uniqueidentifier" />
+          <Property Name="Tara" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Neto" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Bruto" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Campaña" Type="int" />
+          <Property Name="Warrant" Type="bit" />
+        </EntityType>-->
         <EntityType Name="Turno">
           <Key>
             <PropertyRef Name="Id" />
@@ -475,8 +490,36 @@
           <Property Name="GenerarRemitoElectronico" Type="bit" />
           <Property Name="GestionarListaPrecio" Type="bit" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_Clase' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'CooperativaProduccion.dbo.v_ezi_ajuste' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="v_ezi_ajuste">
+          <Property Name="Expr2" Type="uniqueidentifier" />
+          <Property Name="TransaccionId" Type="uniqueidentifier" />
+          <Property Name="Documento" Type="nvarchar" MaxLength="500" />
+          <Property Name="DepositoId" Type="uniqueidentifier" />
+          <Property Name="Fecha" Type="date" />
+          <Property Name="Unidad" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ingreso" Type="float" />
+          <Property Name="Egreso" Type="float" />
+          <Property Name="Actual" Type="bit" />
+          <Property Name="Anulado" Type="bit" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'CooperativaProduccion.dbo.v_ezi_ajuste2' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="v_ezi_ajuste2">
+          <Property Name="Expr2" Type="uniqueidentifier" />
+          <Property Name="TransaccionId" Type="uniqueidentifier" />
+          <Property Name="Documento" Type="nvarchar" MaxLength="500" />
+          <Property Name="DepositoId" Type="uniqueidentifier" />
+          <Property Name="Fecha" Type="date" />
+          <Property Name="Unidad" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ingreso" Type="float" />
+          <Property Name="Egreso" Type="float" />
+          <Property Name="Actual" Type="bit" />
+          <Property Name="Anulado" Type="bit" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Clase' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_Clase">
           <Key>
             <PropertyRef Name="ID" />
@@ -490,8 +533,8 @@ advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_Clase' no tiene
           <Property Name="Vigente" Type="bit" />
           <Property Name="Orden" Type="int" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_Cliente' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Cliente' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_Cliente">
           <Key>
             <PropertyRef Name="ID" />
@@ -520,8 +563,8 @@ advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_Cliente' no tie
           <Property Name="CREDITOMAXIMO" Type="decimal" Precision="22" Scale="10" />
           <Property Name="CUITE" Type="varchar" MaxLength="30" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_ConceptoDeOrdenDePago' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ConceptoDeOrdenDePago' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_ConceptoDeOrdenDePago">
           <Key>
             <PropertyRef Name="Id" />
@@ -559,8 +602,8 @@ advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_ConceptoDeOrden
           <Property Name="RetencionGanancias" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="RetencionRiego" Type="decimal" Precision="18" Scale="2" Nullable="false" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_Deposito' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Deposito' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_Deposito">
           <Key>
             <PropertyRef Name="id" />
@@ -568,8 +611,8 @@ advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_Deposito' no ti
           <Property Name="id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="nombre" Type="varchar" MaxLength="40" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_FardoEnProduccionPorHora' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_FardoEnProduccionPorHora' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_FardoEnProduccionPorHora">
           <Key>
             <PropertyRef Name="Fecha" />
@@ -610,8 +653,16 @@ advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_FardoEnProducci
           <Property Name="19" Type="float" Nullable="false" />
           <Property Name="20" Type="float" Nullable="false" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_LiquidacionAjuste' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'CooperativaProduccion.dbo.Vw_FardoEnProduccionTotales' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="Vw_FardoEnProduccionTotales">
+          <Property Name="cantidad" Type="int" />
+          <Property Name="total" Type="float" />
+          <Property Name="Nombre" Type="varchar" MaxLength="120" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="150" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_LiquidacionAjuste' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_LiquidacionAjuste">
           <Key>
             <PropertyRef Name="ID" />
@@ -620,8 +671,8 @@ advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_LiquidacionAjus
           <Property Name="CODIGO" Type="varchar" MaxLength="30" />
           <Property Name="DESCRIPCION" Type="varchar" MaxLength="150" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_Movimiento' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Movimiento' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_Movimiento">
           <Key>
             <PropertyRef Name="Id" />
@@ -647,8 +698,8 @@ advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_Movimiento' no 
           <Property Name="Cliente" Type="varchar" MaxLength="100" />
           <Property Name="NumeroDocumento" Type="varchar(max)" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_OrdenPago' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_OrdenPago' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_OrdenPago">
           <Key>
             <PropertyRef Name="OrdenPagoId" />
@@ -675,8 +726,8 @@ advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_OrdenPago' no t
           <Property Name="Neto" Type="decimal" Precision="18" Scale="2" />
           <Property Name="detalle" Type="nvarchar" MaxLength="500" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_Pesada' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Pesada' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_Pesada">
           <Key>
             <PropertyRef Name="PesadaId" />
@@ -711,8 +762,8 @@ advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_Pesada' no tien
           <Property Name="ID_PRODUCTO" Type="uniqueidentifier" />
           <Property Name="DESCRIPCION" Type="varchar" MaxLength="150" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_pesada_liq' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_pesada_liq' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_pesada_liq">
           <Key>
             <PropertyRef Name="PesadaId" />
@@ -720,8 +771,8 @@ advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_pesada_liq' no 
           <Property Name="PesadaId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Subtotal" Type="decimal" Precision="38" Scale="2" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_Preingreso' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Preingreso' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_Preingreso">
           <Key>
             <PropertyRef Name="PreIngresoId" />
@@ -746,8 +797,8 @@ advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_Preingreso' no 
           <Property Name="Cuit" Type="varchar" MaxLength="40" />
           <Property Name="Provincia" Type="varchar" MaxLength="40" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_Producto' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Producto' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_Producto">
           <Key>
             <PropertyRef Name="ID" />
@@ -757,8 +808,8 @@ advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_Producto' no ti
           <Property Name="DESCRIPCION" Type="varchar" MaxLength="150" />
           <Property Name="SUBRUBRO" Type="varchar" MaxLength="60" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_Productor' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Productor' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_Productor">
           <Key>
             <PropertyRef Name="DOMICILIO" />
@@ -785,8 +836,8 @@ advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_Productor' no t
           <Property Name="RIEGO" Type="decimal" Precision="38" Scale="10" />
           <Property Name="GANANCIA" Type="decimal" Precision="38" Scale="10" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_Provincia' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Provincia' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_Provincia">
           <Key>
             <PropertyRef Name="ID" />
@@ -794,8 +845,8 @@ advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_Provincia' no t
           <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="NOMBRE" Type="varchar" MaxLength="40" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_ResumenClasePorFecha' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenClasePorFecha' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_ResumenClasePorFecha">
           <Key>
             <PropertyRef Name="provincia" />
@@ -811,8 +862,8 @@ advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_ResumenClasePor
           <Property Name="PrecioPorKilo" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Importe" Type="float" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_ResumenCompraPorClase' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenCompraPorClase' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_ResumenCompraPorClase">
           <Key>
             <PropertyRef Name="provincia" />
@@ -828,8 +879,8 @@ advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_ResumenCompraPo
           <Property Name="Kilos" Type="float" />
           <Property Name="Importe" Type="float" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_ResumenPesada' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenPesada' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_ResumenPesada">
           <Key>
             <PropertyRef Name="PesadaId" />
@@ -839,8 +890,8 @@ advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_ResumenPesada' 
           <Property Name="kilos" Type="float" />
           <Property Name="Subtotal" Type="decimal" Precision="38" Scale="2" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_ResumenPesadaPorClase' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenPesadaPorClase' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_ResumenPesadaPorClase">
           <Key>
             <PropertyRef Name="PesadaId" />
@@ -849,8 +900,8 @@ advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_ResumenPesadaPo
           <Property Name="Clase" Type="varchar" MaxLength="120" />
           <Property Name="Kilos" Type="float" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_ResumenRomaneoBurley' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenRomaneoBurley' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_ResumenRomaneoBurley">
           <Key>
             <PropertyRef Name="PesadaId" />
@@ -920,8 +971,8 @@ advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_ResumenRomaneoB
           <Property Name="Totalkg" Type="float" />
           <Property Name="Importebruto" Type="decimal" Precision="38" Scale="2" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_ResumenRomaneoPorClase' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenRomaneoPorClase' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_ResumenRomaneoPorClase">
           <Key>
             <PropertyRef Name="PesadaId" />
@@ -933,8 +984,8 @@ advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_ResumenRomaneoP
           <Property Name="ClasePrecio" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Total" Type="decimal" Precision="12" Scale="2" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_ResumenRomaneoVirginia' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_ResumenRomaneoVirginia' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_ResumenRomaneoVirginia">
           <Key>
             <PropertyRef Name="PesadaId" />
@@ -1046,8 +1097,8 @@ advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_ResumenRomaneoV
           <Property Name="Totalkg" Type="float" />
           <Property Name="Importebruto" Type="decimal" Precision="38" Scale="2" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_Romaneo' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Romaneo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_Romaneo">
           <Key>
             <PropertyRef Name="PesadaId" />
@@ -1095,8 +1146,8 @@ advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_Romaneo' no tie
           <Property Name="Expr6" Type="int" Nullable="false" />
           <Property Name="BASEGANANCIA" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_RomaneoOrdenPago' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_RomaneoOrdenPago' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_RomaneoOrdenPago">
           <Key>
             <PropertyRef Name="PesadaId" />
@@ -1137,8 +1188,8 @@ advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_RomaneoOrdenPag
           <Property Name="GANANCIA" Type="decimal" Precision="38" Scale="10" />
           <Property Name="BASEGANANCIA" Type="float" Nullable="false" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_Stock' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Stock' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_Stock">
           <Key>
             <PropertyRef Name="Id" />
@@ -1152,8 +1203,8 @@ advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_Stock' no tiene
           <Property Name="Ingreso" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="Egreso" Type="decimal" Precision="18" Scale="2" Nullable="false" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_TipoTabaco' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_TipoTabaco' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_TipoTabaco">
           <Key>
             <PropertyRef Name="id" />
@@ -1162,8 +1213,8 @@ advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_TipoTabaco' no 
           <Property Name="DESCRIPCION" Type="varchar" MaxLength="150" />
           <Property Name="RUBRO_ID" Type="uniqueidentifier" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_Transporte' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CooperativaProduccion.dbo.Vw_Transporte' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_Transporte">
           <Key>
             <PropertyRef Name="ALIAS_0_ID" />
@@ -2088,6 +2139,7 @@ advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_Transporte' no 
           <EntitySet Name="ProduccionTemperaturaDetalle" EntityType="CooperativaProduccionModel.ProduccionTemperaturaDetalle" />
           <EntitySet Name="Provincia" EntityType="CooperativaProduccionModel.Provincia" />
           <EntitySet Name="Remito" EntityType="CooperativaProduccionModel.Remito" />
+          <EntitySet Name="Turno" EntityType="CooperativaProduccionModel.Turno" />
           <EntitySet Name="Usuario" EntityType="CooperativaProduccionModel.Usuario" />
           <EntitySet Name="Vw_Clase" EntityType="CooperativaProduccionModel.Vw_Clase" />
           <EntitySet Name="Vw_Cliente" EntityType="CooperativaProduccionModel.Vw_Cliente" />
@@ -2199,7 +2251,6 @@ advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_Transporte' no 
             <End Role="ProduccionTemperatura" EntitySet="ProduccionTemperatura" />
             <End Role="ProduccionTemperaturaDetalle" EntitySet="ProduccionTemperaturaDetalle" />
           </AssociationSet>
-          <EntitySet Name="Turno" EntityType="CooperativaProduccionModel.Turno" />
           </EntityContainer>
         <ComplexType Name="ActualizarLiquidacion_Result">
           <Property Type="Int32" Name="Column1" Nullable="true" />
@@ -2676,6 +2727,16 @@ advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_Transporte' no 
           <Property Name="PathOrigin" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="PathSystem" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="OrdenVenta" Relationship="CooperativaProduccionModel.FK_Remito_OrdenVenta" FromRole="Remito" ToRole="OrdenVenta" />
+        </EntityType>
+        <EntityType Name="Turno">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="ProductorId" Type="Guid" Nullable="false" />
+          <Property Name="FechaSolicitud" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="FechaTurno" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Kilos" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
@@ -3606,16 +3667,6 @@ advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_Transporte' no 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Turno">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="ProductorId" Type="Guid" Nullable="false" />
-          <Property Name="FechaSolicitud" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="FechaTurno" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Kilos" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4090,6 +4141,17 @@ advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_Transporte' no 
                 <ScalarProperty Name="NumOperacion" ColumnName="NumOperacion" />
                 <ScalarProperty Name="PuntoVenta" ColumnName="PuntoVenta" />
                 <ScalarProperty Name="NumRemito" ColumnName="NumRemito" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Turno">
+            <EntityTypeMapping TypeName="CooperativaProduccionModel.Turno">
+              <MappingFragment StoreEntitySet="Turno">
+                <ScalarProperty Name="Kilos" ColumnName="Kilos" />
+                <ScalarProperty Name="FechaTurno" ColumnName="FechaTurno" />
+                <ScalarProperty Name="FechaSolicitud" ColumnName="FechaSolicitud" />
+                <ScalarProperty Name="ProductorId" ColumnName="ProductorId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -4661,17 +4723,6 @@ advertencia 6002: La tabla o vista 'CooperativaProduccion.dbo.Vw_Transporte' no 
                 <ScalarProperty Name="CUIT" ColumnName="CUIT" />
                 <ScalarProperty Name="ALIAS_1_NOMBRE" ColumnName="ALIAS_1_NOMBRE" />
                 <ScalarProperty Name="ALIAS_0_ID" ColumnName="ALIAS_0_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Turno">
-            <EntityTypeMapping TypeName="CooperativaProduccionModel.Turno">
-              <MappingFragment StoreEntitySet="Turno">
-                <ScalarProperty Name="Kilos" ColumnName="Kilos" />
-                <ScalarProperty Name="FechaTurno" ColumnName="FechaTurno" />
-                <ScalarProperty Name="FechaSolicitud" ColumnName="FechaSolicitud" />
-                <ScalarProperty Name="ProductorId" ColumnName="ProductorId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

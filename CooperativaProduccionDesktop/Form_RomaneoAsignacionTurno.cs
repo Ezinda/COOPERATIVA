@@ -8,6 +8,8 @@ using System.Linq;
 using System.Windows.Forms;
 using DevExpress.XtraBars;
 using DesktopEntities.Models;
+using CooperativaProduccion.Reports;
+using DevExpress.XtraReports.UI;
 
 namespace CooperativaProduccion
 {
@@ -219,6 +221,7 @@ namespace CooperativaProduccion
                 turno.Kilos = kilos;
                 _context.Turno.Add(turno);
                 _context.SaveChanges();
+                ImprimirTurno(turno.Id);
                 IEnlaceActualizar mienlace = this.Owner as Form_RomaneoBuscarTurno;
                 if (mienlace != null)
                 {
@@ -232,5 +235,39 @@ namespace CooperativaProduccion
             }
         }
 
+        private void ImprimirTurno(Guid TurnoId)
+        {
+            var turno = _context.Turno
+                .Where(x => x.Id == TurnoId)
+                .FirstOrDefault();
+
+            if (turno != null)
+            {
+                var reporte = new TurnoReport();
+
+                var productor = _context.Vw_Productor
+                    .Where(x => x.ID == turno.ProductorId)
+                    .FirstOrDefault();
+
+                reporte.Parameters["acopio"].Value = "ACOPIO CAMPAÑA " + DateTime.Now.Year;
+
+                reporte.Parameters["productor"].Value = productor.NOMBRE;
+                reporte.Parameters["fet"].Value = productor.nrofet;
+                reporte.Parameters["dni"].Value = productor.CUIT;
+                reporte.Parameters["domicilio"].Value = productor.DOMICILIO;
+                reporte.Parameters["tel"].Value = productor.TELEFONO;
+
+                reporte.Parameters["fechaSolicitud"].Value = turno.FechaSolicitud.ToShortDateString();
+                reporte.Parameters["fechaTurno"].Value = turno.FechaTurno.ToShortDateString();
+                reporte.Parameters["kg"].Value = turno.Kilos;
+
+                using (ReportPrintTool tool = new ReportPrintTool(reporte))
+                {
+                    reporte.ShowPreviewMarginLines = false;
+                    tool.PreviewForm.Text = "Etiqueta";
+                    tool.ShowPreviewDialog();
+                }
+            }
+        }
     }
 }
