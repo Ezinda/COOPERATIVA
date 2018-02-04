@@ -525,7 +525,8 @@ namespace CooperativaProduccion
                          Tara = c.Tara,
                          Neto = c.Neto,
                          Bruto = c.Bruto,
-                         Cata = joined.NumCata
+                         Cata = joined.NumCata,
+                         ConRemito = c.OrdenVenta.Remito.FirstOrDefault() != null ? "SI" : "NO"
                      })
                      .Take(cantidad)
                      .OrderBy(x => x.Campaña)
@@ -555,7 +556,8 @@ namespace CooperativaProduccion
                        Tara = c.Tara,
                        Neto = c.Neto,
                        Bruto = c.Bruto,
-                       Cata = joined.NumCata
+                       Cata = joined.NumCata,
+                       ConRemito = c.OrdenVenta.Remito.FirstOrDefault() != null ? "SI" : "NO"
                    })
                    .OrderBy(x => x.Campaña)
                    .ThenBy(x => x.NumCaja)
@@ -581,6 +583,8 @@ namespace CooperativaProduccion
             gridViewCajaConsulta.Columns[7].Width = 100;
             gridViewCajaConsulta.Columns[8].Caption = "N° Cata";
             gridViewCajaConsulta.Columns[8].Width = 200;
+            gridViewCajaConsulta.Columns[9].Caption = "Con Remito";
+            gridViewCajaConsulta.Columns[9].Width = 200;
 
 
             for (var i = 0; i <= gridViewCajaConsulta.RowCount; i++)

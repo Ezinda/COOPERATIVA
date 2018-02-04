@@ -684,7 +684,8 @@ namespace CooperativaProduccion
                          Bruto = c.Bruto,
                          Cata = joined.NumCata,
                          OrdenVentaId = c.OrdenVentaId,
-                         NumOrden = c.OrdenVenta != null ? c.OrdenVenta.NumOrden : (long?)null
+                         NumOrden = c.OrdenVenta != null ? c.OrdenVenta.NumOrden : (long?)null,
+                         ConRemito = c.OrdenVenta.Remito.FirstOrDefault() != null ? "SI" : "NO"
                      })
                     
                      .OrderBy(x => x.Campaña)
@@ -717,7 +718,8 @@ namespace CooperativaProduccion
                        Bruto = c.Bruto,
                        Cata = joined.NumCata,
                        OrdenVentaId = c.OrdenVentaId,
-                       NumOrden = c.OrdenVenta != null ? c.OrdenVenta.NumOrden : (long?)null
+                       NumOrden = c.OrdenVenta != null ? c.OrdenVenta.NumOrden : (long?)null,
+                       ConRemito = c.OrdenVenta.Remito.FirstOrDefault() != null ? "SI" : "NO"
                    })
                    .OrderBy(x => x.Campaña)
                    .ThenBy(x => x.NumCaja)
@@ -746,6 +748,9 @@ namespace CooperativaProduccion
             gridViewCajaConsulta.Columns[8].Width = 200;
             gridViewCajaConsulta.Columns[9].Visible = false;
             gridViewCajaConsulta.Columns[10].Visible = false;
+            gridViewCajaConsulta.Columns[11].Caption = "Remito";
+            gridViewCajaConsulta.Columns[11].Width = 100;
+           
             for (var i = 0; i <= gridViewCajaConsulta.RowCount; i++)
             {
                 gridViewCajaConsulta.SelectRow(i);
@@ -1121,6 +1126,7 @@ namespace CooperativaProduccion
         public long? Cata { get; set; }       
         public Guid? OrdenVentaId { get; set; }
         public long? NumOrden { get; set; }
+        public string ConRemito { get; set; }
 }
 
     public class OrdenVentaProducto

@@ -252,16 +252,25 @@ namespace CooperativaProduccion
         private void BuscarCata()
         {
             Expression<Func<Cata, bool>> pred = x => true;
+            
+            Expression<Func<ProduccionBlend, bool>> pred2 = x => true;
 
-            var lote = Int64.Parse(cbLote.SelectedValue.ToString());
+            if (cbLote.Text != string.Empty)
+            {
+                var lote = Int64.Parse(cbLote.SelectedValue.ToString());
 
-            pred = !(checkTodos.Checked) ? 
-                pred.And(x => x.Lote == lote) : pred;
+                pred = !(checkTodos.Checked) ?
+                    pred.And(x => x.Lote == lote) : pred;
 
-            var campaña = Context.Cata
-                .Where(x => x.Lote == lote)
-                .Select(x => x.Caja != null ? x.Caja.Campaña : DateTime.Now.Year)
-                .FirstOrDefault();
+
+                var campaña = Context.Cata
+                    .Where(x => x.Lote == lote)
+                    .Select(x => x.Caja != null ? x.Caja.Campaña : DateTime.Now.Year)
+                    .FirstOrDefault();
+
+                pred2 = pred2.And(x => x.Periodo == campaña);
+
+            }
 
             var result =
                 (from a in Context.Cata.Where(pred)
@@ -269,26 +278,28 @@ namespace CooperativaProduccion
                      on a.Caja.ProductoId equals p.ID into cp
                  from joined1 in cp.DefaultIfEmpty()
                  join b in Context.ProduccionBlend
-                     .Where(x => x.Periodo == campaña)
+                     .Where(pred2)
                      on a.Caja.ProductoId equals b.ProductoId into cb
                  from joined in cb.DefaultIfEmpty()
                  select new CataCaja
                  {
                      Id = a.Id,
-                     Lote = a.Lote.Value,
-                     Cata = a.NumCata,
+                     Lote = (long?)a.Lote.Value ?? 0,
+                     Cata = (long?)a.NumCata ?? 0,
                      NumOrden = a.NumOrden ?? 0,
                      NumCaja = a.NumCaja ?? 0,
                      ProductoId = (Guid?)joined1.ID ?? null,
                      OrdenProduccion = joined.OrdenProduccion.ToString(),
                      Producto = joined1.DESCRIPCION,
-                     Fecha = a.Fecha ?? null ,
+                     Fecha = a.Fecha ?? null,
                      Campaña = (int?)a.Caja.Campaña ?? 0,
                      Neto = (decimal?)a.Caja.Neto ?? 0,
                      Tara = (decimal?)a.Caja.Tara ?? 0,
                      Bruto = (decimal?)a.Caja.Bruto ?? 0
                  })
-                .OrderBy(x => x.Lote)
+                 .Distinct()
+                .Where(x => x.Campaña > 0)
+                 .OrderBy(x => x.Lote)
                 .ThenBy(x => x.Cata)
                 .ToList();
 
@@ -305,6 +316,7 @@ namespace CooperativaProduccion
             gridViewCata.Columns[4].Width = 90;
             gridViewCata.Columns[5].Visible = false;
             gridViewCata.Columns[6].Visible = false;
+ 
             txtTotal.Text = CalcularTotalCata();
             txtUtilizados.Text = CalcularTotalCataUtilizadas();
             txtDisponibles.Text = CalcularTotalCataDisponibles();
@@ -315,23 +327,28 @@ namespace CooperativaProduccion
         {
             string totalcata;
             int cero = 0;
-            var lote = Int64.Parse(cbLote.SelectedValue.ToString());
-            Expression<Func<Cata, bool>> pred = x => true;
-            
-            pred = !(checkTodos.Checked) ? pred.And(x => x.Lote == lote) : pred;
-
-            var count = Context.Cata
-                .Where(pred)
-                .Count();
-
-            if (count != 0)
+            if (cbLote.Text != string.Empty)
             {
-                totalcata = count.ToString();
+                var lote = Int64.Parse(cbLote.SelectedValue.ToString());
+                Expression<Func<Cata, bool>> pred = x => true;
+
+                pred = !(checkTodos.Checked) ? pred.And(x => x.Lote == lote) : pred;
+
+                var count = Context.Cata
+                    .Where(pred)
+                    .Count();
+
+
+                if (count != 0)
+                {
+                    totalcata = count.ToString();
+                }
+                else
+                {
+                    totalcata = cero.ToString();
+                }
             }
-            else
-            {
-                totalcata = cero.ToString();
-            }
+            totalcata = Context.Cata.Count().ToString();
             return totalcata;
         }
 
@@ -339,26 +356,30 @@ namespace CooperativaProduccion
         {
             string totalcata;
             int cero = 0;
-            var lote = Int64.Parse(cbLote.SelectedValue.ToString());
-
-            Expression<Func<Cata, bool>> pred = x => true;
-
-            pred = !(checkTodos.Checked) ? pred.And(x => x.Lote == lote) : pred;
-
-            pred = pred.And(x => x.NumCaja == null);
-
-            var count = Context.Cata
-                .Where(pred)
-                .Count();
-            
-            if (count != 0)
+            if (cbLote.Text != string.Empty)
             {
-                totalcata = count.ToString();
+                var lote = Int64.Parse(cbLote.SelectedValue.ToString());
+
+                Expression<Func<Cata, bool>> pred = x => true;
+
+                pred = !(checkTodos.Checked) ? pred.And(x => x.Lote == lote) : pred;
+
+                pred = pred.And(x => x.NumCaja == null);
+
+                var count = Context.Cata
+                    .Where(pred)
+                    .Count();
+
+                if (count != 0)
+                {
+                    totalcata = count.ToString();
+                }
+                else
+                {
+                    totalcata = cero.ToString();
+                }
             }
-            else
-            {
-                totalcata = cero.ToString();
-            }
+            totalcata = Context.Cata.Count().ToString();
             return totalcata;
         }
 
@@ -366,24 +387,29 @@ namespace CooperativaProduccion
         {
             string totalcata;
             int cero = 0;
-            var lote = Int64.Parse(cbLote.SelectedValue.ToString());
-            Expression<Func<Cata, bool>> pred = x => true;
-
-            pred = !(checkTodos.Checked) ? pred.And(x => x.Lote == lote) : pred;
-
-            pred = pred.And(x => x.NumCaja != null);
-
-            var count = Context.Cata
-                .Where(pred)
-                .Count();
-            if (count != 0)
+            if (cbLote.Text != string.Empty)
             {
-                totalcata = count.ToString();
+
+                var lote = Int64.Parse(cbLote.SelectedValue.ToString());
+                Expression<Func<Cata, bool>> pred = x => true;
+
+                pred = !(checkTodos.Checked) ? pred.And(x => x.Lote == lote) : pred;
+
+                pred = pred.And(x => x.NumCaja != null);
+
+                var count = Context.Cata
+                    .Where(pred)
+                    .Count();
+                if (count != 0)
+                {
+                    totalcata = count.ToString();
+                }
+                else
+                {
+                    totalcata = cero.ToString();
+                }
             }
-            else
-            {
-                totalcata = cero.ToString();
-            }
+            totalcata = Context.Cata.Count().ToString();
             return totalcata;
         }
 
