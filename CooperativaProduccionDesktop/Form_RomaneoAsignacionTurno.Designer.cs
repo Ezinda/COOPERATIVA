@@ -44,6 +44,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.btnBuscarProductorLegajo = new DevExpress.XtraEditors.SimpleButton();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
+            this.txtTotalKg = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.btnCancelar = new DevExpress.XtraEditors.SimpleButton();
             this.btnGuardar = new DevExpress.XtraEditors.SimpleButton();
             this.dpFechaSolicitud = new System.Windows.Forms.DateTimePicker();
@@ -73,7 +75,7 @@
             this.ribbon.ShowPageHeadersInFormCaption = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowQatLocationSelector = false;
             this.ribbon.ShowToolbarCustomizeItem = false;
-            this.ribbon.Size = new System.Drawing.Size(624, 27);
+            this.ribbon.Size = new System.Drawing.Size(629, 27);
             this.ribbon.Toolbar.ShowCustomizeItem = false;
             // 
             // groupControl2
@@ -92,7 +94,7 @@
             this.groupControl2.Controls.Add(this.btnBuscarProductorLegajo);
             this.groupControl2.Location = new System.Drawing.Point(4, 29);
             this.groupControl2.Name = "groupControl2";
-            this.groupControl2.Size = new System.Drawing.Size(617, 76);
+            this.groupControl2.Size = new System.Drawing.Size(623, 76);
             this.groupControl2.TabIndex = 22;
             this.groupControl2.Text = "Buscar Productor";
             // 
@@ -220,6 +222,8 @@
             // 
             // groupControl1
             // 
+            this.groupControl1.Controls.Add(this.txtTotalKg);
+            this.groupControl1.Controls.Add(this.label6);
             this.groupControl1.Controls.Add(this.btnCancelar);
             this.groupControl1.Controls.Add(this.btnGuardar);
             this.groupControl1.Controls.Add(this.dpFechaSolicitud);
@@ -228,16 +232,37 @@
             this.groupControl1.Controls.Add(this.label8);
             this.groupControl1.Location = new System.Drawing.Point(4, 107);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(617, 50);
+            this.groupControl1.Size = new System.Drawing.Size(623, 86);
             this.groupControl1.TabIndex = 70;
             this.groupControl1.Text = "Datos Turno";
+            // 
+            // txtTotalKg
+            // 
+            this.txtTotalKg.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtTotalKg.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalKg.Location = new System.Drawing.Point(485, 23);
+            this.txtTotalKg.Name = "txtTotalKg";
+            this.txtTotalKg.ReadOnly = true;
+            this.txtTotalKg.Size = new System.Drawing.Size(126, 22);
+            this.txtTotalKg.TabIndex = 73;
+            this.txtTotalKg.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(417, 27);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(64, 16);
+            this.label6.TabIndex = 72;
+            this.label6.Text = "Total Kilos";
             // 
             // btnCancelar
             // 
             this.btnCancelar.Appearance.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelar.Appearance.Options.UseFont = true;
             this.btnCancelar.Image = ((System.Drawing.Image)(resources.GetObject("btnCancelar.Image")));
-            this.btnCancelar.Location = new System.Drawing.Point(524, 23);
+            this.btnCancelar.Location = new System.Drawing.Point(524, 59);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(87, 22);
             this.btnCancelar.TabIndex = 71;
@@ -249,7 +274,7 @@
             this.btnGuardar.Appearance.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGuardar.Appearance.Options.UseFont = true;
             this.btnGuardar.Image = ((System.Drawing.Image)(resources.GetObject("btnGuardar.Image")));
-            this.btnGuardar.Location = new System.Drawing.Point(428, 23);
+            this.btnGuardar.Location = new System.Drawing.Point(428, 59);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(90, 22);
             this.btnGuardar.TabIndex = 70;
@@ -263,6 +288,7 @@
             this.dpFechaSolicitud.Name = "dpFechaSolicitud";
             this.dpFechaSolicitud.Size = new System.Drawing.Size(94, 21);
             this.dpFechaSolicitud.TabIndex = 59;
+            this.dpFechaSolicitud.ValueChanged += new System.EventHandler(this.dpFechaSolicitud_ValueChanged);
             // 
             // txtKilos
             // 
@@ -300,7 +326,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(624, 159);
+            this.ClientSize = new System.Drawing.Size(629, 195);
             this.Controls.Add(this.groupControl1);
             this.Controls.Add(this.groupControl2);
             this.Controls.Add(this.ribbon);
@@ -346,5 +372,7 @@
         private System.Windows.Forms.Label label8;
         public System.Windows.Forms.TextBox txtTelefono;
         private System.Windows.Forms.Label label5;
+        public System.Windows.Forms.TextBox txtTotalKg;
+        private System.Windows.Forms.Label label6;
     }
 }

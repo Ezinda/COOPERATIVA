@@ -351,7 +351,8 @@ namespace CooperativaProduccion
                     string DomicilioDestinoSector = string.Empty;
                     string DomicilioDestinoTorre = string.Empty;
                     string DomicilioDestinoManzana = string.Empty;
-                    string CodigoProvincia = Cliente.CUIT.ToUpper().Contains(DevConstantes.XX) ? string.Empty : ProvinciaAfip.Descripcion;
+                    string CodigoProv = "00" + Convert.ToString(ProvinciaAfip.Valor);
+                    string CodigoProvincia = Cliente.CUIT.ToUpper().Contains(DevConstantes.XX) ? string.Empty : CodigoProv.Substring(CodigoProv.Length - 2);
                     string CodigoPostal = Cliente.CUIT.ToUpper().Contains(DevConstantes.XX) ? string.Empty : "4000";
                     string CodigoLocalidad = !string.IsNullOrEmpty(Cliente.Ciudad) ? Cliente.Ciudad : string.Empty;
                     string RequiereTransporte = Cliente.CUIT.ToUpper().Contains(DevConstantes.XX) ? DevConstantes.S : DevConstantes.N;

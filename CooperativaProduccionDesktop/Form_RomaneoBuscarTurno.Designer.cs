@@ -48,6 +48,7 @@
             this.btnBuscar = new DevExpress.XtraEditors.SimpleButton();
             this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
             this.btnImprimir = new DevExpress.XtraEditors.SimpleButton();
+            this.btnReportePeriodos = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
             this.groupControl2.SuspendLayout();
@@ -254,6 +255,7 @@
             // 
             this.groupControl3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupControl3.Controls.Add(this.btnReportePeriodos);
             this.groupControl3.Controls.Add(this.btnImprimir);
             this.groupControl3.Location = new System.Drawing.Point(4, 441);
             this.groupControl3.Name = "groupControl3";
@@ -271,6 +273,16 @@
             this.btnImprimir.TabIndex = 60;
             this.btnImprimir.Text = "Imprimir";
             this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
+            // 
+            // btnReportePeriodos
+            // 
+            this.btnReportePeriodos.Image = ((System.Drawing.Image)(resources.GetObject("btnReportePeriodos.Image")));
+            this.btnReportePeriodos.Location = new System.Drawing.Point(90, 5);
+            this.btnReportePeriodos.Name = "btnReportePeriodos";
+            this.btnReportePeriodos.Size = new System.Drawing.Size(144, 22);
+            this.btnReportePeriodos.TabIndex = 61;
+            this.btnReportePeriodos.Text = "Reporte por Períodos";
+            this.btnReportePeriodos.Click += new System.EventHandler(this.btnReportePeriodos_Click);
             // 
             // Form_RomaneoBuscarTurno
             // 
@@ -322,5 +334,6 @@
         private System.Windows.Forms.Label label7;
         private DevExpress.XtraEditors.GroupControl groupControl3;
         private DevExpress.XtraEditors.SimpleButton btnImprimir;
+        private DevExpress.XtraEditors.SimpleButton btnReportePeriodos;
     }
 }

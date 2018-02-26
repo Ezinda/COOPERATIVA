@@ -269,5 +269,19 @@ namespace CooperativaProduccion
                 }
             }
         }
+
+        private void dpFechaSolicitud_ValueChanged(object sender, EventArgs e)
+        {
+            txtTotalKg.Text = CalcularKgPorFecha(dpFechaSolicitud.Value.Date);
+        }
+
+        private string CalcularKgPorFecha(DateTime fecha)
+        {
+            var turnos = _context.Turno
+                .Where(x => x.FechaTurno == fecha.Date)
+                .Sum(x => x.Kilos);
+
+            return turnos != null ? turnos.ToString() : "0";
+        }
     }
 }

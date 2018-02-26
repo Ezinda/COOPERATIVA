@@ -13,6 +13,9 @@ using System.Linq.Expressions;
 using Extensions;
 using CooperativaProduccion.Reports;
 using DevExpress.XtraReports.UI;
+using System.Diagnostics;
+using System.IO;
+using System.Globalization;
 
 namespace CooperativaProduccion
 {
@@ -335,6 +338,56 @@ namespace CooperativaProduccion
                     tool.PreviewForm.Text = "Etiqueta";
                     tool.ShowPreviewDialog();
                 }
+            }
+        }
+
+        private void btnReportePeriodos_Click(object sender, EventArgs e)
+        {
+            string path = @"C:\SystemDocumentsCooperativa";
+
+            CreateIfMissing(path);
+
+            path = @"C:\SystemDocumentsCooperativa\ExcelTurnos";
+
+            CreateIfMissing(path);
+
+            var Hora = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff",
+              CultureInfo.InvariantCulture).Replace(":", "").Replace(".", "")
+              .Replace("-", "").Replace(" ", "");
+
+            string fileName = @"C:\SystemDocumentsCooperativa\ExcelTurnos\" + Hora + " - ExcelTurnos.xls";
+
+            gridControlPringreso.ExportToXls(fileName);
+            StartProcess(fileName);
+        }
+
+        private void CreateIfMissing(string path)
+        {
+            try
+            {
+                if (!Directory.Exists(path))
+                {
+                    // Try to create the directory.
+                    DirectoryInfo di = Directory.CreateDirectory(path);
+                }
+            }
+            catch (IOException ioex)
+            {
+                Console.WriteLine(ioex.Message);
+            }
+        }
+
+        public void StartProcess(string path)
+        {
+            Process process = new Process();
+            try
+            {
+                process.StartInfo.FileName = path;
+                process.Start();
+            }
+            catch
+            {
+                throw;
             }
         }
     }
