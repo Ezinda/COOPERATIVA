@@ -27,8 +27,8 @@ namespace CooperativaProduccion
 
             _context = new CooperativaProduccionEntities();
             _productorId = Guid.Empty;
-
-          
+            txtTotalKg.Text = CalcularTotalKilos(dpFechaSolicitud.Value.Date).ToString();
+  
         }
 
         private void Buscar()
@@ -272,16 +272,31 @@ namespace CooperativaProduccion
 
         private void dpFechaSolicitud_ValueChanged(object sender, EventArgs e)
         {
-            txtTotalKg.Text = CalcularKgPorFecha(dpFechaSolicitud.Value.Date);
+            txtTotalKg.Text = CalcularTotalKilos(dpFechaSolicitud.Value.Date).ToString();
         }
-
-        private string CalcularKgPorFecha(DateTime fecha)
+        
+        private decimal CalcularTotalKilos(DateTime fecha)
         {
+            decimal totalKilos = 0;
+            
             var turnos = _context.Turno
                 .Where(x => x.FechaTurno == fecha.Date)
-                .Sum(x => x.Kilos);
+                .ToList();
+            
+            if (turnos != null)
+            {
+                foreach (var turno in turnos)
+                {
+                    totalKilos = totalKilos + turno.Kilos;
+                }
+            }
+            else
+            {
+                totalKilos = 0;
+            }
 
-            return turnos != null ? turnos.ToString() : "0";
+            return totalKilos;
         }
+
     }
 }

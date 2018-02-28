@@ -80,7 +80,8 @@ namespace CooperativaProduccion
             {
 
                 var turno = new GridTurno();
-                var productor = Context.Vw_Productor
+                CooperativaProduccionEntities _context = new CooperativaProduccionEntities();
+                var productor = _context.Vw_Productor
                     .Where(x=>x.ID == item.ProductorId)
                     .FirstOrDefault();
 
