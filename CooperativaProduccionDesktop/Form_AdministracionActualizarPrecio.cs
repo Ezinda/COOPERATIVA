@@ -17,15 +17,12 @@ namespace CooperativaProduccion
     public partial class Form_AdministracionActualizarPrecio : DevExpress.XtraBars.Ribbon.RibbonForm
     {
         public CooperativaProduccionEntities _context { get; set; }
-       
-        private Form_AdministracionBuscarProductor _formBuscarProductor;
-        
+           
         private Guid _claseId;
 
         public Form_AdministracionActualizarPrecio(Guid ClaseId)
         {
             InitializeComponent();
-
             _context = new CooperativaProduccionEntities();
             CargarClase(ClaseId);
         }
@@ -48,21 +45,21 @@ namespace CooperativaProduccion
             }
         }
 
-        public bool NumberField(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar >= 48 && e.KeyChar <= 57 || e.KeyChar == 8 || e.KeyChar == 44)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
+        //public bool NumberField(object sender, KeyPressEventArgs e)
+        //{
+        //    if (e.KeyChar >= 48 && e.KeyChar <= 57 || e.KeyChar == 8 || e.KeyChar == 44)
+        //    {
+        //        return false;
+        //    }
+        //    else
+        //    {
+        //        return true;
+        //    }
+        //}
 
         private void txtKilos_KeyPress(object sender, KeyPressEventArgs e)
         {
-            e.Handled = NumberField(sender, e);
+            //e.Handled = NumberField(sender, e);
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)

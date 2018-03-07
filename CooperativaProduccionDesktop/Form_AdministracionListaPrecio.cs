@@ -94,7 +94,23 @@ namespace CooperativaProduccion
 
         private void btnExportar_Click(object sender, EventArgs e)
         {
-      
+            string path = @"C:\SystemDocumentsCooperativa";
+
+            CreateIfMissing(path);
+
+            path = @"C:\SystemDocumentsCooperativa\ExcelClases";
+
+            CreateIfMissing(path);
+
+            var Hora = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff",
+              CultureInfo.InvariantCulture).Replace(":", "").Replace(".", "")
+              .Replace("-", "").Replace(" ", "");
+
+            string fileName = @"C:\SystemDocumentsCooperativa\ExcelClases\" + Hora + " - ExcelClases.xls";
+
+            gridListaPrecio.ExportToXls(fileName);
+            StartProcess(fileName);
+        
         }
 
         private void CreateIfMissing(string path)

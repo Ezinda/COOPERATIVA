@@ -1477,7 +1477,8 @@ namespace CooperativaProduccion
 
             var resumenes = resumen
                 .FullOuterJoin(clases, a => a.Clase, b => b.NOMBRE, (a, b, Clases) => new { a, b })
-                .OrderBy(x => x.b.NOMBRE)
+                //.OrderBy(x => x.b.NOMBRE)
+                .OrderBy(x => x.b.Orden)
                 .ThenBy(x => x.b.Orden)
                 .ToList();
 
@@ -1985,7 +1986,8 @@ namespace CooperativaProduccion
 
             var resumenes = resumen
                 .FullOuterJoin(clases, a => a.Clase, b => b.NOMBRE, (a, b, Clases) => new { a, b })
-                .OrderBy(x => x.b.NOMBRE)
+                //.OrderBy(x => x.b.NOMBRE)
+                .OrderBy(x => x.b.Orden)
                 .ThenBy(x => x.b.Orden)
                 .ToList();
 
