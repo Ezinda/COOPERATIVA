@@ -376,6 +376,12 @@
     <Compile Include="Form_InventarioFiltroDDJJ.Designer.cs">
       <DependentUpon>Form_InventarioFiltroDDJJ.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_AdministracionActualizarPrecio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_AdministracionActualizarPrecio.Designer.cs">
+      <DependentUpon>Form_AdministracionActualizarPrecio.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_RomaneoAsignacionTurno.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1000,6 +1006,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_ProduccionTransferenciaMateriaPrima.resx">
       <DependentUpon>Form_ProduccionTransferenciaMateriaPrima.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_AdministracionActualizarPrecio.resx">
+      <DependentUpon>Form_AdministracionActualizarPrecio.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_RomaneoAsignacionTurno.resx">
       <DependentUpon>Form_RomaneoAsignacionTurno.cs</DependentUpon>

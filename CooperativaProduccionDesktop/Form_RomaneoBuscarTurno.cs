@@ -39,18 +39,18 @@ namespace CooperativaProduccion
 
         private void gridControlPringreso_DoubleClick(object sender, EventArgs e)
         {
-            if (target.Equals(DevConstantes.Pesada))
-            {
-                IEnlace mienlace = this.Owner as Form_RomaneoPesada;
-                if (mienlace != null)
-                {
-                    mienlace.Enviar(
-                        new Guid(gridViewPreingreso.GetRowCellValue(gridViewPreingreso.FocusedRowHandle, "ID").ToString()),
-                        gridViewPreingreso.GetRowCellValue(gridViewPreingreso.FocusedRowHandle, "FET").ToString(),
-                        gridViewPreingreso.GetRowCellValue(gridViewPreingreso.FocusedRowHandle, "PREINGRESO").ToString());
-                }
-                this.Dispose();
-            }
+            //if (target.Equals(DevConstantes.Pesada))
+            //{
+            //    IEnlace mienlace = this.Owner as Form_RomaneoPesada;
+            //    if (mienlace != null)
+            //    {
+            //        mienlace.Enviar(
+            //            new Guid(gridViewPreingreso.GetRowCellValue(gridViewPreingreso.FocusedRowHandle, "ID").ToString()),
+            //            gridViewPreingreso.GetRowCellValue(gridViewPreingreso.FocusedRowHandle, "FET").ToString(),
+            //            gridViewPreingreso.GetRowCellValue(gridViewPreingreso.FocusedRowHandle, "PREINGRESO").ToString());
+            //    }
+            //    this.Dispose();
+            //}
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)

@@ -31,12 +31,19 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_AdministracionListaPrecio));
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
-            this.dgvListaPrecio = new System.Windows.Forms.DataGridView();
+            this.gridListaPrecio = new DevExpress.XtraGrid.GridControl();
+            this.gridViewListaPrecio = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.btnExportar = new DevExpress.XtraEditors.SimpleButton();
+            this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
+            this.btnCancelar = new DevExpress.XtraEditors.SimpleButton();
+            this.btnActualizarPrecio = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
             this.groupControl2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvListaPrecio)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridListaPrecio)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewListaPrecio)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
+            this.groupControl1.SuspendLayout();
             this.SuspendLayout();
             // 
             // ribbon
@@ -54,50 +61,86 @@
             this.ribbon.ShowExpandCollapseButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbon.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Hide;
             this.ribbon.ShowToolbarCustomizeItem = false;
-            this.ribbon.Size = new System.Drawing.Size(404, 27);
+            this.ribbon.Size = new System.Drawing.Size(534, 27);
             this.ribbon.Toolbar.ShowCustomizeItem = false;
             // 
             // groupControl2
             // 
-            this.groupControl2.Controls.Add(this.dgvListaPrecio);
+            this.groupControl2.Controls.Add(this.gridListaPrecio);
             this.groupControl2.Location = new System.Drawing.Point(0, 57);
             this.groupControl2.Name = "groupControl2";
-            this.groupControl2.Size = new System.Drawing.Size(404, 482);
+            this.groupControl2.Size = new System.Drawing.Size(533, 277);
             this.groupControl2.TabIndex = 22;
             this.groupControl2.Text = "Lista de Precio";
             // 
-            // dgvListaPrecio
+            // gridListaPrecio
             // 
-            this.dgvListaPrecio.AllowUserToAddRows = false;
-            this.dgvListaPrecio.AllowUserToDeleteRows = false;
-            this.dgvListaPrecio.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvListaPrecio.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvListaPrecio.Location = new System.Drawing.Point(2, 20);
-            this.dgvListaPrecio.Name = "dgvListaPrecio";
-            this.dgvListaPrecio.RowHeadersVisible = false;
-            this.dgvListaPrecio.Size = new System.Drawing.Size(400, 460);
-            this.dgvListaPrecio.TabIndex = 0;
-            this.dgvListaPrecio.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dgvListaPrecio_CellBeginEdit);
-            this.dgvListaPrecio.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvListaPrecio_CellEndEdit);
-            this.dgvListaPrecio.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvListaPrecio_DataBindingComplete);
-            this.dgvListaPrecio.SelectionChanged += new System.EventHandler(this.dgvListaPrecio_SelectionChanged);
+            this.gridListaPrecio.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridListaPrecio.Location = new System.Drawing.Point(2, 20);
+            this.gridListaPrecio.MainView = this.gridViewListaPrecio;
+            this.gridListaPrecio.MenuManager = this.ribbon;
+            this.gridListaPrecio.Name = "gridListaPrecio";
+            this.gridListaPrecio.Size = new System.Drawing.Size(529, 255);
+            this.gridListaPrecio.TabIndex = 42;
+            this.gridListaPrecio.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridViewListaPrecio});
+            // 
+            // gridViewListaPrecio
+            // 
+            this.gridViewListaPrecio.GridControl = this.gridListaPrecio;
+            this.gridViewListaPrecio.Name = "gridViewListaPrecio";
+            this.gridViewListaPrecio.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.False;
+            this.gridViewListaPrecio.OptionsBehavior.AllowDeleteRows = DevExpress.Utils.DefaultBoolean.False;
+            this.gridViewListaPrecio.OptionsBehavior.Editable = false;
+            this.gridViewListaPrecio.OptionsView.ShowGroupPanel = false;
             // 
             // btnExportar
             // 
             this.btnExportar.Image = ((System.Drawing.Image)(resources.GetObject("btnExportar.Image")));
-            this.btnExportar.Location = new System.Drawing.Point(2, 31);
+            this.btnExportar.Location = new System.Drawing.Point(124, 22);
             this.btnExportar.Name = "btnExportar";
             this.btnExportar.Size = new System.Drawing.Size(107, 22);
             this.btnExportar.TabIndex = 40;
             this.btnExportar.Text = "Exportar Excel";
             this.btnExportar.Click += new System.EventHandler(this.btnExportar_Click);
             // 
+            // groupControl1
+            // 
+            this.groupControl1.Controls.Add(this.btnActualizarPrecio);
+            this.groupControl1.Controls.Add(this.btnCancelar);
+            this.groupControl1.Controls.Add(this.btnExportar);
+            this.groupControl1.Location = new System.Drawing.Point(1, 323);
+            this.groupControl1.Name = "groupControl1";
+            this.groupControl1.Size = new System.Drawing.Size(533, 49);
+            this.groupControl1.TabIndex = 42;
+            this.groupControl1.Text = "Opciones";
+            // 
+            // btnCancelar
+            // 
+            this.btnCancelar.Image = ((System.Drawing.Image)(resources.GetObject("btnCancelar.Image")));
+            this.btnCancelar.Location = new System.Drawing.Point(421, 23);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(107, 22);
+            this.btnCancelar.TabIndex = 41;
+            this.btnCancelar.Text = "Cancelar";
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            // 
+            // btnActualizarPrecio
+            // 
+            this.btnActualizarPrecio.Image = ((System.Drawing.Image)(resources.GetObject("btnActualizarPrecio.Image")));
+            this.btnActualizarPrecio.Location = new System.Drawing.Point(11, 23);
+            this.btnActualizarPrecio.Name = "btnActualizarPrecio";
+            this.btnActualizarPrecio.Size = new System.Drawing.Size(107, 22);
+            this.btnActualizarPrecio.TabIndex = 42;
+            this.btnActualizarPrecio.Text = "Actualizar Precio";
+            this.btnActualizarPrecio.Click += new System.EventHandler(this.btnActualizarPrecio_Click);
+            // 
             // Form_AdministracionListaPrecio
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(404, 540);
-            this.Controls.Add(this.btnExportar);
+            this.ClientSize = new System.Drawing.Size(534, 375);
+            this.Controls.Add(this.groupControl1);
             this.Controls.Add(this.groupControl2);
             this.Controls.Add(this.ribbon);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -110,7 +153,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
             this.groupControl2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvListaPrecio)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridListaPrecio)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewListaPrecio)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
+            this.groupControl1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -120,7 +166,11 @@
 
         private DevExpress.XtraBars.Ribbon.RibbonControl ribbon;
         private DevExpress.XtraEditors.GroupControl groupControl2;
-        private System.Windows.Forms.DataGridView dgvListaPrecio;
         private DevExpress.XtraEditors.SimpleButton btnExportar;
+        private DevExpress.XtraGrid.GridControl gridListaPrecio;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridViewListaPrecio;
+        private DevExpress.XtraEditors.GroupControl groupControl1;
+        private DevExpress.XtraEditors.SimpleButton btnCancelar;
+        private DevExpress.XtraEditors.SimpleButton btnActualizarPrecio;
     }
 }
